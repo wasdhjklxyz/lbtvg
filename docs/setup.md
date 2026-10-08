@@ -21,8 +21,8 @@ below is pinned for you.
 | DepotDownloader | 3.4.0 (.NET 9) | pull the macOS depot of app 21000 (possible symbol source). Optional. |
 | binutils (`objdump`, `strings`) | any | quick looks; optional |
 
-Not yet covered: the matching compiler (VS2005 SP1 `cl` 14.00.50727.762 under
-wine) and the compare harness (reccmp). See `docs/recon.md` → "tomorrow".
+Not yet in the devshell: the matching compiler and the compare harness. See
+`docs/toolchain.md`.
 
 ## the game
 
