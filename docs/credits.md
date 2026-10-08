@@ -5,7 +5,7 @@ something new.
 
 ## symbol donors
 
-- **LEGO Batman: The Videogame, macOS, v1.0.1 (2009-04-24, Feral Interactive
+- **LEGO® Batman™: The Videogame, macOS, v1.0.1 (2009-04-24, Feral Interactive
   port).** Shipped unstripped: 22 118 defined symbols, ~12 000 functions,
   C++ names with full signatures. Same source, GCC/Xcode instead of MSVC, so
   names, classes and layouts transfer; bytes do not. Listed on the TT
@@ -24,11 +24,11 @@ something new.
 Read for conventions, struct names and workflow; do not copy code without
 checking the licence and the engine revision.
 
-- **saga** — LEGO Star Wars: The Complete Saga (Android x86), matching
+- **saga** — LEGO® Star Wars™: The Complete Saga (Android x86), matching
   decomp, GPL-3.0. https://github.com/opensagadev/saga . Same class names
   as our RTTI (`NuSSAOFilter`, `NuDeferredFilter`, `NuPostFilterGen`...),
   `src/nu2api/{nucore,nu3d,numath,nusound,nufile}` layout, `nupad.cpp`.
-- **matohero** — Bionicle Heroes (PC 2006, MSVC 7.1).
+- **matohero** — BIONICLE® Heroes (PC 2006, MSVC 7.1).
   https://github.com/ChristopherJMiller/matohero . Closest workflow
   analogue: pairs PC functions with PS2-prototype symbols by strings, call
   order, link order and features (`tools/ps2names.py`, `docs/ps2-prototype.md`).

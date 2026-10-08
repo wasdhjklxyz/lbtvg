@@ -1,6 +1,6 @@
 # recon
 
-Static recon of the Steam build of LEGO Batman: The Videogame (PC), done
+Static recon of the Steam build of LEGO® Batman™: The Videogame (PC), done
 2026-10-08 before any decompilation work. Everything below was derived from the
 files in the Steam install (now `game/` symlink; the two exes are copied to `orig/`) with `pefile`, `objdump`,
 `strings`, and a Ghidra 12.1.2 headless pass. No game code has been reversed yet.
