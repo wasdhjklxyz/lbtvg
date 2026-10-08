@@ -90,3 +90,27 @@ few functions per commit, `src: <what they are>`. `make match` and
 denominator is the game's non-library `.text` (≈3.39 MB, `docs/recon.md`);
 progress = matched bytes / that. A progress target will land once there is
 enough matched code for the percentage to mean something.
+
+## VC8 habits learned so far
+
+- **Branch order is source order.** `x = a; if (c) x = b;` and
+  `if (c) return b; return a;` are the same program and different bytes.
+- **`mov eax, ecx` at entry** of a member function usually means it returns
+  `this`.
+- **Float literals in float arithmetic are promoted to double** (`/fp:precise`):
+  the constant lands in `.rdata` as a qword holding the float's value, and
+  each float assignment rounds via `fstp`/`fld dword`. Compares and call
+  arguments keep dword constants.
+- **`x = 0; if (c) x = v;` differs from `if (c) x = v; else x = 0;`** on the
+  x87 stack: the first stores the 0 early, the second keeps it and uses `fxch`.
+- **Extra stack frame (`sub esp, N`) in a small maths function** means
+  address-taken locals, i.e. a same-TU helper like `NuVecSub(&tmp, ...)` was
+  inlined, not hand-written temporaries.
+- **Duplicate epilogues** (two identical "clear and return 0" tails) mean the
+  source had two separate returns; merging them moves callee-saved pushes.
+- **Argument pushes are reused** across consecutive calls with identical
+  trailing arguments, and `add esp` is deferred over several calls: call order
+  in the source must be exact.
+- **Static functions can get custom register conventions** even without
+  `/GL` (arguments in `esi`/`edi`). They only exist if a caller in the same
+  TU references them; match the caller and the static together.
