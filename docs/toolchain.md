@@ -6,53 +6,65 @@ Status 2026-10-08: none of this is in the devshell yet. This is the map;
 
 ## 1. the compiler: VC8 (Visual C++ 2005 SP1)
 
-Target: `cl.exe` 14.00.50727.762 (SP1) with `link.exe` 8.00.50727.762.
-RTM is `.42`; the Rich header can't distinguish them, SP1 is the bet.
+Target: `cl.exe` 14.00.50727.762 (SP1), `link.exe` 8.00.50727.762. RTM is
+`.42`; the Rich header cannot distinguish them, SP1 is the bet.
 
-**You have to source the install media yourself.** Microsoft's compilers are
-not redistributable, so no repo (not this one, not decomp.me, whose compiler
-images on ghcr.io are private for exactly this reason) will hand you one.
-Options, in order of preference:
-
-1. **Visual Studio 2005 + SP1** (any edition incl. Express, which had the
-   same `cl`). Microsoft no longer hosts it; archive copies exist. Verify
-   what you got: `cl /?` banner must say `14.00.50727.762`, and keep the
-   SHA-256 of `cl.exe`, `c1.dll`, `c1xx.dll`, `c2.dll`, `link.exe`,
-   `libcmt.lib`, `libcpmt.lib` in `tools/compiler.sha256` so everyone can
-   prove they have the same bytes.
-2. **Windows SDK 6.0** (Vista, 2006) reportedly bundles the VC8 SP1 x86
-   compiler. Unverified by us; check the banner. SDK 6.1 ships VC9, wrong.
-
-Layout the harness will expect (gitignored, outside the repo):
+**Verified source, 100% Microsoft-hosted:** the *Windows SDK Update for
+Windows Vista* (Feb 2007) DVD ISO, still on download.microsoft.com with a
+published SHA-1. Its release notes state the C++ compilers are the VS2005 SP1
+ones, and the extracted `cl.exe` says `14.00.50727.762 (SP.050727-7600)`. The
+same ISO carries the SP1 CRT DLLs and the Win32 headers/import libs.
 
 ```
-~/.local/share/lbtvg/vc8/
-  Bin/   CL.EXE C1.DLL C1XX.DLL C2.DLL LINK.EXE mspdb80.dll ...
-  Include/
-  Lib/   libcmt.lib libcpmt.lib oldnames.lib ...
+tools/vc8.sh        # download (1.2 GB), verify, extract, verify, smoke-test
 ```
 
-Also needed from the DirectX SDK **August 2007** (`d3dx9_35`): headers and
-import libs. Same story, source it yourself, pin hashes.
+It produces, outside the repo:
+
+```
+~/.local/share/lbtvg/vc8/      Bin/ (cl, c1, c1xx, c2, link, lib, ml, mspdb80 ...)
+                               INCLUDE/ LIB/ (CRT headers, libcmt/libcpmt)
+~/.local/share/lbtvg/winsdk6/  Include/ Lib/ (windows.h, kernel32.lib, d3d9.h ...)
+```
+
+Every load-bearing binary is pinned in `tools/compiler.sha256`, so two
+contributors can prove they hold the same bytes. Compilers are not
+redistributable, so the repo holds hashes, never the files.
+
+One non-Microsoft file: `Bin/msvcr80.dll` is Wine's reimplementation (from
+`encounter/winedll`, LGPL). Microsoft's own `msvcr80.dll` aborts with R6034
+unless loaded through a side-by-side activation context, which wibo does not
+implement. The Microsoft copy is kept as `msvcr80.dll.ms` for real Wine.
+
+Still to source: the **DirectX SDK August 2007** (`d3dx9_35` headers/libs).
+Microsoft removed all pre-2008 DX SDKs; archive copies exist and can be
+checked against the SHA-1 Microsoft originally published for
+`dxsdk_aug2007.exe`: `c812c18e2972bdb1d9cbb544be9ced9370a4656f` (469 MB).
 
 ### running it on Linux
 
-Two ways. Try wibo first; it's what decomp.me uses for every MSVC it offers,
-including `msvc8.0p`:
+**wibo** (in the devshell, static 1.2.0 release binary; nixpkgs' 0.6.14 lacks
+kernel32 stubs VC8 needs). No prefix, no registry, starts instantly. It is
+what decomp.me runs every MSVC on, including `msvc8.0p`.
 
-- **wibo** (`pkgs.wibo`, 0.6.14): a minimal Win32 PE loader, no prefix, no
-  registry, starts in milliseconds. decomp.me's exact invocation:
-  ```
-  wibo "$VC8/Bin/CL.EXE" /c /nologo /I"Z:$VC8/Include/" <flags> \
-       /Fd"Z:/tmp/" /Bk"Z:/tmp/" /Fo"Z:out.obj" "Z:in.cpp"
-  ```
-  Paths inside the guest are `Z:` + host path.
-- **wine** (`pkgs.wineWowPackages.stable`, 11.0, needs the 32-bit half):
-  slower, but runs `link.exe`, `mspdb80.dll` and anything wibo chokes on.
-  Dedicated prefix: `WINEPREFIX=~/.local/share/lbtvg/wine`.
+```
+VC=~/.local/share/lbtvg/vc8
+wibo $VC/Bin/cl.exe /nologo /c /O2 /Oy /GS /EHsc /MT /Gd /Z7 \
+     /I"Z:$VC/INCLUDE" /I"Z:$HOME/.local/share/lbtvg/winsdk6/Include" \
+     /Fo"Z:out.obj" "Z:in.cpp"
+```
+
+Guest paths are `Z:` + host path. Verified under wibo: C++ (`c1xx`), C
+(`c1`), `windows.h`, `/Z7`. **`/Zi` segfaults** (it spawns `mspdbsrv.exe`, an
+RPC server wibo cannot host): use `/Z7` and let `link /DEBUG` build the PDB.
+`link.exe` itself is untested under wibo.
+
+**wine** (`pkgs.wineWowPackages.stable`, needs the 32-bit half) is the
+fallback for anything wibo cannot do. Use the Microsoft `msvcr80.dll.ms`
+there; wine implements activation contexts.
 
 Starting flag set (from codegen heuristics, to be proven on a leaf):
-`/O2 /Oy /GS /EHsc /MT /Gd /Zi`. Unknown until matched: `/Ob1` vs `/Ob2`,
+`/O2 /Oy /GS /EHsc /MT /Gd /Z7`. Unknown until matched: `/Ob1` vs `/Ob2`,
 `/Gy`, `/GR-` per TU (RTTI is off for most of the binary but not all).
 
 ## 2. the compare loop

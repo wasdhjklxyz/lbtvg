@@ -21,8 +21,8 @@ below is pinned for you.
 | DepotDownloader | 3.4.0 (.NET 9) | pull the macOS depot of app 21000 (possible symbol source). Optional. |
 | binutils (`objdump`, `strings`) | any | quick looks; optional |
 
-Not yet in the devshell: the matching compiler and the compare harness. See
-`docs/toolchain.md`.
+The matching compiler is fetched by `tools/vc8.sh` (see `docs/toolchain.md`);
+the compare harness is not set up yet.
 
 ## the game
 
