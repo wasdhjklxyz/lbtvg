@@ -7,3 +7,4 @@ orig/*.exe
 /build/
 /orig/donors/
 /ref/
+__pycache__/

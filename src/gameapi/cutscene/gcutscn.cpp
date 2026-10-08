@@ -1,9 +1,16 @@
 // gameapi/cutscene/gcutscn.cpp: certain range 0x006c9ca0..0x006ceef0.
 
+struct GCutscene;
+
 typedef void (*GCutsceneCallback)(void *);
+typedef void (*GCutsceneItemCallback)(int index, GCutscene *cs, float t,
+                                      void *user);
+
+// Case-insensitive string compare (lives in the nupad_gen.cpp range).
+extern int StrCaseCmp_006dc3a0(const char *a, const char *b);
 
 // GLOBAL: LEGOBATMAN 0x00ad7590
-GCutsceneCallback g_cutsceneCallback_ad7590;
+GCutsceneItemCallback g_cutsceneCallback_ad7590;
 // GLOBAL: LEGOBATMAN 0x00ad7598
 GCutsceneCallback g_cutsceneCallback_ad7598;
 // GLOBAL: LEGOBATMAN 0x00ad759c
@@ -22,10 +29,49 @@ unsigned char g_unk_029f400c;
 // GLOBAL: LEGOBATMAN 0x029f400d
 unsigned char g_unk_029f400d;
 
-// Only +0x18 is known: the callback at 0x00ad75a0 fires when it is set.
+// Sequence header: items pointer, then a 16-bit count.
+struct GCutsceneSeq {
+  void *items;
+  unsigned short count;
+};
+
+struct GCutsceneData {
+  unsigned char pad[0x18];
+  GCutsceneSeq *seq18;
+};
+
 struct GCutscene {
   unsigned char pad[0x18];
   int field_18;
+  unsigned char pad2[0x58 - 0x1c];
+  GCutsceneData *data;
+};
+
+// Named table entries, stride 0x34: name pointer first, a byte at +0xa.
+struct Unk006ce710Item {
+  const char *name;
+  unsigned char pad[6];
+  unsigned char value_a;
+  unsigned char pad2[0x34 - 0xb];
+};
+
+struct Unk006ce710Table {
+  unsigned char pad[8];
+  int count;
+  Unk006ce710Item *items;
+};
+
+// Per-item 4-byte state, flags in bytes 2 and 3.
+struct Unk006ce710Entry {
+  unsigned char pad[2];
+  unsigned char flags2;
+  unsigned char flags3;
+};
+
+struct Unk006ce710 {
+  unsigned char pad[8];
+  Unk006ce710Table *table;
+  Unk006ce710Entry *entries;
 };
 
 // Element of the +0x64 array in Unk006ca3c0, stride 0x20.
@@ -53,7 +99,7 @@ struct Unk006ca380 {
 };
 
 // FUNCTION: LEGOBATMAN 0x006cc620
-void GCutsceneSetCallback_ad7590(GCutsceneCallback fn) {
+void GCutsceneSetCallback_ad7590(GCutsceneItemCallback fn) {
   g_cutsceneCallback_ad7590 = fn;
 }
 
@@ -125,4 +171,48 @@ int FindUnk006ca380Item(Unk006ca380 *o, int type) {
     } while (i < o->itemCount);
   }
   return 0;
+}
+
+// Original hoists the ebx/ebp arg loads above the g_cb test; every shape
+// tried sinks them below it. Static twin with cs in ebx: 0x006cbcd0 (its
+// callers past 0x006d1000 prove gcutscn.cpp extends at least that far).
+// STUB: LEGOBATMAN 0x006cbd20
+void GCutsceneFireItemCallback(GCutscene *cs, float t, void *user) {
+  if (g_cutsceneCallback_ad7590) {
+    GCutsceneSeq *seq = cs->data->seq18;
+    for (int i = 0; i < seq->count; i++)
+      g_cutsceneCallback_ad7590(i, cs, t, user);
+  }
+}
+
+// Sets or clears bit (bit - 1) of flags2 on the entry whose item is named key.
+// FUNCTION: LEGOBATMAN 0x006ce710
+void SetUnk006ce710Flag(Unk006ce710 *o, const char *key, int bit, int set) {
+  Unk006ce710Table *t = o->table;
+  for (int i = 0; i < t->count; i++) {
+    if (StrCaseCmp_006dc3a0(t->items[i].name, key) == 0) {
+      unsigned char m = (unsigned char)(1 << (bit - 1));
+      if (set)
+        o->entries[i].flags2 |= m;
+      else
+        o->entries[i].flags2 &= ~m;
+      return;
+    }
+  }
+}
+
+// Returns a pointer to flags3 of the matched entry; falls off the end if none.
+// FUNCTION: LEGOBATMAN 0x006ce890
+unsigned char *ResetUnk006ce710Entry(Unk006ce710 *o, const char *key) {
+  if (o) {
+    Unk006ce710Table *t = o->table;
+    for (int i = 0; i < t->count; i++) {
+      if (StrCaseCmp_006dc3a0(t->items[i].name, key) == 0) {
+        o->entries[i].flags2 = t->items[i].value_a;
+        unsigned char *p = &o->entries[i].flags3;
+        *p &= ~1;
+        return p;
+      }
+    }
+  }
 }
