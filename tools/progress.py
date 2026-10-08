@@ -35,15 +35,16 @@ def main(argv):
     mb = sum(funcs.get(a, 0) for a in matched)
     sb = sum(funcs.get(a, 0) for a in stubbed)
     pct = 100.0 * mb / total if total else 0.0
-    line = (f"Progress: {len(matched)} functions matched, {mb:,} / {total:,} bytes "
+    line = (f"{len(matched)} functions matched, {mb:,} / {total:,} bytes "
             f"of game code ({pct:.2f}%); {len(stubbed)} stubs.")
     if "--readme" in argv:
+        # same badge and colour thresholds as opensagadev/saga
+        color = ("brightgreen" if pct >= 90 else "green" if pct >= 70 else
+                 "yellow" if pct >= 50 else "orange" if pct >= 30 else "red")
+        badge = f"https://img.shields.io/badge/match%20progress-{pct:.2f}%25-{color}"
         readme = ROOT / "README.md"
-        t = readme.read_text()
-        t2, n = re.subn(r"^Progress: .*$", line, t, flags=re.M)
-        if n == 0:
-            t2 = t.replace("\nStatus:", "\n" + line + "\n\nStatus:", 1)
-        readme.write_text(t2)
+        t = re.sub(r"https://img\.shields\.io/badge/match%20progress-[^)]*", badge, readme.read_text())
+        readme.write_text(t)
     print(line)
     print(f"  denominator: {len(funcs)} game-region functions without a library name")
     print(f"  stub bytes:  {sb:,}")
