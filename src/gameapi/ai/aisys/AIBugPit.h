@@ -4,6 +4,8 @@
 // certainly one template instantiated twice, written out as two classes
 // until the harness can address instantiations.
 
+#pragma once
+
 struct __declspec(align(16)) AIVec {
   float x;
   float y;

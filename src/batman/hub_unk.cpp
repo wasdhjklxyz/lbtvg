@@ -1,0 +1,51 @@
+// batman/, file unknown: hub functions near Hub_Reset.
+
+#include "worldinfo_unk.h"
+
+void *Door_FindByName(WORLDINFO_s *wi, char *name);
+GameObject_s *Unk0044c930(AISYS_s *aisys, char *name);
+
+enum HubSwitchMode {};
+
+// GLOBAL: LEGOBATMAN 0x009c9728
+void *g_unk009c9728;
+// GLOBAL: LEGOBATMAN 0x009c9720
+i32 g_unk009c9720;
+// GLOBAL: LEGOBATMAN 0x009c9724
+f32 g_unk009c9724;
+
+// Three {GameObject_s*, special} pairs at 0x009c9134, 0x10 apart.
+// GLOBAL: LEGOBATMAN 0x009c9134
+GameObject_s *g_unk009c9134;
+// GLOBAL: LEGOBATMAN 0x009c9138
+extern nuhspecial_s g_unk009c9138;
+// GLOBAL: LEGOBATMAN 0x009c9144
+GameObject_s *g_unk009c9144;
+// GLOBAL: LEGOBATMAN 0x009c9148
+extern nuhspecial_s g_unk009c9148;
+// GLOBAL: LEGOBATMAN 0x009c9154
+GameObject_s *g_unk009c9154;
+// GLOBAL: LEGOBATMAN 0x009c9158
+extern nuhspecial_s g_unk009c9158;
+
+// STUB: LEGOBATMAN 0x004931b0
+// 8 bytes short: the conditional name select is laid out differently around the
+// push of g_unk00960894
+void Hub_SignalSwitchHeroVillain(HubSwitchMode mode) {
+  g_unk009c9728 = Door_FindByName(g_unk00960894, mode == 1 ? "door_from_arkham"
+                                                           : "door_to_arkham");
+  if (g_unk009c9728) {
+    g_unk009c9720 = mode;
+    g_unk009c9724 = 0.0f;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00497d70
+void InitializeDummyChars(WORLDINFO_s *wi) {
+  g_unk009c9134 = Unk0044c930(wi->aiSys2bf8, "dummychar_1");
+  NuSpecialFind(wi->scn140, &g_unk009c9138, "batCar_door", 0);
+  g_unk009c9144 = Unk0044c930(wi->aiSys2bf8, "dummychar_3");
+  NuSpecialFind(wi->scn140, &g_unk009c9148, "batBoat_door", 0);
+  g_unk009c9154 = Unk0044c930(wi->aiSys2bf8, "dummychar_5");
+  NuSpecialFind(wi->scn140, &g_unk009c9158, "batWing_door", 0);
+}

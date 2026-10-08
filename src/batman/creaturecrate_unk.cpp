@@ -1,0 +1,38 @@
+// batman/, file unknown: CreatureCrate_Stop and its TU's NuSinApprox copy.
+
+#include "../gameapi/sfx_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
+#include "worldinfo_unk.h"
+
+i16 FindGameDebris(void *page, char *name);
+void AddGameDebris(void *page, i32 id, nuvec_s *pos);
+i32 PARTLookupType(char *name);
+void AddFiniteShotPART(i32 type, nuvec_s *pos, i32 count);
+void GameCam_Judder(GAMECAMERA_s *cam, f32 amount, i32 a, nuvec_s *pos);
+void NewRumbleAllPlayers(f32 a, f32 b, i32 c, i32 d);
+
+// STUB: LEGOBATMAN 0x0043a870
+// 187 vs 147 bytes: float-constant promotion to double and the polynomial's x87
+// order differ
+static f32 NuSinApprox(i32 angle);
+
+// Keeps the static NuSinApprox copy alive until its real caller is matched.
+f32 Unk_CreatureCrate_NuSinApproxUser(i32 angle) { return NuSinApprox(angle); }
+
+// FUNCTION: LEGOBATMAN 0x0043a980
+void CreatureCrate_Stop(PART_s *part) {
+  GameObject_s *obj = part->objd4;
+  if (obj) {
+    i16 debris = FindGameDebris(g_unk00960894->p138, "CRATE_POP");
+    if (debris != -1)
+      AddGameDebris(g_unk00960894->p138, debris, &part->pos);
+    i32 type = PARTLookupType("CRATE_PART");
+    if (type != -1)
+      AddFiniteShotPART(type, &part->pos, 1);
+    obj->flags1fc |= 0x1000;
+    obj->b3ce = 2;
+    GameAudio_PlaySfx(0x83, &part->pos, 0, 0);
+    GameCam_Judder(g_unk0095f624, 0.1f, 0, 0);
+    NewRumbleAllPlayers(0.0f, 0.0f, 2, 0);
+  }
+}
