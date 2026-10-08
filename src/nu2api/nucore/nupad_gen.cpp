@@ -696,3 +696,107 @@ int NuPadWideToAnsi(char *dst, const unsigned short *src) {
   dst[n] = 0;
   return n;
 }
+
+// Same range tests as NuToUpper above (ASCII plus the Latin-1 letters).
+#define NU_IS_LOWER(c)                                                         \
+  ((unsigned char)((c) - 'a') <= 'z' - 'a' || (unsigned char)(c) >= 0xe0)
+#define NU_IS_UPPER(c)                                                         \
+  ((unsigned char)((c) - 'A') <= 'Z' - 'A' ||                                  \
+   (unsigned char)((c) + 0x40) <= 0x1f)
+
+// Register choice only (cl/dl swapped in the inner loop); logic verified.
+// STUB: LEGOBATMAN 0x006dc300
+char *NuStrIStr(char *str, const char *sub) {
+  const char *p;
+  char *q;
+  char a;
+  char b;
+  while (*str) {
+    q = str;
+    for (p = sub; *p; p++, q++) {
+      a = *q;
+      if (!a)
+        break;
+      if (NU_IS_LOWER(a))
+        a -= 0x20;
+      b = *p;
+      if (NU_IS_LOWER(b))
+        b -= 0x20;
+      if (a != b)
+        break;
+    }
+    if (!*p)
+      return str;
+    str++;
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006dc3a0
+int NuStrICmp(const char *a, const char *b) {
+  if (!a)
+    return -1;
+  if (!b)
+    return 1;
+  char ca;
+  char cb;
+  do {
+    ca = *a;
+    if (NU_IS_LOWER(ca))
+      ca -= 0x20;
+    cb = *b;
+    if (NU_IS_LOWER(cb))
+      cb -= 0x20;
+    if (ca > cb)
+      return 1;
+    if (ca < cb)
+      return -1;
+    a++;
+    b++;
+  } while (ca && cb);
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006dc410
+int NuStrNICmp(const char *a, const char *b, int n) {
+  if (!a)
+    return -1;
+  if (!b)
+    return 1;
+  char ca;
+  char cb;
+  if (n) {
+    if (n == -1)
+      n = NuStrLen(a);
+    else if (n == -2)
+      n = NuStrLen(b);
+    do {
+      ca = *a;
+      if (NU_IS_LOWER(ca))
+        ca -= 0x20;
+      cb = *b;
+      if (NU_IS_LOWER(cb))
+        cb -= 0x20;
+      if (ca > cb)
+        return 1;
+      if (ca < cb)
+        return -1;
+      a++;
+      b++;
+      n--;
+    } while (ca && cb && n);
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006dc4f0
+void NuStrLwr(char *dst, const char *src) {
+  char c;
+  while ((c = *src) != 0) {
+    if (NU_IS_UPPER(c))
+      c += 0x20;
+    src++;
+    *dst++ = c;
+  }
+  *dst = *src;
+}
