@@ -82,7 +82,7 @@ names: ghidra-check
 		-scriptPath $(SCRIPTS) \
 		-preScript ApplyNames.java $(abspath tools/symbols/pc-names.csv)
 
-# regenerate the badge, docs/progress.svg and docs/todo.md (the hook does this on commit)
+# regenerate the badge, docs/todo.md and site/data.json (the hook does this on commit)
 progress:
 	tools/progress.py --write
 

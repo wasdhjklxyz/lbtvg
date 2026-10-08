@@ -84,8 +84,9 @@ calling convention (`__thiscall` needs a member function).
 one or a few functions as `src: <what they are>`. With the hook installed
 (`make hooks`, once per clone) every commit that touches `src/` re-checks the
 staged files with the harness, refuses the commit if a `FUNCTION` no longer
-matches, and regenerates the README badge, `docs/progress.svg` and
-`docs/todo.md` into the same commit.
+matches, and regenerates the README badge, `docs/todo.md` and `site/data.json` (the
+progress map at https://wasdhjklxyz.github.io/lbtvg/, published on push)
+into the same commit.
 
 ## 6. pick the next one
 

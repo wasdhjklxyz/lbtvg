@@ -2,8 +2,8 @@
 """Progress: badge, map and todo list, all derived from src/ annotations.
 
     tools/progress.py            print the summary
-    tools/progress.py --write    also rewrite README badge, docs/progress.svg,
-                                 docs/todo.md, site/data.json (the pre-commit hook runs this)
+    tools/progress.py --write    also rewrite README badge, docs/todo.md,
+                                 site/data.json (the pre-commit hook runs this)
 
 Inputs (all tracked, so this works on a fresh clone):
   tools/symbols/functions.tsv   every function ghidra found in game code
@@ -23,9 +23,6 @@ TEXT_LO, TEXT_HI = 0x00401000, 0x0073C8FB  # game region of .text (docs/recon.md
 ANNOT = re.compile(r"//\s*(FUNCTION|STUB):\s*LEGOBATMAN\s+0x([0-9a-fA-F]+)")
 
 MATCHED, STUB, NAMED, UNKNOWN = "matched", "stub", "named", "unknown"
-COLOR = {MATCHED: "#2da44e", STUB: "#d4a72c", NAMED: "#5b8bd6", UNKNOWN: "#3a3f47"}
-LABEL = {MATCHED: "matched", STUB: "stub (written, not byte-identical)",
-         NAMED: "todo, real name known", UNKNOWN: "todo, unnamed"}
 
 
 def load():
@@ -91,71 +88,6 @@ def write_badge(pct):
     readme = ROOT / "README.md"
     t = re.sub(r"https://img\.shields\.io/badge/match%20progress-[^)]*", badge, readme.read_text())
     readme.write_text(t)
-
-
-# --- docs/progress.svg: game code in address order -----------------------------
-def write_svg(funcs, lib, state, total, by, pct):
-    ROW = 16384                  # bytes per row
-    W, H, LEFT, TOP = 1024, 3, 110, 46
-    rows = (TEXT_HI - TEXT_LO + ROW - 1) // ROW
-    color = dict(COLOR, lib="#24292f", gap="#161b22")
-    bpp = ROW / W                # bytes per pixel
-    pix = [[{} for _ in range(W)] for _ in range(rows)]
-    for a in sorted(funcs):
-        s, _ = funcs[a]
-        st = state[a] if state[a] in (MATCHED, STUB) else "lib" if a in lib else UNKNOWN
-        lo, hi = a, a + s
-        while lo < hi:
-            off = lo - TEXT_LO
-            r, px = int(off // ROW), int((off % ROW) // bpp)
-            if r >= rows:
-                break
-            nxt = min(hi, TEXT_LO + r * ROW + (px + 1) * bpp)
-            cell = pix[r][px]
-            cell[st] = cell.get(st, 0) + (nxt - lo)
-            lo = nxt
-    rank = {MATCHED: 4, STUB: 3, NAMED: 2, UNKNOWN: 1, "lib": 0}
-    out = []
-    height = TOP + rows * (H + 1) + 10
-    out.append(f'<svg xmlns="http://www.w3.org/2000/svg" width="{LEFT + W + 10}" height="{height}" '
-               f'font-family="ui-monospace,monospace" font-size="10">')
-    out.append('<rect width="100%" height="100%" fill="#0d1117"/>')
-    out.append(f'<text x="10" y="16" fill="#e6edf3" font-size="12">LEGOBatman.exe game code: '
-               f'{by[MATCHED][0]} functions matched, {pct:.2f}% of {total:,} bytes '
-               f'(one row = {ROW // 1024} KB, address order)</text>')
-    x = 10
-    legend = [(MATCHED, f"matched ({by[MATCHED][0]})"), (STUB, f"stub ({by[STUB][0]})"),
-              (UNKNOWN, f"todo ({by[NAMED][0] + by[UNKNOWN][0]}, {by[NAMED][0]} with a known name)")]
-    for st, lab in legend:
-        out.append(f'<rect x="{x}" y="26" width="10" height="10" fill="{COLOR[st]}"/>'
-                   f'<text x="{x + 14}" y="35" fill="#9da7b3">{lab}</text>')
-        x += 14 + 6 * len(lab) + 18
-    paths = defaultdict(list)    # colour -> "Mx yh..." segments, far smaller than rects
-    for r in range(rows):
-        y = TOP + r * (H + 1)
-        paths["gap"].append(f"M{LEFT} {y}h{W}v{H}h-{W}z")
-        run_st, run_x = None, 0
-        for px in range(W + 1):
-            cell = pix[r][px] if px < W else {}
-            # a pixel shows any matched/stub bytes it holds, else its majority
-            st = max(cell, key=lambda k: (rank[k] >= 3 and cell[k] > 0, cell[k], rank[k])) if cell else "gap"
-            if st != run_st:
-                if run_st not in (None, "gap"):
-                    w = px - run_x
-                    paths[run_st].append(f"M{LEFT + run_x} {y}h{w}v{H}h-{w}z")
-                run_st, run_x = st, px
-    for st in ("gap", "lib", UNKNOWN, NAMED, STUB, MATCHED):
-        if paths[st]:
-            out.append(f'<path fill="{color[st]}" d="{"".join(paths[st])}"/>')
-    last = -10
-    for a, name in anchors():
-        r = (a - TEXT_LO) // ROW
-        if 0 <= r < rows and r - last >= 3:
-            out.append(f'<text x="{LEFT - 4}" y="{TOP + r * (H + 1) + 4}" fill="#6e7681" '
-                       f'font-size="8" text-anchor="end">{name}</text>')
-            last = r
-    out.append("</svg>")
-    (ROOT / "docs/progress.svg").write_text("\n".join(out) + "\n")
 
 
 # --- docs/todo.md: named functions not done yet --------------------------------
@@ -261,7 +193,6 @@ def main(argv):
           f"({pct:.2f}%); {by[STUB][0]} stubs; {by[NAMED][0]} named todo; {by[UNKNOWN][0]} unnamed todo.")
     if "--write" in argv or "--readme" in argv:
         write_badge(pct)
-        write_svg(funcs, lib, state, total, by, pct)
         saga = saga_bodies()
         write_todo(funcs, state, names, saga, by)
         write_site(funcs, lib, names, state, saga, total, by, pct)
