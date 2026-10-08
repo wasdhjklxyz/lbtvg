@@ -1,4 +1,5 @@
 game
+demo
 orig/*.exe
 /ghidra/
 .venv/
