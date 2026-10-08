@@ -1,47 +1,56 @@
-# LEGO Batman: The Videogame Decompilation
+# plan
 
-## Recon
+How this decompilation is approached and what "done" means. `docs/recon.md`
+has the findings, `docs/toolchain.md` the tooling, `docs/setup.md` the
+environment.
 
-- Is it packed? Steam builds have SteamStub wrapper `steamless` strips it.
-- Rich header in PE tells exact MSVC build numbers that compiled and linked it.
-- RTTI present? It's C++ from 2008, so almost certainly yes: type descriptors
-  give class names, vtables give hierarchies for free. Biggest gift.
-- Debug/assert strings with source path leaks original dir layout and funcs.
-- Import table tells you external libs. Statically linked libs get identified
-  via Ghidra FunctionID or IDA FLIRT and excluded from work.
+## recon (done)
 
-## Toolchain & Compare Harness
+- Packed? Steam builds get a SteamStub wrapper; `steamless` strips it.
+- Rich header in the PE gives the exact MSVC build numbers that compiled and
+  linked it.
+- RTTI? C++ from 2008, so expected: type descriptors give class names,
+  vtables give hierarchies for free.
+- Debug/assert strings with source paths leak the original directory layout.
+- Import table lists external libs. Statically linked libs get identified
+  via Ghidra FunctionID (or IDA FLIRT) and excluded from the work.
 
-Get matching `cl.exe`, run it under wine, and prove the loop works on one
-trivial function. Write C++ -> compile -> diff against original bytes -> match.
+## toolchain and compare harness (next)
 
-See `reccmp` for compare tooling or `objdiff`. https://decomp.me for
-scratch-matching individual functions if it has your MSVC version.
+Get the matching `cl.exe`, run it on Linux (wibo or wine), and prove the loop
+works on one trivial function: write C++ → compile → diff against the
+original bytes → match. `objdiff` + the Ghidra delinker for per-function
+diffs; `reccmp` later for whole-binary percentages. https://decomp.me for
+scratch-matching single functions (it has `msvc8.0p`).
 
-## Where to Start in Binary
+## where to start in the binary
 
-Leaf functions first: tiny, no calls out, math/containers/string utils. Learn
-the compiler's codegen habits on things with one obvious answer. Then walk up:
-constructors (RTTI tells classes), then subsystems. First hundred functions are
-slow then pattern recognition kicks in.
+Leaf functions first: tiny, no calls out, math / containers / string utils.
+Learn the compiler's codegen habits on things with one obvious answer. Then
+walk up: constructors (vtables tell the classes), then subsystems. The first
+hundred functions are slow; then pattern recognition kicks in.
 
-## Done
+## definition of done
 
-Matched bytes/total non-library bytes. Not function count. Keep buckets:
+Matched bytes / total non-library bytes. Not function count. Keep buckets:
 `matching`, `decompiled but not matching`, `untouched`, `library (excluded)`.
-Script computs it from annotations and you put the number in the README. See
-isledecomp copy that script.
+A script computes the number from annotations and it goes in the README
+(see isledecomp's progress script for the shape).
 
-## Testing
+## testing
 
-Matching decomp, the match *is* the test. Identical bytes, identical behavior,
-no further argument. The final test is the full rebuild diffing clean.
+For a matching decomp, the match *is* the test: identical bytes, identical
+behavior. The final test is a full rebuild diffing clean.
 
-Behavior testing before that (for non-matching functions or sanity), use
-function replacement: inject a DLL into the original game, detour one original
-function to your reimplementation, play. Game still works -> function is
-behaviorally right.
+Before that, for non-matching functions or sanity: function replacement.
+Inject a DLL into the original game (a proxy `dinput8.dll` works, see
+`docs/toolchain.md`), detour one original function to the reimplementation,
+play. Game still works → the function is behaviorally right.
 
-## Ideas
+## long-term ideas
 
-Multiplayer play the co-op thing online would be cool.
+Not goals, just where a finished decomp could go:
+
+- Native Linux build: `nu2api`'s `pc/` layer is the platform boundary;
+  replace Win32/D3D9 behind it. The macOS port proves the engine survives it.
+- Online co-op (the game only has local co-op).

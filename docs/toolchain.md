@@ -85,8 +85,8 @@ flag guesses against a known-good compiler install before blaming your own.
 
 ## 3. running and testing the game on Linux
 
-- You're already running it through Steam with **GE-Proton 11-7**
-  (`steamapps/compatdata/21000`). That prefix is the test environment.
+- Steam runs it under Proton (GE-Proton 11-7 is known to work). The prefix
+  at `steamapps/compatdata/21000` is the test environment.
 - Launch options worth knowing: `PROTON_LOG=1 %command%` writes
   `~/steam-<appid>.log`; `WINEDLLOVERRIDES="dinput8=n,b" %command%` makes
   Proton load a `dinput8.dll` sitting next to the exe before the builtin.

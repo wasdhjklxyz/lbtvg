@@ -85,9 +85,13 @@ Extensions installed ≠ plugins enabled. After the first `make ghidra`:
   **RelocationTableSynthesizedPlugin** (delinker). File > Save Tool.
 - ReVa listens on `localhost:8080`. `.mcp.json` in the repo points an MCP
   client at it; it only connects while the GUI is open.
+- Repo scripts in the GUI: Window > Script Manager > "Manage Script
+  Directories" (list icon) > add `<repo>/tools/ghidra`. The Makefile only
+  passes them to the headless analyzer; the GUI does not pick them up on its
+  own.
 - Missed-function recovery: Window > **Random Forest Function Finder**.
   Train on the FID-named CRT functions, run over `.text`, then re-run
-  `tools/ghidra/DumpStats.java` from the Script Manager to recount.
+  `DumpStats.java` from the Script Manager to recount.
 
 ## working rules
 
