@@ -50,7 +50,10 @@
               depotdownloader
             ]);
 
-            env.GHIDRA_INSTALL_DIR = "${ghidra}/lib/ghidra";
+            env = {
+              ANALYZE_HEADLESS = "ghidra-analyzeHeadless";
+              GHIDRA_RUN = "ghidra";
+            };
           };
         }
       );
