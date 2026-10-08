@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Compile annotated source and compare each function's bytes with the original.
 
-    tools/match.py [-v] [ADDR ...]
+    tools/match.py [-v] [ADDR ...] [src/path/file.cpp ...]
 
 Scans src/**/*.c, *.cpp for reccmp-style annotations:
 
@@ -118,10 +118,13 @@ def disasm(code, addr, relocs):
 def main(argv):
     verbose = "-v" in argv
     only = {int(a, 16) for a in argv if a.startswith("0x")}
+    files = {Path(a).resolve() for a in argv if a.endswith((".c", ".cpp"))}
     pe = pefile.PE(str(EXE))
     base = pe.OPTIONAL_HEADER.ImageBase
     total = matched = bad = 0
     for src in sorted(list(SRC.rglob("*.cpp")) + list(SRC.rglob("*.c"))):
+        if files and src.resolve() not in files:
+            continue
         ann = [(a, n) for a, n in annotations(src) if not only or a in only]
         if not ann:
             continue

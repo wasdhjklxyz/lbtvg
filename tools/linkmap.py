@@ -53,6 +53,38 @@ def main(argv):
     print("|---|---|")
     for f, v in rows:
         print(f"| `{f:08x}` | " + ", ".join("`" + p.replace("c:\\tt\\legobatman1_clean\\batman_resub2\\", "").replace("\\", "/") + "`" for p in v) + " |")
+    print("\n## certain ranges\n")
+    print("A file with two or more anchors owns every function between its first and")
+    print("last anchor. Functions in these ranges go in that file, no guessing.\n")
+    print("| file | from | to |")
+    print("|---|---|---|")
+    for lo, hi, name in certain_ranges(rows):
+        print(f"| `{name}` | `{lo:08x}` | `{hi:08x}` |")
+
+
+# --- certain ranges -----------------------------------------------------------
+# A file with two or more anchors owns every function between its first and
+# last anchor (objects are contiguous in .text and anchors are monotonic).
+def certain_ranges(rows):
+    """rows: [(anchor addr, [paths])] -> [(lo, hi, file)] where file has >= 2 anchors."""
+    by_file = {}
+    for a, paths in rows:
+        for p in paths:
+            name = p.replace("\\", "/").split("/")[-1]
+            if name.endswith(".h"):
+                continue
+            by_file.setdefault(name, []).append(a)
+    out = []
+    for name, addrs in by_file.items():
+        if len(addrs) >= 2:
+            lo, hi = min(addrs), max(addrs)
+            # reject if another file's .cpp/.c anchor lies inside
+            if any(lo < a < hi and name not in [q.replace("\\", "/").split("/")[-1] for q in paths]
+                   and not any(q.endswith(".h") for q in paths) for a, paths in rows):
+                continue
+            out.append((lo, hi, name))
+    return sorted(out)
+
 
 if __name__ == "__main__":
     main(sys.argv[1:])
