@@ -110,7 +110,7 @@ void NuTexUnk006e6d80() {
 // FUNCTION: LEGOBATMAN 0x006e6fa0
 void NuTexUnk006e6fa0(float f) { NuUnk0069ca10(f); }
 
-// FUNCTION: LEGOBATMAN 0x006e7020
+// STUB: LEGOBATMAN 0x006e7020
 void NuTexUnk006e7020(void **pair) {
   if (pair) {
     if (g_nutex_029dcbec != pair[0]) {

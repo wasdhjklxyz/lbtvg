@@ -1,0 +1,237 @@
+// nu2api/nu3d/nutexanm_gen.cpp: certain range 0x00711580..0x00712030.
+// Texture-animation script compiler: tokens from a NuParse stream become
+// 16-bit opcodes in a program block.
+
+#include <string.h>
+
+// Not yet named (nupad_gen.cpp / numemblk_gen.cpp ranges).
+extern "C" void *NuMemAllocUnk006e1d50(int size, const char *file, int line);
+extern "C" void NuParseUnk006da8d0(struct NuParse *p);
+extern "C" int NuParseIntUnk006dd060(struct NuParse *p);
+extern "C" int NuStrCmpUnk006dc3a0(const char *a, const char *b);
+extern "C" void NuStrCpyUnk006d7590(char *dst, const char *src);
+// An empty inline function in TT.s build (0x006fceb0 is a lone `ret`): the
+// compiler knows it clobbers nothing, so callers keep values in ecx across it.
+static void NuErrorUnk006fceb0(...) {}
+
+struct NuParse {
+  unsigned char pad0[0x910];
+  char *token;
+  unsigned char pad1[0x91c - 0x914];
+  int line;
+};
+
+struct NuTexAnmProg {
+  int f0;
+  int f4;
+  char name[0x130 - 8];
+  short labelName[0x20];
+  short labelOp[0x20];
+  int numLabels;
+  short numOps;
+  short pad1[2];
+  short ops[1];
+};
+
+struct NuTexAnm {
+  int f0;
+  int f4;
+  unsigned char pad0[0x88 - 8];
+  int f88;
+  unsigned char pad1[0xcc - 0x8c];
+  int fcc;
+  int fd0;
+  int fd4;
+  int fd8;
+  int fdc;
+  int fe0;
+  int fe4;
+  int flags;
+};
+
+// GLOBAL: LEGOBATMAN 0x029f1888
+NuTexAnmProg *g_texAnmProg;
+// GLOBAL: LEGOBATMAN 0x029edc70
+int g_texAnmNumNames;
+// GLOBAL: LEGOBATMAN 0x029f2e50
+char g_texAnmNames[0x40][0x15];
+// GLOBAL: LEGOBATMAN 0x029e3adc
+int g_texAnmNumVars;
+// GLOBAL: LEGOBATMAN 0x029de428
+char g_texAnmVars[0x100][0x15];
+// GLOBAL: LEGOBATMAN 0x029e3b20
+int g_texAnmNameOp[0x40];
+
+// Line number of the allocation in TT's file is 564; it is an immediate. Only
+// esi/edi are swapped against the original; not matched yet.
+// STUB: LEGOBATMAN 0x00711580
+NuTexAnm *NuTexAnmCreate(int *heap, int p2, int p3, int p4) {
+  NuTexAnm *anm;
+  if (heap) {
+    anm = (NuTexAnm *)((*heap + 3) & ~3);
+    *heap = (int)anm + 0xec;
+  } else {
+    anm = (NuTexAnm *)NuMemAllocUnk006e1d50(0xec, __FILE__, 564);
+  }
+  if (anm) {
+    anm->f0 = p4;
+    anm->f4 = 0;
+    anm->f88 = 0;
+    anm->fcc = 0;
+    anm->fd0 = 0;
+    anm->fd4 = 0;
+    anm->fd8 = 0;
+    anm->fdc = p2;
+    anm->fe0 = p3;
+    anm->fe4 = 0;
+    if (heap)
+      anm->flags &= ~1;
+    else
+      anm->flags |= 1;
+  }
+  return anm;
+}
+
+// 0 '=', 1 '<', 2 '>', 3 '<=', 4 '>=', 5 '!=' or '<>'. Bytes match except the
+// placement of the shared `return 5` block; not matched yet.
+// STUB: LEGOBATMAN 0x007116d0
+static int NuTexAnmParseCompareOp(NuParse *p) {
+  char *t;
+  NuParseUnk006da8d0(p);
+  t = p->token;
+  switch (t[0]) {
+  case '!':
+    return 5;
+  case '<':
+    switch (t[1]) {
+    case '>':
+      return 5;
+    case '=':
+      return 3;
+    }
+    return 1;
+  case '>':
+    return t[1] == '=' ? 4 : 2;
+  case '=':
+    return 0;
+  default:
+    NuErrorUnk006fceb0(t, p->line);
+    return 0;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00711770
+int NuTexAnmFindOrAddName(char *name) {
+  int i;
+  if (strlen(name) >= 0x15)
+    name[0x14] = 0;
+  for (i = 0; i < g_texAnmNumNames; i++) {
+    if (NuStrCmpUnk006dc3a0(g_texAnmNames[i], name) == 0)
+      return i;
+  }
+  if (g_texAnmNumNames >= 0x40)
+    NuErrorUnk006fceb0();
+  NuStrCpyUnk006d7590(g_texAnmNames[g_texAnmNumNames++], name);
+  return g_texAnmNumNames - 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00711800
+int NuTexAnmFindOrAddVar(char *name) {
+  int i;
+  if (strlen(name) >= 0x15)
+    name[0x14] = 0;
+  for (i = 0; i < g_texAnmNumVars; i++) {
+    if (NuStrCmpUnk006dc3a0(g_texAnmVars[i], name) == 0)
+      return i;
+  }
+  if (g_texAnmNumVars >= 0x100)
+    NuErrorUnk006fceb0();
+  NuStrCpyUnk006d7590(g_texAnmVars[g_texAnmNumVars++], name);
+  return g_texAnmNumVars - 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x007119f0
+void NuTexAnmUnk007119f0(NuParse *p) {
+  int a = NuParseIntUnk006dd060(p);
+  int b = NuParseIntUnk006dd060(p);
+  int c = NuParseIntUnk006dd060(p);
+  int d = NuParseIntUnk006dd060(p);
+  NuTexAnmProg *prog = g_texAnmProg;
+  prog->ops[prog->numOps++] = 3;
+  prog->ops[prog->numOps++] = (short)a;
+  prog->ops[prog->numOps++] = (short)b;
+  prog->ops[prog->numOps++] = (short)c;
+  prog->ops[prog->numOps++] = (short)d;
+}
+
+// FUNCTION: LEGOBATMAN 0x00711c60
+void NuTexAnmUnk00711c60(NuParse *p) {
+  int name;
+  NuParseUnk006da8d0(p);
+  name = NuTexAnmFindOrAddName(p->token);
+  g_texAnmNameOp[name] = g_texAnmProg->numOps;
+}
+
+// FUNCTION: LEGOBATMAN 0x00711c90
+void NuTexAnmUnk00711c90(NuParse *p) {
+  int var;
+  NuTexAnmProg *prog;
+  NuParseUnk006da8d0(p);
+  var = NuTexAnmFindOrAddVar(p->token);
+  prog = g_texAnmProg;
+  prog->labelName[prog->numLabels] = (short)var;
+  prog->labelOp[prog->numLabels] = prog->numOps;
+  prog->numLabels++;
+}
+
+// FUNCTION: LEGOBATMAN 0x00711ce0
+void NuTexAnmUnk00711ce0(NuParse *p) {
+  int name;
+  NuTexAnmProg *prog;
+  NuParseUnk006da8d0(p);
+  name = NuTexAnmFindOrAddName(p->token);
+  prog = g_texAnmProg;
+  prog->ops[prog->numOps++] = 9;
+  prog->ops[prog->numOps++] = (short)name;
+}
+
+// FUNCTION: LEGOBATMAN 0x00711d40
+void NuTexAnmUnk00711d40(NuParse *p) {
+  int var;
+  NuTexAnmProg *prog;
+  NuParseUnk006da8d0(p);
+  var = NuTexAnmFindOrAddVar(p->token);
+  prog = g_texAnmProg;
+  prog->ops[prog->numOps++] = 0x11;
+  prog->ops[prog->numOps++] = (short)var;
+}
+
+// FUNCTION: LEGOBATMAN 0x00711e40
+void NuTexAnmUnk00711e40(NuParse *p) {
+  int name;
+  NuTexAnmProg *prog;
+  NuParseUnk006da8d0(p);
+  name = NuTexAnmFindOrAddName(p->token);
+  prog = g_texAnmProg;
+  prog->ops[prog->numOps++] = 0xa;
+  prog->ops[prog->numOps++] = (short)name;
+}
+
+// FUNCTION: LEGOBATMAN 0x00711f60
+void NuTexAnmUnk00711f60(NuParse *p) {
+  int op = NuTexAnmParseCompareOp(p);
+  int value = NuParseIntUnk006dd060(p);
+  NuTexAnmProg *prog = g_texAnmProg;
+  prog->ops[prog->numOps++] = 0xf;
+  prog->ops[prog->numOps++] = (short)op;
+  prog->ops[prog->numOps++] = (short)value;
+}
+
+// FUNCTION: LEGOBATMAN 0x00711ff0
+void NuTexAnmUnk00711ff0(NuParse *p) {
+  char *dst;
+  NuParseUnk006da8d0(p);
+  dst = g_texAnmProg->name;
+  p->token[0x20] = 0;
+  strcpy(dst, p->token);
+}
