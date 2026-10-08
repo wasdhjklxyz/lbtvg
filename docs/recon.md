@@ -33,6 +33,7 @@ files in the Steam install (now `game/` symlink; the two exes are copied to `ori
 |---|---|
 | `LEGOBatman.exe` | 2025 re-link, unpacked, **target** |
 | `testapp.exe` | 2008 build, SteamStub v2 packed, 8 sections (`.bind` added) |
+| `LEGOBatmanDemo.exe` | Oct 2008 PC demo, unpacked, same toolchain, has the debug menu (see below) |
 | `binkw32.dll` | RAD Bink video, dynamic import (17 funcs) |
 | `GameExplorerHelper.dll` | Games-for-Windows Explorer registration, irrelevant |
 | `GAME.DAT`, `HERO{1,2,3}.DAT`, `VILLAIN{1,2,3}.DAT` | TT pack archives, header `BEGIN_APP_ID_STRINGMkDat V3.26END_APP_ID_STRING` (~3.8 GB total) |
@@ -45,6 +46,30 @@ Steam: app 21000, build 19129138, depots 21001 (data), 21002 (english),
 (windows), `LEGO Batman.app` (macos). Both exes are copied to `orig/` with sha1s in `orig/checksum.sha1`
 (`make verify`). `game/` is a symlink into the Steam dir, which Steam owns and
 may update under you — never read the exes from there for matching.
+
+## the demo build
+
+`orig/LEGOBatmanDemo.exe` (sha1 `0a277aaa…`) is from the public PC demo
+installer (`LEGOBatmanDemoSetup.exe`, 463 MB, sha256 `eb77fb95…`; a second
+copy in circulation differs in 4 bytes near offset 407 MB and is otherwise
+identical). Facts:
+
+- Linked **2008-10-09**, PDB `c:\Projects\Batman\PC_Release_Demo\LEGOBatmanDemo.pdb`.
+- **Identical Rich header** to retail (same tools, same object counts), so
+  it is the same compiler and the same 315 C++ / 183 C objects, built from
+  the demo branch of the same tree. `.text` is 10 KB larger.
+- **Not SteamStub-wrapped.** It is the only unpacked *2008* build we have,
+  which makes it the direct witness that the 2025 re-link did not change
+  codegen: diff demo vs retail function-by-function (BinDiff / Diaphora /
+  Ghidra Version Tracking) and most of the game should line up 1:1.
+- Imports `d3dx9_36` (Nov 2007 SDK) where retail uses `d3dx9_35`.
+- **A debug menu is compiled in** that retail strips: "Go To Level", "Go To
+  Mission", "FPS Display: %s", "Engine Timing Bars: %s", "Character/Level
+  Load Debug", "Buy All Shop Extras", "Collect All Red Bricks",
+  "highallocaddr: %.2fMB/32.00MB", and ~90 more. Those strings name the
+  functions around them; the retail binary has the functions without the
+  names. Reverse the demo first where they overlap.
+- Demo data: `GAME.DAT`, `HERO2.DAT`, `VILLAIN3.DAT` only.
 
 ## PE facts (LEGOBatman.exe)
 
