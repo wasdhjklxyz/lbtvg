@@ -82,9 +82,13 @@ names: ghidra-check
 		-scriptPath $(SCRIPTS) \
 		-preScript ApplyNames.java $(abspath tools/symbols/pc-names.csv)
 
-# matched bytes / game code bytes; --readme rewrites the README line
+# regenerate the badge, docs/progress.svg and docs/todo.md (the hook does this on commit)
 progress:
-	tools/progress.py --readme
+	tools/progress.py --write
+
+# install the pre-commit hook (match check + progress on every commit that touches src/)
+hooks:
+	git config core.hooksPath tools/hooks
 
 # regenerate tools/symbols/pc-names.csv from the Mac 1.0.1 symbols
 macnames:
@@ -114,4 +118,4 @@ fid-apply: ghidra-check
 		-preScript ApplyFid.java $(FIDB) \
 		-postScript DumpStats.java $(STATS)
 
-.PHONY: all verify progress names macnames match match-v fmt fmt-check linkmap vc8 ghidra-import ghidra ghidra-check fid fid-import fid-build fid-apply
+.PHONY: all verify progress hooks names macnames match match-v fmt fmt-check linkmap vc8 ghidra-import ghidra ghidra-check fid fid-import fid-build fid-apply

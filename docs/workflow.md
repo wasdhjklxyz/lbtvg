@@ -80,9 +80,18 @@ calling convention (`__thiscall` needs a member function).
 
 ## 5. format and commit
 
-`make fmt` (clang-format, LLVM style, pinned by `.clang-format`). One or a
-few functions per commit, `src: <what they are>`. `make match` and
-`make fmt-check` must pass on the whole tree before committing.
+`make fmt` (clang-format, LLVM style, pinned by `.clang-format`), then commit
+one or a few functions as `src: <what they are>`. With the hook installed
+(`make hooks`, once per clone) every commit that touches `src/` re-checks the
+staged files with the harness, refuses the commit if a `FUNCTION` no longer
+matches, and regenerates the README badge, `docs/progress.svg` and
+`docs/todo.md` into the same commit.
+
+## 6. pick the next one
+
+`docs/todo.md` lists every function with a known name that is not done,
+grouped by subsystem, smallest first, with the saga file when
+opensagadev/saga already has a body for it. It updates itself; never edit it.
 
 ## what the numbers mean
 
