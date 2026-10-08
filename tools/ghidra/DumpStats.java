@@ -1,3 +1,7 @@
+// Headless post-script: dump one line per function (address, size, calling
+// convention, name) plus vftables and totals to the file given as arg 0.
+// Named (non-FUN_) functions are the FID/EH-identified ones to exclude from
+// the match budget. See docs/recon.md "scope numbers".
 import ghidra.app.script.GhidraScript;
 import ghidra.program.model.listing.*;
 import ghidra.program.model.symbol.*;

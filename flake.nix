@@ -60,18 +60,27 @@
             ]
             ++ (with pkgs; [
               gnumake
-              binutils
+              curl
+              file
+              binutils # objdump/strings on PE
+              llvmPackages.bintools-unwrapped # llvm-objdump/llvm-ar on COFF .obj and .lib
               objdiff
               depotdownloader
-              p7zip
-              msitools
-              cabextract
+              p7zip # tools/vc8.sh
+              msitools # tools/vc8.sh
+              cabextract # tools/vc8.sh
             ]);
 
             env = {
               ANALYZE_HEADLESS = "ghidra-analyzeHeadless";
               GHIDRA_RUN = "ghidra";
             };
+
+            # where tools/vc8.sh puts the compiler; override by exporting before nix develop
+            shellHook = ''
+              export VC8="''${VC8:-$HOME/.local/share/lbtvg/vc8}"
+              export WINSDK6="''${WINSDK6:-$HOME/.local/share/lbtvg/winsdk6}"
+            '';
           };
         }
       );

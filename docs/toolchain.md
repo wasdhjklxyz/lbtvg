@@ -1,8 +1,9 @@
 # toolchain
 
-Getting the matching compiler, a compare loop, and a running game on Linux.
-Status 2026-10-08: none of this is in the devshell yet. This is the map;
-`docs/recon.md` has the evidence for every version named here.
+The matching compiler, the compare loop, and running the game on Linux.
+State: compiler fetched and verified (section 1), compare harness not built
+yet (section 2). `docs/recon.md` has the evidence for every version named
+here.
 
 ## 1. the compiler: VC8 (Visual C++ 2005 SP1)
 
@@ -16,7 +17,7 @@ ones, and the extracted `cl.exe` says `14.00.50727.762 (SP.050727-7600)`. The
 same ISO carries the SP1 CRT DLLs and the Win32 headers/import libs.
 
 ```
-tools/vc8.sh        # download (1.2 GB), verify, extract, verify, smoke-test
+make vc8            # tools/vc8.sh: download (1.2 GB), verify, extract, verify, smoke-test
 ```
 
 It produces, outside the repo:
@@ -48,9 +49,9 @@ kernel32 stubs VC8 needs). No prefix, no registry, starts instantly. It is
 what decomp.me runs every MSVC on, including `msvc8.0p`.
 
 ```
-VC=~/.local/share/lbtvg/vc8
-wibo $VC/Bin/cl.exe /nologo /c /O2 /Oy /GS /EHsc /MT /Gd /Z7 \
-     /I"Z:$VC/INCLUDE" /I"Z:$HOME/.local/share/lbtvg/winsdk6/Include" \
+# $VC8 and $WINSDK6 are exported by the devshell
+wibo $VC8/Bin/cl.exe /nologo /c /O2 /Oy /GS /EHsc /MT /Gd /Z7 \
+     /I"Z:$VC8/INCLUDE" /I"Z:$WINSDK6/Include" \
      /Fo"Z:out.obj" "Z:in.cpp"
 ```
 
@@ -73,7 +74,7 @@ Minimum viable loop, before any harness:
 
 ```
 cl  → foo.obj
-objdump -d foo.obj              # or ghidra on the .obj
+llvm-objdump -d --x86-asm-syntax=intel foo.obj   # GNU objdump cannot read COFF
 cmp against orig bytes at the function's address
 ```
 
@@ -117,8 +118,7 @@ flag guesses against a known-good compiler install before blaming your own.
 What already ran on import (no action needed):
 `PE loader` (imports, Rich header stays raw bytes), `Windows x86 PE RTTI`
 (the 186 vftables and 101 class names), `Demangler Microsoft`
-(`.?AV` names → classes), `Function ID` (CRT naming, weak with
-`vsOlder_x86`), `ApplyDataArchive` (`windows_vs12_32`: closest shipped
+(`.?AV` names → classes), `Function ID` (CRT naming; `make fid` adds the exact VC8 SP1 db), `ApplyDataArchive` (`windows_vs12_32`: closest shipped
 type archive; VS2005 types are mostly identical for Win32 API), `Aggressive
 Instruction Finder` (ours, via `PreAnalysis.java`).
 
@@ -127,9 +127,10 @@ What to do by hand:
   vs `__cdecl` properly. Slow, run once, then save.
 - **Random Forest Function Finder** (MachineLearning ext): recover the
   ~40% of `.text` that isn't in a known function yet.
-- **FID database from your own VC8** once you have `libcmt.lib`: Function ID
-  > Create new empty FidDb, then populate from the lib's `.obj`s. Names the
-  CRT exactly, excludes it from the match budget.
+- **FID database from the VC8 CRT**: `make fid` (import `libcmt.lib`/
+  `libcpmt.lib` as programs, hash into `ghidra/vc8.fidb`, run the FID
+  analyzer). Names the CRT exactly, excludes it from the match budget.
+  Re-run `make fid-apply` after recovering more functions.
 - **Delinker**: select a function → Relocation table synthesizer → Export
   Program as COFF. That `.obj` is objdiff's "target" side.
 
