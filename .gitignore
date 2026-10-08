@@ -6,5 +6,7 @@ orig/*.exe
 /toolchain/
 /build/
 /orig/donors/
-/ref/
+# reference repos are local clones; saga is a pinned submodule
+/ref/*
+!/ref/saga
 __pycache__/

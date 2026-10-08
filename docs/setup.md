@@ -28,6 +28,13 @@ below is pinned for you.
 The compiler itself (VC8 SP1) is not a package anywhere; `tools/vc8.sh`
 fetches it from Microsoft and verifies it. See `docs/toolchain.md`.
 
+## reference source
+
+`ref/saga` is a git submodule of opensagadev/saga (same engine, GPL-3.0),
+pinned to a commit. After cloning: `git submodule update --init`. To move the
+pin: `git -C ref/saga pull` then commit `ref/saga`. Other reference clones
+under `ref/` are local and gitignored.
+
 ## the game
 
 You need your own copy. Steam app 21000. Copy, don't symlink:
