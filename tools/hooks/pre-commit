@@ -30,4 +30,4 @@ elif [ -n "$srcs" ]; then
 fi
 
 tools/progress.py --write
-git add README.md docs/progress.svg docs/todo.md
+git add README.md docs/progress.svg docs/todo.md site/data.json

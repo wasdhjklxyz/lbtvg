@@ -3,7 +3,7 @@
 
     tools/progress.py            print the summary
     tools/progress.py --write    also rewrite README badge, docs/progress.svg,
-                                 docs/todo.md (the pre-commit hook runs this)
+                                 docs/todo.md, site/data.json (the pre-commit hook runs this)
 
 Inputs (all tracked, so this works on a fresh clone):
   tools/symbols/functions.tsv   every function ghidra found in game code
@@ -218,6 +218,42 @@ def write_todo(funcs, state, names, saga, by):
     (ROOT / "docs/todo.md").write_text("\n".join(lines))
 
 
+# --- site/data.json: everything the GitHub Pages map needs --------------------
+def write_site(funcs, lib, names, state, saga, total, by, pct):
+    import json, datetime, subprocess
+    where, src_name = {}, {}
+    decl = re.compile(r"//\s*(?:FUNCTION|STUB):\s*LEGOBATMAN\s+0x([0-9a-fA-F]+)\n(?:\s*//.*\n)*\s*([^\n{;]*?)\s*(?:\{|;|$)", re.M)
+    for f in list(ROOT.glob("src/**/*.c")) + list(ROOT.glob("src/**/*.cpp")) + list(ROOT.glob("src/**/*.h")):
+        text = f.read_text(errors="ignore")
+        for m in decl.finditer(text):
+            a = int(m.group(1), 16)
+            where.setdefault(a, f.relative_to(ROOT).as_posix())
+            src_name.setdefault(a, m.group(2).strip())
+    code = {MATCHED: "m", STUB: "s", NAMED: "n", UNKNOWN: "u"}
+    rows = []
+    for a in sorted(funcs):
+        s, gname = funcs[a]
+        st = code[state[a]] if state[a] in (MATCHED, STUB) else "l" if a in lib else code[state[a]]
+        name = src_name.get(a) or names.get(a) or (None if gname.startswith(("FUN_", "thunk_")) else gname)
+        short = (name or "").split("(")[0].split(" ")[-1].lstrip("_")
+        rows.append([a, s, st, name, where.get(a), saga.get(short) if name else None])
+    try:
+        rev = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT,
+                             capture_output=True, text=True).stdout.strip()
+    except OSError:
+        rev = ""
+    data = {
+        "generated": datetime.date.today().isoformat(), "rev": rev,
+        "text": [TEXT_LO, TEXT_HI], "total": total, "pct": round(pct, 3),
+        "counts": {k: by[k][0] for k in (MATCHED, STUB, NAMED, UNKNOWN)},
+        "bytes": {k: by[k][1] for k in (MATCHED, STUB, NAMED, UNKNOWN)},
+        "anchors": anchors(),
+        "functions": rows,
+    }
+    (ROOT / "site").mkdir(exist_ok=True)
+    (ROOT / "site/data.json").write_text(json.dumps(data, separators=(",", ":")))
+
+
 def main(argv):
     funcs, lib, names, state = load()
     total, by, pct = summary(funcs, lib, state)
@@ -226,7 +262,9 @@ def main(argv):
     if "--write" in argv or "--readme" in argv:
         write_badge(pct)
         write_svg(funcs, lib, state, total, by, pct)
-        write_todo(funcs, state, names, saga_bodies(), by)
+        saga = saga_bodies()
+        write_todo(funcs, state, names, saga, by)
+        write_site(funcs, lib, names, state, saga, total, by, pct)
 
 
 if __name__ == "__main__":
