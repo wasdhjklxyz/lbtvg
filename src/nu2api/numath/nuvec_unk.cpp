@@ -5,6 +5,8 @@
 #include <math.h>
 
 #include "numath.h"
+#include "nuplane.h"
+#include "nutrig_unk.h"
 
 float NuFsqrt(float f);
 
@@ -147,4 +149,61 @@ float NuRandFloat(void) {
   fseed = fseed * 0x19660d + 0x3c6ef35f;
   bits = (fseed & 0x7fffff) | 0x3f800000;
   return *(float *)&bits - 1.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00684190
+static f32 NuSinApprox(i32 angle);
+
+// FUNCTION: LEGOBATMAN 0x00684480
+void NuVecMtxTransform(nuvec_s *out, nuvec_s *v, numtx_s *m) {
+  f32 y = v->x * m->m01 + v->y * m->m11 + v->z * m->m21 + m->m31;
+  f32 z = v->x * m->m02 + v->y * m->m12 + v->z * m->m22 + m->m32;
+  out->x = v->x * m->m00 + v->y * m->m10 + v->z * m->m20 + m->m30;
+  out->y = y;
+  out->z = z;
+}
+
+// FUNCTION: LEGOBATMAN 0x00684650
+void NuVecMtxRotate(nuvec_s *out, nuvec_s *v, numtx_s *m) {
+  f32 y = v->x * m->m01 + v->y * m->m11 + v->z * m->m21;
+  f32 z = v->x * m->m02 + v->y * m->m12 + v->z * m->m22;
+  out->x = v->x * m->m00 + v->y * m->m10 + v->z * m->m20;
+  out->y = y;
+  out->z = z;
+}
+
+// STUB: LEGOBATMAN 0x006849f0
+// 100/100 bytes but the v->y line multiplies v0->z from memory instead of
+// loading it first; operand/temp order not found.
+void NuVecRotateX(nuvec_s *v, nuvec_s *v0, i32 a) {
+  f32 c = NuSinApprox(a + 0x4000);
+  f32 s = NuSinApprox(a);
+  f32 y = v0->y;
+  v->x = v0->x;
+  v->y = y * c - v0->z * s;
+  v->z = y * s + v0->z * c;
+}
+
+// FUNCTION: LEGOBATMAN 0x00684a60
+void NuVecRotateY(nuvec_s *v, nuvec_s *v0, i32 a) {
+  f32 c = NuSinApprox(a + 0x4000);
+  f32 s = NuSinApprox(a);
+  f32 x = v0->x;
+  v->x = x * c + v0->z * s;
+  v->y = v0->y;
+  v->z = v0->z * c - x * s;
+}
+
+// FUNCTION: LEGOBATMAN 0x0068a6a0
+void NuPlnEqn(nuplane_s *out, nuvec_s *pnt0, nuvec_s *pnt1, nuvec_s *pnt2) {
+  nuvec_s v1;
+  nuvec_s v2;
+  nuvec_s normal;
+  NuVecSub(&v1, pnt1, pnt0);
+  NuVecSub(&v2, pnt2, pnt0);
+  normal.x = v1.y * v2.z - v1.z * v2.y;
+  normal.y = v1.z * v2.x - v1.x * v2.z;
+  normal.z = v1.x * v2.y - v1.y * v2.x;
+  NuVecNorm((nuvec_s *)out, &normal);
+  out->d = -(out->a * pnt0->x + out->b * pnt0->y + out->c * pnt0->z);
 }
