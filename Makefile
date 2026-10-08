@@ -86,9 +86,11 @@ names: ghidra-check
 progress:
 	tools/progress.py --write
 
-# install the pre-commit hook (match check + progress on every commit that touches src/)
+# once per clone: pre-commit hook (match check + progress) and submodules that
+# follow pull/checkout (ref/saga stays on the pinned commit)
 hooks:
 	git config core.hooksPath tools/hooks
+	git config submodule.recurse true
 
 # regenerate tools/symbols/pc-names.csv from the Mac 1.0.1 symbols
 macnames:

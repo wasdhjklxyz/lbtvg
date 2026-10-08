@@ -31,7 +31,10 @@ fetches it from Microsoft and verifies it. See `docs/toolchain.md`.
 ## reference source
 
 `ref/saga` is a git submodule of opensagadev/saga (same engine, GPL-3.0),
-pinned to a commit. After cloning: `git submodule update --init`. To move the
+pinned to a commit. After cloning: `git submodule update --init`; `make hooks`
+then keeps it in step on every pull/checkout. `tools/saga.py NAME|0xADDR`
+prints saga's body for a function to port by hand (copy, never symlink: our
+version has to diverge for VC8 and the 2008 layouts). To move the
 pin: `git -C ref/saga pull` then commit `ref/saga`. Other reference clones
 under `ref/` are local and gitignored.
 
