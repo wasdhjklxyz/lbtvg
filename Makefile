@@ -23,7 +23,7 @@ ghidra-import: verify ghidra-check
 		-postScript DumpStats.java $(GHIDRA_PROJ)/stats.tsv
 
 ghidra: ghidra-check
-	$(GHIDRA_RUN) $(GHIDRA_PROJ)/$(GHIDRA_NAME).gpr
+	$(GHIDRA_RUN) $(abspath $(GHIDRA_PROJ)/$(GHIDRA_NAME).gpr)
 
 ghidra-check:
 	@command -v "$(ANALYZE_HEADLESS)" >/dev/null && command -v "$(GHIDRA_RUN)" >/dev/null \
