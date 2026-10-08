@@ -11,9 +11,8 @@ void AddFiniteShotPART(i32 type, nuvec_s *pos, i32 count);
 void GameCam_Judder(GAMECAMERA_s *cam, f32 amount, i32 a, nuvec_s *pos);
 void NewRumbleAllPlayers(f32 a, f32 b, i32 c, i32 d);
 
-// STUB: LEGOBATMAN 0x0043a870
-// 187 vs 147 bytes: float-constant promotion to double and the polynomial's x87
-// order differ
+// Body in nutrig_unk.h: a static that every user TU gets its own copy of.
+// FUNCTION: LEGOBATMAN 0x0043a870
 static f32 NuSinApprox(i32 angle);
 
 // Keeps the static NuSinApprox copy alive until its real caller is matched.

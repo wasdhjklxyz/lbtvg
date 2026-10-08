@@ -78,3 +78,19 @@ i32 Condition_AngleAboutMyLocatorToPlayerInit(AISYS_s *sys, char *str,
   }
   return -1;
 }
+
+i32 Hub_GetRandomCharType(void);
+
+// FUNCTION: LEGOBATMAN 0x00451470
+f32 Condition_CharacterTypeExists(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                  AIPACKET_s *packet, char *str, void *data) {
+  i32 i;
+  if (!NuStrICmp(str, "RandomMap"))
+    return Hub_GetRandomCharType() > -1 ? 0.0f : 1.0f;
+  if ((i32)data < 0)
+    return 0.0f;
+  for (i = 0; i < HIGHGAMEOBJECT; i++)
+    if (Obj[i].type15b0 == (i32)data)
+      return 1.0f;
+  return 0.0f;
+}
