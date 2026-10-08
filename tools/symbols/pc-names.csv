@@ -1,0 +1,211 @@
+pc_addr,mac_addr,mac_name,demangled,method,round
+00408900,000f9178,__Z8InitOnceiPPc,"InitOnce(int, char**)",strings,0
+00408e60,000f8e4a,__Z23Text_ExpandButtonStringPcS_,"Text_ExpandButtonString(char*, char*)",strings,0
+0040f6a0,0002c842,__Z19Batarang_UpdateHintP6HINT_s,Batarang_UpdateHint(HINT_s*),strings,0
+004154e0,00032d60,__Z20Batman_GameAISysInitv,Batman_GameAISysInit(),strings,0
+004165a0,00035bb8,__Z12UpdateCablesv,UpdateCables(),strings,0
+0042ad10,00053cd6,__Z19DrawGameObjectsDrawi,DrawGameObjectsDraw(int),strings,0
+0042ffd0,0005b598,__Z22ElectricShock_MoveCodeP12GameObject_sii,"ElectricShock_MoveCode(GameObject_s*, int, int)",strings,0
+00430ca0,0005c0e0,__Z12FreezePlayerP12GameObject_sfS0_,"FreezePlayer(GameObject_s*, float, GameObject_s*)",strings,0
+00431d80,000636ee,__Z20InitGameBeforeConfigv,InitGameBeforeConfig(),strings,0
+00432480,0005d2b0,__Z24InitPartyCharacterScriptP12GameObject_si,"InitPartyCharacterScript(GameObject_s*, int)",strings,0
+00435140,000613fe,__Z14CheckResetBitsv,CheckResetBits(),strings,0
+00436e50,00062ccc,__Z22GizmoBlowupCreateStuffP13GIZMOBLOWUP_s,GizmoBlowupCreateStuff(GIZMOBLOWUP_s*),strings,0
+004375e0,0005ec00,__Z19InitGameAfterConfigv,InitGameAfterConfig(),strings,0
+0043a110,000646dc,__Z17AddSurfaceRipplesP12GameObject_s,AddSurfaceRipples(GameObject_s*),strings,0
+0043a980,00064e98,__Z18CreatureCrate_StopP6PART_s,CreatureCrate_Stop(PART_s*),strings,0
+0043b970,00066476,__Z14KillGameObjectP12GameObject_sii,"KillGameObject(GameObject_s*, int, int)",strings,0
+0043c900,000670e0,__Z13PlayerTakeHitP12GameObject_sS0_,"PlayerTakeHit(GameObject_s*, GameObject_s*)",order,1
+0043cd40,000673ea,__Z14StunGameObjectP12GameObject_sS0_fi,"StunGameObject(GameObject_s*, GameObject_s*, float, int)",order,1
+0043d380,00067934,__Z10KillPlayerP12GameObject_siiP7nuvec_s,"KillPlayer(GameObject_s*, int, int, nuvec_s*)",order,1
+0043d430,000679ea,__Z16DeactivatePlayerP12GameObject_sfS0_,"DeactivatePlayer(GameObject_s*, float, GameObject_s*)",strings,0
+0043dc00,00067ffc,__Z17KillParts_VEHICLEP9ADDPART_siiP12GameObject_sittP7nuvec_s,"KillParts_VEHICLE(ADDPART_s*, int, int, GameObject_s*, int, unsigned short, unsigned short, nuvec_s*)",strings,0
+0043ebf0,0006827c,__Z12ObjHitShieldP12GameObject_sS0_iP6BOLT_s,"ObjHitShield(GameObject_s*, GameObject_s*, int, BOLT_s*)",strings,0
+0043ee70,00069182,__Z9ObjHitObjP12GameObject_sS0_iiii,"ObjHitObj(GameObject_s*, GameObject_s*, int, int, int, int)",strings,0
+00440960,0006a952,__Z15Collide2ObjectsP11APIOBJECT_sS0_,"Collide2Objects(APIOBJECT_s*, APIOBJECT_s*)",order,1
+00440fd0,0006af4e,__Z16InstantKillPartsP12GameObject_sif,"InstantKillParts(GameObject_s*, int, float)",order,1
+00441740,0006afe8,__Z17UpdateGameObjectsP11WORLDINFO_s,UpdateGameObjects(WORLDINFO_s*),strings,0
+00447370,0006f4ea,__Z22GameAIActionParseSpeedPcPh,"GameAIActionParseSpeed(char*, unsigned char*)",strings,0
+00447560,0006f664,__Z17GetNamedAPIObjectP7AISYS_sPc,"GetNamedAPIObject(AISYS_s*, char*)",strings,0
+0044bf50,0006fe0c,__Z14GameAISysResetP7AISYS_s,GameAISysReset(AISYS_s*),strings,0
+0044da30,00075ab0,__Z23Condition_BeenHitByInitP7AISYS_sPcP10AISCRIPT_s,"Condition_BeenHitByInit(AISYS_s*, char*, AISCRIPT_s*)",strings,0
+0044f620,00076cb4,__Z23Condition_InContextInitP7AISYS_sPcP10AISCRIPT_s,"Condition_InContextInit(AISYS_s*, char*, AISCRIPT_s*)",strings,0
+0044f980,00076fb0,__Z21Condition_InLayerInitP7AISYS_sPcP10AISCRIPT_s,"Condition_InLayerInit(AISYS_s*, char*, AISCRIPT_s*)",strings,0
+00451470,0007841e,__Z29Condition_CharacterTypeExistsP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_CharacterTypeExists(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",strings,0
+004530b0,0009708c,__Z24Action_SetTakeOverTargetP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetTakeOverTarget(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+004541f0,0008f63e,__Z14Action_SetSideP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetSide(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00454950,00079fac,__Z19Action_SetStateAreaP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetStateArea(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00454d10,000918a8,__Z11Action_KillP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_Kill(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+004556b0,0007a27a,__Z14Action_ExplodeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_Explode(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00456060,0007a81a,__Z17Action_SetLocatorP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00456570,0008da4a,__Z20Action_SnapToLocatorP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SnapToLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00456a90,0008de6a,__Z19Action_SnapToOriginP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SnapToOrigin(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",order,1
+00456e00,0008e04c,__Z14Action_BigJumpP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_BigJump(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00457460,0008e620,__Z29Action_SetDoomedEscapeLocatorP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetDoomedEscapeLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00457750,0007af4a,__Z21Action_SnapToPositionP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SnapToPosition(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00457ff0,0007b45c,__Z25Action_SnapToSockPositionP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SnapToSockPosition(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+004586e0,0008fc2a,__Z18Action_SetOpponentP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00458cd0,0007bab2,__Z21Action_AttackOpponentP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AttackOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00459330,0008ffd0,__Z21Action_EngageOpponentP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_EngageOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00459fb0,00090d9a,__Z22Action_ShootAtOpponentP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ShootAtOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0045a990,0007c41a,__Z22Action_FollowDirectionP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_FollowDirection(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0045af10,000922f6,__Z37Action_SetIgnorePlayerItemsTargettingP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetIgnorePlayerItemsTargetting(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0045b070,00092402,__Z22Action_SetInvulnerableP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetInvulnerable(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0045b7e0,00092c5e,__Z25Action_DontAvoidCharacterP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_DontAvoidCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0045c1d0,0007cd30,__Z25Action_CreateRailCreatureP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CreateRailCreature(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0045d520,00088b90,__Z18Action_SetRunSpeedP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetRunSpeed(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0045dc80,000958ec,__Z19Action_SetHitPointsP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetHitPoints(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0045e190,0007d3a0,__Z17Action_SetMessageP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetMessage(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0045f9e0,0007e48a,__Z26Action_SetMaxMovementRangeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetMaxMovementRange(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00461af0,0007f556,__Z16Action_CnxHelperP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CnxHelper(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00461ff0,0008d8a6,__Z14Action_SetPathP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetPath(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+004628c0,0007fd84,__Z26Action_ContextSetAnimationP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ContextSetAnimation(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00462e90,00080268,__Z22Action_PlayGizObstacleP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_PlayGizObstacle(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00463060,000803ee,__Z21Action_PlayGizSpecialP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_PlayGizSpecial(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00463f00,00080be2,__Z22Action_SetAnimSpeedMulP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetAnimSpeedMul(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+004646a0,0008f038,__Z17Action_TakeDamageP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_TakeDamage(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00464d10,00080d56,__Z15Action_UseForceP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_UseForce(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00465ab0,000963ba,__Z14Action_PlaySfxP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_PlaySfx(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00465d60,0008ae1a,__Z16Action_CameraCutP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CameraCut(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+004678a0,000811a8,__Z35Action_DynamicCameraCut_AddSubtitleP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_DynamicCameraCut_AddSubtitle(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00467f50,0009661a,__Z19Action_SetForceBackP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetForceBack(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00468190,00081744,__Z17Action_FaceCameraP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_FaceCamera(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+004684e0,00081900,__Z25Action_TurnToFaceOpponentP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_TurnToFaceOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+004688a0,00081c34,__Z17Action_SpinOnSpotP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SpinOnSpot(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00468ea0,00081f8a,__Z23Action_GameFollowPlayerP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_GameFollowPlayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+004691f0,00082250,__Z18Action_MoveForwardP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_MoveForward(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0046ad50,000895e4,__Z15Action_UseLedgeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_UseLedge(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0046b400,00083a06,__Z17Action_PickUpItemP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_PickUpItem(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0046bb20,0008c5c0,__Z25Action_AssignLocatorInSetP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AssignLocatorInSet(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0046bdd0,0008c7c2,__Z24Action_GetLocatorFromSetP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_GetLocatorFromSet(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0046cd90,00083edc,__Z22Action_AddGameMsgCountP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AddGameMsgCount(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0046d6f0,00097388,__Z21Action_AddMiscPickupsP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AddMiscPickups(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0046d870,000979ea,__Z15Action_SetLayerP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetLayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0046dac0,00084136,__Z18Action_CreateRiderP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CreateRider(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0046dee0,00088ffc,__Z20Action_CreateCoupledP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CreateCoupled(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0046e4e0,00097be6,__Z21Action_ThrowDetonatorP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ThrowDetonator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0046eee0,00084b5e,__Z21Action_ForceLightningP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ForceLightning(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0046f500,00097fde,__Z24Action_SetTechnoCompleteP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetTechnoComplete(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00470370,0008587a,__Z23Action_AddTorpedoPacketP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AddTorpedoPacket(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00470fd0,000984dc,__Z14Action_AddItemP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AddItem(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+004717b0,0008611a,__Z19Action_StunOpponentP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_StunOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00472640,00086656,__Z27Action_AttachNodeToPlatformP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AttachNodeToPlatform(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00472a70,000869b8,__Z20Action_SetHeadlightsP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetHeadlights(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00473140,000992ee,__Z21Action_CoupleVehiclesP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CoupleVehicles(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00473e40,0008736e,__Z25Action_ChangeSpecialRouteP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ChangeSpecialRoute(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+004741c0,00087650,__Z14Action_ZipDownP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ZipDown(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00477ab0,0008a3c4,__Z21Action_CycleCharacterP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CycleCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00478330,0009a500,__Z16Status_SceneNameP11WORLDINFO_sPc,"Status_SceneName(WORLDINFO_s*, char*)",strings,0
+00481070,0009de16,__Z16BonusTime_UpdateP14STATUS_STAGE_sP14STATUSPACKET_sf,"BonusTime_Update(STATUS_STAGE_s*, STATUSPACKET_s*, float)",strings,0
+00482510,000a27f2,__Z22GizAction_ActivateCharP9GIZFLOW_sP9FLOWBOX_sPPci,"GizAction_ActivateChar(GIZFLOW_s*, FLOWBOX_s*, char**, int)",strings,0
+00483070,000a31f4,__Z20GizAction_SetAIStateP9GIZFLOW_sP9FLOWBOX_sPPci,"GizAction_SetAIState(GIZFLOW_s*, FLOWBOX_s*, char**, int)",strings,0
+00483750,000a37e0,__Z23GizActions_PlayObstacleP9GIZFLOW_sP9FLOWBOX_sPPci,"GizActions_PlayObstacle(GIZFLOW_s*, FLOWBOX_s*, char**, int)",strings,0
+00483e20,000a3dfc,__Z20GizActions_PlayRadioP9GIZFLOW_sP9FLOWBOX_sPPci,"GizActions_PlayRadio(GIZFLOW_s*, FLOWBOX_s*, char**, int)",strings,0
+004842b0,000a4204,__Z26GizActions_SetSuperCounterP9GIZFLOW_sP9FLOWBOX_sPPci,"GizActions_SetSuperCounter(GIZFLOW_s*, FLOWBOX_s*, char**, int)",strings,0
+00484590,000a448c,__Z20GizActions_HitBlowupP9GIZFLOW_sP9FLOWBOX_sPPci,"GizActions_HitBlowup(GIZFLOW_s*, FLOWBOX_s*, char**, int)",strings,0
+00484c00,000a4a42,__Z25GizActions_SetRailSpecialP9GIZFLOW_sP9FLOWBOX_sPPci,"GizActions_SetRailSpecial(GIZFLOW_s*, FLOWBOX_s*, char**, int)",strings,0
+00484f20,000a4cc6,__Z17GizActions_SetRTLP9GIZFLOW_sP9FLOWBOX_sPPci,"GizActions_SetRTL(GIZFLOW_s*, FLOWBOX_s*, char**, int)",strings,0
+00486350,000a5e1a,__Z21GizForceSFX_ConfigureP11WORLDINFO_sPc,"GizForceSFX_Configure(WORLDINFO_s*, char*)",strings,0
+00486610,000a5f58,__Z14GizForces_LoadPvS_,"GizForces_Load(void*, void*)",strings,0
+0048c2e0,000aae98,__Z23GizmoPickup_CollectCoinP11WORLDINFO_sP7nuvec_siiP12GameObject_si,"GizmoPickup_CollectCoin(WORLDINFO_s*, nuvec_s*, int, int, GameObject_s*, int)",strings,0
+0048d650,000ac170,__Z18PowerUp_ImpactPartP6PART_s,PowerUp_ImpactPart(PART_s*),strings,0
+0048f750,000ad826,__Z15GizPanel_UpdatePvS_f,"GizPanel_Update(void*, void*, float)",strings,0
+00490b20,000aee18,__Z17GizPanel_MoveCodeP11WORLDINFO_sP12GameObject_si,"GizPanel_MoveCode(WORLDINFO_s*, GameObject_s*, int)",strings,0
+004931b0,000afd70,__Z27Hub_SignalSwitchHeroVillain13HubSwitchMode,Hub_SignalSwitchHeroVillain(HubSwitchMode),strings,0
+004974c0,000b4830,__Z20Hub_DrawMiniKitPanelfi,"Hub_DrawMiniKitPanel(float, int)",strings,0
+00497d70,000b304c,__Z20InitializeDummyCharsP11WORLDINFO_s,InitializeDummyChars(WORLDINFO_s*),strings,0
+00497f00,000b9d40,__Z9Hub_ResetP11WORLDINFO_s,Hub_Reset(WORLDINFO_s*),strings,0
+004a36c0,000bf76e,__Z7TagCodeP12GameObject_sS0_iii,"TagCode(GameObject_s*, GameObject_s*, int, int, int)",strings,0
+004a40f0,000c09d8,__Z15ReleaseTakeOverP12GameObject_si,"ReleaseTakeOver(GameObject_s*, int)",strings,0
+004a4b70,000c1742,__Z12TakeOverCodeP12GameObject_si,"TakeOverCode(GameObject_s*, int)",strings,0
+004a54c0,000c03f0,__Z14Tag_UpdateHintP6HINT_s,Tag_UpdateHint(HINT_s*),strings,0
+004a5ac0,000c1022,__Z9Tag_CheckP12GameObject_s,Tag_Check(GameObject_s*),strings,0
+004a6c60,000c57ee,__Z17Credits_Init_GameP11WORLDINFO_s,Credits_Init_Game(WORLDINFO_s*),strings,0
+004a6dc0,000c259e,__Z14Titles_GetNamePcS_,"Titles_GetName(char*, char*)",strings,0
+004a6f40,000c48f6,__Z14WorldInfo_LoadP11WORLDINFO_s,WorldInfo_Load(WORLDINFO_s*),strings,0
+004a84c0,000c6b7a,__Z28LoadAreaData_DrawAreaVillainP10AREADATA_siffff,"LoadAreaData_DrawAreaVillain(AREADATA_s*, int, float, float, float, float)",strings,0
+004a9310,000c63c0,__Z12LoadAreaDataP12bgprocinfo_s,LoadAreaData(bgprocinfo_s*),strings,0
+004aacb0,000c4818,__Z18Credits_LoadImagesP11WORLDINFO_s,Credits_LoadImages(WORLDINFO_s*),strings,0
+004ab420,000c5e08,__Z11FixUpLevelsv,FixUpLevels(),strings,0
+004b01d0,000cb47c,__Z10Batte_mainiPPc,"Batte_main(int, char**)",strings,0
+004b2710,000d1704,__Z15MenuDrawOptionsP6MENU_s,MenuDrawOptions(MENU_s*),strings,0
+004b4dd0,000cfdfc,__Z15MenuDrawMiniKitP6MENU_s,MenuDrawMiniKit(MENU_s*),strings,0
+004c0cb0,000d5e5e,__Z15StartBallooningP12GameObject_si,"StartBallooning(GameObject_s*, int)",strings,0
+004c83e0,000d9220,__Z19FindForcePushTargetP12GameObject_sii,"FindForcePushTarget(GameObject_s*, int, int)",strings,0
+004cb910,000f0df8,__Z14Move_CHARACTERP12GameObject_s,Move_CHARACTER(GameObject_s*),strings,0
+004ccf20,000db9f4,__Z12PartStop_PooP6PART_s,PartStop_Poo(PART_s*),strings,0
+004ce720,000ec10e,__Z15TractorBeamCodeP12GameObject_s,TractorBeamCode(GameObject_s*),strings,0
+004cfe50,000db47a,__Z17Cheat_SpecialHitsfP7nuvec_s,"Cheat_SpecialHits(float, nuvec_s*)",strings,0
+004e0d90,000f6108,__Z9DrawPanelv,DrawPanel(),strings,0
+004e34b0,000fa63e,__Z12UpdateRadiosv,UpdateRadios(),strings,0
+004e38a0,000fc37a,__Z15SetLevelSfxBitsP11WORLDINFO_s,SetLevelSfxBits(WORLDINFO_s*),strings,0
+004e5e80,00100240,__Z9Shop_InitP11WORLDINFO_s,Shop_Init(WORLDINFO_s*),strings,0
+004e8190,000fe7c2,__Z11BuyShopItemP10LEGOSHOP_sP10shopitem_sii,"BuyShopItem(LEGOSHOP_s*, shopitem_s*, int, int)",strings,0
+004e8430,0010462e,__Z13SelectSubItemP10LEGOSHOP_s,SelectSubItem(LEGOSHOP_s*),strings,0
+004f2bc0,0010b75c,__Z14Sonar_InitBatsP11WORLDINFO_s,Sonar_InitBats(WORLDINFO_s*),strings,0
+004f5440,0010e86a,__Z12LoadPermDataP12bgprocinfo_s,LoadPermData(bgprocinfo_s*),strings,0
+004f5d90,0010d394,__Z13Legal_GetNamePc,Legal_GetName(char*),strings,0
+004f6230,0010d428,__Z9LoadPerm1v,LoadPerm1(),strings,0
+004f73f0,000fc2e8,__ZNK14SecurityCamera13GetClassNameAEv,SecurityCamera::GetClassNameA() const,strings,0
+004f74c0,000ca03c,__ZNK19LightFlickerOverlay13GetClassNameAEv,LightFlickerOverlay::GetClassNameA() const,strings,0
+004f7560,0010dab6,__Z9LoadPerm2v,LoadPerm2(),strings,0
+004f9a60,00110fdc,__Z18Text_DecodeButtonsPcS_,"Text_DecodeButtons(char*, char*)",strings,0
+004f9aa0,00111018,__Z27Text_FillInExtendedSaveInfov,Text_FillInExtendedSaveInfo(),order,1
+004f9ab0,0011101e,__Z16Text_LoadStringsP9variptr_uS0_,"Text_LoadStrings(variptr_u*, variptr_u*)",strings,0
+004f9c20,0011120a,_NuSinApprox,_NuSinApprox,order,1
+004f9d30,0011129c,__Z27PartImpact_ThermalDetonatorP6PART_s,PartImpact_ThermalDetonator(PART_s*),strings,0
+004f9f70,001114a4,__Z27PartUpdate_ThermalDetonatorP6PART_s,PartUpdate_ThermalDetonator(PART_s*),strings,0
+004fafb0,00111882,__Z25ThermalDetonator_ThrowMomP12GameObject_sP7nuvec_s,"ThermalDetonator_ThrowMom(GameObject_s*, nuvec_s*)",strings,0
+004ff6d0,00116914,__Z34Transform_FindFreezeObstacleTargetP11WORLDINFO_sP12GameObject_sPff,"Transform_FindFreezeObstacleTarget(WORLDINFO_s*, GameObject_s*, float*, float)",strings,0
+004ffbf0,00116610,__Z18Transform_DrawBeamP12GameObject_sP7nuvec_s,"Transform_DrawBeam(GameObject_s*, nuvec_s*)",strings,0
+004fff70,00115eaa,__Z20Transform_DrawTargetiiP7nuvec_sff,"Transform_DrawTarget(int, int, nuvec_s*, float, float)",strings,0
+005013a0,00033bf2,__Z20ArkhamAsylum_B_ResetP11WORLDINFO_s,ArkhamAsylum_B_Reset(WORLDINFO_s*),strings,0
+005026f0,0003bbc0,__Z19FortBloxHero_B_InitP11WORLDINFO_s,FortBloxHero_B_Init(WORLDINFO_s*),strings,0
+00503610,0003c576,__Z18StreetsChase_ResetP11WORLDINFO_s,StreetsChase_Reset(WORLDINFO_s*),strings,0
+00503f40,0003cdd6,__Z16Factory_A_UpdateP11WORLDINFO_s,Factory_A_Update(WORLDINFO_s*),strings,0
+00504100,0003cf18,__Z22BotanicGardens_B_ResetP11WORLDINFO_s,BotanicGardens_B_Reset(WORLDINFO_s*),strings,0
+00504850,0003d322,__Z18PartKill_BlackSeedP6PART_si,"PartKill_BlackSeed(PART_s*, int)",strings,0
+00504a40,0003d488,__Z20PartImpact_BlackSeedP6PART_s,PartImpact_BlackSeed(PART_s*),order,1
+00504cf0,0003d6ca,__Z25BotanicGardens_D_FireSeedP12GameObject_s9SEED_TYPE,"BotanicGardens_D_FireSeed(GameObject_s*, SEED_TYPE)",strings,0
+00505750,0003f990,__Z23BotanicVillain_B_UpdateP11WORLDINFO_s,BotanicVillain_B_Update(WORLDINFO_s*),strings,0
+00507d70,000407be,__Z18EvilHarbourC_ResetP11WORLDINFO_s,EvilHarbourC_Reset(WORLDINFO_s*),strings,0
+005088e0,00041304,__Z17NastySewersC_InitP11WORLDINFO_s,NastySewersC_Init(WORLDINFO_s*),strings,0
+0050af50,00043032,__Z17EvilArctic_C_InitP11WORLDINFO_s,EvilArctic_C_Init(WORLDINFO_s*),strings,0
+0050bb30,00042f06,__Z19EvilArctic_C_UpdateP11WORLDINFO_s,EvilArctic_C_Update(WORLDINFO_s*),strings,0
+0050c100,00043ff6,__Z11SlumsB_InitP11WORLDINFO_s,SlumsB_Init(WORLDINFO_s*),strings,0
+0050d450,00045254,__Z13SlumsD_UpdateP11WORLDINFO_s,SlumsD_Update(WORLDINFO_s*),strings,0
+005101b0,00047b1a,__Z18Fairground_C_ResetP11WORLDINFO_s,Fairground_C_Reset(WORLDINFO_s*),strings,0
+00511010,0004831a,__Z12Flight_ResetP11WORLDINFO_s,Flight_Reset(WORLDINFO_s*),strings,0
+00512fe0,000fb3fe,__ZN14SecurityCamera13ActivateLevelEP11WORLDINFO_s,SecurityCamera::ActivateLevel(WORLDINFO_s*),strings,0
+00513430,000fb63a,__ZN14SecurityCamera14InitializePermENS_18SecurityCameraTypeEP9variptr_uS2_,"SecurityCamera::InitializePerm(SecurityCamera::SecurityCameraType, variptr_u*, variptr_u*)",strings,0
+00514bd0,001066a8,__ZN12ShopComputer15InitializeLevelEP11WORLDINFO_s,ShopComputer::InitializeLevel(WORLDINFO_s*),strings,0
+005166a0,0010624c,__ZN12ShopComputer14InitializePermEPcP9variptr_uS2_,"ShopComputer::InitializePerm(char*, variptr_u*, variptr_u*)",strings,0
+00519370,00117740,__ZNK8WorldMap21GetPointerSpecialNameEP11WORLDINFO_si,"WorldMap::GetPointerSpecialName(WORLDINFO_s*, int) const",strings,0
+0051b2b0,001179dc,__ZN8WorldMap15InitializeLevelEP11WORLDINFO_s,WorldMap::InitializeLevel(WORLDINFO_s*),strings,0
+00571f70,001ff55a,_ShadowInfo,_ShadowInfo,calls,1
+00571fe0,001ff5de,_EShadowInfo,_EShadowInfo,calls,1
+00584780,001ed63a,__Z8KillPartP6PART_si,"KillPart(PART_s*, int)",calls,2
+00585fa0,001ed706,__Z7AddPartP9ADDPART_s,AddPart(ADDPART_s*),calls,1
+00597fc0,00254432,_AddGameDebris,_AddGameDebris,calls,1
+005a2dd0,002b29de,__Z19NewRumbleAllPlayersffii,"NewRumbleAllPlayers(float, float, int, int)",calls,1
+005bc570,002c447a,__Z15GizmoFindByNameP10GIZMOSYS_siPc,"GizmoFindByName(GIZMOSYS_s*, int, char*)",calls,1
+005dda30,002cb9c0,__Z22GizmoBlowUp_FindByNameP11WORLDINFO_sPc,"GizmoBlowUp_FindByName(WORLDINFO_s*, char*)",calls,1
+00610360,00092dbc,__Z22Action_CreateCreaturesP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CreateCreatures(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+006633c0,002c259e,__Z17CheckGizAIMessageP17GIZAIMESSAGESYS_sPKcP14GIZAIMESSAGE_s,"CheckGizAIMessage(GIZAIMESSAGESYS_s*, char const*, GIZAIMESSAGE_s*)",calls,1
+00684a60,001aaa24,_NuVecRotateY,_NuVecRotateY,calls,2
+00684c10,0019cf98,_NuVecSub,_NuVecSub,calls,1
+00684c40,0019cfd0,_NuVecScale,_NuVecScale,calls,1
+00684df0,0019d166,_NuVecDot,_NuVecDot,calls,1
+00684f80,001a6a5c,_NuVecNorm,_NuVecNorm,calls,1
+00685690,0019dabc,_NuMtxSetTranslation,_NuMtxSetTranslation,calls,1
+0068b530,001a9304,_NuRandFloat,_NuRandFloat,calls,1
+006903d0,001a67bc,_NuVecMag,_NuVecMag,calls,1
+006a3380,00235f80,_AIParamToFloat,_AIParamToFloat,calls,1
+006a34d0,00235e6c,_AIParamToFloatEx,_AIParamToFloatEx,calls,1
+006a9ac0,00236198,_AIPathFindLocator,_AIPathFindLocator,calls,1
+006ba190,00079e34,__Z18Action_RespawnableP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_Respawnable(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+006d7670,0018703e,_NuStrLen,_NuStrLen,calls,1
+006dc300,0018bea6,_NuStrIStr,_NuStrIStr,calls,1
+00727f20,0012c0fe,_NuMtlSetCurrentRenderPlane,_NuMtlSetCurrentRenderPlane,calls,1
+00732510,0015dcfc,_NuGScnRead,_NuGScnRead,calls,1
+007a2310,00047d3c,__Z17EvilSlums_D_ResetP11WORLDINFO_s,EvilSlums_D_Reset(WORLDINFO_s*),strings,0
