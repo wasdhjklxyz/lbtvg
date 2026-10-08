@@ -1,0 +1,187 @@
+// nu2api/nu3d/nuspecial_unk.cpp: NuSpecial* handle API, between the
+// nuanim_gen.cpp (0x0070b350) and nutexanm_gen.cpp (0x00711580) anchors.
+
+#include "nuspecial.h"
+
+int NuStrICmp(const char *a, const char *b);
+float NuVecMag(nuvec_s *v);
+// Instance-scene search; name unknown.
+int NuSpecialFindUnk0070eda0(nugscn_s *scene, nuhspecial_s *out, char *name,
+                             int flag);
+
+// FUNCTION: LEGOBATMAN 0x0070ee40
+int NuSpecialFind(nugscn_s *scene, nuhspecial_s *out, char *name) {
+  int i;
+  nuspecial_s *sp;
+  if (!scene || !name) {
+    out->scene = 0;
+    out->special = 0;
+    out->display_special = 0;
+    return 0;
+  }
+  if (scene->display_list)
+    return NuSpecialFindUnk0070eda0(scene, out, name, 1);
+  sp = scene->specials;
+  for (i = 0; i < scene->numspecial; i++, sp++) {
+    if (NuStrICmp(name, sp->name) == 0) {
+      out->scene = scene;
+      out->special = sp;
+      out->display_special = 0;
+      return 1;
+    }
+  }
+  out->scene = 0;
+  out->special = 0;
+  out->display_special = 0;
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070f250
+nuvec_s *NuSpecialGetPos(nuhspecial_s *sp) {
+  if (sp->display_special)
+    return (nuvec_s *)&sp->display_special->instance_mtx.m30;
+  if (sp->special)
+    return &sp->special->pos;
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070f270
+nuvec_s *NuSpecialGetDrawPos(nuhspecial_s *sp) {
+  nuinstance_s *info;
+  nuinstanim_s *anim;
+  if (sp->display_special) {
+    anim = sp->display_special->instance_animation;
+    if (anim != (nuinstanim_s *)-1 && anim)
+      return (nuvec_s *)&anim->mtx.m30;
+    return (nuvec_s *)&sp->display_special->draw_mtx.m30;
+  }
+  if (sp->special) {
+    info = sp->special->instance;
+    if (info->animation)
+      return (nuvec_s *)&info->animation->mtx.m30;
+    return (nuvec_s *)&info->mtx.m30;
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070f3a0
+int NuSpecialExistsFn(nuhspecial_s *sp) {
+  if (sp && (sp->special || sp->display_special))
+    return 1;
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070f5d0
+void NuSpecialSetCollision(nuhspecial_s *sp, int on) {
+  if (sp && sp->scene) {
+    if (sp->special) {
+      if (on)
+        sp->special->flags |= 0x200;
+      else
+        sp->special->flags &= ~0x200;
+    } else if (sp->display_special) {
+      if (on)
+        sp->display_special->flags |= 0x200;
+      else
+        sp->display_special->flags &= ~0x200;
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x0070f630
+int NuSpecialGetCollision(nuhspecial_s *sp) {
+  if (sp && sp->scene) {
+    if (sp->special)
+      return sp->special->flags & 0x200;
+    if (sp->display_special)
+      return sp->display_special->flags & 0x200;
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070f670
+int NuSpecialGetVisibilityFn(nuhspecial_s *sp) {
+  if (sp->scene) {
+    if (sp->special)
+      return sp->special->instance->flags & 1;
+    if (sp->display_special)
+      return (sp->display_special->flags >> 1) & 1;
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070fb20
+void NuSpecialGetRadius(nuhspecial_s *sp, nuvec_s *center, float *radius) {
+  nuvec_s *c;
+  if (sp->special) {
+    *radius = sp->scene->objects[sp->special->instance->object_index]->radius;
+    c = &sp->scene->objects[sp->special->instance->object_index]->center;
+    *center = *c;
+  } else {
+    c = &sp->display_special->center;
+    *center = *c;
+    *radius = sp->display_special->radius;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x0070fba0
+float NuSpecialGetOriginRadius(nuhspecial_s *sp) {
+  if (sp->special)
+    return sp->scene->objects[sp->special->instance->object_index]
+        ->origin_radius;
+  return NuVecMag(&sp->display_special->center) + sp->display_special->radius;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070fbf0
+numtx_s *NuSpecialGetDrawMtx(nuhspecial_s *sp) {
+  nuinstanim_s *anim;
+  if (sp->special) {
+    anim = sp->special->instance->animation;
+    if (anim)
+      return &anim->mtx;
+    return &sp->special->instance->mtx;
+  }
+  if (sp->display_special) {
+    anim = sp->display_special->instance_animation;
+    if (anim != (nuinstanim_s *)-1 && anim)
+      return &anim->mtx;
+    return &sp->display_special->draw_mtx;
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070fce0
+nuinstanim_s *NuSpecialGetInstAnim(nuhspecial_s *sp) {
+  nuinstanim_s *anim;
+  if (sp->special)
+    return sp->special->instance->animation;
+  if (sp->display_special) {
+    anim = sp->display_special->instance_animation;
+    if (anim != (nuinstanim_s *)-1 && anim)
+      return anim;
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070fd10
+int NuSpecialCompare(nuhspecial_s *a, nuhspecial_s *b) {
+  if (a->special && a->special == b->special)
+    return 1;
+  if (a->display_special && a->display_special == b->display_special)
+    return 1;
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070ffe0
+nugspline_s *NuSplineFind(nugscn_s *scene, char *name) {
+  int i;
+  nugspline_s *s;
+  if (scene) {
+    s = scene->splines;
+    for (i = 0; i < scene->numsplines; i++, s++) {
+      if (NuStrICmp(name, s->name) == 0)
+        return s;
+    }
+  }
+  return 0;
+}
