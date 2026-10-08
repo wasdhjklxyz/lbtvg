@@ -4,3 +4,4 @@ orig/*.exe
 /ghidra/
 .venv/
 /toolchain/
+/build/

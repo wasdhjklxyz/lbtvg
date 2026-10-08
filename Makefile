@@ -33,6 +33,18 @@ all: verify
 verify:
 	$(SHA1SUM) -c $(ORIG)/checksum.sha1
 
+# compile every annotated function in src/ and diff it against orig/ (FUNC=0x... for one)
+match:
+	tools/match.py $(FUNC)
+
+# same, verbose: side-by-side disassembly even for matches
+match-v:
+	tools/match.py -v $(FUNC)
+
+# regenerate docs/linkmap.md (which source file owns which address range)
+linkmap:
+	tools/linkmap.py > docs/linkmap.md
+
 # fetch + verify the VC8 SP1 compiler into $(TOOLCHAIN)/ (override: LBTVG_TOOLCHAIN)
 vc8:
 	LBTVG_TOOLCHAIN=$(abspath $(TOOLCHAIN)) tools/vc8.sh
@@ -79,4 +91,4 @@ fid-apply: ghidra-check
 		-preScript ApplyFid.java $(FIDB) \
 		-postScript DumpStats.java $(STATS)
 
-.PHONY: all verify vc8 ghidra-import ghidra ghidra-check fid fid-import fid-build fid-apply
+.PHONY: all verify match match-v linkmap vc8 ghidra-import ghidra ghidra-check fid fid-import fid-build fid-apply
