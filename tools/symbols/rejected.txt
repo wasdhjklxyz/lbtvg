@@ -1,0 +1,10 @@
+# PC addresses whose Mac name pairing was checked by hand and found wrong.
+# tools/macnames.py drops these pairs. One per line: address, reason.
+00684240 float-radian sine polynomial, not NuVecCross
+00684360 SSE NuVec4 family, not the x87 NuVec name paired to it
+00684380 SSE NuVec4 family
+006843c0 SSE NuVec4 family
+00684400 SSE NuVec4 family
+00684430 SSE NuVec4 family
+004a6f40 162 B static building levels\titles\titles_<lang>, not WorldInfo_Load (3.8 KB on Mac)
+004aac20 112 B static building demo_<lang>, not ResetStatusScreen

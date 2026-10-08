@@ -114,3 +114,18 @@ enough matched code for the percentage to mean something.
 - **Static functions can get custom register conventions** even without
   `/GL` (arguments in `esi`/`edi`). They only exist if a caller in the same
   TU references them; match the caller and the static together.
+- **Parentheses around a product are visible**: `x + (x3 * -c)` keeps `faddp`
+  with a negative constant; `x + x3 * -c` becomes `fsubp` with a positive one.
+- **Comparison spelling matters even against zero**: `d < 0.0f` compares
+  through `fcomp [mem]`; `0.0f > d` loads a qword 0.0 and compares differently.
+  `?:` and if/else differ too (the ternary shares the final `ret`).
+- **`test byte [x+1], 4` on a flags word** means the source tested a byte (or
+  bitfield), not `u32 & 0x400`.
+- **`mov eax, 1; cmp [local], eax`** (the constant parked in the return
+  register) comes from wrapping the body in `if (flags) { ... } return 1;`; an
+  early `if (!flags) return 1;` gives `cmp [local], 1`.
+- **Dead parameter home slots get reused for locals**, and which local lands
+  there is not declaration order.
+- **Two calls in if/else with different string arguments tail-merge** into
+  one call with the shared trailing arguments pushed before the branch; a
+  `c ? "A" : "B"` argument instead gives `mov eax, str` in each arm.

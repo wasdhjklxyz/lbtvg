@@ -140,10 +140,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004a5ac0,000c1022,__Z9Tag_CheckP12GameObject_s,Tag_Check(GameObject_s*),strings,0
 004a6c60,000c57ee,__Z17Credits_Init_GameP11WORLDINFO_s,Credits_Init_Game(WORLDINFO_s*),strings,0
 004a6dc0,000c259e,__Z14Titles_GetNamePcS_,"Titles_GetName(char*, char*)",strings,0
-004a6f40,000c48f6,__Z14WorldInfo_LoadP11WORLDINFO_s,WorldInfo_Load(WORLDINFO_s*),strings,0
 004a84c0,000c6b7a,__Z28LoadAreaData_DrawAreaVillainP10AREADATA_siffff,"LoadAreaData_DrawAreaVillain(AREADATA_s*, int, float, float, float, float)",strings,0
 004a9310,000c63c0,__Z12LoadAreaDataP12bgprocinfo_s,LoadAreaData(bgprocinfo_s*),strings,0
-004aac20,000c5d1e,__Z17ResetStatusScreenP11WORLDINFO_s,ResetStatusScreen(WORLDINFO_s*),strings,0
 004aacb0,000c4818,__Z18Credits_LoadImagesP11WORLDINFO_s,Credits_LoadImages(WORLDINFO_s*),strings,0
 004ab420,000c5e08,__Z11FixUpLevelsv,FixUpLevels(),strings,0
 004b01d0,000cb47c,__Z10Batte_mainiPPc,"Batte_main(int, char**)",strings,0

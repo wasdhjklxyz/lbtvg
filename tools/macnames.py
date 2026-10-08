@@ -259,6 +259,9 @@ def main():
                 if a in pairs:
                     total += 1; agree += pairs[a][0] == b
     print(f"callee consistency: {agree}/{total}", file=sys.stderr)
+    rejected = {int(l.split()[0], 16) for l in open(ROOT / "tools/symbols/rejected.txt") if l.strip() and not l.startswith("#")}
+    for a in rejected:
+        pairs.pop(a, None)
     names = demangle([mac_by_addr[ma][1] for ma, _, _ in pairs.values()])
     with open(OUT, "w", newline="") as f:
         w = csv.writer(f); w.writerow(["pc_addr", "mac_addr", "mac_name", "demangled", "method", "round"])
