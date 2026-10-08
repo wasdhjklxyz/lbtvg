@@ -5,3 +5,5 @@ orig/*.exe
 .venv/
 /toolchain/
 /build/
+/orig/donors/
+/ref/

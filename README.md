@@ -13,3 +13,4 @@ matched yet. Start at `docs/setup.md`.
 - `docs/linkmap.md` — which source file owns which address range (generated).
 - `docs/recon.md` — what the binary is, which compiler built it, scope numbers.
 - `docs/plan.md` — how the decomp is approached and what "done" means.
+- `docs/credits.md` — symbol donors, sister decomps, docs and tools this leans on.
