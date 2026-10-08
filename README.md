@@ -8,6 +8,8 @@ Status: recon done, environment, compiler and ghidra project set up, no code
 matched yet. Start at `docs/setup.md`.
 
 - `docs/setup.md` — dependencies and environment, nix or manual.
+- `docs/workflow.md` — how one function goes from `FUN_` to matched.
 - `docs/toolchain.md` — compiler, compare loop, running the game on Linux.
+- `docs/linkmap.md` — which source file owns which address range (generated).
 - `docs/recon.md` — what the binary is, which compiler built it, scope numbers.
 - `docs/plan.md` — how the decomp is approached and what "done" means.

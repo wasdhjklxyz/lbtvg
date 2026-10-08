@@ -53,6 +53,7 @@ make vc8           # 1.2 GB from microsoft.com -> toolchain/{dist,vc8,winsdk6} (
 make ghidra-import # headless import + analysis into ghidra/ (≈30–60 min)
 make fid           # VC8 CRT -> ghidra/vc8.fidb -> CRT named in the game
 make ghidra        # open the GUI
+make match         # compile src/ and diff every annotated function against orig/
 make ghidra-import EXE=orig/LEGOBatmanDemo.exe   # optional: the demo as a 2nd program
 ```
 

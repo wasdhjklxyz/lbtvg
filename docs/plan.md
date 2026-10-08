@@ -15,13 +15,13 @@ environment.
 - Import table lists external libs. Statically linked libs get identified
   via Ghidra FunctionID (or IDA FLIRT) and excluded from the work.
 
-## toolchain and compare harness (next)
+## toolchain and compare harness (done)
 
-Get the matching `cl.exe`, run it on Linux (wibo or wine), and prove the loop
-works on one trivial function: write C++ → compile → diff against the
-original bytes → match. `objdiff` + the Ghidra delinker for per-function
-diffs; `reccmp` later for whole-binary percentages. https://decomp.me for
-scratch-matching single functions (it has `msvc8.0p`).
+The matching `cl.exe` runs on Linux under wibo (`make vc8`), and
+`make match` compiles every annotated function and diffs its bytes against
+the original (`docs/workflow.md`). `objdiff` + the Ghidra delinker remain
+available for object-level diffs; `reccmp` later for whole-binary
+percentages. https://decomp.me has `msvc8.0p` for scratch-matching.
 
 ## where to start in the binary
 
