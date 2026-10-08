@@ -49,7 +49,7 @@ import reads it; nothing writes it.
 ```
 nix develop        # flake.nix + flake.lock pin every version in the table
 make verify
-make vc8           # 1.2 GB from microsoft.com -> ~/.local/share/lbtvg/{vc8,winsdk6}
+make vc8           # 1.2 GB from microsoft.com -> toolchain/{dist,vc8,winsdk6} (gitignored)
 make ghidra-import # headless import + analysis into ghidra/ (≈30–60 min)
 make fid           # VC8 CRT -> ghidra/vc8.fidb -> CRT named in the game
 make ghidra        # open the GUI
@@ -57,8 +57,10 @@ make ghidra-import EXE=orig/LEGOBatmanDemo.exe   # optional: the demo as a 2nd p
 ```
 
 The devshell exports `ANALYZE_HEADLESS` and `GHIDRA_RUN` (nix wraps ghidra
-in exec shims, so there is no stock install dir), and `VC8` / `WINSDK6`
-pointing at the compiler. Extensions are already installed; you still do the
+in exec shims, so there is no stock install dir), and `LBTVG_TOOLCHAIN`,
+`VC8`, `WINSDK6` pointing at the compiler. Everything fetched lives inside
+the repo under gitignored dirs (`toolchain/`, `ghidra/`); set
+`LBTVG_TOOLCHAIN` before `nix develop` to keep the compiler elsewhere. Extensions are already installed; you still do the
 one-time GUI plugin enabling below.
 
 ## path B: manual

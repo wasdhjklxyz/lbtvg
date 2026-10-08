@@ -14,12 +14,14 @@
 # Needs: curl, 7z (p7zip), msiextract (msitools), cabextract, sha1sum,
 # sha256sum. All in the nix devshell.
 #
-# Result:
+# Result (default: <repo>/toolchain, gitignored; override with LBTVG_TOOLCHAIN):
+#   $PREFIX/dist/     the ISO, kept so re-runs do not re-download
 #   $PREFIX/vc8/      Bin/ INCLUDE/ LIB/   (VC compiler, CRT headers + libs)
 #   $PREFIX/winsdk6/  Include/ Lib/        (Win32 headers + import libs)
 set -euo pipefail
 
-PREFIX=${LBTVG_PREFIX:-$HOME/.local/share/lbtvg}
+HERE=$(cd "$(dirname "$0")" && pwd)
+PREFIX=${LBTVG_TOOLCHAIN:-$(cd "$HERE/.." && pwd)/toolchain}
 ISO_NAME=6.1.6000.16384.10.WindowsSDK_Vista_Feb2007Update_rtm.DVD.Rel.iso
 ISO_URL="https://download.microsoft.com/download/4/2/6/42684501-9ec5-43dd-9dfe-c8c9dfa6a66f/$ISO_NAME"
 ISO_SHA1=5d28463daaa755450d697c850dd622d1f8b580ae
@@ -27,7 +29,6 @@ CRT_CAB=Setup/WinSDK-WinSDK_BIN_VC8_Runtime_X86_CRT-common.0.cab
 CRT_ID=98CB24AD_52FB_DB5F_FF1F_C8B3B9A1E18E
 WINEDLL_URL=https://github.com/encounter/winedll/releases/download/2026-07-10/msvcr80.dll
 WINEDLL_SHA256=0cb555399211443705cb5d5229029253954ba0062e10ce42d5d5028792d4c18e
-HERE=$(cd "$(dirname "$0")" && pwd)
 
 mkdir -p "$PREFIX/dist"
 iso="$PREFIX/dist/$ISO_NAME"

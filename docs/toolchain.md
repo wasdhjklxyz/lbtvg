@@ -20,12 +20,12 @@ same ISO carries the SP1 CRT DLLs and the Win32 headers/import libs.
 make vc8            # tools/vc8.sh: download (1.2 GB), verify, extract, verify, smoke-test
 ```
 
-It produces, outside the repo:
+It produces, in `toolchain/` (gitignored; `LBTVG_TOOLCHAIN=/elsewhere` to move it):
 
 ```
-~/.local/share/lbtvg/vc8/      Bin/ (cl, c1, c1xx, c2, link, lib, ml, mspdb80 ...)
-                               INCLUDE/ LIB/ (CRT headers, libcmt/libcpmt)
-~/.local/share/lbtvg/winsdk6/  Include/ Lib/ (windows.h, kernel32.lib, d3d9.h ...)
+toolchain/vc8/      Bin/ (cl, c1, c1xx, c2, link, lib, ml, mspdb80 ...)
+                    INCLUDE/ LIB/ (CRT headers, libcmt/libcpmt)
+toolchain/winsdk6/  Include/ Lib/ (windows.h, kernel32.lib, d3d9.h ...)
 ```
 
 Every load-bearing binary is pinned in `tools/compiler.sha256`, so two

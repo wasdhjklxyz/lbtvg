@@ -16,8 +16,10 @@ SCRIPTS          := tools/ghidra
 STATS             = $(GHIDRA_PROJ)/$(notdir $(EXE)).stats.tsv
 
 # --- compiler (tools/vc8.sh) -------------------------------------------------
-VC8     ?= $(HOME)/.local/share/lbtvg/vc8
-VC8_VER := 8.0.50727.762
+TOOLCHAIN ?= toolchain
+VC8       ?= $(TOOLCHAIN)/vc8
+WINSDK6   ?= $(TOOLCHAIN)/winsdk6
+VC8_VER   := 8.0.50727.762
 
 # --- Function ID -------------------------------------------------------------
 FID_DIR := /fid/vc8/$(VC8_VER)/mt
@@ -31,9 +33,9 @@ all: verify
 verify:
 	$(SHA1SUM) -c $(ORIG)/checksum.sha1
 
-# fetch + verify the VC8 SP1 compiler into $(VC8)
+# fetch + verify the VC8 SP1 compiler into $(TOOLCHAIN)/ (override: LBTVG_TOOLCHAIN)
 vc8:
-	tools/vc8.sh
+	LBTVG_TOOLCHAIN=$(abspath $(TOOLCHAIN)) tools/vc8.sh
 
 # --- ghidra ------------------------------------------------------------------
 # import + auto-analyze $(EXE) into the project (read-only on the exe).

@@ -76,10 +76,12 @@
               GHIDRA_RUN = "ghidra";
             };
 
-            # where tools/vc8.sh puts the compiler; override by exporting before nix develop
+            # where tools/vc8.sh puts the compiler (repo-local, gitignored);
+            # export LBTVG_TOOLCHAIN before nix develop to keep it elsewhere
             shellHook = ''
-              export VC8="''${VC8:-$HOME/.local/share/lbtvg/vc8}"
-              export WINSDK6="''${WINSDK6:-$HOME/.local/share/lbtvg/winsdk6}"
+              export LBTVG_TOOLCHAIN="''${LBTVG_TOOLCHAIN:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)/toolchain}"
+              export VC8="$LBTVG_TOOLCHAIN/vc8"
+              export WINSDK6="$LBTVG_TOOLCHAIN/winsdk6"
             '';
           };
         }

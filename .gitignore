@@ -3,3 +3,4 @@ demo
 orig/*.exe
 /ghidra/
 .venv/
+/toolchain/
