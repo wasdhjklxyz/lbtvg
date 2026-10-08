@@ -26,7 +26,6 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0043ebf0,0006827c,__Z12ObjHitShieldP12GameObject_sS0_iP6BOLT_s,"ObjHitShield(GameObject_s*, GameObject_s*, int, BOLT_s*)",strings,0
 0043ee70,00069182,__Z9ObjHitObjP12GameObject_sS0_iiii,"ObjHitObj(GameObject_s*, GameObject_s*, int, int, int, int)",strings,0
 00440960,0006a952,__Z15Collide2ObjectsP11APIOBJECT_sS0_,"Collide2Objects(APIOBJECT_s*, APIOBJECT_s*)",order,1
-00440fd0,0006af4e,__Z16InstantKillPartsP12GameObject_sif,"InstantKillParts(GameObject_s*, int, float)",order,1
 00441740,0006afe8,__Z17UpdateGameObjectsP11WORLDINFO_s,UpdateGameObjects(WORLDINFO_s*),strings,0
 00447370,0006f4ea,__Z22GameAIActionParseSpeedPcPh,"GameAIActionParseSpeed(char*, unsigned char*)",strings,0
 00447560,0006f664,__Z17GetNamedAPIObjectP7AISYS_sPc,"GetNamedAPIObject(AISYS_s*, char*)",strings,0
@@ -109,7 +108,6 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00477ab0,0008a3c4,__Z21Action_CycleCharacterP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CycleCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 00478330,0009a500,__Z16Status_SceneNameP11WORLDINFO_sPc,"Status_SceneName(WORLDINFO_s*, char*)",strings,0
 00478f40,0009a930,__Z15TrueHero_UpdateP14STATUS_STAGE_sP14STATUSPACKET_sf,"TrueHero_Update(STATUS_STAGE_s*, STATUSPACKET_s*, float)",strings,0
-00479990,0009b066,__Z12MiniKit_SkipP14STATUS_STAGE_sP14STATUSPACKET_s,"MiniKit_Skip(STATUS_STAGE_s*, STATUSPACKET_s*)",order,1
 0047a6c0,0009b110,__Z14MiniKit_UpdateP14STATUS_STAGE_sP14STATUSPACKET_sf,"MiniKit_Update(STATUS_STAGE_s*, STATUSPACKET_s*, float)",strings,0
 00481070,0009de16,__Z16BonusTime_UpdateP14STATUS_STAGE_sP14STATUSPACKET_sf,"BonusTime_Update(STATUS_STAGE_s*, STATUSPACKET_s*, float)",strings,0
 00482510,000a27f2,__Z22GizAction_ActivateCharP9GIZFLOW_sP9FLOWBOX_sPPci,"GizAction_ActivateChar(GIZFLOW_s*, FLOWBOX_s*, char**, int)",strings,0
@@ -154,7 +152,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004b7d20,000d3272,_NuSinApprox,_NuSinApprox,gapfill,2
 004b8100,000ed6fa,_VuMtxRotateY,_VuMtxRotateY,gapfill,2
 004c0cb0,000d5e5e,__Z15StartBallooningP12GameObject_si,"StartBallooning(GameObject_s*, int)",strings,0
-004c70e0,000d8fac,__Z18DrawLightningBoltsP12GameObject_sS0_i,"DrawLightningBolts(GameObject_s*, GameObject_s*, int)",gapfill,3
+004c70e0,000d8fac,__Z18DrawLightningBoltsP12GameObject_sS0_i,"DrawLightningBolts(GameObject_s*, GameObject_s*, int)",gapfill,5
 004c7390,000eea68,__Z13ForcePushCodeP12GameObject_sii,"ForcePushCode(GameObject_s*, int, int)",strings,0
 004c83e0,000d9220,__Z19FindForcePushTargetP12GameObject_sii,"FindForcePushTarget(GameObject_s*, int, int)",strings,0
 004cb910,000f0df8,__Z14Move_CHARACTERP12GameObject_s,Move_CHARACTER(GameObject_s*),strings,0
@@ -179,7 +177,6 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004f74c0,000ca03c,__ZNK19LightFlickerOverlay13GetClassNameAEv,LightFlickerOverlay::GetClassNameA() const,strings,0
 004f7560,0010dab6,__Z9LoadPerm2v,LoadPerm2(),strings,0
 004f9a60,00110fdc,__Z18Text_DecodeButtonsPcS_,"Text_DecodeButtons(char*, char*)",strings,0
-004f9aa0,00111018,__Z27Text_FillInExtendedSaveInfov,Text_FillInExtendedSaveInfo(),order,1
 004f9ab0,0011101e,__Z16Text_LoadStringsP9variptr_uS0_,"Text_LoadStrings(variptr_u*, variptr_u*)",strings,0
 004f9c20,0011120a,_NuSinApprox,_NuSinApprox,order,1
 004f9d30,0011129c,__Z27PartImpact_ThermalDetonatorP6PART_s,PartImpact_ThermalDetonator(PART_s*),strings,0
@@ -214,12 +211,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00515150,001067fe,__ZN12ShopComputer17IsAnyMenuChangingEv,ShopComputer::IsAnyMenuChanging(),strings,0
 005166a0,0010624c,__ZN12ShopComputer14InitializePermEPcP9variptr_uS2_,"ShopComputer::InitializePerm(char*, variptr_u*, variptr_u*)",strings,0
 00519370,00117740,__ZNK8WorldMap21GetPointerSpecialNameEP11WORLDINFO_si,"WorldMap::GetPointerSpecialName(WORLDINFO_s*, int) const",strings,0
-005193e0,001177ac,__Z26GetLineEllipseIntersectionRK5VuVecf,"GetLineEllipseIntersection(VuVec const&, float)",order,1
 00519f60,0011785e,__ZN8WorldMap18RenderTrueHeroInfoERK5VuVeciif,"WorldMap::RenderTrueHeroInfo(VuVec const&, int, int, float)",order,1
 0051a0e0,00117920,__ZN8WorldMap18RenderRedBrickInfoERK5VuVecif,"WorldMap::RenderRedBrickInfo(VuVec const&, int, float)",order,1
-0051ab80,00117bf8,__ZN8WorldMap13ActivateLevelEP11WORLDINFO_s,WorldMap::ActivateLevel(WORLDINFO_s*),order,1
 0051ad50,00117c28,__ZN8WorldMap9DumpLevelEP11WORLDINFO_s,WorldMap::DumpLevel(WORLDINFO_s*),order,1
-0051af00,00117d1c,__ZNK8WorldMap15IsBeaconVisibleEi,WorldMap::IsBeaconVisible(int) const,order,1
 0051b0e0,00117d5c,__ZN8WorldMap14InitializePermEPcP9variptr_uS2_,"WorldMap::InitializePerm(char*, variptr_u*, variptr_u*)",strings,0
 0051b2b0,001179dc,__ZN8WorldMap15InitializeLevelEP11WORLDINFO_s,WorldMap::InitializeLevel(WORLDINFO_s*),strings,0
 0051cda0,001d7bda,__ZN15InputRemapClass19DebugGenMappingTextEPcP19KNOWNJOYPADMAPPINGS,"InputRemapClass::DebugGenMappingText(char*, KNOWNJOYPADMAPPINGS*)",strings,0
@@ -260,7 +254,6 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005354c0,001b27ea,_NuSoundPlay3dLoopSfx,_NuSoundPlay3dLoopSfx,gapfill,2
 00535b60,001b169c,_NuSoundAddRumble,_NuSoundAddRumble,calls,3
 00535c10,001b1700,_NuSoundStopStereo,_NuSoundStopStereo,strings,0
-00537510,001add6e,__ZN7NuMusic14SetClassVolumeEjf,"NuMusic::SetClassVolume(unsigned int, float)",gapfill,3
 005375d0,001ae210,__ZN7NuMusic5DebugEii,"NuMusic::Debug(int, int)",strings,0
 0053afc0,001b2cc4,__ZN9OggReader4OpenEP10nudathdr_sPcPN7MacDoze13tWAVEFORMATEXE,"OggReader::Open(nudathdr_s*, char*, MacDoze::tWAVEFORMATEX*)",strings,0
 00558d90,0020edaa,_GetSfxId,_GetSfxId,calls,1
@@ -317,38 +310,17 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00597e10,0025422e,_FindGameDebris,_FindGameDebris,gapfill,1
 00597e60,00254280,_InitGameDebris,_InitGameDebris,order,2
 00597fc0,00254432,_AddGameDebris,_AddGameDebris,calls,1
-0059a080,00254de4,_APIDumpCharacterModels,_APIDumpCharacterModels,gapfill,4
 0059a0d0,00254e3c,_FindAnimIX,_FindAnimIX,gapfill,1
 0059a110,00254e82,_AnimDuration,_AnimDuration,gapfill,3
 0059a730,00255510,_ResetAnimPacket,_ResetAnimPacket,gapfill,2
-0059a770,00255552,_ResetMiniAnimPacket,_ResetMiniAnimPacket,order,3
-0059a7a0,00255582,_SetMiniAnimTimeRandom,_SetMiniAnimTimeRandom,order,3
-0059a7f0,0025560e,_SetAnimTimeRandom,_SetAnimTimeRandom,order,3
-0059a890,0025569a,_GetAnimTimeRandom,_GetAnimTimeRandom,order,3
-0059ab00,0025570e,__Z15UpdateAnimTimerP16CHARACTERMODEL_sP12ANIMPACKET_ssfffiPcif,"UpdateAnimTimer(CHARACTERMODEL_s*, ANIMPACKET_s*, short, float, float, float, int, char*, int, float)",order,3
-0059b220,002558c0,_AnimPacket_MiniToFull,_AnimPacket_MiniToFull,order,3
-0059b2a0,00255936,_AnimPacket_FullToMini,_AnimPacket_FullToMini,order,3
-0059b310,0025599a,_AnimBlendingFromTo,_AnimBlendingFromTo,order,3
-0059b370,00255a06,_AnimPlaying,_AnimPlaying,order,3
-0059b3c0,00255a50,_AnimPlayingHasFlags,_AnimPlayingHasFlags,order,3
-0059b480,00255ac8,_CurrentAnim,_CurrentAnim,order,3
-0059b4a0,00255ae0,_AnimSpeedXZ,_AnimSpeedXZ,order,3
-0059b540,00255b76,_AnimSpeedX,_AnimSpeedX,order,3
-0059b570,00255ba6,_AnimSpeedZ,_AnimSpeedZ,order,3
-0059b5b0,00255bd6,_AnimListFrame,_AnimListFrame,order,3
-0059b5e0,00255c3c,_AnimStopFrame,_AnimStopFrame,order,3
-0059b640,00255c80,_AnimListFrameArray,_AnimListFrameArray,order,3
-0059b710,00255cc4,_AnimsAvailableToBothCharacters,_AnimsAvailableToBothCharacters,order,3
-0059b860,00255d9c,_APITransparentInit,_APITransparentInit,order,3
-0059b990,00255ef4,_APITransparentCharDraw,_APITransparentCharDraw,order,3
-0059c3d0,00256062,_InModelList,_InModelList,calls,2
+0059b3c0,00255a06,_AnimPlaying,_AnimPlaying,gapfill,6
+0059b480,00255ac8,_CurrentAnim,_CurrentAnim,calls,5
+0059b540,00255ba6,_AnimSpeedZ,_AnimSpeedZ,gapfill,3
 0059c4b0,0025615a,_ActionFromName,_ActionFromName,gapfill,1
 0059c530,002561e8,_ParseAnimStance,_ParseAnimStance,order,2
 0059c5a0,00256266,_ConfigureCharacterList,_ConfigureCharacterList,strings,0
 0059d770,00341818,__Z13Text_LoadFontPcP9variptr_uS1_,"Text_LoadFont(char*, variptr_u*, variptr_u*)",strings,0
-0059d7b0,00341896,__Z17Text_IsFontLoadedv,Text_IsFontLoaded(),order,1
 0059d7c0,003418a8,__Z20Text_InitStringTableiP9variptr_uS0_,"Text_InitStringTable(int, variptr_u*, variptr_u*)",order,1
-0059d840,00341946,__Z25Text_GetMaxOverallStringsv,Text_GetMaxOverallStrings(),order,1
 0059d850,00341958,__Z27Text_PlatformSpecificIgnoreP8nufpar_s,Text_PlatformSpecificIgnore(nufpar_s*),order,1
 0059d900,00341a36,__Z24Text_LoadAndFixUpStringsPhPS_PPci,"Text_LoadAndFixUpStrings(unsigned char*, unsigned char**, char**, int)",order,1
 0059db20,00341c56,__Z14Text_InitTableP9TEXTENTRYii,"Text_InitTable(TEXTENTRY*, int, int)",order,1
@@ -359,18 +331,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0059f190,002674b4,__Z15GameAudio_Resetv,GameAudio_Reset(),order,2
 0059f1d0,00267502,__Z21GameAudio_PlaySfxByIdiP7nuvec_sii,"GameAudio_PlaySfxById(int, nuvec_s*, int, int)",order,2
 0059f260,002675aa,__Z17GameAudio_PlaySfxiP7nuvec_sii,"GameAudio_PlaySfx(int, nuvec_s*, int, int)",gapfill,1
-0059f280,002675ec,__Z29GameAudio_PlaySfxAndSetVolumeiP7nuvec_sf,"GameAudio_PlaySfxAndSetVolume(int, nuvec_s*, float)",order,3
-0059f2b0,0026761a,__Z18GameAudio_GetSfxIdi,GameAudio_GetSfxId(int),order,3
-0059f2d0,00267640,__Z29GameAudio_SetActionMusicTimesff,"GameAudio_SetActionMusicTimes(float, float)",order,3
-0059f340,0026765e,__Z18legoSetMusicVolumef,legoSetMusicVolume(float),order,3
-0059f380,0026768e,__Z16legoSetCutVolumef,legoSetCutVolume(float),order,3
-0059f3c0,002676be,__Z18GameGetMusicVolumeP13OPTIONSSAVE_s,GameGetMusicVolume(OPTIONSSAVE_s*),order,3
-0059f430,002676fc,__Z11ResetLevSfxP11WORLDINFO_s,ResetLevSfx(WORLDINFO_s*),order,3
-0059f4b0,00267724,__Z9AddLevSfxP11WORLDINFO_sP7nuvec_sPci,"AddLevSfx(WORLDINFO_s*, nuvec_s*, char*, int)",order,3
-0059f4e0,00267822,__Z10ChatterSfxP12GameObject_sif,"ChatterSfx(GameObject_s*, int, float)",order,3
-0059f5c0,002678fe,__Z13LevChatterSfxPcP7nuvec_s,"LevChatterSfx(char*, nuvec_s*)",order,3
-0059f6d0,00267960,__Z15EngineNoiseCodeP12GameObject_sii,"EngineNoiseCode(GameObject_s*, int, int)",order,3
-0059f8d0,00267b88,__Z11PlayJumpSfxP12GameObject_si,"PlayJumpSfx(GameObject_s*, int)",order,3
+0059f8d0,00267b88,__Z11PlayJumpSfxP12GameObject_si,"PlayJumpSfx(GameObject_s*, int)",gapfill,3
 0059f9a0,00267c82,__Z11PlayLandSfxP12GameObject_sii,"PlayLandSfx(GameObject_s*, int, int)",gapfill,2
 0059fb60,00267e5a,__Z15PlayFootStepSfxP12GameObject_s,PlayFootStepSfx(GameObject_s*),order,3
 0059fe80,002681c4,__Z12PlayGruntSfxP12GameObject_s,PlayGruntSfx(GameObject_s*),gapfill,2
@@ -387,8 +348,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005a2d90,002b2994,__Z13NewBuzzFramesP7nupad_sii,"NewBuzzFrames(nupad_s*, int, int)",calls,1
 005a2dd0,002b29de,__Z19NewRumbleAllPlayersffii,"NewRumbleAllPlayers(float, float, int, int)",calls,1
 005a3020,002b3704,__Z14ConstantRumbleP12GameObject_sff,"ConstantRumble(GameObject_s*, float, float)",gapfill,5
-005a3940,002b2da8,__Z18GamePad_InputAngleP12GameObject_sP9GAMEPAD_s,"GamePad_InputAngle(GameObject_s*, GAMEPAD_s*)",gapfill,2
-005a4410,0032ad90,__Z13BackDrop_InitPcP9variptr_uS1_,"BackDrop_Init(char*, variptr_u*, variptr_u*)",gapfill,2
+005a3940,002b2da8,__Z18GamePad_InputAngleP12GameObject_sP9GAMEPAD_s,"GamePad_InputAngle(GameObject_s*, GAMEPAD_s*)",gapfill,3
 005a6550,0033ca12,__Z29Technos_FindControllingTechnoP12GameObject_s,Technos_FindControllingTechno(GameObject_s*),gapfill,1
 005a7bd0,0033e194,__Z19Techno_FindOperatorPvPP9GAMEPAD_sPP12GameObject_s,"Techno_FindOperator(void*, GAMEPAD_s**, GameObject_s**)",gapfill,2
 005a9390,002e4af0,__Z13Grapple_ResetP9GRAPPLE_sP7nuvec_s,"Grapple_Reset(GRAPPLE_s*, nuvec_s*)",gapfill,1
@@ -398,19 +358,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005ae1d0,00354daa,__Z11SeekLinearFfff,"SeekLinearF(float, float, float)",gapfill,1
 005ae240,00354de8,__Z8SeekValFfff,"SeekValF(float, float, float)",gapfill,1
 005ae5c0,00355164,__Z12FindAnglesZXP7nuvec_sPtS1_,"FindAnglesZX(nuvec_s*, unsigned short*, unsigned short*)",gapfill,1
-005ae640,003551f0,__Z12FindAnglesXYP7nuvec_sPtS1_,"FindAnglesXY(nuvec_s*, unsigned short*, unsigned short*)",order,2
-005ae6c0,00355280,__Z17GetRotationAnglesP7nuvec_sPtS1_,"GetRotationAngles(nuvec_s*, unsigned short*, unsigned short*)",order,2
-005ae740,003552f2,__Z7RotDifftt,"RotDiff(unsigned short, unsigned short)",order,2
-005ae770,00355322,__Z7SeekRotttf,"SeekRot(unsigned short, unsigned short, float)",order,2
-005ae800,0035538e,__Z16TurnRotClockwisetti,"TurnRotClockwise(unsigned short, unsigned short, int)",order,2
-005ae950,00355408,__Z20TurnRotAntiClockwisetti,"TurnRotAntiClockwise(unsigned short, unsigned short, int)",order,2
-005ae9a0,00355490,__Z19PushingTowardsAnglett,"PushingTowardsAngle(unsigned short, unsigned short)",order,2
-005aea20,00355504,__Z19AnglesBetweenPointsP7nuvec_sS0_PtS1_,"AnglesBetweenPoints(nuvec_s*, nuvec_s*, unsigned short*, unsigned short*)",order,2
-005aeb30,003555a6,__Z21RotatingSameDirectionttt,"RotatingSameDirection(unsigned short, unsigned short, unsigned short)",order,2
-005aec10,003556aa,__Z16RotateGameMatrixP7numtx_sittt,"RotateGameMatrix(numtx_s*, int, unsigned short, unsigned short, unsigned short)",order,2
-005aed70,00355834,__Z16MatrixReflectionP7numtx_siffS0_,"MatrixReflection(numtx_s*, int, float, float, numtx_s*)",order,2
-005aee80,00355a8e,__Z25MatrixReflectionVU0_AXISYP7numtx_sffS0_,"MatrixReflectionVU0_AXISY(numtx_s*, float, float, numtx_s*)",order,2
-005aef70,00355b80,__Z29QuatInterpolateRotationMatrixP7numtx_sS0_S0_f,"QuatInterpolateRotationMatrix(numtx_s*, numtx_s*, numtx_s*, float)",order,2
+005ae640,003551f0,__Z12FindAnglesXYP7nuvec_sPtS1_,"FindAnglesXY(nuvec_s*, unsigned short*, unsigned short*)",order,4
+005ae6c0,00355280,__Z17GetRotationAnglesP7nuvec_sPtS1_,"GetRotationAngles(nuvec_s*, unsigned short*, unsigned short*)",order,4
+005ae740,003552f2,__Z7RotDifftt,"RotDiff(unsigned short, unsigned short)",gapfill,3
 005aefd0,00355bdc,__Z10GameShadowP12GameObject_sP7nuvec_sfi,"GameShadow(GameObject_s*, nuvec_s*, float, int)",gapfill,1
 005af8c0,003561d0,__Z15LineIntersectXYP7nuvec_sS0_S0_S0_S0_S0_,"LineIntersectXY(nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*)",gapfill,5
 005b0000,0035632e,__Z19LineIntersectSphereP7nuvec_sS0_S0_fPf,"LineIntersectSphere(nuvec_s*, nuvec_s*, nuvec_s*, float, float*)",gapfill,2
@@ -422,13 +372,11 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005b0e00,00356db2,__Z13VecRotateAxisP7nuvec_stS0_,"VecRotateAxis(nuvec_s*, unsigned short, nuvec_s*)",gapfill,4
 005b0f40,00354cb2,__Z15GameBufferAllocP9variptr_uS0_i,"GameBufferAlloc(variptr_u*, variptr_u*, int)",gapfill,1
 005b1940,00357c9a,__Z21DrawObjectOnCharacterP11WORLDINFO_sP12GameObject_siP12nuhspecial_siiP7numtx_sijS6_P7nuvec_sffiS6_,"DrawObjectOnCharacter(WORLDINFO_s*, GameObject_s*, int, nuhspecial_s*, int, int, numtx_s*, int, unsigned int, numtx_s*, nuvec_s*, float, float, int, numtx_s*)",gapfill,1
-005b22d0,00359a20,__Z16FloorTarget_InitPcfS_ff,"FloorTarget_Init(char*, float, char*, float, float)",gapfill,2
 005b2a40,00358d26,__Z15LoadThingsScenev,LoadThingsScene(),strings,0
 005b6d60,002d1158,__Z17GizObstacles_LoadPvS_,"GizObstacles_Load(void*, void*)",strings,0
 005bba90,002c350a,__Z17GizmoFileReadNamePc,GizmoFileReadName(char*),gapfill,1
 005bc370,002c3dc8,__Z20GizmoGetTypeIDByNameP10GIZMOSYS_sPc,"GizmoGetTypeIDByName(GIZMOSYS_s*, char*)",gapfill,1
 005bc570,002c447a,__Z15GizmoFindByNameP10GIZMOSYS_siPc,"GizmoFindByName(GIZMOSYS_s*, int, char*)",calls,1
-005bc8b0,002c4862,__Z11GizmoGetPosP10GIZMOSYS_sP7GIZMO_s,"GizmoGetPos(GIZMOSYS_s*, GIZMO_s*)",calls,2
 005bd2d0,002c40ea,__Z12LoadGizmoSysP10GIZMOSYS_sPvPc,"LoadGizmoSys(GIZMOSYS_s*, void*, char*)",strings,0
 005bdcd0,002b3cfe,__Z7InStoryv,InStory(),gapfill,3
 005be3a0,002b4490,__Z14Game_ConfigurePcP9variptr_uS0_i,"Game_Configure(char*, variptr_u*, variptr_u, int)",strings,0
@@ -438,7 +386,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005c1730,00319446,__Z17RememberPlayerIDsiii,"RememberPlayerIDs(int, int, int)",order,3
 005c1860,003195b8,__Z15Player_FindByIDi,Player_FindByID(int),order,3
 005c18b0,00319604,__Z15Player_StartPosP12GameObject_s,Player_StartPos(GameObject_s*),order,3
-005c18f0,0031964c,__Z18Players_AveragePosP7nuvec_sP14SOCKPOSITION_s,"Players_AveragePos(nuvec_s*, SOCKPOSITION_s*)",gapfill,2
+005c18f0,0031964c,__Z18Players_AveragePosP7nuvec_sP14SOCKPOSITION_s,"Players_AveragePos(nuvec_s*, SOCKPOSITION_s*)",order,3
 005c19c0,0031974a,__Z9SetPlayerv,SetPlayer(),gapfill,2
 005c1b10,003198f0,__Z19Player_ClearContextP12GameObject_si,"Player_ClearContext(GameObject_s*, int)",calls,3
 005c1b80,00319982,__Z20Player_ResetContextsP12GameObject_s,Player_ResetContexts(GameObject_s*),calls,3
@@ -468,7 +416,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005d3210,002adeaa,__Z10AddGameMsgP10ADDGAMEMSG,AddGameMsg(ADDGAMEMSG*),calls,3
 005d3640,002ae2fe,__Z14AddGameMessagePcP7nuvec_sfS1_fhhhjf,"AddGameMessage(char*, nuvec_s*, float, nuvec_s*, float, unsigned char, unsigned char, unsigned char, unsigned int, float)",gapfill,2
 005d3f60,002aeab8,__Z12FindGameMsgsiiiiP13GAMEMESSAGE_sPS0_,"FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)",gapfill,4
-005d3fd0,002aeb64,__Z15AddGameMsgCountP7nuvec_siihhhf,"AddGameMsgCount(nuvec_s*, int, int, unsigned char, unsigned char, unsigned char, float)",calls,2
+005d3fd0,002aeb64,__Z15AddGameMsgCountP7nuvec_siihhhf,"AddGameMsgCount(nuvec_s*, int, int, unsigned char, unsigned char, unsigned char, float)",gapfill,2
 005d5670,0029b69e,__Z30DetonatorSys_RegisterCallbacksPFvP11DETONATOR_sRfE,"DetonatorSys_RegisterCallbacks(void (*)(DETONATOR_s*, float&))",gapfill,3
 005d5690,0029b6bc,__Z25DetonatorSys_RegisterTypeP13DETONATORTYPE,DetonatorSys_RegisterType(DETONATORTYPE*),gapfill,2
 005d5890,0029b8e4,__Z17DetonatorSys_InitiiiiiP9variptr_uS_,"DetonatorSys_Init(int, int, int, int, int, variptr_u*, variptr_u)",order,3
@@ -491,9 +439,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005f1120,0030edd0,__Z34PlayerItems_GetAllCarriedItemFlagsP12GameObject_s,PlayerItems_GetAllCarriedItemFlags(GameObject_s*),gapfill,6
 005f1140,0030edec,__Z30PlayerItems_DontPickUpItemTypeP12GameObject_sP16PLAYERITEMTYPE_s,"PlayerItems_DontPickUpItemType(GameObject_s*, PLAYERITEMTYPE_s*)",gapfill,3
 005f3440,003101a8,__Z22PlayerItems_RemoveItemP12GameObject_sP12PLAYERITEM_si,"PlayerItems_RemoveItem(GameObject_s*, PLAYERITEM_s*, int)",gapfill,4
-005f3520,0031029c,__Z29PlayerItems_RemoveCurrentItemP12GameObject_si,"PlayerItems_RemoveCurrentItem(GameObject_s*, int)",order,5
 005f3630,003102c4,__Z23PlayerItems_RemoveItemsP12GameObject_siiiy,"PlayerItems_RemoveItems(GameObject_s*, int, int, int, unsigned long long)",order,5
-005f3670,00310354,__Z25PlayerItem_CreateItemPartP12GameObject_sP7numtx_sP7nuvec_sP16PLAYERITEMTYPE_sP22PLAYERITEMBLOWUPINFO_siP18PLAYERITEMTARGET_sS0_f,"PlayerItem_CreateItemPart(GameObject_s*, numtx_s*, nuvec_s*, PLAYERITEMTYPE_s*, PLAYERITEMBLOWUPINFO_s*, int, PLAYERITEMTARGET_s*, GameObject_s*, float)",order,5
 005f3720,003108da,__Z20PlayerItems_DropItemP12GameObject_sP12PLAYERITEM_siP7nuvec_s,"PlayerItems_DropItem(GameObject_s*, PLAYERITEM_s*, int, nuvec_s*)",gapfill,3
 005f4270,00311ee4,__Z19PlayerItems_AddItemP12GameObject_sP16PLAYERITEMTYPE_sP13GIZMOBLOWUP_siiif,"PlayerItems_AddItem(GameObject_s*, PLAYERITEMTYPE_s*, GIZMOBLOWUP_s*, int, int, int, float)",gapfill,2
 005f6df0,002a5c0e,__Z12AddExplosionP7nuvec_sffP12GameObject_siii,"AddExplosion(nuvec_s*, float, float, GameObject_s*, int, int, int)",gapfill,2
@@ -510,15 +456,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005fb260,00265576,__Z22Area_FindNextPlayLeveli,Area_FindNextPlayLevel(int),order,1
 005fb300,002655f6,__Z14AddToModelListP23APICHARACTERMODELLIST_sPiiiiP10EXTRAMODELh,"AddToModelList(APICHARACTERMODELLIST_s*, int*, int, int, int, EXTRAMODEL*, unsigned char)",order,1
 005fb430,00265772,__Z14Area_ConfigureiiP10EXTRAMODELPs,"Area_Configure(int, int, EXTRAMODEL*, short*)",strings,0
-005fc2b0,0026699c,__Z12DumpAreaDataii,"DumpAreaData(int, int)",order,4
-005fc350,00266a4e,__Z17AreaFromMiniKitIDi,AreaFromMiniKitID(int),gapfill,3
+005fc2b0,0026699c,__Z12DumpAreaDataii,"DumpAreaData(int, int)",order,5
+005fc350,00266a4e,__Z17AreaFromMiniKitIDi,AreaFromMiniKitID(int),gapfill,4
 005fc730,00266d2e,__Z12DrawGoToAreaP6MENU_si,"DrawGoToArea(MENU_s*, int)",strings,0
 00600d30,002df8fc,__Z8Grab_sfxP8nufpar_s,Grab_sfx(nufpar_s*),strings,0
 00600e90,002dfa9a,__Z17Grabber_ConfigureP11WORLDINFO_sPc,"Grabber_Configure(WORLDINFO_s*, char*)",strings,0
 00601280,002dff2c,__Z23Grabber_IsActiveGrabberP12GameObject_s,Grabber_IsActiveGrabber(GameObject_s*),order,1
 006012c0,002dff6e,__Z15Grabber_TerrainP9GRABBER_sP7nuvec_si,"Grabber_Terrain(GRABBER_s*, nuvec_s*, int)",order,1
 006013b0,002e006c,__Z18Grabber_GetGrabPosP9GRABBER_sP7numtx_s,"Grabber_GetGrabPos(GRABBER_s*, numtx_s*)",order,1
-00601460,002e0172,__Z23Grabber_StartVictimGrabP12GameObject_s,Grabber_StartVictimGrab(GameObject_s*),order,1
 006014c0,002e024c,__Z16PartStop_GrabberP6PART_s,PartStop_Grabber(PART_s*),strings,0
 00601fe0,002e0b50,__Z20Grabber_SetVictimPosP9GRABBER_s,Grabber_SetVictimPos(GRABBER_s*),gapfill,3
 00602270,002e111c,__Z13Grabber_ResetP11WORLDINFO_s,Grabber_Reset(WORLDINFO_s*),strings,0
@@ -537,9 +482,6 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0060e9c0,003012d0,__Z20LevelObject_AddExtraPci,"LevelObject_AddExtra(char*, int)",order,2
 0060ea60,00301388,__Z25LevelObjects_InitForLevelP11WORLDINFO_s,LevelObjects_InitForLevel(WORLDINFO_s*),order,2
 0060ec80,003015f6,__Z29LevelObject_FindIndexFromNamePc,LevelObject_FindIndexFromName(char*),gapfill,1
-0060eda0,0030171c,__Z29LevelObject_FindNameFromIndexi,LevelObject_FindNameFromIndex(int),gapfill,2
-0060edd0,00301766,__Z25LevelObject_GetReflectioni,LevelObject_GetReflection(int),order,3
-0060ee00,00301794,__Z37LevelObject_FindIndexFromName_RefOnlyPc,LevelObject_FindIndexFromName_RefOnly(char*),order,3
 0060ee60,00301810,__Z20Level_LoadConfigFileP11WORLDINFO_s,Level_LoadConfigFile(WORLDINFO_s*),strings,0
 00610360,0028aef4,__ZN10Customiser9ConfigureEPcP9variptr_uS2_iiiiiPFiS0_E,"Customiser::Configure(char*, variptr_u*, variptr_u*, int, int, int, int, int, int (*)(char*))",strings,0
 006111a0,0028ca9e,__ZN10Customiser7LoadAllEP11WORLDINFO_s,Customiser::LoadAll(WORLDINFO_s*),strings,0
@@ -561,35 +503,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0061dd40,00298baa,__Z29CutScenes_LoadLevelCharactersP11WORLDINFO_sPcPi,"CutScenes_LoadLevelCharacters(WORLDINFO_s*, char*, int*)",strings,0
 0061f190,00278b52,__Z14CharIDFromNamePc,CharIDFromName(char*),gapfill,1
 0061f2d0,00278cbc,__Z14CharScene_LoadiP9CHARSCENEP9variptr_uS1_,"CharScene_Load(int, CHARSCENE*, variptr_u*, variptr_u)",strings,0
-0061f370,00278d76,__Z20CharScenes_LevelLoadP11WORLDINFO_s,CharScenes_LevelLoad(WORLDINFO_s*),order,2
-0061f430,00278e32,__Z19CharScenes_AreaLoadP23APICHARACTERMODELLIST_sP9variptr_uS1_,"CharScenes_AreaLoad(APICHARACTERMODELLIST_s*, variptr_u*, variptr_u)",order,2
-0061f4f0,00278eec,__Z22CharScene_FindHSpecialP11WORLDINFO_si,"CharScene_FindHSpecial(WORLDINFO_s*, int)",order,2
-0061f540,00278f4c,__Z14CharScene_DrawP11WORLDINFO_siP7numtx_sS2_,"CharScene_Draw(WORLDINFO_s*, int, numtx_s*, numtx_s*)",order,2
-0061f580,00278fae,__Z20CharScenes_LevelDumpP11WORLDINFO_s,CharScenes_LevelDump(WORLDINFO_s*),order,2
-0061f5e0,0027900c,__Z19CharScenes_AreaDumpv,CharScenes_AreaDump(),order,2
-0061f630,00279062,__Z15IconScenes_InitPcP9variptr_uS1_,"IconScenes_Init(char*, variptr_u*, variptr_u*)",order,2
-0061f690,002790e4,__Z18IconScene_FindByIdi,IconScene_FindById(int),order,2
-0061f6b0,0027910c,__Z15IconScenes_LoadP23APICHARACTERMODELLIST_siP9variptr_uS2_,"IconScenes_Load(APICHARACTERMODELLIST_s*, int, variptr_u*, variptr_u*)",order,2
-0061f890,0027932e,__Z15IconScenes_Dumpv,IconScenes_Dump(),order,2
-0061f8f0,002793a6,__Z13LayerFromNameP19GAMECHARACTERDATA_sPc,"LayerFromName(GAMECHARACTERDATA_s*, char*)",order,2
-0061fc20,00279408,__Z18MakeLayerList_NameP16CHARACTERMODEL_sPsj,"MakeLayerList_Name(CHARACTERMODEL_s*, short*, unsigned int)",order,2
-0061fd50,002794d4,__Z26SetMoveAndAnimateFunctionsjjjjiPvS_S_,"SetMoveAndAnimateFunctions(unsigned int, unsigned int, unsigned int, unsigned int, int, void*, void*, void*)",order,2
-0061fe10,00279588,__Z23GameLoadCharacterModelsP23APICHARACTERMODELLIST_siP9variptr_uS2_iiPvS3_,"GameLoadCharacterModels(APICHARACTERMODELLIST_s*, int, variptr_u*, variptr_u*, int, int, void*, void*)",order,2
-0061fea0,00279648,__Z19Ability_InModelListP23APICHARACTERMODELLIST_sjPi,"Ability_InModelList(APICHARACTERMODELLIST_s*, unsigned int, int*)",order,2
-0061ff20,002796be,__Z14Ability_Loadedj,Ability_Loaded(unsigned int),order,2
-0061ff40,0027976e,__Z19Ability_GetRandomIDjP23APICHARACTERMODELLIST_si,"Ability_GetRandomID(unsigned int, APICHARACTERMODELLIST_s*, int)",order,2
-0061ffc0,002798c6,__Z16Id_InAbilityListji,"Id_InAbilityList(unsigned int, int)",order,2
-006200e0,002799d8,__Z17CharVariants_InitP11CHARVARIANTi,"CharVariants_Init(CHARVARIANT*, int)",order,2
-00620160,00279a14,__Z16CharVariant_FindPc,CharVariant_Find(char*),order,2
-00620370,00279a6e,__Z20ExtraModels_MakeListP23APICHARACTERMODELLIST_siP10EXTRAMODELPsi,"ExtraModels_MakeList(APICHARACTERMODELLIST_s*, int, EXTRAMODEL*, short*, int)",order,2
-00620410,00279bb6,__Z8initHosev,initHose(),order,2
-00620440,00279c48,__Z12DrawCharIconiP6SUIT_sffffiffiP12nuhspecial_s,"DrawCharIcon(int, SUIT_s*, float, float, float, float, int, float, float, int, nuhspecial_s*)",order,2
-006204d0,0027a02a,__Z10DrawHoseExP19GAMECHARACTERDATA_sP7numtx_sP7numtl_sf,"DrawHoseEx(GAMECHARACTERDATA_s*, numtx_s*, numtl_s*, float)",order,2
-00620780,0027a18c,__Z8DrawHoseP12GameObject_s,DrawHose(GameObject_s*),order,2
-00620790,0027a236,__Z13CharBits_InitP9variptr_u,CharBits_Init(variptr_u*),order,2
-00620800,0027a278,_NuError,_NuError,order,2
-006208d0,0027a27e,_NuDebugMsg,_NuDebugMsg,order,2
-00620950,0027a284,__Z20DefinedLocators_InitPcP9variptr_uS1_,"DefinedLocators_Init(char*, variptr_u*, variptr_u*)",order,2
+00620160,0027a02a,__Z10DrawHoseExP19GAMECHARACTERDATA_sP7numtx_sP7numtl_sf,"DrawHoseEx(GAMECHARACTERDATA_s*, numtx_s*, numtl_s*, float)",gapfill,3
+00620370,0027a18c,__Z8DrawHoseP12GameObject_s,DrawHose(GameObject_s*),gapfill,2
 00620aa0,0027a3d2,__Z22DefinedLocators_FindIXPc,DefinedLocators_FindIX(char*),gapfill,1
 00620b30,0027a480,__Z16RedirectTextFilePcS_iPi,"RedirectTextFile(char*, char*, int, int*)",strings,0
 006213c0,0027f374,__Z13CC_anim_startP8nufpar_s,CC_anim_start(nufpar_s*),strings,0
@@ -619,7 +534,6 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00635ca0,002cec56,__Z16UpdateCoinPacketP12COINPACKET_sii,"UpdateCoinPacket(COINPACKET_s*, int, int)",order,4
 00635de0,002ced68,__Z18CoinsGoToMainTotalv,CoinsGoToMainTotal(),gapfill,2
 00636200,002cf1e8,__Z25SpecialMiniKits_ConfigureP11WORLDINFO_sPc,"SpecialMiniKits_Configure(WORLDINFO_s*, char*)",strings,0
-00637680,0033af1c,__Z11Tag_SetModeifj,"Tag_SetMode(int, float, unsigned int)",gapfill,2
 00638f90,00282e9c,__Z23CharPlatforms_ConfigureP11WORLDINFO_sPc,"CharPlatforms_Configure(WORLDINFO_s*, char*)",strings,0
 006394f0,002a80d0,__Z12FaceOpponentP12GameObject_sP7nuvec_s,"FaceOpponent(GameObject_s*, nuvec_s*)",gapfill,3
 00639580,002a8152,__Z21ObjOpponentStillThereP12GameObject_sS0_f,"ObjOpponentStillThere(GameObject_s*, GameObject_s*, float)",order,4
@@ -636,7 +550,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0063e540,00304b94,__Z20FreeGameObjectLightsv,FreeGameObjectLights(),order,4
 0063e5d0,00304c34,__Z15LightGameObjectP12GameObject_sPv,"LightGameObject(GameObject_s*, void*)",gapfill,3
 0063ffe0,00288372,__Z20Collection_ConfigurePcP9variptr_uS1_,"Collection_Configure(char*, variptr_u*, variptr_u*)",strings,0
-006408d0,002889b2,__Z14Collection_Goti,Collection_Got(int),gapfill,2
+006408d0,002889b2,__Z14Collection_Goti,Collection_Got(int),gapfill,3
 006419d0,00331a6a,__Z10InitSnakesP11WORLDINFO_s,InitSnakes(WORLDINFO_s*),strings,0
 006423a0,0030b572,__Z14Particles_LoadP11WORLDINFO_sPPcii,"Particles_Load(WORLDINFO_s*, char**, int, int)",strings,0
 006445b0,00273f08,__Z23SuperCarry_PickUpBlowUpP12GameObject_s,SuperCarry_PickUpBlowUp(GameObject_s*),gapfill,3
@@ -653,15 +567,6 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0064ce30,002fa184,__Z19NewStatusRumbleBuzziffi,"NewStatusRumbleBuzz(int, float, float, int)",gapfill,2
 00652260,00338224,__Z24SuperCounterConfig_ResetP12SUPERCOUNTER,SuperCounterConfig_Reset(SUPERCOUNTER*),gapfill,1
 00652290,00338262,__Z28SuperCounterConfig_ParseLineP12SUPERCOUNTERP8nufpar_s,"SuperCounterConfig_ParseLine(SUPERCOUNTER*, nufpar_s*)",strings,0
-00652620,003385fc,__Z19SuperCounters_Reseti,SuperCounters_Reset(int),order,2
-00652680,00338660,__Z25SuperCounters_FixUpGizmosP11WORLDINFO_s,SuperCounters_FixUpGizmos(WORLDINFO_s*),order,2
-00652780,0033878a,__Z24SuperCounters_FindPickupP11WORLDINFO_sP7GIZMO_sP7nuvec_sPP18SUPERCOUNTERPICKUP,"SuperCounters_FindPickup(WORLDINFO_s*, GIZMO_s*, nuvec_s*, SUPERCOUNTERPICKUP**)",order,2
-006528c0,0033890c,__Z32SuperCounter_ActivateGizmoPickupP7GIZMO_sP13GIZMOPICKUP_s,"SuperCounter_ActivateGizmoPickup(GIZMO_s*, GIZMOPICKUP_s*)",order,2
-006529f0,00338a6c,__Z33SuperCounter_FindFromNameAndLevelPcP11WORLDINFO_sPP18SUPERCOUNTERPICKUP,"SuperCounter_FindFromNameAndLevel(char*, WORLDINFO_s*, SUPERCOUNTERPICKUP**)",order,2
-00652ab0,00338b36,__Z25SuperCounter_AnyCollectedP12SUPERCOUNTERP11WORLDINFO_s,"SuperCounter_AnyCollected(SUPERCOUNTER*, WORLDINFO_s*)",order,2
-00652b90,00338c2a,__Z28SuperCounters_ResetProcessedP11WORLDINFO_s,SuperCounters_ResetProcessed(WORLDINFO_s*),order,2
-00652bf0,00338c7a,__Z25SuperCounters_SetFromSaveP12SUPERCOUNTERP16SUPERCOUNTERSAVEi,"SuperCounters_SetFromSave(SUPERCOUNTER*, SUPERCOUNTERSAVE*, int)",order,2
-00652d00,00338d44,__Z26SuperCounters_TurnOffCharsP12SUPERCOUNTERP16SUPERCOUNTERSAVEi,"SuperCounters_TurnOffChars(SUPERCOUNTER*, SUPERCOUNTERSAVE*, int)",order,2
 00652e50,00338e60,__Z22SuperCounter_CharCheckiP7nuvec_siP12SUPERCOUNTERP16SUPERCOUNTERSAVEi,"SuperCounter_CharCheck(int, nuvec_s*, int, SUPERCOUNTER*, SUPERCOUNTERSAVE*, int)",gapfill,1
 00653250,003392c6,__Z29SuperCounter_CreateAIMessagesiiP12SUPERCOUNTERP16SUPERCOUNTERSAVEi,"SuperCounter_CreateAIMessages(int, int, SUPERCOUNTER*, SUPERCOUNTERSAVE*, int)",strings,0
 00655790,002a7a92,__Z16Faders_ConfigureP11WORLDINFO_sPc,"Faders_Configure(WORLDINFO_s*, char*)",strings,0
@@ -699,15 +604,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0067e6d0,0025da6a,_SockSysFindInScene,_SockSysFindInScene,strings,0
 00680d60,0025bfec,_SockSys_Configure,_SockSys_Configure,strings,0
 00684190,0019c7be,_NuSinApprox,_NuSinApprox,calls,3
-00684240,0019c856,_NuVecCross,_NuVecCross,order,4
-00684360,0019c8b8,_NuVecLerp,_NuVecLerp,order,4
-00684380,0019c91a,_NuVecMin,_NuVecMin,order,4
-006843c0,0019c952,_NuVecMax,_NuVecMax,order,4
-00684400,0019c98a,_NuVecMtxTransform,_NuVecMtxTransform,order,4
-00684430,0019ca1a,_NuVecInvMtxTransform,_NuVecInvMtxTransform,order,4
-00684480,0019caaa,_NuVecInvMtxRotate,_NuVecInvMtxRotate,order,4
-00684560,0019cb2a,_NuVecMtxTransformRHLH,_NuVecMtxTransformRHLH,order,4
-00684620,0019cbce,_NuVecMtxTranslate,_NuVecMtxTranslate,order,4
+00684480,0019c98a,_NuVecMtxTransform,_NuVecMtxTransform,gapfill,6
 00684650,0019cc08,_NuVecMtxRotate,_NuVecMtxRotate,gapfill,2
 006849f0,001aa9bc,_NuVecRotateX,_NuVecRotateX,gapfill,2
 00684a60,001aaa24,_NuVecRotateY,_NuVecRotateY,gapfill,1
@@ -736,6 +633,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006903d0,001a67bc,_NuVecMag,_NuVecMag,calls,1
 00690410,001a69e4,_NuVecDist,_NuVecDist,gapfill,1
 00691b30,001ac16c,_NuFsqrt,_NuFsqrt,gapfill,1
+00691db0,001ac30c,_NuVec4MtxTransformVU0,_NuVec4MtxTransformVU0,gapfill,5
 006943f0,0019b8bc,__Z19Create_Bink_shadersPN9IndirectX16IDirect3DDevice9E,Create_Bink_shaders(IndirectX::IDirect3DDevice9*),strings,0
 006951f0,001d5d6a,__ZN17ShaderManagerHLSLC2ER21VirtualStackAllocator,ShaderManagerHLSL::ShaderManagerHLSL(VirtualStackAllocator&),strings,0
 00697cf0,001ca328,__ZNK14PreInterpretor8Variable17getSemanticStringEv,PreInterpretor::Variable::getSemanticString() const,strings,0
@@ -843,25 +741,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006e6490,0018268a,_NuTexReadBitmapMM2,_NuTexReadBitmapMM2,strings,0
 006e6da0,0016c94a,_NuWaterPrepareVertexData,_NuWaterPrepareVertexData,strings,0
 006e8f20,0016d89a,__ZN14NuInstSurfGeom9DestroyPSEv,NuInstSurfGeom::DestroyPS(),gapfill,1
-006e8f40,0016d8dc,__Z34NuInstSurfGeomWaitForWorkerThreadsiPPv,"NuInstSurfGeomWaitForWorkerThreads(int, void**)",order,2
-006e8fc0,0016d962,__Z36NuInstSurfGeomDistributeThreadedTaskiiiPFmPvE,"NuInstSurfGeomDistributeThreadedTask(int, int, int, unsigned long (*)(void*))",order,2
-006e90a0,0016daa0,__ZN14NuInstSurfGeom10CreateVBPSEP23NUINSTSURFGEOM_BUFFER_si,"NuInstSurfGeom::CreateVBPS(NUINSTSURFGEOM_BUFFER_s*, int)",order,2
-006e90b0,0016dc84,__ZN14NuInstSurfGeom8LockVBPSEP23NUINSTSURFGEOM_BUFFER_sPP28NUINSTSURFGEOM_OUTINSTANCE_s,"NuInstSurfGeom::LockVBPS(NUINSTSURFGEOM_BUFFER_s*, NUINSTSURFGEOM_OUTINSTANCE_s**)",order,2
-006e9250,0016dcbe,__ZN14NuInstSurfGeom10UnlockVBPSEP23NUINSTSURFGEOM_BUFFER_s,NuInstSurfGeom::UnlockVBPS(NUINSTSURFGEOM_BUFFER_s*),order,2
-006e9280,0016dcda,__ZN14NuInstSurfGeom11DestroyVBPSEP23NUINSTSURFGEOM_BUFFER_s,NuInstSurfGeom::DestroyVBPS(NUINSTSURFGEOM_BUFFER_s*),order,2
-006e92a0,0016dd1c,__Z21CalculateTangentSpacePv,CalculateTangentSpace(void*),order,2
-006e92e0,0016dfae,__Z21NormaliseTangentSpacePv,NormaliseTangentSpace(void*),order,2
-006e94b0,0016e04e,__ZN14NuInstSurfGeom8SkinMeshEP16NUSURFGEOMMESH_sP7numtx_sPP22deformerweightsarray_sb,"NuInstSurfGeom::SkinMesh(NUSURFGEOMMESH_s*, numtx_s*, deformerweightsarray_s**, bool)",order,2
-006e9550,0016e136,__ZN14NuInstSurfGeom14TransformPatchEP23NUINSTSURFGEOM_BUFFER_sP21NUINSTSURFGEOMPATCH_sRi,"NuInstSurfGeom::TransformPatch(NUINSTSURFGEOM_BUFFER_s*, NUINSTSURFGEOMPATCH_s*, int&)",order,2
-006e9c90,0016e1a8,__ZN14NuInstSurfGeom9SortQuickEP26NUINSTSURFGEOM_SORTINDEX_sP28NUINSTSURFGEOM_OUTINSTANCE_sii,"NuInstSurfGeom::SortQuick(NUINSTSURFGEOM_SORTINDEX_s*, NUINSTSURFGEOM_OUTINSTANCE_s*, int, int)",order,2
-006e9cf0,0016e384,__ZN14NuInstSurfGeom8IndexMapEP23NUINSTSURFGEOM_BUFFER_sP28NUINSTSURFGEOM_OUTINSTANCE_si,"NuInstSurfGeom::IndexMap(NUINSTSURFGEOM_BUFFER_s*, NUINSTSURFGEOM_OUTINSTANCE_s*, int)",order,2
-006e9f50,0016e3ee,_NuRndrStateGetPlaneReflectionParameters,_NuRndrStateGetPlaneReflectionParameters,order,2
-006ea120,0016e43c,_NuScreenDumpFrame,_NuScreenDumpFrame,order,2
 006ea1a0,0016e472,_NuScreenDump,_NuScreenDump,strings,0
 006ea240,0016e52c,__Z28NuMovieGrabAttachFrameBufferP17numoviegrabinfo_s,NuMovieGrabAttachFrameBuffer(numoviegrabinfo_s*),strings,0
 006ea2a0,0016e592,__Z28NuMovieGrabDetachFrameBufferP17numoviegrabinfo_s,NuMovieGrabDetachFrameBuffer(numoviegrabinfo_s*),strings,0
 006ea2d0,001840d6,__Z19NuMovieGrabGetFrameP17numoviegrabinfo_s,NuMovieGrabGetFrame(numoviegrabinfo_s*),strings,0
 006ebae0,0016f5d8,_RndrStateSetReflection,_RndrStateSetReflection,gapfill,5
+006ef910,0017a7d8,_NuMtlUpdatePS,_NuMtlUpdatePS,gapfill,3
 006fa950,0018152c,_NuRndrSwapScreen,_NuRndrSwapScreen,strings,0
 006fcc80,0017aea2,_Nu360MtlInit,_Nu360MtlInit,strings,0
 00709080,001277c4,_NuMovieGrabBegin,_NuMovieGrabBegin,strings,0
@@ -872,9 +757,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0070ee40,0012a9f6,_NuSpecialFind,_NuSpecialFind,gapfill,1
 0070eee0,0012aad4,_NuSpecialFindMultiWC,_NuSpecialFindMultiWC,order,2
 0070f0a0,0012ac58,_NuSpecialFindMulti,_NuSpecialFindMulti,order,2
-0070f130,0012ad64,_NuSpecialTestAnim,_NuSpecialTestAnim,order,2
 0070f250,0012ad9a,_NuSpecialGetPos,_NuSpecialGetPos,gapfill,1
-0070f270,0012adbc,_NuSpecialGetDrawPos,_NuSpecialGetDrawPos,gapfill,2
 0070f3a0,0012af90,_NuSpecialExistsFn,_NuSpecialExistsFn,gapfill,1
 0070f510,0012b146,_NuSpecialSetVisibility,_NuSpecialSetVisibility,gapfill,1
 0070f5d0,0012b20a,_NuSpecialSetCollision,_NuSpecialSetCollision,order,4
@@ -894,14 +777,17 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00715180,0012fc58,_NuCameraCreate,_NuCameraCreate,strings,0
 007151e0,0012fccc,_NuCameraDestroy,_NuCameraDestroy,strings,0
 007173c0,001618f8,_CreateTimeBar,_CreateTimeBar,strings,0
+0071e2d0,00150f48,_AddCurvePoint,_AddCurvePoint,gapfill,6
+0071e890,00153090,_NuRndrCurve,_NuRndrCurve,gapfill,4
 007227b0,0013dd8e,_NuLgtLaser,_NuLgtLaser,gapfill,2
+00727b40,00133cfe,_NuMtlUpdate,_NuMtlUpdate,calls,3
 00727f20,0012c0fe,_NuMtlSetCurrentRenderPlane,_NuMtlSetCurrentRenderPlane,calls,1
 0072b040,0013ee34,__ZN14NuDynamicLight7destroyEPS_,NuDynamicLight::destroy(NuDynamicLight*),calls,4
 0072c750,001296d6,_NuAnimDataChunkDestroy,_NuAnimDataChunkDestroy,strings,0
 0072e150,0015cc26,_NuQFntDuplicate,_NuQFntDuplicate,gapfill,2
 00732510,0015dcfc,_NuGScnRead,_NuGScnRead,calls,1
-007325c0,001472c2,_NuGScnRemove,_NuGScnRemove,calls,2
 00734e80,00143f66,__ZN17NuMotionFilterGen13initResourcesEv,NuMotionFilterGen::initResources(),strings,0
+00739910,001679dc,_NuSpecialClipTestShadowLights,_NuSpecialClipTestShadowLights,gapfill,7
 0073a000,00167b06,_NuDisplayListRndrSpecial,_NuDisplayListRndrSpecial,gapfill,5
 0073aa10,0016968c,_NuSpecialDrawAt,_NuSpecialDrawAt,gapfill,4
 0073ca3b,001911cc,_NuFParDestroy,_NuFParDestroy,gapfill,1

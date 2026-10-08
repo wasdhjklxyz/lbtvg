@@ -207,9 +207,9 @@ def main():
             pi1, pi2 = bisect.bisect_right(pc_list, p1), bisect.bisect_left(pc_list, p2)
             mi1, mi2 = bisect.bisect_right(mac_list, m1), bisect.bisect_left(mac_list, m2)
             gp, gm = pc_list[pi1:pi2], mac_list[mi1:mi2]
-            if gp and len(gp) == len(gm):
+            if gp and len(gp) == len(gm) and len(gp) <= 8:
                 for pa, ma in zip(gp, gm):
-                    if pa not in pairs and ma not in used:
+                    if pa not in pairs and ma not in used and plausible(pa, ma):
                         pairs[pa] = (ma, "order", rnd); used.add(ma)
         # calls: equal callee counts; a callee pair needs two independent
         # callers agreeing (one caller with coincidentally equal counts mispairs)
