@@ -4,6 +4,8 @@ A work-in-progress decompilation of LEGO® Batman™: The Videogame (2008, PC). 
 affiliated with, endorsed by, or sponsored by TT Games, Warner Bros., DC, or the
 LEGO Group.
 
+Progress: 123 functions matched, 7,220 / 2,483,972 bytes of game code (0.29%); 14 stubs.
+
 Status: recon done, environment, compiler and ghidra project set up, no code
 matched yet. Start at `docs/setup.md`.
 

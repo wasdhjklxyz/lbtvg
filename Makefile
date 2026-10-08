@@ -82,6 +82,10 @@ names: ghidra-check
 		-scriptPath $(SCRIPTS) \
 		-preScript ApplyNames.java $(abspath tools/symbols/pc-names.csv)
 
+# matched bytes / game code bytes; --readme rewrites the README line
+progress:
+	tools/progress.py --readme
+
 # regenerate tools/symbols/pc-names.csv from the Mac 1.0.1 symbols
 macnames:
 	tools/macnames.py
@@ -110,4 +114,4 @@ fid-apply: ghidra-check
 		-preScript ApplyFid.java $(FIDB) \
 		-postScript DumpStats.java $(STATS)
 
-.PHONY: all verify names macnames match match-v fmt fmt-check linkmap vc8 ghidra-import ghidra ghidra-check fid fid-import fid-build fid-apply
+.PHONY: all verify progress names macnames match match-v fmt fmt-check linkmap vc8 ghidra-import ghidra ghidra-check fid fid-import fid-build fid-apply
