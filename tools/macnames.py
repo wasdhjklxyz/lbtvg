@@ -64,8 +64,16 @@ class Side:
             refs, calls = [], []
             pic = {}   # register -> value it holds after a get_pc_thunk call (Mac PIC)
             for k, i in enumerate(ins):
+                if i.mnemonic == "pop" and k > 0 and ins[k - 1].mnemonic == "call" \
+                        and ins[k - 1].operands[0].type == X86_OP_IMM \
+                        and ins[k - 1].operands[0].imm == i.address:
+                    # old Apple GCC PIC: `call 1f; 1: pop reg`, reg = address of the pop
+                    pic[i.operands[0].reg] = i.address
+                    continue
                 if i.mnemonic == "call" and i.operands and i.operands[0].type == X86_OP_IMM:
                     tgt = i.operands[0].imm
+                    if tgt == i.address + i.size:
+                        continue
                     if tgt in self.pc_thunks:
                         pic[self.pc_thunks[tgt]] = i.address + i.size
                     else:
@@ -170,10 +178,26 @@ def main():
         if len(cand) == 1 or n >= 2:
             if ma not in used:
                 pairs[pa] = (ma, "strings", 0); used.add(ma)
+    # whole-function string multisets that are unique on both sides
+    def sigs(side):
+        o = {}
+        for a, r in side.refs.items():
+            if len(r) >= 2:
+                o.setdefault(tuple(sorted(r)), []).append(a)
+        return {k: v[0] for k, v in o.items() if len(v) == 1}
+    spc, smac = sigs(pc), sigs(mac)
+    for k, pa in spc.items():
+        ma = smac.get(k)
+        if ma is not None and pa not in pairs and ma not in used:
+            pairs[pa] = (ma, "strings", 0); used.add(ma)
     print(f"strings: {len(pairs)} pairs", file=sys.stderr)
     mac_by_addr = {a: (sz, n) for a, sz, n in mac.funcs}
     pc_list = [a for a, _, _ in pc.funcs]; mac_list = [a for a, _, _ in mac.funcs]
-    for rnd in range(1, 6):
+    pc_size = {a: s for a, s, _ in pc.funcs}
+    def plausible(a, b):
+        sa, sb = pc_size.get(a, 0), mac_by_addr[b][0]
+        return sa > 0 and sb > 0 and 0.4 <= sb / sa <= 2.5
+    for rnd in range(1, 12):
         before = len(pairs)
         # order: between consecutive anchors with equal gap counts
         anchors = sorted(pairs.items())
@@ -201,8 +225,40 @@ def main():
             b, callers = max(cand.items(), key=lambda kv: len(kv[1]))
             if len(callers) >= 2 and len(cand) == 1 and a not in pairs and b not in used:
                 pairs[a] = (b, "calls", rnd); used.add(b)
+        # callee gap-fill: within a paired function, already-paired callees are
+        # fixed points; equal-length runs between two fixed points pair 1:1
+        for pa, (ma, _, _) in list(pairs.items()):
+            cp = [c for c in pc.calls.get(pa, []) if c in pc.calls]
+            cm = [c for c in mac.calls.get(ma, []) if c in mac.calls]
+            fixed = [(-1, -1)]
+            j = 0
+            for i, a in enumerate(cp):
+                if a in pairs:
+                    b = pairs[a][0]
+                    try:
+                        k = cm.index(b, j)
+                    except ValueError:
+                        continue
+                    fixed.append((i, k)); j = k + 1
+            fixed.append((len(cp), len(cm)))
+            for (i1, k1), (i2, k2) in zip(fixed, fixed[1:]):
+                gp, gm = cp[i1 + 1:i2], cm[k1 + 1:k2]
+                if len(gp) == 1 and len(gm) == 1:
+                    for a, b in zip(gp, gm):
+                        if a not in pairs and b not in used and plausible(a, b):
+                            pairs[a] = (b, "gapfill", rnd); used.add(b)
         print(f"round {rnd}: {len(pairs)} pairs (+{len(pairs) - before})", file=sys.stderr)
         if len(pairs) == before: break
+    # precision check: among pairs whose callee lists have equal length, how
+    # often do already-paired callees agree position by position?
+    agree = total = 0
+    for pa, (ma, _, _) in pairs.items():
+        cp, cm = pc.calls.get(pa, []), mac.calls.get(ma, [])
+        if len(cp) == len(cm):
+            for a, b in zip(cp, cm):
+                if a in pairs:
+                    total += 1; agree += pairs[a][0] == b
+    print(f"callee consistency: {agree}/{total}", file=sys.stderr)
     names = demangle([mac_by_addr[ma][1] for ma, _, _ in pairs.values()])
     with open(OUT, "w", newline="") as f:
         w = csv.writer(f); w.writerow(["pc_addr", "mac_addr", "mac_name", "demangled", "method", "round"])

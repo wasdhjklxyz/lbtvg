@@ -75,6 +75,17 @@ ghidra-check:
 		|| { echo "ghidra not found: set GHIDRA_INSTALL_DIR (see docs/setup.md)" >&2; exit 1; }
 
 # --- Function ID: name the statically linked CRT in the game so it is skipped
+# apply tools/symbols/pc-names.csv (Mac names) to $(EXE); GUI must be closed
+names: ghidra-check
+	$(ANALYZE_HEADLESS) $(GHIDRA_PROJ) $(GHIDRA_NAME) \
+		-process $(notdir $(EXE)) -noanalysis \
+		-scriptPath $(SCRIPTS) \
+		-preScript ApplyNames.java $(abspath tools/symbols/pc-names.csv)
+
+# regenerate tools/symbols/pc-names.csv from the Mac 1.0.1 symbols
+macnames:
+	tools/macnames.py
+
 fid: fid-import fid-build fid-apply
 
 # 1. every .obj of the static CRT libs becomes a program under $(FID_DIR)
@@ -99,4 +110,4 @@ fid-apply: ghidra-check
 		-preScript ApplyFid.java $(FIDB) \
 		-postScript DumpStats.java $(STATS)
 
-.PHONY: all verify match match-v fmt fmt-check linkmap vc8 ghidra-import ghidra ghidra-check fid fid-import fid-build fid-apply
+.PHONY: all verify names macnames match match-v fmt fmt-check linkmap vc8 ghidra-import ghidra ghidra-check fid fid-import fid-build fid-apply
