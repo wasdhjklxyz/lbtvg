@@ -1,6 +1,6 @@
 # lbtvg
 
-![match progress](https://img.shields.io/badge/match%20progress-0.29%25-red)
+![match progress](https://img.shields.io/badge/match%20progress-0.42%25-red)
 
 A matching decompilation of *LEGO® Batman™: The Videogame* (PC, 2008).
 
