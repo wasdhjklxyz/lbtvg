@@ -47,6 +47,8 @@ nix develop        # flake.nix + flake.lock pin every version in the table
 make verify
 make ghidra-import # headless import + analysis into ghidra/ (≈30–60 min)
 make ghidra        # open the GUI
+make ghidra-import EXE=orig/LEGOBatmanDemo.exe   # the demo as a 2nd program
+make fid           # VC8 CRT -> ghidra/vc8.fidb -> CRT named in the game
 ```
 
 The devshell exports `ANALYZE_HEADLESS` and `GHIDRA_RUN` (nix wraps ghidra
