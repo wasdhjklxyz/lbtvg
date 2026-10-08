@@ -19,6 +19,7 @@ below is pinned for you.
 | 7z (p7zip), msiextract (msitools), cabextract | any | `tools/vc8.sh` unpacks the compiler out of Microsoft's SDK ISO |
 | llvm-objdump / llvm-ar (LLVM bintools) | 17+ | read COFF `.obj`/`.lib` (GNU binutils cannot) |
 | binutils (`objdump`, `strings`) | any | quick looks at PE files |
+| clang-format | any (style pinned in `.clang-format`) | `make fmt` |
 | Python 3 | 3.14 (≥3.10 fine) | recon scripts |
 | pefile / lief / capstone | 2024.8.26 / 0.17.6 / 5.0.7 | PE parsing, disassembly in scripts (`tools/requirements.txt`) |
 | objdiff | 3.8.2 | per-object diffing |

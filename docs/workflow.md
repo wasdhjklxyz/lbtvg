@@ -78,10 +78,11 @@ order or types in the source, a struct field type (`int` vs `float` changes
 the instruction), a missing `const`, inlining (`/Ob1` vs `/Ob2`), the
 calling convention (`__thiscall` needs a member function).
 
-## 5. commit
+## 5. format and commit
 
-One or a few functions per commit, `src: <what they are>`. `make match`
-must pass on the whole tree before committing; it is the test suite.
+`make fmt` (clang-format, LLVM style, pinned by `.clang-format`). One or a
+few functions per commit, `src: <what they are>`. `make match` and
+`make fmt-check` must pass on the whole tree before committing.
 
 ## what the numbers mean
 

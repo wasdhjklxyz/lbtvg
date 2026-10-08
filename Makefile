@@ -41,6 +41,14 @@ match:
 match-v:
 	tools/match.py -v $(FUNC)
 
+# clang-format every file under src/ (.clang-format pins the style)
+fmt:
+	clang-format -i $(shell find src -name "*.c" -o -name "*.cpp" -o -name "*.h")
+
+# fail if anything under src/ is not formatted (what CI will run)
+fmt-check:
+	clang-format --dry-run -Werror $(shell find src -name "*.c" -o -name "*.cpp" -o -name "*.h")
+
 # regenerate docs/linkmap.md (which source file owns which address range)
 linkmap:
 	tools/linkmap.py > docs/linkmap.md
@@ -91,4 +99,4 @@ fid-apply: ghidra-check
 		-preScript ApplyFid.java $(FIDB) \
 		-postScript DumpStats.java $(STATS)
 
-.PHONY: all verify match match-v linkmap vc8 ghidra-import ghidra ghidra-check fid fid-import fid-build fid-apply
+.PHONY: all verify match match-v fmt fmt-check linkmap vc8 ghidra-import ghidra ghidra-check fid fid-import fid-build fid-apply

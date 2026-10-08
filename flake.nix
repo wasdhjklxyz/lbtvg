@@ -64,6 +64,7 @@
               file
               binutils # objdump/strings on PE
               llvmPackages.bintools-unwrapped # llvm-objdump/llvm-ar on COFF .obj and .lib
+              clang-tools # clang-format
               objdiff
               depotdownloader
               p7zip # tools/vc8.sh
