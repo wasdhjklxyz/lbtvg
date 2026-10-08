@@ -6,8 +6,8 @@ LEGO Group.
 
 Progress: 123 functions matched, 7,220 / 2,483,972 bytes of game code (0.29%); 14 stubs.
 
-Status: recon done, environment, compiler and ghidra project set up, no code
-matched yet. Start at `docs/setup.md`.
+Status: toolchain, harness and ghidra project in place; matching in progress.
+Start at `docs/setup.md`, then `docs/workflow.md`.
 
 - `docs/setup.md` — dependencies and environment, nix or manual.
 - `docs/workflow.md` — how one function goes from `FUN_` to matched.
