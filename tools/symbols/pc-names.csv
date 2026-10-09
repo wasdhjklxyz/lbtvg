@@ -555,7 +555,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00644700,00274abe,__Z16SuperCarry_StartP12GameObject_sP13GIZMOBLOWUP_si,"SuperCarry_Start(GameObject_s*, GIZMOBLOWUP_s*, int)",gapfill,2
 00645450,002743aa,__Z19SuperCarry_CarryingP12GameObject_s,SuperCarry_Carrying(GameObject_s*),gapfill,2
 00647150,00309ae8,__Z18MiniKit_InitPiecesP7MINIKITiP9variptr_uS2_,"MiniKit_InitPieces(MINIKIT*, int, variptr_u*, variptr_u*)",strings,0
-006481b0,0026391c,__Z14Arcade_GetModePj,Arcade_GetMode(unsigned int*),gapfill,3
+006481b0,0026391c,__Z14Arcade_GetModePj,Arcade_GetMode(unsigned int*),confirmed,0
 006481f0,00263972,__Z17Arcade_ResetPanelv,Arcade_ResetPanel(),order,4
 00648200,00263988,__Z18Arcade_UpdatePaneli,Arcade_UpdatePanel(int),order,4
 00648290,00263a36,__Z16Arcade_DrawPaneli,Arcade_DrawPanel(int),order,4

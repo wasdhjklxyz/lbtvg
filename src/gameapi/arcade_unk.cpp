@@ -32,6 +32,47 @@ TIMER GameTimer;
 
 void GameAudio_PlaySfx(i32, nuvec_s *, i32, i32);
 
+struct ARCADE_MODE_s {
+  i16 *text;
+  i32 target;
+  i32 field8_0x8;
+};
+
+struct ARCADEITEM_s {
+  i16 *level_text;
+  i8 level;
+  u8 level_count;
+  u16 pad_06;
+  i16 *mode_text;
+  char field_c_0xc;
+  u8 mode_count;
+  u16 pad_0e;
+  i16 *play_text;
+  i8 play;
+  u8 play_count;
+  u16 pad_16;
+};
+
+ARCADE_MODE_s Arcade_Mode[];
+
+ARCADEITEM_s ArcadeItem;
+
+// name is a Mac pairing hint (gapfill): verify
+// from saga legoapi/menus/screens/arcade.cpp
+// FUNCTION: LEGOBATMAN 0x006481b0
+i32 Arcade_GetMode(u32 *flags) {
+  if (Arcade == 0) {
+    if (flags != NULL) {
+      *flags = 0;
+    }
+    return -1;
+  }
+  if (flags != NULL) {
+    *flags = Arcade_Mode[ArcadeItem.field_c_0xc].field8_0x8;
+  }
+  return ArcadeItem.field_c_0xc;
+}
+
 // name is a Mac pairing hint (order): verify
 // from saga legoapi/menus/screens/arcade.cpp
 // FUNCTION: LEGOBATMAN 0x006481f0

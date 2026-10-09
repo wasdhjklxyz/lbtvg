@@ -21,10 +21,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 14 | 8 |
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 7 | 6 |
 | [Grabber](#grabber) | 7 | 5 |
-| [Arcade](#arcade) | 4 | 4 |
 | [GameCam](#gamecam) | 4 | 4 |
 | [Hub](#hub) | 6 | 4 |
 | [near nutrig_gen.cpp](#near-nutrig_gencpp) | 12 | 4 |
+| [Arcade](#arcade) | 3 | 3 |
 | [Area](#area) | 4 | 3 |
 | [Door](#door) | 4 | 3 |
 | [GameAudio](#gameaudio) | 3 | 3 |
@@ -51,7 +51,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [NuTex](#nutex) | 4 | 2 |
 | [SuperCarry](#supercarry) | 3 | 2 |
 | [Tag](#tag) | 2 | 2 |
-| [WorldInfo](#worldinfo) | 2 | 2 |
 | [BoltSys](#boltsys) | 1 | 1 |
 | [BoltTypes](#bolttypes) | 1 | 1 |
 | [CC](#cc) | 1 | 1 |
@@ -86,7 +85,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near nufile_gen.cpp](#near-nufile_gencpp) | 1 | 1 |
 | [near nutimebar_gen.cpp](#near-nutimebar_gencpp) | 2 | 1 |
 | [near oggreader.cpp](#near-oggreadercpp) | 7 | 1 |
-| [NuAnim](#nuanim) | 4 | 1 |
 | [NuCamera](#nucamera) | 1 | 1 |
 | [NuCommand](#nucommand) | 1 | 1 |
 | [NuDynamicLight](#nudynamiclight) | 1 | 1 |
@@ -114,6 +112,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [ThermalDetonator](#thermaldetonator) | 1 | 1 |
 | [TrafficAnimSys](#trafficanimsys) | 1 | 1 |
 | [Transform](#transform) | 3 | 1 |
+| [WorldInfo](#worldinfo) | 1 | 1 |
 | [AnimInclude](#animinclude) | 1 | 0 |
 | [ArkhamAsylum](#arkhamasylum) | 1 | 0 |
 | [BackdropSys](#backdropsys) | 1 | 0 |
@@ -168,6 +167,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near numtl_dlist.cpp](#near-numtl_dlistcpp) | 1 | 0 |
 | [near pcapi.cpp](#near-pcapicpp) | 4 | 0 |
 | [near windows.cpp](#near-windowscpp) | 3 | 0 |
+| [NuAnim](#nuanim) | 3 | 0 |
 | [NuDisplay](#nudisplay) | 1 | 0 |
 | [NudxFw](#nudxfw) | 1 | 0 |
 | [NuExp10](#nuexp10) | 1 | 0 |
@@ -527,13 +527,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00602540` 740 B `Grabber_Drop(GRABBER_s*, nuvec_s*)`  **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
 - [ ] `00600e90` 1004 B `Grabber_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/items/objects/grabber.cpp`
 
-## Arcade
-
-- [ ] `006481b0` 62 B `Arcade_GetMode(unsigned int*)`  **hint** name (gapfill) · **saga** `legoapi/menus/screens/arcade.cpp`
-- [ ] `006486e0` 84 B `Arcade_PlayerKilled(int, int)`  **hint** name (gapfill) · **saga** `legoapi/menus/screens/arcade.cpp`
-- [ ] `00648290` 254 B `Arcade_DrawPanel(int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
-- [ ] `00648390` 842 B `Arcade_AwardPoint(int, int, int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
-
 ## GameCam
 
 - [ ] `005a2310` 186 B `GameCam_HitJudder()`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/camera.cpp`
@@ -564,6 +557,12 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006a19a0` 230 B `_AIScriptFind`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
 - [ ] `006a2730` 401 B `_AIScriptCopyConditions`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
 - [ ] `006a2cc0` 536 B `_AIScriptBuildDerivedScript`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
+
+## Arcade
+
+- [ ] `006486e0` 84 B `Arcade_PlayerKilled(int, int)`  **hint** name (gapfill) · **saga** `legoapi/menus/screens/arcade.cpp`
+- [ ] `00648290` 254 B `Arcade_DrawPanel(int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
+- [ ] `00648390` 842 B `Arcade_AwardPoint(int, int, int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
 
 ## Area
 
@@ -712,11 +711,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `004a54c0` 1219 B `Tag_UpdateHint(HINT_s*)`  **saga** `legoapi/menus/core/panel.cpp`
 - [ ] `004a5ac0` 1541 B `Tag_Check(GameObject_s*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
-
-## WorldInfo
-
-- [ ] `005c8150` 6 B `WorldInfo_CurrentlyActive()`  **saga** `legoapi/world/world.cpp`
-- [ ] `005c8130` 21 B `WorldInfo_InitOnce()`  **hint** name (order) · **saga** `legoapi/world/world.cpp`
 
 ## BoltSys
 
@@ -875,13 +869,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0055fc00` 307 B `_LookupDebrisEffectPageIgnore`  **hint** name (gapfill)
 - [ ] `00558f10` 1377 B `_PlaySfxByIdEx`
 
-## NuAnim
-
-- [ ] `0070b950` 58 B `_NuAnimEndFrame`  **hint** name (gapfill)
-- [ ] `0070b290` 120 B `_NuAnimCurveSetCreate`
-- [ ] `0072c750` 153 B `_NuAnimDataChunkDestroy`  **saga** `nu2api/nucore/nuanim.cpp`
-- [ ] `0070b350` 176 B `_NuAnimCurveSetDestroy`  **hint** name (gapfill)
-
 ## NuCamera
 
 - [ ] `00715180` 90 B `_NuCameraCreate`  **saga** `nu2api/nu3d/generic/nucamera_gen.cpp`
@@ -997,6 +984,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `004ffbf0` 618 B `Transform_DrawBeam(GameObject_s*, nuvec_s*)`
 - [ ] `004ff6d0` 700 B `Transform_FindFreezeObstacleTarget(WORLDINFO_s*, GameObject_s*, float*, float)`
 - [ ] `004fff70` 1030 B `Transform_DrawTarget(int, int, nuvec_s*, float, float)`  **saga** `legoapi/actions/character/transform.cpp`
+
+## WorldInfo
+
+- [ ] `005c8150` 6 B `WorldInfo_CurrentlyActive()`  **saga** `legoapi/world/world.cpp`
 
 ## AnimInclude
 
@@ -1256,6 +1247,12 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00528cd0` 127 B `_PCInitStrings`  **hint** name (gapfill)
 - [ ] `00527d60` 212 B `PCCreateMouseCursorMaterial()`
 - [ ] `00528460` 498 B `NuPCCreateWindow(MacDoze::HINSTANCE__*, int, int)`
+
+## NuAnim
+
+- [ ] `0070b950` 58 B `_NuAnimEndFrame`  **hint** name (gapfill)
+- [ ] `0070b290` 120 B `_NuAnimCurveSetCreate`
+- [ ] `0070b350` 176 B `_NuAnimCurveSetDestroy`  **hint** name (gapfill)
 
 ## NuDisplay
 

@@ -2,6 +2,7 @@
 
 #include "../nu2api/nucore/common.h"
 #include <stdio.h>
+#include <string.h>
 
 typedef struct LEVELDATA_s {
   unsigned char pad0[0x64];
@@ -36,6 +37,12 @@ void *TerrainInitEx(i32 level_idx, u32 *buffer, void *buffer_end, i32 a,
 
 i32 NuFileExists(char *name);
 i32 edanimLoadPage(char *path, void *scene, i32 unk);
+
+// GLOBAL: LEGOBATMAN 0x00ab39e8
+extern WORLDINFO WorldInfo[]; // 0xa790 bytes in all
+
+// FUNCTION: LEGOBATMAN 0x005c8130
+void WorldInfo_InitOnce(void) { memset(WorldInfo, 0, 0xa790); }
 
 // FUNCTION: LEGOBATMAN 0x005c8240
 void WorldInfo_LoadObjectAnimFile(WORLDINFO *world) {

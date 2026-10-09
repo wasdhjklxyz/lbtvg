@@ -25,3 +25,4 @@
 005c18b0 Player_StartPos  saga body matches (PlayerStart[idx&7].pos with [0] fallback)
 0063e540 FreeGameObjectLights  saga body matches (rtlDynamicFree per live object) + NuDynamicLight destroy
 005a1fb0 GameCam_NewShake  saga body matches (shake amount/time/speed, GameCam default)
+006481b0 Arcade_GetMode  saga body matches unchanged
