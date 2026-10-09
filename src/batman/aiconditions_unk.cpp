@@ -720,6 +720,89 @@ f32 Condition_ImAGirl(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 0.0f;
 }
 
+struct AIPATHNODE_s {
+  u8 pad0[0x10];
+  u8 index; // 0x10
+  u8 pad11[0x5c - 0x11];
+};
+
+struct AIPATHSET_s {
+  u8 pad0[0x7c];
+  AIPATHNODE_s *nodes; // 0x7c
+  u8 pad80[4];
+  i8 **reachable; // 0x84, [from][to] != -1 when a route exists
+};
+
+struct AIPATHFIND_s {
+  u8 pad0[8];
+  AIPATHSET_s *set; // 0x08
+};
+
+// AISYS_s is opaque here; only the path finder is evidenced.
+struct AISysPathFind_s {
+  u8 pad0[0x21c];
+  AIPATHFIND_s *pathfind; // 0x21c
+};
+
+AIPATHNODE_s *AIPathFindNode(AISYS_s *sys, AIPATHSET_s *set, char *name);
+
+// FUNCTION: LEGOBATMAN 0x00452a80
+void *Condition_CanGetToNodeInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  AIPATHNODE_s *node;
+  if (sys != NULL && ((AISysPathFind_s *)sys)->pathfind != NULL &&
+      ((AISysPathFind_s *)sys)->pathfind->set != NULL &&
+      (node = AIPathFindNode(sys, ((AISysPathFind_s *)sys)->pathfind->set,
+                             name)) != NULL)
+    return (void *)(node - ((AISysPathFind_s *)sys)->pathfind->set->nodes);
+  return (void *)-1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00452af0
+f32 Condition_CanGetToNode(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char *str, void *data) {
+  i32 target = (i32)data;
+  if (target >= 0 && packet != NULL && packet->path_node != NULL &&
+      packet->path_set == ((AISysPathFind_s *)sys)->pathfind->set) {
+    i32 from = packet->path_node->index;
+    if (target == from)
+      return 1.0f;
+    if (packet->path_set->reachable[from][target] != -1)
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// GLOBAL: LEGOBATMAN 0x00ab3980
+extern GameObject_s *g_unk00ab3980;
+
+// FUNCTION: LEGOBATMAN 0x00452b60
+f32 Condition_PlayerCanGetToNode(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                 AIPACKET_s *packet, char *str, void *data) {
+  // The object's AI packet sits at 0x290.
+#define PLAYER_PACKET ((AIPACKET_s *)((char *)g_unk00ab3980 + 0x290))
+  i32 target = (i32)data;
+  if (target >= 0 && g_unk00ab3980 != NULL &&
+      PLAYER_PACKET->path_node != NULL &&
+      PLAYER_PACKET->path_set == ((AISysPathFind_s *)sys)->pathfind->set) {
+    if (target == PLAYER_PACKET->path_node->index)
+      return 1.0f;
+    if (PLAYER_PACKET->path_set
+            ->reachable[PLAYER_PACKET->path_node->index][target] != -1)
+      return 1.0f;
+  }
+  return 0.0f;
+#undef PLAYER_PACKET
+}
+
+// FUNCTION: LEGOBATMAN 0x00452bd0
+f32 Condition_GotCnxCapability(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                               AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && data != NULL &&
+      (packet->cnx_capabilities & (u32)data) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
 i32 Hub_GetRandomCharType(void);
 
 // FUNCTION: LEGOBATMAN 0x00451470

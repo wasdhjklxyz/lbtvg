@@ -415,3 +415,7 @@
 00452950 Condition_IsCarryingPlayerItemInit   matched, Mac order of the Condition_* run after EitherPlayerSuperCarrying
 004529f0 Condition_IAmWoozy   matched, Mac order of the Condition_* run after EitherPlayerSuperCarrying
 00452a30 Condition_ImAGirl   matched, Mac order of the Condition_* run after EitherPlayerSuperCarrying
+00452a80 Condition_CanGetToNodeInit   matched, Mac order after Condition_ImAGirl
+00452af0 Condition_CanGetToNode   matched, Mac order after Condition_ImAGirl
+00452b60 Condition_PlayerCanGetToNode   matched, Mac order after Condition_ImAGirl
+00452bd0 Condition_GotCnxCapability   matched, Mac order after Condition_ImAGirl
