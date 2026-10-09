@@ -2,6 +2,7 @@
 // (0x004556b0..0x004717b0).
 
 #include "../gameapi/ai/aisys_unk.h"
+#include "../nu2api/nucore/nulist.h"
 #include "../nu2api/nucore/nustring.h"
 #include "worldinfo_unk.h"
 #include <string.h>
@@ -3755,4 +3756,156 @@ i32 Action_AttachNodeToPlatform(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     }
   }
   return 1;
+}
+
+void GizmoSetVisibility(GIZMOSYS_s *sys, GIZMO_s *gizmo, i32 visible, i32 a);
+
+// FUNCTION: LEGOBATMAN 0x0046ff80
+i32 Action_GizmoSetVisibility(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char **args, int argc,
+                              int flags, f32 time) {
+  GIZMO_s *gizmo = 0;
+  i32 visible = 1;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "name=");
+      if (s != 0) {
+        s += NuStrLen("name=");
+        gizmo = GizmoFindByName(g_unk00960894->gizmoSys2b0c, -1, s);
+      } else if (NuStrICmp(args[i], "FALSE") == 0) {
+        visible = 0;
+      }
+    }
+    if (gizmo != 0)
+      GizmoSetVisibility(g_unk00960894->gizmoSys2b0c, gizmo, visible, 1);
+  }
+  return 1;
+}
+
+struct PLAYERITEMTYPE_s {
+  u8 pad0[0x40];
+  f32 f40; // 0x40
+};
+
+struct PLAYERITEM_s {
+  NULISTLNK link;         // 0x00
+  PLAYERITEMTYPE_s *type; // 0x08
+  u8 padc[0x25 - 0xc];
+  u8 flags25; // 0x25
+};
+
+i32 PlayerItemType_FindIXFromName(char *name);
+PLAYERITEMTYPE_s *PlayerItemType_FindFromIx(i32 ix);
+PLAYERITEM_s *PlayerItems_AddItem(GameObject_s *obj, PLAYERITEMTYPE_s *type,
+                                  GIZMOBLOWUP_s *blowup, i32 held, i32 current,
+                                  i32 def, f32 f);
+
+// FUNCTION: LEGOBATMAN 0x00470fd0
+i32 Action_AddItem(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
+                   char **args, int argc, int flags, f32 time) {
+  i32 set_current = 1;
+  i32 set_default = 1;
+  i32 set_held = 1;
+  GameObject_s *obj = 0;
+  PLAYERITEMTYPE_s *type = 0;
+  if (flags != 0) {
+    if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+      obj = packet->pd0->obj;
+    if (argc != 0) {
+      for (i32 i = 0; i < argc; i++) {
+        char *s = NuStrIStr(args[i], "character=");
+        if (s != 0)
+          obj = GetNamedGameObject(sys, s + 10);
+        else if (NuStrICmp(args[i], "set_as_current_item=FALSE") == 0)
+          set_current = 0;
+        else if (NuStrICmp(args[i], "set_as_default_item=FALSE") == 0)
+          set_default = 0;
+        else if (NuStrICmp(args[i], "set_item_as_held=FALSE") == 0)
+          set_held = 0;
+        else if ((s = NuStrIStr(args[i], "item=")) != 0)
+          type = PlayerItemType_FindFromIx(
+              (i16)PlayerItemType_FindIXFromName(s + 5));
+      }
+    }
+    if (obj != 0 && type != 0) {
+      NULISTHDR *items = (NULISTHDR *)((u8 *)obj + 0xb18);
+      PLAYERITEM_s *item;
+      for (item = (PLAYERITEM_s *)NuListGetHead(items); item != 0;
+           item = (PLAYERITEM_s *)NuListGetNext(items, &item->link)) {
+        if (item->type == type) {
+          if (set_default != 0)
+            item->flags25 |= 1;
+          return 1;
+        }
+      }
+      item = PlayerItems_AddItem(obj, type, 0, set_held, set_current,
+                                 set_default, type->f40);
+      if (item != 0)
+        item->flags25 |= 2;
+    }
+  }
+  return 1;
+}
+
+struct GoToLevelPathCnx_s {
+  u8 pad0[0x28];
+};
+
+struct GoToLevelPathPath_s {
+  u8 pad0[0x80];
+  GoToLevelPathCnx_s *connections; // 0x80
+};
+
+struct GoToLevelPathNode_s {
+  char *name;  // 0x00
+  nuvec_s pos; // 0x04
+  u8 pad10[0x14 - 0x10];
+  f32 radius_sqr; // 0x14
+  u8 pad18[0x2b - 0x18];
+  u8 runtime_flags; // 0x2b
+  u16 connection;   // 0x2c
+};
+
+f32 NuVecXZDistSqr(nuvec_s *a, nuvec_s *b, nuvec_s *d);
+void AISysCharacterSetPathCnx(AIPACKET_s *packet, nuvec_s *pos,
+                              GoToLevelPathCnx_s *cnx, i32 a);
+
+// FUNCTION: LEGOBATMAN 0x004621e0
+i32 Action_GoToLevelPath(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  if (packet == 0 || packet->pd0 == 0)
+    return 1;
+  if (flags != 0) {
+    if (sys != 0 && packet->path_set != 0 && packet->path_node != 0) {
+      SetPathAIPath_s *active = ((SetPathAISys_s *)sys)->path_sys->active_path;
+      if ((SetPathAIPath_s *)packet->path_set != active) {
+        AISysCharacterSetPath(packet, active);
+        AISysGetCharacterPathPos(g_unk00960894->aiSys2bf8,
+                                 (GameObject_s *)packet->pd0, packet, 0xff, 1);
+      }
+      return 1;
+    }
+  } else {
+    GoToLevelPathNode_s *node = (GoToLevelPathNode_s *)process->action_data_3;
+    if (node != 0) {
+      nuvec_s d;
+      f32 dist = NuVecXZDistSqr(&packet->pd0->pos5c, &node->pos, &d);
+      if (dist < node->radius_sqr) {
+        memset(&packet->path_set, 0, 0x1c);
+        AISysCharacterSetPath(packet,
+                              ((SetPathAISys_s *)sys)->path_sys->active_path);
+        if ((node->runtime_flags & 1) != 0)
+          AISysCharacterSetPathCnx(packet, &packet->pd0->pos5c,
+                                   &((GoToLevelPathPath_s *)packet->path_set)
+                                        ->connections[node->connection],
+                                   0);
+        return 1;
+      }
+      AIMoveInstruction(packet, &node->pos, 0.0f,
+                        (AIPATHINFO *)((u8 *)process + 0x84), 1,
+                        packet->movement_param);
+    }
+  }
+  return 0;
 }

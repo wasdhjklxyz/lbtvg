@@ -1181,3 +1181,6 @@
 0045d330 Action_SetCurrentSpeed  keyword table 0x93bb98
 004606e0 Action_SpecialObjSetPos  keyword table 0x93bb98
 00472640 Action_AttachNodeToPlatform  keyword table 0x93bb98
+0046ff80 Action_GizmoSetVisibility  keyword table 0x93bb98
+00470fd0 Action_AddItem  keyword table 0x93bb98
+004621e0 Action_GoToLevelPath  keyword table 0x93bb98
