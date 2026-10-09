@@ -208,6 +208,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004509a0,00077cbc,__Z25Condition_DropBackInTimerP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_DropBackInTimer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 004509b0,00077cc8,__Z25Condition_PartyUnderCoverP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_PartyUnderCover(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 004509d0,00077cde,__Z37Condition_NumBaddiesThatCanSeePlayersP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_NumBaddiesThatCanSeePlayers(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+00450a50,00077d58,__Z23Condition_HelpWithCarryP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_HelpWithCarry(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00450ab0,00077da6,__Z29Condition_PartyContainsDroidsP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_PartyContainsDroids(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00450b10,00077dee,__Z32Condition_CannotReachDestinationP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_CannotReachDestination(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00450b30,00077e0a,__Z40Condition_EitherPlayerPushingSpinnerInitP7AISYS_sPcP10AISCRIPT_s,"Condition_EitherPlayerPushingSpinnerInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
@@ -219,6 +220,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00450e20,000780a2,__Z35Condition_AnyPartyInTriggerAreaInitP7AISYS_sPcP10AISCRIPT_s,"Condition_AnyPartyInTriggerAreaInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 00450ed0,0007815e,__Z35Condition_AllPartyInTriggerAreaInitP7AISYS_sPcP10AISCRIPT_s,"Condition_AllPartyInTriggerAreaInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 004510a0,000782c0,__Z25Condition_PlayerTakenOverP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_PlayerTakenOver(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+004510d0,000782ea,__Z33Condition_HelpWithCoupledTakeOverP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_HelpWithCoupledTakeOver(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00451120,00078326,__Z26Condition_Player2TakenOverP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_Player2TakenOver(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00451270,00099fce,__Z27Condition_BeenTakenOverInitP7AISYS_sPcP10AISCRIPT_s,"Condition_BeenTakenOverInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 004512b0,00078350,__Z23Condition_BeenTakenOverP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_BeenTakenOver(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
@@ -230,6 +232,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004513f0,000783ac,__Z25Condition_CharacterExistsP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_CharacterExists(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00451400,000783be,__Z33Condition_CharacterTypeExistsInitP7AISYS_sPcP10AISCRIPT_s,"Condition_CharacterTypeExistsInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 00451470,0007841e,__Z29Condition_CharacterTypeExistsP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_CharacterTypeExists(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",strings,0
+00451510,00078486,__Z27Condition_LastAttackerRangeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_LastAttackerRange(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00451570,000784cc,__Z36Condition_LastAttackerIsActivePlayerP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_LastAttackerIsActivePlayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 004515b0,000784fe,__Z29Condition_GotLocatorInSetInitP7AISYS_sPcP10AISCRIPT_s,"Condition_GotLocatorInSetInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 004515d0,00078508,__Z25Condition_GotLocatorInSetP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_GotLocatorInSet(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
@@ -241,6 +244,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00451910,000787c0,__Z28Condition_HeadTurnRestrictedP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_HeadTurnRestricted(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00451960,00078812,__Z20Condition_ShopActiveP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ShopActive(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00451980,0007882a,__Z18Condition_SideInitP7AISYS_sPcP10AISCRIPT_s,"Condition_SideInit(AISYS_s*, char*, AISCRIPT_s*)",strings,0
+00451a30,000788ce,__Z14Condition_SideP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_Side(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00451da0,00078b9e,__Z31Condition_OpponentToPlayerRangeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OpponentToPlayerRange(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00451e10,00078bfe,__Z30Condition_OpponentPathPosRangeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OpponentPathPosRange(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00451e70,00078c4c,__Z24Condition_OpponentRangeYP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OpponentRangeY(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0

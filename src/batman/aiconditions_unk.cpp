@@ -3318,3 +3318,74 @@ void *Condition_NotTaggableSetInit(AISYS_s *sys, char *name,
                                    AISCRIPT_s *script) {
   return GetNamedGameObject(sys, name);
 }
+
+// STUB: LEGOBATMAN 0x004510d0
+// original copies the trailer pointer (mov eax, ecx) before its p1158 test
+f32 Condition_HelpWithCoupledTakeOver(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                      AIPACKET_s *packet, char *str,
+                                      void *data) {
+  GameObject_s *trailer = player->coupled_trailer;
+  if (trailer != NULL) {
+    GameObject_s *obj = trailer;
+    if (obj->p1158 == NULL)
+      return 1.0f;
+    if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj == trailer)
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+f32 NuVecDist(nuvec_s *v0, nuvec_s *v1, nuvec_s *d);
+
+// FUNCTION: LEGOBATMAN 0x00451510
+f32 Condition_LastAttackerRange(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL) {
+    GameObject_s *obj = packet->pd0->obj;
+    if (obj->last_attacker != NULL) {
+      nuvec_s d;
+      return NuVecDist(&obj->position, &obj->last_attacker->position, &d);
+    }
+  }
+  return 1000000000.0f;
+}
+
+extern GameObject_s *Player[8];
+i32 Unk00642b00(GameObject_s *obj);
+
+// FUNCTION: LEGOBATMAN 0x00450a50
+f32 Condition_HelpWithCarry(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char *str, void *data) {
+  GameObject_s *obj;
+  if (packet != NULL && packet->pd0 != NULL &&
+      ((obj = packet->pd0->obj) == Player[0] || obj == Player[1])) {
+    GameObject_s *other = Obj;
+    if (packet->pd0->obj == other)
+      other++;
+    if (Unk00642b00(other) != 0)
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00451a30
+f32 Condition_Side(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
+                   char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL) {
+    i32 side = (i32)data;
+    if (side == 2) {
+      if (packet->pd0->flags1f8 & 0x10000)
+        return 1.0f;
+    } else if (side == 1) {
+      if ((packet->pd0->flags1f8 & 5) == 0)
+        return 1.0f;
+    } else if (side == -1) {
+      if (packet->pd0->flags1f8 & 1)
+        return 1.0f;
+    } else if (side == 0) {
+      if (packet->pd0->flags1f8 & 4)
+        return 1.0f;
+    }
+  }
+  return 0.0f;
+}

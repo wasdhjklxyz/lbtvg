@@ -1238,3 +1238,7 @@
 004515b0 Condition_GotLocatorInSetInit  condition table init slot
 00451830 Condition_HasTakeOverTarget  condition table condition slot
 004524e0 Condition_NotTaggableSetInit  condition table init slot
+004510d0 Condition_HelpWithCoupledTakeOver  condition table condition slot
+00451510 Condition_LastAttackerRange  condition table condition slot
+00450a50 Condition_HelpWithCarry  condition table condition slot
+00451a30 Condition_Side  condition table condition slot

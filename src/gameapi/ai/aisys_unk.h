@@ -26,6 +26,8 @@ struct Unk_AIPacketObj {
   struct Unk_GameObject54 *character; // 0x54
   u8 pad58[0x5c - 0x58];
   nuvec_s pos5c; // 0x5c
+  u8 pad68[0x1f8 - 0x68];
+  u32 flags1f8; // 0x1f8, Condition_Side
 };
 
 struct AIPACKET_s {

@@ -23,7 +23,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 4 | 4 |
 | [Arcade](#arcade) | 2 | 2 |
 | [Area](#area) | 3 | 2 |
-| [Condition](#condition) | 3 | 2 |
+| [Condition](#condition) | 4 | 2 |
 | [CutScenePlayer](#cutsceneplayer) | 2 | 2 |
 | [CutScenes](#cutscenes) | 3 | 2 |
 | [Doors](#doors) | 2 | 2 |
@@ -410,6 +410,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## Condition
 
 - [ ] `0044fd60` 7 B `Condition_NumForceObjects(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)`  **stub** · **saga** `legoapi/items/objects/gameobjects.cpp`
+- [ ] `004510d0` 54 B `Condition_HelpWithCoupledTakeOver(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)`  **stub**
 - [ ] `00451980` 140 B `Condition_SideInit(AISYS_s*, char*, AISCRIPT_s*)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `0044da30` 171 B `Condition_BeenHitByInit(AISYS_s*, char*, AISCRIPT_s*)`  **stub**
 
