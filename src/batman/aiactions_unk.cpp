@@ -691,7 +691,9 @@ struct AILOCATORSET_s {
 
 struct AssignLocatorAISys_s {
   u8 pad0[0x234];
-  AILOCATOR_s *locators; // 0x234
+  AILOCATOR_s *locators;        // 0x234
+  i32 locator_set_count;        // 0x238
+  AILOCATORSET_s *locator_sets; // 0x23c
 };
 
 AILOCATORSET_s *AIPathFindLocatorSet(AISYS_s *sys, char *name);
@@ -2942,6 +2944,184 @@ i32 Action_TagCharacter(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     if (obj != 0) {
       TagCharacter(obj, target, 0);
       SetPlayer();
+    }
+  }
+  return 1;
+}
+
+void SetFlicker(GameObject_s *obj, f32 duration);
+
+// FUNCTION: LEGOBATMAN 0x00473c60
+i32 Action_SetFlickerTime(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **args, int argc, int flags,
+                          f32 time) {
+  f32 duration = 0.0f;
+  GameObject_s *obj = 0;
+  if (flags != 0) {
+    if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+      obj = packet->pd0->obj;
+    if (argc != 0) {
+      for (i32 i = 0; i < argc; i++) {
+        char *s = NuStrIStr(args[i], "character=");
+        if (s != 0) {
+          s += NuStrLen("character=");
+          obj = GetNamedGameObject(sys, s);
+        } else {
+          s = NuStrIStr(args[i], "time=");
+          if (s != 0) {
+            s = s + NuStrLen("time") + 1;
+            duration = AIParamToFloat(process, s);
+          }
+        }
+      }
+    }
+    if (obj != 0)
+      SetFlicker(obj, duration);
+  }
+  return 1;
+}
+
+void Unk00448b40(f32 dist);
+
+// FUNCTION: LEGOBATMAN 0x0046f3e0
+i32 Action_SetAO_RowDist(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "Dist");
+      if (s != 0)
+        Unk00448b40(AIParamToFloat(process, s + 5));
+    }
+  }
+  return 1;
+}
+
+// GLOBAL: LEGOBATMAN 0x00ad6918
+extern i32 (*AIActionParseSpeedFn)(char *str, u8 *out);
+
+void AIMoveInstruction(AIPACKET_s *packet, nuvec_s *pos, f32 height,
+                       AIPATHINFO *path_info, i32 type, f32 param);
+
+// FUNCTION: LEGOBATMAN 0x004623d0
+i32 Action_MoveAwayFromLastAttacker(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                    AIPACKET_s *packet, char **args, int argc,
+                                    int flags, f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      if (AIActionParseSpeedFn != 0 &&
+          AIActionParseSpeedFn(args[i], &packet->goal_speed_mode) != 0)
+        continue;
+      if (NuStrICmp(args[i], "face") == 0)
+        process->action_data_1 = 1;
+      else
+        packet->movement_param = AIParamToFloat(process, args[i]);
+    }
+  }
+  if (obj != 0 && obj->last_attacker != 0) {
+    AIMoveInstruction(packet,
+                      (nuvec_s *)(obj->last_attacker->process290 + 0x174),
+                      *(f32 *)(obj->last_attacker->process290 + 0x120),
+                      (AIPATHINFO *)(obj->last_attacker->process290 + 0x158), 2,
+                      packet->movement_param);
+    if (process->action_data_1 != 0)
+      packet->look_target = &obj->last_attacker->position;
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00472210
+i32 Action_CanUseSupercarry(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char **args, int argc,
+                            int flags, f32 time) {
+  f32 duration = 1000000000.0f;
+  GameObject_s *obj = 0;
+  if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0 && flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "time=");
+      if (s != 0) {
+        s += NuStrLen("time=");
+        duration = AIParamToFloatEx(packet, process, s);
+      } else if (NuStrICmp(args[i], "false") == 0) {
+        duration = 0.0f;
+      }
+    }
+    if (packet->pd0 != 0 && packet->pd0->obj != 0)
+      obj = packet->pd0->obj;
+    if (duration == 0.0f)
+      GameObjectSetCanUse(obj, 0, 0, 0, 0.0f);
+    else
+      GameObjectSetCanUse(obj, 0, 8, 0, duration);
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00456410
+i32 Action_SetLocatorSet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "name=");
+      if (s != 0) {
+        *(AILOCATORSET_s **)((u8 *)process + 0xac) =
+            AIPathFindLocatorSet(g_unk00960894->aiSys2bf8, s + 5);
+      } else if (NuStrICmp(args[i], "from_current_loc") == 0) {
+        AILOCATOR_s *locator = *(AILOCATOR_s **)((u8 *)process + 0xa8);
+        if (locator != 0) {
+          AssignLocatorAISys_s *ai = (AssignLocatorAISys_s *)sys;
+          i32 index = locator - ai->locators;
+          for (i32 j = 0; j < ai->locator_set_count; j++) {
+            AILOCATORSET_s *set = &ai->locator_sets[j];
+            for (i32 k = 0; k < set->locator_count; k++) {
+              if (index == set->locator_entries[k])
+                *(AILOCATORSET_s **)((u8 *)process + 0xac) = set;
+            }
+          }
+        }
+      }
+    }
+  }
+  return 1;
+}
+
+void StartBallooning(GameObject_s *obj, i32 a);
+void SetBallooningHeight(GameObject_s *obj, f32 height);
+
+// FUNCTION: LEGOBATMAN 0x004736a0
+i32 Action_SetBallooning(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  AILOCATORSET_s *set = 0;
+  GameObject_s *obj = 0;
+  if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+    obj = packet->pd0->obj;
+  if (obj == 0)
+    return 0;
+  if (argc <= 0)
+    return 1;
+  for (i32 i = 0; i < argc; i++) {
+    char *s = NuStrIStr(args[i], "locator_set");
+    if (s != 0) {
+      s = s + NuStrLen("locator_set") + 1;
+      set = AIPathFindLocatorSet(g_unk00960894->aiSys2bf8, s);
+    } else if (NuStrIStr(args[i], "FALSE") != 0)
+      obj->b9db = -1;
+  }
+  if (set != 0) {
+    AILOCATOR_s *locator = 0;
+    if (set->locator_count != 0)
+      locator =
+          &((AssignLocatorAISys_s *)sys)->locators[set->locator_entries[0]];
+    *(AILOCATORSET_s **)((u8 *)process + 0xac) = set;
+    if (locator != 0) {
+      *(AILOCATOR_s **)((u8 *)process + 0xa8) = locator;
+      obj->position = *(nuvec_s *)((u8 *)locator + 0x10);
+      StartBallooning(obj, 0);
+      SetBallooningHeight(obj, ((nuvec_s *)((u8 *)locator + 0x10))->y);
     }
   }
   return 1;

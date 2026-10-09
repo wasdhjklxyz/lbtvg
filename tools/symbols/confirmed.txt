@@ -1157,3 +1157,9 @@
 0045edf0 Action_AddExplosion  keyword table 0x93bb98
 00464be0 Action_TagCharacter  keyword table 0x93bb98
 004701d0 Action_IgnoreTriggerSet  keyword table 0x93bb98
+00473c60 Action_SetFlickerTime  keyword table 0x93bb98
+0046f3e0 Action_SetAO_RowDist  keyword table 0x93bb98
+004623d0 Action_MoveAwayFromLastAttacker  keyword table 0x93bb98
+00472210 Action_CanUseSupercarry  keyword table 0x93bb98
+00456410 Action_SetLocatorSet  keyword table 0x93bb98
+004736a0 Action_SetBallooning  keyword table 0x93bb98
