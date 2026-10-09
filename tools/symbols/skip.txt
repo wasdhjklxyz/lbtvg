@@ -161,3 +161,4 @@
 00680d60 SockSys_Configure: uses the camera keyword table 0x9693f8 (naming decision pending)
 006e2530 NuMemCreateDiscardable: esi/edi swap between size and the saved discardbuff, 3 tries
 006e39f0 NuIsCriticalSectionLocked: setne cl + mov al, cl not reproduced (bool/u8/ternary tried)
+006d4440 NuAllocHigh: register swap (freep/previous) + flag reuse, saga and K&R loops tried

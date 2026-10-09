@@ -1707,3 +1707,5 @@
 006e3c90 NuLanguageSetPS        Mac order; called by NuLanguageSet 0x6d6840; empty; matched
 006e3ca0 NuRegionSetPS          Mac order; called by NuRegionSet 0x6d6860; empty; matched
 006e3cb0 NuLanguageConsoleSelectable Mac order, return 1; matched
+006d4410 NuAllocHighInit        saga numemhigh.cpp body (odd masks), Mac order after NuMemBlkFree; matched
+006d44a0 NuFreeHigh             saga numemhigh.cpp body, Mac order; matched

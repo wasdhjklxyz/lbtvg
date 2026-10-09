@@ -2018,6 +2018,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d4390,001883e4,_NuMemBlkCheckFreeList,_NuMemBlkCheckFreeList,confirmed,0
 006d43b0,001883f2,_NuMemBlkAlloc,_NuMemBlkAlloc,confirmed,0
 006d43e0,0018842a,_NuMemBlkFree,_NuMemBlkFree,confirmed,0
+006d4410,00188466,_NuAllocHighInit,_NuAllocHighInit,confirmed,0
+006d44a0,001884f4,_NuFreeHigh,_NuFreeHigh,confirmed,0
 006d4fe0,00188cee,_NuTimeStartFrame,_NuTimeStartFrame,confirmed,0
 006d4ff0,00188d0c,_NuTimeGetStartFrame,_NuTimeGetStartFrame,confirmed,0
 006d5000,00188d1e,_NuTimeGetSinceStartFrame,_NuTimeGetSinceStartFrame,confirmed,0
