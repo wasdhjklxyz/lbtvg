@@ -100,6 +100,16 @@ void SetWeaponOut(GameObject_s *object) {
   }
 }
 
+// FUNCTION: LEGOBATMAN 0x00639b10
+void KeepWeaponOut(GameObject_s *object) {
+  if (g_unk00962144 == 0) {
+    object->weapon_scale = 1.0f;
+    object->flags130c |= 0x80000;
+    object->weapon_scale_state = 0;
+    object->flags140c |= 0x100;
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x00639b50
 void SetWeaponIn(GameObject_s *object) {
   if (g_unk00962144 == 0) {

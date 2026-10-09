@@ -372,7 +372,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005b1940,00357c9a,__Z21DrawObjectOnCharacterP11WORLDINFO_sP12GameObject_siP12nuhspecial_siiP7numtx_sijS6_P7nuvec_sffiS6_,"DrawObjectOnCharacter(WORLDINFO_s*, GameObject_s*, int, nuhspecial_s*, int, int, numtx_s*, int, unsigned int, numtx_s*, nuvec_s*, float, float, int, numtx_s*)",gapfill,1
 005b2a40,00358d26,__Z15LoadThingsScenev,LoadThingsScene(),strings,0
 005b6d60,002d1158,__Z17GizObstacles_LoadPvS_,"GizObstacles_Load(void*, void*)",strings,0
-005bba90,002c350a,__Z17GizmoFileReadNamePc,GizmoFileReadName(char*),gapfill,1
+005bba90,002c350a,__Z17GizmoFileReadNamePc,GizmoFileReadName(char*),confirmed,0
 005bc370,002c3dc8,__Z20GizmoGetTypeIDByNameP10GIZMOSYS_sPc,"GizmoGetTypeIDByName(GIZMOSYS_s*, char*)",gapfill,1
 005bc570,002c447a,__Z15GizmoFindByNameP10GIZMOSYS_siPc,"GizmoFindByName(GIZMOSYS_s*, int, char*)",calls,1
 005bd2d0,002c40ea,__Z12LoadGizmoSysP10GIZMOSYS_sPvPc,"LoadGizmoSys(GIZMOSYS_s*, void*, char*)",strings,0
@@ -539,7 +539,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006396c0,002a827c,__Z13FastWeaponOutP12GameObject_si,"FastWeaponOut(GameObject_s*, int)",order,5
 006397b0,002a83a4,__Z13SlowWeaponOutP12GameObject_s,SlowWeaponOut(GameObject_s*),order,5
 00639900,002a84f6,__Z13WeaponOutCodeP12GameObject_s,WeaponOutCode(GameObject_s*),order,5
-00639b10,002a875c,__Z13KeepWeaponOutP12GameObject_s,KeepWeaponOut(GameObject_s*),order,5
+00639b10,002a875c,__Z13KeepWeaponOutP12GameObject_s,KeepWeaponOut(GameObject_s*),confirmed,0
 00639b50,002a879c,__Z11SetWeaponInP12GameObject_s,SetWeaponIn(GameObject_s*),confirmed,0
 00639ba0,002a87fc,__Z12FastWeaponInP12GameObject_si,"FastWeaponIn(GameObject_s*, int)",gapfill,4
 0063b2a0,0029df30,__Z12GizDigs_LoadPvS_,"GizDigs_Load(void*, void*)",strings,0

@@ -46,3 +46,5 @@
 005a1060 ResetTimer  saga body matches unchanged
 0060ec80 LevelObject_FindIndexFromName  saga body matches (ObjTabList name scan)
 0059dc80 Text_MakeScore  saga body matches (digits then Text_InsertCommasIntoNumber)
+005bba90 GizmoFileReadName  saga body matches (length char then EdFileRead)
+00639b10 KeepWeaponOut  saga body matches (scale 1, weapon anim + keep-out flags)

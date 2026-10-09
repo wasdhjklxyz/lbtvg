@@ -57,6 +57,22 @@ extern i32 ChallengeMode;
 // GLOBAL: LEGOBATMAN 0x00ad1178
 extern i32 Arcade;
 
+char EdFileReadChar();
+
+void EdFileRead(void *buf, i32 len);
+
+// name is a Mac pairing hint (gapfill): verify
+// from saga legoapi/gizmo/base/gizmo.cpp
+// FUNCTION: LEGOBATMAN 0x005bba90
+i32 GizmoFileReadName(char *name) {
+  i32 name_length = EdFileReadChar();
+  if (name_length != 0) {
+    EdFileRead(name, name_length);
+    return 1;
+  }
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x005bdcd0
 i32 InStory() {
   if (FreePlay != 0 || ChallengeMode != 0 || Mission_Active(0) != 0 ||
