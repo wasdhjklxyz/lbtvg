@@ -173,3 +173,16 @@ enough matched code for the percentage to mean something.
   our build merges them (Action_SetPath, CheckGizAIMessage,
   GetNamedAPIObject). Possibly a per-file flag difference; worth testing
   `/Ob`/`/Oy` variants on one of them.
+- **Check then reload**: `if (p->x == 0) return; obj = p->x;` gives
+  `cmp [mem], 0` followed by a reload of the field.
+- **A loop guard read straight from memory** (`cmp [count]`) means no explicit
+  `count > 0` check before the `for`.
+- **`b = (x < 0)`** stores through `al`; `if (x < 0) b = 1; else b = 0;`
+  stores immediate bytes.
+- **`a > b + c` vs `b + c < a`** change the x87 load order.
+- **`memset(&node, 0, 8)`** is the `xor eax; mov; mov` that zeroes a list link.
+- **A callee defined in the same file changes the caller's register
+  allocation**, even without `/GL`: if a caller stops matching when its callee
+  is added next to it, they were in different files.
+- **Empty varargs debug statics vanish** when called from an inline helper;
+  declare them `extern` to keep the call.
