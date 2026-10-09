@@ -3105,3 +3105,59 @@ f32 Condition_HeadTurnRestricted(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     return (f32)((*(u32 *)((u8 *)packet->pd0->obj + 0x1410) >> 20) & 1);
   return 0.0f;
 }
+
+f32 NuVecDist(nuvec_s *a, nuvec_s *b, nuvec_s *diff);
+
+// FUNCTION: LEGOBATMAN 0x00451870
+f32 Condition_TakeOverRange(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char *str, void *argument) {
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL) {
+    // 0x13bc: the take-over target.
+    GameObject_s *target = *(GameObject_s **)((u8 *)packet->pd0->obj + 0x13bc);
+    if (target != NULL)
+      return NuVecDist(&target->position, &packet->pd0->pos5c, NULL);
+  }
+  return 1e9f;
+}
+
+struct AILocatorSetIds_s {
+  u8 pad0[0x10];
+  i8 count; // 0x10
+  u8 pad11[0x14 - 0x11];
+  u8 *ids; // 0x14
+};
+
+struct AILocator44_s {
+  u8 pad0[0x44];
+};
+
+// FUNCTION: LEGOBATMAN 0x00451640
+f32 Condition_LocatorIsFirstInSet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                  AIPACKET_s *packet, char *str,
+                                  void *argument) {
+  // process +0xa8/+0xac: current locator and set; sys +0x234: locators.
+#define PROC_LOCATOR(p) (*(AILocator44_s **)((u8 *)(p) + 0xa8))
+#define PROC_SET(p) (*(AILocatorSetIds_s **)((u8 *)(p) + 0xac))
+  if (PROC_LOCATOR(process) != NULL && PROC_SET(process) != NULL &&
+      PROC_LOCATOR(process) ==
+          &(*(AILocator44_s **)((u8 *)sys + 0x234))[PROC_SET(process)->ids[0]])
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x004515d0
+f32 Condition_GotLocatorInSet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char *str, void *argument) {
+  AILocatorSetIds_s *set = (AILocatorSetIds_s *)argument;
+  if (set != NULL) {
+    AILocator44_s *locator = *(AILocator44_s **)((u8 *)process + 0xa8);
+    if (locator != NULL) {
+      u8 index = locator - *(AILocator44_s **)((u8 *)sys + 0x234);
+      for (i32 i = 0; i < set->count; i++) {
+        if (index == set->ids[i])
+          return 1.0f;
+      }
+    }
+  }
+  return 0.0f;
+}
