@@ -244,7 +244,9 @@ struct GameObject_s {
   void *movement_spline; // 0x137c
   u8 pad1380[0x1383 - 0x1380];
   u8 movement_spline_finished; // 0x1383
-  u8 pad14d[0x13e0 - 0x1384];
+  u8 pad14d[0x13bc - 0x1384];
+  GameObject_s *takeover_target; // 0x13bc
+  u8 pad13c0[0x13e0 - 0x13c0];
   f32 current_speed_mul; // 0x13e0
   u8 pad13e4[0x13f0 - 0x13e4];
   f32 walk_speed_override; // 0x13f0

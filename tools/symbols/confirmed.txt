@@ -1175,3 +1175,6 @@
 004641d0 Action_SetTaggable  keyword table 0x93bb98
 0045f830 Action_UseCurrentSpeed  keyword table 0x93bb98
 00475350 Action_StartSpecialMove  keyword table 0x93bb98
+0046cc10 Action_ReleaseTakeOver  keyword table 0x93bb98
+00468ce0 Action_FollowCharacter  keyword table 0x93bb98
+00470840 Action_MoveNode  keyword table 0x93bb98

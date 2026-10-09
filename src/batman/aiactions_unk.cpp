@@ -689,8 +689,15 @@ struct AILOCATORSET_s {
   u8 *assigned;        // 0x18
 };
 
+struct AISysPathSys_s {
+  u8 pad0[8];
+  AIPATH_s *active_path; // 0x08
+};
+
 struct AssignLocatorAISys_s {
-  u8 pad0[0x234];
+  u8 pad0[0x21c];
+  AISysPathSys_s *path_sys; // 0x21c
+  u8 pad220[0x234 - 0x220];
   AILOCATOR_s *locators;        // 0x234
   i32 locator_set_count;        // 0x238
   AILOCATORSET_s *locator_sets; // 0x23c
@@ -3513,6 +3520,103 @@ i32 Action_StartSpecialMove(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       i32 move = SpecialMove_Check(obj, opponent, move_flags, -1);
       if (move != -1)
         SpecialMove_Start(obj, opponent, move, 1);
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0046cc10
+i32 Action_ReleaseTakeOver(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char **args, int argc, int flags,
+                           f32 time) {
+  GameObject_s *obj = 0;
+  if (flags != 0) {
+    if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+      obj = packet->pd0->obj;
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "character=");
+      if (s != 0)
+        obj = GetNamedGameObject(sys, s + 10);
+    }
+    if (obj != 0 && obj->p1158 != 0)
+      ReleaseTakeOver(obj, 0);
+  }
+  return 1;
+}
+
+void FollowAPIObject(Unk_AIPacketObj *api, void *target, i32 flags, f32 param);
+
+// FUNCTION: LEGOBATMAN 0x00468ce0
+i32 Action_FollowCharacter(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char **args, int argc, int flags,
+                           f32 time) {
+  if (packet == 0)
+    return 1;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      if (AIActionParseSpeedFn != 0 &&
+          AIActionParseSpeedFn(args[i], &packet->goal_speed_mode) != 0)
+        continue;
+      char *s = NuStrIStr(args[i], "character=");
+      if (s != 0)
+        process->action_data_3 = GetNamedGameObject(sys, s + 10);
+      else if (NuStrICmp(args[i], "ignore_radius") == 0)
+        process->action_data_1 |= 2;
+      else if (NuStrICmp(args[i], "can_go_off_path") == 0)
+        process->action_data_1 |= 1;
+      else if (NuStrICmp(args[i], "Opponent") == 0)
+        process->action_data_3 = packet->pe4;
+      else if (NuStrICmp(args[i], "TakeOverTarget") == 0)
+        process->action_data_3 = packet->pd0->obj->takeover_target;
+      else
+        packet->movement_param = AIParamToFloat(process, args[i]);
+    }
+  }
+  void *target = process->action_data_3;
+  if (target != 0)
+    FollowAPIObject(packet->pd0, target, process->action_data_1,
+                    packet->movement_param);
+  return 0;
+}
+
+struct AIPATHNODE_s {
+  char *name;  // 0x00
+  nuvec_s pos; // 0x04
+  u8 pad10[0x5c - 0x10];
+};
+
+AIPATHNODE_s *AIPathFindNode(AISYS_s *sys, AIPATH_s *path, char *name);
+void AIPathNodeBeenMoved(AISYS_s *sys, AIPATH_s *path, AIPATHNODE_s *node);
+
+// FUNCTION: LEGOBATMAN 0x00470840
+i32 Action_MoveNode(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                    AIPACKET_s *packet, char **args, int argc, int flags,
+                    f32 time) {
+  f32 x = 1000000000.0f;
+  f32 y = 1000000000.0f;
+  f32 z = 1000000000.0f;
+  AIPATHNODE_s *node = 0;
+  if (flags != 0) {
+    AssignLocatorAISys_s *ai = (AssignLocatorAISys_s *)sys;
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "node=");
+      if (s != 0)
+        node = AIPathFindNode(sys, ai->path_sys->active_path, s + 5);
+      else if ((s = NuStrIStr(args[i], "x=")) != 0)
+        x = AIParamToFloat(process, s + 2);
+      else if ((s = NuStrIStr(args[i], "y=")) != 0)
+        y = AIParamToFloat(process, s + 2);
+      else if ((s = NuStrIStr(args[i], "z=")) != 0)
+        z = AIParamToFloat(process, s + 2);
+    }
+    if (node != 0) {
+      if (x != 1000000000.0)
+        node->pos.x = x;
+      if (y != 1000000000.0)
+        node->pos.y = y;
+      if (z != 1000000000.0)
+        node->pos.z = z;
+      AIPathNodeBeenMoved(sys, ai->path_sys->active_path, node);
     }
   }
   return 1;
