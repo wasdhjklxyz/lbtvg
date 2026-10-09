@@ -2,6 +2,7 @@
 
 #include "../batman/worldinfo_unk.h"
 #include "../nu2api/nucore/common.h"
+#include "../nu2api/nucore/nulist.h"
 
 struct PLAYERITEMTYPESYS_s;
 
@@ -63,6 +64,35 @@ struct GIZMOPICKUPSYS_s {
 
 // GLOBAL: LEGOBATMAN 0x009652e4
 extern GIZMOPICKUPSYS_s *GizmoPickupSys;
+
+struct PLAYERITEMTYPE_s {
+  u32 pad0[0x30 / 4];
+  u64 flags; // 0x30
+};
+
+// Carried-item list nodes: the item's type at +8.
+struct PLAYERITEMLNK_s {
+  NULISTLNK link;
+  PLAYERITEMTYPE_s *type; // 0x08
+};
+
+// FUNCTION: LEGOBATMAN 0x005f1140
+i32 PlayerItems_DontPickUpItemType(GameObject_s *obj, PLAYERITEMTYPE_s *type) {
+  if ((type->flags & 0x2000000000ull) != 0 && *((u8 *)obj + 0x24c) != 0xff)
+    return 1;
+  if ((type->flags & 0x81) != 0)
+    return 0;
+  if ((*(u64 *)((u8 *)obj + 0xb38) & type->flags) == type->flags) {
+    NULISTHDR *list = (NULISTHDR *)((u8 *)obj + 0xb18);
+    for (PLAYERITEMLNK_s *node = (PLAYERITEMLNK_s *)NuListGetHead(list);
+         node != 0;
+         node = (PLAYERITEMLNK_s *)NuListGetNext(list, &node->link)) {
+      if (node->type == type)
+        return 1;
+    }
+  }
+  return 0;
+}
 
 // FUNCTION: LEGOBATMAN 0x00635020
 u32 GizmoPickups_TotalScore(void *world) {

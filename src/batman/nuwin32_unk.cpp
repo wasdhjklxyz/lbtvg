@@ -24,6 +24,35 @@ extern "C" void NuWin32SetDFS(i32 index) {
 // GLOBAL: LEGOBATMAN 0x009d1354
 extern i32 g_nuWin32Unk009d1354; // launched from Media Center
 
+// GLOBAL: LEGOBATMAN 0x02a1a000
+extern HWND g_nuPCWindow;
+// GLOBAL: LEGOBATMAN 0x00ad31c4
+extern HWND g_hwnd_0ad31c4;
+
+// FUNCTION: LEGOBATMAN 0x00527010
+int NuPCCreateWindowFromHWnd(HWND hwnd, int show) {
+  HANDLE mutex = CreateMutexA(NULL, TRUE,
+                              "TTales-{BB049982-BDFA-42a0-8584-3917255CBA0E} ");
+  bool already_running = GetLastError() == ERROR_ALREADY_EXISTS;
+  if (mutex)
+    ReleaseMutex(mutex);
+  if (already_running) {
+    HWND other = g_nuPCWindow;
+    if (other) {
+      SetForegroundWindow(other);
+      if (IsIconic(other))
+        ShowWindow(other, SW_RESTORE);
+    }
+    CoUninitialize();
+    return 0;
+  }
+  g_nuPCWindow = hwnd;
+  ShowWindow(hwnd, show);
+  UpdateWindow(hwnd);
+  g_hwnd_0ad31c4 = hwnd;
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x005270a0
 void RelaunchMediaCenterIfNecessary() {
   char path[MAX_PATH];

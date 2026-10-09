@@ -31,7 +31,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizPanel](#gizpanel) | 2 | 2 |
 | [LevelObjects](#levelobjects) | 2 | 2 |
 | [Move](#move) | 2 | 2 |
-| [near nutrig_gen.cpp](#near-nutrig_gencpp) | 4 | 2 |
+| [near nutrig_gen.cpp](#near-nutrig_gencpp) | 3 | 2 |
 | [NuStr](#nustr) | 2 | 2 |
 | [Tag](#tag) | 2 | 2 |
 | [Text](#text) | 3 | 2 |
@@ -132,7 +132,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near listman_gen.cpp](#near-listman_gencpp) | 1 | 0 |
 | [near nugraph_gen.cpp](#near-nugraph_gencpp) | 1 | 0 |
 | [near numtl_dlist.cpp](#near-numtl_dlistcpp) | 1 | 0 |
-| [near pcapi.cpp](#near-pcapicpp) | 3 | 0 |
+| [near pcapi.cpp](#near-pcapicpp) | 2 | 0 |
 | [near windows.cpp](#near-windowscpp) | 3 | 0 |
 | [NuDisplay](#nudisplay) | 1 | 0 |
 | [NudxFw](#nudxfw) | 1 | 0 |
@@ -158,7 +158,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [OpenAutomate](#openautomate) | 1 | 0 |
 | [PartKill](#partkill) | 1 | 0 |
 | [PartStop](#partstop) | 1 | 0 |
-| [PlayerItems](#playeritems) | 5 | 0 |
+| [PlayerItems](#playeritems) | 4 | 0 |
 | [PlayerItemTypeSys](#playeritemtypesys) | 2 | 0 |
 | [PreInterpretor](#preinterpretor) | 6 | 0 |
 | [Puzzle](#puzzle) | 1 | 0 |
@@ -440,7 +440,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## near nutrig_gen.cpp
 
-- [ ] `006af110` 142 B `_AiSysIsCurrentPlatform`
 - [ ] `006a6000` 171 B `_AISysRegisterPathCnxType`  **stub**
 - [ ] `006a2730` 401 B `_AIScriptCopyConditions`  **stub** · **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
 - [ ] `006a2cc0` 536 B `_AIScriptBuildDerivedScript`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
@@ -900,7 +899,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## near pcapi.cpp
 
-- [ ] `00527010` 139 B `NuPCCreateWindowFromHWnd(MacDoze::HWND__*, int)`
 - [ ] `00526b40` 747 B `NuPCProcessCommandLineArguments(char*)`
 - [ ] `005264c0` 1126 B `_NuPCDetermineLanguage`
 
@@ -1023,7 +1021,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## PlayerItems
 
 - [ ] `005f3630` 60 B `PlayerItems_RemoveItems(GameObject_s*, int, int, int, unsigned long long)`  **hint** name (order)
-- [ ] `005f1140` 143 B `PlayerItems_DontPickUpItemType(GameObject_s*, PLAYERITEMTYPE_s*)`  **hint** name (gapfill)
 - [ ] `005f3440` 212 B `PlayerItems_RemoveItem(GameObject_s*, PLAYERITEM_s*, int)`  **hint** name (gapfill)
 - [ ] `005f4270` 621 B `PlayerItems_AddItem(GameObject_s*, PLAYERITEMTYPE_s*, GIZMOBLOWUP_s*, int, int, int, float)`  **hint** name (gapfill)
 - [ ] `005f3720` 664 B `PlayerItems_DropItem(GameObject_s*, PLAYERITEM_s*, int, nuvec_s*)`  **hint** name (gapfill)

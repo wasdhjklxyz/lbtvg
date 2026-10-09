@@ -4,6 +4,23 @@
 #include "../../../nu2api/nucore/nustring.h"
 #include "../aisys_unk.h"
 
+// GLOBAL: LEGOBATMAN 0x0099e2c0
+extern i32 g_aiSysNextGen;
+
+// FUNCTION: LEGOBATMAN 0x006af110
+extern "C" i32 AiSysIsCurrentPlatform(char *name) {
+  if (!g_aiSysNextGen &&
+      (NuStrICmp(name, "CURRGEN") == 0 || NuStrICmp(name, "CURRENTGEN") == 0))
+    return 1;
+  if (g_aiSysNextGen && NuStrICmp(name, "NEXTGEN") == 0)
+    return 1;
+  if (!g_aiSysNextGen && NuStrICmp(name, "PC") == 0)
+    return 1;
+  if (g_aiSysNextGen && NuStrICmp(name, "PC_HIRES") == 0)
+    return 1;
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x006b24d0
 void AIBugPitGridBase::CellOf(int index, int *ix, int *iz) {
   int q = index / width;
