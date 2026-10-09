@@ -1079,7 +1079,10 @@ i32 Action_GoToOrigin(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
 
 // AIGROUP_s rows, 0x38 bytes each
 struct AIROW_s {
-  u8 pad0[0x31];
+  AIPATHINFO7_s path_info; // 0x00
+  nuvec_s pos;             // 0x1c
+  i32 y_rot;               // 0x28
+  u8 pad2c[0x31 - 0x2c];
   u8 is_alive; // 0x31
   u8 pad32[2];
   u8 : 1;
@@ -1091,12 +1094,16 @@ struct AIGROUP_s {
   Unk_AIPacketObj *leader; // 0x00
   u8 pad4[2];
   u8 row_count; // 0x06
-  u8 pad7[0x50 - 7];
+  u8 pad7;
+  u8 count_across; // 0x08
+  u8 pad9[0x50 - 9];
   u32 : 2;
   u32 is_reversed : 1;     // 0x50 bit 2
   u32 is_in_formation : 1; // 0x50 bit 3
   u32 is_row_turning : 1;  // 0x50 bit 4
-  AIROW_s rows[1];         // 0x54
+  AIROW_s rows[4];         // 0x54
+  u8 pad134[4];
+  f32 x_spacing; // 0x138
 };
 
 typedef i32 (*AIROWMOVEFN)(AIGROUP_s *group, AIROW_s *row, AIROW_s *previous,
@@ -1203,6 +1210,41 @@ extern "C" void AIMoveInstruction(AIPACKET_s *packet, nuvec_s *destination,
   *(f32 *)((u8 *)packet + 0x1c4) = stopping_distance;
   packet->movement_mode = mode;
   *(f32 *)((u8 *)packet + 0x1c8) = movement_parameter;
+}
+// STUB: LEGOBATMAN 0x006b71e0
+// close: orig hoists one fldz above the column branches and reuses it (as
+// FollowPath), and multiplies spacing by the int with fimul; ours fild/fmul.
+void AIFormationFollow(AIPACKET_s *packet) {
+  AIGROUP_s *group = packet->group;
+  if (packet->group_row < group->row_count) {
+    AIROW_s *row = &group->rows[packet->group_row];
+    u8 column = packet->group_column;
+    nuvec_s offset;
+    if ((*((u8 *)packet + 0x1f3) & 1) != 0) {
+      offset.x =
+          (group->count_across & 1) != 0 ? 0.0f : -(0.5f * group->x_spacing);
+    } else {
+      offset.x = group->x_spacing * ((column + 1) / 2);
+      if ((column & 1) != 0)
+        offset.x = -offset.x;
+    }
+    if (group->is_reversed)
+      offset.x = -offset.x;
+    offset.y = 0.0f;
+    offset.z = 0.0f;
+    NuVecRotateY(&offset, &offset, row->y_rot);
+    nuvec_s destination;
+    NuVecAdd(&destination, &offset, &row->pos);
+    packet->movement_event_flags |= 8;
+    AIMoveInstructionFull(packet, &destination, 0.0f, &row->path_info, 5, 0.0f);
+    nuvec_s *look = (nuvec_s *)((u8 *)packet + 0x78);
+    look->x = 0.0f;
+    look->y = 0.0f;
+    look->z = 100.0f;
+    NuVecRotateY(look, look, row->y_rot);
+    NuVecAdd(look, look, &row->pos);
+    packet->look_target = look;
+  }
 }
 
 // STUB: LEGOBATMAN 0x006bbe00

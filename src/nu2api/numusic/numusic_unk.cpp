@@ -4,6 +4,8 @@
 
 #include "../nucore/common.h"
 #include "../nucore/nustring.h"
+#include <stddef.h>
+#include <string.h>
 
 typedef struct nufpar_s {
   u8 pad0[8];
@@ -16,19 +18,26 @@ typedef struct nufpar_s {
 
 i32 NuFParGetWord(NUFPAR *parser);
 f32 NuFParGetFloatRDP(NUFPAR *parser);
-void NuFParSetInterpreterErrorHandler(void (*handler)(NUFPAR *parser));
+typedef void (*NUFPCOMFN)(NUFPAR *parser);
+NUFPCOMFN NuFParSetInterpreterErrorHandler(NUFPCOMFN handler);
+i32 NuFParPushComCTX(NUFPAR *parser, void *commands);
+void NuFParPopCom(NUFPAR *parser);
+void NuFParInterpretWordCTX(NUFPAR *parser, void *ctx);
 
 // Empty in this build; called when a table is full.
 // FUNCTION: LEGOBATMAN 0x00536250
 static void Unk00536250(...) {}
 
 struct Track {
-  u8 pad0[4];
+  char *path;  // 0x00
   char *name;  // 0x04
   char *ident; // 0x08
-  u8 padc[0x1c - 0xc];
-  i32 entry_count; // 0x1c
-  u8 pad20[0x2c - 0x20];
+  u8 padc[0x14 - 0xc];
+  u32 clazz;        // 0x14
+  f32 *entry_times; // 0x18
+  i32 entry_count;  // 0x1c
+  u8 pad20[0x28 - 0x20];
+  i32 pitch;       // 0x28
   f32 duck_volume; // 0x2c
   f32 duck_fade;   // 0x30
   f32 attenuation; // 0x34
@@ -43,13 +52,13 @@ struct Album {
 };
 
 struct NuMusic {
-  Album *albums;   // 0x00
-  i32 album_count; // 0x04
-  Track *tracks;   // 0x08
-  i32 track_count; // 0x0c
-  f32 *indexes;    // 0x10
-  i32 index_count; // 0x14
-  u8 pad18[0x1c - 0x18];
+  Album *albums;            // 0x00
+  i32 album_count;          // 0x04
+  Track *tracks;            // 0x08
+  i32 track_count;          // 0x0c
+  f32 *indexes;             // 0x10
+  i32 index_count;          // 0x14
+  i32 pitch_default;        // 0x18
   Album *current_album;     // 0x1c
   Track *current_track;     // 0x20
   char current_path[0x100]; // 0x24
@@ -75,6 +84,7 @@ struct NuMusic {
   }
 
   static void GlobalParseErrorFn(NUFPAR *parser);
+  static void TrackParseErrorFn(NUFPAR *parser);
   void ParseTrack(i32 track_class, NUFPAR *parser);
 
   void xIndex(NUFPAR *parser) {
@@ -130,6 +140,11 @@ struct NuMusic {
 
 // FUNCTION: LEGOBATMAN 0x00536cd0
 void NuMusic::GlobalParseErrorFn(NUFPAR *parser) {
+  Unk00536250(parser->word_buf, parser->line_num, parser->name);
+}
+
+// FUNCTION: LEGOBATMAN 0x00536cf0
+void NuMusic::TrackParseErrorFn(NUFPAR *parser) {
   Unk00536250(parser->word_buf, parser->line_num, parser->name);
 }
 
@@ -262,6 +277,59 @@ void NuMusic::xAttenuation(NUFPAR *parser) {
   if (current_track->attenuation < 0.0f)
     current_track->attenuation =
         NuSoundSystem_dBToAmplitude(current_track->attenuation);
+}
+
+// track keyword table
+extern u8 track_jmp_tab[];
+
+static inline char *RemovePath(char *path) {
+  char *last = NULL;
+  for (char *p = path; *p != '\0'; p++) {
+    if (*p == '\\' || *p == '/')
+      last = p;
+  }
+  if (last != NULL)
+    return last + 1;
+  return path;
+}
+
+// FUNCTION: LEGOBATMAN 0x00538c90
+void NuMusic::ParseTrack(i32 track_class, NUFPAR *parser) {
+  NUFPCOMFN prev_handler = NULL;
+  if (track_count >= 0x800)
+    Unk00536250();
+  current_track = &tracks[track_count++];
+  if (current_album != NULL)
+    current_album->tracks_count++;
+  memset(current_track, 0, sizeof(Track));
+  current_track->entry_times = indexes + index_count;
+  current_track->clazz = track_class;
+  current_track->pitch = pitch_default;
+  current_track->duck_volume = 1.0f;
+  current_track->duck_fade = 1.0f;
+  current_track->attenuation = 1.0f;
+  if (track_class == 4 || track_class == 8 || track_class == 0x10)
+    current_track->flags &= ~2;
+  else
+    current_track->flags |= 2;
+  char path[256];
+  char buf[256];
+  NuFParGetWord(parser);
+  NuStrCpy(buf, current_path);
+  NuStrCat(buf, parser->word_buf);
+  SubstituteString(path, buf, "$lang", language);
+  current_track->path = AllocString(path);
+  current_track->ident = RemovePath(current_track->path);
+  if (strict)
+    prev_handler = NuFParSetInterpreterErrorHandler(TrackParseErrorFn);
+  NuFParPushComCTX(parser, track_jmp_tab);
+  while (*parser->word_buf != '\0' && *parser->word_buf != ';') {
+    NuFParGetWord(parser);
+    NuFParInterpretWordCTX(parser, this);
+  }
+  NuFParPopCom(parser);
+  if (strict)
+    NuFParSetInterpreterErrorHandler(prev_handler);
 }
 
 // FUNCTION: LEGOBATMAN 0x00538ff0

@@ -55,7 +55,9 @@ struct AIPACKET_s {
   u8 pad140[0x144 - 0x140];
   struct AIGROUP_s *group; // 0x144
   u8 group_member_index;   // 0x148
-  u8 pad149[0x158 - 0x149];
+  u8 group_column;         // 0x149
+  u8 group_row;            // 0x14a
+  u8 pad14b[0x158 - 0x14b];
   struct AIPATHSET_s *path_set;   // 0x158
   struct AIPATHNODE_s *path_node; // 0x15c, node byte 0x10 = index
   u8 pad160[0x184 - 0x160];

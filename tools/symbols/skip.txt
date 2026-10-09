@@ -128,3 +128,4 @@
 006bb100 Action_GoToNodeRandom: GoToNode's epilogue puzzle (two return-0 tails), 3 tries
 006bb2a0 Action_GoToOrigin: creature ebp/ebx register swap only, 4 tries
 006bbe00 Action_FollowPath: orig keeps 0.0f live on the x87 stack from entry, ours re-fldz, 3 tries
+006b71e0 AIFormationFollow: hoisted fldz reuse + fimul order (as FollowPath), 3 tries
