@@ -999,3 +999,191 @@ i32 Action_StunOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   StunGameObject(target, self, stun_time, stun_flags);
   return 1;
 }
+
+// FUNCTION: LEGOBATMAN 0x00463850
+i32 Action_PrefersPlayers(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **args, int argc, int flags,
+                          f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *object = packet->pd0->obj;
+  *(u32 *)((u8 *)object + 0x1410) |= 4;
+  if (argc != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "FALSE") == 0)
+        *(u32 *)((u8 *)object + 0x1410) &= ~4;
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x004638d0
+i32 Action_SetBoltsDontGetDeflectedBack(AISYS_s *sys,
+                                        AISCRIPTPROCESS_s *process,
+                                        AIPACKET_s *packet, char **args,
+                                        int argc, int flags, f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *object = packet->pd0->obj;
+  *(u32 *)((u8 *)object + 0x1410) |= 0x80;
+  if (argc != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "FALSE") == 0)
+        *(u32 *)((u8 *)object + 0x1410) &= ~0x80;
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00463960
+i32 Action_CanShootObstructions(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                AIPACKET_s *packet, char **args, int argc,
+                                int flags, f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *object = packet->pd0->obj;
+  *(u32 *)((u8 *)object + 0x1410) |= 0x1;
+  if (argc != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "FALSE") == 0)
+        *(u32 *)((u8 *)object + 0x1410) &= ~0x1;
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x004639e0
+i32 Action_UseBigJumpToJump(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char **args, int argc,
+                            int flags, f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *object = packet->pd0->obj;
+  *(u32 *)((u8 *)object + 0x1418) |= 0x1;
+  if (argc != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "FALSE") == 0)
+        *(u32 *)((u8 *)object + 0x1418) &= ~0x1;
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00463a60
+i32 Action_IgnoreTurnAroundSpline(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                  AIPACKET_s *packet, char **args, int argc,
+                                  int flags, f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *object = packet->pd0->obj;
+  *(u32 *)((u8 *)object + 0x1418) |= 0x2;
+  if (argc != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "FALSE") == 0)
+        *(u32 *)((u8 *)object + 0x1418) &= ~0x2;
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00463ae0
+i32 Action_CanMoveWhenDeactivated(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                  AIPACKET_s *packet, char **args, int argc,
+                                  int flags, f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *object = packet->pd0->obj;
+  *(u32 *)((u8 *)object + 0x1418) |= 0x4;
+  if (argc != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "FALSE") == 0)
+        *(u32 *)((u8 *)object + 0x1418) &= ~0x4;
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00463c50
+i32 Action_DontAttack(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                      AIPACKET_s *packet, char **args, int argc, int flags,
+                      f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *object = packet->pd0->obj;
+  *(u32 *)((u8 *)object + 0x1418) |= 0x10;
+  if (argc != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "FALSE") == 0)
+        *(u32 *)((u8 *)object + 0x1418) &= ~0x10;
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00463cd0
+i32 Action_CanPullLevers(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *object = packet->pd0->obj;
+  *(u32 *)((u8 *)object + 0x1410) |= 0x8000000;
+  if (argc != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "FALSE") == 0)
+        *(u32 *)((u8 *)object + 0x1410) &= ~0x8000000;
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00463d60
+i32 Action_CanHitForceObjects(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char **args, int argc,
+                              int flags, f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *object = packet->pd0->obj;
+  *(u32 *)((u8 *)object + 0x140c) |= 0x400;
+  if (argc != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "FALSE") == 0)
+        *(u32 *)((u8 *)object + 0x140c) &= ~0x400;
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00463df0
+i32 Action_AlwaysBackFlip(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **args, int argc, int flags,
+                          f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *object = packet->pd0->obj;
+  *(u32 *)((u8 *)object + 0x140c) |= 0x1000;
+  if (argc != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "FALSE") == 0)
+        *(u32 *)((u8 *)object + 0x140c) &= ~0x1000;
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00463e80
+i32 Action_PlayerSpeederHack(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char **args, int argc,
+                             int flags, f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *object = packet->pd0->obj;
+  *(u32 *)((u8 *)object + 0x1418) |= 0x40;
+  if (argc != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "FALSE") == 0)
+        *(u32 *)((u8 *)object + 0x1418) &= ~0x40;
+    }
+  }
+  return 1;
+}

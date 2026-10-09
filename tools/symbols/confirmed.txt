@@ -1044,3 +1044,14 @@
 006b4960 Action_OrIf  matched, keyword table
 006b49c0 Action_AndIf  matched, keyword table
 006b4a20 Action_ElseIf  matched, keyword table
+004638d0 Action_SetBoltsDontGetDeflectedBack  matched, keyword table + Mac name
+00463960 Action_CanShootObstructions  matched, keyword table + Mac name
+004639e0 Action_UseBigJumpToJump  matched, keyword table + Mac name
+00463a60 Action_IgnoreTurnAroundSpline  matched, keyword table + Mac name
+00463ae0 Action_CanMoveWhenDeactivated  matched, keyword table + Mac name
+00463c50 Action_DontAttack  matched, keyword table + Mac name
+00463cd0 Action_CanPullLevers  matched, keyword table + Mac name
+00463d60 Action_CanHitForceObjects  matched, keyword table + Mac name
+00463df0 Action_AlwaysBackFlip  matched, keyword table + Mac name
+00463e80 Action_PlayerSpeederHack  matched, keyword table + Mac name
+00463850 Action_PrefersPlayers  matched saga body, keyword table
