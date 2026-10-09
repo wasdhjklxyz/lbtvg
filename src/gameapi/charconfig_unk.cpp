@@ -1225,3 +1225,56 @@ void CC_super_turn(NUFPAR *parser) {
   ((CCBits *)&charconfig.runtime->flags)->b26 =
       NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
 }
+
+// FUNCTION: LEGOBATMAN 0x00626c90
+void CC_respawn(NUFPAR *parser) { CC_SetCDataFlagsj(parser, 0x8000000); }
+
+// FUNCTION: LEGOBATMAN 0x00626ce0
+void CC_vehicle(NUFPAR *parser) {
+  CC_SetCDataFlagsj(parser, 0x2000);
+  charconfig.runtime->flags148 |= 0x80000000;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626d40
+void CC_floating_vehicle(NUFPAR *parser) {
+  CC_SetCDataFlagsj(parser, 0x2000);
+  ((CCBits *)&charconfig.runtime->flags)->b13 =
+      g_unk00acb860->model_flags >> 13;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626db0
+void CC_flying_vehicle(NUFPAR *parser) {
+  CC_SetCDataFlagsj(parser, 0x2000);
+  ((CCBits *)&charconfig.runtime->flags)->b14 =
+      g_unk00acb860->model_flags >> 13;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626e20
+void CC_only_active_when_taken_over(NUFPAR *parser) {
+  CC_SetCDataFlagsj(parser, 0x20000000);
+}
+
+// FUNCTION: LEGOBATMAN 0x00626e70
+void CC_beast(NUFPAR *parser) { CC_SetCDataFlagsj(parser, 0x40000000); }
+
+// FUNCTION: LEGOBATMAN 0x00626ec0
+void CC_prefers_brawling(NUFPAR *parser) {
+  CC_SetCDataFlagsj(parser, 0x80000000);
+}
+
+// FUNCTION: LEGOBATMAN 0x00626f10
+void CC_dontpush(NUFPAR *parser) { CC_SetCDataFlagsj(parser, 0x4000); }
+
+// FUNCTION: LEGOBATMAN 0x00626f60
+void CC_dont_move_out_of_way(NUFPAR *parser) {
+  CC_SetGCDataFlagsj(parser, 0x2000);
+}
+
+// FUNCTION: LEGOBATMAN 0x00626fb0
+void CC_dontmove(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x80); }
+
+// FUNCTION: LEGOBATMAN 0x00627000
+void CC_jetpack(NUFPAR *parser) { CC_SetCDataFlagsj(parser, 0x8000); }
+
+// FUNCTION: LEGOBATMAN 0x00627050
+void CC_oldheadmovement(NUFPAR *parser) { CC_SetCDataFlagsj(parser, 0x20000); }

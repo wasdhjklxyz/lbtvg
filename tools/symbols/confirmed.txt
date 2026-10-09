@@ -733,3 +733,15 @@
 00626ba0 CC_fight_sequential  matched, Mac order
 00626bf0 CC_helicopter  matched, Mac order
 00626c40 CC_super_turn  matched, Mac order
+00626e20 CC_only_active_when_taken_over  matched, Mac order
+00626e70 CC_beast  matched, Mac order
+00626ec0 CC_prefers_brawling  matched, Mac order
+00626f10 CC_dontpush  matched, Mac order
+00626f60 CC_dont_move_out_of_way  matched, Mac order
+00626fb0 CC_dontmove  matched, Mac order
+00627000 CC_jetpack  matched, Mac order
+00627050 CC_oldheadmovement  matched, Mac order
+00626c90 CC_respawn  matched, Mac order
+00626ce0 CC_vehicle  matched, Mac order
+00626d40 CC_floating_vehicle  matched, Mac order
+00626db0 CC_flying_vehicle  matched, Mac order

@@ -1021,6 +1021,18 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00626ba0,0027de0c,__Z19CC_fight_sequentialP8nufpar_s,CC_fight_sequential(nufpar_s*),confirmed,0
 00626bf0,0027de50,__Z13CC_helicopterP8nufpar_s,CC_helicopter(nufpar_s*),confirmed,0
 00626c40,0027de92,__Z13CC_super_turnP8nufpar_s,CC_super_turn(nufpar_s*),confirmed,0
+00626c90,0027ded6,__Z10CC_respawnP8nufpar_s,CC_respawn(nufpar_s*),confirmed,0
+00626ce0,0027dee8,__Z10CC_vehicleP8nufpar_s,CC_vehicle(nufpar_s*),confirmed,0
+00626d40,0027df18,__Z19CC_floating_vehicleP8nufpar_s,CC_floating_vehicle(nufpar_s*),confirmed,0
+00626db0,0027df5e,__Z17CC_flying_vehicleP8nufpar_s,CC_flying_vehicle(nufpar_s*),confirmed,0
+00626e20,0027dfa6,__Z30CC_only_active_when_taken_overP8nufpar_s,CC_only_active_when_taken_over(nufpar_s*),confirmed,0
+00626e70,0027dfb8,__Z8CC_beastP8nufpar_s,CC_beast(nufpar_s*),confirmed,0
+00626ec0,0027dfca,__Z19CC_prefers_brawlingP8nufpar_s,CC_prefers_brawling(nufpar_s*),confirmed,0
+00626f10,0027dfdc,__Z11CC_dontpushP8nufpar_s,CC_dontpush(nufpar_s*),confirmed,0
+00626f60,0027dfee,__Z23CC_dont_move_out_of_wayP8nufpar_s,CC_dont_move_out_of_way(nufpar_s*),confirmed,0
+00626fb0,0027e000,__Z11CC_dontmoveP8nufpar_s,CC_dontmove(nufpar_s*),confirmed,0
+00627000,0027e012,__Z10CC_jetpackP8nufpar_s,CC_jetpack(nufpar_s*),confirmed,0
+00627050,0027e024,__Z18CC_oldheadmovementP8nufpar_s,CC_oldheadmovement(nufpar_s*),confirmed,0
 006285d0,00280c32,__Z16AnimInclude_InitPcP9variptr_uS1_,"AnimInclude_Init(char*, variptr_u*, variptr_u*)",strings,0
 00629270,002818fe,__Z23CharConfig_ConfigureAlliP12nufpcomjmp_s,"CharConfig_ConfigureAll(int, nufpcomjmp_s*)",strings,0
 0062d030,002833a2,__Z24CharShadows_InitMaterialP9variptr_uS_,"CharShadows_InitMaterial(variptr_u*, variptr_u)",strings,0
