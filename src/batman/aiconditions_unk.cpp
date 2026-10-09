@@ -1408,6 +1408,73 @@ f32 Condition_Message(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 0.0f;
 }
 
+// FUNCTION: LEGOBATMAN 0x0044ff70
+void *Condition_ScriptParamInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  if (name != NULL) {
+    for (i32 index = 0; index < 4; ++index) {
+      if (script->params[index].name != NULL &&
+          NuStrICmp(script->params[index].name, name) == 0)
+        return (void *)index;
+    }
+    return (void *)NuAToI(name);
+  }
+  return (void *)-1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044ffd0
+f32 Condition_ScriptParam(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char *str, void *argument) {
+  i32 index = (i32)argument;
+  if (index >= 0)
+    return process->params[index];
+  return 0.0f;
+}
+
+i32 NuSpecialExistsFn(nuhspecial_s *special);
+nuinstanim_s *NuSpecialGetInstAnim(nuhspecial_s *special);
+
+// FUNCTION: LEGOBATMAN 0x0044fff0
+void *Condition_AnimationFinishedInit(AISYS_s *sys, char *name,
+                                      AISCRIPT_s *script) {
+  nuhspecial_s special;
+  NuSpecialFind(g_unk00960894->scn140, &special, name, 1);
+  return NuSpecialExistsFn(&special) != 0 ? NuSpecialGetInstAnim(&special)
+                                          : NULL;
+}
+
+float NuAnimEndFrameOld(void *data);
+
+// FUNCTION: LEGOBATMAN 0x00450050
+f32 Condition_AnimationFinished(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                AIPACKET_s *packet, char *str, void *argument) {
+  nuinstanim_s *animation = (nuinstanim_s *)argument;
+  if (animation != NULL && !(animation->flags50 & 1)) {
+    void *data =
+        g_unk00960894->scn140->instance_animation_data[animation->anim_ix];
+    if (data != NULL && animation->ltime >= NuAnimEndFrameOld(data))
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x004500c0
+void *Condition_RigidAnimFrameInit(AISYS_s *sys, char *name,
+                                   AISCRIPT_s *script) {
+  nuhspecial_s special;
+  NuSpecialFind(g_unk00960894->scn140, &special, name, 1);
+  return NuSpecialExistsFn(&special) != 0 ? NuSpecialGetInstAnim(&special)
+                                          : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x00450120
+f32 Condition_RigidAnimFrame(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char *str, void *argument) {
+  nuinstanim_s *animation = (nuinstanim_s *)argument;
+  if (animation != NULL)
+    return animation->ltime;
+  return 1.0f;
+}
+
 i32 Hub_GetRandomCharType(void);
 
 // FUNCTION: LEGOBATMAN 0x00451470

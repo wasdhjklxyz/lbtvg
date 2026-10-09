@@ -12,8 +12,9 @@ struct NUGSPLINE;
 struct nuinstanim_s {
   numtx_s mtx; // 0x00, matrix-first record
   unsigned char pad0[0x4c - 0x40];
-  float ltime; // 0x4c
-  unsigned char pad1[0x5c - 0x50];
+  float ltime;           // 0x4c
+  unsigned char flags50; // 0x50, bit 0: playing
+  unsigned char pad1[0x5c - 0x51];
   unsigned short anim_ix; // 0x5c, index into nugscn_s::instance_animation_data
 };
 

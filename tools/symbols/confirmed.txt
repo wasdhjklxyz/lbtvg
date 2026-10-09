@@ -471,3 +471,9 @@
 0044fe70 Condition_LastLevelInit   matched saga body, Mac order of the Condition_* run
 0044fef0 Condition_LastLevel   matched saga body, Mac order of the Condition_* run
 0044ff50 Condition_Message   matched saga body, Mac order of the Condition_* run
+0044ff70 Condition_ScriptParamInit   matched saga gameobjects.cpp body, Mac order
+0044ffd0 Condition_ScriptParam   matched saga gameobjects.cpp body, Mac order
+0044fff0 Condition_AnimationFinishedInit   matched saga gameobjects.cpp body, Mac order
+00450050 Condition_AnimationFinished   matched saga gameobjects.cpp body, Mac order
+004500c0 Condition_RigidAnimFrameInit   matched saga gameobjects.cpp body, Mac order
+00450120 Condition_RigidAnimFrame   matched saga gameobjects.cpp body, Mac order

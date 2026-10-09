@@ -78,6 +78,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0044fe70,000773bc,__Z23Condition_LastLevelInitP7AISYS_sPcP10AISCRIPT_s,"Condition_LastLevelInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 0044fef0,00077432,__Z19Condition_LastLevelP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_LastLevel(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044ff50,00077488,__Z17Condition_MessageP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_Message(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044ff70,0007749c,__Z25Condition_ScriptParamInitP7AISYS_sPcP10AISCRIPT_s,"Condition_ScriptParamInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+0044ffd0,000774f2,__Z21Condition_ScriptParamP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ScriptParam(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044fff0,0007750a,__Z31Condition_AnimationFinishedInitP7AISYS_sPcP10AISCRIPT_s,"Condition_AnimationFinishedInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+00450050,0007755c,__Z27Condition_AnimationFinishedP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_AnimationFinished(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+004500c0,000775b2,__Z28Condition_RigidAnimFrameInitP7AISYS_sPcP10AISCRIPT_s,"Condition_RigidAnimFrameInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+00450120,00077604,__Z24Condition_RigidAnimFrameP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_RigidAnimFrame(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00451470,0007841e,__Z29Condition_CharacterTypeExistsP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_CharacterTypeExists(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",strings,0
 00451980,0007882a,__Z18Condition_SideInitP7AISYS_sPcP10AISCRIPT_s,"Condition_SideInit(AISYS_s*, char*, AISCRIPT_s*)",strings,0
 00451da0,00078b9e,__Z31Condition_OpponentToPlayerRangeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OpponentToPlayerRange(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
