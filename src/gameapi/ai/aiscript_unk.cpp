@@ -364,3 +364,45 @@ f32 Condition_CurrentLocatorIs(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     return 1.0f;
   return 0.0f;
 }
+
+// FUNCTION: LEGOBATMAN 0x006a3ba0
+f32 Condition_GotTriggerArea(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char *str, void *argument) {
+  // 0xa4: the process's current trigger area.
+  if (*(void **)((u8 *)process + 0xa4) != NULL)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a3d30
+f32 Condition_BaddyInTriggerArea(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                 AIPACKET_s *packet, char *str,
+                                 void *argument) {
+  u8 *area = (u8 *)argument;
+  if (area == NULL)
+    area = *(u8 **)((u8 *)process + 0xa4);
+  // 0x2a: area runtime flags.
+  if (area != NULL && (area[0x2a] & 4))
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a3d60
+f32 Condition_GoodyInTriggerArea(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                 AIPACKET_s *packet, char *str,
+                                 void *argument) {
+  u8 *area = (u8 *)argument;
+  if (area == NULL)
+    area = *(u8 **)((u8 *)process + 0xa4);
+  if (area != NULL && (area[0x2a] & 2))
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a3e00
+f32 Condition_GotOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char *str, void *argument) {
+  if (packet != NULL && packet->pe4 != NULL)
+    return 1.0f;
+  return 0.0f;
+}

@@ -1002,3 +1002,7 @@
 006a3710 Condition_OpponentOnPath  matched saga body, keyword table
 006a3740 Condition_TimeOffPath  matched saga body, keyword table
 006a3760 Condition_CurrentLocatorIs  matched saga body, keyword table
+006a3ba0 Condition_GotTriggerArea  matched saga body, keyword table
+006a3d30 Condition_BaddyInTriggerArea  matched saga body, keyword table
+006a3d60 Condition_GoodyInTriggerArea  matched saga body, keyword table
+006a3e00 Condition_GotOpponent  matched saga body, keyword table

@@ -1453,6 +1453,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006a3710,00236382,_Condition_OpponentOnPath,_Condition_OpponentOnPath,confirmed,0
 006a3740,002363ae,_Condition_TimeOffPath,_Condition_TimeOffPath,confirmed,0
 006a3760,002363d8,_Condition_CurrentLocatorIs,_Condition_CurrentLocatorIs,confirmed,0
+006a3ba0,00236a08,_Condition_GotTriggerArea,_Condition_GotTriggerArea,confirmed,0
+006a3d30,00236bc6,_Condition_BaddyInTriggerArea,_Condition_BaddyInTriggerArea,confirmed,0
+006a3d60,00236bf6,_Condition_GoodyInTriggerArea,_Condition_GoodyInTriggerArea,confirmed,0
+006a3e00,00236c98,_Condition_GotOpponent,_Condition_GotOpponent,confirmed,0
 006a4640,002375dc,_Action_Idle,_Action_Idle,strings,0
 006a4b10,00237b34,_Action_FaceOpponent,_Action_FaceOpponent,strings,0
 006a5660,00238c46,_Action_OverrideAnimation,_Action_OverrideAnimation,strings,0
