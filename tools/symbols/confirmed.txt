@@ -166,3 +166,4 @@
 00584c20 GetPartName  saga body matches
 00584c50 PARTGetTotalOnTime  saga body (emission period + random); Mac order
 00584c80 PARTGetTotalOffTime  saga body (emission pause + random); Mac order
+00585040 edpartSetParticlePage  saga body (stores load particle page)

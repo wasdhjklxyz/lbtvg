@@ -6,6 +6,7 @@
 #include "../nu2api/numath/nuvec.h"
 #include "gameobject_unk.h"
 #include <stddef.h>
+#include <string.h>
 
 void AddScaledFiniteShotDebrisEffect(i32 *key, i32 effect, NUVEC *position,
                                      NUVEC *orientation, NUVEC *momentum,
@@ -172,3 +173,24 @@ f32 PARTGetTotalOffTime(i32 index) {
            part_types[index].emission_pause_random;
   return 0.0f;
 }
+
+// STUB: LEGOBATMAN 0x00584f00
+// close: orig bases its pointer walk at &part->source_special (0x14c) and
+// zeroes ecx inside the hit block; ours bases at 0x148 and hoists the zero.
+void KillPartsByScene(void *scene) {
+  PART_s *part = Part;
+  for (i32 index = 0; index < MAXPARTS; ++index, ++part) {
+    if ((part->flags148 & 1) != 0 && part->source_special != NULL &&
+        part->special.scene == scene) {
+      memset(&part->special, 0, sizeof(part->special));
+      part->flags148 &= ~1;
+      part->source_special = NULL;
+    }
+  }
+}
+
+// GLOBAL: LEGOBATMAN 0x0095e164
+extern i32 edpart_load_particle_page;
+
+// FUNCTION: LEGOBATMAN 0x00585040
+void edpartSetParticlePage(i32 page) { edpart_load_particle_page = page; }

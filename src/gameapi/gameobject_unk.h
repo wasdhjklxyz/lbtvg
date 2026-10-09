@@ -232,8 +232,13 @@ struct PART_s {
   u8 pad104[0x10c - 0x104];
   u32 flags10c; // 0x10c, KillPart: 0x20000 = owns debris
   u8 pad110[0x148 - 0x110];
-  u32 flags148; // 0x148
-  u8 pad14c[0x1c4 - 0x14c];
+  u32 flags148;         // 0x148
+  void *source_special; // 0x14c
+  struct {
+    void *scene; // 0x150
+    u32 pad[2];
+  } special; // 0x150
+  u8 pad15c[0x1c4 - 0x15c];
   void (*kill_callback)(struct PART_s *part, i32 reason); // 0x1c4
   u8 pad1c8[0x1d0 - 0x1c8];
   void (*stop_callback)(struct PART_s *part); // 0x1d0
