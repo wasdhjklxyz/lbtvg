@@ -91,20 +91,7 @@ AILOCATOR_s *GetPlantLocator(char *name) {
   return locator;
 }
 
-typedef struct LEVELDATA_s {
-  unsigned char pad0[0x40];
-  char name[0x20]; // 0x40
-  unsigned char pad60[0x64 - 0x60];
-  u32 flags;             // 0x64
-  void (*fns[10])(void); // 0x68; per-level callbacks set by Levels_FixUp
-  unsigned char pad90[0xd9 - 0x90];
-  u8 blob_shadow_fade_near; // 0xd9
-  u8 blob_shadow_fade_far;  // 0xda
-  unsigned char paddb[0xe0 - 0xdb];
-  f32 conveyor_x_speed; // 0xe0
-  f32 conveyor_z_speed; // 0xe4
-  unsigned char pade8[0x150 - 0xe8];
-} LEVELDATA;
+#include "leveldata_unk.h"
 
 // GLOBAL: LEGOBATMAN 0x00aca8a4
 i32 LEVELCOUNT;

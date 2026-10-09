@@ -801,3 +801,53 @@
 00622f30 CC_set_locator  matched, Mac name, called by CC_*_locator
 006289f0 CharConfig_SetGCDataFlagsOnAll  matched, Mac order
 00628a30 CharConfig_ClearGCDataFlagsOnAll  matched, Mac order
+004aa400 LC_BL_max_tightropes  matched saga body, keyword table
+004aa420 LC_BL_max_signals  matched saga body, keyword table
+004aa440 LC_BL_max_levers  matched saga body, keyword table
+004aa460 LC_BL_max_technos  matched saga body, keyword table
+004aa480 LC_BL_max_zipups  matched saga body, keyword table
+004aa4a0 LC_BL_max_grapples  matched saga body, keyword table
+004aa4c0 LC_BL_max_obstacles  matched saga body, keyword table
+004aa4e0 LC_BL_max_obstacle_objects  matched saga body, keyword table
+004aa510 LC_BL_maxdig  matched saga body, keyword table
+004aa530 LC_BL_maxdig_objects  matched saga body, keyword table
+004aa550 LC_BL_max_turrets  matched saga body, keyword table
+004aa570 LC_BL_max_buildits  matched saga body, keyword table
+004aa590 LC_BL_max_buildit_objects  matched saga body, keyword table
+004aa5c0 LC_BL_max_spinneranim_objs  matched saga body, keyword table
+004aa5e0 LC_BL_max_climb_objects  matched saga body, keyword table
+004aa600 LC_BL_max_shards  matched saga body, keyword table
+004aa660 LC_BL_max_minicuts  matched saga body, keyword table
+004aa7c0 LC_BL_max_attractos  matched saga body, keyword table
+004aa7e0 LC_BL_max_whippers  matched saga body, keyword table
+004aa800 LC_BL_max_timers  matched saga body, keyword table
+004aa820 LC_BL_max_ledges  matched saga body, keyword table
+004aa840 LC_BL_max_securitydoors  matched saga body, keyword table
+004aa860 LC_BL_max_tubes  matched saga body, keyword table
+004aa880 LC_BL_max_pickups  matched saga body, keyword table
+004aa8b0 LC_BL_max_gameantinodes  matched saga body, keyword table
+004aa8e0 LC_BL_max_gizpanels  matched saga body, keyword table
+004aa900 LC_BL_max_force  matched saga body, keyword table
+004aa920 LC_BL_max_force_objects  matched saga body, keyword table
+004aa950 LC_BL_max_bombgen_objects  matched saga body, keyword table
+004aa980 LC_BL_max_bombgens  matched saga body, keyword table
+004aa9a0 LC_BL_max_gizspecials  matched saga body, keyword table
+004aa9c0 LC_BL_max_doors  matched saga body, keyword table
+004aa9e0 LC_BL_max_teleports  matched saga body, keyword table
+004aaa00 LC_BL_max_puzzles  matched saga body, keyword table
+004aaa20 LC_BL_max_gizrandoms  matched saga body, keyword table
+004aaa40 LC_BL_max_torpmachines  matched saga body, keyword table
+004aaa60 LC_BL_max_plugs  matched saga body, keyword table
+004aaa80 LC_BL_max_railcreatures  matched saga body, keyword table
+004aaaa0 LC_BL_max_flocks  matched saga body, keyword table
+004aaac0 LC_BL_max_flock_creatures  matched saga body, keyword table
+004aaaf0 LC_BL_max_flock_antinodes  matched saga body, keyword table
+004aab10 LC_BL_max_dynamic_flocks  matched saga body, keyword table
+004aab30 LC_BL_max_dynamic_flock_creatures  matched saga body, keyword table
+004aab60 LC_BL_max_dynamic_flock_antinodes  matched saga body, keyword table
+004aabe0 LC_BL_slide_speed  matched saga body, keyword table
+004aac00 LC_BL_lateral_slide_speed  matched saga body, keyword table
+004aa620 LC_BL_max_spinners  matched saga body, keyword table
+004aa740 LC_BL_max_pushblocks  matched saga body, keyword table
+004aa780 LC_BL_max_pushblock_endpos  matched saga body, keyword table
+004aab80 LC_BL_flock_extras  matched, keyword table
