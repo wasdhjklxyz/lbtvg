@@ -46,3 +46,5 @@
 004f9d30 PartImpact_ThermalDetonator: block layout, see STUB
 00614d10 Doors_Configure: parser/in_door register swap, see STUB
 004cb910 Move_CHARACTER: Batman body diverges (jetpack/rocket context), long, not attempted
+004e8190 BuyShopItem: long, u64 shifts, many unknown fields
+006a4640 Action_Idle: x87 + ftol, several early returns, not attempted

@@ -264,7 +264,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00447560` 369 B `GetNamedAPIObject(AISYS_s*, char*)`  **stub** · **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `004e34b0` 402 B `UpdateRadios()`  **stub** · **saga** `legoapi/audio/radio.cpp`
 - [ ] `00428a60` 422 B `ResetAICreatures(AISYS_s*)`  **saga** `legoapi/ai/game/creature.cpp`
-- [ ] `004e8190` 477 B `BuyShopItem(LEGOSHOP_s*, shopitem_s*, int, int)`  **saga** `legoapi/menus/screens/shop.cpp`
+- [ ] `004e8190` 477 B `BuyShopItem(LEGOSHOP_s*, shopitem_s*, int, int)`  **stub** · **saga** `legoapi/menus/screens/shop.cpp`
 - [ ] `0043ebf0` 500 B `ObjHitShield(GameObject_s*, GameObject_s*, int, BOLT_s*)`  **saga** `legoapi/actions/combat/hits.cpp`
 - [ ] `00430ca0` 514 B `FreezePlayer(GameObject_s*, float, GameObject_s*)`
 - [ ] `004c70e0` 551 B `DrawLightningBolts(GameObject_s*, GameObject_s*, int)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/move.cpp`
