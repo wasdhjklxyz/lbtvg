@@ -111,6 +111,43 @@ void AIBugPitBufferB::Free() {
   data = 0;
 }
 
+#include "../../../nu2api/nucore/common.h"
+#include <stdio.h>
+
+struct AISYS_s;
+
+// GLOBAL: LEGOBATMAN 0x0099e290
+extern i32 ai_usepackfile;
+
+i32 NuFileSize(char *path);
+void *NuFilePakLoad(char *filepath, VARIPTR *buf, VARIPTR buf_end,
+                    i32 alignment);
+void AIScriptLoadAllPakFile(void *pak, char *path, VARIPTR *buf,
+                            VARIPTR *buf_end, AISYS_s *sys);
+
+// FUNCTION: LEGOBATMAN 0x006b3a60
+void AIScriptLoadAll(char *path, VARIPTR *buf, VARIPTR *buf_end, AISYS_s *sys) {
+  void *pak;
+  VARIPTR pak_start;
+  char filepath[0x80];
+  i32 pak_size;
+
+  pak = 0;
+  pak_start = *buf_end;
+
+  if (ai_usepackfile) {
+    sprintf(filepath, "%s\\ai.pak", path);
+
+    pak_size = NuFileSize(filepath);
+    if (pak_size > 0) {
+      pak_start.addr = buf_end->addr - ((pak_size + 0x10) & ~0xf);
+      pak = NuFilePakLoad(filepath, &pak_start, *buf_end, 0x10);
+    }
+  }
+
+  AIScriptLoadAllPakFile(pak, path, buf, &pak_start, sys);
+}
+
 // FUNCTION: LEGOBATMAN 0x006b9430
 AIVec AIBugPitGrid48::CellCenterOf(const AIBugPitCell48 *cell) {
   int index = cell - cells;

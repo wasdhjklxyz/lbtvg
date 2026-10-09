@@ -17,7 +17,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near rtleditor.cpp](#near-rtleditorcpp) | 67 | 41 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 34 | 9 |
-| [near AIBugPit.cpp](#near-aibugpitcpp) | 14 | 8 |
+| [near AIBugPit.cpp](#near-aibugpitcpp) | 13 | 7 |
 | [Grabber](#grabber) | 7 | 5 |
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 6 | 5 |
 | [Text](#text) | 6 | 5 |
@@ -439,7 +439,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `006bf550` 51 B `_MenuReset`  **hint** name (gapfill)
 - [ ] `006b4f70` 76 B `_AISysRegisterDefaultPathCnxTypes`
-- [ ] `006b3a60` 190 B `_AIScriptLoadAll`  **saga** `gameapi/ai/aisys/aiscript.cpp`
 - [ ] `006b7110` 201 B `_AIMoveInstruction`  **hint** name (gapfill)
 - [ ] `006b9eb0` 274 B `_FollowAPIObject`  **hint** name (gapfill)
 - [ ] `006bf2a0` 360 B `_MenuInitialiseEx`  **saga** `legoapi/menus/screens/gamemenuall.cpp`
