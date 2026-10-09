@@ -47,10 +47,13 @@ def load():
             if state.get(a) != MATCHED:
                 state[a] = MATCHED if kind == "FUNCTION" else STUB
     # functions annotated in src/ that ghidra never found: size them from the exe
-    # (up to the next known function start, minus int3/nop padding)
+    # (linear disassembly up to the first int3 or the next known start; the
+    # next start alone can swallow other functions ghidra missed)
     missing = [a for a in state if a not in funcs and TEXT_LO <= a < TEXT_HI]
     if missing:
         import bisect, pefile
+        from capstone import Cs, CS_ARCH_X86, CS_MODE_32
+        md = Cs(CS_ARCH_X86, CS_MODE_32)
         pe = pefile.PE(str(ROOT / "orig/LEGOBatman.exe"), fast_load=True)
         base = pe.OPTIONAL_HEADER.ImageBase
         starts = sorted(set(funcs) | set(state))
@@ -59,6 +62,10 @@ def load():
             end = starts[i] if i < len(starts) else TEXT_HI
             body = pe.get_data(a - base, min(end - a, 0x4000))
             n = len(body)
+            for i in md.disasm(body, a):
+                if i.mnemonic == "int3":
+                    n = i.address - a
+                    break
             while n and body[n - 1] in (0xCC, 0x90):
                 n -= 1
             funcs[a] = (n, "FUN_%08x" % a)

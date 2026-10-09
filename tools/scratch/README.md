@@ -8,3 +8,6 @@ are not lost. Run inside `nix develop` from the repo root.
 - `kwall.py`, `kw2.py`: find all such keyword tables in .data and pair their
   entries with Mac names.
 - `gen*.py`: generators used to emit batches of small parser callbacks.
+- `condtab.py`: walk the AI condition table ({keyword, condition, init}
+  triples around 0x93b1b4) and print the entries with no FUNCTION/STUB yet,
+  named `Condition_<keyword>[Init]`.

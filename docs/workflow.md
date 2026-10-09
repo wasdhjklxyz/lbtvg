@@ -226,3 +226,21 @@ enough matched code for the percentage to mean something.
 - **Keyword tables name parser callbacks exactly**: .data holds {string,
   code pointer} pairs (through the incremental-link `jmp` thunks);
   `tools/scratch/thunk.py PREFIX TABLE_VA` lists them.
+- **Local declaration order** decides `mov ebx, 1` vs `lea ebx, [ebp+1]` and
+  the order initial values are stored.
+- **`if (a && b) {...}` vs nested `if (a) { if (b) {...} }`** give different
+  epilogue-tail order.
+- **An explicit `argc > 0` check** loads argc into a register first
+  (`mov reg, [argc]; cmp; jle`); a plain `for` guard compares from memory.
+- **Float to `(i16)`/`(u8)`** is inlined with `fnstcw`/`fistp`; only `(i32)`
+  calls `_ftol2`.
+- **A statement plus `return 0` duplicated in two branches** was written twice
+  in the source.
+- **Nested ifs ending in one shared `return 0`** push every callee-saved
+  register before the first branch.
+- **`cmp` against a qword 1e9, then `jnp`** is a comparison with the double
+  literal `1000000000.0`.
+- **Char padding in a local struct** brings the /GS cookie back; pad with
+  `u32` instead (`ADDPART_s`).
+- **Condition tables**: {keyword, condition, init} triples;
+  `tools/scratch/condtab.py` lists them with their match state.
