@@ -110,6 +110,53 @@ int NuSpecialGetVisibilityFn(nuhspecial_s *sp) {
   return 0;
 }
 
+// FUNCTION: LEGOBATMAN 0x0070f930
+extern "C" void *NuSpecialGetMtl(nuhspecial_s *special, int index) {
+  nuspecial_s *legacy = special->special;
+  if (legacy != 0) {
+    nugobject_s *object =
+        special->scene->objects[legacy->instance->object_index];
+    while (object->next != 0)
+      object = object->next;
+    numtllink_s *link = object->materials;
+    while (index != 0) {
+      if (link == 0)
+        return 0;
+      --index;
+      link = link->next;
+    }
+    return link->material;
+  } else if (special->display_special != 0) {
+    NUDISPLAYSPECIAL *display = special->display_special;
+    int level = 0;
+    while (display->clip_range[level] != 0.0f)
+      ++level;
+    return special->scene->display_list
+        ->mtls[display->clip_objects[level].material_ids[index]];
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070f9e0
+extern "C" void NuSpecialGetBounds(nuhspecial_s *special, nuvec_s *min,
+                                   nuvec_s *max) {
+  if (special->special != 0) {
+    nugobject_s *object =
+        special->scene->objects[special->special->instance->object_index];
+    while (object->next != 0)
+      object = object->next;
+    *min = object->min;
+    *max = object->max;
+  } else if (special->display_special != 0) {
+    min->x = special->display_special->min.x;
+    min->y = special->display_special->min.y;
+    min->z = special->display_special->min.z;
+    max->x = special->display_special->max.x;
+    max->y = special->display_special->max.y;
+    max->z = special->display_special->max.z;
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x0070fb20
 void NuSpecialGetRadius(nuhspecial_s *sp, nuvec_s *center, float *radius) {
   nuvec_s *c;

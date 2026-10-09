@@ -39,12 +39,30 @@ struct nuspecial_s {
 };
 
 // Per-object bounds (saga NuSpecialLegacyObjectBoundsLayout).
+struct numtllink_s {
+  numtllink_s *next; // 0x00
+  void *material;    // 0x04
+};
+
 struct nugobject_s {
-  unsigned char pad0[0x14];
+  unsigned char pad0[0xc];
+  numtllink_s *materials; // 0x0c
+  unsigned char pad10[0x14 - 0x10];
   float origin_radius; // 0x14
-  unsigned char pad1[0x34 - 0x18];
+  unsigned char pad18[0x1c - 0x18];
+  nuvec_s min;    // 0x1c
+  nuvec_s max;    // 0x28
   nuvec_s center; // 0x34
   float radius;   // 0x40
+  unsigned char pad44[0x4c - 0x44];
+  nugobject_s *next; // 0x4c, LOD chain (NuSpecialGetMtl walks to the end)
+};
+
+// 0xc bytes per display-special LOD (saga clip_objects).
+struct nuclipobject_s {
+  int f0;
+  int *material_ids; // 0x04
+  int f8;
 };
 
 // 0xc bytes per entry in nugscn_s::splines.
@@ -58,12 +76,17 @@ struct nugspline_s {
 struct NUDISPLAYSPECIAL {
   numtx_s instance_mtx; // 0x00
   numtx_s draw_mtx;     // 0x40
-  unsigned char pad0[0xa0 - 0x80];
-  nuvec_s center; // 0xa0
-  float radius;   // 0xac
-  unsigned char pad1[0xb8 - 0xb0];
+  nuvec_s min;          // 0x80
+  unsigned char pad8c[0x90 - 0x8c];
+  nuvec_s max; // 0x90
+  unsigned char pad0[0xa0 - 0x9c];
+  nuvec_s center;               // 0xa0
+  float radius;                 // 0xac
+  nuclipobject_s *clip_objects; // 0xb0
+  unsigned char pad1[0xb8 - 0xb4];
   unsigned int flags; // 0xb8, 0x200 = collision, bit 1 = visible
-  unsigned char pad2[0xc4 - 0xbc];
+  float *clip_range;  // 0xbc, LOD distances, 0-terminated
+  unsigned char pad2[0xc4 - 0xc0];
   nuinstanim_s *instance_animation; // 0xc4, -1 when unset
   unsigned char pad3[0xd0 - 0xc8];
 };
@@ -80,7 +103,13 @@ struct nugscn_s {
   unsigned char pad3[0x54 - 0x38];
   void **instance_animation_data; // 0x54
   unsigned char pad4[0x110 - 0x58];
-  void *display_list; // 0x110, non-zero once specials became display specials
+  struct nudisplaylist_s
+      *display_list; // 0x110, non-zero once specials became display specials
+};
+
+struct nudisplaylist_s {
+  unsigned char pad0[0x50];
+  void **mtls; // 0x50
 };
 
 struct nuhspecial_s {

@@ -156,7 +156,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [NuScript](#nuscript) | 1 | 0 |
 | [NuSin](#nusin) | 4 | 0 |
 | [NuSound](#nusound) | 4 | 0 |
-| [NuSpecial](#nuspecial) | 6 | 0 |
+| [NuSpecial](#nuspecial) | 4 | 0 |
 | [NuStreamProcessManager](#nustreamprocessmanager) | 3 | 0 |
 | [NuTime](#nutime) | 1 | 0 |
 | [NuWater](#nuwater) | 1 | 0 |
@@ -1059,8 +1059,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## NuSpecial
 
 - [ ] `0070f0a0` 144 B `_NuSpecialFindMulti`  **hint** name (order)
-- [ ] `0070f930` 161 B `_NuSpecialGetMtl`
-- [ ] `0070f9e0` 170 B `_NuSpecialSetBounds`  **hint** name (order)
 - [ ] `0070eee0` 183 B `_NuSpecialFindMultiWC`  **hint** name (order)
 - [ ] `0070f510` 185 B `_NuSpecialSetVisibility`  **hint** name (gapfill)
 - [ ] `00739910` 298 B `_NuSpecialClipTestShadowLights`  **hint** name (gapfill)
