@@ -14,7 +14,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | group | todo | with saga body |
 |---|---|---|
 | [Action](#action) | 72 | 57 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 68 | 42 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 67 | 41 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 34 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 14 | 8 |
@@ -302,7 +302,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00623850` 166 B `ParseStreakCol(nufpar_s*)`
 - [ ] `0059f8d0` 185 B `PlayJumpSfx(GameObject_s*, int)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
 - [ ] `005aa1f0` 187 B `InitGrappleMtls(variptr_u*, variptr_u*)`
-- [ ] `0063e470` 187 B `InitGameObjectLights()`  **hint** name (order) · **saga** `legoapi/render/light/lighting.cpp`
 - [ ] `005d3fd0` 203 B `AddGameMsgCount(nuvec_s*, int, int, unsigned char, unsigned char, unsigned char, float)`  **hint** name (gapfill) · **saga** `legoapi/menus/core/gamemessages.cpp`
 - [ ] `00656130` 203 B `AddRipple(ripple_set_s*, numtx_s*, float, float, float, float, RGBA, RGBA, int, numtl_s*, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/items/fx/ripples.cpp`
 - [ ] `005f7a60` 204 B `LoadPartFile(WORLDINFO_s*)`  **saga** `legoapi/render/fx/parts.cpp`

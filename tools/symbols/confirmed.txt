@@ -65,3 +65,4 @@
 006dfc60 NuFParCreateMem  saga body matches (inlined NuMemFileOpen, NuFParOpen, copy name)
 005d5aa0 Detonator_FindNearest  saga body matches (nearest active detonator by dist sqr)
 0063e3b0 LoadLights  saga body matches (%s.rtl with default fallback, %s.bur)
+0063e470 InitGameObjectLights  saga body matches (reset light ids, alloc rtl dynamic per live object)

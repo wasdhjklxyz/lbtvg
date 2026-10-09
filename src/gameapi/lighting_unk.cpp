@@ -30,6 +30,33 @@ void LoadLights(WORLDINFO_s *world, char *path) {
   world->burnset = edrtlBurnoutLoad(filename, &world->buf104, world->bufEnd108);
 }
 
+i32 rtlDynamicAlloc(void);
+void rtlDynamicSetType(i32 id, i32 type);
+void rtlDynamicEnable(i32 id, i32 enable);
+
+// FUNCTION: LEGOBATMAN 0x0063e470
+void InitGameObjectLights(void) {
+  for (i32 i = 0; i < 64; ++i) {
+    Obj[i].dynamic_light_id = -1;
+    for (i32 j = 0; j < 2; j++) {
+      if (Obj[i].lights[j].light != 0) {
+        NuDynamicLight::destroy(Obj[i].lights[j].light);
+        Obj[i].lights[j].light = 0;
+      }
+    }
+  }
+  GameObject_s *object = Obj;
+  for (i32 i = 0; i < HIGHGAMEOBJECT; ++i, ++object) {
+    if ((object->flags1fc & 1) && (object->flags1fc & 0x1000)) {
+      object->dynamic_light_id = rtlDynamicAlloc();
+      if (object->dynamic_light_id != -1) {
+        rtlDynamicSetType(object->dynamic_light_id, 2);
+        rtlDynamicEnable(object->dynamic_light_id, 0);
+      }
+    }
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x0063e540
 void FreeGameObjectLights() {
   i32 i = 0;
