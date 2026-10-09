@@ -352,6 +352,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004605f0,0007ecfe,__Z20Action_SetVisibilityP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetVisibility(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 004606e0,0007edd4,__Z23Action_SpecialObjSetPosP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SpecialObjSetPos(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 004608c0,0007ef64,__Z17Action_EnableSockP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_EnableSock(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
+00460a30,000961d0,__Z16Action_AddDebrisP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AddDebris(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00460ca0,0007f092,__Z23Action_JudderGameCameraP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_JudderGameCamera(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00460de0,0007f1aa,__Z18Action_CameraShakeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CameraShake(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00460ec0,0007f25a,__Z22Action_ResetGameCameraP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ResetGameCamera(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
@@ -453,6 +454,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00470fd0,000984dc,__Z14Action_AddItemP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AddItem(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 004717b0,0008611a,__Z19Action_StunOpponentP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_StunOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 004718f0,0008cf4a,__Z15Action_SetWoozyP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetWoozy(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
+004719e0,0008d032,__Z20Action_SetCapabilityP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetCapability(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00471b00,0008623e,__Z21Action_SetGenericGoonP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetGenericGoon(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00471c00,0008631e,__Z31Action_ForceDropSuperCarryItemsP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ForceDropSuperCarryItems(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00471c50,0008636e,__Z30Action_ResetContextAIAnimationP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ResetContextAIAnimation(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
@@ -476,6 +478,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00473e40,0008736e,__Z25Action_ChangeSpecialRouteP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ChangeSpecialRoute(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 004740b0,00087544,__Z22Action_SetSuperCounterP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetSuperCounter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 004741c0,00087650,__Z14Action_ZipDownP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ZipDown(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+004752b0,00088596,__Z15Action_FireSeedP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_FireSeed(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00475350,0009988e,__Z23Action_StartSpecialMoveP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_StartSpecialMove(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00477ab0,0008a3c4,__Z21Action_CycleCharacterP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CycleCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 00478330,0009a500,__Z16Status_SceneNameP11WORLDINFO_sPc,"Status_SceneName(WORLDINFO_s*, char*)",strings,0

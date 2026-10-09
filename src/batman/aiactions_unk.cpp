@@ -4356,3 +4356,117 @@ i32 Action_ChangeSpecialRoute(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 1;
 }
+
+// FUNCTION: LEGOBATMAN 0x004719e0
+i32 Action_SetCapability(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  GameObject_s *obj = 0;
+  i32 on = 1;
+  if (argc != 0) {
+    if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+      obj = packet->pd0->obj;
+    u32 caps = 0;
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "character");
+      if (s != 0) {
+        obj = GetNamedGameObject(sys, s + 10);
+      } else {
+        u32 cap = Unk00461220(args[i]);
+        if (cap != 0)
+          caps |= cap;
+        else if (NuStrICmp(args[i], "FALSE") == 0)
+          on = 0;
+      }
+    }
+    if (obj != 0 && caps != 0) {
+      if (on != 0)
+        obj->capabilities |= caps;
+      else
+        obj->capabilities &= ~caps;
+    }
+  }
+  return 1;
+}
+
+struct APIDEBRISENTRY_s {
+  i32 effect;      // 0x00
+  char name[0x10]; // 0x04
+};
+
+struct APIDEBRISSYS_s {
+  i32 named_count;           // 0x00
+  i32 capacity;              // 0x04
+  APIDEBRISENTRY_s *entries; // 0x08
+};
+
+// GLOBAL: LEGOBATMAN 0x00ab057c
+extern APIDEBRISSYS_s *perm_debrissys;
+
+i32 FindGameDebris(APIDEBRISSYS_s *debris_sys, char *name);
+void AddFiniteShotDebrisEffect(i32 *handle, i32 effect, nuvec_s *position,
+                               i32 count);
+
+// FUNCTION: LEGOBATMAN 0x00460a30
+i32 Action_AddDebris(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                     AIPACKET_s *packet, char **args, int argc, int flags,
+                     f32 time) {
+  i32 handle = -1;
+  i32 type = 0x10;
+  nuvec_s pos;
+  pos.x = 1000000000.0f;
+  pos.y = 1000000000.0f;
+  pos.z = 1000000000.0f;
+  GameObject_s *obj = 0;
+  if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+    obj = packet->pd0->obj;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "character=");
+      if (s != 0)
+        obj = GetNamedGameObject(sys, s + 10);
+      else if ((s = NuStrIStr(args[i], "x=")) != 0)
+        pos.x = AIParamToFloat(process, s + 2);
+      else if ((s = NuStrIStr(args[i], "y=")) != 0)
+        pos.y = AIParamToFloat(process, s + 2);
+      else if ((s = NuStrIStr(args[i], "z=")) != 0)
+        pos.z = AIParamToFloat(process, s + 2);
+      else if ((s = NuStrIStr(args[i], "type")) != 0)
+        type = FindGameDebris(perm_debrissys, s + 5);
+    }
+    if (pos.x != 1000000000.0 && pos.y != 1000000000.0 &&
+        pos.z != 1000000000.0) {
+      AddFiniteShotDebrisEffect(
+          &handle,
+          ((APIDEBRISSYS_s *)g_unk00960894->p138)->entries[type].effect, &pos,
+          1);
+      return 1;
+    }
+    if (obj != 0)
+      AddFiniteShotDebrisEffect(
+          &handle,
+          ((APIDEBRISSYS_s *)g_unk00960894->p138)->entries[type].effect,
+          &obj->v80, 1);
+  }
+  return 1;
+}
+
+void Unk00504cf0(GameObject_s *obj, i32 type);
+
+// FUNCTION: LEGOBATMAN 0x004752b0
+i32 Action_FireSeed(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                    AIPACKET_s *packet, char **args, int argc, int flags,
+                    f32 time) {
+  i32 type = 0;
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  for (i32 i = 0; i < argc; i++) {
+    if (NuStrICmp(args[i], "type=character") == 0)
+      type = 0;
+    else if (NuStrICmp(args[i], "type=buildit") == 0)
+      type = 1;
+  }
+  Unk00504cf0(obj, type);
+  return 1;
+}

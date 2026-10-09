@@ -147,8 +147,9 @@ struct GameObject_s {
     };
   };
   u8 pad7a[0x488 - 0x484];
-  f32 move_range; // 0x488
-  u8 pad7b[0x870 - 0x48c];
+  f32 move_range;   // 0x488
+  u32 capabilities; // 0x48c, Action_SetCapability
+  u8 pad7b[0x870 - 0x490];
   u8 sock_pos870;   // 0x870, ComplexSockPosition out
   char sock_id;     // 0x871, -1 = none
   i16 sock_segment; // 0x872

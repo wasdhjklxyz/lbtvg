@@ -1197,3 +1197,6 @@
 004657c0 Action_SetPathCnxFlag  keyword table 0x93bb98
 00460ca0 Action_JudderGameCamera  keyword table 0x93bb98
 00473e40 Action_ChangeSpecialRoute  keyword table 0x93bb98
+004719e0 Action_SetCapability  keyword table 0x93bb98
+00460a30 Action_AddDebris  keyword table 0x93bb98
+004752b0 Action_FireSeed  keyword table 0x93bb98
