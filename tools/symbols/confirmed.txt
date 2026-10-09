@@ -1509,3 +1509,4 @@
 00538be0 NuMusic::xAttenuation  called by NuMusic::xsAttenuation 0x539100
 00538ff0 NuMusic::xGlobalAttenuation  called by NuMusic::xsGlobalAttenuation 0x5391e0
 006a24d0 xConst  keyword table 0x99dce0
+00625650 CC_streak_col  keyword table 0x963ff0

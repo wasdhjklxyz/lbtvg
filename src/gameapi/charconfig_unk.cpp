@@ -111,7 +111,9 @@ typedef struct CHARCONFIG_RUNTIME_s {
   i8 defined_locators[0x10];  // 0x1dc
   i8 weapon_locator[4];       // 0x1ec
   i8 weapon_shoot_locator[4]; // 0x1f0
-  unsigned char pad1f4[0x204 - 0x1f4];
+  i8 streak_col[4];           // 0x1f4
+  i8 streak_joints[4][2];     // 0x1f8
+  u8 streak_time[4];          // 0x200
   i8 hose_locators[4];        // 0x204
   i8 hand_locators[2];        // 0x208
   i8 grapple_locator[2];      // 0x20a
@@ -402,6 +404,85 @@ void NuFParPopCom(NUFPAR *parser);
 extern i32 g_unk00963fec;
 // GLOBAL: LEGOBATMAN 0x00963ff0
 extern NUFPCOMJMP g_unk00963ff0[];
+
+// parser arrives in esi (static custom convention)
+// FUNCTION: LEGOBATMAN 0x00623850
+static i32 ParseStreakCol(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0) {
+    if (NuStrICmp(parser->word_buf, "red") == 0)
+      return 0;
+    if (NuStrICmp(parser->word_buf, "green") == 0)
+      return 1;
+    if (NuStrICmp(parser->word_buf, "blue") == 0)
+      return 2;
+    if (NuStrICmp(parser->word_buf, "purple") == 0)
+      return 3;
+    if (NuStrICmp(parser->word_buf, "orange") == 0)
+      return 4;
+  }
+  return -1;
+}
+
+u8 Unk005b2b30(f32 time);
+
+// STUB: LEGOBATMAN 0x00623900
+// close: orig passes only parser in eax (LTCG-style), ours also enregisters
+// joints; frame differs by the one push.
+static void CC_set_streak_locators(NUFPAR *parser, i8 *joints, i8 *col,
+                                   u8 *time) {
+  for (i32 i = 0; i < 2; i++) {
+    joints[i] = -1;
+    if (NuFParGetWord(parser) != 0) {
+      u32 locator = NuAToI(parser->word_buf);
+      if (locator < 20)
+        joints[i] = locator;
+    }
+  }
+  while (NuFParGetWord(parser) != 0) {
+    if (NuStrICmp(parser->word_buf, "col") == 0 ||
+        NuStrICmp(parser->word_buf, "colour") == 0) {
+      i32 c = ParseStreakCol(parser);
+      if (col != 0)
+        *col = c;
+    } else if (NuStrICmp(parser->word_buf, "time") == 0) {
+      f32 t = NuFParGetFloat(parser);
+      if (time != 0)
+        *time = Unk005b2b30(t);
+    }
+  }
+}
+
+// STUB: LEGOBATMAN 0x006239f0
+// blocked on CC_set_streak_locators' register convention (0x00623900).
+void CC_streak_1_locators(NUFPAR *parser) {
+  CC_set_streak_locators(parser, charconfig.runtime->streak_joints[0],
+                         &charconfig.runtime->streak_col[0],
+                         &charconfig.runtime->streak_time[0]);
+}
+
+// STUB: LEGOBATMAN 0x00623a20
+// blocked on CC_set_streak_locators' register convention (0x00623900).
+void CC_streak_2_locators(NUFPAR *parser) {
+  CC_set_streak_locators(parser, charconfig.runtime->streak_joints[1],
+                         &charconfig.runtime->streak_col[1],
+                         &charconfig.runtime->streak_time[1]);
+}
+
+// STUB: LEGOBATMAN 0x00623a50
+// blocked on CC_set_streak_locators' register convention (0x00623900).
+void CC_streak_3_locators(NUFPAR *parser) {
+  CC_set_streak_locators(parser, charconfig.runtime->streak_joints[2],
+                         &charconfig.runtime->streak_col[2],
+                         &charconfig.runtime->streak_time[2]);
+}
+
+// STUB: LEGOBATMAN 0x00623a80
+// blocked on CC_set_streak_locators' register convention (0x00623900).
+void CC_streak_4_locators(NUFPAR *parser) {
+  CC_set_streak_locators(parser, charconfig.runtime->streak_joints[3],
+                         &charconfig.runtime->streak_col[3],
+                         &charconfig.runtime->streak_time[3]);
+}
 
 // FUNCTION: LEGOBATMAN 0x00623ab0
 void CC_headlight_locator(NUFPAR *parser) {
@@ -961,6 +1042,15 @@ void CC_jump_2_speed(NUFPAR *parser) {
 // FUNCTION: LEGOBATMAN 0x00625630
 void CC_acceleration(NUFPAR *parser) {
   charconfig.runtime->acceleration = NuFParGetFloat(parser);
+}
+
+// keywords "streak" and "streak_col"
+// FUNCTION: LEGOBATMAN 0x00625650
+void CC_streak_col(NUFPAR *parser) {
+  charconfig.runtime->streak_col[0] = ParseStreakCol(parser);
+  charconfig.runtime->streak_col[1] = charconfig.runtime->streak_col[0];
+  charconfig.runtime->streak_col[2] = charconfig.runtime->streak_col[0];
+  charconfig.runtime->streak_col[3] = charconfig.runtime->streak_col[0];
 }
 
 // FUNCTION: LEGOBATMAN 0x006256a0

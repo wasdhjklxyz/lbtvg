@@ -1499,6 +1499,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006255f0,0027cede,__Z13CC_jump_speedP8nufpar_s,CC_jump_speed(nufpar_s*),confirmed,0
 00625610,0027cf10,__Z15CC_jump_2_speedP8nufpar_s,CC_jump_2_speed(nufpar_s*),confirmed,0
 00625630,0027cf42,__Z15CC_accelerationP8nufpar_s,CC_acceleration(nufpar_s*),confirmed,0
+00625650,0027cf74,__Z13CC_streak_colP8nufpar_s,CC_streak_col(nufpar_s*),confirmed,0
 006256a0,0027cfb6,__Z13CC_hit_pointsP8nufpar_s,CC_hit_points(nufpar_s*),confirmed,0
 006256c0,,CC_SetCDataFlagsj,CC_SetCDataFlagsj,confirmed,0
 00625700,0027d048,__Z9CC_baddieP8nufpar_s,CC_baddie(nufpar_s*),confirmed,0

@@ -109,3 +109,9 @@
 00621250 CC_layers helpers/callers: orig passes parser on stack, ours enregisters it (ebx)
 00621290 CC_layers helpers/callers: orig passes parser on stack, ours enregisters it (ebx)
 006a2460 xParam: blocked on AIScriptCopyString (0x6a1a90) custom convention/inlined BufferAlloc
+00620b30 RedirectTextFile: buffer arg in eax (custom convention static), needs its caller
+00623900 CC_set_streak_locators/callers: orig passes only parser in a register (LTCG?), ours two
+006239f0 CC_set_streak_locators/callers: orig passes only parser in a register (LTCG?), ours two
+00623a20 CC_set_streak_locators/callers: orig passes only parser in a register (LTCG?), ours two
+00623a50 CC_set_streak_locators/callers: orig passes only parser in a register (LTCG?), ours two
+00623a80 CC_set_streak_locators/callers: orig passes only parser in a register (LTCG?), ours two
