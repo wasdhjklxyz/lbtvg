@@ -64,7 +64,7 @@
               file
               binutils # objdump/strings on PE
               llvmPackages.bintools-unwrapped # llvm-objdump/llvm-ar on COFF .obj and .lib
-              clang-tools # clang-format
+              llvmPackages.clang-unwrapped # clangd + clang-format, unwrapped: no host headers leak into the LSP
               objdiff
               depotdownloader
               p7zip # tools/vc8.sh

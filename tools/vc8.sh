@@ -77,4 +77,8 @@ if command -v wibo > /dev/null; then
        /Fo"Z:$work/t.obj" "Z:$work/t.c" > /dev/null
   [ -s "$work/t.obj" ] && echo ">> cl.exe works"
 fi
+if command -v python3 >/dev/null; then
+  echo ">> case-alias links for clangd (Windows.h vs windows.h)"
+  LBTVG_TOOLCHAIN="$PREFIX" python3 "$HERE/casefold.py"
+fi
 echo ">> done: $PREFIX/vc8 and $PREFIX/winsdk6"

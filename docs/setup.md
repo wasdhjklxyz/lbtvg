@@ -102,6 +102,23 @@ one-time GUI plugin enabling below.
    needs the .NET 9 runtime.
 9. macOS: `make verify` wants `sha1sum`; use `make SHA1SUM="shasum -a 1" verify`.
 
+## editor / LSP (clangd)
+
+`compile_flags.txt` at the repo root makes clangd parse `src/` the way VC8
+sees it: `clang-cl` mode, `_MSC_VER` 1400, VC8 and Windows SDK 6 headers from
+`toolchain/` (relative paths, so it is committed and covers new files with no
+`compile_commands.json` or `bear`). Two things it depends on:
+
+- Use the devshell's clangd (`llvmPackages.clang-unwrapped`). The usual
+  wrapped nix clangd injects host glibc/gcc headers, so `<string.h>` would
+  quietly be Linux's, not VC8's.
+- `make vc8` adds case-alias symlinks to the headers (`tools/casefold.py`):
+  the SDK ships `Windows.h`, code says `<windows.h>`.
+
+clang is stricter than 2005 MSVC, so an occasional red squiggle in code that
+`make match` accepts is expected. If you moved the toolchain with
+`LBTVG_TOOLCHAIN`, point the two `-imsvc` lines at it locally.
+
 ## one-time ghidra GUI setup
 
 Extensions installed ≠ plugins enabled. After the first `make ghidra`:

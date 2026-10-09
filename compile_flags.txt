@@ -1,0 +1,16 @@
+--driver-mode=cl
+--target=i686-pc-windows-msvc
+-fms-compatibility-version=14.00
+-fms-extensions
+/TP
+/X
+-imsvc
+toolchain/vc8/INCLUDE
+-imsvc
+toolchain/winsdk6/Include
+/D_WIN32
+/D_M_IX86=600
+/DWIN32
+-Wno-microsoft
+-Wno-unused-value
+/D_Complex=_Complex_
