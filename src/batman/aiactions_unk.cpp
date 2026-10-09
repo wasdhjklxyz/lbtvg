@@ -925,10 +925,12 @@ struct TORPEDOPACKET_s {
   u8 flags1; // 0x01
   u8 pad2;
   u8 field_03; // 0x03
-  u8 pad4[4];
+  u8 field_04; // 0x04
+  u8 pad5[3];
   f32 field_08; // 0x08
   u8 padc[0x3c - 0xc];
-  nuvec_s pickup_positions[1]; // 0x3c
+  nuvec_s pickup_positions[6]; // 0x3c
+  i32 field_84;                // 0x84
 };
 
 i32 getMaxTorpedos(void *a);
@@ -2282,5 +2284,201 @@ i32 Action_EndCameraCut(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       }
     }
   }
+  return 1;
+}
+
+struct GIZMOBLOWUP_s;
+GIZMOBLOWUP_s *GizmoBlowUp_FindByName(WORLDINFO_s *world, char *name);
+void SuperCarry_BlowUp(GIZMOBLOWUP_s *blowup, i32 flags);
+
+// FUNCTION: LEGOBATMAN 0x00471ca0
+i32 Action_BlowupSuperCarryItem(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                AIPACKET_s *packet, char **args, int argc,
+                                int flags, f32 time) {
+  GIZMOBLOWUP_s *blowup = 0;
+  i32 blowup_flags = 0;
+  if (argc != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "blowup_name=");
+      if (s != 0) {
+        s += NuStrLen("blowup_name=");
+        blowup = GizmoBlowUp_FindByName(g_unk00960894, s);
+      } else if (NuStrIStr(args[i], "debris") != 0) {
+        blowup_flags |= 1;
+      } else if (NuStrIStr(args[i], "parts") != 0) {
+        blowup_flags |= 2;
+      }
+    }
+    if (blowup != 0)
+      SuperCarry_BlowUp(blowup, blowup_flags);
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00470640
+i32 Action_RestockTorpedos(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char **args, int argc, int flags,
+                           f32 time) {
+  GameObject_s *obj = 0;
+  i32 count = 0;
+  if (packet && packet->pd0 && packet->pd0->obj)
+    obj = packet->pd0->obj;
+  if (flags) {
+    count = (i32)AIParamToFloat(process, args[0]);
+    if (count < 0)
+      count = 0;
+    else if (count > getMaxTorpedos(0))
+      count = getMaxTorpedos(0);
+  }
+  if (obj && obj->torpedo && count) {
+    if (obj->torpedo->count == 0) {
+      obj->torpedo->field_84 = 0;
+      obj->torpedo->field_04 = 0;
+      obj->torpedo->field_03 = 0;
+    }
+    if (count > obj->torpedo->count)
+      obj->torpedo->count = count;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00455f70
+i32 Action_DontSetStoppedFlag(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char **args, int argc,
+                              int flags, f32 time) {
+  GameObject_s *obj = 0;
+  i32 on = 1;
+  if (flags != 0) {
+    if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+      obj = packet->pd0->obj;
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "character");
+      if (s != 0)
+        obj = GetNamedGameObject(sys, s + 10);
+      else if (NuStrICmp("FALSE", args[0]) == 0)
+        on = 0;
+    }
+    if (obj != 0)
+      obj->dont_set_stopped = on;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00470ee0
+i32 Action_SetDeflectBolts(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char **args, int argc, int flags,
+                           f32 time) {
+  GameObject_s *obj = 0;
+  i32 on = 1;
+  if (flags != 0) {
+    if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+      obj = packet->pd0->obj;
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "character");
+      if (s != 0)
+        obj = GetNamedGameObject(sys, s + 10);
+      else if (NuStrICmp("FALSE", args[0]) == 0)
+        on = 0;
+    }
+    if (obj != 0)
+      obj->deflect_bolts = on;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x004645b0
+i32 Action_CanAttack(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                     AIPACKET_s *packet, char **args, int argc, int flags,
+                     f32 time) {
+  GameObject_s *obj = 0;
+  i32 on = 1;
+  if (flags != 0) {
+    if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+      obj = packet->pd0->obj;
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "character=");
+      if (s != 0)
+        obj = GetNamedGameObject(sys, s + 10);
+      else if (NuStrICmp(args[i], "FALSE") == 0)
+        on = 0;
+    }
+    if (obj != 0)
+      obj->can_attack = on;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0045db90
+i32 Action_SetMaxYRotSeek(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **args, int argc, int flags,
+                          f32 time) {
+  f32 seek = 0.0f;
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags != 0) {
+    seek = 1000000000.0f;
+    if (argc != 0) {
+      for (i32 i = 0; i < argc; i++) {
+        if (NuStrICmp(args[i], "clear") != 0)
+          seek = AIParamToFloat(process, args[i]);
+      }
+      if (seek < 0.0f)
+        seek = 0.0f;
+    }
+  }
+  obj->max_y_rot_seek = seek;
+  return 1;
+}
+
+// GLOBAL: LEGOBATMAN 0x0095f730
+extern u32 g_unk0095f730; // special button bit
+
+void GameObjectSetCanUse(GameObject_s *obj, void *user, u8 a, u8 b, f32 time);
+
+// FUNCTION: LEGOBATMAN 0x0045ad50
+i32 Action_PressSpecialButton(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char **args, int argc,
+                              int flags, f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (obj == 0)
+    return 1;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "hold_button") == 0)
+        process->hold_special_button = 1;
+    }
+  }
+  GameObjectSetCanUse(obj, 0, 9, 2, 0.0f);
+  *(u32 *)((u8 *)obj->p112c + 8) |= g_unk0095f730;
+  if (process->hold_special_button != 0) {
+    *(u32 *)((u8 *)obj->p112c + 4) |= g_unk0095f730;
+    return 0;
+  }
+  return 1;
+}
+
+struct AIGROUP_s {
+  u8 pad0[7];
+  u8 member_count; // 0x07
+  u8 count_across; // 0x08
+};
+
+// FUNCTION: LEGOBATMAN 0x0045bfe0
+i32 Action_SetFormationCommander(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                 AIPACKET_s *packet, char **args, int argc,
+                                 int flags, f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0 ||
+      packet->group == 0)
+    return 1;
+  AIGROUP_s *group = packet->group;
+  if (packet->group_member_index != group->member_count - 1)
+    return 1;
+  if (group->count_across != 1 &&
+      group->member_count % group->count_across != 1)
+    return 1;
+  packet->movement_event_flags |= 0x1000000;
   return 1;
 }

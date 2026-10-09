@@ -223,7 +223,9 @@ struct GameObject_s {
   void *movement_spline; // 0x137c
   u8 pad1380[0x1383 - 0x1380];
   u8 movement_spline_finished; // 0x1383
-  u8 pad14d[0x140c - 0x1384];
+  u8 pad14d[0x1404 - 0x1384];
+  f32 max_y_rot_seek; // 0x1404
+  u8 pad1408[0x140c - 0x1408];
   union {
     u32 flags140c; // 0x140c
     struct {
@@ -231,10 +233,22 @@ struct GameObject_s {
       u32 respawnable : 1;       // 0x140c bit 24
       u32 respawn_at_origin : 1; // 0x140c bit 25
     };
+    struct {
+      u32 : 13;
+      u32 can_attack : 1; // 0x140c bit 13
+    };
   };
-  u32 flags1410_lo : 15;
-  u32 doomed_take_damage : 1; // 0x1410 bit 15
-  u32 flags1410_hi : 16;
+  union {
+    struct {
+      u32 flags1410_lo : 15;
+      u32 doomed_take_damage : 1; // 0x1410 bit 15
+      u32 flags1410_hi : 16;
+    };
+    struct {
+      u32 : 9;
+      u32 dont_set_stopped : 1; // 0x1410 bit 9
+    };
+  };
   union {
     u32 flags1414; // 0x1414
     struct {
@@ -247,6 +261,10 @@ struct GameObject_s {
     struct {
       u32 flags1418_lo : 13;
       u32 can_be_mind_controlled : 1; // 0x1418 bit 13
+    };
+    struct {
+      u32 : 10;
+      u32 deflect_bolts : 1; // 0x1418 bit 10
     };
   };
   u8 pad15[0x1430 - 0x141c];

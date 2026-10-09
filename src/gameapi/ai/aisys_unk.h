@@ -34,12 +34,16 @@ struct AIPACKET_s {
   Unk_AIPacketObj *pd4; // 0xd4
   u8 pad1[0xe4 - 0xd8];
   Unk_AIPacketObj *pe4; // 0xe4
-  u8 pade8[0x158 - 0xe8];
+  u8 pade8[0x144 - 0xe8];
+  struct AIGROUP_s *group; // 0x144
+  u8 group_member_index;   // 0x148
+  u8 pad149[0x158 - 0x149];
   struct AIPATHSET_s *path_set;   // 0x158
   struct AIPATHNODE_s *path_node; // 0x15c, node byte 0x10 = index
   u8 pad160[0x1ec - 0x160];
-  nuvec_s *look_target; // 0x1ec
-  u8 pad1f0[0x1fc - 0x1f0];
+  nuvec_s *look_target;     // 0x1ec
+  u32 movement_event_flags; // 0x1f0
+  u8 pad1f4[0x1fc - 0x1f4];
   u32 cnx_capabilities; // 0x1fc
 };
 

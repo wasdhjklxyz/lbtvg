@@ -1133,3 +1133,11 @@
 00460de0 Action_CameraShake  keyword table 0x93bb98
 00462db0 Action_StopObstacleLooping  keyword table 0x93bb98
 004677c0 Action_EndCameraCut  keyword table 0x93bb98
+00471ca0 Action_BlowupSuperCarryItem  keyword table 0x93bb98
+00470640 Action_RestockTorpedos  keyword table 0x93bb98
+00455f70 Action_DontSetStoppedFlag  keyword table 0x93bb98
+00470ee0 Action_SetDeflectBolts  keyword table 0x93bb98
+004645b0 Action_CanAttack  keyword table 0x93bb98
+0045db90 Action_SetMaxYRotSeek  keyword table 0x93bb98
+0045ad50 Action_PressSpecialButton  keyword table 0x93bb98
+0045bfe0 Action_SetFormationCommander  keyword table 0x93bb98
