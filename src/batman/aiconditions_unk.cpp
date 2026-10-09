@@ -2889,3 +2889,69 @@ f32 Condition_EitherPlayerOnForcePlatform(AISYS_s *sys,
   }
   return 0.0f;
 }
+
+// FUNCTION: LEGOBATMAN 0x0044d830
+void *Condition_IAmAInit(AISYS_s *system, char *name, AISCRIPT_s *script) {
+  if (name != NULL && system != NULL) {
+    for (i32 index = 0; index < CHARCOUNT; ++index) {
+      if (NuStrICmp(CDataList[index].file, name) == 0)
+        return (void *)index;
+    }
+  }
+  return (void *)-1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d8a0
+f32 Condition_IAmA(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
+                   char *str, void *argument) {
+  // 0x15b0: character type.
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL &&
+      *(i16 *)((u8 *)packet->pd0->obj + 0x15b0) == (i32)argument)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d8e0
+void *Condition_OpponentIsAInit(AISYS_s *system, char *name,
+                                AISCRIPT_s *script) {
+  if (name != NULL && system != NULL) {
+    for (i32 index = 0; index < CHARCOUNT; ++index) {
+      if (NuStrICmp(CDataList[index].file, name) == 0)
+        return (void *)index;
+    }
+  }
+  return (void *)-1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d950
+f32 Condition_OpponentIsA(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char *str, void *argument) {
+  if (packet != NULL && packet->pe4 != NULL && packet->pe4->obj != NULL &&
+      *(i16 *)((u8 *)packet->pe4->obj + 0x15b0) == (i32)argument)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d990
+f32 Condition_OpponentIsAThreat(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                AIPACKET_s *packet, char *str, void *argument) {
+  if (packet != NULL) {
+    if (packet->pd0 != NULL && packet->pd0->obj != NULL &&
+        *(f32 *)((u8 *)packet->pd0->obj + 0x135c) > 0.0f)
+      return 1.0f;
+    // 0x1f0 bit 11: opponent is a threat.
+    return (f32)((*(u32 *)((u8 *)packet + 0x1f0) >> 11) & 1);
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d9f0
+f32 Condition_OpponentJustPickedUpWeapon(AISYS_s *sys,
+                                         AISCRIPTPROCESS_s *process,
+                                         AIPACKET_s *packet, char *str,
+                                         void *argument) {
+  if (packet != NULL && packet->pe4 != NULL && packet->pe4->obj != NULL &&
+      *(f32 *)((u8 *)packet->pe4->obj + 0xb84) > 0.0f)
+    return 1.0f;
+  return 0.0f;
+}

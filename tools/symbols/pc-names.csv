@@ -58,6 +58,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0044d750,00075816,__Z22Condition_ForcePushingP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ForcePushing(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044d7a0,0007586a,__Z25Condition_TurretAliveInitP7AISYS_sPcP10AISCRIPT_s,"Condition_TurretAliveInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 0044d800,000758c4,__Z28Condition_IAmAPartyCharacterP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_IAmAPartyCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d830,000758ea,__Z18Condition_IAmAInitP7AISYS_sPcP10AISCRIPT_s,"Condition_IAmAInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+0044d8a0,0007594a,__Z14Condition_IAmAP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_IAmA(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d8e0,00075978,__Z25Condition_OpponentIsAInitP7AISYS_sPcP10AISCRIPT_s,"Condition_OpponentIsAInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+0044d950,000759d8,__Z21Condition_OpponentIsAP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OpponentIsA(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d990,00075a06,__Z27Condition_OpponentIsAThreatP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OpponentIsAThreat(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d9f0,00075a70,__Z36Condition_OpponentJustPickedUpWeaponP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OpponentJustPickedUpWeapon(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044da30,00075ab0,__Z23Condition_BeenHitByInitP7AISYS_sPcP10AISCRIPT_s,"Condition_BeenHitByInit(AISYS_s*, char*, AISCRIPT_s*)",strings,0
 0044db10,00075b54,__Z19Condition_BeenHitByP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_BeenHitBy(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044db60,00075b92,__Z31Condition_BeenHitByNamedObjInitP7AISYS_sPcP10AISCRIPT_s,"Condition_BeenHitByNamedObjInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
