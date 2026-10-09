@@ -132,7 +132,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near nugraph_gen.cpp](#near-nugraph_gencpp) | 1 | 0 |
 | [near numtl_dlist.cpp](#near-numtl_dlistcpp) | 1 | 0 |
 | [near pcapi.cpp](#near-pcapicpp) | 2 | 0 |
-| [near windows.cpp](#near-windowscpp) | 3 | 0 |
+| [near windows.cpp](#near-windowscpp) | 2 | 0 |
 | [NuDisplay](#nudisplay) | 1 | 0 |
 | [NudxFw](#nudxfw) | 1 | 0 |
 | [NuExp10](#nuexp10) | 1 | 0 |
@@ -894,7 +894,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## near windows.cpp
 
 - [ ] `00528cd0` 127 B `_PCInitStrings`  **hint** name (gapfill)
-- [ ] `00527d60` 212 B `PCCreateMouseCursorMaterial()`
 - [ ] `00528460` 498 B `NuPCCreateWindow(MacDoze::HINSTANCE__*, int, int)`
 
 ## NuDisplay
