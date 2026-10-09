@@ -88,13 +88,13 @@ struct NUDISPLAYSPECIAL {
   unsigned char pad8c[0x90 - 0x8c];
   nuvec_s max; // 0x90
   unsigned char pad0[0xa0 - 0x9c];
-  nuvec_s center;               // 0xa0
-  float radius;                 // 0xac
-  nuclipobject_s *clip_objects; // 0xb0
-  char *name;                   // 0xb4
-  unsigned int flags;           // 0xb8, 0x200 = collision, bit 1 = visible
-  float *clip_range;            // 0xbc, LOD distances, 0-terminated
-  unsigned char pad2[0xc4 - 0xc0];
+  nuvec_s center;                   // 0xa0
+  float radius;                     // 0xac
+  nuclipobject_s *clip_objects;     // 0xb0
+  char *name;                       // 0xb4
+  unsigned int flags;               // 0xb8, 0x200 = collision, bit 1 = visible
+  float *clip_range;                // 0xbc, LOD distances, 0-terminated
+  int instance_ix;                  // 0xc0
   nuinstanim_s *instance_animation; // 0xc4, -1 when unset
   unsigned char pad3[0xcc - 0xc8];
   void *app_data; // 0xcc
@@ -102,10 +102,11 @@ struct NUDISPLAYSPECIAL {
 
 struct nugscn_s {
   unsigned char pad0[0x18];
-  nugobject_s **objects; // 0x18, indexed by nuinstance_s::object_index
-  unsigned char pad1[0x24 - 0x1c];
-  int numspecial;        // 0x24
-  nuspecial_s *specials; // 0x28
+  nugobject_s **objects;   // 0x18, indexed by nuinstance_s::object_index
+  int instance_count;      // 0x1c
+  nuinstance_s *instances; // 0x20
+  int numspecial;          // 0x24
+  nuspecial_s *specials;   // 0x28
   unsigned char pad2[0x30 - 0x2c];
   int numsplines;       // 0x30
   nugspline_s *splines; // 0x34
@@ -119,6 +120,9 @@ struct nugscn_s {
 struct nudisplaylist_s {
   unsigned char pad0[0x50];
   void **mtls; // 0x50
+  unsigned char pad54[0x6c - 0x54];
+  int nspecials;              // 0x6c
+  NUDISPLAYSPECIAL *specials; // 0x70
 };
 
 struct nuhspecial_s {

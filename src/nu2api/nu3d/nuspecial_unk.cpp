@@ -307,9 +307,94 @@ void NuSpecialSetOnScreen(nuhspecial_s *special, int enabled) {
 // STUB: LEGOBATMAN 0x0070f780
 // register pick only: orig keeps the handle in ecx, ours in eax.
 int NuSpecialGetOnScreenFn(nuhspecial_s *special) {
-  return special->scene != 0 && special->special != 0
-             ? special->special->instance->on_screen
-             : 1;
+  nuspecial_s *legacy;
+  if (special->scene == 0 || (legacy = special->special) == 0)
+    return 1;
+  return legacy->instance->on_screen;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070f7b0
+int NuSpecialGetNumSpecials(nugscn_s *scene) {
+  if (scene->numspecial != 0)
+    return scene->numspecial;
+  if (scene->display_list != 0 && scene->display_list->nspecials != 0)
+    return scene->display_list->nspecials;
+  return 0;
+}
+
+// 0x006fced0 is a lone `ret` (debug report compiled out).
+void NuErrorUnk006fced0(void);
+
+// FUNCTION: LEGOBATMAN 0x0070f7d0
+int NuSpecialGetFirst(nugscn_s *scene, nuhspecial_s *special, int flags) {
+  if (scene->specials != 0) {
+    special->scene = scene;
+    special->special = scene->specials;
+    special->display_special = 0;
+    return 1;
+  }
+  if (scene->display_list->nspecials != 0) {
+    special->scene = scene;
+    special->special = 0;
+    special->display_special = scene->display_list->specials;
+    return 1;
+  }
+  special->scene = 0;
+  special->special = 0;
+  special->display_special = 0;
+  if (flags != 0)
+    NuErrorUnk006fced0();
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070f830
+void NuSpecialGetNext(nuhspecial_s *special) {
+  if (special->special != 0)
+    special->special++;
+  else if (special->display_special != 0)
+    special->display_special++;
+}
+
+// STUB: LEGOBATMAN 0x0070f860
+// register pick only: orig keeps the handle in ecx (an "int i = 0" at the top
+// gets ecx but hoists the xor too early).
+int NuSpecialGetInstanceix(nuhspecial_s *special) {
+  int i;
+  nuspecial_s *legacy = special->special;
+  if (legacy != 0) {
+    nugscn_s *scene = special->scene;
+    i = 0;
+    for (; i < scene->instance_count; ++i) {
+      if (&scene->instances[i] == legacy->instance)
+        return i;
+    }
+    return -1;
+  }
+  NUDISPLAYSPECIAL *display = special->display_special;
+  return display != 0 ? display->instance_ix : -1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070f8b0
+int NuSpecialNumMtls(nuhspecial_s *special) {
+  int count = 0;
+  nuspecial_s *legacy = special->special;
+  if (legacy != 0) {
+    nugobject_s *object =
+        special->scene->objects[legacy->instance->object_index];
+    while (object->next != 0)
+      object = object->next;
+    for (numtllink_s *link = object->materials; link != 0; link = link->next)
+      ++count;
+    return count;
+  }
+  if (special->display_special != 0) {
+    NUDISPLAYSPECIAL *display = special->display_special;
+    int level = 0;
+    while (display->clip_range[level] != 0.0f)
+      ++level;
+    return display->clip_objects[level].f0;
+  }
+  return 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x0070f930

@@ -835,6 +835,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0070f6a0,0012b2c8,_NuSpecialSetNoVisiTest,_NuSpecialSetNoVisiTest,confirmed,0
 0070f6f0,0012b318,_NuSpecialGetNoVisiTestFn,_NuSpecialGetNoVisiTestFn,confirmed,0
 0070f730,0012b352,_NuSpecialSetOnScreen,_NuSpecialSetOnScreen,confirmed,0
+0070f7b0,0012b3c2,_NuSpecialGetNumSpecials,_NuSpecialGetNumSpecials,confirmed,0
+0070f7d0,0012b3e4,_NuSpecialGetFirst,_NuSpecialGetFirst,confirmed,0
+0070f830,0012b446,_NuSpecialGetNext,_NuSpecialGetNext,confirmed,0
+0070f8b0,0012b4c2,_NuSpecialNumMtls,_NuSpecialNumMtls,confirmed,0
 0070f930,0012b524,_NuSpecialGetMtl,_NuSpecialGetMtl,calls,1
 0070f9e0,00124208,_NuSpecialGetBounds,_NuSpecialGetBounds,confirmed,0
 0070fb20,0012b646,_NuSpecialGetRadius,_NuSpecialGetRadius,gapfill,1

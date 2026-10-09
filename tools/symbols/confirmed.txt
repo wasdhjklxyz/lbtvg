@@ -195,3 +195,7 @@
 0070f6a0 NuSpecialSetNoVisiTest  saga body (instance bit 3 / display flag 0x80)
 0070f6f0 NuSpecialGetNoVisiTestFn  saga body
 0070f730 NuSpecialSetOnScreen  saga body (instance bit 1 / display flag 4)
+0070f7b0 NuSpecialGetNumSpecials  saga body (legacy count or display-list count)
+0070f7d0 NuSpecialGetFirst  saga body (first legacy or display special)
+0070f830 NuSpecialGetNext  saga body (advance 0x50 legacy / 0xd0 display)
+0070f8b0 NuSpecialNumMtls  saga body (last-LOD material links or clip-object count)
