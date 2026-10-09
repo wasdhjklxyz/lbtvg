@@ -1594,4 +1594,3 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0075b591,001ad4f6,__ZN7NuMusic11ClassToNameEj,NuMusic::ClassToName(unsigned int),strings,0
 007a2310,00047d3c,__Z17EvilSlums_D_ResetP11WORLDINFO_s,EvilSlums_D_Reset(WORLDINFO_s*),strings,0
 00ac7598,,extern,extern,confirmed,0
-00acb77c,,static,static,confirmed,0

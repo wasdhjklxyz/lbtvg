@@ -921,7 +921,6 @@
 005e8ff0 BT_typeb  matched, keyword table
 005e9010 BT_typec  matched, keyword table
 005e9030 BT_typed  matched, keyword table
-00acb77c static CUTINFO_s *CS_CutInfo;  matched, keyword table
 00618d00 CS_fpsec  matched, keyword table
 00618f10 CS_in_game  matched, keyword table
 00618f30 CS_blobshadow_alpha  matched, keyword table
