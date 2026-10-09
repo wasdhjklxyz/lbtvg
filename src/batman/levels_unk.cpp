@@ -241,6 +241,44 @@ extern LEVELOBJECT *ObjTabList;
 // GLOBAL: LEGOBATMAN 0x00aca8e8
 extern i32 EXTRALEVELOBJECTCOUNT;
 
+struct LEVELSPLINE {
+  struct nugscn_s **scene;
+  const char *name;
+  u16 min_points;
+  u16 max_points;
+  i16 level;
+  i16 area;
+};
+
+// GLOBAL: LEGOBATMAN 0x00aca8d4
+extern LEVELSPLINE *LevSplList;
+// GLOBAL: LEGOBATMAN 0x00aca8d8
+extern i32 LEVELSPLINECOUNT;
+// GLOBAL: LEGOBATMAN 0x00963188
+extern i32 levspl_i_start;
+// GLOBAL: LEGOBATMAN 0x0096318c
+extern i32 levspl_i_startcam;
+
+// FUNCTION: LEGOBATMAN 0x0060e640
+void LevelSplines_InitForGame(LEVELSPLINE *splines) {
+  LevSplList = splines;
+  LEVELSPLINECOUNT = 0;
+
+  if (splines == 0) {
+    return;
+  }
+
+  for (LEVELSPLINE *spline = splines; spline->name != 0; ++spline) {
+    if (levspl_i_start == -1 && NuStrICmp(spline->name, "start") == 0) {
+      levspl_i_start = LEVELSPLINECOUNT;
+    } else if (levspl_i_startcam == -1 &&
+               NuStrICmp(spline->name, "start_cam") == 0) {
+      levspl_i_startcam = LEVELSPLINECOUNT;
+    }
+    ++LEVELSPLINECOUNT;
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x0060e9c0
 i32 LevelObject_AddExtra(char *name, i32 kind) {
   if (LEVELOBJECTCOUNT >= LEVELOBJECTMAX)

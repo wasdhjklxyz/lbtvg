@@ -46,6 +46,12 @@ i32 DeactivatePlayer(GameObject_s *obj, f32 time, GameObject_s *by) {
 // GLOBAL: LEGOBATMAN 0x00ab3960
 extern GameObject_s *Player[8];
 
+// FUNCTION: LEGOBATMAN 0x005c0f70
+void SetFlicker(GameObject_s *object, float duration) {
+  object->flicker_time = duration;
+  object->flags1310 &= ~0x380000;
+}
+
 // FUNCTION: LEGOBATMAN 0x005c1860
 GameObject_s *Player_FindByID(i32 id) {
   for (i32 i = 0; i < 8; i++) {

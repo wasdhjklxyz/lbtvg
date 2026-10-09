@@ -13,7 +13,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [near rtleditor.cpp](#near-rtleditorcpp) | 87 | 61 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 86 | 60 |
 | [Action](#action) | 72 | 57 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
@@ -40,7 +40,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizPanel](#gizpanel) | 2 | 2 |
 | [LevelObjects](#levelobjects) | 2 | 2 |
 | [Levels](#levels) | 2 | 2 |
-| [LevelSplines](#levelsplines) | 2 | 2 |
 | [Move](#move) | 2 | 2 |
 | [NuStr](#nustr) | 2 | 2 |
 | [Player](#player) | 2 | 2 |
@@ -71,6 +70,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Grapples](#grapples) | 1 | 1 |
 | [Level](#level) | 1 | 1 |
 | [LevelObject](#levelobject) | 1 | 1 |
+| [LevelSplines](#levelsplines) | 1 | 1 |
 | [MiniKit](#minikit) | 2 | 1 |
 | [Mission](#mission) | 1 | 1 |
 | [Missions](#missions) | 1 | 1 |
@@ -217,7 +217,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `0059b480` 20 B `_CurrentAnim`
 - [ ] `00635c80` 23 B `ResetCoinPacket(COINPACKET_s*)`  **hint** name (order) · **saga** `legoapi/items/base/collection.cpp`
-- [ ] `005c0f70` 25 B `SetFlicker(GameObject_s*, float)`  **hint** name (gapfill) · **saga** `legoapi/characters/core/players.cpp`
 - [ ] `00595ff0` 35 B `_AnimFlags`  **hint** name (gapfill)
 - [ ] `0059b540` 35 B `_AnimSpeedZ`  **hint** name (gapfill)
 - [ ] `005bba90` 35 B `GizmoFileReadName(char*)`  **hint** name (gapfill) · **saga** `legoapi/gizmo/base/gizmo.cpp`
@@ -638,11 +637,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0060d7a0` 267 B `Levels_FixUp(LEVELFIXUP*)`  **hint** name (gapfill) · **saga** `legoapi/world/level.cpp`
 - [ ] `0060d110` 1446 B `Levels_ConfigureList(char*, variptr_u*, variptr_u*, int, int*, void (*)(LEVELDATA_s*))`  **saga** `legoapi/world/level.cpp`
 
-## LevelSplines
-
-- [ ] `0060e640` 135 B `LevelSplines_InitForGame(LEVELSPLINE*)`  **saga** `legoapi/render/fx/edsplines.cpp`
-- [ ] `0060e6d0` 509 B `LevelSplines_InitForLevel(WORLDINFO_s*)`  **saga** `legoapi/render/fx/edsplines.cpp`
-
 ## Move
 
 - [ ] `004cb910` 438 B `Move_CHARACTER(GameObject_s*)`  **saga** `legoapi/characters/motion/move.cpp`
@@ -771,6 +765,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## LevelObject
 
 - [ ] `0060ec80` 77 B `LevelObject_FindIndexFromName(char*)`  **hint** name (gapfill) · **saga** `legoapi/world/level.cpp`
+
+## LevelSplines
+
+- [ ] `0060e6d0` 509 B `LevelSplines_InitForLevel(WORLDINFO_s*)`  **saga** `legoapi/render/fx/edsplines.cpp`
 
 ## MiniKit
 

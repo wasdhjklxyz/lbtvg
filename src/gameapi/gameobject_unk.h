@@ -126,7 +126,9 @@ struct GameObject_s {
   u32 flags1430; // 0x1430
   u8 pad16[0x1534 - 0x1434];
   f32 f1534; // 0x1534
-  u8 pad17[0x157c - 0x1538];
+  u8 pad17[0x154c - 0x1538];
+  f32 flicker_time; // 0x154c
+  u8 pad17b[0x157c - 0x1550];
   CABLE_s *cable157c; // 0x157c
   u8 pad18[0x15b0 - 0x1580];
   i16 type15b0; // 0x15b0
