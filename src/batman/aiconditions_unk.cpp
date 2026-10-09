@@ -1744,6 +1744,97 @@ f32 Condition_InMiniCut(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 0.0f;
 }
 
+// GLOBAL: LEGOBATMAN 0x009c600c
+extern f32 drop_back_in_timer;
+// GLOBAL: LEGOBATMAN 0x009c5fe4
+extern i32 party_under_cover;
+// GLOBAL: LEGOBATMAN 0x009c5b48
+extern i32 nbaddies_can_see_players;
+
+// FUNCTION: LEGOBATMAN 0x004509a0
+f32 Condition_DropBackInTimer(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char *str, void *data) {
+  return drop_back_in_timer;
+}
+
+// FUNCTION: LEGOBATMAN 0x004509b0
+f32 Condition_PartyUnderCover(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char *str, void *data) {
+  if (party_under_cover != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x004509d0
+f32 Condition_NumBaddiesThatCanSeePlayers(AISYS_s *sys,
+                                          AISCRIPTPROCESS_s *process,
+                                          AIPACKET_s *packet, char *str,
+                                          void *data) {
+  return (f32)nbaddies_can_see_players;
+}
+
+// FUNCTION: LEGOBATMAN 0x00450ab0
+f32 Condition_PartyContainsDroids(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                  AIPACKET_s *packet, char *str, void *data) {
+  for (i32 index = 0; index < 8; ++index) {
+    GameObject_s *object = Player[index];
+    if (object != NULL && (object->flags1fc & 1) &&
+        (object->flags1fc & 0x1000) &&
+        (*(u32 *)((u8 *)object + 0x1410) & 0x10000000) == 0 &&
+        (object->p54->model_flags & 0x10) != 0)
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00450b10
+f32 Condition_CannotReachDestination(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                     AIPACKET_s *packet, char *str,
+                                     void *data) {
+  // 0x1f0: packet runtime flags.
+  if (packet != NULL && (((u32 *)packet)[0x1f0 / 4] & 0x400000) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// GLOBAL: LEGOBATMAN 0x0095fe74
+extern i32 spinner_gizmotype_id;
+
+// FUNCTION: LEGOBATMAN 0x00450b30
+void *Condition_EitherPlayerPushingSpinnerInit(AISYS_s *sys, char *name,
+                                               AISCRIPT_s *script) {
+  return GizmoFindByName(g_unk00960894->gizmoSys2b0c, spinner_gizmotype_id,
+                         name);
+}
+
+// FUNCTION: LEGOBATMAN 0x00450b60
+f32 Condition_EitherPlayerPushingSpinner(AISYS_s *sys,
+                                         AISCRIPTPROCESS_s *process,
+                                         AIPACKET_s *packet, char *str,
+                                         void *argument) {
+  void *spinner = *(void **)argument;
+  if (spinner != NULL) {
+    if (player != NULL && player->b9db == 0x28 &&
+        (void *)player->techno == spinner)
+      return 1.0f;
+    if (player2 != NULL && player2->b9db == 0x28 &&
+        (void *)player2->techno == spinner)
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00450c00
+f32 Condition_CharacterRange(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char *str, void *argument) {
+  GameObject_s *object = (GameObject_s *)argument;
+  if (packet != NULL && packet->pd0 != NULL && object != NULL) {
+    nuvec_s difference;
+    return NuVecDist(&object->position, &packet->pd0->pos5c, &difference);
+  }
+  return 1.0e9f;
+}
+
 i32 Hub_GetRandomCharType(void);
 
 // FUNCTION: LEGOBATMAN 0x00451470

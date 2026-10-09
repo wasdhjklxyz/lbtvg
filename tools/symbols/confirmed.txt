@@ -505,3 +505,11 @@
 004507c0 Condition_RespawnLocatorIsInit   matched (saga gameobjects.cpp shape where present), Mac order of the Condition_* run
 004507e0 Condition_RespawnLocatorIs   matched (saga gameobjects.cpp shape where present), Mac order of the Condition_* run
 00450810 Condition_InMiniCut   matched (saga gameobjects.cpp shape where present), Mac order of the Condition_* run
+004509a0 Condition_DropBackInTimer   matched (saga body shape), Mac order of the Condition_* run
+004509b0 Condition_PartyUnderCover   matched (saga body shape), Mac order of the Condition_* run
+004509d0 Condition_NumBaddiesThatCanSeePlayers   matched (saga body shape), Mac order of the Condition_* run
+00450ab0 Condition_PartyContainsDroids   matched (saga body shape), Mac order of the Condition_* run
+00450b10 Condition_CannotReachDestination   matched (saga body shape), Mac order of the Condition_* run
+00450b30 Condition_EitherPlayerPushingSpinnerInit   matched (saga body shape), Mac order of the Condition_* run
+00450b60 Condition_EitherPlayerPushingSpinner   matched (saga body shape), Mac order of the Condition_* run
+00450c00 Condition_CharacterRange   matched (saga body shape), Mac order of the Condition_* run
