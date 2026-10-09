@@ -295,7 +295,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0059f8d0` 185 B `PlayJumpSfx(GameObject_s*, int)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
 - [ ] `005aa1f0` 187 B `InitGrappleMtls(variptr_u*, variptr_u*)`
 - [ ] `00656130` 203 B `AddRipple(ripple_set_s*, numtx_s*, float, float, float, float, RGBA, RGBA, int, numtl_s*, nuvec_s*)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/items/fx/ripples.cpp`
-- [ ] `005a3020` 212 B `ConstantRumble(GameObject_s*, float, float)`  **hint** name (gapfill) · **saga** `legoapi/misc/legoapi_misc.cpp`
+- [ ] `005a3020` 212 B `ConstantRumble(GameObject_s*, float, float)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/misc/legoapi_misc.cpp`
 - [ ] `005b2a40` 229 B `LoadThingsScene()`
 - [ ] `00639580` 229 B `ObjOpponentStillThere(GameObject_s*, GameObject_s*, float)`  **hint** name (order) · **saga** `legoapi/actions/character/speederchase.cpp`
 - [ ] `00620b30` 249 B `RedirectTextFile(char*, char*, int, int*)`  **stub** · **saga** `legoapi/characters/core/charconfig.cpp`

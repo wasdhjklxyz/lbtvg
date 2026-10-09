@@ -830,6 +830,41 @@ void NewRumbleAllPlayers(float strength, float duration, i32 frames, i32) {
   }
 }
 
+struct TIMER_s {
+  f32 time_elapsed;
+  f32 last_time_elapsed;
+  f32 time_elapsed_mod_seconds;
+  i32 update_count;
+};
+extern TIMER_s GameTimer;
+f32 NuFmod(f32 a, f32 b);
+// sine of a 16-bit angle (polynomial)
+f32 NuSinUnk005a2970(i32 angle);
+
+// STUB: LEGOBATMAN 0x005a3020
+// close: orig stores the 1.25f argument before computing phase; ours after
+// (separate statements, assignment inside the call, += tried).
+void ConstantRumble(GameObject_s *object, float strength, float phase) {
+  phase += GameTimer.time_elapsed;
+  phase = NuFmod(phase, 1.25f);
+  f32 weight;
+  if (phase < 1.0f) {
+    f32 s = NuSinUnk005a2970(0x4000 - (i32)(phase * -32768.0f));
+    f32 r;
+    *(u32 *)&r = *(u32 *)&s & 0x7fffffff;
+    weight = 1.0f - r;
+  } else {
+    weight = 0.0f;
+  }
+  strength = weight * strength;
+  if (object != 0) {
+    if (object->flags_low & 0x80)
+      NewRumble(object->pad_gamepad->pad, strength, 0);
+  } else {
+    NewRumbleAllPlayers(strength, 0.0f, 0, 0);
+  }
+}
+
 typedef struct TECHNO_s {
   u8 pad0[0x83];
   u8 target_mode; // 0x83

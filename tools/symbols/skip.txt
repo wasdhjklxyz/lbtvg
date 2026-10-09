@@ -131,3 +131,4 @@
 006b71e0 AIFormationFollow: hoisted fldz reuse + fimul order (as FollowPath), 3 tries
 006b4470 Action_PathConnectionMaxLength: set/clear arm placement (epilogue puzzle), 3 tries
 00654bc0 xAction (gizflow): register allocation (previous/zero), 3 tries
+005a3020 ConstantRumble: 1.25f arg store scheduled before the phase add, 3 tries
