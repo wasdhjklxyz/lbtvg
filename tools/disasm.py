@@ -38,7 +38,11 @@ def string_at(va):
 md = Cs(CS_ARCH_X86, CS_MODE_32)
 for arg in sys.argv[1:]:
     addr = int(arg, 16)
-    size = sizes.get(addr, 256)
+    size = sizes.get(addr)
+    if size is None:   # ghidra missed it: up to the next known start, minus padding
+        nxt = min([a for a in list(sizes) + list(names) if a > addr] or [addr + 256])
+        body = pe.get_data(addr - base, min(nxt - addr, 0x4000))
+        size = len(body.rstrip(b"\xcc\x90")) or len(body)
     print(f"=== {addr:08x}  {size} B  {names.get(addr, '')}")
     for i in md.disasm(pe.get_data(addr - base, size), addr):
         extra = ""

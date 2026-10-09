@@ -214,3 +214,15 @@ enough matched code for the percentage to mean something.
 - **Ghidra misses many small table-reached functions**: scan for `int3`
   padding between known functions to find their starts, then pair them with
   the Mac order.
+- **`if (!p) return 1; ...`** gives one shared epilogue; wrapping the body in
+  `if (p) { ... }` duplicates the return tails (the other direction of the
+  epilogue puzzle above).
+- **`p->u64 |= X` through a global pointer** recomputes the address; copying
+  the pointer to a local first gives `[eax+0x58]/[eax+0x5c]`.
+- **`(u32)x <= 31` and `(u32)x < 32`** compile differently.
+- **`obj = c ? x : NULL; if (obj) ...`** matches where nested early returns
+  don't.
+- **A shared `return 0.0f`** hoists `fldz` above the null checks.
+- **Keyword tables name parser callbacks exactly**: .data holds {string,
+  code pointer} pairs (through the incremental-link `jmp` thunks);
+  `tools/scratch/thunk.py PREFIX TABLE_VA` lists them.
