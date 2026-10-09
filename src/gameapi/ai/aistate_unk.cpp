@@ -6,10 +6,8 @@
 #include "aisys_unk.h"
 #include <stddef.h>
 
-// NOTE: related to LEGOBATMAN 0x006a62b0 it calls this and thats _AIStateFind
-// in mac idk??
 // FUNCTION: LEGOBATMAN 0x006a1950
-AISTATE *AIStateFindUnk006a1950(char *name, AISCRIPT *script) {
+AISTATE *AIStateFind(char *name, AISCRIPT *script) {
   AISTATE *state;
 
   state = (AISTATE *)NuListGetHead(&script->states);
@@ -28,12 +26,12 @@ AISTATE *AIStateFindUnk006a1950(char *name, AISCRIPT *script) {
 }
 
 // FUNCTION: LEGOBATMAN 0x006a62b0
-i32 AIStateFind(AISCRIPTPROCESS *processor, u8 priority, u8 id,
-                char *state_name, f32 time) {
+i32 AIScriptSetInterrupt(AISCRIPTPROCESS *processor, u8 priority, u8 id,
+                         char *state_name, f32 time) {
   AISTATE *state;
 
   if (priority >= processor->interrupt_priority) {
-    state = AIStateFindUnk006a1950(state_name, processor->script);
+    state = AIStateFind(state_name, processor->script);
 
     if (state != NULL) {
       processor->interrupt_priority = priority;
