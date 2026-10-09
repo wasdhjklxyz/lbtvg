@@ -1453,3 +1453,12 @@
 00711f60 pftaUntiltex  keyword table 0x9a6de0
 00711fd0 pftaEnd  keyword table 0x9a6de0
 00711ff0 pftaScriptname  keyword table 0x9a6de0
+004861e0 GizForceSFX_forcename  keyword table 0x93e14c
+00486230 GizForceSFX_processsfx  keyword table 0x93e14c
+00486290 GizForceSFX_completesfx  keyword table 0x93e14c
+004862f0 GizForceSFX_returnsfx  keyword table 0x93e14c
+0063afe0 GizDigSFX_digname  keyword table 0x9656e4
+0063b020 GizDigSFX_processsfx  keyword table 0x9656e4
+0063b070 GizDigSFX_completesfx  keyword table 0x9656e4
+0063b080 GizDigSFX_returnsfx  keyword table 0x9656e4
+0063b090 GizDigSFX_Configure  Mac GizDigSFX_Configure(WORLDINFO_s*, char*); pushes table 0x9656e4, "digSFX"

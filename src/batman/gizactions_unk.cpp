@@ -101,8 +101,29 @@ void GizActions_PlayRadio(GIZFLOW_s *flow, FLOWBOX_s *box, char **args,
 
 #include "worldinfo_unk.h"
 
+struct GAMEANIMOBJ_s {
+  GAMEANIMOBJ_s *next; // 0x00
+  u32 special[3];      // 0x04, nuhspecial_s
+};
+
+struct GAMEANIMSET_s {
+  u8 pad0[0x24];
+  GAMEANIMOBJ_s *objects; // 0x24
+};
+
+struct GIZFORCE_s {
+  u8 pad0[0x28];
+  GAMEANIMSET_s *anim_set; // 0x28
+  u8 pad2c[0x82 - 0x2c];
+  i16 sfx_process;  // 0x82
+  i16 sfx_complete; // 0x84
+  i16 sfx_return;   // 0x86
+  u8 pad88[0xa4 - 0x88];
+};
+
 struct GIZFORCESYS_s {
-  u8 pad0[0xe];
+  GIZFORCE_s *forces; // 0x00
+  u8 pad4[0xe - 4];
   u16 count; // 0x0e
 };
 
@@ -121,7 +142,7 @@ extern i32 GizForceSFX_load_version;
 // GLOBAL: LEGOBATMAN 0x009c6f3c
 extern WORLDINFO_s *GizForceSFX_worldinfo;
 // GLOBAL: LEGOBATMAN 0x009c6f38
-extern void *GizForceSFX_force;
+extern GIZFORCE_s *GizForceSFX_force;
 // GLOBAL: LEGOBATMAN 0x0093e14c
 extern NUFPCOMJMP GizForceSFX_ConfigKeywords[];
 
@@ -132,6 +153,59 @@ i32 NuFParGetWord(NUFPAR *parser);
 i32 NuFParInterpretWord(NUFPAR *parser);
 void NuFParPopCom(NUFPAR *parser);
 void NuFParDestroy(NUFPAR *parser);
+
+char *NuSpecialGetName(nuhspecial_s *sp);
+i32 GetSfxId(char *name);
+
+// FUNCTION: LEGOBATMAN 0x00486150
+static GIZFORCE_s *GizForceFindByNameUnk00486150(WORLDINFO_s *world,
+                                                 char *name) {
+  GIZFORCESYS_s *system = world->giz_force_sys;
+  if (system != 0) {
+    GIZFORCE_s *force = system->forces;
+    for (i32 i = 0; i < system->count; i++, force++) {
+      if (force->anim_set != 0) {
+        for (GAMEANIMOBJ_s *object = force->anim_set->objects; object != 0;
+             object = object->next) {
+          char *special_name =
+              NuSpecialGetName((nuhspecial_s *)object->special);
+          if (special_name != 0 && NuStrICmp(name, special_name) == 0)
+            return force;
+        }
+      }
+    }
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x004861e0
+void GizForceSFX_forcename(NUFPAR *parser) {
+  GizForceSFX_force = 0;
+  if (NuFParGetWord(parser))
+    GizForceSFX_force =
+        GizForceFindByNameUnk00486150(GizForceSFX_worldinfo, parser->word_buf);
+}
+
+// FUNCTION: LEGOBATMAN 0x00486230
+void GizForceSFX_processsfx(NUFPAR *parser) {
+  if (GizForceSFX_force != 0 && NuFParGetWord(parser) &&
+      GizForceSFX_force->sfx_process == -1)
+    GizForceSFX_force->sfx_process = GetSfxId(parser->word_buf);
+}
+
+// FUNCTION: LEGOBATMAN 0x00486290
+void GizForceSFX_completesfx(NUFPAR *parser) {
+  if (GizForceSFX_force != 0 && NuFParGetWord(parser) &&
+      GizForceSFX_force->sfx_complete == -1)
+    GizForceSFX_force->sfx_complete = GetSfxId(parser->word_buf);
+}
+
+// FUNCTION: LEGOBATMAN 0x004862f0
+void GizForceSFX_returnsfx(NUFPAR *parser) {
+  if (GizForceSFX_force != 0 && NuFParGetWord(parser) &&
+      GizForceSFX_force->sfx_return == -1)
+    GizForceSFX_force->sfx_return = GetSfxId(parser->word_buf);
+}
 
 // from saga legoapi/gizmos/traps/gizforce.cpp
 // FUNCTION: LEGOBATMAN 0x00486350

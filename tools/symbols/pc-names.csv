@@ -554,6 +554,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00484590,000a448c,__Z20GizActions_HitBlowupP9GIZFLOW_sP9FLOWBOX_sPPci,"GizActions_HitBlowup(GIZFLOW_s*, FLOWBOX_s*, char**, int)",strings,0
 00484c00,000a4a42,__Z25GizActions_SetRailSpecialP9GIZFLOW_sP9FLOWBOX_sPPci,"GizActions_SetRailSpecial(GIZFLOW_s*, FLOWBOX_s*, char**, int)",strings,0
 00484f20,000a4cc6,__Z17GizActions_SetRTLP9GIZFLOW_sP9FLOWBOX_sPPci,"GizActions_SetRTL(GIZFLOW_s*, FLOWBOX_s*, char**, int)",strings,0
+004861e0,000a5c90,__Z21GizForceSFX_forcenameP8nufpar_s,GizForceSFX_forcename(nufpar_s*),confirmed,0
+00486230,000a5d30,__Z22GizForceSFX_processsfxP8nufpar_s,GizForceSFX_processsfx(nufpar_s*),confirmed,0
+00486290,000a5d7e,__Z23GizForceSFX_completesfxP8nufpar_s,GizForceSFX_completesfx(nufpar_s*),confirmed,0
+004862f0,000a5dcc,__Z21GizForceSFX_returnsfxP8nufpar_s,GizForceSFX_returnsfx(nufpar_s*),confirmed,0
 00486350,000a5e1a,__Z21GizForceSFX_ConfigureP11WORLDINFO_sPc,"GizForceSFX_Configure(WORLDINFO_s*, char*)",strings,0
 00486610,000a5f58,__Z14GizForces_LoadPvS_,"GizForces_Load(void*, void*)",strings,0
 0048c2e0,000aae98,__Z23GizmoPickup_CollectCoinP11WORLDINFO_sP7nuvec_siiP12GameObject_si,"GizmoPickup_CollectCoin(WORLDINFO_s*, nuvec_s*, int, int, GameObject_s*, int)",strings,0
@@ -1647,6 +1651,11 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00639b10,002a875c,__Z13KeepWeaponOutP12GameObject_s,KeepWeaponOut(GameObject_s*),confirmed,0
 00639b50,002a879c,__Z11SetWeaponInP12GameObject_s,SetWeaponIn(GameObject_s*),confirmed,0
 00639ba0,002a87fc,__Z12FastWeaponInP12GameObject_si,"FastWeaponIn(GameObject_s*, int)",confirmed,0
+0063afe0,0029dcbc,__Z17GizDigSFX_dignameP8nufpar_s,GizDigSFX_digname(nufpar_s*),confirmed,0
+0063b020,0029dd68,__Z20GizDigSFX_processsfxP8nufpar_s,GizDigSFX_processsfx(nufpar_s*),confirmed,0
+0063b070,0029ddbe,__Z21GizDigSFX_completesfxP8nufpar_s,GizDigSFX_completesfx(nufpar_s*),confirmed,0
+0063b080,0029ddc4,__Z19GizDigSFX_returnsfxP8nufpar_s,GizDigSFX_returnsfx(nufpar_s*),confirmed,0
+0063b090,0029ddca,__Z19GizDigSFX_ConfigureP11WORLDINFO_sPc,"GizDigSFX_Configure(WORLDINFO_s*, char*)",confirmed,0
 0063b2a0,0029df30,__Z12GizDigs_LoadPvS_,"GizDigs_Load(void*, void*)",strings,0
 0063e3b0,003049c2,__Z10LoadLightsP11WORLDINFO_sPc,"LoadLights(WORLDINFO_s*, char*)",confirmed,0
 0063e470,00304aa4,__Z20InitGameObjectLightsv,InitGameObjectLights(),confirmed,0

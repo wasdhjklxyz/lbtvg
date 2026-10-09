@@ -92,8 +92,8 @@ struct WORLDINFO_s {
   u8 pad8[0x47b4 - 0x478c];
   struct GIZOBSTACLESYS_s *giz_obstacle_sys; // 0x47b4
   u8 pad47b8[0x47bc - 0x47b8];
-  struct GIZFORCESYS_s *giz_force_sys; // 0x47bc
-  u8 pad8a[0x47c4 - 0x47c0];
+  struct GIZFORCESYS_s *giz_force_sys;               // 0x47bc
+  struct GIZDIGSYS_s *giz_dig_sys;                   // 0x47c0
   struct EQUIVALENTOBJECTGROUP_s *equivalent_groups; // 0x47c4
   i32 equivalent_group_count;                        // 0x47c8
   u8 pad8b[0x4800 - 0x47cc];
