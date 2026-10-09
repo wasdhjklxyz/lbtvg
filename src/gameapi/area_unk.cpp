@@ -49,6 +49,22 @@ typedef struct LEVELDATA_s {
 // GLOBAL: LEGOBATMAN 0x00aca894
 extern LEVELDATA *LDataList;
 
+struct PART_s {
+  u32 pad0[0x100 / 4];
+  f32 f100; // 0x100
+  u8 pad104[0x21a - 0x104];
+  u8 b21a; // 0x21a
+};
+
+// FUNCTION: LEGOBATMAN 0x005f7cc0
+void PartStop_Flickerer(PART_s *part) {
+  part->f100 = 5.0f;
+  if ((part->b21a & 1) != 0)
+    part->f100 = 2.5f;
+  else if ((part->b21a & 2) != 0)
+    part->f100 = 10.0f;
+}
+
 // FUNCTION: LEGOBATMAN 0x005fb1e0
 LEVELDATA *Area_FindStatusLevel(AREADATA *area, i32 *indexDest) {
   if (indexDest != 0) {

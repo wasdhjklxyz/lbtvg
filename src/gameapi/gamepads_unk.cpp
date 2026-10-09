@@ -7,12 +7,18 @@ typedef struct nupad_s nupad_s;
 
 typedef struct GAMEPAD_s {
   nupad_s *pad;
+  u8 pad4[0x26 - 4];
+  u16 input_angle; // 0x26
 } GAMEPAD_s;
 
 typedef struct GameObject_s {
   unsigned char pad0[0x1fc];
   u8 flags_low; // 0x1fc
-  unsigned char pad1fd[0x112c - 0x1fd];
+  unsigned char pad1fd[0x871 - 0x1fd];
+  char sock_id; // 0x871
+  unsigned char pad872[0x896 - 0x872];
+  u16 yrot; // 0x896
+  unsigned char pad898[0x112c - 0x898];
   GAMEPAD_s *pad_gamepad; // 0x112c
 } GameObject_s;
 
@@ -51,6 +57,8 @@ typedef struct GAMECAMERA_s {
   f32 shake_target_amount; // 0x1d4
   f32 shake_time;          // 0x1d8
   f32 shake_speed;         // 0x1dc
+  u32 pad1e0[(0x1fc - 0x1e0) / 4];
+  i32 input_yaw; // 0x1fc
 } GAMECAMERA_s;
 
 // GLOBAL: LEGOBATMAN 0x0095f624
@@ -103,14 +111,45 @@ typedef struct TECHNO_s {
   u8 padbc[0xcc - 0xbc];
 } TECHNO;
 
+typedef struct SOCK_s {
+  u8 pad0[0x68];
+  u8 flags; // 0x68
+  u8 pad69[0x6e - 0x69];
+  u16 input_yaw; // 0x6e
+  u8 pad70[0x184 - 0x70];
+} SOCK;
+
+typedef struct SOCKSYS_s {
+  SOCK *sock;
+} SOCKSYS;
+
 typedef struct WORLDINFO_s {
-  u8 pad0[0x51ec];
+  u8 pad0[0x29cc];
+  SOCKSYS *sock_sys; // 0x29cc
+  u8 pad29d0[0x51ec - 0x29d0];
   TECHNO *technos; // 0x51ec
   i32 ntechnos;    // 0x51f0
 } WORLDINFO;
 
 // GLOBAL: LEGOBATMAN 0x00960894
 extern WORLDINFO *WORLD;
+
+// FUNCTION: LEGOBATMAN 0x005a3940
+u16 GamePad_InputAngle(GameObject_s *object, GAMEPAD_s *pad) {
+  if ((object->flags_low & 0x80) == 0 || object->sock_id == -1) {
+    goto camera_relative;
+  }
+  if ((WORLD->sock_sys->sock[object->sock_id].flags & 0x40) != 0) {
+    goto socket_relative;
+  }
+
+camera_relative:
+  return pad->input_angle + GameCam->input_yaw;
+
+socket_relative:
+  return WORLD->sock_sys->sock[object->sock_id].input_yaw + object->yrot +
+         pad->input_angle;
+}
 
 // FUNCTION: LEGOBATMAN 0x005a6550
 TECHNO *Technos_FindControllingTechno(GameObject_s *object) {

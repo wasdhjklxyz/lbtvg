@@ -65,7 +65,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [EquivalentObjects](#equivalentobjects) | 1 | 1 |
 | [Faders](#faders) | 1 | 1 |
 | [GameMsg](#gamemsg) | 1 | 1 |
-| [GamePad](#gamepad) | 1 | 1 |
 | [GizBuildIts](#gizbuildits) | 1 | 1 |
 | [GizForces](#gizforces) | 1 | 1 |
 | [GizForceSFX](#gizforcesfx) | 1 | 1 |
@@ -95,7 +94,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [ObjHitObj](#objhitobj) | 1 | 1 |
 | [Particles](#particles) | 1 | 1 |
 | [PartImpact](#partimpact) | 3 | 1 |
-| [PartStop](#partstop) | 2 | 1 |
 | [PartUpdate](#partupdate) | 1 | 1 |
 | [PowerUp](#powerup) | 1 | 1 |
 | [Pulses](#pulses) | 1 | 1 |
@@ -191,6 +189,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [OggReader](#oggreader) | 1 | 0 |
 | [OpenAutomate](#openautomate) | 1 | 0 |
 | [PartKill](#partkill) | 1 | 0 |
+| [PartStop](#partstop) | 1 | 0 |
 | [PcInput](#pcinput) | 3 | 0 |
 | [PlayerItems](#playeritems) | 6 | 0 |
 | [PlayerItemTypeSys](#playeritemtypesys) | 3 | 0 |
@@ -768,10 +767,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `00635760` 841 B `GameMsg_Draw_MiniKitDetector(GAMEMESSAGE_s*, nuvec_s*, float)`  **hint** name (order) · **saga** `legoapi/menus/core/gamehint.cpp`
 
-## GamePad
-
-- [ ] `005a3940` 99 B `GamePad_InputAngle(GameObject_s*, GAMEPAD_s*)`  **hint** name (gapfill) · **saga** `legoapi/core/input/gamepads.cpp`
-
 ## GizBuildIts
 
 - [ ] `005cd170` 750 B `GizBuildIts_Load(void*, void*)`  **saga** `legoapi/gizmo/object/gizbuildit.cpp`
@@ -906,11 +901,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00504740` 218 B `PartImpact_Seed(PART_s*)`  **hint** name (order)
 - [ ] `004f9d30` 457 B `PartImpact_ThermalDetonator(PART_s*)`  **saga** `legoapi/items/collect/thermaldetonators.cpp`
 - [ ] `00504a40` 542 B `PartImpact_BlackSeed(PART_s*)`  **hint** name (order)
-
-## PartStop
-
-- [ ] `005f7cc0` 58 B `PartStop_Flickerer(PART_s*)`  **hint** name (gapfill) · **saga** `legoapi/render/fx/parts.cpp`
-- [ ] `006014c0` 367 B `PartStop_Grabber(PART_s*)`
 
 ## PartUpdate
 
@@ -1363,6 +1353,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## PartKill
 
 - [ ] `00504850` 383 B `PartKill_BlackSeed(PART_s*, int)`
+
+## PartStop
+
+- [ ] `006014c0` 367 B `PartStop_Grabber(PART_s*)`
 
 ## PcInput
 
