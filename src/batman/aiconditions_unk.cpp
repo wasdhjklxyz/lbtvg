@@ -425,6 +425,120 @@ f32 Condition_PlayerDeflectingPart(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 0.0f;
 }
 
+// FUNCTION: LEGOBATMAN 0x0044f390
+f32 Condition_Colliding(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char *str, void *data) {
+  // 0x1f0: 64-bit mask of objects being collided with.
+  if (packet != NULL && packet->pd0 != NULL &&
+      *(unsigned __int64 *)((char *)packet->pd0 + 0x1f0) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044f400
+f32 Condition_XPos(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
+                   char *str, void *argument) {
+  GameObject_s *object = (GameObject_s *)argument;
+  if (object == NULL)
+    object = packet != NULL && packet->pd0 != NULL ? packet->pd0->obj : NULL;
+  if (object != NULL)
+    return object->v80.x;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044f440
+f32 Condition_YPos(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
+                   char *str, void *argument) {
+  GameObject_s *object = (GameObject_s *)argument;
+  if (object == NULL)
+    object = packet != NULL && packet->pd0 != NULL ? packet->pd0->obj : NULL;
+  if (object != NULL)
+    return object->v80.y;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044f480
+f32 Condition_ZPos(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
+                   char *str, void *argument) {
+  GameObject_s *object = (GameObject_s *)argument;
+  if (object == NULL)
+    object = packet != NULL && packet->pd0 != NULL ? packet->pd0->obj : NULL;
+  if (object != NULL)
+    return object->v80.z;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044f4c0
+f32 Condition_PlayerXPos(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char *str, void *data) {
+  if (player != NULL)
+    return player->v80.x;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044f4e0
+f32 Condition_PlayerYPos(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char *str, void *data) {
+  if (player != NULL)
+    return player->v80.y;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044f500
+f32 Condition_PlayerZPos(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char *str, void *data) {
+  if (player != NULL)
+    return player->v80.z;
+  return 0.0f;
+}
+
+int NuAToI(const char *s);
+
+// FUNCTION: LEGOBATMAN 0x0044f520
+void *Condition_IsSetAliveInit(AISYS_s *sys, char *arg, AISCRIPT_s *script) {
+  if (arg != NULL) {
+    if (NuStrICmp(arg, "myset") == 0)
+      return (void *)-1;
+    i32 set = NuAToI(arg);
+    if (set >= 1 && set <= 16)
+      return (void *)set;
+  }
+  return NULL;
+}
+
+// GLOBAL: LEGOBATMAN 0x009c5b58
+extern u8 aicreature_sets_alive[16];
+
+// FUNCTION: LEGOBATMAN 0x0044f570
+f32 Condition_IsSetAlive(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char *str, void *argument) {
+  i32 set = (i32)argument;
+  if (set == -1)
+    set = ((u8 *)process)[0xb4];
+  if (set != 0 && aicreature_sets_alive[set - 1] != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044f5a0
+f32 Condition_NumInSetAlive(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char *str, void *argument) {
+  i32 set = (i32)argument;
+  if (set == -1)
+    set = ((u8 *)process)[0xb4];
+  if (set != 0)
+    return aicreature_sets_alive[set - 1];
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044f5e0
+f32 Condition_Context(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                      AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL)
+    return packet->pd0->obj->b9db;
+  return -1.0f;
+}
+
 // GLOBAL: LEGOBATMAN 0x0096052c
 extern i32 g_unk0096052c;
 // GLOBAL: LEGOBATMAN 0x00960528
