@@ -78,3 +78,4 @@
 006236e0 CC_thrust_locators: same loop rotation difference as CC_shadow_locators
 00452820 Condition_IsContextAnimationFinished: x87 result kept in register, 3 tries
 00452980 Condition_IsCarryingPlayerItem: register choice for the list pointer, 3 tries
+00452ff0 Condition_NeutralInTriggerArea: register allocation (area/index), 3 tries

@@ -772,17 +772,13 @@ f32 Condition_CanGetToNode(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 0.0f;
 }
 
-// GLOBAL: LEGOBATMAN 0x00ab3980
-extern GameObject_s *g_unk00ab3980;
-
 // FUNCTION: LEGOBATMAN 0x00452b60
 f32 Condition_PlayerCanGetToNode(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                                  AIPACKET_s *packet, char *str, void *data) {
   // The object's AI packet sits at 0x290.
-#define PLAYER_PACKET ((AIPACKET_s *)((char *)g_unk00ab3980 + 0x290))
+#define PLAYER_PACKET ((AIPACKET_s *)((char *)player + 0x290))
   i32 target = (i32)data;
-  if (target >= 0 && g_unk00ab3980 != NULL &&
-      PLAYER_PACKET->path_node != NULL &&
+  if (target >= 0 && player != NULL && PLAYER_PACKET->path_node != NULL &&
       PLAYER_PACKET->path_set == ((AISysPathFind_s *)sys)->pathfind->set) {
     if (target == PLAYER_PACKET->path_node->index)
       return 1.0f;
@@ -891,6 +887,40 @@ void *AISysFindArea(AISYS_s *sys, char *name);
 void *Condition_NeutralInTriggerAreaInit(AISYS_s *sys, char *name,
                                          AISCRIPT_s *script) {
   return name != NULL ? AISysFindArea(sys, name) : NULL;
+}
+
+struct AIAREA_s {
+  u8 pad0[0x38];
+  struct AIAreaOwner_s *owner; // 0x38
+  u8 pad3c[0x40 - 0x3c];
+};
+
+struct AIAreaOwner_s {
+  u8 pad0[0x244];
+  AIAREA_s *areas; // 0x244
+};
+
+// STUB: LEGOBATMAN 0x00452ff0
+// close: orig copies data through eax into ebp and keeps the object count in
+// ebx; ours allocates edi/ebp the other way round.
+f32 Condition_NeutralInTriggerArea(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                   AIPACKET_s *packet, char *str, void *data) {
+  // 0xa4: the process's current trigger area.
+  AIAREA_s *area;
+  if (data == NULL)
+    area = ((AIAREA_s **)process)[0xa4 / 4];
+  else
+    area = (AIAREA_s *)data;
+  if (area != NULL) {
+    for (i32 index = 0; index < HIGHGAMEOBJECT; index++) {
+      GameObject_s *obj = &Obj[index];
+      if ((obj->flags1fc & 1) && (obj->flags1fc & 0x1000) && obj->b257 == 0 &&
+          !(obj->flags1fc & 0x80) && (obj->flags1f8 & 4) &&
+          (obj->area_mask & (1 << (area - area->owner->areas))) != 0)
+        return 1.0f;
+    }
+  }
+  return 0.0f;
 }
 
 i32 Hub_GetRandomCharType(void);
