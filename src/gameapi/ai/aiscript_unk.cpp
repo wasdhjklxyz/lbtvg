@@ -585,3 +585,85 @@ i32 Action_RequiresLOS(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 1;
 }
+
+// FUNCTION: LEGOBATMAN 0x006a4dc0
+i32 Action_CheckWallSplines(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char **args, int argc,
+                            int flags, f32 time) {
+  if (packet == NULL || flags == 0)
+    return 1;
+  *(u32 *)((u8 *)packet + 0x1f0) |= 0x100;
+  for (i32 i = 0; i < argc; i++) {
+    if (NuStrICmp(args[i], "false") == 0)
+      *(u32 *)((u8 *)packet + 0x1f0) &= ~0x100;
+  }
+  if (*(u32 *)((u8 *)packet + 0x1f0) & 0x100)
+    *(u32 *)((u8 *)packet + 0x1f0) |= 0x80;
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a5230
+i32 Action_SetFullPathSearch(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char **args, int argc,
+                             int flags, f32 time) {
+  if (packet == NULL || packet->pd0 == NULL || flags == 0)
+    return 1;
+  *(u32 *)((u8 *)packet->pd0 + 0x1fc) &= ~0x80000;
+  for (i32 i = 0; i < argc; i++) {
+    if (NuStrICmp(args[i], "false") == 0)
+      *(u32 *)((u8 *)packet->pd0 + 0x1fc) |= 0x80000;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a58d0
+i32 Action_NoShadows(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                     AIPACKET_s *packet, char **args, int argc, int flags,
+                     f32 time) {
+  if (packet == NULL || flags == 0 || packet->pd0 == NULL)
+    return 1;
+  *(u32 *)((u8 *)packet->pd0 + 0x1f8) |= 0x2000;
+  for (i32 i = 0; i < argc; i++) {
+    if (NuStrICmp(args[i], "false") == 0)
+      *(u32 *)((u8 *)packet->pd0 + 0x1f8) &= ~0x2000;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a5bb0
+i32 Action_ReturnToState(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  // 0xc4: the state to return to.
+  AISTATE **return_to_state = (AISTATE **)((u8 *)process + 0xc4);
+  if (process != NULL && *return_to_state != NULL) {
+    process->next_state = *return_to_state;
+    *return_to_state = NULL;
+    return 0;
+  }
+  return 1;
+}
+
+// 0xb5 bits 0-1: if/else state of the process.
+struct AIIfState_s {
+  u8 state : 2;
+};
+
+// FUNCTION: LEGOBATMAN 0x006a5be0
+i32 Action_Else(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
+                char **args, int argc, int flags, f32 time) {
+  AIIfState_s *if_state = (AIIfState_s *)((u8 *)process + 0xb5);
+  if (if_state->state != 0 && if_state->state != 2) {
+    if_state->state = 0;
+    return 1;
+  }
+  if_state->state = 2;
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a5c20
+i32 Action_EndIf(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
+                 char **args, int argc, int flags, f32 time) {
+  ((AIIfState_s *)((u8 *)process + 0xb5))->state = 0;
+  return 1;
+}

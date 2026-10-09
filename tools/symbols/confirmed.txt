@@ -1021,3 +1021,9 @@
 006a50c0 Action_DontPush  matched saga body, keyword table
 006a5140 Action_CanSeeBehind  matched saga body, keyword table
 006a51c0 Action_RequiresLOS  matched saga body, keyword table
+006a4dc0 Action_CheckWallSplines  matched, keyword table
+006a5230 Action_SetFullPathSearch  matched, keyword table
+006a58d0 Action_NoShadows  matched, keyword table
+006a5bb0 Action_ReturnToState  matched, keyword table
+006a5be0 Action_Else  matched, keyword table
+006a5c20 Action_EndIf  matched, keyword table
