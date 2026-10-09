@@ -92,3 +92,4 @@
 00450fd0 Condition_TakenOver: block layout of the string branches, 2 tries
 0044d210 Condition_GotGun: ecx/edx vs eax/ecx for second call argument, 2 tries
 00451690 Condition_GotOpponentLOS: esi push hoisted + else arm out of line, 4 tries
+00451150 Condition_EitherPlayerTakenOver: named-object load folded + return-tail sharing, 4 tries
