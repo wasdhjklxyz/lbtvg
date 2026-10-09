@@ -1474,3 +1474,184 @@ i32 Action_SetShootOpponents(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 1;
 }
+
+void Hint_CancelCurrent(void);
+
+// FUNCTION: LEGOBATMAN 0x004611c0
+i32 Action_CancelHint(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                      AIPACKET_s *packet, char **args, int argc, int flags,
+                      f32 time) {
+  Hint_CancelCurrent();
+  return 1;
+}
+
+void GameCam_Reset(GAMECAMERA_s *camera);
+
+// FUNCTION: LEGOBATMAN 0x00460ec0
+i32 Action_ResetGameCamera(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char **args, int argc, int flags,
+                           f32 time) {
+  if (flags != 0)
+    GameCam_Reset(g_unk0095f624);
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0045bf80
+i32 Action_BreakFormation(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **args, int argc, int flags,
+                          f32 time) {
+  // 0x144: the packet's formation; +0x50 bit 3: moving.
+  if (packet != 0 && *(u8 **)((u8 *)packet + 0x144) != 0)
+    *(u32 *)(*(u8 **)((u8 *)packet + 0x144) + 0x50) &= ~8;
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0045bfb0
+i32 Action_FormationMove(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  if (packet != 0 && *(u8 **)((u8 *)packet + 0x144) != 0)
+    *(u32 *)(*(u8 **)((u8 *)packet + 0x144) + 0x50) |= 8;
+  return 1;
+}
+
+void LetGoOfBalloon(GameObject_s *object);
+void EatVictim(GameObject_s *object);
+void ReleaseEat(GameObject_s *object);
+void StartLaunch(GameObject_s *object);
+
+// FUNCTION: LEGOBATMAN 0x0046f6e0
+i32 Action_LetGoOfBalloon(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **args, int argc, int flags,
+                          f32 time) {
+  if (packet != 0 && packet->pd0 != 0)
+    LetGoOfBalloon(packet->pd0->obj);
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0045a910
+i32 Action_EatVictim(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                     AIPACKET_s *packet, char **args, int argc, int flags,
+                     f32 time) {
+  if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+    EatVictim(packet->pd0->obj);
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0045a950
+i32 Action_ReleaseVictim(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+    ReleaseEat(packet->pd0->obj);
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0045c530
+i32 Action_Launch(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
+                  char **args, int argc, int flags, f32 time) {
+  if (flags != 0 && packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+    StartLaunch(packet->pd0->obj);
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0045aed0
+i32 Action_UseWeapon(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                     AIPACKET_s *packet, char **args, int argc, int flags,
+                     f32 time) {
+  if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0) {
+    GameObject_s *object = packet->pd0->obj;
+    if (object != 0)
+      *(u32 *)((u8 *)object + 0x1410) |= 2;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00462b40
+i32 Action_AIScriptAnimContextReset(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                    AIPACKET_s *packet, char **args, int argc,
+                                    int flags, f32 time) {
+  if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0) {
+    GameObject_s *object = packet->pd0->obj;
+    if (object != 0)
+      object->b9db = 0x73;
+  }
+  return 1;
+}
+
+extern "C" void SetAnimTimeRandom(void *anim, void *time);
+
+// FUNCTION: LEGOBATMAN 0x00462b80
+i32 Action_AnimTimeRandom(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **args, int argc, int flags,
+                          f32 time) {
+  if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0) {
+    GameObject_s *object = packet->pd0->obj;
+    SetAnimTimeRandom(object->p50, (u8 *)object + 8);
+  }
+  return 1;
+}
+
+// Pad button bits ORed into the AI pad (+0x112c, +8).
+// GLOBAL: LEGOBATMAN 0x0095f734
+extern u32 g_unk0095f734;
+// GLOBAL: LEGOBATMAN 0x0095f72c
+extern u32 g_unk0095f72c;
+// GLOBAL: LEGOBATMAN 0x0095f728
+extern u32 g_unk0095f728;
+
+// FUNCTION: LEGOBATMAN 0x0045ae40
+i32 Action_PressTagButton(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **args, int argc, int flags,
+                          f32 time) {
+  if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0) {
+    GameObject_s *object = packet->pd0->obj;
+    if (object != 0)
+      *(u32 *)((u8 *)object->p112c + 8) |= g_unk0095f734;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0045ae80
+i32 Action_PressActionButton(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char **args, int argc,
+                             int flags, f32 time) {
+  if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0) {
+    GameObject_s *object = packet->pd0->obj;
+    if (object != 0) {
+      *(u32 *)((u8 *)object->p112c + 8) |= g_unk0095f72c;
+      object->flags140c |= 0x4200;
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0045bbb0
+i32 Action_PressJumpButton(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char **args, int argc, int flags,
+                           f32 time) {
+  if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0) {
+    GameObject_s *object = packet->pd0->obj;
+    if (object != 0)
+      *(u32 *)((u8 *)object->p112c + 8) |= g_unk0095f728;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x004539c0
+i32 Action_ClearTakeOverTarget(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                               AIPACKET_s *packet, char **args, int argc,
+                               int flags, f32 time) {
+  // 0x13bc: take-over target, linked both ways.
+  if (flags != 0) {
+    GameObject_s *object = packet->pd0->obj;
+    if (object != 0) {
+      GameObject_s *target = *(GameObject_s **)((u8 *)object + 0x13bc);
+      if (target != 0) {
+        *(GameObject_s **)((u8 *)object + 0x13bc) = 0;
+        *(GameObject_s **)((u8 *)target + 0x13bc) = 0;
+      }
+    }
+  }
+  return 1;
+}
