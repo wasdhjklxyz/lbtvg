@@ -797,6 +797,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006fcc80,0017aea2,_Nu360MtlInit,_Nu360MtlInit,strings,0
 00709080,001277c4,_NuMovieGrabBegin,_NuMovieGrabBegin,strings,0
 00709de0,00128314,__ZN14NuInstSurfGeom7DestroyEv,NuInstSurfGeom::Destroy(),strings,0
+0070b190,00129372,_NuAnimDataFindVersion,_NuAnimDataFindVersion,confirmed,0
+0070b1f0,0012943c,_NuAnimDataChunkCreate,_NuAnimDataChunkCreate,confirmed,0
+0070b250,001293d4,_NuAnimDataCreate,_NuAnimDataCreate,confirmed,0
 0070b290,00129502,_NuAnimCurveSetCreate,_NuAnimCurveSetCreate,strings,0
 0070b310,001295d4,_NuAnimCurveDestroy,_NuAnimCurveDestroy,confirmed,0
 0070b350,0012962c,_NuAnimCurveSetDestroy,_NuAnimCurveSetDestroy,gapfill,1

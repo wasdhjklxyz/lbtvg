@@ -29,6 +29,51 @@ struct nuanimcurveset_s {
   unsigned char pad0d[3];
 };
 
+int NuFileOpen(char *path, int mode);
+int NuFileRead(int file, void *dst, int size);
+void NuFileClose(int file);
+
+// FUNCTION: LEGOBATMAN 0x0070b190
+int NuAnimDataFindVersion(char *path) {
+  unsigned int header[3] = {0};
+  int file = NuFileOpen(path, 0);
+  if (file != 0) {
+    NuFileRead(file, header, sizeof(header));
+    NuFileClose(file);
+    return (int)header[0];
+  }
+  return -1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070b1f0
+NUANIMDATACHUNK *NuAnimDataChunkCreate(int curve_set_count) {
+  NUANIMDATACHUNK *chunk =
+      (NUANIMDATACHUNK *)NuMemAllocFn(sizeof(NUANIMDATACHUNK), __FILE__, 0x51d);
+  memset(chunk, 0, sizeof(NUANIMDATACHUNK));
+  chunk->curve_set_count = curve_set_count;
+  chunk->curve_sets = (NUANIMCURVESET **)NuMemAllocFn(
+      curve_set_count * sizeof(void *), __FILE__, 0x521);
+  memset(chunk->curve_sets, 0, curve_set_count * sizeof(void *));
+  return chunk;
+}
+
+typedef struct nuanimdata_s {
+  unsigned int pad00[2];
+  int chunk_count;                // 0x08
+  NUANIMDATACHUNK **chunks;       // 0x0c
+  NUANIMDATACHUNK *chunk_data[1]; // 0x10
+} NUANIMDATA;
+
+// FUNCTION: LEGOBATMAN 0x0070b250
+NUANIMDATA *NuAnimDataCreate(int chunk_count) {
+  unsigned int size = chunk_count * sizeof(void *) + 0x10;
+  NUANIMDATA *animation = (NUANIMDATA *)NuMemAllocFn(size, __FILE__, 0x530);
+  memset(animation, 0, size);
+  animation->chunks = animation->chunk_data;
+  animation->chunk_count = chunk_count;
+  return animation;
+}
+
 // FUNCTION: LEGOBATMAN 0x0070b290
 NUANIMCURVESET *NuAnimCurveSetCreate(int curve_count) {
   NUANIMCURVESET *set = 0;

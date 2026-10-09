@@ -177,3 +177,6 @@
 0070b8b0 NuAnimPopUseQuatsFlag  saga body; Mac order
 0070b930 NuAnimNumNodes  saga body (ANI magic check); Mac order before NuAnimEndFrame
 0070b950 NuAnimEndFrame  saga body (ANI magic check, first_frame + frame_count)
+0070b190 NuAnimDataFindVersion  saga body (reads 12-byte header, returns first word); Mac order
+0070b1f0 NuAnimDataChunkCreate  saga body (nuanim_gen.cpp lines 0x51d/0x521); Mac order
+0070b250 NuAnimDataCreate  saga body (chunk pointer table at +0x10, line 0x530); Mac order
