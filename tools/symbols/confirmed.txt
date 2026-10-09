@@ -222,3 +222,10 @@
 006d41a0 NuListInsertAfter  saga body; falls back to inlined NuListAppend
 006d41f0 NuListRemove  saga body; Mac order before GetHead
 006d4250 NuListGetPrev  Mac order after GetNext (node->prev or tail)
+006d4260 NuMemBlkCreate  saga body; numemblk_gen.cpp __FILE__ line 0x6c; Mac order
+006d42e0 NuMemBlkCreateEx  saga body (external storage, flag 1); Mac order
+006d4350 NuMemBlkSize  saga body; Mac order
+006d4370 NuMemBlkDestroy  saga body (free unless external, line 0xda)
+006d4390 NuMemBlkCheckFreeList  Mac order; walks the free list
+006d43b0 NuMemBlkAlloc  saga body (memset -1)
+006d43e0 NuMemBlkFree  saga body (memset -2, push on free list)
