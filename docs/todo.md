@@ -75,7 +75,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [PowerUp](#powerup) | 1 | 1 |
 | [Pulses](#pulses) | 1 | 1 |
 | [SpecialMiniKits](#specialminikits) | 1 | 1 |
-| [SpecialMove](#specialmove) | 2 | 1 |
+| [SpecialMove](#specialmove) | 1 | 1 |
 | [SpecialMoves](#specialmoves) | 1 | 1 |
 | [SuperCarry](#supercarry) | 2 | 1 |
 | [TakeOver](#takeover) | 1 | 1 |
@@ -663,7 +663,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## SpecialMove
 
-- [ ] `0062df30` 83 B `SpecialMove_AdjustLayerBits(GameObject_s*, unsigned int&)`  **hint** name (order)
 - [ ] `0062df90` 969 B `SpecialMove_ConfigParticipant(nufpar_s*, unsigned int*, short*, short*)`  **saga** `legoapi/actions/character/specialmoves.cpp`
 
 ## SpecialMoves
@@ -1117,7 +1116,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## ScoreMultiplier
 
-- [ ] `00635b10` 83 B `ScoreMultiplier_IncrementMultiplier(GameObject_s*, int, int, float)`  **hint** name (gapfill)
+- [ ] `00635b10` 83 B `ScoreMultiplier_IncrementMultiplier(GameObject_s*, int, int, float)`  **stub** · **hint** name (gapfill)
 - [ ] `00635b70` 259 B `ScoreMultiplier_DrawGameMessage(GameObject_s*, GameObject_s*)`  **hint** name (order)
 
 ## SecurityCamera

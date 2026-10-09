@@ -241,3 +241,4 @@
 00620aa0 DefinedLocators_FindIX  same as Mac (NuStrICmp over defined locator names)
 006396c0 FastWeaponOut  saga playeritems.cpp body (inlined FastWeaponOutSfx)
 00639ba0 FastWeaponIn  saga playeritems.cpp body (inlined FastWeaponInSfx)
+0062df30 SpecialMove_AdjustLayerBits  same shape as Mac (special-move contexts, ORs move layer bits at 0x77)

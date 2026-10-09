@@ -5,7 +5,9 @@
 
 // 0x9c bytes per special move; only the phase byte is evidenced.
 struct SPECIALMOVE_s {
-  u8 pad00[0x98];
+  u8 pad00[0x77];
+  u8 layer_bits; // 0x77
+  u8 pad78[0x98 - 0x78];
   i8 next_phase; // 0x98, -1 = single phase
   u8 pad99[0x9c - 0x99];
 };
@@ -28,4 +30,15 @@ i32 SpecialMove_IsInMultiPhase(GameObject_s *object) {
       SpecialMoves[object->special_move].next_phase != -1)
     return 1;
   return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x0062df30
+void SpecialMove_AdjustLayerBits(GameObject_s *object, u32 &bits) {
+  if (object == 0)
+    return;
+  if ((LEGOCONTEXT_SPECIALMOVE != -1 &&
+       object->b9db == LEGOCONTEXT_SPECIALMOVE) ||
+      (LEGOCONTEXT_SPECIALMOVE2 != -1 &&
+       object->b9db == LEGOCONTEXT_SPECIALMOVE2))
+    bits |= SpecialMoves[object->special_move].layer_bits;
 }

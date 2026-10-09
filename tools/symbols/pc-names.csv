@@ -562,7 +562,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0062db70,0030af92,__Z13Mission_ClearP12MISSIONSYS_s,Mission_Clear(MISSIONSYS_s*),confirmed,0
 0062dba0,0030afd4,__Z14Mission_ActiveP12MISSIONSYS_s,Mission_Active(MISSIONSYS_s*),gapfill,4
 0062dee0,003327b6,__Z26SpecialMove_IsInMultiPhaseP12GameObject_s,SpecialMove_IsInMultiPhase(GameObject_s*),confirmed,0
-0062df30,00332812,__Z27SpecialMove_AdjustLayerBitsP12GameObject_sRj,"SpecialMove_AdjustLayerBits(GameObject_s*, unsigned int&)",order,4
+0062df30,00332812,__Z27SpecialMove_AdjustLayerBitsP12GameObject_sRj,"SpecialMove_AdjustLayerBits(GameObject_s*, unsigned int&)",confirmed,0
 0062df90,00332874,__Z29SpecialMove_ConfigParticipantP8nufpar_sPjPsS2_,"SpecialMove_ConfigParticipant(nufpar_s*, unsigned int*, short*, short*)",strings,0
 0062e360,00332c9a,__Z22SpecialMoves_ConfigurePcP9variptr_uS1_P18SPECIALMOVEFIXUP_s,"SpecialMoves_Configure(char*, variptr_u*, variptr_u*, SPECIALMOVEFIXUP_s*)",strings,0
 00632230,00326f74,__Z26RailSys_CreateRailCreatureP9RAILSYS_sP12GameObject_si,"RailSys_CreateRailCreature(RAILSYS_s*, GameObject_s*, int)",strings,0

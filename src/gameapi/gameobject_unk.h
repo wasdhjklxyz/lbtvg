@@ -133,7 +133,9 @@ struct GameObject_s {
   u8 pad12[0xb38 - 0x9ed];
   unsigned __int64
       carried_item_flags; // 0xb38, PlayerItems_GetAllCarriedItemFlags
-  u8 pad12b[0x112c - 0xb40];
+  u8 pad12b[0xb88 - 0xb40];
+  struct SCOREMULTIPLIER_s *score_multiplier; // 0xb88
+  u8 pad12c[0x112c - 0xb8c];
   Unk_GameObject112c *p112c; // 0x112c
   u8 pad13[0x114c - 0x1130];
   struct TORPEDOPACKET_s *torpedo; // 0x114c
