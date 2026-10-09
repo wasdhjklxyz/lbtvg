@@ -1172,3 +1172,6 @@
 0046fa60 Action_GoToNewLevel  keyword table 0x93bb98
 0045db00 Action_SetWalkSpeed  keyword table 0x93bb98
 0045fc50 Action_SetGravityHeight  keyword table 0x93bb98
+004641d0 Action_SetTaggable  keyword table 0x93bb98
+0045f830 Action_UseCurrentSpeed  keyword table 0x93bb98
+00475350 Action_StartSpecialMove  keyword table 0x93bb98

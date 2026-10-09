@@ -134,9 +134,11 @@ struct GameObject_s {
   };
   u8 pad7a[0x488 - 0x484];
   f32 move_range; // 0x488
-  u8 pad7b[0x871 - 0x48c];
-  char sock_id; // 0x871, -1 = none
-  u8 pad872[0x89c - 0x872];
+  u8 pad7b[0x870 - 0x48c];
+  u8 sock_pos870;   // 0x870, ComplexSockPosition out
+  char sock_id;     // 0x871, -1 = none
+  i16 sock_segment; // 0x872
+  u8 pad874[0x89c - 0x874];
   f32 sock_distance; // 0x89c, distance along the current sock
   u8 pad8a0[0x988 - 0x8a0];
   f32 f988; // 0x988
@@ -163,7 +165,12 @@ struct GameObject_s {
   u8 pad9e1[0x9e8 - 0x9e1];
   f32 f9e8;  // 0x9e8
   char b9ec; // 0x9ec
-  u8 pad12[0xb38 - 0x9ed];
+  u8 b9ed_lo : 1;
+  u8 tag_disabled : 1; // 0x9ed bit 1, Action_SetTaggable
+  u8 b9ed_hi : 6;
+  u8 pad9ee[0x9f4 - 0x9ee];
+  u8 sock_angles[4]; // 0x9f4, ComplexSockAngles out
+  u8 pad12[0xb38 - 0x9f8];
   unsigned __int64
       carried_item_flags; // 0xb38, PlayerItems_GetAllCarriedItemFlags
   u8 pad12b[0xb88 - 0xb40];
@@ -237,7 +244,9 @@ struct GameObject_s {
   void *movement_spline; // 0x137c
   u8 pad1380[0x1383 - 0x1380];
   u8 movement_spline_finished; // 0x1383
-  u8 pad14d[0x13f0 - 0x1384];
+  u8 pad14d[0x13e0 - 0x1384];
+  f32 current_speed_mul; // 0x13e0
+  u8 pad13e4[0x13f0 - 0x13e4];
   f32 walk_speed_override; // 0x13f0
   u8 pad13f4[0x1404 - 0x13f4];
   f32 max_y_rot_seek;      // 0x1404

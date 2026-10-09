@@ -335,6 +335,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0045e500,0007d630,__Z21Action_SetScriptParamP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetScriptParam(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 0045eac0,00095d4e,__Z20Action_AddPartDebrisP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AddPartDebris(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 0045edf0,00096010,__Z19Action_AddExplosionP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AddExplosion(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
+0045f830,0007e316,__Z22Action_UseCurrentSpeedP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_UseCurrentSpeed(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 0045f9e0,0007e48a,__Z26Action_SetMaxMovementRangeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetMaxMovementRange(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 0045fbe0,0007e616,__Z30Action_SetDefaultMovementRangeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetDefaultMovementRange(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 0045fc50,0007e65c,__Z23Action_SetGravityHeightP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetGravityHeight(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
@@ -380,6 +381,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00463e80,00080b7c,__Z24Action_PlayerSpeederHackP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_PlayerSpeederHack(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00463f00,00080be2,__Z22Action_SetAnimSpeedMulP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetAnimSpeedMul(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 004640d0,0008ecd6,__Z23Action_CatchUpForbiddenP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CatchUpForbidden(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
+004641d0,0008eb56,__Z18Action_SetTaggableP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetTaggable(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 004645b0,0008eeaa,__Z16Action_CanAttackP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CanAttack(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 004646a0,0008f038,__Z17Action_TakeDamageP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_TakeDamage(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 00464be0,0008f538,__Z19Action_TagCharacterP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_TagCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
@@ -456,6 +458,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00473e40,0008736e,__Z25Action_ChangeSpecialRouteP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ChangeSpecialRoute(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 004740b0,00087544,__Z22Action_SetSuperCounterP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetSuperCounter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 004741c0,00087650,__Z14Action_ZipDownP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ZipDown(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00475350,0009988e,__Z23Action_StartSpecialMoveP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_StartSpecialMove(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00477ab0,0008a3c4,__Z21Action_CycleCharacterP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CycleCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 00478330,0009a500,__Z16Status_SceneNameP11WORLDINFO_sPc,"Status_SceneName(WORLDINFO_s*, char*)",strings,0
 00478f40,0009a930,__Z15TrueHero_UpdateP14STATUS_STAGE_sP14STATUSPACKET_sf,"TrueHero_Update(STATUS_STAGE_s*, STATUSPACKET_s*, float)",strings,0

@@ -2917,7 +2917,7 @@ i32 Action_AddExplosion(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
-void TagCharacter(GameObject_s *obj, GameObject_s *target, i32 a);
+i32 TagCharacter(GameObject_s *obj, GameObject_s *target, i32 a);
 void SetPlayer(void);
 
 // FUNCTION: LEGOBATMAN 0x00464be0
@@ -3391,6 +3391,129 @@ i32 Action_SetGravityHeight(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   if (minimum != 1000000000.0 && maximum != 1000000000.0) {
     f32 r = NuRandFloat();
     obj->hover_height_override = (1.0f - r) * minimum + maximum * r;
+  }
+  return 1;
+}
+
+void ReleaseTakeOver(GameObject_s *obj, i32 a);
+
+// FUNCTION: LEGOBATMAN 0x004641d0
+i32 Action_SetTaggable(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                       AIPACKET_s *packet, char **args, int argc, int flags,
+                       f32 time) {
+  GameObject_s *tag_to = 0;
+  i32 disabled = 0;
+  GameObject_s *obj = 0;
+  if (flags == 0)
+    return 1;
+  if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+    obj = packet->pd0->obj;
+  if (argc > 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "character=");
+      if (s != 0)
+        obj = GetNamedGameObject(sys, s + 10);
+      else if ((s = NuStrIStr(args[i], "tag_to=")) != 0)
+        tag_to = GetNamedGameObject(sys, s + 7);
+      else if (NuStrICmp(args[i], "FALSE") == 0)
+        disabled = 1;
+    }
+  }
+  if (obj != 0) {
+    if (disabled != 0 && (obj->flags1fc & 0x80) != 0) {
+      if (obj->p1158 != 0)
+        ReleaseTakeOver(obj, 0);
+      else if (TagCharacter(obj, tag_to, 0) == 0)
+        disabled = 0;
+      SetPlayer();
+    }
+    obj->tag_disabled = disabled;
+  }
+  return 1;
+}
+
+void ComplexSockPosition(SOCKSYS_s *sys, nuvec_s *pos, i32 sock, i32 segment,
+                         void *out);
+void ComplexSockAngles(void *angles);
+void CurrentStart(GameObject_s *obj, i32 a, i32 b);
+
+// FUNCTION: LEGOBATMAN 0x0045f830
+i32 Action_UseCurrentSpeed(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char **args, int argc, int flags,
+                           f32 time) {
+  i32 snap = 0;
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags != 0) {
+    obj->flags1414 |= 0x800000;
+    obj->current_speed_mul = 1.0f;
+    for (i32 i = 0; i < argc; i++) {
+      char *s;
+      if (NuStrICmp(args[i], "FALSE") == 0)
+        obj->flags1414 &= ~0x800000;
+      else if ((s = NuStrIStr(args[i], "multiplier")) != 0)
+        obj->current_speed_mul = AIParamToFloat(process, s + 11);
+      else if (NuStrICmp(args[i], "snaptospeed") == 0)
+        snap = 1;
+    }
+    if ((obj->flags1414 & 0x800000) != 0 && (obj->flags140c & 0x40000) == 0) {
+      obj->flags140c |= 0x40000;
+      if (snap != 0) {
+        ComplexSockPosition(g_unk00960894->sock_sys, &obj->position,
+                            obj->sock_id, obj->sock_segment, &obj->sock_pos870);
+        ComplexSockAngles(obj->sock_angles);
+      }
+    }
+    if (snap != 0)
+      CurrentStart(obj, 1, 1);
+  }
+  return 1;
+}
+
+GameObject_s *Unk0044c930(AISYS_s *aisys, char *name);
+i32 SpecialMove_Check(GameObject_s *obj, GameObject_s *opponent, i32 flags,
+                      i32 a);
+void SpecialMove_Start(GameObject_s *obj, GameObject_s *opponent, i32 move,
+                       i32 a);
+// GLOBAL: LEGOBATMAN 0x0093b110
+extern f32 g_unk0093b110;
+// GLOBAL: LEGOBATMAN 0x0093b114
+extern f32 g_unk0093b114;
+extern i32 g_unk0096052c;
+
+// FUNCTION: LEGOBATMAN 0x00475350
+i32 Action_StartSpecialMove(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char **args, int argc,
+                            int flags, f32 time) {
+  i32 move_flags = 0;
+  GameObject_s *opponent = 0;
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags != 0) {
+    packet->movement_param = g_unk0093b110;
+    *(f32 *)((u8 *)process + 0x74) = g_unk0093b114;
+    for (i32 i = 0; i < argc; i++) {
+      char *s;
+      if (NuStrICmp(args[i], "opponent=myopponent") == 0) {
+        Unk_AIPacketObj *opp = *(Unk_AIPacketObj **)(obj->process290 + 0xe4);
+        if (opp != 0)
+          opponent = opp->obj;
+      } else if ((s = NuStrIStr(args[i], "opponent")) != 0) {
+        opponent = Unk0044c930(sys, s + 9);
+      } else if (NuStrICmp(args[i], "button=ACTION") == 0) {
+      } else if (NuStrICmp(args[i], "button=SPECIAL") == 0) {
+        move_flags |= 0x200;
+      } else if (NuStrICmp(args[i], "AIFORCEOVERRIDE") == 0) {
+        move_flags |= 0x100;
+      }
+    }
+    if (opponent != 0 && obj->b9db != g_unk0096052c) {
+      i32 move = SpecialMove_Check(obj, opponent, move_flags, -1);
+      if (move != -1)
+        SpecialMove_Start(obj, opponent, move, 1);
+    }
   }
   return 1;
 }
