@@ -2659,6 +2659,48 @@ i32 Action_SetAIOverrideControl(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+// STUB: LEGOBATMAN 0x00455b90
+// original keeps a separate epilogue after the locator branch and puts
+// object in ebx / args in edi; ours merges and swaps them (3 tries)
+i32 Action_SetLastSafePathPos(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char **args, int argc,
+                              int flags, f32 time) {
+  u8 *locator = NULL;
+  Unk_AIPacketObj *object = NULL;
+  if (flags != 0) {
+    if (packet != NULL && packet->pd0 != NULL)
+      object = packet->pd0;
+    for (i32 i = 0; i < argc; i++) {
+      char *value = NuStrIStr(args[i], "character");
+      if (value != NULL) {
+        if (GetNamedAPIObjectFn != NULL)
+          object = GetNamedAPIObjectFn(sys, value + 10);
+      } else if (NuStrICmp("FALSE", args[i]) != 0) {
+        if ((value = NuStrIStr(args[i], "locator=")) != NULL) {
+          locator = (u8 *)AIPathFindLocator(sys, value + 8);
+          if (locator == NULL)
+            return 0;
+        } else if ((value = NuStrIStr(args[i], "player=")) != NULL) {
+          i32 n = (i32)AIParamToFloat(process, value + 7) - 1;
+          if ((u32)n > 1 || Player[n] == NULL)
+            return 0;
+          object = (Unk_AIPacketObj *)Player[n];
+        }
+      }
+    }
+    if (locator != NULL) {
+      object->respawn_pos = *(nuvec_s *)(locator + 0x10);
+      object->last_safe_pos = *(nuvec_s *)(locator + 0x10);
+      return 1;
+    }
+    if (object != NULL) {
+      object->respawn_pos = object->pos5c;
+      object->last_safe_pos = object->pos5c;
+    }
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x00455f70
 i32 Action_DontSetStoppedFlag(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                               AIPACKET_s *packet, char **args, int argc,
