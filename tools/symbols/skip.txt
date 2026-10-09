@@ -20,3 +20,4 @@
 00655790 Faders_Configure: regalloc/induction-var diff, see STUB
 00447560 GetNamedAPIObject: epilogue merging differs, see STUB
 00468190 Action_FaceCamera: x87 heavy
+00461ff0 Action_SetPath: epilogue tail-merge differs, see STUB

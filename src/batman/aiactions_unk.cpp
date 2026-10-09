@@ -11,6 +11,13 @@ void AddMiscPickups(nuvec_s *pos, i32 player_id, i32 coins, i32 torpedoes,
 void StunGameObject(GameObject_s *target, GameObject_s *by, f32 time,
                     i32 flags);
 
+static inline GameObject_s *GetNamedGameObject(AISYS_s *sys, char *name) {
+  Unk_AIPacketObj *api;
+  if (GetNamedAPIObjectFn && (api = GetNamedAPIObjectFn(sys, name)))
+    return api->obj;
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x004556b0
 i32 Action_Explode(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
                    char **args, int argc, int flags, f32 time) {
@@ -258,6 +265,65 @@ i32 Action_SetMaxMovementRange(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+struct SetPathAIPath_s {
+  char name[1];
+};
+
+struct SetPathAIPathSys_s {
+  u8 path_count;                // 0x00
+  SetPathAIPath_s **paths;      // 0x04
+  SetPathAIPath_s *active_path; // 0x08
+};
+
+struct SetPathAISys_s {
+  u8 pad0[0x21c];
+  SetPathAIPathSys_s *path_sys; // 0x21c
+};
+
+void AISysCharacterSetPath(void *ai, SetPathAIPath_s *path);
+void AISysGetCharacterPathPos(AISYS_s *sys, GameObject_s *obj, void *ai, i32 a,
+                              i32 b);
+
+// STUB: LEGOBATMAN 0x00461ff0
+// body right; orig keeps three separate early-return epilogues, ours
+// tail-merges them (and loads argc into eax before the loop).
+i32 Action_SetPath(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
+                   char **args, int argc, int flags, f32 time) {
+  SetPathAIPath_s *path = 0;
+  GameObject_s *obj = 0;
+  if (flags == 0)
+    return 1;
+  if (sys == 0)
+    return 1;
+  SetPathAIPathSys_s *path_sys = ((SetPathAISys_s *)sys)->path_sys;
+  if (path_sys == 0)
+    return 1;
+  if (packet && packet->pd0)
+    obj = packet->pd0->obj;
+  for (i32 i = 0; i < argc; i++) {
+    char *value = NuStrIStr(args[i], "character=");
+    if (value != 0) {
+      obj = GetNamedGameObject(sys, value + 10);
+    } else if (NuStrIStr(args[i], "path=LevelPath") != 0) {
+      path = ((SetPathAISys_s *)sys)->path_sys->active_path;
+    } else if ((value = NuStrIStr(args[i], "path")) != 0) {
+      value += 5;
+      for (i32 j = 0; j < path_sys->path_count; j++) {
+        if (NuStrICmp(path_sys->paths[j]->name, value) == 0) {
+          path = path_sys->paths[j];
+          break;
+        }
+      }
+    }
+  }
+  if (obj != 0 && path != 0) {
+    AISysCharacterSetPath(obj->process290, path);
+    AISysGetCharacterPathPos(g_unk00960894->aiSys2bf8, obj, obj->process290,
+                             0xff, 1);
+  }
+  return 1;
+}
+
 struct GIZOBSTACLE_s {
   u8 pad0[0xc8];
   u32 flags_c8_lo : 13;
@@ -383,13 +449,6 @@ i32 Action_PlayGizSpecial(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     }
   }
   return 1;
-}
-
-static inline GameObject_s *GetNamedGameObject(AISYS_s *sys, char *name) {
-  Unk_AIPacketObj *api;
-  if (GetNamedAPIObjectFn && (api = GetNamedAPIObjectFn(sys, name)))
-    return api->obj;
-  return 0;
 }
 
 void SetForceBack(GameObject_s *obj, nuvec_s *position, f32 radius, i32 type);

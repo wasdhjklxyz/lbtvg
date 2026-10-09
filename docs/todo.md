@@ -207,7 +207,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006b4670` 353 B `_Action_SetInterrupt`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00463f00` 370 B `Action_SetAnimSpeedMul(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00472640` 385 B `Action_AttachNodeToPlatform(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00461ff0` 388 B `Action_SetPath(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00461ff0` 388 B `Action_SetPath(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00470fd0` 412 B `Action_AddItem(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `00468190` 453 B `Action_FaceCamera(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00473e40` 471 B `Action_ChangeSpecialRoute(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
