@@ -312,6 +312,10 @@ struct GameObject_s {
       u32 whip_disabled : 1; // 0x1418 bit 22
     };
     struct {
+      u32 : 8;
+      u32 ignore_phobia : 1; // 0x1418 bit 8
+    };
+    struct {
       u32 : 10;
       u32 deflect_bolts : 1; // 0x1418 bit 10
     };

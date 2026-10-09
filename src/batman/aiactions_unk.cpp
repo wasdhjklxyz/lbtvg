@@ -3909,3 +3909,59 @@ i32 Action_GoToLevelPath(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 0;
 }
+
+void Unk00448b20(i32 count);
+
+// FUNCTION: LEGOBATMAN 0x0046f340
+i32 Action_SetAO_AttackersPerRow(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                 AIPACKET_s *packet, char **args, int argc,
+                                 int flags, f32 time) {
+  if (flags != 0) {
+    if (argc != 0) {
+      for (i32 i = 0; i < argc; i++) {
+        char *s = NuStrIStr(args[i], "num");
+        if (s != 0)
+          Unk00448b20((i32)AIParamToFloat(process, s + 4));
+      }
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00472370
+i32 Action_IgnorePhobia(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char **args, int argc, int flags,
+                        f32 time) {
+  GameObject_s *obj = 0;
+  i32 on = 1;
+  i32 type = 0xff;
+  if (flags != 0) {
+    if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+      obj = packet->pd0->obj;
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "character=");
+      if (s != 0) {
+        obj = GetNamedGameObject(sys, s + 10);
+      } else if (NuStrICmp(args[i], "FALSE") == 0) {
+        on = 0;
+      } else if ((s = NuStrIStr(args[i], "type=")) != 0) {
+        if (g_unk00ad68ec != 0 && g_unk00ad68fc != 0) {
+          type = g_unk00ad68ec(s + 5);
+          if (type != 0xff)
+            type = g_unk00ad68fc(type);
+        }
+      }
+    }
+    if (type != 0xff) {
+      GameObject_s *o = Obj;
+      for (i32 j = 0; j < HIGHGAMEOBJECT; j++, o++) {
+        if ((o->flags1fc & 1) != 0 && (o->flags1fc & 0x1000) != 0 &&
+            o->type15b0 == type)
+          o->ignore_phobia = on;
+      }
+    } else if (obj != 0) {
+      obj->ignore_phobia = on;
+    }
+  }
+  return 1;
+}

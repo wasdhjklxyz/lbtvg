@@ -420,6 +420,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0046dee0,00088ffc,__Z20Action_CreateCoupledP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CreateCoupled(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 0046e4e0,00097be6,__Z21Action_ThrowDetonatorP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ThrowDetonator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 0046eee0,00084b5e,__Z21Action_ForceLightningP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ForceLightning(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0046f340,,Action_SetAO_AttackersPerRow,Action_SetAO_AttackersPerRow,confirmed,0
 0046f3e0,,Action_SetAO_RowDist,Action_SetAO_RowDist,confirmed,0
 0046f470,,Action_SetAO_InitRowDist,Action_SetAO_InitRowDist,confirmed,0
 0046f500,00097fde,__Z24Action_SetTechnoCompleteP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetTechnoComplete(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
@@ -448,6 +449,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00471c50,0008636e,__Z30Action_ResetContextAIAnimationP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ResetContextAIAnimation(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00471ca0,000863a6,__Z27Action_BlowupSuperCarryItemP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_BlowupSuperCarryItem(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00472210,,Action_CanUseSupercarry,Action_CanUseSupercarry,confirmed,0
+00472370,00098fe4,__Z19Action_IgnorePhobiaP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_IgnorePhobia(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00472580,000865ae,__Z29Action_SetFlockAntinodeActiveP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetFlockAntinodeActive(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00472640,00086656,__Z27Action_AttachNodeToPlatformP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AttachNodeToPlatform(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00472830,000867fc,__Z26Action_PlayerItemIgnoreLOSP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_PlayerItemIgnoreLOS(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0

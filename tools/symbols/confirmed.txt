@@ -1184,3 +1184,5 @@
 0046ff80 Action_GizmoSetVisibility  keyword table 0x93bb98
 00470fd0 Action_AddItem  keyword table 0x93bb98
 004621e0 Action_GoToLevelPath  keyword table 0x93bb98
+0046f340 Action_SetAO_AttackersPerRow  keyword table 0x93bb98
+00472370 Action_IgnorePhobia  keyword table 0x93bb98
