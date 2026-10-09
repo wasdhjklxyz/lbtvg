@@ -307,3 +307,7 @@
 005c8160 WorldInfo_CurrentlyLoading  matched saga body (returns LWORLD), Mac order
 005c8170 WorldInfo_OtherLevel  matched saga body (WorldInfo stride 0x53c8), Mac order
 005c81d0 WorldInfo_UpdateRoomVisibility  matched saga body, Mac order
+00655b50 RE_texture_name  matched saga ripples.cpp body, Mac order before RippleEffects_Configure
+00655ba0 RE_start_colour  matched saga ripples.cpp body, Mac order
+00655bf0 RE_end_colour  matched saga ripples.cpp body, Mac order
+00655e50 LookupRippleEffectIndex  matched (NuStrICmp over 2 effect names)

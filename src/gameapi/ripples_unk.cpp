@@ -35,6 +35,32 @@ extern WORLDINFO_s *RE_worldinfo;
 // GLOBAL: LEGOBATMAN 0x00ad1bf0
 extern RIPPLEEFFECT_s *RE_rippleeffect;
 
+i32 NuFParGetInt(NUFPAR *parser);
+int NuStrLen(const char *s);
+int NuStrCpy(char *dst, const char *src);
+
+// FUNCTION: LEGOBATMAN 0x00655b50
+void RE_texture_name(NUFPAR *parser) {
+  if (NuFParGetWord(parser) && NuStrLen(parser->word_buf) < 16)
+    NuStrCpy(RE_rippleeffect->texture_name, parser->word_buf);
+}
+
+// FUNCTION: LEGOBATMAN 0x00655ba0
+void RE_start_colour(NUFPAR *parser) {
+  RE_rippleeffect->start_color[0] = NuFParGetInt(parser);
+  RE_rippleeffect->start_color[1] = NuFParGetInt(parser);
+  RE_rippleeffect->start_color[2] = NuFParGetInt(parser);
+  RE_rippleeffect->start_color[3] = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x00655bf0
+void RE_end_colour(NUFPAR *parser) {
+  RE_rippleeffect->end_color[0] = NuFParGetInt(parser);
+  RE_rippleeffect->end_color[1] = NuFParGetInt(parser);
+  RE_rippleeffect->end_color[2] = NuFParGetInt(parser);
+  RE_rippleeffect->end_color[3] = NuFParGetInt(parser);
+}
+
 // FUNCTION: LEGOBATMAN 0x00655ca0
 void RippleEffects_Configure(WORLDINFO_s *world, char *config) {
   world->ripple_effects = 0;
@@ -92,6 +118,18 @@ void RippleEffects_Configure(WORLDINFO_s *world, char *config) {
   } else {
     world->ripple_effects = 0;
   }
+}
+
+// GLOBAL: LEGOBATMAN 0x00967124
+extern char *RippleEffectNames[2];
+
+// FUNCTION: LEGOBATMAN 0x00655e50
+i32 LookupRippleEffectIndex(char *name) {
+  for (i32 i = 0; i < 2; i++) {
+    if (NuStrICmp(RippleEffectNames[i], name) == 0)
+      return i;
+  }
+  return -1;
 }
 
 // STUB: LEGOBATMAN 0x00656130

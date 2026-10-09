@@ -665,7 +665,11 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00652e50,00338e60,__Z22SuperCounter_CharCheckiP7nuvec_siP12SUPERCOUNTERP16SUPERCOUNTERSAVEi,"SuperCounter_CharCheck(int, nuvec_s*, int, SUPERCOUNTER*, SUPERCOUNTERSAVE*, int)",gapfill,1
 00653250,003392c6,__Z29SuperCounter_CreateAIMessagesiiP12SUPERCOUNTERP16SUPERCOUNTERSAVEi,"SuperCounter_CreateAIMessages(int, int, SUPERCOUNTER*, SUPERCOUNTERSAVE*, int)",strings,0
 00655790,002a7a92,__Z16Faders_ConfigureP11WORLDINFO_sPc,"Faders_Configure(WORLDINFO_s*, char*)",strings,0
+00655b50,00329a8c,__Z15RE_texture_nameP8nufpar_s,RE_texture_name(nufpar_s*),confirmed,0
+00655ba0,00329b32,__Z15RE_start_colourP8nufpar_s,RE_start_colour(nufpar_s*),confirmed,0
+00655bf0,00329b98,__Z13RE_end_colourP8nufpar_s,RE_end_colour(nufpar_s*),confirmed,0
 00655ca0,00329c8a,__Z23RippleEffects_ConfigureP11WORLDINFO_sPc,"RippleEffects_Configure(WORLDINFO_s*, char*)",strings,0
+00655e50,00329ae4,__Z23LookupRippleEffectIndexPc,LookupRippleEffectIndex(char*),confirmed,0
 00656130,0032a02a,__Z9AddRippleP12ripple_set_sP7numtx_sffff4RGBAS3_iP7numtl_sP7nuvec_s,"AddRipple(ripple_set_s*, numtx_s*, float, float, float, float, RGBA, RGBA, int, numtl_s*, nuvec_s*)",gapfill,3
 006567d0,003069ce,__ZN16LightningManager4InitEv,LightningManager::Init(),gapfill,2
 00657160,0030753a,__Z21LMC_AddCutSceneStrikeP8nufpar_s,LMC_AddCutSceneStrike(nufpar_s*),strings,0
