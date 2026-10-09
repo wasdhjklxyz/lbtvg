@@ -39,7 +39,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Move](#move) | 2 | 2 |
 | [NuStr](#nustr) | 2 | 2 |
 | [Player](#player) | 2 | 2 |
-| [Players](#players) | 2 | 2 |
 | [PortalDoors](#portaldoors) | 2 | 2 |
 | [Tag](#tag) | 2 | 2 |
 | [BoltSys](#boltsys) | 1 | 1 |
@@ -81,6 +80,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [ObjHitObj](#objhitobj) | 1 | 1 |
 | [PartImpact](#partimpact) | 3 | 1 |
 | [PartUpdate](#partupdate) | 1 | 1 |
+| [Players](#players) | 1 | 1 |
 | [PowerUp](#powerup) | 1 | 1 |
 | [Pulses](#pulses) | 1 | 1 |
 | [RippleEffects](#rippleeffects) | 1 | 1 |
@@ -589,11 +589,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005c1b80` 313 B `Player_ResetContexts(GameObject_s*)`  **saga** `legoapi/characters/core/players.cpp`
 - [ ] `005c2250` 2274 B `Player_ToggleCharacter(GameObject_s*, int, int)`  **saga** `legoapi/characters/core/players.cpp`
 
-## Players
-
-- [ ] `005c18f0` 205 B `Players_AveragePos(nuvec_s*, SOCKPOSITION_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/players.cpp`
-- [ ] `005c12a0` 1028 B `Players_InitPositions(WORLDINFO_s*)`  **saga** `legoapi/characters/core/players.cpp`
-
 ## PortalDoors
 
 - [ ] `005c8b60` 229 B `PortalDoors_Update(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/gizmos/transport/gizportal.cpp`
@@ -782,6 +777,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## PartUpdate
 
 - [ ] `004f9f70` 341 B `PartUpdate_ThermalDetonator(PART_s*)`  **saga** `legoapi/items/collect/thermaldetonators.cpp`
+
+## Players
+
+- [ ] `005c12a0` 1028 B `Players_InitPositions(WORLDINFO_s*)`  **saga** `legoapi/characters/core/players.cpp`
 
 ## PowerUp
 

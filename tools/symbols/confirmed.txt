@@ -71,3 +71,4 @@
 005c8de0 EquivalentObject_Find  saga body matches unchanged (Batman offsets)
 005d3fd0 AddGameMsgCount  saga body matches (%i/%i message via AddGameMessage)
 005f7a60 LoadPartFile  saga body matches (%s.par page + InitPartDebris)
+005c18f0 Players_AveragePos  saga body matches (average active player positions, sock lookup)
