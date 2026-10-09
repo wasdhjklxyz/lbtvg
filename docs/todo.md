@@ -929,7 +929,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## ObjHitObj
 
-- [ ] `005dfa60` 104 B `ObjHitObj_Flags(GameObject_s*)`  **hint** name (gapfill) · **saga** `legoapi/actions/combat/hits.cpp`
+- [ ] `005dfa60` 104 B `ObjHitObj_Flags(GameObject_s*)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/actions/combat/hits.cpp`
 
 ## Particles
 
