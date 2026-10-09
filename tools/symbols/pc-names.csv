@@ -1121,6 +1121,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0060da90,00300322,__Z18LC_AL_backr_bottomP8nufpar_s,LC_AL_backr_bottom(nufpar_s*),confirmed,0
 0060dab0,00300354,__Z18LC_AL_backg_bottomP8nufpar_s,LC_AL_backg_bottom(nufpar_s*),confirmed,0
 0060dad0,00300386,__Z18LC_AL_backb_bottomP8nufpar_s,LC_AL_backb_bottom(nufpar_s*),confirmed,0
+0060daf0,003003b8,__Z18LC_AL_farclip_hackP8nufpar_s,LC_AL_farclip_hack(nufpar_s*),confirmed,0
+0060db70,00300410,__Z13LC_AL_farclipP8nufpar_s,LC_AL_farclip(nufpar_s*),confirmed,0
+0060dbb0,00300456,__Z14LC_AL_nearclipP8nufpar_s,LC_AL_nearclip(nufpar_s*),confirmed,0
 0060dc20,003004ae,__Z18LC_AL_hover_heightP8nufpar_s,LC_AL_hover_height(nufpar_s*),confirmed,0
 0060dc40,003004e0,__Z22LC_AL_blobshadow_alphaP8nufpar_s,LC_AL_blobshadow_alpha(nufpar_s*),confirmed,0
 0060dc60,00300512,__Z25LC_AL_blobshadow_fadenearP8nufpar_s,LC_AL_blobshadow_fadenear(nufpar_s*),confirmed,0
@@ -1130,6 +1133,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0060dd20,0030063a,__Z11LC_AL_metalP8nufpar_s,LC_AL_metal(nufpar_s*),confirmed,0
 0060dd70,0030064c,__Z14LC_AL_in_spaceP8nufpar_s,LC_AL_in_space(nufpar_s*),confirmed,0
 0060ddc0,0030065e,__Z30LC_AL_override_nopickupgravityP8nufpar_s,LC_AL_override_nopickupgravity(nufpar_s*),confirmed,0
+0060de10,00300670,__Z18LC_AL_hidden_iconsP8nufpar_s,LC_AL_hidden_icons(nufpar_s*),confirmed,0
+0060de70,003006ee,__Z29LC_AL_underwater_hidden_iconsP8nufpar_s,LC_AL_underwater_hidden_icons(nufpar_s*),confirmed,0
 0060ded0,0030076c,__Z22LC_AL_pickups_to_panelP8nufpar_s,LC_AL_pickups_to_panel(nufpar_s*),confirmed,0
 0060df20,0030077e,__Z22LC_AL_forget_takeoversP8nufpar_s,LC_AL_forget_takeovers(nufpar_s*),confirmed,0
 0060df70,00300790,__Z18LC_AL_narrow_socksP8nufpar_s,LC_AL_narrow_socks(nufpar_s*),confirmed,0
@@ -1149,11 +1154,17 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0060e210,003009ac,__Z26LC_AL_waterripple_endcol_bP8nufpar_s,LC_AL_waterripple_endcol_b(nufpar_s*),confirmed,0
 0060e230,003009de,__Z26LC_AL_waterripple_endcol_aP8nufpar_s,LC_AL_waterripple_endcol_a(nufpar_s*),confirmed,0
 0060e250,00300a10,__Z22LC_AL_waterripple_lifeP8nufpar_s,LC_AL_waterripple_life(nufpar_s*),confirmed,0
+0060e270,00300a42,__Z23LC_AL_cam_pullback_distP8nufpar_s,LC_AL_cam_pullback_dist(nufpar_s*),confirmed,0
+0060e2c0,00300a7a,__Z22LC_AL_cam_lateral_distP8nufpar_s,LC_AL_cam_lateral_dist(nufpar_s*),confirmed,0
+0060e310,00300ab2,__Z22LC_AL_cam_look_rot_mulP8nufpar_s,LC_AL_cam_look_rot_mul(nufpar_s*),confirmed,0
 0060e340,00300aea,__Z24LC_AL_cam_look_rot_mul_xP8nufpar_s,LC_AL_cam_look_rot_mul_x(nufpar_s*),confirmed,0
 0060e360,00300b1c,__Z24LC_AL_cam_look_rot_mul_yP8nufpar_s,LC_AL_cam_look_rot_mul_y(nufpar_s*),confirmed,0
 0060e380,00300b4e,__Z17LC_AL_campos_seekP8nufpar_s,LC_AL_campos_seek(nufpar_s*),confirmed,0
 0060e3a0,00300b80,__Z17LC_AL_camang_seekP8nufpar_s,LC_AL_camang_seek(nufpar_s*),confirmed,0
 0060e3c0,00300bb2,__Z16LC_AL_shadowtypeP8nufpar_s,LC_AL_shadowtype(nufpar_s*),confirmed,0
+0060e3e0,00300be4,__Z11LC_AL_musicP8nufpar_s,LC_AL_music(nufpar_s*),confirmed,0
+0060e460,00300c9c,__Z17LC_AL_music_otherP8nufpar_s,LC_AL_music_other(nufpar_s*),confirmed,0
+0060e4e0,00300d54,__Z17LC_AL_sfx_ambientP8nufpar_s,LC_AL_sfx_ambient(nufpar_s*),confirmed,0
 0060e510,00300d9e,__Z14LC_AL_conveyorP8nufpar_s,LC_AL_conveyor(nufpar_s*),strings,0
 0060e590,00300e28,__Z20LC_AL_char_clip_distP8nufpar_s,LC_AL_char_clip_dist(nufpar_s*),confirmed,0
 0060e5b0,00300e5a,__Z21LevelConfig_AfterLoadP11LEVELDATA_sPcP12nufpcomjmp_s,"LevelConfig_AfterLoad(LEVELDATA_s*, char*, nufpcomjmp_s*)",strings,0

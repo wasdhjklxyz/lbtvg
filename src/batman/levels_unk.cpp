@@ -745,3 +745,118 @@ void LC_AL_flat_terrain(NUFPAR *parser) {
   if (NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "off") == 0)
     levelconfig_ldata->flags &= ~0x10;
 }
+
+i32 GetSfxId(char *name);
+
+struct MusicManager {
+  i32 GetTrackHandle(i32 track_class, char *name);
+};
+
+extern MusicManager music_man;
+
+// FUNCTION: LEGOBATMAN 0x0060daf0
+void LC_AL_farclip_hack(NUFPAR *parser) {
+  f32 v = NuFParGetFloat(parser);
+  if (v < 0.1f)
+    v = 0.1f;
+  else if (v > 50.0f)
+    v = 50.0f;
+  levelconfig_ldata->farclip_hack = v;
+}
+
+// FUNCTION: LEGOBATMAN 0x0060db70
+void LC_AL_farclip(NUFPAR *parser) {
+  i32 v = NuFParGetInt(parser);
+  if (v < 10)
+    v = 10;
+  else if (v > 20000)
+    v = 20000;
+  levelconfig_ldata->farclip = v;
+}
+
+// FUNCTION: LEGOBATMAN 0x0060dbb0
+void LC_AL_nearclip(NUFPAR *parser) {
+  f32 v = NuFParGetFloat(parser);
+  if (v < 0.001f)
+    v = 0.001f;
+  else if (v > 1.0f)
+    v = 1.0f;
+  levelconfig_ldata->nearclip = v;
+}
+
+// FUNCTION: LEGOBATMAN 0x0060de10
+void LC_AL_hidden_icons(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0) {
+    if (NuStrICmp(parser->word_buf, "on") == 0) {
+      levelconfig_ldata->flags &= ~0x800000;
+      return;
+    }
+    if (NuStrICmp(parser->word_buf, "off") == 0)
+      levelconfig_ldata->flags |= 0x800000;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x0060de70
+void LC_AL_underwater_hidden_icons(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0) {
+    if (NuStrICmp(parser->word_buf, "on") == 0) {
+      levelconfig_ldata->flags |= 0x10000000;
+      return;
+    }
+    if (NuStrICmp(parser->word_buf, "off") == 0)
+      levelconfig_ldata->flags &= ~0x10000000;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e270
+void LC_AL_cam_pullback_dist(NUFPAR *parser) {
+  f32 v = NuFParGetFloat(parser);
+  if (v < 0.0f)
+    v = 0.0f;
+  levelconfig_ldata->cam_pullback_dist = v;
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e2c0
+void LC_AL_cam_lateral_dist(NUFPAR *parser) {
+  f32 v = NuFParGetFloat(parser);
+  if (v < 0.0f)
+    v = 0.0f;
+  levelconfig_ldata->cam_lateral_dist = v;
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e310
+void LC_AL_cam_look_rot_mul(NUFPAR *parser) {
+  f32 v = NuFParGetFloat(parser);
+  levelconfig_ldata->cam_look_rot_mul_y = v;
+  levelconfig_ldata->cam_look_rot_mul_x = v;
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e3e0
+void LC_AL_music(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0) {
+    levelconfig_ldata->music_tracks[0][0] =
+        music_man.GetTrackHandle(1, parser->word_buf);
+    levelconfig_ldata->music_tracks[1][0] =
+        music_man.GetTrackHandle(2, parser->word_buf);
+    levelconfig_ldata->music_tracks[2][0] =
+        music_man.GetTrackHandle(0x20, parser->word_buf);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e460
+void LC_AL_music_other(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0) {
+    levelconfig_ldata->music_tracks[0][1] =
+        music_man.GetTrackHandle(1, parser->word_buf);
+    levelconfig_ldata->music_tracks[1][1] =
+        music_man.GetTrackHandle(2, parser->word_buf);
+    levelconfig_ldata->music_tracks[2][1] =
+        music_man.GetTrackHandle(0x20, parser->word_buf);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e4e0
+void LC_AL_sfx_ambient(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0)
+    levelconfig_ldata->sfx_ambient = GetSfxId(parser->word_buf);
+}

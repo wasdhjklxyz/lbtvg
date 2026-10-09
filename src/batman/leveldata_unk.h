@@ -8,14 +8,16 @@ typedef struct LEVELDATA_s {
   unsigned char pad60[0x64 - 0x60];
   u32 flags;             // 0x64
   void (*fns[10])(void); // 0x68; per-level callbacks set by Levels_FixUp
-  unsigned char pad90[0x9a - 0x90];
-  u8 backr_top;    // 0x9a
-  u8 backr_bottom; // 0x9b
-  u8 backg_top;    // 0x9c
-  u8 backg_bottom; // 0x9d
-  u8 backb_top;    // 0x9e
-  u8 backb_bottom; // 0x9f
-  unsigned char pada0[0xa2 - 0xa0];
+  f32 farclip_hack;      // 0x90
+  f32 nearclip;          // 0x94
+  i16 farclip;           // 0x98
+  u8 backr_top;          // 0x9a
+  u8 backr_bottom;       // 0x9b
+  u8 backg_top;          // 0x9c
+  u8 backg_bottom;       // 0x9d
+  u8 backb_top;          // 0x9e
+  u8 backb_bottom;       // 0x9f
+  i16 sfx_ambient;       // 0xa0
   i16 max_ter_platforms; // 0xa2
   i16 max_ter_groups;    // 0xa4
   unsigned char pada6[0xa8 - 0xa6];
@@ -33,11 +35,12 @@ typedef struct LEVELDATA_s {
   u8 waterripple_endcol_b;   // 0xba
   u8 waterripple_endcol_a;   // 0xbb
   f32 waterripple_life;      // 0xbc
-  unsigned char padc0[0xc8 - 0xc0];
-  f32 cam_look_rot_mul_x; // 0xc8
-  f32 cam_look_rot_mul_y; // 0xcc
-  f32 reflect_y;          // 0xd0
-  i32 shadowtype;         // 0xd4
+  f32 cam_pullback_dist;     // 0xc0
+  f32 cam_lateral_dist;      // 0xc4
+  f32 cam_look_rot_mul_x;    // 0xc8
+  f32 cam_look_rot_mul_y;    // 0xcc
+  f32 reflect_y;             // 0xd0
+  i32 shadowtype;            // 0xd4
   unsigned char padd8[0xd9 - 0xd8];
   u8 blob_shadow_fade_near; // 0xd9
   u8 blob_shadow_fade_far;  // 0xda
@@ -98,7 +101,8 @@ typedef struct LEVELDATA_s {
   u8 maxdig_objects;               // 0x125
   u8 maxdig;                       // 0x126
   u8 max_puzzles;                  // 0x127
-  u8 pad128[0x148 - 0x128];
+  u8 pad128[0x130 - 0x128];
+  i32 music_tracks[3][2];  // 0x130
   f32 slide_speed;         // 0x148
   f32 lateral_slide_speed; // 0x14c
 } LEVELDATA;

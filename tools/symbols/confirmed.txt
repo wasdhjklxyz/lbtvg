@@ -1323,3 +1323,14 @@
 005e8e80 BT_TargetDeg_Far  keyword table 0x961f10
 005e9050 BT_NoOffscreenCull  keyword table 0x961f10
 005e9060 BT_flags  keyword table 0x961f10
+0060daf0 LC_AL_farclip_hack  keyword table 0x963278
+0060db70 LC_AL_farclip  keyword table 0x963278
+0060dbb0 LC_AL_nearclip  keyword table 0x963278
+0060de10 LC_AL_hidden_icons  keyword table 0x963278
+0060de70 LC_AL_underwater_hidden_icons  keyword table 0x963278
+0060e270 LC_AL_cam_pullback_dist  keyword table 0x963278
+0060e2c0 LC_AL_cam_lateral_dist  keyword table 0x963278
+0060e310 LC_AL_cam_look_rot_mul  keyword table 0x963278
+0060e3e0 LC_AL_music  keyword table 0x963278
+0060e460 LC_AL_music_other  keyword table 0x963278
+0060e4e0 LC_AL_sfx_ambient  keyword table 0x963278
