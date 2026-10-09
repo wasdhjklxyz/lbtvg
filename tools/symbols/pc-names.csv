@@ -414,7 +414,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005d3210,002adeaa,__Z10AddGameMsgP10ADDGAMEMSG,AddGameMsg(ADDGAMEMSG*),calls,3
 005d3640,002ae2fe,__Z14AddGameMessagePcP7nuvec_sfS1_fhhhjf,"AddGameMessage(char*, nuvec_s*, float, nuvec_s*, float, unsigned char, unsigned char, unsigned char, unsigned int, float)",confirmed,0
 005d3f60,002aeab8,__Z12FindGameMsgsiiiiP13GAMEMESSAGE_sPS0_,"FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)",gapfill,4
-005d3fd0,002aeb64,__Z15AddGameMsgCountP7nuvec_siihhhf,"AddGameMsgCount(nuvec_s*, int, int, unsigned char, unsigned char, unsigned char, float)",gapfill,2
+005d3fd0,002aeb64,__Z15AddGameMsgCountP7nuvec_siihhhf,"AddGameMsgCount(nuvec_s*, int, int, unsigned char, unsigned char, unsigned char, float)",confirmed,0
 005d5670,0029b69e,__Z30DetonatorSys_RegisterCallbacksPFvP11DETONATOR_sRfE,"DetonatorSys_RegisterCallbacks(void (*)(DETONATOR_s*, float&))",gapfill,3
 005d5690,0029b6bc,__Z25DetonatorSys_RegisterTypeP13DETONATORTYPE,DetonatorSys_RegisterType(DETONATORTYPE*),gapfill,2
 005d5890,0029b8e4,__Z17DetonatorSys_InitiiiiiP9variptr_uS_,"DetonatorSys_Init(int, int, int, int, int, variptr_u*, variptr_u)",order,3

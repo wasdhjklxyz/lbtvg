@@ -2,6 +2,7 @@
 
 #include "../nu2api/nucore/common.h"
 #include "../nu2api/numath/nuvec.h"
+#include <stdio.h>
 #include <string.h>
 
 typedef struct ADDGAMEMSG_s {
@@ -62,6 +63,27 @@ typedef struct DETONATORSYS_s {
 
 // GLOBAL: LEGOBATMAN 0x00ac6f48
 extern DETONATORSYS_s *Detonator;
+
+// GLOBAL: LEGOBATMAN 0x0095fd2c
+extern nuvec_s v001;
+
+// FUNCTION: LEGOBATMAN 0x005d3fd0
+void AddGameMsgCount(nuvec_s *position, i32 count, i32 total, unsigned char red,
+                     unsigned char green, unsigned char blue,
+                     float field_0xd4) {
+  char text[32];
+  sprintf(text, "%i/%i", count, total);
+
+  void *message = position != 0
+                      ? AddGameMessage(text, position, 0.6f, 0, 0.8f, red,
+                                       green, blue, 0x4023, 1.0f)
+                      : AddGameMessage(text, &v001, 0.6f, 0, 0.8f, red, green,
+                                       blue, 0x4020, 1.0f);
+  if (message != 0) {
+    *(float *)((char *)message + 0xd4) = field_0xd4;
+    *(float *)((char *)message + 0xd0) = 0.1f;
+  }
+}
 
 // FUNCTION: LEGOBATMAN 0x005d59a0
 void Detonators_Reset() {

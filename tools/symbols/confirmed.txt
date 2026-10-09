@@ -69,3 +69,4 @@
 006423a0 Particles_Load  saga body matches (%s.ptl page + InitGameDebris)
 006b3a60 AIScriptLoadAll  saga body matches (ai.pak at buffer end, AIScriptLoadAllPakFile)
 005c8de0 EquivalentObject_Find  saga body matches unchanged (Batman offsets)
+005d3fd0 AddGameMsgCount  saga body matches (%i/%i message via AddGameMessage)
