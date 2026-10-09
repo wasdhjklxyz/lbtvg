@@ -1,7 +1,9 @@
 // gameapi/lighting_unk.cpp: placed by tools/new.py; file name unproven.
 
+#include "../batman/worldinfo_unk.h"
+#include "../nu2api/nu3d/nuspecial.h"
 #include "../nu2api/nucore/common.h"
-#include "gameobject_unk.h"
+#include <string.h>
 
 struct NuDynamicLight {
   static void destroy(NuDynamicLight *light);
@@ -27,4 +29,17 @@ void FreeGameObjectLights() {
       }
     }
   }
+}
+
+// GLOBAL: LEGOBATMAN 0x00ad0c18
+extern nuhspecial_s snake_hspecials[3];
+// GLOBAL: LEGOBATMAN 0x00ad0c40
+extern u32 snakebodies[0x440 / 4];
+
+// FUNCTION: LEGOBATMAN 0x006419d0
+void InitSnakes(WORLDINFO_s *world) {
+  memset(snakebodies, 0, sizeof(snakebodies));
+  NuSpecialFind(world->scn140, &snake_hspecials[0], "Snake_bit_1", 1);
+  NuSpecialFind(world->scn140, &snake_hspecials[1], "Snake_bit_2", 1);
+  NuSpecialFind(world->scn140, &snake_hspecials[2], "Snake_bit_3", 1);
 }

@@ -20,6 +20,25 @@ extern u32 *Text_StringBits;
 // GLOBAL: LEGOBATMAN 0x0095eb64
 extern char *Text_ErrString;
 
+typedef struct vufnt_s VUFNT;
+
+// GLOBAL: LEGOBATMAN 0x00ad745c
+extern i32 create_qfont3dz;
+// GLOBAL: LEGOBATMAN 0x00a957f0
+extern VUFNT *app_fnt;
+
+VUFNT *LoadGameFont(char *path, char *name, variptr_u *buf, variptr_u *buf_end,
+                    i32 render_plane);
+VUFNT *LoadButtonFont(char *path, char *name, variptr_u *buf,
+                      variptr_u *buf_end, i32 render_plane);
+
+// FUNCTION: LEGOBATMAN 0x0059d770
+void Text_LoadFont(char *path, variptr_u *buf, variptr_u *buf_end) {
+  create_qfont3dz = 1;
+  app_fnt = LoadGameFont(path, path, buf, buf_end, 1);
+  LoadButtonFont("stuff\\text\\buttons_PC", 0, buf, buf_end, 0);
+}
+
 // STUB: LEGOBATMAN 0x0059d7c0
 // close: register allocation only; orig aligns into eax and copies to esi
 // for the table pointer, this aligns straight into esi.

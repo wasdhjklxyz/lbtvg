@@ -14,11 +14,11 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | group | todo | with saga body |
 |---|---|---|
 | [Action](#action) | 72 | 57 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 76 | 50 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 75 | 49 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 14 | 8 |
-| [Text](#text) | 9 | 8 |
+| [Text](#text) | 8 | 7 |
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 7 | 6 |
 | [Grabber](#grabber) | 7 | 5 |
 | [GameCam](#gamecam) | 4 | 4 |
@@ -303,7 +303,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005bc370` 85 B `GizmoGetTypeIDByName(GIZMOSYS_s*, char*)`  **hint** name (gapfill) · **saga** `legoapi/gizmo/base/gizmo.cpp`
 - [ ] `00597db0` 90 B `_ParticlesPerSecond`  **hint** name (gapfill)
 - [ ] `0059c530` 97 B `_ParseAnimStance`  **hint** name (order)
-- [ ] `006419d0` 99 B `InitSnakes(WORLDINFO_s*)`  **saga** `legoapi/actions/character/snake.cpp`
 - [ ] `005d3f60` 105 B `FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)`  **hint** name (gapfill)
 - [ ] `005a0830` 108 B `ConfigureMusic(char*, variptr_u*, variptr_u*)`  **saga** `nu2api/nusound/nusound3_include.cpp`
 - [ ] `005c16b0` 120 B `SetPlayerIDs(int, int)`  **hint** name (order)
@@ -471,7 +470,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## Text
 
-- [ ] `0059d770` 62 B `Text_LoadFont(char*, variptr_u*, variptr_u*)`  **saga** `legoapi/menus/core/text.cpp`
 - [ ] `0059d7c0` 119 B `Text_InitStringTable(int, variptr_u*, variptr_u*)`  **stub** · **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
 - [ ] `0059dbd0` 161 B `Text_InsertCommasIntoNumber(char*, char*, int)`  **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
 - [ ] `0059d850` 169 B `Text_PlatformSpecificIgnore(nufpar_s*)`  **hint** name (order)
