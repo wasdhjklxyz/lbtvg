@@ -832,8 +832,13 @@ i32 Action_SetLayer(AISYS_s *sys, AISCRIPTPROCESS_s *process,
 }
 
 struct TECHNO_s {
-  u8 pad0[0x8b];
-  u8 flags8b_lo : 3;
+  u8 pad0[0x50];
+  nuvec_s position;        // 0x50
+  nuvec_s ground_position; // 0x5c
+  u8 pad68[0x8b - 0x68];
+  u8 active : 1;  // 0x8b bit 0
+  u8 visible : 1; // 0x8b bit 1
+  u8 flags8b_b2 : 1;
   u8 complete : 1; // 0x8b bit 3
   u8 flags8b_hi : 4;
 };
@@ -4804,4 +4809,67 @@ i32 Action_SnapWeaponOut(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     }
   }
   return 1;
+}
+
+extern i32 g_unk0095fb5c; // techno gizmo type id
+extern f32 g_unk009ca98c; // GameShadow probe height
+// GLOBAL: LEGOBATMAN 0x0099e294
+extern f32 ai_moveradius;
+// GLOBAL: LEGOBATMAN 0x0095f73c
+extern u32 g_unk0095f73c; // toggle-right pad bit
+
+f32 GameShadow(GameObject_s *object, nuvec_s *position, f32 probe_height,
+               i32 terrain_mask);
+void AISysGetPathPos2(AISYS_s *sys, nuvec_s *pos, AIPATHINFO *info,
+                      nuvec_s *out, struct AIPATHSET_s *path, i32 a);
+i32 GizTechno_CanUseTechno(GameObject_s *obj, TECHNO_s *techno);
+
+// FUNCTION: LEGOBATMAN 0x0046a670
+i32 Action_UseTechno(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                     AIPACKET_s *packet, char **args, int argc, int flags,
+                     f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "name=");
+      if (s == 0)
+        continue;
+      GIZMO_s *gizmo =
+          GizmoFindByName(g_unk00960894->gizmoSys2b0c, g_unk0095fb5c, s + 5);
+      if (gizmo == 0 || gizmo->object == 0)
+        continue;
+      TECHNO_s *techno = (TECHNO_s *)gizmo->object;
+      process->action_data_3 = techno;
+      process->action_pos = techno->ground_position;
+      f32 height = GameShadow(0, &process->action_pos, g_unk009ca98c, -1);
+      if (height != 2000000.0)
+        process->action_pos.y = height;
+      AISysGetPathPos2(sys, &process->action_pos, &process->path_info,
+                       &process->action_pos, packet->path_set, 0xff);
+    }
+  }
+  TECHNO_s *techno = (TECHNO_s *)process->action_data_3;
+  if (techno == 0 || !techno->active || !techno->visible || techno->complete)
+    return 1;
+  AIMoveInstruction(packet, &process->action_pos, 0.0f, &process->path_info, 1,
+                    0.0f);
+  if (GizTechno_CanUseTechno(obj, techno) == 0) {
+    if (FreePlay != 0) {
+      process->face_timer -= time;
+      if (process->face_timer < 0.0f) {
+        process->face_timer = 0.5f;
+        *(u32 *)((u8 *)obj->p112c + 8) |= g_unk0095f73c;
+      }
+    }
+  } else {
+    f32 dist = NuVecDistSqr((nuvec_s *)((u8 *)packet + 0x14c),
+                            &process->action_pos, 0);
+    if (dist < ai_moveradius * ai_moveradius) {
+      packet->look_target = &techno->position;
+      GameObjectSetCanUse(obj, techno, 2, 1, 0.0f);
+    }
+  }
+  return 0;
 }

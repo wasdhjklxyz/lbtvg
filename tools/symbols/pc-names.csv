@@ -418,6 +418,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00468ce0,000968c4,__Z22Action_FollowCharacterP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_FollowCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00468ea0,00081f8a,__Z23Action_GameFollowPlayerP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_GameFollowPlayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 004691f0,00082250,__Z18Action_MoveForwardP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_MoveForward(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0046a670,00083372,__Z16Action_UseTechnoP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_UseTechno(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 0046ad50,000895e4,__Z15Action_UseLedgeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_UseLedge(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 0046b400,00083a06,__Z17Action_PickUpItemP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_PickUpItem(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 0046ba60,0008c530,__Z21Action_ReleaseLocatorP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ReleaseLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
