@@ -80,7 +80,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [NuUnicode](#nuunicode) | 1 | 1 |
 | [NuVec](#nuvec) | 1 | 1 |
 | [ObjHitObj](#objhitobj) | 1 | 1 |
-| [Particles](#particles) | 1 | 1 |
 | [PartImpact](#partimpact) | 3 | 1 |
 | [PartUpdate](#partupdate) | 1 | 1 |
 | [PowerUp](#powerup) | 1 | 1 |
@@ -781,10 +780,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## ObjHitObj
 
 - [ ] `005dfa60` 104 B `ObjHitObj_Flags(GameObject_s*)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/actions/combat/hits.cpp`
-
-## Particles
-
-- [ ] `006423a0` 188 B `Particles_Load(WORLDINFO_s*, char**, int, int)`  **saga** `legoapi/render/core/terrain_stubs.cpp`
 
 ## PartImpact
 

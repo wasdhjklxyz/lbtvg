@@ -145,3 +145,22 @@ void InitSnakes(WORLDINFO_s *world) {
   NuSpecialFind(world->scn140, &snake_hspecials[1], "Snake_bit_2", 1);
   NuSpecialFind(world->scn140, &snake_hspecials[2], "Snake_bit_3", 1);
 }
+
+i32 edppLoadPage(char *path, i32 a, nugscn_s *scene);
+void *InitGameDebris(variptr_u *buffer, variptr_u *buffer_end, i32 count,
+                     i32 flags, char **debris_name, i32 page);
+
+// FUNCTION: LEGOBATMAN 0x006423a0
+void Particles_Load(WORLDINFO_s *world, char **debris_name, i32 count,
+                    i32 flags) {
+  char path[0x100];
+
+  world->page_pp = -1;
+  sprintf(path, "%s.ptl", world->config_file);
+  if (NuFileExists(path) != 0) {
+    world->page_pp = edppLoadPage(path, 1, world->scn140);
+  }
+
+  world->p138 = InitGameDebris(&world->buf104, &world->bufEnd108, count, flags,
+                               debris_name, world->page_pp);
+}
