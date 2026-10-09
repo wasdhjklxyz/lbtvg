@@ -376,6 +376,15 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0059f190,002674b4,__Z15GameAudio_Resetv,GameAudio_Reset(),order,2
 0059f1d0,00267502,__Z21GameAudio_PlaySfxByIdiP7nuvec_sii,"GameAudio_PlaySfxById(int, nuvec_s*, int, int)",confirmed,0
 0059f260,002675aa,__Z17GameAudio_PlaySfxiP7nuvec_sii,"GameAudio_PlaySfx(int, nuvec_s*, int, int)",confirmed,0
+0059f280,002675ec,__Z29GameAudio_PlaySfxAndSetVolumeiP7nuvec_sf,"GameAudio_PlaySfxAndSetVolume(int, nuvec_s*, float)",confirmed,0
+0059f2b0,0026761a,__Z18GameAudio_GetSfxIdi,GameAudio_GetSfxId(int),confirmed,0
+0059f320,00267640,__Z29GameAudio_SetActionMusicTimesff,"GameAudio_SetActionMusicTimes(float, float)",confirmed,0
+0059f340,0026765e,__Z18legoSetMusicVolumef,legoSetMusicVolume(float),confirmed,0
+0059f360,0026768e,__Z16legoSetCutVolumef,legoSetCutVolume(float),confirmed,0
+0059f380,002676be,__Z18GameGetMusicVolumeP13OPTIONSSAVE_s,GameGetMusicVolume(OPTIONSSAVE_s*),confirmed,0
+0059f4b0,002676fc,__Z11ResetLevSfxP11WORLDINFO_s,ResetLevSfx(WORLDINFO_s*),confirmed,0
+0059f4e0,00267724,__Z9AddLevSfxP11WORLDINFO_sP7nuvec_sPci,"AddLevSfx(WORLDINFO_s*, nuvec_s*, char*, int)",confirmed,0
+0059f5c0,00267822,__Z10ChatterSfxP12GameObject_sif,"ChatterSfx(GameObject_s*, int, float)",confirmed,0
 0059f8d0,00267b88,__Z11PlayJumpSfxP12GameObject_si,"PlayJumpSfx(GameObject_s*, int)",gapfill,3
 0059f9a0,00267c82,__Z11PlayLandSfxP12GameObject_sii,"PlayLandSfx(GameObject_s*, int, int)",confirmed,0
 0059fb60,00267e5a,__Z15PlayFootStepSfxP12GameObject_s,PlayFootStepSfx(GameObject_s*),order,3
@@ -482,6 +491,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005cedc0,00284258,__Z12Cheats_Resetv,Cheats_Reset(),confirmed,0
 005cedd0,00284272,__Z13Cheats_Updatev,Cheats_Update(),confirmed,0
 005cede0,00284340,__Z13Cheat_SetAreaii,"Cheat_SetArea(int, int)",confirmed,0
+005cee40,002843aa,__Z11UnlockCheati,UnlockCheat(int),confirmed,0
+005cee70,002843ec,__Z13CheatUnlockedi,CheatUnlocked(int),confirmed,0
 005cfa30,002f5e58,__Z12StartBigJumpP12GameObject_sP7nuvec_siffii,"StartBigJump(GameObject_s*, nuvec_s*, int, float, float, int, int)",gapfill,2
 005d3210,002adeaa,__Z10AddGameMsgP10ADDGAMEMSG,AddGameMsg(ADDGAMEMSG*),calls,3
 005d3640,002ae2fe,__Z14AddGameMessagePcP7nuvec_sfS1_fhhhjf,"AddGameMessage(char*, nuvec_s*, float, nuvec_s*, float, unsigned char, unsigned char, unsigned char, unsigned int, float)",confirmed,0

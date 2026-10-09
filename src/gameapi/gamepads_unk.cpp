@@ -27,11 +27,15 @@ typedef struct GameObject_s {
   u8 is_underwater;    // 0x252
   u8 intersects_water; // 0x253
   u8 b254;             // 0x254
-  unsigned char pad255[0x871 - 0x255];
+  unsigned char pad255[0x257 - 0x255];
+  u8 b257; // 0x257
+  unsigned char pad258[0x871 - 0x258];
   char sock_id; // 0x871
   unsigned char pad872[0x896 - 0x872];
   u16 yrot; // 0x896
-  unsigned char pad898[0x112c - 0x898];
+  unsigned char pad898[0x9db - 0x898];
+  char b9db; // 0x9db
+  unsigned char pad9dc[0x112c - 0x9dc];
   GAMEPAD_s *pad_gamepad; // 0x112c
   unsigned char pad1130[0x140c - 0x1130];
   u32 flags140c; // 0x140c
@@ -125,6 +129,203 @@ void GameAudio_PlaySfx(i32 sfx, nuvec_s *position, i32 flags, i32 volume) {
   }
 }
 
+void PlaySfxByIdAndSetVolume(i32 sfx_id, nuvec_s *position, f32 volume);
+
+// FUNCTION: LEGOBATMAN 0x0059f280
+void GameAudio_PlaySfxAndSetVolume(i32 sfx, nuvec_s *position, f32 volume) {
+  if ((u32)sfx <= 200) {
+    PlaySfxByIdAndSetVolume(GameAudio->sfx_ids[sfx], position, volume);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x0059f2b0
+i32 GameAudio_GetSfxId(i32 sfx) {
+  if ((u32)sfx <= 200) {
+    return GameAudio->sfx_ids[sfx];
+  }
+  return -1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0059f2d0
+void AddSfxIdUnique0059f2d0(i32 sfx, i32 *list, i32 *count, i32 max) {
+  i32 id;
+  i32 i;
+  if (sfx > -1 && list != 0 && count != 0 && *count < max) {
+    id = GameAudio_GetSfxId(sfx);
+    if (id != -1) {
+      for (i = 0; i < *count; i++) {
+        if (list[i] == id)
+          return;
+      }
+      list[*count] = id;
+      (*count)++;
+    }
+  }
+}
+
+// GLOBAL: LEGOBATMAN 0x0095ed74
+extern f32 sticky_attack_timeout[2];
+
+// FUNCTION: LEGOBATMAN 0x0059f320
+void GameAudio_SetActionMusicTimes(f32 initial_delay, f32 hold_time) {
+  sticky_attack_timeout[0] = initial_delay;
+  sticky_attack_timeout[1] = hold_time;
+}
+
+struct MusicManager {
+  void SetClassVolume(i32 classes, f32 volume);
+};
+
+// GLOBAL: LEGOBATMAN 0x00a95dc0
+extern MusicManager music_man;
+
+// FUNCTION: LEGOBATMAN 0x0059f340
+void legoSetMusicVolume(float v) { music_man.SetClassVolume(0x23, v); }
+
+// FUNCTION: LEGOBATMAN 0x0059f360
+void legoSetCutVolume(float v) { music_man.SetClassVolume(0x10, v); }
+
+typedef struct OPTIONSSAVE_s {
+  u8 pad0[4];
+  u8 b4; // 0x04
+  u8 b5; // 0x05
+  u8 b6; // 0x06
+  u8 b7; // 0x07
+} OPTIONSSAVE_s;
+
+// FUNCTION: LEGOBATMAN 0x0059f380
+f32 GameGetMusicVolume(OPTIONSSAVE_s *options) {
+  f32 volume = (f32)options->b5 / 10.0f;
+  return volume * ((f32)options->b6 / 10.0f);
+}
+
+struct LEVELSFXENTRY_s {
+  nuvec_s position; // 0x00
+  i16 id;           // 0x0c
+  u8 references;    // 0x0e
+  u8 pad0f;
+};
+
+struct LEVELDATA_s {
+  u8 pad0[0x64];
+  u32 flags; // 0x64
+};
+
+typedef struct WORLDINFO_s {
+  u8 pad0[0x12c];
+  LEVELDATA_s *current_level; // 0x12c
+  u8 pad130[0x29cc - 0x130];
+  struct SOCKSYS_s *sock_sys; // 0x29cc
+  u8 pad29d0[0x4824 - 0x29d0];
+  LEVELSFXENTRY_s level_sfx[64]; // 0x4824
+  i32 level_sfx_count;           // 0x4c24
+  u8 pad4c28[0x51ec - 0x4c28];
+  struct TECHNO_s *technos; // 0x51ec
+  i32 ntechnos;             // 0x51f0
+} WORLDINFO;
+
+// GLOBAL: LEGOBATMAN 0x00960894
+extern WORLDINFO *WORLD;
+// GLOBAL: LEGOBATMAN 0x00aca8a8
+extern LEVELDATA_s *g_unk00aca8a8;
+
+// FUNCTION: LEGOBATMAN 0x0059f3c0
+f32 SetMusicVolumeFromOptions0059f3c0(OPTIONSSAVE_s *options) {
+  f32 volume = GameGetMusicVolume(options);
+  if (options->b7 == 0 && WORLD->current_level == g_unk00aca8a8)
+    volume = 0.0f;
+  legoSetMusicVolume(volume);
+  return volume;
+}
+
+void SetSfxVolume00558ea0(f32 volume);
+
+// FUNCTION: LEGOBATMAN 0x0059f430
+f32 SetSfxVolumeFromOptions0059f430(OPTIONSSAVE_s *options) {
+  f32 volume = (f32)options->b4 / 10.0f;
+  volume = volume * ((f32)options->b6 / 10.0f);
+  SetSfxVolume00558ea0(volume);
+  legoSetCutVolume(options->b6 * 0.85f / 10.0f);
+  return volume;
+}
+
+// FUNCTION: LEGOBATMAN 0x0059f4b0
+void ResetLevSfx(WORLDINFO_s *world) {
+  for (i32 i = 0; i < 0x40; i++) {
+    world->level_sfx[i].id = -1;
+  }
+  world->level_sfx_count = 0;
+}
+
+// GLOBAL: LEGOBATMAN 0x00ad3b60
+extern nuvec_s nuvec_zero;
+
+i32 GetSfxId(char *name);
+
+// STUB: LEGOBATMAN 0x0059f4e0
+// close: orig keeps world in ecx and pushes ebp inside the count > 0 guard;
+// ours threads the loop break straight into the found branch.
+void AddLevSfx(WORLDINFO_s *world, nuvec_s *position, char *name, i32 sfx) {
+  if (sfx == -1) {
+    if (name == 0)
+      return;
+    sfx = GetSfxId(name);
+    if (sfx == -1)
+      return;
+  }
+  i32 count = world->level_sfx_count;
+  i32 index = 0;
+  if (count > 0) {
+    LEVELSFXENTRY_s *entry = world->level_sfx;
+    do {
+      if (entry->id == sfx)
+        break;
+      index++;
+      entry++;
+    } while (index < count);
+  }
+  if (index < count) {
+    if (world->level_sfx[index].references < 0xff)
+      world->level_sfx[index].references++;
+    return;
+  }
+  if (count < 64) {
+    if (position != 0)
+      world->level_sfx[count].position = *position;
+    else
+      world->level_sfx[count].position = nuvec_zero;
+    world->level_sfx[world->level_sfx_count].id = (i16)sfx;
+    world->level_sfx[world->level_sfx_count].references = 1;
+    world->level_sfx_count++;
+  }
+}
+
+// GLOBAL: LEGOBATMAN 0x00a95da4
+extern f32 chattersfxwait;
+// GLOBAL: LEGOBATMAN 0x0095ed98
+extern i32 last_chatter_sfx;
+// GLOBAL: LEGOBATMAN 0x00a95fe0
+extern f32 FRAMETIME;
+
+i32 ParticlesPerSecond(f32 particles_per_second, f32 frame_time);
+i32 qrand(void);
+
+// FUNCTION: LEGOBATMAN 0x0059f5c0
+void ChatterSfx(GameObject_s *g, i32 a, float b) {
+  if (chattersfxwait <= 0.0f && ParticlesPerSecond(2.0f, FRAMETIME) > 0 &&
+      g->b257 == 0 && g->b9db == -1) {
+    if (a == last_chatter_sfx && b > 0.0f) {
+      chattersfxwait = b;
+      last_chatter_sfx = -1;
+    } else {
+      PlaySfxById(a, &g->pos80);
+      i32 random = qrand();
+      last_chatter_sfx = a;
+      chattersfxwait = (f32)random * (1.0f / 65535.0f) * 2.0f + 3.0f;
+    }
+  }
+}
+
 // STUB: LEGOBATMAN 0x0059f8d0
 // skipped: switch on jump type compiles to a jump table; not attempted.
 #if 0
@@ -190,20 +391,6 @@ struct GruntCharacterData_s {
   GruntGameCharacter_s *game_character; // 0x24
 };
 
-struct LEVELDATA_s {
-  u8 pad0[0x64];
-  u32 flags; // 0x64
-};
-
-typedef struct WORLDINFO_s {
-  u8 pad0[0x12c];
-  LEVELDATA_s *current_level; // 0x12c
-  u8 pad130[0x29cc - 0x130];
-  struct SOCKSYS_s *sock_sys; // 0x29cc
-  u8 pad29d0[0x51ec - 0x29d0];
-  struct TECHNO_s *technos; // 0x51ec
-  i32 ntechnos;             // 0x51f0
-} WORLDINFO;
 WORLDINFO_s *WorldInfo_CurrentlyActive(void);
 void PlaySfxByIdAndSetVolume(i32 sfx_id, nuvec_s *position, f32 volume);
 
@@ -412,9 +599,6 @@ typedef struct SOCK_s {
 typedef struct SOCKSYS_s {
   SOCK *sock;
 } SOCKSYS;
-
-// GLOBAL: LEGOBATMAN 0x00960894
-extern WORLDINFO *WORLD;
 
 // FUNCTION: LEGOBATMAN 0x005a3940
 u16 GamePad_InputAngle(GameObject_s *object, GAMEPAD_s *pad) {

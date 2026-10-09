@@ -282,3 +282,14 @@
 005cea70 Cheat_SetOnOffBitfield  matched saga body (ghidra missed the function), Mac order
 005ce780 Cheats_CountUpgrades  matched (cheat flag 0x2000000 indices; ghidra missed it), Mac order after CheatSys_Init
 005ceb80 Cheat_StartPowerUp  matched saga body (sfx 0x73, two power-up messages), Mac order after Cheats_TurnOff
+005cee40 UnlockCheat  matched (sets bit in unlocked-cheat bitfield), Mac order after Cheat_SetArea
+005cee70 CheatUnlocked  matched (tests bit in unlocked-cheat bitfield), Mac order after UnlockCheat
+0059f280 GameAudio_PlaySfxAndSetVolume  matched saga body (bound 200), Mac order after GameAudio_PlaySfx
+0059f2b0 GameAudio_GetSfxId  matched saga body (bound 200), Mac order
+0059f320 GameAudio_SetActionMusicTimes  matched saga body (ghidra missed it), Mac order
+0059f340 legoSetMusicVolume  matched saga body (music_man.SetClassVolume(0x23)), Mac order
+0059f360 legoSetCutVolume  matched (SetClassVolume(0x10); ghidra missed it), Mac order
+0059f380 GameGetMusicVolume  matched saga-shaped body (option bytes 5, 6), Mac order
+0059f4b0 ResetLevSfx  matched saga body (64 level sfx entries at 0x4824), Mac order
+0059f4e0 AddLevSfx  saga body shape (GetSfxId by name, 64-entry level sfx table) matches all but loop-exit layout; Mac order
+0059f5c0 ChatterSfx  matched saga-shaped body (chattersfxwait, last_chatter_sfx), Mac order

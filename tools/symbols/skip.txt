@@ -72,3 +72,4 @@
 005facd0 Area_ShuffleModelList: list in eax/count in esi (register-arg static)
 004f5d90 Legal_GetName: buffer passed in esi (register-arg static)
 0059a110 AnimDuration: heavy x87 compare tree
+0059f4e0 AddLevSfx: loop-exit threading / register choice differs, 3 tries

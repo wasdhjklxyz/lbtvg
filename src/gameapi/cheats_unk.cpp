@@ -267,3 +267,19 @@ void Cheat_SetArea(i32 cheat, i32 area_id) {
     CheatSystem->i08++;
   }
 }
+
+// GLOBAL: LEGOBATMAN 0x00abe2c0
+extern u32 *g_unk00abe2c0;
+
+// FUNCTION: LEGOBATMAN 0x005cee40
+void UnlockCheat(i32 cheat) {
+  if (g_unk00abe2c0 != 0)
+    g_unk00abe2c0[cheat / 32] |= 1 << (cheat & 31);
+}
+
+// FUNCTION: LEGOBATMAN 0x005cee70
+i32 CheatUnlocked(i32 cheat) {
+  if (g_unk00abe2c0 != 0)
+    return g_unk00abe2c0[cheat / 32] & (1 << (cheat & 31));
+  return 0;
+}
