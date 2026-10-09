@@ -96,3 +96,4 @@
 00455b90 Action_SetLastSafePathPos: separate early-return epilogue + ebx/edi swap, 3 tries
 0046fc00 Action_CircleLocator: register rotation after goalrange arg, 6 tries
 0045c570 Action_SelectRandomSpline: eax/ecx swap in collect loop, 5 tries
+006b47e0 Action_ClearInterrupt: lazy per-branch pushes/epilogues, 3 tries

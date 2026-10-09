@@ -1429,3 +1429,6 @@
 006a5380 Action_SetMinViewHeight  keyword table 0x99df98
 006a5450 Action_SetMaxViewHeight  keyword table 0x99df98
 006a5520 Action_SetHearDistance  keyword table 0x99df98
+006a57a0 Action_ResetToOrigin  keyword table 0x99df98
+006a5b00 Action_SetReturnToState  keyword table 0x99df98
+006b47e0 Action_ClearInterrupt  keyword table 0x99df98

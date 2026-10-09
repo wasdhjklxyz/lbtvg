@@ -183,6 +183,39 @@ i32 Action_SetInterrupt(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
 void AISysRegisterPathCnxType(char *name, char *short_name, u32 connection_flag,
                               void *context, u32 flags);
 
+i32 NuStrCmp(const char *a, const char *b);
+
+static inline void AIScriptClearInterrupt(AISCRIPTPROCESS_s *processor,
+                                          char *state_name) {
+  if (processor->interrupt_state != 0) {
+    if (NuStrCmp(state_name, processor->interrupt_state->name) == 0) {
+      processor->interrupt_timer = 0.0f;
+      processor->interrupt_priority = 0;
+      processor->interrupt_id = 0;
+      processor->interrupt_state = 0;
+    }
+  }
+}
+
+// STUB: LEGOBATMAN 0x006b47e0
+// callee-saved pushes are lazy per check in the original (ebp=processor,
+// ebx=count, separate epilogues); ours pushes both up front
+i32 Action_ClearInterrupt(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                          AIPACKET_s *packet, char **params, i32 param_count,
+                          i32 is_first_time, f32 dt) {
+  char *state_name = 0;
+  if (is_first_time && processor != 0 && param_count > 0) {
+    for (i32 i = 0; i < param_count; i++) {
+      char *value = NuStrIStr(params[i], "state");
+      if (value != 0)
+        state_name = value + 6;
+    }
+    if (state_name != 0)
+      AIScriptClearInterrupt(processor, state_name);
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x006b4f70
 void AISysRegisterDefaultPathCnxTypes(void) {
   AISysRegisterPathCnxType("Permanent Block", "PermBlock", 0x40000000, 0, 0);

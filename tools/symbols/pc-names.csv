@@ -1848,7 +1848,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006a5520,002386a0,_Action_SetHearDistance,_Action_SetHearDistance,confirmed,0
 006a55f0,00238782,_Action_SetMoveRadius,_Action_SetMoveRadius,confirmed,0
 006a5660,00238c46,_Action_OverrideAnimation,_Action_OverrideAnimation,strings,0
+006a57a0,00239346,_Action_ResetToOrigin,_Action_ResetToOrigin,confirmed,0
 006a58d0,002395a4,_Action_NoShadows,_Action_NoShadows,confirmed,0
+006a5b00,00239854,_Action_SetReturnToState,_Action_SetReturnToState,confirmed,0
 006a5bb0,002398d2,_Action_ReturnToState,_Action_ReturnToState,confirmed,0
 006a5be0,00239912,_Action_Else,_Action_Else,confirmed,0
 006a5c20,00239956,_Action_EndIf,_Action_EndIf,confirmed,0
@@ -1881,6 +1883,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006b3e40,0023709c,_Condition_OpponentToLocatorInit,_Condition_OpponentToLocatorInit,confirmed,0
 006b3e60,002371b8,_Condition_PlayerToLocatorInit,_Condition_PlayerToLocatorInit,confirmed,0
 006b4670,0024921c,_Action_SetInterrupt,_Action_SetInterrupt,strings,0
+006b47e0,002493a8,_Action_ClearInterrupt,_Action_ClearInterrupt,confirmed,0
 006b48a0,00243bf2,_Action_NotifyStateChange,_Action_NotifyStateChange,confirmed,0
 006b4910,0024ae6e,_Action_If,_Action_If,confirmed,0
 006b4960,0024af96,_Action_OrIf,_Action_OrIf,confirmed,0

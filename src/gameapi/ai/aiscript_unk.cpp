@@ -14,7 +14,9 @@ struct AICHARMODEL_s {
 
 // Per-creature defaults (0xa8 bytes), indexed by AIPACKET_s::origin_index.
 struct AICREATURE_s {
-  u8 pad0[0x94];
+  u8 pad0[0x20];
+  nuvec_s pos; // 0x20
+  u8 pad2c[0x94 - 0x2c];
   f32 view_distance;   // 0x94
   f32 hear_distance;   // 0x98
   f32 max_view_height; // 0x9c
@@ -359,6 +361,53 @@ i32 Action_SetHearDistance(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     object->heardistance = 1.0f;
   if (argc != 0 && NuStrICmp(args[0], "default") != 0)
     packet->pd0->heardistance = AIParamToFloatEx(packet, process, args[0]);
+  return 1;
+}
+
+// GLOBAL: LEGOBATMAN 0x00ad6960
+extern nuvec_s *(*GetAICreatureOriginFn)(AISYS_s *sys, AIPACKET_s *packet);
+
+// FUNCTION: LEGOBATMAN 0x006a57a0
+i32 Action_ResetToOrigin(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  if (packet == NULL || sys == NULL)
+    return 1;
+  nuvec_s *(*fn)(AISYS_s *, AIPACKET_s *) = GetAICreatureOriginFn;
+  nuvec_s *origin = fn != NULL ? fn(sys, packet) : NULL;
+  if (origin != NULL) {
+    packet->pd0->pos5c = *origin;
+  } else if (packet->pd0 != NULL && (packet->pd0->flags1f8 & 0x400) &&
+             packet->origin_index != 0xff) {
+    packet->pd0->pos5c = sys->creatures[packet->origin_index].pos;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a5b00
+i32 Action_SetReturnToState(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char **args, int argc,
+                            int flags, f32 time) {
+  AISTATE *state = NULL;
+  if (flags == 0 || process == NULL)
+    return 1;
+  if (process->state != NULL)
+    state = process->state;
+  for (i32 i = 0; i < argc; i++) {
+    char *value = NuStrIStr(args[i], "state");
+    if (value != NULL) {
+      state = AIStateFind(value + 6, process->script);
+      if (state == NULL) {
+        if (g_unk00ad4524 == 0)
+          AIDebugUnk006a10a0(args[0], process->script->name,
+                             process->state->name);
+        else
+          AIDebugUnk006a10b0(args[0], process->script->name,
+                             process->state->name);
+      }
+    }
+  }
+  process->return_to_state = state;
   return 1;
 }
 
