@@ -3,3 +3,6 @@
 # other address it had been paired to). One per line: address, name, reason.
 006a1950 AIStateFind            saga body matches; sits right before AIScriptFind, as on the Mac
 006a62b0 AIScriptSetInterrupt   checks interrupt_priority (+0xb8), calls AIStateFind: saga's body
+006d4220 NuListGetHead lgtm
+006d4240 NuListGetNext lgtm
+006dc3a0 NuStrICmp lgtm

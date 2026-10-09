@@ -697,9 +697,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006c6480,00221f50,_DrawMenuEntryEx,_DrawMenuEntryEx,gapfill,3
 006c9ca0,001e7734,_instNuGCutSceneCreate,_instNuGCutSceneCreate,strings,0
 006cd280,001e56a2,_NuScriptLoadCommands,_NuScriptLoadCommands,strings,0
-006d4220,00188232,_NuListGetHead,_NuListGetHead,gapfill,1
+006d4220,00188232,_NuListGetHead,_NuListGetHead,confirmed,0
 006d4230,0018823c,_NuListGetTail,_NuListGetTail,order,2
-006d4240,00188248,_NuListGetNext,_NuListGetNext,gapfill,1
+006d4240,00188248,_NuListGetNext,_NuListGetNext,confirmed,0
 006d5540,00189208,_NuCommandLine,_NuCommandLine,gapfill,4
 006d5700,001893c0,_NuPadOpen,_NuPadOpen,strings,0
 006d5df0,001897ba,_NuPadGetPort,_NuPadGetPort,calls,2
@@ -718,7 +718,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006da8d0,0018d4c2,_NuFParGetWord,_NuFParGetWord,gapfill,1
 006daa40,0018d694,_NuFParGetFloat,_NuFParGetFloat,gapfill,1
 006dc300,0018bea6,_NuStrIStr,_NuStrIStr,calls,1
-006dc3a0,0018bf1a,_NuStrICmp,_NuStrICmp,gapfill,1
+006dc3a0,0018bf1a,_NuStrICmp,_NuStrICmp,confirmed,0
 006dc410,0018c3fe,_NuStrNICmp,_NuStrNICmp,gapfill,1
 006dc4f0,0018d9fe,_NuStrLwr,_NuStrLwr,gapfill,1
 006dc720,0018bf90,_NuStringTableGetByName,_NuStringTableGetByName,gapfill,2
