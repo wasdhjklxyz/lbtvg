@@ -2623,3 +2623,89 @@ f32 Condition_EitherPlayerOnObject(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     return 1.0f;
   return 0.0f;
 }
+
+// FUNCTION: LEGOBATMAN 0x0044ed00
+f32 Condition_OnObject(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                       AIPACKET_s *packet, char *str, void *argument) {
+  if (packet != NULL && packet->pd0 != NULL) {
+    u8 *object = (u8 *)packet->pd0->obj;
+    i32 platform = (i32)argument;
+    if (object != NULL && platform != -1 &&
+        (object[0x24d] != 0 || object[0x24e] != 0) &&
+        *(i16 *)(object + 0x24a) == platform &&
+        *(i16 *)(object + 0x15b8) == platform)
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044ed70
+f32 Condition_OnSameObjectAsPlayer(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                   AIPACKET_s *packet, char *str,
+                                   void *argument) {
+  if (packet != NULL && packet->pd0 != NULL && player != NULL) {
+    u8 *object = (u8 *)packet->pd0->obj;
+    u8 *other = (u8 *)player;
+    if ((object[0x24d] != 0 || object[0x24e] != 0) &&
+        (other[0x24d] != 0 || other[0x24e] != 0) &&
+        *(i16 *)(object + 0x24a) != -1 &&
+        *(i16 *)(object + 0x24a) == *(i16 *)(other + 0x24a) &&
+        *(i16 *)(object + 0x15b8) == *(i16 *)(other + 0x15b8))
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044ee00
+f32 Condition_SpawnCount(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char *str, void *argument) {
+  // 0x204: respawn count.
+  if (packet != NULL)
+    return (f32) * (u32 *)((u8 *)packet + 0x204);
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044eed0
+void *Condition_LocatorOnScreenInit(AISYS_s *sys, char *name,
+                                    AISCRIPT_s *script) {
+  return AIPathFindLocator(sys, name);
+}
+
+i32 NuCameraClipTestSphere(nuvec_s *pos, f32 radius, numtx_s *mtx);
+
+// FUNCTION: LEGOBATMAN 0x0044eef0
+f32 Condition_LocatorOnScreen(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char *str, void *argument) {
+  u8 *locator = (u8 *)argument;
+  if (locator == NULL)
+    locator = *(u8 **)((u8 *)process + 0xa8);
+  if (locator != NULL && NuCameraClipTestSphere((nuvec_s *)(locator + 0x10),
+                                                0.0f, &numtx_identity) == 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+i32 ObjBlocking(GameObject_s *object);
+
+// FUNCTION: LEGOBATMAN 0x0044ef40
+f32 Condition_Blocking(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                       AIPACKET_s *packet, char *str, void *argument) {
+  if (packet != NULL && packet->pd0 != NULL) {
+    GameObject_s *object = packet->pd0->obj;
+    if (object != NULL && ObjBlocking(object) != 0)
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044efb0
+f32 Condition_BeenHit(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                      AIPACKET_s *packet, char *str, void *argument) {
+  GameObject_s *object = (GameObject_s *)argument;
+  if (object == NULL)
+    object = packet != NULL && packet->pd0 != NULL ? packet->pd0->obj : NULL;
+  if (object != NULL &&
+      (object->flicker_time > 0.0f || (object->flags140c & 1)))
+    return 1.0f;
+  return 0.0f;
+}

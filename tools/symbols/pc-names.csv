@@ -107,6 +107,13 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0044eb10,000765aa,__Z24Condition_PlayerOnObjectP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_PlayerOnObject(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044eb60,000765f2,__Z30Condition_EitherPlayerOnObjectP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_EitherPlayerOnObject(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044ec00,0007666c,__Z26Condition_LocatorRangeInitP7AISYS_sPcP10AISCRIPT_s,"Condition_LocatorRangeInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+0044ed00,0007673a,__Z18Condition_OnObjectP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OnObject(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044ed70,0007678c,__Z30Condition_OnSameObjectAsPlayerP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OnSameObjectAsPlayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044ee00,000767f4,__Z20Condition_SpawnCountP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_SpawnCount(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044eed0,000768be,__Z29Condition_LocatorOnScreenInitP7AISYS_sPcP10AISCRIPT_s,"Condition_LocatorOnScreenInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+0044eef0,000768c8,__Z25Condition_LocatorOnScreenP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_LocatorOnScreen(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044ef40,0007690a,__Z18Condition_BlockingP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_Blocking(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044efb0,0007693c,__Z17Condition_BeenHitP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_BeenHit(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044f390,00076ac8,__Z19Condition_CollidingP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_Colliding(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044f400,00076af2,__Z14Condition_XPosP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_XPos(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044f440,00076b22,__Z14Condition_YPosP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_YPos(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0

@@ -583,3 +583,10 @@
 0044eb10 Condition_PlayerOnObject  matched saga body, Mac order
 0044eb60 Condition_EitherPlayerOnObject  matched saga body, Mac order
 0044ec00 Condition_LocatorRangeInit  matched saga body, Mac order
+0044ed00 Condition_OnObject  matched saga body, Mac order
+0044ed70 Condition_OnSameObjectAsPlayer  matched saga body, Mac order
+0044ee00 Condition_SpawnCount  matched saga body, Mac order
+0044eed0 Condition_LocatorOnScreenInit  matched saga body, Mac order
+0044eef0 Condition_LocatorOnScreen  matched saga body, Mac order
+0044ef40 Condition_Blocking  matched (Mac calls ObjBlocking), Mac order
+0044efb0 Condition_BeenHit  matched saga body, Mac order
