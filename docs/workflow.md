@@ -285,8 +285,11 @@ enough matched code for the percentage to mean something.
   it landed before matching.
 - **Our cl passes custom-convention args in `ebx`; the original never does**
   (no `ebx`/`ebp` register args anywhere in `.text`; `esi`, `edi`, `eax`,
-  `ecx`, `edx` are common). Nothing in the source moves it. Open question:
-  RTM (`.42`) vs SP1 (`.762`), see recon. Stub these for now.
+  `ecx`, `edx` are common). Nothing in the source moves it, and it is not
+  the compiler version (RTM does the same; SP1 is confirmed, see recon).
+  The original reads such args from the stack into `ebx` itself
+  (AIScriptCopyString: `mov ebx, [esp+0xc]`), so look for a different
+  parameter split. Stub these for now.
 - **Empty static debug functions** (0x6a10a0) vanish from callers compiled
   before the first call that passes it a pointer; declare them
   `static void F(...) {}` in the same TU.

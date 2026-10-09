@@ -119,8 +119,11 @@ What that means:
   compiled per-TU; byte-matching is realistic.
 - Build 50727 is shared by VS2005 RTM (`.42`) and SP1 (`.762`); the Rich
   header can't tell them apart. The game shipped Sep 2008, SP1 was Dec 2006,
-  and the 2025 re-link reused the same toolchain → assume **SP1**. Confirm by
-  matching one CRT function (e.g. `memcpy`, `_ftol2`) against both.
+  and the 2025 re-link reused the same toolchain → assume **SP1**.
+  **Confirmed SP1 (2026-10-09):** with RTM `cl` 14.00.50727.42 (VC++ 2005
+  Express RTM ISO, SHA-1 1ae44e4eaf8c61c3a39e573fd6efd9889e940529, under
+  wibo), 49 of ~1850 SP1-matched functions differ and none of the stubs
+  improve; SP1 matches all of them.
 - The two VS2003 C/C++ objs + 22 VS2003 import libs = DirectX SDK (Aug 2007)
   libs. The two VC6 objs are some tiny ancient lib. These are **excluded** from
   the match budget.
