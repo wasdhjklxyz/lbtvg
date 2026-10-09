@@ -218,3 +218,45 @@ void LevelConfig_AfterLoad(LEVELDATA *level, char *buffer,
   }
   level->flags |= 1;
 }
+
+typedef struct LEVELOBJECT {
+  u8 kind;
+  u8 pad_01;
+  u16 reflection;
+  char *name;
+} LEVELOBJECT;
+
+// GLOBAL: LEGOBATMAN 0x00aca8e0
+extern i32 LEVELOBJECTCOUNT;
+// GLOBAL: LEGOBATMAN 0x00aca8e4
+extern i32 LEVELOBJECTMAX;
+// GLOBAL: LEGOBATMAN 0x00aca8ec
+extern char *ExtraLevelObject_NameTable;
+// GLOBAL: LEGOBATMAN 0x00aca8f4
+extern i32 ExtraLevelObject_NameTableIndex;
+// GLOBAL: LEGOBATMAN 0x00aca8f0
+extern i32 ExtraLevelObject_NameTableSize;
+// GLOBAL: LEGOBATMAN 0x00aca8dc
+extern LEVELOBJECT *ObjTabList;
+// GLOBAL: LEGOBATMAN 0x00aca8e8
+extern i32 EXTRALEVELOBJECTCOUNT;
+
+// FUNCTION: LEGOBATMAN 0x0060e9c0
+i32 LevelObject_AddExtra(char *name, i32 kind) {
+  if (LEVELOBJECTCOUNT >= LEVELOBJECTMAX)
+    return 0;
+  if (ExtraLevelObject_NameTable == 0)
+    return 0;
+  i32 nameLen = NuStrLen(name);
+  i32 index = ExtraLevelObject_NameTableIndex;
+  if (index + nameLen + 1 >= ExtraLevelObject_NameTableSize)
+    return 0;
+  ObjTabList[LEVELOBJECTCOUNT].kind = (u8)kind;
+  char *nameDest = ExtraLevelObject_NameTable + index;
+  ObjTabList[LEVELOBJECTCOUNT].name = nameDest;
+  LEVELOBJECTCOUNT++;
+  EXTRALEVELOBJECTCOUNT++;
+  NuStrCpy(nameDest, name);
+  ExtraLevelObject_NameTableIndex += nameLen + 1;
+  return 1;
+}

@@ -13,7 +13,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [near rtleditor.cpp](#near-rtleditorcpp) | 88 | 62 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 87 | 61 |
 | [Action](#action) | 72 | 57 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
@@ -38,7 +38,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizActions](#gizactions) | 5 | 2 |
 | [GizmoPickup](#gizmopickup) | 2 | 2 |
 | [GizPanel](#gizpanel) | 2 | 2 |
-| [LevelObject](#levelobject) | 2 | 2 |
 | [LevelObjects](#levelobjects) | 2 | 2 |
 | [Levels](#levels) | 2 | 2 |
 | [LevelSplines](#levelsplines) | 2 | 2 |
@@ -71,6 +70,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizTurrets](#gizturrets) | 1 | 1 |
 | [Grapples](#grapples) | 1 | 1 |
 | [Level](#level) | 1 | 1 |
+| [LevelObject](#levelobject) | 1 | 1 |
 | [MiniKit](#minikit) | 2 | 1 |
 | [Mission](#mission) | 1 | 1 |
 | [Missions](#missions) | 1 | 1 |
@@ -240,7 +240,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00597db0` 90 B `_ParticlesPerSecond`  **hint** name (gapfill)
 - [ ] `0059c530` 97 B `_ParseAnimStance`  **hint** name (order)
 - [ ] `006419d0` 99 B `InitSnakes(WORLDINFO_s*)`  **saga** `legoapi/actions/character/snake.cpp`
-- [ ] `00675430` 103 B `LoadSpecialSfxFile(WORLDINFO_s*)`  **saga** `legoapi/audio/sfx.cpp`
 - [ ] `005d3f60` 105 B `FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)`  **hint** name (gapfill)
 - [ ] `005a0830` 108 B `ConfigureMusic(char*, variptr_u*, variptr_u*)`  **saga** `nu2api/nusound/nusound3_include.cpp`
 - [ ] `005c16b0` 120 B `SetPlayerIDs(int, int)`  **hint** name (order)
@@ -629,11 +628,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0048f750` 993 B `GizPanel_Update(void*, void*, float)`  **saga** `legoapi/gizmos/object/gizpanel.cpp`
 - [ ] `00490b20` 1178 B `GizPanel_MoveCode(WORLDINFO_s*, GameObject_s*, int)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizpanel.cpp`
 
-## LevelObject
-
-- [ ] `0060ec80` 77 B `LevelObject_FindIndexFromName(char*)`  **hint** name (gapfill) · **saga** `legoapi/world/level.cpp`
-- [ ] `0060e9c0` 156 B `LevelObject_AddExtra(char*, int)`  **hint** name (order) · **saga** `legoapi/world/levelobjects.cpp`
-
 ## LevelObjects
 
 - [ ] `0060e8e0` 215 B `LevelObjects_InitForGame(LEVELOBJECT*, variptr_u*, variptr_u*, int, int)`  **hint** name (order) · **saga** `legoapi/world/levelobjects.cpp`
@@ -773,6 +767,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## Level
 
 - [ ] `0060ee60` 164 B `Level_LoadConfigFile(WORLDINFO_s*)`  **saga** `legoapi/world/level.cpp`
+
+## LevelObject
+
+- [ ] `0060ec80` 77 B `LevelObject_FindIndexFromName(char*)`  **hint** name (gapfill) · **saga** `legoapi/world/level.cpp`
 
 ## MiniKit
 

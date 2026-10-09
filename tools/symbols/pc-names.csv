@@ -477,7 +477,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0060e640,00300efa,__Z24LevelSplines_InitForGameP11LEVELSPLINE,LevelSplines_InitForGame(LEVELSPLINE*),strings,0
 0060e6d0,00300f9e,__Z25LevelSplines_InitForLevelP11WORLDINFO_s,LevelSplines_InitForLevel(WORLDINFO_s*),strings,0
 0060e8e0,003011bc,__Z24LevelObjects_InitForGameP11LEVELOBJECTP9variptr_uS2_ii,"LevelObjects_InitForGame(LEVELOBJECT*, variptr_u*, variptr_u*, int, int)",order,2
-0060e9c0,003012d0,__Z20LevelObject_AddExtraPci,"LevelObject_AddExtra(char*, int)",order,2
+0060e9c0,003012d0,__Z20LevelObject_AddExtraPci,"LevelObject_AddExtra(char*, int)",confirmed,0
 0060ea60,00301388,__Z25LevelObjects_InitForLevelP11WORLDINFO_s,LevelObjects_InitForLevel(WORLDINFO_s*),order,2
 0060ec80,003015f6,__Z29LevelObject_FindIndexFromNamePc,LevelObject_FindIndexFromName(char*),gapfill,1
 0060ee60,00301810,__Z20Level_LoadConfigFileP11WORLDINFO_s,Level_LoadConfigFile(WORLDINFO_s*),strings,0

@@ -35,3 +35,4 @@
 005ae1d0 SeekLinearF  saga body matches unchanged
 00639b50 SetWeaponIn  saga body matches (mirror of SetWeaponOut, scale 0)
 00645450 SuperCarry_Carrying  saga body matches (supercarry context + carry state 2/3/6)
+0060e9c0 LevelObject_AddExtra  saga body matches (extra level object name table append)
