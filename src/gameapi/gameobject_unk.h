@@ -134,7 +134,9 @@ struct GameObject_s {
   u8 b3c8;                      // 0x3c8
   u8 pad6[0x3ce - 0x3c9];
   u8 b3ce; // 0x3ce
-  u8 pad7[0x47c - 0x3cf];
+  u8 pad3cf;
+  u8 control_rotational; // 0x3d0, Action_SetControlSystem
+  u8 pad7[0x47c - 0x3d1];
   nuvec_s *look_target; // 0x47c, AI look target (process290 + 0x1ec)
   union {
     struct {

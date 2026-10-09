@@ -1211,3 +1211,5 @@
 0046a670 Action_UseTechno  keyword table 0x93bb98
 0046fe90 Action_GizmoActivate  keyword table 0x93bb98
 0046cd90 Action_AddGameMsgCount  keyword table 0x93bb98
+0045bcb0 Action_SetControlSystem  keyword table 0x93bb98
+00462bc0 Action_AlwaysTriggerObstacle  keyword table 0x93bb98

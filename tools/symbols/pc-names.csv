@@ -321,6 +321,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0045b7e0,00092c5e,__Z25Action_DontAvoidCharacterP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_DontAvoidCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 0045b990,00092aa2,__Z15Action_DontPushP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_DontPush(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 0045bbb0,0007c90e,__Z22Action_PressJumpButtonP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_PressJumpButton(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
+0045bcb0,0007c9de,__Z23Action_SetControlSystemP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetControlSystem(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 0045bd40,0007ca46,__Z16Action_SetSplineP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetSpline(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 0045be70,0007cb32,__Z26Action_SetZeroAccelerationP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetZeroAcceleration(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 0045bf80,0007cc1c,__Z21Action_BreakFormationP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_BreakFormation(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
@@ -371,6 +372,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004628c0,0007fd84,__Z26Action_ContextSetAnimationP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ContextSetAnimation(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00462b40,0007ff9e,__Z31Action_AIScriptAnimContextResetP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AIScriptAnimContextReset(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00462b80,0007ffc6,__Z21Action_AnimTimeRandomP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AnimTimeRandom(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
+00462bc0,0007fffc,__Z28Action_AlwaysTriggerObstacleP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AlwaysTriggerObstacle(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00462cb0,000800d2,__Z25Action_CanTriggerObstacleP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CanTriggerObstacle(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00462db0,0008019e,__Z26Action_StopObstacleLoopingP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_StopObstacleLooping(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00462e90,00080268,__Z22Action_PlayGizObstacleP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_PlayGizObstacle(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
