@@ -497,6 +497,73 @@ i32 Action_SetForceBack(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+struct AILOCATOR_s {
+  u8 pad0[0x44];
+};
+
+struct AILOCATORSET_s {
+  u8 pad0[0x10];
+  i8 locator_count; // 0x10
+  u8 pad11[3];
+  u8 *locator_entries; // 0x14
+  u8 *assigned;        // 0x18
+};
+
+struct AssignLocatorAISys_s {
+  u8 pad0[0x234];
+  AILOCATOR_s *locators; // 0x234
+};
+
+AILOCATORSET_s *AIPathFindLocatorSet(AISYS_s *sys, char *name);
+
+// FUNCTION: LEGOBATMAN 0x0046bb20
+i32 Action_AssignLocatorInSet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char **args, int argc,
+                              int flags, f32 time) {
+  i32 assignment = -1;
+  GameObject_s *obj = 0;
+  AILOCATOR_s *locator = 0;
+  AILOCATORSET_s *locator_set = 0;
+  char *s;
+  i32 i;
+  if (flags) {
+    if (packet && packet->pd0) {
+      obj = packet->pd0->obj;
+      assignment = obj->b259;
+    }
+    for (i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "locator=mylocator") == 0) {
+        if (obj)
+          locator = *(AILOCATOR_s **)(obj->process290 + 0xa8);
+      } else if ((s = NuStrIStr(args[i], "locator"))) {
+        s = s + NuStrLen("locator") + 1;
+        locator = AIPathFindLocator(sys, s);
+      } else if ((s = NuStrIStr(args[i], "character"))) {
+        s = s + NuStrLen("character") + 1;
+        obj = GetNamedGameObject(sys, s);
+        assignment = obj->b259;
+      } else if ((s = NuStrIStr(args[i], "set"))) {
+        s = s + NuStrLen("set") + 1;
+        locator_set = AIPathFindLocatorSet(sys, s);
+      } else if (NuStrICmp(args[i], "reserve") == 0) {
+        assignment = 0x80;
+      } else if (NuStrICmp(args[i], "unreserve") == 0) {
+        assignment = 0xff;
+      }
+    }
+    if (locator_set && locator) {
+      i32 count = locator_set->locator_count;
+      for (i = 0; i < count; i++) {
+        if (&((AssignLocatorAISys_s *)sys)
+                 ->locators[locator_set->locator_entries[i]] == locator)
+          break;
+      }
+      locator_set->assigned[i] = assignment;
+    }
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x0046d6f0
 i32 Action_AddMiscPickups(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                           AIPACKET_s *packet, char **args, int argc, int flags,

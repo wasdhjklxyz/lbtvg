@@ -13,7 +13,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [Action](#action) | 62 | 47 |
+| [Action](#action) | 61 | 46 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 44 | 37 |
 | [near rtleditor.cpp](#near-rtleditorcpp) | 59 | 33 |
 | [near terrain.c](#near-terrainc) | 34 | 9 |
@@ -216,7 +216,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `004628c0` 506 B `Action_ContextSetAnimation(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `0046eee0` 507 B `Action_ForceLightning(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00465ab0` 539 B `Action_PlaySfx(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `0046bb20` 544 B `Action_AssignLocatorInSet(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizactions.cpp`
 - [ ] `004688a0` 549 B `Action_SpinOnSpot(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `006a4b10` 565 B `_Action_FaceOpponent`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00470370` 575 B `Action_AddTorpedoPacket(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
