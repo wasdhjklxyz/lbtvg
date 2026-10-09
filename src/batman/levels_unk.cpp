@@ -77,7 +77,11 @@ void BotanicGardens_B_Reset(WORLDINFO_s *wi) {
 
 typedef struct LEVELDATA_s {
   unsigned char pad0[0x40];
-  char name[0x110];
+  char name[0x20]; // 0x40
+  unsigned char pad60[0xe0 - 0x60];
+  f32 conveyor_x_speed; // 0xe0
+  f32 conveyor_z_speed; // 0xe4
+  unsigned char pade8[0x150 - 0xe8];
 } LEVELDATA;
 
 // GLOBAL: LEGOBATMAN 0x00aca8a4
@@ -132,7 +136,10 @@ LEVELDATA *Level_FindByName(char *name, i32 *idx_out) {
   return 0;
 }
 
-typedef struct nufpar_s NUFPAR;
+typedef struct nufpar_s {
+  unsigned char pad0[0x910];
+  char *word_buf; // 0x910
+} NUFPAR;
 typedef struct nufpcomjmp_s {
   char *name;
   void (*fn)(NUFPAR *parser);
@@ -166,4 +173,17 @@ void LevelConfig_BeforeLoad(LEVELDATA *level, char *buffer,
     }
   }
   NuFParDestroy(parser);
+}
+
+f32 NuFParGetFloat(NUFPAR *parser);
+
+// FUNCTION: LEGOBATMAN 0x0060e510
+void LC_AL_conveyor(NUFPAR *fp) {
+  while (NuFParGetWord(fp) != 0) {
+    if (NuStrICmp(fp->word_buf, "xspeed") == 0) {
+      levelconfig_ldata->conveyor_x_speed = NuFParGetFloat(fp);
+    } else if (NuStrICmp(fp->word_buf, "zspeed") == 0) {
+      levelconfig_ldata->conveyor_z_speed = NuFParGetFloat(fp);
+    }
+  }
 }

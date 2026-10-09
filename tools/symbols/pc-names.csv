@@ -721,7 +721,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006dc3a0,0018bf1a,_NuStrICmp,_NuStrICmp,confirmed,0
 006dc410,0018c3fe,_NuStrNICmp,_NuStrNICmp,gapfill,1
 006dc4f0,0018d9fe,_NuStrLwr,_NuStrLwr,gapfill,1
-006dc720,0018bf90,_NuStringTableGetByName,_NuStringTableGetByName,gapfill,2
+006dc720,0018bf90,_NuStringTableGetByName,_NuStringTableGetByName,confirmed,0
 006dd060,0018ff0a,_NuFParGetInt,_NuFParGetInt,gapfill,1
 006dd2d0,0018c2d6,_NuFParInterpretWord,_NuFParInterpretWord,gapfill,1
 006dd430,0018c1a8,_NuFParInterpretWordCTX,_NuFParInterpretWordCTX,gapfill,1

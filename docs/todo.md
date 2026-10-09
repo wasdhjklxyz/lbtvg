@@ -74,7 +74,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizTurret](#gizturret) | 1 | 1 |
 | [GizTurrets](#gizturrets) | 1 | 1 |
 | [Grapples](#grapples) | 1 | 1 |
-| [LC](#lc) | 1 | 1 |
 | [Level](#level) | 1 | 1 |
 | [LevelConfig](#levelconfig) | 1 | 1 |
 | [MiniKit](#minikit) | 2 | 1 |
@@ -91,7 +90,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [NuMtl](#numtl) | 2 | 1 |
 | [NuMusic](#numusic) | 1 | 1 |
 | [NuPad](#nupad) | 1 | 1 |
-| [NuString](#nustring) | 1 | 1 |
 | [NuUnicode](#nuunicode) | 1 | 1 |
 | [NuVec](#nuvec) | 1 | 1 |
 | [ObjHitObj](#objhitobj) | 1 | 1 |
@@ -806,10 +804,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `005a9520` 269 B `Grapples_Reset(void*, void*, void*)`  **saga** `legoapi/gizmos/transport/grapples.cpp`
 
-## LC
-
-- [ ] `0060e510` 121 B `LC_AL_conveyor(nufpar_s*)`  **saga** `legoapi/world/levelconfig.cpp`
-
 ## Level
 
 - [ ] `0060ee60` 164 B `Level_LoadConfigFile(WORLDINFO_s*)`  **saga** `legoapi/world/level.cpp`
@@ -890,10 +884,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## NuPad
 
 - [ ] `006d5700` 105 B `_NuPadOpen`  **saga** `nu2api/nucore/nupad.cpp`
-
-## NuString
-
-- [ ] `006dc720` 123 B `_NuStringTableGetByName`  **hint** name (gapfill) · **saga** `nu2api/nucore/nustring_c.cpp`
 
 ## NuUnicode
 

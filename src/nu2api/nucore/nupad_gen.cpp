@@ -326,6 +326,45 @@ struct NuPadUnk006dd5b0 {
   int b;
 };
 
+typedef unsigned short NUWCHAR;
+
+typedef struct nustring_s {
+  char *id;
+  NUWCHAR *str_utf16;
+} NUSTRING;
+
+typedef struct nustringbank_s {
+  NUSTRING *strings;
+  int string_count;
+  int max_strings;
+} NUSTRINGBANK;
+
+int NuStrICmp(const char *a, const char *b);
+
+// GLOBAL: LEGOBATMAN 0x00b03900
+extern NUSTRINGBANK StringBank[3];
+// GLOBAL: LEGOBATMAN 0x0099f30c
+extern NUWCHAR *NuBlankString;
+
+// FUNCTION: LEGOBATMAN 0x006dc720
+NUWCHAR *NuStringTableGetByName(char *name) {
+  int j;
+  int i;
+
+  for (i = 0; i < 3; i++) {
+    for (j = 0; j < StringBank[i].string_count; j++) {
+      if (StringBank[i].strings[j].id != 0 &&
+          StringBank[i].strings[j].str_utf16 != 0) {
+        if (NuStrICmp(StringBank[i].strings[j].id, name) == 0) {
+          return StringBank[i].strings[j].str_utf16;
+        }
+      }
+    }
+  }
+
+  return NuBlankString;
+}
+
 // FUNCTION: LEGOBATMAN 0x006dd5b0
 void NuPadUnk006dd5b0(NuPadUnk006dd5b0 *p) {
   p->a = 0;
