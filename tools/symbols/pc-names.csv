@@ -452,8 +452,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005c18b0,00319604,__Z15Player_StartPosP12GameObject_s,Player_StartPos(GameObject_s*),confirmed,0
 005c18f0,0031964c,__Z18Players_AveragePosP7nuvec_sP14SOCKPOSITION_s,"Players_AveragePos(nuvec_s*, SOCKPOSITION_s*)",confirmed,0
 005c19c0,0031974a,__Z9SetPlayerv,SetPlayer(),confirmed,0
+005c1aa0,00319826,__Z13CanPullLeversi,CanPullLevers(int),confirmed,0
 005c1b10,003198f0,__Z19Player_ClearContextP12GameObject_si,"Player_ClearContext(GameObject_s*, int)",calls,3
 005c1b80,00319982,__Z20Player_ResetContextsP12GameObject_s,Player_ResetContexts(GameObject_s*),calls,3
+005c1cc0,00319b10,__Z16SetPlayerControlP12GameObject_si,"SetPlayerControl(GameObject_s*, int)",confirmed,0
 005c2250,0031ad5e,__Z22Player_ToggleCharacterP12GameObject_sii,"Player_ToggleCharacter(GameObject_s*, int, int)",strings,0
 005c2bb0,0031a160,__Z18Players_BothActivev,Players_BothActive(),confirmed,0
 005c2be0,0031a198,__Z23Player_HasInvincibilityP12GameObject_s,Player_HasInvincibility(GameObject_s*),confirmed,0

@@ -203,6 +203,48 @@ nuvec_s *Player_StartPos(GameObject_s *obj) {
                                      : PlayerStart[0].pos;
 }
 
+struct CHARACTERDATA_s {
+  u8 pad0[4];
+  u32 model_flags; // 0x04
+  u8 pad8[0x48 - 8];
+};
+
+// GLOBAL: LEGOBATMAN 0x00acb81c
+extern CHARACTERDATA_s *CDataList;
+
+struct Unk00a94740Entry {
+  u8 pad0[0xc];
+  i32 *abilities; // 0x0c
+  u8 pad10[0x6c - 0x10];
+};
+
+struct Unk00a94740 {
+  u8 pad0[0x18];
+  Unk00a94740Entry *entries; // 0x18
+  i16 *character_entry;      // 0x1c, -1 = none
+};
+
+// GLOBAL: LEGOBATMAN 0x00a94740
+extern Unk00a94740 *g_unk00a94740;
+// GLOBAL: LEGOBATMAN 0x00961a44
+extern i16 g_unk00961a44;
+
+// FUNCTION: LEGOBATMAN 0x005c1aa0
+i32 CanPullLevers(i32 character_id) {
+  u32 flags = CDataList[character_id].model_flags;
+  if ((flags & 0x01000010) == 0x01000010)
+    return 0;
+  if (flags & 0x00040088)
+    return 1;
+  if (g_unk00961a44 != 0) {
+    i16 entry = g_unk00a94740->character_entry[character_id];
+    if (entry != -1 &&
+        g_unk00a94740->entries[entry].abilities[g_unk00961a44] != 0)
+      return 1;
+  }
+  return 0;
+}
+
 void Unk005cc1a0(GameObject_s *object, i32 a);
 void Unk00659fb0(GameObject_s *object);
 void Unk00606d20(GameObject_s *object);
@@ -279,6 +321,50 @@ void Player_ResetContexts(GameObject_s *object) {
   object->f1264 = 0.0f;
   object->f1270 = 0.0f;
   object->f1274 = 0.0f;
+}
+
+// GLOBAL: LEGOBATMAN 0x00ab39ac
+extern void (*SetPlayerControlFn)(GameObject_s *object);
+// GLOBAL: LEGOBATMAN 0x00ab399c
+extern f32 g_unk00ab399c[2];
+
+struct Flags1fc {
+  u32 low : 7;
+  u32 active : 1; // bit 7
+  u32 high : 24;
+};
+
+// FUNCTION: LEGOBATMAN 0x005c1cc0
+void SetPlayerControl(GameObject_s *object, i32 on) {
+  ((Flags1fc *)&object->flags1fc)->active = on;
+  if (SetPlayerControlFn != 0)
+    SetPlayerControlFn(object);
+  if ((object->flags1fc & 0x80) && (object->b24c == 0 || object->b24c == 1))
+    g_unk00ab399c[object->b24c] = 0.0f;
+}
+
+struct GAMECAMERA_s {
+  u8 pad0[0x1fc];
+  u16 input_yaw; // 0x1fc
+};
+
+// GLOBAL: LEGOBATMAN 0x0095f624
+extern GAMECAMERA_s *GameCam;
+
+i32 RotDiff(u16 current, u16 target);
+
+// STUB: LEGOBATMAN 0x005c1d20
+// close: orig loads pad->input_angle into ecx before obj->u246 and adds the
+// camera yaw from memory; ours loads the camera yaw first.
+i32 MovingBackwards(GameObject_s *object) {
+  Unk_GameObject112c *pad = object->p112c;
+  if (pad->operator_data != 0 && pad->f28 != 0.0f) {
+    i32 difference =
+        RotDiff(pad->input_angle + GameCam->input_yaw, object->u246);
+    if (difference < -0x4000 || difference > 0x4000)
+      return 1;
+  }
+  return 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x005c2bb0

@@ -61,9 +61,12 @@ struct Unk_GameObject54 {
 
 struct Unk_GameObject112c {
   nupad_s *pad0; // 0x00
-  u8 pad1[0x28 - 4];
-  f32 f28; // 0x28
-  u8 pad2c[0x5a - 0x2c];
+  u8 pad1[0x26 - 4];
+  u16 input_angle; // 0x26
+  f32 f28;         // 0x28, input magnitude
+  u8 pad2c[0x54 - 0x2c];
+  void *operator_data; // 0x54
+  u8 pad58[0x5a - 0x58];
   u16 flags5a; // 0x5a
 };
 
@@ -95,7 +98,9 @@ struct GameObject_s {
   u8 pad1e0[0x1f8 - 0x1e0];
   u32 flags1f8; // 0x1f8
   u32 flags1fc; // 0x1fc
-  u8 pad3[0x24c - 0x200];
+  u8 pad3[0x246 - 0x200];
+  u16 u246; // 0x246, MovingBackwards: facing compared with pad input
+  u8 pad248[0x24c - 0x248];
   char b24c; // 0x24c
   u8 pad4[0x257 - 0x24d];
   char b257; // 0x257

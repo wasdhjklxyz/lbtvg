@@ -316,3 +316,5 @@
 00635130 GizmoPickup_TurnOnPickup  matched (bits 1,2,7 on; 1,2 off), Mac order
 00635150 GizmoPickup_BeenTurnedOn  matched saga body, Mac order
 00635170 GizmoPickups_PostLoad  empty function (ret) right after GizmoPickup_BeenTurnedOn, as in Mac order (Mac body is empty too)
+005c1aa0 CanPullLevers  matched saga-shaped body (+ ability table check), Mac order after SetPlayer
+005c1cc0 SetPlayerControl  matched (bit 7 of 0x1fc, callback, clears per-player timer), Mac order after Player_ResetContexts
