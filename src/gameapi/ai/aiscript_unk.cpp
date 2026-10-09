@@ -700,6 +700,31 @@ f32 Condition_Param(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return AIParamToFloatEx(packet, process, str);
 }
 
+// FUNCTION: LEGOBATMAN 0x006a4840
+i32 Action_SetCircleDirection(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char **params,
+                              i32 param_count, i32 first_time, f32 time) {
+  if (packet == NULL || packet->pd0 == NULL)
+    return 1;
+  if (first_time != 0 && param_count != 0) {
+    for (i32 i = 0; i < param_count; i++) {
+      if (NuStrICmp(params[i], "Clockwise") == 0) {
+        packet->circle_clockwise = 1;
+      } else if (NuStrICmp(params[i], "AntiClockwise") == 0) {
+        packet->circle_clockwise = 0;
+      } else if (NuStrICmp(params[i], "Reverse") == 0) {
+        packet->circle_clockwise = !packet->circle_clockwise;
+      } else if (NuStrICmp(params[i], "Random") == 0) {
+        if (NuRandFloat() > 0.5f)
+          packet->circle_clockwise = 1;
+        else
+          packet->circle_clockwise = 0;
+      }
+    }
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x006a4d50
 i32 Action_IgnoreWallSplines(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                              AIPACKET_s *packet, char **args, int argc,
