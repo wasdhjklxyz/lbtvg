@@ -4265,3 +4265,94 @@ i32 Action_SetPathCnxFlag(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 1;
 }
+
+i32 qrand(void);
+void GameCam_Judder(GAMECAMERA_s *camera, f32 amount, i32 axis,
+                    nuvec_s *source);
+
+// FUNCTION: LEGOBATMAN 0x00460ca0
+i32 Action_JudderGameCamera(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char **args, int argc,
+                            int flags, f32 time) {
+  f32 amount = 0.1f;
+  i32 axis = 0;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s;
+      if (NuStrIStr(args[i], "axis=x") != 0)
+        axis = 0;
+      else if (NuStrIStr(args[i], "axis=y") != 0)
+        axis = 1;
+      else if (NuStrIStr(args[i], "axis=z") != 0)
+        axis = 2;
+      else if ((s = NuStrIStr(args[i], "time")) != 0)
+        amount = AIParamToFloat(process, s + 5);
+    }
+    if (axis == 2 && qrand() < 0x8000)
+      amount = -amount;
+    GameCam_Judder(g_unk0095f624, amount, axis, 0);
+  }
+  return 1;
+}
+
+struct Unk_GameObject4 {
+  u8 pad0[0x13a];
+  u16 route_mask; // 0x13a, bit per special route index
+  u8 route;       // 0x13c, 0xff = none
+};
+
+struct SPECIALROUTE_s {
+  u8 pad0[0x18];
+  unsigned __int64 users;       // 0x18
+  unsigned __int64 saved_users; // 0x20
+};
+
+SPECIALROUTE_s *AISysFindRouteByName(AISYS_s *sys, char *name, i32 *index);
+
+// STUB: LEGOBATMAN 0x00473e40
+// prologue pushes all four registers before the locals are zeroed and the
+// object loops keep `index` in ecx; ours differs (3 tries)
+i32 Action_ChangeSpecialRoute(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char **args, int argc,
+                              int flags, f32 time) {
+  i32 index = 0;
+  i32 clear = 0;
+  i32 restore = 0;
+  SPECIALROUTE_s *route = 0;
+  if (argc > 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "route_name=");
+      if (s != 0) {
+        s += NuStrLen("route_name=");
+        route = AISysFindRouteByName(sys, s, &index);
+      } else if (NuStrIStr(args[i], "clear_users") != 0) {
+        clear = 1;
+      } else if (NuStrIStr(args[i], "restore_users") != 0) {
+        restore = 1;
+      }
+    }
+    if (route != 0) {
+      if (clear != 0) {
+        route->users = 0;
+        for (i32 j = 0; j < HIGHGAMEOBJECT; j++) {
+          if ((Obj[j].flags1fc & 1) != 0 && (Obj[j].flags1fc & 0x1000) != 0) {
+            Unk_GameObject4 **p = &Obj[j].p4;
+            (*p)->route_mask &= ~(1 << index);
+            if ((*p)->route != 0xff && (*p)->route == index)
+              (*p)->route = 0xff;
+          }
+        }
+      } else if (restore != 0) {
+        if ((route->saved_users & 0x8000000000000000) != 0)
+          route->users = (unsigned __int64)-1;
+        else
+          route->users = route->saved_users;
+        for (i32 j = 0; j < HIGHGAMEOBJECT; j++) {
+          if ((Obj[j].flags1fc & 1) != 0 && (Obj[j].flags1fc & 0x1000) != 0)
+            Obj[j].p4->route_mask |= 1 << index;
+        }
+      }
+    }
+  }
+  return 1;
+}

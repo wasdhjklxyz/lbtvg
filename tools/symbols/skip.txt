@@ -85,3 +85,4 @@
 0044e750 Condition_IsAlive: member loop register allocation (cmp [mem],0 then reload) not reproduced
 004701d0 Action_IgnoreTriggerSet: sys/process register swap, set-1 recomputed, 3 tries
 0045fc50 Action_SetGravityHeight: shared tail pop ebx/mov eax,1 swapped, 3 tries
+00473e40 Action_ChangeSpecialRoute: prologue/loop register allocation, 3 tries

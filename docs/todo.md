@@ -194,7 +194,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `004717b0` 246 B `Action_StunOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub**
 - [ ] `0045fc50` 331 B `Action_SetGravityHeight(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00461ff0` 388 B `Action_SetPath(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00473e40` 471 B `Action_ChangeSpecialRoute(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `00473e40` 471 B `Action_ChangeSpecialRoute(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub**
 - [ ] `006a4640` 490 B `_Action_Idle`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00464d10` 493 B `Action_UseForce(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `004628c0` 506 B `Action_ContextSetAnimation(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
