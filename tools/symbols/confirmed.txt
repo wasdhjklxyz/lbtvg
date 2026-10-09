@@ -1125,3 +1125,11 @@
 0046ba60 Action_ReleaseLocator  keyword table 0x93bb98
 00472580 Action_SetFlockAntinodeActive  keyword table 0x93bb98
 004729b0 Action_SetDontDrawNumFrames  keyword table 0x93bb98
+00463780 Action_ResetContext  keyword table 0x93bb98
+00470070 Action_TurnOnPickup  keyword table 0x93bb98
+00470a10 Action_SetCanBeMindControlled  keyword table 0x93bb98
+00454000 Action_Respawnable  keyword table 0x93bb98
+0045a830 Action_GrabVictim  keyword table 0x93bb98
+00460de0 Action_CameraShake  keyword table 0x93bb98
+00462db0 Action_StopObstacleLooping  keyword table 0x93bb98
+004677c0 Action_EndCameraCut  keyword table 0x93bb98

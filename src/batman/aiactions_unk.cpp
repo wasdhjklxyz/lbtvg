@@ -2085,3 +2085,202 @@ i32 Action_SetDontDrawNumFrames(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   obj->dont_draw_frames = frames;
   return 1;
 }
+
+void Player_ClearContext(GameObject_s *obj, i32 mode);
+void Player_ResetContexts(GameObject_s *obj);
+
+// FUNCTION: LEGOBATMAN 0x00463780
+i32 Action_ResetContext(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char **args, int argc, int flags,
+                        f32 time) {
+  GameObject_s *obj = 0;
+  if (flags != 0) {
+    if (packet != 0 && packet->pd0 != 0)
+      obj = packet->pd0->obj;
+    if (argc != 0) {
+      for (i32 i = 0; i < argc; i++) {
+        char *s = NuStrIStr(args[i], "character=");
+        if (s != 0)
+          obj = GetNamedGameObject(sys, s + 10);
+      }
+    }
+    if (obj != 0) {
+      Player_ClearContext(obj, 1);
+      Player_ResetContexts(obj);
+    }
+  }
+  return 1;
+}
+
+struct Unk_WorldInfo5220Entry;
+Unk_WorldInfo5220Entry *GizmoPickup_FindByName(WORLDINFO_s *world, char *name);
+void GizmoPickup_TurnOnPickup(Unk_WorldInfo5220Entry *pickup, i32 on);
+
+// FUNCTION: LEGOBATMAN 0x00470070
+i32 Action_TurnOnPickup(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char **args, int argc, int flags,
+                        f32 time) {
+  Unk_WorldInfo5220Entry *pickup = 0;
+  i32 on = 1;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "name=");
+      if (s != 0) {
+        s += NuStrLen("name=");
+        pickup = GizmoPickup_FindByName(g_unk00960894, s);
+      } else if (NuStrICmp(args[i], "OFF") == 0) {
+        on = 0;
+      }
+    }
+    if (pickup != 0)
+      GizmoPickup_TurnOnPickup(pickup, on);
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00470a10
+i32 Action_SetCanBeMindControlled(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                  AIPACKET_s *packet, char **args, int argc,
+                                  int flags, f32 time) {
+  i32 on = 1;
+  if (flags != 0) {
+    GameObject_s *obj = packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0
+                            ? packet->pd0->obj
+                            : 0;
+    if (obj == 0)
+      return 1;
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp("True", args[i]) == 0)
+        on = 1;
+      else if (NuStrIStr(args[i], "false") != 0)
+        on = 0;
+    }
+    obj->can_be_mind_controlled = on;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00454000
+i32 Action_Respawnable(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                       AIPACKET_s *packet, char **args, int argc, int flags,
+                       f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags != 0) {
+    obj->respawnable = 1;
+    obj->respawn_at_origin = 0;
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "origin") == 0)
+        obj->respawn_at_origin = 1;
+      else if (NuStrICmp(args[i], "false") == 0)
+        obj->respawnable = 0;
+    }
+  }
+  return 1;
+}
+
+void GrabVictim(GameObject_s *obj, GameObject_s *victim);
+
+// FUNCTION: LEGOBATMAN 0x0045a830
+i32 Action_GrabVictim(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                      AIPACKET_s *packet, char **args, int argc, int flags,
+                      f32 time) {
+  GameObject_s *victim = 0;
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags != 0) {
+    Unk_AIPacketObj *opponent = *(Unk_AIPacketObj **)(obj->process290 + 0xe4);
+    if (opponent != 0)
+      victim = opponent->obj;
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "victim=");
+      if (s != 0)
+        victim = GetNamedGameObject(sys, s + 7);
+    }
+    if (victim != 0)
+      GrabVictim(obj, victim);
+  }
+  return 1;
+}
+
+void GameCam_NewShake(GAMECAMERA_s *camera, f32 amount, f32 duration,
+                      f32 speed);
+
+// FUNCTION: LEGOBATMAN 0x00460de0
+i32 Action_CameraShake(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                       AIPACKET_s *packet, char **args, int argc, int flags,
+                       f32 time) {
+  if (flags != 0) {
+    f32 amount = 1.0f;
+    f32 duration = 1.0f;
+    f32 speed = 1.0f;
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "mul=");
+      if (s != 0)
+        amount = AIParamToFloat(process, s + 4);
+      else if ((s = NuStrIStr(args[i], "time=")) != 0)
+        duration = AIParamToFloat(process, s + 5);
+      else if ((s = NuStrIStr(args[i], "speed=")) != 0)
+        speed = AIParamToFloat(process, s + 6);
+    }
+    // the parsed values are dead: the shake always uses 1, 1, 1
+    GameCam_NewShake(g_unk0095f624, 1.0f, 1.0f, 1.0f);
+  }
+  return 1;
+}
+
+void GizObstacle_StopLooping(GIZOBSTACLE_s *obstacle, i32 on);
+
+// FUNCTION: LEGOBATMAN 0x00462db0
+i32 Action_StopObstacleLooping(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                               AIPACKET_s *packet, char **args, int argc,
+                               int flags, f32 time) {
+  GIZOBSTACLE_s *obstacle = 0;
+  i32 on = 1;
+  if (flags != 0 && argc != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "name=");
+      if (s != 0) {
+        GIZMO_s *gizmo = GizmoFindByName(g_unk00960894->gizmoSys2b0c,
+                                         obstacle_gizmotype_id, s + 5);
+        if (gizmo != 0)
+          obstacle = (GIZOBSTACLE_s *)gizmo->object;
+      } else if (NuStrICmp(args[i], "FALSE") == 0) {
+        on = 0;
+      }
+    }
+    if (obstacle != 0)
+      GizObstacle_StopLooping(obstacle, on);
+  }
+  return 1;
+}
+
+// GLOBAL: LEGOBATMAN 0x00acb118
+extern f32 ObstacleCamEnd;
+// GLOBAL: LEGOBATMAN 0x00acb11c
+extern f32 ObstacleCamBlendOutTime;
+// GLOBAL: LEGOBATMAN 0x00acb690
+extern f32 ObstacleCamTime;
+extern i32 MiniCutCam;
+
+// FUNCTION: LEGOBATMAN 0x004677c0
+i32 Action_EndCameraCut(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char **args, int argc, int flags,
+                        f32 time) {
+  if (flags != 0 && MiniCutCam != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "end_time=");
+      if (s != 0) {
+        ObstacleCamEnd = AIParamToFloat(process, s + 9);
+        ObstacleCamEnd += ObstacleCamTime;
+      } else {
+        s = NuStrIStr(args[i], "blend_out_time=");
+        if (s != 0)
+          ObstacleCamBlendOutTime = AIParamToFloat(process, s + 15);
+      }
+    }
+  }
+  return 1;
+}
