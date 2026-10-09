@@ -117,6 +117,29 @@ extern u8 MenuA;
 
 void DrawMenuEntryEx(MENU *menu, char *text, i32 alpha);
 
+// GLOBAL: LEGOBATMAN 0x00960048
+extern i32 g_unk00960048; // gizmo type id of levers
+
+class SecurityCamera {
+public:
+  void ActivateLevel(WORLDINFO_s *world);
+
+  u8 pad0[0x10];
+  char level_name[0x3ec - 0x10]; // 0x10
+  i32 kind;                      // 0x3ec, 1 = hologram
+  u8 pad3f0[0x3fc - 0x3f0];
+  GIZMO_s *lever; // 0x3fc
+};
+
+// FUNCTION: LEGOBATMAN 0x00512fe0
+void SecurityCamera::ActivateLevel(WORLDINFO_s *world) {
+  if (NuStrICmp((char *)world, level_name) == 0) {
+    lever = GizmoFindByName(g_unk00960894->gizmoSys2b0c, g_unk00960048,
+                            kind == 1 ? "hologram_lever" : "projectorLever");
+    lever = (lever != NULL && ((u8 *)lever)[6] == g_unk00960048) ? lever : NULL;
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x0060cea0
 void GameDrawMenuEntry(MENU_s *menu, char *text) {
   if (Paused != 0) {

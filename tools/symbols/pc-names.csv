@@ -1994,7 +1994,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006c1ee0,00227d92,__Z18TextDecodeCodewordPcS_,"TextDecodeCodeword(char*, char*)",strings,0
 006c4020,0022b83a,_getbutton,_getbutton,strings,0
 006c48f0,0022236a,_DrawMenuButtonPromptsEx,_DrawMenuButtonPromptsEx,strings,0
-006c53b0,0022a2b8,_Text3D,_Text3D,gapfill,1
+006c53b0,0022a2b8,_Text3D,_Text3D,confirmed,0
 006c5410,0022a31c,_SmartTextExLimit,_SmartTextExLimit,order,2
 006c5f00,0022b166,_SmartTextEx,_SmartTextEx,gapfill,1
 006c6480,00221f50,_DrawMenuEntryEx,_DrawMenuEntryEx,gapfill,3

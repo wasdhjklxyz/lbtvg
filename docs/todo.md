@@ -56,7 +56,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [LevelSplines](#levelsplines) | 1 | 1 |
 | [MiniKit](#minikit) | 2 | 1 |
 | [Missions](#missions) | 1 | 1 |
-| [near apisave.c](#near-apisavec) | 8 | 1 |
+| [near apisave.c](#near-apisavec) | 5 | 1 |
 | [near nuanim_gen.cpp](#near-nuanim_gencpp) | 2 | 1 |
 | [near nutimebar_gen.cpp](#near-nutimebar_gencpp) | 2 | 1 |
 | [near oggreader.cpp](#near-oggreadercpp) | 4 | 1 |
@@ -140,7 +140,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [NuFile](#nufile) | 2 | 0 |
 | [NuFmv](#nufmv) | 1 | 0 |
 | [NuFmvStreamPCBink](#nufmvstreampcbink) | 1 | 0 |
-| [NuInstSurfGeom](#nuinstsurfgeom) | 1 | 0 |
 | [NuLgt](#nulgt) | 1 | 0 |
 | [NuLog10](#nulog10) | 1 | 0 |
 | [NuMem](#numem) | 3 | 0 |
@@ -165,7 +164,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Puzzle](#puzzle) | 1 | 0 |
 | [RailSys](#railsys) | 1 | 0 |
 | [ScoreMultiplier](#scoremultiplier) | 2 | 0 |
-| [SecurityCamera](#securitycamera) | 2 | 0 |
+| [SecurityCamera](#securitycamera) | 1 | 0 |
 | [ShaderBuilderGen](#shaderbuildergen) | 3 | 0 |
 | [ShaderManagerHLSL](#shadermanagerhlsl) | 1 | 0 |
 | [Shop](#shop) | 1 | 0 |
@@ -550,9 +549,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## near apisave.c
 
-- [ ] `006c53b0` 93 B `_Text3D`  **hint** name (gapfill)
-- [ ] `006c1590` 96 B `_SaveSystemInitialiseEx`
-- [ ] `006c5f00` 116 B `_SmartTextEx`  **hint** name (gapfill)
 - [ ] `006c4020` 282 B `_getbutton`
 - [ ] `006c1ee0` 619 B `TextDecodeCodeword(char*, char*)`  **saga** `legoapi/menus/core/text.cpp`
 - [ ] `006c48f0` 876 B `_DrawMenuButtonPromptsEx`
@@ -940,10 +936,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `00594420` 384 B `NuFmvStreamPCBink::BlitSM1Texture()`
 
-## NuInstSurfGeom
-
-- [ ] `00709de0` 101 B `NuInstSurfGeom::Destroy()`
-
 ## NuLgt
 
 - [ ] `007227b0` 283 B `_NuLgtLaser`  **hint** name (gapfill)
@@ -1066,7 +1058,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## SecurityCamera
 
-- [ ] `00512fe0` 105 B `SecurityCamera::ActivateLevel(WORLDINFO_s*)`
 - [ ] `00513430` 269 B `SecurityCamera::InitializePerm(SecurityCamera::SecurityCameraType, variptr_u*, variptr_u*)`
 
 ## ShaderBuilderGen

@@ -1545,3 +1545,4 @@
 005339b0 oaGetNextCommand  table +0x04, calls Cleanup on OA_CMD_EXIT
 00533a80 oaInit  "oaInit() called more than once." / "Couldn't parse initialization string."
 006e3b30 NuTimeGetTime  NuTimeGet + NuTimeSeconds * 1000 as u32 (milliseconds)
+006c53b0 Text3D  wrapper passing alpha 128 to Text3DEx (0x6c24b0), saga's body
