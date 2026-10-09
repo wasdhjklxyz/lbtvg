@@ -487,3 +487,21 @@
 00450270 Condition_CutScenePlaying   matched saga gameobjects.cpp body, Mac order
 00450280 Condition_PlayerInSockInit   matched saga gameobjects.cpp body, Mac order
 004502b0 Condition_PlayerInSock   matched saga gameobjects.cpp body, Mac order
+00450560 Condition_PlayerDistanceAlongSock   matched (saga gameobjects.cpp shape where present), Mac order of the Condition_* run
+00450580 Condition_FurthestPlayerDistanceAlongSock   matched (saga gameobjects.cpp shape where present), Mac order of the Condition_* run
+00450620 Condition_CurrentHintId   matched (saga gameobjects.cpp shape where present), Mac order of the Condition_* run
+00450640 Condition_HintAvailableInit   matched (saga gameobjects.cpp shape where present), Mac order of the Condition_* run
+00450660 Condition_HintAvailable   matched (saga gameobjects.cpp shape where present), Mac order of the Condition_* run
+00450690 Condition_HintComplete   matched (saga gameobjects.cpp shape where present), Mac order of the Condition_* run
+004506c0 Condition_Freeplay   matched (saga gameobjects.cpp shape where present), Mac order of the Condition_* run
+004506d0 Condition_MissionMode   matched (saga gameobjects.cpp shape where present), Mac order of the Condition_* run
+004506f0 Condition_MissionWon   matched (saga gameobjects.cpp shape where present), Mac order of the Condition_* run
+00450710 Condition_ChallengeMode   matched (saga gameobjects.cpp shape where present), Mac order of the Condition_* run
+00450730 Condition_PSP   matched (saga gameobjects.cpp shape where present), Mac order of the Condition_* run
+00450740 Condition_PS2   matched (saga gameobjects.cpp shape where present), Mac order of the Condition_* run
+00450750 Condition_BoltsDontGetDeflectedBack   matched (saga gameobjects.cpp shape where present), Mac order of the Condition_* run
+00450780 Condition_CheatProgress   matched (saga gameobjects.cpp shape where present), Mac order of the Condition_* run
+00450790 Condition_BigJumpComplete   matched (saga gameobjects.cpp shape where present), Mac order of the Condition_* run
+004507c0 Condition_RespawnLocatorIsInit   matched (saga gameobjects.cpp shape where present), Mac order of the Condition_* run
+004507e0 Condition_RespawnLocatorIs   matched (saga gameobjects.cpp shape where present), Mac order of the Condition_* run
+00450810 Condition_InMiniCut   matched (saga gameobjects.cpp shape where present), Mac order of the Condition_* run

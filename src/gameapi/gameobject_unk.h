@@ -126,7 +126,9 @@ struct GameObject_s {
   f32 move_range; // 0x488
   u8 pad7b[0x871 - 0x48c];
   char sock_id; // 0x871, -1 = none
-  u8 pad872[0x988 - 0x872];
+  u8 pad872[0x89c - 0x872];
+  f32 sock_distance; // 0x89c, distance along the current sock
+  u8 pad8a0[0x988 - 0x8a0];
   f32 f988; // 0x988
   f32 f98c; // 0x98c
   u8 pad8[0x998 - 0x990];
@@ -216,7 +218,11 @@ struct GameObject_s {
   u8 b132b; // 0x132b
   u8 pad14c[0x135c - 0x132c];
   f32 f135c; // 0x135c
-  u8 pad14d[0x140c - 0x1360];
+  u8 pad1360[0x137c - 0x1360];
+  void *movement_spline; // 0x137c
+  u8 pad1380[0x1383 - 0x1380];
+  u8 movement_spline_finished; // 0x1383
+  u8 pad14d[0x140c - 0x1384];
   u32 flags140c; // 0x140c
   u32 flags1410_lo : 15;
   u32 doomed_take_damage : 1; // 0x1410 bit 15

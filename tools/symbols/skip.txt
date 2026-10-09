@@ -80,3 +80,4 @@
 00452980 Condition_IsCarryingPlayerItem: register choice for the list pointer, 3 tries
 00452ff0 Condition_NeutralInTriggerArea: register allocation (area/index), 3 tries
 0044ff10 Condition_MessageInit: zero register reuse, 3 tries
+004505d0 Condition_FinishedSpline: return block order, 4 tries
