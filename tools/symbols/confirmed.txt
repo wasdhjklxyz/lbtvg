@@ -462,3 +462,12 @@
 0044f940 Condition_EitherPlayerInContext   matched, Mac order around Condition_InLayerInit
 0044f9e0 Condition_InLayer   matched, Mac order around Condition_InLayerInit
 0044fa10 Condition_OpponentInLayer   matched, Mac order around Condition_InLayerInit
+0044fc70 Condition_Player2Active   matched saga body, Mac order of the Condition_* run
+0044fc90 Condition_NumBaddiesInit   matched saga body, Mac order of the Condition_* run
+0044fca0 Condition_NumBaddies   matched saga body, Mac order of the Condition_* run
+0044fd00 Condition_NumForceObjectsInit   matched saga body, Mac order of the Condition_* run
+0044fd70 Condition_BeenToLevelInit   matched saga body, Mac order of the Condition_* run
+0044fe20 Condition_BeenToLevel   matched saga body, Mac order of the Condition_* run
+0044fe70 Condition_LastLevelInit   matched saga body, Mac order of the Condition_* run
+0044fef0 Condition_LastLevel   matched saga body, Mac order of the Condition_* run
+0044ff50 Condition_Message   matched saga body, Mac order of the Condition_* run

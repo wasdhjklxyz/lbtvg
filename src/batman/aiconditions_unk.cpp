@@ -889,8 +889,10 @@ void *Condition_AreaCompleteInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
 }
 
 struct AREADATA_s {
-  u8 pad0[0x84];
-  u8 index; // 0x84
+  u8 pad0[0x60];
+  i16 levels[0x12]; // 0x60
+  u8 index;         // 0x84
+  u8 level_count;   // 0x85
 };
 
 // FUNCTION: LEGOBATMAN 0x00452550
@@ -1283,6 +1285,126 @@ f32 Condition_NeutralInTriggerArea(AISYS_s *sys, AISCRIPTPROCESS_s *process,
         return 1.0f;
     }
   }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044fc70
+f32 Condition_Player2Active(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char *str, void *data) {
+  if (player2 != NULL)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044fc90
+void *Condition_NumBaddiesInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  return NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044fca0
+f32 Condition_NumBaddies(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char *str, void *data) {
+  i32 count = 0;
+  GameObject_s *object = Obj;
+  for (i32 i = 0; i < HIGHGAMEOBJECT; ++i, ++object) {
+    if ((object->flags1fc & 1) && (object->flags1fc & 0x1000) &&
+        (object->flags1f8 & 1))
+      ++count;
+  }
+  return (f32)count;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044fd00
+void *Condition_NumForceObjectsInit(AISYS_s *system, char *name,
+                                    AISCRIPT_s *script) {
+  i32 flags = 0;
+  if (name != NULL && system != NULL) {
+    if (NuStrIStr(name, "throwable") != NULL)
+      flags = 1;
+    if (NuStrIStr(name, "inrange") != NULL)
+      flags |= 2;
+  }
+  return (void *)flags;
+}
+
+struct LEVELDATA_s {
+  u8 pad0[0x40];
+  char name[0x22]; // 0x40
+  i16 idx;         // 0x62
+  u8 pad64[0x150 - 0x64];
+};
+
+// GLOBAL: LEGOBATMAN 0x00aca894
+extern LEVELDATA_s *LDataList;
+// GLOBAL: LEGOBATMAN 0x00aca8a4
+extern i32 LEVELCOUNT;
+// GLOBAL: LEGOBATMAN 0x00aca898
+extern LEVELDATA_s *LastLData;
+
+// FUNCTION: LEGOBATMAN 0x0044fd70
+void *Condition_BeenToLevelInit(AISYS_s *system, char *arg,
+                                AISCRIPT_s *script) {
+  if (arg != NULL && system != NULL && g_unk00960894->area != NULL) {
+    for (i32 area_level = 0; area_level < g_unk00960894->area->level_count;
+         ++area_level) {
+      if (NuStrICmp(arg,
+                    LDataList[g_unk00960894->area->levels[area_level]].name) ==
+          0)
+        return (void *)area_level;
+    }
+  }
+  return (void *)-1;
+}
+
+// GLOBAL: LEGOBATMAN 0x009ca958
+extern u8 *LevelProgressData;
+
+// FUNCTION: LEGOBATMAN 0x0044fe20
+f32 Condition_BeenToLevel(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char *str, void *void_arg) {
+  i32 area_level = (i32)void_arg;
+  if (area_level != -1)
+    return (f32)(*(u32 *)(LevelProgressData + area_level * 0x2e90 + 0x2800) &
+                 1);
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044fe70
+void *Condition_LastLevelInit(AISYS_s *system, char *name, AISCRIPT_s *script) {
+  if (name != NULL && system != NULL && g_unk00960894->area != NULL) {
+    for (i32 index = 0; index < LEVELCOUNT; ++index) {
+      if (NuStrICmp(name, LDataList[index].name) == 0)
+        return (void *)index;
+    }
+  }
+  return (void *)-1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044fef0
+f32 Condition_LastLevel(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char *str, void *argument) {
+  if (LastLData != NULL && LastLData->idx == (i32)argument)
+    return 1.0f;
+  return 0.0f;
+}
+
+// GLOBAL: LEGOBATMAN 0x00ad210c
+extern GIZAIMESSAGESYS_s *gizaimessagesys;
+
+// STUB: LEGOBATMAN 0x0044ff10
+// close: orig keeps a zero in eax for the checks and the NULL argument.
+void *Condition_MessageInit(AISYS_s *system, char *name, AISCRIPT_s *script) {
+  GIZAIMESSAGE_s *message = NULL;
+  if (name != NULL && system != NULL && gizaimessagesys != NULL)
+    return CheckGizAIMessage(gizaimessagesys, name, message);
+  return message;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044ff50
+f32 Condition_Message(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                      AIPACKET_s *packet, char *str, void *argument) {
+  if (argument != NULL)
+    return ((f32 *)argument)[0x28 / 4];
   return 0.0f;
 }
 

@@ -79,3 +79,4 @@
 00452820 Condition_IsContextAnimationFinished: x87 result kept in register, 3 tries
 00452980 Condition_IsCarryingPlayerItem: register choice for the list pointer, 3 tries
 00452ff0 Condition_NeutralInTriggerArea: register allocation (area/index), 3 tries
+0044ff10 Condition_MessageInit: zero register reuse, 3 tries
