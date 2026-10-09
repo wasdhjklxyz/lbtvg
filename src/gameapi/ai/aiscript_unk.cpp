@@ -92,23 +92,29 @@ typedef struct AICONDITION_s {
 extern "C" void NuListAppendUnk006d40f0(NULISTHDR *list, NULISTLNK *node);
 void NuMemCpy(unsigned char *dst, unsigned char *src, int n);
 
-// A lone `ret` in the shipped build (debug logging compiled out), but called
-// as an opaque function: callers reload values around it.
-void AIScriptDebugUnk006a10a0(void);
+// Lone `ret`s in the shipped build (debug reports compiled out). Static and
+// empty: calls vanish until one passes a pointer (xConst), then stay.
+static void AIDebugUnk006a10a0(...) {}
 
 static void *AIScriptBufferAlloc(VARIPTR *buf, VARIPTR *buf_end, u32 size) {
   void *ret = 0;
-  if (buf != 0 && buf_end != 0 && buf->addr + size < buf_end->addr) {
-    ret = (void *)((buf->addr + 15) & ~15);
-    buf->addr = ((buf->addr + 15) & ~15) + size;
-    memset(ret, 0, size);
+  if (buf != 0 && buf_end != 0) {
+    if (buf->addr + size < buf_end->addr) {
+      ret = (void *)((buf->addr + 15) & ~15);
+      buf->addr = ((buf->addr + 15) & ~15) + size;
+      memset(ret, 0, size);
+    } else {
+      AIDebugUnk006a10a0();
+    }
   } else {
-    AIScriptDebugUnk006a10a0();
+    AIDebugUnk006a10a0();
   }
   return ret;
 }
 
-// orig 0x006a1a90 takes buf in edi and inlines AIScriptBufferAlloc.
+// STUB: LEGOBATMAN 0x006a1a90
+// close: our cl passes buf_end in ebx as well as buf in edi; the original
+// compiler never passes custom-convention args in ebx (see skip.txt).
 static char *AIScriptCopyString(char *str, VARIPTR *buf, VARIPTR *buf_end) {
   char *dst = 0;
   if (str != 0) {
@@ -129,7 +135,6 @@ typedef struct nufpar_s {
 i32 NuFParGetWord(NUFPAR *parser);
 f32 NuFParGetFloat(NUFPAR *parser);
 void NuStrNCpy(char *dst, const char *src, i32 n);
-void AIDebugUnk006a10a0(...);
 
 struct AISCRIPTCONST_s {
   char name[0x20]; // 0x00
@@ -153,7 +158,7 @@ extern AISCRIPT *load_aiscript;
 // keyword "PARAM" in table 0x0099dce0
 // STUB: LEGOBATMAN 0x006a2460
 // close: only the AIScriptCopyString register convention differs (orig buf
-// in edi, ours str); needs CopyString matched first.
+// in edi, ours buf in edi and buf_end in ebx).
 void xParam(NUFPAR *parser) {
   if (load_aiscript == NULL)
     return;
@@ -309,7 +314,6 @@ AISTATE *AIStateFind(char *name, AISCRIPT *script);
 // GLOBAL: LEGOBATMAN 0x00ad4524
 extern i32 g_unk00ad4524;
 // Lone `ret`s in the shipped build (debug reports compiled out).
-void AIDebugUnk006a10a0(...);
 void AIDebugUnk006a10b0(...);
 
 // FUNCTION: LEGOBATMAN 0x006a4470
@@ -1159,4 +1163,68 @@ i32 Action_SetMoveRadius(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   if (argc != 0 && NuStrICmp(args[0], "default") != 0)
     *(f32 *)((u8 *)packet + 0x120) = AIParamToFloatEx(packet, process, args[0]);
   return 1;
+}
+
+typedef struct AICONDITIONMACRO_s {
+  NULISTLNK list_node;
+  char *name;           // 0x8
+  NULISTHDR conditions; // 0xc
+} AICONDITIONMACRO;
+
+typedef struct AIACTIONMACRO_s {
+  NULISTLNK list_node;
+  char *name;        // 0x8
+  NULISTHDR actions; // 0xc
+} AIACTIONMACRO;
+
+// GLOBAL: LEGOBATMAN 0x00ad450c
+extern NULISTHDR *load_conditionshdr;
+// GLOBAL: LEGOBATMAN 0x00ad4510
+extern NULISTHDR *load_actionshdr;
+// GLOBAL: LEGOBATMAN 0x00ad4514
+extern i32 condition_has_no_goto;
+
+void xConditions(NUFPAR *parser);
+void xActions(NUFPAR *parser);
+
+// keyword "CONDITIONMACRO" in table 0x0099dce0
+// STUB: LEGOBATMAN 0x006b3160
+// blocked on AIScriptCopyString's convention (buf_end in ebx).
+void xConditionMacro(NUFPAR *parser) {
+  AICONDITIONMACRO *macro;
+
+  if (NuFParGetWord(parser) == 0)
+    return;
+  macro = (AICONDITIONMACRO *)AIScriptBufferAlloc(load_buff, load_endbuff,
+                                                  sizeof(AICONDITIONMACRO));
+  if (macro == NULL)
+    return;
+  memset(macro, 0, sizeof(AICONDITIONMACRO));
+  macro->name = AIScriptCopyString(parser->word_buf, load_buff, load_endbuff);
+  NuListAppendUnk006d40f0(&load_aiscript->condition_macros, &macro->list_node);
+  load_conditionshdr = &macro->conditions;
+  condition_has_no_goto = 1;
+  xConditions(parser);
+  load_conditionshdr = NULL;
+  condition_has_no_goto = 0;
+}
+
+// keyword "ACTIONMACRO" in table 0x0099dce0
+// STUB: LEGOBATMAN 0x006b3230
+// blocked on AIScriptCopyString's convention (buf_end in ebx).
+void xActionMacro(NUFPAR *parser) {
+  AIACTIONMACRO *macro;
+
+  if (NuFParGetWord(parser) == 0)
+    return;
+  macro = (AIACTIONMACRO *)AIScriptBufferAlloc(load_buff, load_endbuff,
+                                               sizeof(AIACTIONMACRO));
+  if (macro == NULL)
+    return;
+  memset(macro, 0, sizeof(AIACTIONMACRO));
+  macro->name = AIScriptCopyString(parser->word_buf, load_buff, load_endbuff);
+  NuListAppendUnk006d40f0(&load_aiscript->action_macros, &macro->list_node);
+  load_actionshdr = &macro->actions;
+  xActions(parser);
+  load_actionshdr = NULL;
 }

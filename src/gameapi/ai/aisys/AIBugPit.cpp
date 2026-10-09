@@ -532,6 +532,183 @@ i32 Action_RetreatFromOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
   return 0;
 }
 
+f32 NuVecXZDist(nuvec_s *a, nuvec_s *b, nuvec_s *d);
+f32 NuRandFloat(void);
+
+// 0x1698/0x169c: sys->player_1/player_2
+#define PLAYER(sys, n) (((Unk_AIPacketObj **)((u8 *)(sys) + 0x1698))[n])
+
+struct AILOCATOR_s *AIPathFindLocator(AISYS_s *sys, char *name);
+extern nuvec_s *(*GetAICreatureOriginFn)(AISYS_s *sys, AIPACKET_s *packet);
+
+// FUNCTION: LEGOBATMAN 0x006ba190
+i32 Action_Circle(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                  AIPACKET_s *packet, char **params, i32 param_count,
+                  i32 first_time, f32 elapsed) {
+  nuvec_s difference;
+  if (packet == NULL || sys == NULL || PLAYER(sys, 0) == NULL)
+    return 1;
+  if (first_time != 0) {
+    for (i32 i = 0; i < param_count; i++) {
+      if (AIActionParseSpeedFn != NULL &&
+          AIActionParseSpeedFn(params[i], &packet->goal_speed_mode) != 0)
+        continue;
+      char *value;
+      if (NuStrICmp(params[i], "ANTICLOCKWISE") == 0)
+        packet->circle_clockwise = 0;
+      else if (NuStrICmp(params[i], "CLOCKWISE") == 0)
+        packet->circle_clockwise = 1;
+      else if (NuStrICmp(params[i], "REVERSE") == 0)
+        packet->circle_clockwise = !packet->circle_clockwise;
+      else if (NuStrICmp(params[i], "facing") == 0)
+        processor->action_data_1 |= 1;
+      else if (NuStrICmp(params[i], "currentdist") == 0)
+        processor->action_data_1 |= 4;
+      else if ((value = NuStrIStr(params[i], "locator=")) != NULL) {
+        processor->action_data_3 = AIPathFindLocator(sys, value + 8);
+        if (processor->action_data_3 != NULL)
+          processor->action_data_1 |= 0x10;
+      } else if (NuStrIStr(params[i], "current_position") != NULL) {
+        processor->action_data_1 |= 8;
+        processor->action_pos = *(nuvec_s *)((u8 *)packet + 0x14c);
+      } else if (NuStrICmp(params[i], "origin") == 0) {
+        if (packet->origin_index != 0xff)
+          processor->action_data_1 |= 0x20;
+      } else
+        packet->movement_param = AIParamToFloatEx(packet, processor, params[i]);
+    }
+    if ((processor->action_data_1 & 0x38) == 0) {
+      processor->action_data_1 |= 8;
+      processor->action_pos = *(nuvec_s *)((u8 *)packet + 0x14c);
+    }
+  }
+  nuvec_s *position = NULL;
+  AIPATHINFO7_s *path = NULL;
+  if ((processor->action_data_1 & 8) != 0) {
+    path = (AIPATHINFO7_s *)((u8 *)packet + 0x158);
+    position = &processor->action_pos;
+  } else if ((processor->action_data_1 & 0x10) != 0) {
+    u8 *locator = (u8 *)processor->action_data_3;
+    path = (AIPATHINFO7_s *)(locator + 0x20);
+    position = (nuvec_s *)(locator + 0x10);
+  } else if ((processor->action_data_1 & 0x20) != 0) {
+    u8 *creature = *(u8 **)((u8 *)sys + 0x224) + packet->origin_index * 0xa8;
+    path = (AIPATHINFO7_s *)(creature + 0x30);
+    position = GetAICreatureOriginFn != NULL
+                   ? GetAICreatureOriginFn(sys, packet)
+                   : NULL;
+    if (position == NULL)
+      position = (nuvec_s *)(creature + 0x20);
+  }
+  if (path != NULL && position != NULL) {
+    if ((processor->action_data_1 & 4) != 0)
+      packet->movement_param =
+          NuVecXZDist((nuvec_s *)((u8 *)packet + 0x14c), position, &difference);
+    AIMoveInstructionInline(packet, position, 0.0f, path, 3,
+                            packet->movement_param);
+    if ((processor->action_data_1 & 1) != 0)
+      packet->look_target = position;
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006ba4b0
+i32 Action_CirclePlayer(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                        AIPACKET_s *packet, char **params, i32 param_count,
+                        i32 first_time, f32 elapsed) {
+  nuvec_s difference;
+  if (packet == NULL || sys == NULL || PLAYER(sys, 0) == NULL)
+    return 1;
+  if (first_time != 0) {
+    for (i32 i = 0; i < param_count; i++) {
+      if (AIActionParseSpeedFn != NULL &&
+          AIActionParseSpeedFn(params[i], &packet->goal_speed_mode) != 0)
+        continue;
+      if (NuStrICmp(params[i], "ANTICLOCKWISE") == 0)
+        packet->circle_clockwise = 0;
+      else if (NuStrICmp(params[i], "CLOCKWISE") == 0)
+        packet->circle_clockwise = 1;
+      else if (NuStrICmp(params[i], "REVERSE") == 0)
+        packet->circle_clockwise = !packet->circle_clockwise;
+      else if (NuStrICmp(params[i], "facing") == 0)
+        processor->action_data_1 |= 1;
+      else if (NuStrICmp(params[i], "can_go_off_path") == 0)
+        processor->action_data_1 |= 2;
+      else if (NuStrICmp(params[i], "currentdist") == 0)
+        processor->action_data_1 |= 4;
+      else
+        packet->movement_param = AIParamToFloatEx(packet, processor, params[i]);
+    }
+  }
+  if (PLAYER(sys, 0) != NULL) {
+    if ((processor->action_data_1 & 4) != 0)
+      packet->movement_param = NuVecXZDist(
+          (nuvec_s *)((u8 *)packet + 0x14c),
+          (nuvec_s *)((u8 *)PLAYER(sys, 0)->ai + 0x174), &difference);
+    nuvec_s *position = (processor->action_data_1 & 2) != 0
+                            ? (nuvec_s *)((u8 *)PLAYER(sys, 0)->ai + 0x14c)
+                            : (nuvec_s *)((u8 *)PLAYER(sys, 0)->ai + 0x174);
+    AIMoveInstructionInline(packet, position,
+                            *(f32 *)((u8 *)PLAYER(sys, 0)->ai + 0x120),
+                            (AIPATHINFO7_s *)((u8 *)PLAYER(sys, 0)->ai + 0x158),
+                            3, packet->movement_param);
+    if ((processor->action_data_1 & 1) != 0)
+      packet->look_target = position;
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006ba710
+i32 Action_CircleOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                          AIPACKET_s *packet, char **params, i32 param_count,
+                          i32 first_time, f32 elapsed) {
+  nuvec_s difference;
+  if (packet == NULL)
+    return 1;
+  if (first_time != 0) {
+    for (i32 i = 0; i < param_count; i++) {
+      if (AIActionParseSpeedFn != NULL &&
+          AIActionParseSpeedFn(params[i], &packet->goal_speed_mode) != 0)
+        continue;
+      if (NuStrICmp(params[i], "ANTICLOCKWISE") == 0)
+        packet->circle_clockwise = 0;
+      else if (NuStrICmp(params[i], "CLOCKWISE") == 0)
+        packet->circle_clockwise = 1;
+      else if (NuStrICmp(params[i], "REVERSE") == 0)
+        packet->circle_clockwise = !packet->circle_clockwise;
+      else if (NuStrICmp(params[i], "RANDOM") == 0) {
+        if (NuRandFloat() < 0.5f)
+          packet->circle_clockwise = 0;
+        else
+          packet->circle_clockwise = 1;
+      } else if (NuStrICmp(params[i], "facing") == 0)
+        processor->action_data_1 |= 1;
+      else if (NuStrICmp(params[i], "can_go_off_path") == 0)
+        processor->action_data_1 |= 2;
+      else if (NuStrICmp(params[i], "currentdist") == 0)
+        processor->action_data_1 |= 4;
+      else
+        packet->movement_param = AIParamToFloatEx(packet, processor, params[i]);
+    }
+  }
+  if (packet->pe4 != NULL && packet->pe4->ai != NULL) {
+    if ((processor->action_data_1 & 4) != 0)
+      packet->movement_param =
+          NuVecXZDist((nuvec_s *)((u8 *)packet + 0x14c),
+                      (nuvec_s *)((u8 *)packet->pe4->ai + 0x174), &difference);
+    nuvec_s *position = (processor->action_data_1 & 2) != 0
+                            ? (nuvec_s *)((u8 *)packet->pe4->ai + 0x14c)
+                            : (nuvec_s *)((u8 *)packet->pe4->ai + 0x174);
+    AIMoveInstructionInline(packet, position,
+                            *(f32 *)((u8 *)packet->pe4->ai + 0x120),
+                            (AIPATHINFO7_s *)((u8 *)packet->pe4->ai + 0x158), 3,
+                            packet->movement_param);
+    if ((processor->action_data_1 & 1) != 0)
+      packet->look_target = position;
+  }
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x006ba970
 i32 Action_MoveAwayFromOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
                                 AIPACKET_s *packet, char **params,
@@ -560,9 +737,6 @@ i32 Action_MoveAwayFromOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
   }
   return 0;
 }
-
-// 0x1698/0x169c: sys->player_1/player_2
-#define PLAYER(sys, n) (((Unk_AIPacketObj **)((u8 *)(sys) + 0x1698))[n])
 
 // STUB: LEGOBATMAN 0x006baab0
 // close: orig keeps processor in ebx (count from memory); ours keeps count.
@@ -742,6 +916,163 @@ i32 Action_RetreatFromNearestOpponent(AISYS_s *sys,
     AIMoveInstructionInline(
         packet, (nuvec_s *)(target + 0x174), *(f32 *)(target + 0x120),
         (AIPATHINFO7_s *)(target + 0x158), 2, packet->movement_param);
+  }
+  return 0;
+}
+
+// STUB: LEGOBATMAN 0x006bb100
+// close: GoToNode's epilogue puzzle (orig keeps two "return 0" tails).
+i32 Action_GoToNodeRandom(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                          AIPACKET_s *packet, char **params, i32 param_count,
+                          i32 first_time, f32 elapsed) {
+  nuvec_s difference;
+  if (packet == NULL || packet->pd0 == NULL || packet->path_set == NULL ||
+      packet->path_node == NULL)
+    return 1;
+  if (first_time != 0) {
+    if (param_count != 0) {
+      i32 selected = (i32)(NuRandFloat() * param_count);
+      if (selected >= param_count)
+        selected = param_count - 1;
+      processor->action_data_3 = AIPathFindNode(
+          sys, (struct AIPATH_s *)packet->path_set, params[selected]);
+      GTNPATHNODE_s *node = (GTNPATHNODE_s *)processor->action_data_3;
+      if (node == NULL || node->connection_count == 0)
+        return 1;
+      GTNPATH_s *path = (GTNPATH_s *)packet->path_set;
+      i32 node_index = node - path->nodes;
+      GTN_PATHINFO(processor)->path = path;
+      GTN_PATHINFO(processor)->connection = node->connections[0];
+      if (GTN_PATHINFO(processor)->connection->node_indices[0] == node_index)
+        GTN_PATHINFO(processor)->dist = 0.0f;
+      else
+        GTN_PATHINFO(processor)->dist = 1.0f;
+      GTN_PATHINFO(processor)->flags |= 1;
+      GTN_PATHINFO(processor)->width = 0.0f;
+      GTN_PATHINFO(processor)->direction = 0;
+      AIMoveInstruction(packet, &node->position, 0.0f,
+                        (AIPATHINFO7_s *)GTN_PATHINFO(processor), 1,
+                        packet->movement_param);
+      return 0;
+    }
+  } else {
+    GTNPATHNODE_s *node = (GTNPATHNODE_s *)processor->action_data_3;
+    if (node == NULL)
+      return 1;
+    f32 distance_squared = NuVecXZDistSqr((nuvec_s *)((u8 *)packet + 0x14c),
+                                          &node->position, &difference);
+    AIMoveInstruction(packet, &node->position, 0.0f,
+                      (AIPATHINFO7_s *)GTN_PATHINFO(processor), 1,
+                      packet->movement_param);
+    if (distance_squared < node->radius_squared)
+      return 1;
+  }
+  return 0;
+}
+
+f32 NuVecDistSqr(nuvec_s *a, nuvec_s *b, nuvec_s *d);
+void NuVecRotateY(nuvec_s *v, nuvec_s *v0, i32 a);
+void NuVecAdd(nuvec_s *out, nuvec_s *a, nuvec_s *b);
+extern f32 ai_moveradius;
+
+// Batman's path cursor is a dword longer, so the timer sits at +0xa0.
+#define GTO_TIMER(p) (*(f32 *)((u8 *)(p) + 0xa0))
+
+// AISYS_s +0x224 entries
+struct GTOCREATURE_s {
+  u8 pad0[0x20];
+  nuvec_s pos;             // 0x20
+  i32 y_rot;               // 0x2c
+  AIPATHINFO7_s path_info; // 0x30
+  u8 pad4c[0xa8 - 0x4c];
+};
+
+// STUB: LEGOBATMAN 0x006bb2a0
+// close: logic lines up; orig keeps creature in ebp and pushes ebx before
+// the first_time branch, ours puts creature in ebx (decl order, typed
+// struct tried).
+i32 Action_GoToOrigin(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                      AIPACKET_s *packet, char **params, i32 param_count,
+                      i32 first_time, f32 elapsed) {
+  GTOCREATURE_s *creature;
+  nuvec_s *origin;
+  f32 min_time = 0.0f;
+  f32 max_time = 0.0f;
+  nuvec_s difference;
+  if (packet == NULL || packet->pd0 == NULL || packet->path_set == NULL ||
+      packet->path_node == NULL || (packet->pd0->flags1f8 & 0x400) == 0 ||
+      packet->origin_index == 0xff)
+    return 1;
+  creature = &(*(GTOCREATURE_s **)((u8 *)sys + 0x224))[packet->origin_index];
+  origin =
+      GetAICreatureOriginFn != NULL ? GetAICreatureOriginFn(sys, packet) : NULL;
+  if (origin == NULL)
+    origin = &creature->pos;
+
+  if (first_time != 0) {
+    packet->movement_param = 0.2f;
+    if (param_count != 0) {
+      for (i32 index = 0; index < param_count; ++index) {
+        if (AIActionParseSpeedFn != NULL &&
+            AIActionParseSpeedFn(params[index], &packet->goal_speed_mode) != 0)
+          continue;
+        char *value = NuStrIStr(params[index], "waittime");
+        if (value != NULL)
+          GTO_TIMER(processor) = AIParamToFloatEx(
+              packet, processor, value + NuStrLen("waittime") + 1);
+        else if ((value = NuStrIStr(params[index], "mintime")) != NULL)
+          min_time = AIParamToFloatEx(packet, processor,
+                                      value + NuStrLen("mintime") + 1);
+        else if ((value = NuStrIStr(params[index], "maxtime")) != NULL)
+          max_time = AIParamToFloatEx(packet, processor,
+                                      value + NuStrLen("maxtime") + 1);
+        else if (NuStrICmp(params[index], "xz_rangecheck") == 0)
+          processor->action_data_2 = 1;
+        else if ((value = NuStrIStr(params[index], "goalrange")) != NULL)
+          packet->movement_param = AIParamToFloatEx(
+              packet, processor, value + NuStrLen("goalrange") + 1);
+        else
+          packet->movement_param =
+              AIParamToFloatEx(packet, processor, params[index]);
+      }
+    }
+    if (GTO_TIMER(processor) == 0.0f) {
+      if (max_time > min_time)
+        GTO_TIMER(processor) = NuRandFloat() * (max_time - min_time) + min_time;
+      else
+        GTO_TIMER(processor) = 0.01f;
+    }
+    AIMoveInstruction(packet, origin, 0.0f, &creature->path_info, 1,
+                      packet->movement_param);
+    processor->action_pos.x = 0.0f;
+    processor->action_pos.y = 0.0f;
+    processor->action_pos.z = 1.0f;
+    NuVecRotateY(&processor->action_pos, &processor->action_pos,
+                 creature->y_rot);
+    NuVecAdd(&processor->action_pos, &processor->action_pos, origin);
+    return 0;
+  }
+
+  AIMoveInstruction(packet, origin, 0.0f, &creature->path_info, 1,
+                    packet->movement_param);
+  f32 distance_squared;
+  if (processor->action_data_2 != 0)
+    distance_squared =
+        NuVecXZDistSqr((nuvec_s *)((u8 *)packet + 0x14c), origin, &difference);
+  else
+    distance_squared =
+        NuVecDistSqr((nuvec_s *)((u8 *)packet + 0x14c), origin, &difference);
+  f32 range = ai_moveradius + packet->movement_param;
+  range += *(f32 *)((u8 *)packet->pd0 + 0x22c) * elapsed;
+  if (distance_squared < range * range) {
+    packet->look_target = &processor->action_pos;
+    if (GTO_TIMER(processor) > 0.0f) {
+      f32 remaining_time = GTO_TIMER(processor) - elapsed;
+      GTO_TIMER(processor) = remaining_time;
+      if (remaining_time < 0.0f)
+        GTO_TIMER(processor) = 0.0f;
+    } else
+      return 1;
   }
   return 0;
 }

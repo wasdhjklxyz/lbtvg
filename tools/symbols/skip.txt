@@ -122,3 +122,8 @@
 006a4530 Action_ResetTimer: packet/processor ebx/ebp swap only, 3 tries
 006a4640 Action_Idle: params/processor register choice, 3 tries
 00658e80 Traffic_animobj: count byte load/compare scheduling, 3 tries
+006a1a90 AIScriptCopyString: our cl passes buf_end in ebx too; orig never passes custom-convention args in ebx/ebp
+006b3160 xConditionMacro: blocked on AIScriptCopyString's ebx convention
+006b3230 xActionMacro: blocked on AIScriptCopyString's ebx convention
+006bb100 Action_GoToNodeRandom: GoToNode's epilogue puzzle (two return-0 tails), 3 tries
+006bb2a0 Action_GoToOrigin: creature ebp/ebx register swap only, 4 tries
