@@ -105,6 +105,55 @@ i32 Action_DontAvoidCharacter(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+// FUNCTION: LEGOBATMAN 0x0045e500
+i32 Action_SetScriptParam(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **args, int argc, int flags,
+                          f32 time) {
+  f32 amount = 0.0f;
+  i32 operation = 0;
+  i32 index = -1;
+  if (flags && argc != 0 && process->script != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *value = NuStrIStr(args[i], "name=");
+      if (value != 0) {
+        value += 5;
+        for (i32 j = 0; j < 4; j++) {
+          if (NuStrICmp(process->script->params[j].name, value) == 0) {
+            index = j;
+            break;
+          }
+        }
+      } else if ((value = NuStrIStr(args[i], "ix=")) != 0) {
+        index = (i32)AIParamToFloat(process, value + 3);
+        if (index >= 4)
+          index = -1;
+      } else if ((value = NuStrIStr(args[i], "value=")) != 0) {
+        amount = AIParamToFloat(process, value + 6);
+      } else if ((value = NuStrIStr(args[i], "increment=")) != 0) {
+        amount = AIParamToFloat(process, value + 10);
+        operation = 1;
+      } else if ((value = NuStrIStr(args[i], "decrement=")) != 0) {
+        amount = AIParamToFloat(process, value + 10);
+        operation = -1;
+      }
+    }
+    if (index >= 0) {
+      switch (operation) {
+      case 0:
+        process->params[index] = amount;
+        break;
+      case 1:
+        process->params[index] = process->params[index] + amount;
+        break;
+      case -1:
+        process->params[index] -= amount;
+        break;
+      }
+    }
+  }
+  return 1;
+}
+
 struct GIZOBSTACLE_s {
   u8 pad0[0xc8];
   u32 flags_c8_lo : 13;
@@ -239,6 +288,129 @@ static inline GameObject_s *GetNamedGameObject(AISYS_s *sys, char *name) {
   return 0;
 }
 
+void SetForceBack(GameObject_s *obj, nuvec_s *position, f32 radius, i32 type);
+void ResetForceBack(void);
+
+// FUNCTION: LEGOBATMAN 0x00467f50
+i32 Action_SetForceBack(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char **args, int argc, int flags,
+                        f32 time) {
+  GameObject_s *obj = 0;
+  i32 enabled = 1;
+  i32 type = 0;
+  nuvec_s *position = 0;
+  f32 radius = 1.5f;
+  char *s;
+  i32 i;
+  if (flags) {
+    if (packet && packet->pd0 && packet->pd0->obj)
+      obj = packet->pd0->obj;
+    for (i = 0; i < argc; i++) {
+      if ((s = NuStrIStr(args[i], "character="))) {
+        obj = GetNamedGameObject(sys, s + 10);
+      } else if ((s = NuStrIStr(args[i], "locator="))) {
+        u8 *locator = (u8 *)AIPathFindLocator(sys, s + 8);
+        if (locator)
+          position = (nuvec_s *)(locator + 0x10);
+      } else if ((s = NuStrIStr(args[i], "radius="))) {
+        radius = AIParamToFloat(process, s + 7);
+      } else if (!NuStrICmp(args[i], "FALSE")) {
+        enabled = 0;
+      } else if (!NuStrICmp(args[i], "type=CHOKE")) {
+        type = 1;
+      } else if (!NuStrICmp(args[i], "type=DROID")) {
+        type = 2;
+      } else if (!NuStrICmp(args[i], "type=ComboOpponent")) {
+        type = 3;
+      }
+    }
+    if (enabled) {
+      if (obj || position)
+        SetForceBack(obj, position, radius, type);
+    } else {
+      ResetForceBack();
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0046d6f0
+i32 Action_AddMiscPickups(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **args, int argc, int flags,
+                          f32 time) {
+  GameObject_s *obj = 0;
+  i32 value = 0;
+  i32 torpedo = 0;
+  Unk_AIPacketObj *api;
+  char *s;
+  i32 i;
+  if (!flags)
+    return 1;
+  if (packet && packet->pd0 && packet->pd0->obj)
+    obj = packet->pd0->obj;
+  for (i = 0; i < argc; i++) {
+    if ((s = NuStrIStr(args[i], "character="))) {
+      if (GetNamedAPIObjectFn && (api = GetNamedAPIObjectFn(sys, s + 10)))
+        obj = api->obj;
+      else
+        obj = 0;
+    } else if ((s = NuStrIStr(args[i], "value="))) {
+      value = (i32)AIParamToFloat(process, s + 6);
+    } else if ((s = NuStrIStr(args[i], "torpedo="))) {
+      torpedo = (i32)AIParamToFloat(process, s + 8);
+    }
+  }
+  if (obj && &obj->v80 && (value || torpedo))
+    AddMiscPickups(&obj->v80, -1, value, torpedo, 1);
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0046d870
+i32 Action_SetLayer(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                    AIPACKET_s *packet, char **args, int argc, int flags,
+                    f32 time) {
+  u32 set_layers = 0;
+  u32 clear_layers = 0;
+  u32 remove_layers = 0;
+  u32 clear_remove_layers = 0;
+  GameObject_s *obj = 0;
+  char *s;
+  i32 layer;
+  i32 i;
+  if (flags) {
+    if (packet && packet->pd0 && packet->pd0->obj)
+      obj = packet->pd0->obj;
+    for (i = 0; i < argc; i++) {
+      if ((s = NuStrIStr(args[i], "character="))) {
+        obj = GetNamedGameObject(sys, s + 10);
+      } else if ((s = NuStrIStr(args[i], "set_layer="))) {
+        layer = (i32)AIParamToFloat(process, s + 10);
+        if ((u32)(layer - 1) <= 31)
+          set_layers |= 1 << (layer - 1);
+      } else if ((s = NuStrIStr(args[i], "remove_layer="))) {
+        layer = (i32)AIParamToFloat(process, s + 13);
+        if ((u32)(layer - 1) <= 31)
+          remove_layers |= 1 << (layer - 1);
+      }
+      if ((s = NuStrIStr(args[i], "clear_remove_layer="))) {
+        layer = (i32)AIParamToFloat(process, s + 19);
+        if ((u32)(layer - 1) <= 31)
+          clear_remove_layers |= 1 << (layer - 1);
+      } else if ((s = NuStrIStr(args[i], "clear_layer="))) {
+        layer = (i32)AIParamToFloat(process, s + 12);
+        if ((u32)(layer - 1) <= 31)
+          clear_layers |= 1 << (layer - 1);
+      }
+    }
+    if (obj) {
+      u32 *layers = (u32 *)((u8 *)obj + 0x1588);
+      layers[0] = (layers[0] | set_layers) & ~clear_layers;
+      layers[1] = (layers[1] | remove_layers) & ~clear_remove_layers;
+    }
+  }
+  return 1;
+}
+
 struct TECHNO_s {
   u8 pad0[0x8b];
   u8 flags8b_lo : 3;
@@ -336,129 +508,6 @@ i32 Action_CompleteLevel(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     else
       CompleteLevel(g_unk00960894);
   }
-  return 1;
-}
-
-// FUNCTION: LEGOBATMAN 0x0046d870
-i32 Action_SetLayer(AISYS_s *sys, AISCRIPTPROCESS_s *process,
-                    AIPACKET_s *packet, char **args, int argc, int flags,
-                    f32 time) {
-  u32 set_layers = 0;
-  u32 clear_layers = 0;
-  u32 remove_layers = 0;
-  u32 clear_remove_layers = 0;
-  GameObject_s *obj = 0;
-  char *s;
-  i32 layer;
-  i32 i;
-  if (flags) {
-    if (packet && packet->pd0 && packet->pd0->obj)
-      obj = packet->pd0->obj;
-    for (i = 0; i < argc; i++) {
-      if ((s = NuStrIStr(args[i], "character="))) {
-        obj = GetNamedGameObject(sys, s + 10);
-      } else if ((s = NuStrIStr(args[i], "set_layer="))) {
-        layer = (i32)AIParamToFloat(process, s + 10);
-        if ((u32)(layer - 1) <= 31)
-          set_layers |= 1 << (layer - 1);
-      } else if ((s = NuStrIStr(args[i], "remove_layer="))) {
-        layer = (i32)AIParamToFloat(process, s + 13);
-        if ((u32)(layer - 1) <= 31)
-          remove_layers |= 1 << (layer - 1);
-      }
-      if ((s = NuStrIStr(args[i], "clear_remove_layer="))) {
-        layer = (i32)AIParamToFloat(process, s + 19);
-        if ((u32)(layer - 1) <= 31)
-          clear_remove_layers |= 1 << (layer - 1);
-      } else if ((s = NuStrIStr(args[i], "clear_layer="))) {
-        layer = (i32)AIParamToFloat(process, s + 12);
-        if ((u32)(layer - 1) <= 31)
-          clear_layers |= 1 << (layer - 1);
-      }
-    }
-    if (obj) {
-      u32 *layers = (u32 *)((u8 *)obj + 0x1588);
-      layers[0] = (layers[0] | set_layers) & ~clear_layers;
-      layers[1] = (layers[1] | remove_layers) & ~clear_remove_layers;
-    }
-  }
-  return 1;
-}
-
-void SetForceBack(GameObject_s *obj, nuvec_s *position, f32 radius, i32 type);
-void ResetForceBack(void);
-
-// FUNCTION: LEGOBATMAN 0x00467f50
-i32 Action_SetForceBack(AISYS_s *sys, AISCRIPTPROCESS_s *process,
-                        AIPACKET_s *packet, char **args, int argc, int flags,
-                        f32 time) {
-  GameObject_s *obj = 0;
-  i32 enabled = 1;
-  i32 type = 0;
-  nuvec_s *position = 0;
-  f32 radius = 1.5f;
-  char *s;
-  i32 i;
-  if (flags) {
-    if (packet && packet->pd0 && packet->pd0->obj)
-      obj = packet->pd0->obj;
-    for (i = 0; i < argc; i++) {
-      if ((s = NuStrIStr(args[i], "character="))) {
-        obj = GetNamedGameObject(sys, s + 10);
-      } else if ((s = NuStrIStr(args[i], "locator="))) {
-        u8 *locator = (u8 *)AIPathFindLocator(sys, s + 8);
-        if (locator)
-          position = (nuvec_s *)(locator + 0x10);
-      } else if ((s = NuStrIStr(args[i], "radius="))) {
-        radius = AIParamToFloat(process, s + 7);
-      } else if (!NuStrICmp(args[i], "FALSE")) {
-        enabled = 0;
-      } else if (!NuStrICmp(args[i], "type=CHOKE")) {
-        type = 1;
-      } else if (!NuStrICmp(args[i], "type=DROID")) {
-        type = 2;
-      } else if (!NuStrICmp(args[i], "type=ComboOpponent")) {
-        type = 3;
-      }
-    }
-    if (enabled) {
-      if (obj || position)
-        SetForceBack(obj, position, radius, type);
-    } else {
-      ResetForceBack();
-    }
-  }
-  return 1;
-}
-
-// FUNCTION: LEGOBATMAN 0x0046d6f0
-i32 Action_AddMiscPickups(AISYS_s *sys, AISCRIPTPROCESS_s *process,
-                          AIPACKET_s *packet, char **args, int argc, int flags,
-                          f32 time) {
-  GameObject_s *obj = 0;
-  i32 value = 0;
-  i32 torpedo = 0;
-  Unk_AIPacketObj *api;
-  char *s;
-  i32 i;
-  if (!flags)
-    return 1;
-  if (packet && packet->pd0 && packet->pd0->obj)
-    obj = packet->pd0->obj;
-  for (i = 0; i < argc; i++) {
-    if ((s = NuStrIStr(args[i], "character="))) {
-      if (GetNamedAPIObjectFn && (api = GetNamedAPIObjectFn(sys, s + 10)))
-        obj = api->obj;
-      else
-        obj = 0;
-    } else if ((s = NuStrIStr(args[i], "value="))) {
-      value = (i32)AIParamToFloat(process, s + 6);
-    } else if ((s = NuStrIStr(args[i], "torpedo="))) {
-      torpedo = (i32)AIParamToFloat(process, s + 8);
-    }
-  }
-  if (obj && &obj->v80 && (value || torpedo))
-    AddMiscPickups(&obj->v80, -1, value, torpedo, 1);
   return 1;
 }
 
