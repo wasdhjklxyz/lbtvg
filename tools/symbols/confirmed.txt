@@ -590,3 +590,8 @@
 0044eef0 Condition_LocatorOnScreen  matched saga body, Mac order
 0044ef40 Condition_Blocking  matched (Mac calls ObjBlocking), Mac order
 0044efb0 Condition_BeenHit  matched saga body, Mac order
+0044f030 Condition_BeenHitByBatarang  matched (asm body), Mac order
+0044f0a0 Condition_BeenHitByWhip  matched (asm body), Mac order
+0044f0e0 Condition_HoverPhase  matched saga body, Mac order
+0044f150 Condition_HitPoints  matched saga body, Mac order
+0044f190 Condition_CollidingWithOpponent  matched saga body, Mac order

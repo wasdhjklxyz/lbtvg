@@ -2709,3 +2709,63 @@ f32 Condition_BeenHit(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     return 1.0f;
   return 0.0f;
 }
+
+// FUNCTION: LEGOBATMAN 0x0044f030
+f32 Condition_BeenHitByBatarang(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                AIPACKET_s *packet, char *str, void *argument) {
+  GameObject_s *object = (GameObject_s *)argument;
+  if (object == NULL) {
+    if (packet == NULL || packet->pd0 == NULL ||
+        (object = packet->pd0->obj) == NULL)
+      return 0.0f;
+  }
+  if (object->flags140c & 2)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044f0a0
+f32 Condition_BeenHitByWhip(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char *str, void *argument) {
+  GameObject_s *object = (GameObject_s *)argument;
+  if (object == NULL) {
+    if (packet == NULL || packet->pd0 == NULL ||
+        (object = packet->pd0->obj) == NULL)
+      return 0.0f;
+  }
+  if (object->flags140c & 4)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044f0e0
+f32 Condition_HoverPhase(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char *str, void *argument) {
+  if (packet != NULL && packet->pd0 != NULL)
+    return (f32)((u8 *)packet->pd0->obj)[0x131c];
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044f150
+f32 Condition_HitPoints(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char *str, void *argument) {
+  GameObject_s *object = (GameObject_s *)argument;
+  if (object == NULL) {
+    object = packet != NULL && packet->pd0 != NULL ? packet->pd0->obj : NULL;
+  }
+  if (object != NULL)
+    return (f32)((i8 *)object)[0x15c7];
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044f190
+f32 Condition_CollidingWithOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                    AIPACKET_s *packet, char *str,
+                                    void *argument) {
+  // 0x1f0: colliding-objects mask; 0x1e8: collision identity mask.
+  if (packet != NULL && packet->pe4 != NULL && packet->pd0 != NULL &&
+      (*(unsigned __int64 *)((u8 *)packet->pd0 + 0x1f0) &
+       *(unsigned __int64 *)((u8 *)packet->pe4 + 0x1e8)) != 0)
+    return 1.0f;
+  return 0.0f;
+}
