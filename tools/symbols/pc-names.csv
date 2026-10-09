@@ -606,7 +606,20 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00620b30,0027a480,__Z16RedirectTextFilePcS_iPi,"RedirectTextFile(char*, char*, int, int*)",strings,0
 006213c0,0027f374,__Z13CC_anim_startP8nufpar_s,CC_anim_start(nufpar_s*),strings,0
 00623850,0027b58a,__Z14ParseStreakColP8nufpar_s,ParseStreakCol(nufpar_s*),strings,0
+00623f90,0027bd52,__Z10CC_sfx_dieP8nufpar_s,CC_sfx_die(nufpar_s*),confirmed,0
+00623fd0,0027bd70,__Z11CC_sfx_hurtP8nufpar_s,CC_sfx_hurt(nufpar_s*),confirmed,0
+00624010,0027bd8e,__Z13CC_sfx_doomedP8nufpar_s,CC_sfx_doomed(nufpar_s*),confirmed,0
+00624050,0027bdac,__Z12CC_sfx_gruntP8nufpar_s,CC_sfx_grunt(nufpar_s*),confirmed,0
 00624090,0027bdca,__Z13CC_sfx_engineP8nufpar_s,CC_sfx_engine(nufpar_s*),strings,0
+00624110,0027be3c,__Z12CC_sfx_shootP8nufpar_s,CC_sfx_shoot(nufpar_s*),confirmed,0
+00624150,0027be5a,__Z15CC_sfx_footstepP8nufpar_s,CC_sfx_footstep(nufpar_s*),confirmed,0
+00624190,0027be78,__Z14CC_sfx_chatterP8nufpar_s,CC_sfx_chatter(nufpar_s*),confirmed,0
+006241d0,0027be96,__Z16CC_chatter_delayP8nufpar_s,CC_chatter_delay(nufpar_s*),confirmed,0
+006241f0,0027bec8,__Z12CC_sfx_sabreP8nufpar_s,CC_sfx_sabre(nufpar_s*),confirmed,0
+00624230,0027bee6,__Z12CC_sfx_punchP8nufpar_s,CC_sfx_punch(nufpar_s*),confirmed,0
+00624270,0027bf04,__Z16CC_sfx_punch_hitP8nufpar_s,CC_sfx_punch_hit(nufpar_s*),confirmed,0
+006242b0,0027bf22,__Z15CC_sfx_beepbeepP8nufpar_s,CC_sfx_beepbeep(nufpar_s*),confirmed,0
+006242f0,0027bf40,__Z13CC_sfx_phobiaP8nufpar_s,CC_sfx_phobia(nufpar_s*),confirmed,0
 006285d0,00280c32,__Z16AnimInclude_InitPcP9variptr_uS1_,"AnimInclude_Init(char*, variptr_u*, variptr_u*)",strings,0
 00629270,002818fe,__Z23CharConfig_ConfigureAlliP12nufpcomjmp_s,"CharConfig_ConfigureAll(int, nufpcomjmp_s*)",strings,0
 0062d030,002833a2,__Z24CharShadows_InitMaterialP9variptr_uS_,"CharShadows_InitMaterial(variptr_u*, variptr_u)",strings,0

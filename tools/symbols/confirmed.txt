@@ -319,3 +319,16 @@
 005c1aa0 CanPullLevers  matched saga-shaped body (+ ability table check), Mac order after SetPlayer
 005c1cc0 SetPlayerControl  matched (bit 7 of 0x1fc, callback, clears per-player timer), Mac order after Player_ResetContexts
 00645500 SuperCarry_CarryingType  matched (returns carried blowup of given type while super-carrying), Mac order after SuperCarry_Carrying
+00623f90 CC_sfx_die  matched (inlined CC_set_sfx on runtime 0x1a0), Mac order before CC_sfx_hurt
+00623fd0 CC_sfx_hurt  matched (runtime 0x1a2), Mac order
+00624010 CC_sfx_doomed  matched (runtime 0x1a4), Mac order
+00624050 CC_sfx_grunt  matched (runtime 0x1a6), Mac order before CC_sfx_engine
+00624110 CC_sfx_shoot  matched (runtime 0x1aa), Mac order after CC_sfx_engine
+00624150 CC_sfx_footstep  matched (runtime 0x1ac), Mac order
+00624190 CC_sfx_chatter  matched (runtime 0x1ae), Mac order
+006241d0 CC_chatter_delay  matched saga body (u8 at runtime 0x233), Mac order
+006241f0 CC_sfx_sabre  matched (runtime 0x1b0), Mac order
+00624230 CC_sfx_punch  matched (runtime 0x1b2), Mac order
+00624270 CC_sfx_punch_hit  matched (runtime 0x1b4), Mac order
+006242b0 CC_sfx_beepbeep  matched (runtime 0x1b6), Mac order
+006242f0 CC_sfx_phobia  matched (runtime 0x1b8), Mac order
