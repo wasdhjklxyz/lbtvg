@@ -4622,3 +4622,47 @@ i32 Action_SetSpline(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     InitSplinePosition(&obj->movement_spline, spline, 0.0f, looping);
   return 1;
 }
+
+void PlayRepeatSfx(char *name, i32 sfx_id, f32 initial_delay, char play_count,
+                   f32 repeat_delay, nuvec_s *pos);
+
+// FUNCTION: LEGOBATMAN 0x00465ab0
+i32 Action_PlaySfx(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
+                   char **args, int argc, int flags, f32 time) {
+  f32 start_delay = 0.0f;
+  f32 repeat_delay = 0.0f;
+  nuvec_s pos;
+  pos.x = 1000000000.0f;
+  pos.y = 1000000000.0f;
+  pos.z = 1000000000.0f;
+  char play_count = 1;
+  char *name = 0;
+  nuvec_s *pos_ptr = 0;
+  if (flags == 0)
+    return 1;
+  for (i32 i = 0; i < argc; i++) {
+    char *s = NuStrIStr(args[i], "name=");
+    if (s != 0)
+      name = s + 5;
+    else if ((s = NuStrIStr(args[i], "playcount=")) != 0)
+      play_count = (char)AIParamToFloat(process, s + 10);
+    else if ((s = NuStrIStr(args[i], "repdelay=")) != 0)
+      repeat_delay = AIParamToFloat(process, s + 9);
+    else if ((s = NuStrIStr(args[i], "startdelay=")) != 0)
+      start_delay = AIParamToFloat(process, s + 11);
+    else if ((s = NuStrIStr(args[i], "x=")) != 0)
+      pos.x = AIParamToFloat(process, s + 2);
+    else if ((s = NuStrIStr(args[i], "y=")) != 0)
+      pos.y = AIParamToFloat(process, s + 2);
+    else if ((s = NuStrIStr(args[i], "z=")) != 0)
+      pos.z = AIParamToFloat(process, s + 2);
+    else if ((s = NuStrIStr(args[i], "character_pos=")) != 0)
+      pos_ptr = &Unk0044c930(sys, s + 14)->v80;
+  }
+  if (pos_ptr == 0 && pos.x != 1000000000.0 && pos.y != 1000000000.0 &&
+      pos.z != 1000000000.0)
+    pos_ptr = &pos;
+  if (name != 0)
+    PlayRepeatSfx(name, -1, start_delay, play_count, repeat_delay, pos_ptr);
+  return 1;
+}
