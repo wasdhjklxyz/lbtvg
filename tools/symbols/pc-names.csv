@@ -318,6 +318,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0045af10,000922f6,__Z37Action_SetIgnorePlayerItemsTargettingP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetIgnorePlayerItemsTargetting(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 0045b070,00092402,__Z22Action_SetInvulnerableP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetInvulnerable(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 0045b7e0,00092c5e,__Z25Action_DontAvoidCharacterP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_DontAvoidCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0045b990,00092aa2,__Z15Action_DontPushP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_DontPush(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 0045bbb0,0007c90e,__Z22Action_PressJumpButtonP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_PressJumpButton(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 0045be70,0007cb32,__Z26Action_SetZeroAccelerationP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetZeroAcceleration(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 0045bf80,0007cc1c,__Z21Action_BreakFormationP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_BreakFormation(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
@@ -385,6 +386,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00463f00,00080be2,__Z22Action_SetAnimSpeedMulP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetAnimSpeedMul(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 004640d0,0008ecd6,__Z23Action_CatchUpForbiddenP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CatchUpForbidden(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 004641d0,0008eb56,__Z18Action_SetTaggableP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetTaggable(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
+004644c0,0008ef70,__Z19Action_NotWithPartyP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_NotWithParty(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 004645b0,0008eeaa,__Z16Action_CanAttackP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CanAttack(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 004646a0,0008f038,__Z17Action_TakeDamageP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_TakeDamage(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 00464be0,0008f538,__Z19Action_TagCharacterP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_TagCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
@@ -420,6 +422,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0046dee0,00088ffc,__Z20Action_CreateCoupledP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CreateCoupled(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 0046e4e0,00097be6,__Z21Action_ThrowDetonatorP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ThrowDetonator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 0046eee0,00084b5e,__Z21Action_ForceLightningP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ForceLightning(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0046f2a0,,Action_SetAO_MaxAttackers,Action_SetAO_MaxAttackers,confirmed,0
 0046f340,,Action_SetAO_AttackersPerRow,Action_SetAO_AttackersPerRow,confirmed,0
 0046f3e0,,Action_SetAO_RowDist,Action_SetAO_RowDist,confirmed,0
 0046f470,,Action_SetAO_InitRowDist,Action_SetAO_InitRowDist,confirmed,0
@@ -1609,7 +1612,6 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006a4f40,002380cc,_Action_FlatTerrain,_Action_FlatTerrain,confirmed,0
 006a4fc0,00238140,_Action_ShadowTerrain,_Action_ShadowTerrain,confirmed,0
 006a5040,002381b4,_Action_DontUseShadowTerrain,_Action_DontUseShadowTerrain,confirmed,0
-006a50c0,00092aa2,__Z15Action_DontPushP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_DontPush(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 006a5140,0023829c,_Action_CanSeeBehind,_Action_CanSeeBehind,confirmed,0
 006a51c0,00238316,_Action_RequiresLOS,_Action_RequiresLOS,confirmed,0
 006a5230,00238380,_Action_SetFullPathSearch,_Action_SetFullPathSearch,confirmed,0

@@ -1186,3 +1186,6 @@
 004621e0 Action_GoToLevelPath  keyword table 0x93bb98
 0046f340 Action_SetAO_AttackersPerRow  keyword table 0x93bb98
 00472370 Action_IgnorePhobia  keyword table 0x93bb98
+004644c0 Action_NotWithParty  keyword table 0x93bb98
+0046f2a0 Action_SetAO_MaxAttackers  keyword table 0x93bb98
+0045b990 Action_DontPush  keyword table 0x93bb98

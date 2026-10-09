@@ -3965,3 +3965,89 @@ i32 Action_IgnorePhobia(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 1;
 }
+
+// FUNCTION: LEGOBATMAN 0x004644c0
+i32 Action_NotWithParty(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char **args, int argc, int flags,
+                        f32 time) {
+  GameObject_s *obj = 0;
+  i32 on = 1;
+  if (flags != 0) {
+    if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+      obj = packet->pd0->obj;
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "character=");
+      if (s != 0)
+        obj = GetNamedGameObject(sys, s + 10);
+      else if (NuStrICmp(args[i], "FALSE") == 0)
+        on = 0;
+    }
+    if (obj != 0)
+      obj->not_with_party = on;
+  }
+  return 1;
+}
+
+void Unk00448af0(i32 count);
+
+// FUNCTION: LEGOBATMAN 0x0046f2a0
+i32 Action_SetAO_MaxAttackers(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char **args, int argc,
+                              int flags, f32 time) {
+  if (flags != 0) {
+    if (argc != 0) {
+      for (i32 i = 0; i < argc; i++) {
+        char *s = NuStrIStr(args[i], "max");
+        if (s != 0)
+          Unk00448af0((i32)AIParamToFloat(process, s + 4));
+      }
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0045b990
+i32 Action_DontPush(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                    AIPACKET_s *packet, char **args, int argc, int flags,
+                    f32 time) {
+  i32 on = 1;
+  i32 count = 0;
+  GameObject_s *obj = 0;
+  i32 types[10];
+  if (flags == 0)
+    return 1;
+  if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+    obj = packet->pd0->obj;
+  for (i32 i = 0; i < argc; i++) {
+    char *s = NuStrIStr(args[i], "type");
+    if (s != 0) {
+      if (g_unk00ad68ec != 0 && g_unk00ad68fc != 0) {
+        i32 type = g_unk00ad68ec(s + 5);
+        if (type != 0xff) {
+          type = g_unk00ad68fc(type);
+          if (type != -1 && count < 10)
+            types[count++] = type;
+        }
+      }
+    } else if ((s = NuStrIStr(args[i], "character=")) != 0) {
+      obj = GetNamedGameObject(sys, s + 10);
+    } else if (NuStrICmp(args[i], "FALSE") == 0) {
+      on = 0;
+    }
+  }
+  if (count != 0) {
+    GameObject_s *o = Obj;
+    for (i32 j = 0; j < HIGHGAMEOBJECT; j++, o++) {
+      if ((o->flags1fc & 1) != 0 && (o->flags1fc & 0x1000) != 0 &&
+          (o->flags1f8 & 0x400) != 0) {
+        for (i32 k = 0; k < count; k++) {
+          if (o->type15b0 == types[k])
+            o->dont_push = on;
+        }
+      }
+    }
+  } else if (obj != 0) {
+    obj->dont_push = on;
+  }
+  return 1;
+}

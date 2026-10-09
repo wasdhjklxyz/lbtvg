@@ -107,7 +107,13 @@ struct GameObject_s {
   f32 radius; // 0x1dc, PartyMemberInWay: sphere radius - 0.125
   u8 pad1e0[0x1f8 - 0x1e0];
   u32 flags1f8; // 0x1f8
-  u32 flags1fc; // 0x1fc
+  union {
+    u32 flags1fc; // 0x1fc
+    struct {
+      u32 : 1;
+      u32 dont_push : 1; // 0x1fc bit 1
+    };
+  };
   u8 pad3[0x246 - 0x200];
   u16 u246; // 0x246, MovingBackwards: facing compared with pad input
   u8 pad248[0x24c - 0x248];
@@ -284,6 +290,10 @@ struct GameObject_s {
     struct {
       u32 : 9;
       u32 dont_set_stopped : 1; // 0x1410 bit 9
+    };
+    struct {
+      u32 : 28;
+      u32 not_with_party : 1; // 0x1410 bit 28
     };
   };
   union {
