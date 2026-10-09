@@ -9,23 +9,30 @@ typedef struct nufpar_s {
 } NUFPAR;
 
 typedef struct CHARCONFIG_RUNTIME_s {
-  unsigned char pad0[0x14c];
-  u32 flags; // 0x14c
-  unsigned char pad150[0x1a0 - 0x150];
-  i16 sfx_die;       // 0x1a0
-  i16 sfx_hurt;      // 0x1a2
-  i16 sfx_doomed;    // 0x1a4
-  i16 sfx_grunt;     // 0x1a6
-  i16 sfx_engine;    // 0x1a8
-  i16 sfx_shoot;     // 0x1aa
-  i16 sfx_footstep;  // 0x1ac
-  i16 sfx_chatter;   // 0x1ae
-  i16 sfx_sabre;     // 0x1b0
-  i16 sfx_punch;     // 0x1b2
-  i16 sfx_punch_hit; // 0x1b4
-  i16 sfx_beepbeep;  // 0x1b6
-  i16 sfx_phobia;    // 0x1b8
-  unsigned char pad1ba[0x233 - 0x1ba];
+  unsigned char pad0[0x148];
+  u32 flags148; // 0x148
+  u32 flags;    // 0x14c
+  unsigned char pad150[0x194 - 0x150];
+  i16 sfx_misc[6];         // 0x194
+  i16 sfx_die;             // 0x1a0
+  i16 sfx_hurt;            // 0x1a2
+  i16 sfx_doomed;          // 0x1a4
+  i16 sfx_grunt;           // 0x1a6
+  i16 sfx_engine;          // 0x1a8
+  i16 sfx_shoot;           // 0x1aa
+  i16 sfx_footstep;        // 0x1ac
+  i16 sfx_chatter;         // 0x1ae
+  i16 sfx_sabre;           // 0x1b0
+  i16 sfx_punch;           // 0x1b2
+  i16 sfx_punch_hit;       // 0x1b4
+  i16 sfx_beepbeep;        // 0x1b6
+  i16 sfx_phobia;          // 0x1b8
+  i16 sfx_land_normal;     // 0x1ba
+  i16 sfx_land_lunge;      // 0x1bc
+  i16 sfx_land_slam;       // 0x1be
+  i16 sfx_land_combatroll; // 0x1c0
+  i16 sfx_siren;           // 0x1c2
+  unsigned char pad1c4[0x233 - 0x1c4];
   u8 chatter_delay; // 0x233
 } CHARCONFIG_RUNTIME_s;
 
@@ -123,4 +130,94 @@ void CC_sfx_beepbeep(NUFPAR *parser) {
 // FUNCTION: LEGOBATMAN 0x006242f0
 void CC_sfx_phobia(NUFPAR *parser) {
   CC_set_sfx(parser, &charconfig.runtime->sfx_phobia);
+}
+
+// FUNCTION: LEGOBATMAN 0x00624330
+void CC_sfx_misc(NUFPAR *parser) {
+  i32 index;
+  for (index = 0; index < 6; index++) {
+    if (charconfig.runtime->sfx_misc[index] == -1)
+      break;
+  }
+  if (index < 6 && NuFParGetWord(parser) != 0)
+    charconfig.runtime->sfx_misc[index] = (i16)GetSfxId(parser->word_buf);
+  index++;
+  if (index < 6)
+    charconfig.runtime->sfx_misc[index] = -1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006243c0
+void CC_sfx_land_normal(NUFPAR *parser) {
+  CC_set_sfx(parser, &charconfig.runtime->sfx_land_normal);
+}
+
+// FUNCTION: LEGOBATMAN 0x00624400
+void CC_sfx_land_lunge(NUFPAR *parser) {
+  CC_set_sfx(parser, &charconfig.runtime->sfx_land_lunge);
+}
+
+// FUNCTION: LEGOBATMAN 0x00624440
+void CC_sfx_land_slam(NUFPAR *parser) {
+  CC_set_sfx(parser, &charconfig.runtime->sfx_land_slam);
+}
+
+// FUNCTION: LEGOBATMAN 0x00624480
+void CC_sfx_land_combatroll(NUFPAR *parser) {
+  CC_set_sfx(parser, &charconfig.runtime->sfx_land_combatroll);
+}
+
+// FUNCTION: LEGOBATMAN 0x006244c0
+void CC_sfx_siren(NUFPAR *parser) {
+  CC_set_sfx(parser, &charconfig.runtime->sfx_siren);
+}
+
+// One flag word of CHARCONFIG_RUNTIME_s seen as bits (CC_hero and friends
+// assign single bits from an on/off keyword).
+struct CCBits {
+  u32 b0 : 1, b1 : 1, b2 : 1, b3 : 1, b4 : 1, b5 : 1, b6 : 1, b7 : 1;
+  u32 b8 : 1, b9 : 1, b10 : 1, b11 : 1, b12 : 1, b13 : 1, b14 : 1, b15 : 1;
+  u32 b16 : 1, b17 : 1, b18 : 1, b19 : 1, b20 : 1, b21 : 1, b22 : 1, b23 : 1;
+  u32 b24 : 1, b25 : 1, b26 : 1, b27 : 1, b28 : 1, b29 : 1, b30 : 1, b31 : 1;
+};
+
+// FUNCTION: LEGOBATMAN 0x00624500
+void CC_hero(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags148)->b20 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00624550
+void CC_villain(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags148)->b21 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006245a0
+void CC_no_collision(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags)->b27 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006245f0
+void CC_no_weapon_check(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags)->b28 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00624640
+void CC_smash_vehicle_proximities(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags)->b29 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00624690
+void CC_use_awkward_shapes(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags)->b30 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006246e0
+void CC_throw_kill_parts_up(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags)->b31 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
 }

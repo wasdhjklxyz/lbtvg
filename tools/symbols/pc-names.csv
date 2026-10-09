@@ -620,6 +620,19 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00624270,0027bf04,__Z16CC_sfx_punch_hitP8nufpar_s,CC_sfx_punch_hit(nufpar_s*),confirmed,0
 006242b0,0027bf22,__Z15CC_sfx_beepbeepP8nufpar_s,CC_sfx_beepbeep(nufpar_s*),confirmed,0
 006242f0,0027bf40,__Z13CC_sfx_phobiaP8nufpar_s,CC_sfx_phobia(nufpar_s*),confirmed,0
+00624330,0027bf5e,__Z11CC_sfx_miscP8nufpar_s,CC_sfx_misc(nufpar_s*),confirmed,0
+006243c0,0027bffc,__Z18CC_sfx_land_normalP8nufpar_s,CC_sfx_land_normal(nufpar_s*),confirmed,0
+00624400,0027c01a,__Z17CC_sfx_land_lungeP8nufpar_s,CC_sfx_land_lunge(nufpar_s*),confirmed,0
+00624440,0027c038,__Z16CC_sfx_land_slamP8nufpar_s,CC_sfx_land_slam(nufpar_s*),confirmed,0
+00624480,0027c056,__Z22CC_sfx_land_combatrollP8nufpar_s,CC_sfx_land_combatroll(nufpar_s*),confirmed,0
+006244c0,0027c074,__Z12CC_sfx_sirenP8nufpar_s,CC_sfx_siren(nufpar_s*),confirmed,0
+00624500,0027c092,__Z7CC_heroP8nufpar_s,CC_hero(nufpar_s*),confirmed,0
+00624550,0027c0d6,__Z10CC_villainP8nufpar_s,CC_villain(nufpar_s*),confirmed,0
+006245a0,0027c11a,__Z15CC_no_collisionP8nufpar_s,CC_no_collision(nufpar_s*),confirmed,0
+006245f0,0027c15e,__Z18CC_no_weapon_checkP8nufpar_s,CC_no_weapon_check(nufpar_s*),confirmed,0
+00624640,0027c1a2,__Z28CC_smash_vehicle_proximitiesP8nufpar_s,CC_smash_vehicle_proximities(nufpar_s*),confirmed,0
+00624690,0027c1e6,__Z21CC_use_awkward_shapesP8nufpar_s,CC_use_awkward_shapes(nufpar_s*),confirmed,0
+006246e0,0027c22a,__Z22CC_throw_kill_parts_upP8nufpar_s,CC_throw_kill_parts_up(nufpar_s*),confirmed,0
 006285d0,00280c32,__Z16AnimInclude_InitPcP9variptr_uS1_,"AnimInclude_Init(char*, variptr_u*, variptr_u*)",strings,0
 00629270,002818fe,__Z23CharConfig_ConfigureAlliP12nufpcomjmp_s,"CharConfig_ConfigureAll(int, nufpcomjmp_s*)",strings,0
 0062d030,002833a2,__Z24CharShadows_InitMaterialP9variptr_uS_,"CharShadows_InitMaterial(variptr_u*, variptr_u)",strings,0

@@ -332,3 +332,16 @@
 00624270 CC_sfx_punch_hit  matched (runtime 0x1b4), Mac order
 006242b0 CC_sfx_beepbeep  matched (runtime 0x1b6), Mac order
 006242f0 CC_sfx_phobia  matched (runtime 0x1b8), Mac order
+00624330 CC_sfx_misc  matched saga-shaped body (6 misc sfx slots at runtime 0x194), Mac order
+006243c0 CC_sfx_land_normal  matched (runtime 0x1ba), Mac order
+00624400 CC_sfx_land_lunge  matched (runtime 0x1bc), Mac order
+00624440 CC_sfx_land_slam  matched (runtime 0x1be), Mac order
+00624480 CC_sfx_land_combatroll  matched (runtime 0x1c0), Mac order
+006244c0 CC_sfx_siren  matched (runtime 0x1c2), Mac order
+00624500 CC_hero  matched (on/off keyword into runtime 0x148 bit 20), Mac order
+00624550 CC_villain  matched (0x148 bit 21), Mac order
+006245a0 CC_no_collision  matched (0x14c bit 27), Mac order
+006245f0 CC_no_weapon_check  matched (0x14c bit 28), Mac order
+00624640 CC_smash_vehicle_proximities  matched (0x14c bit 29), Mac order
+00624690 CC_use_awkward_shapes  matched (0x14c bit 30), Mac order
+006246e0 CC_throw_kill_parts_up  matched (0x14c bit 31), Mac order
