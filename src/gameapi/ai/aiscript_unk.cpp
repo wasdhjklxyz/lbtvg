@@ -406,3 +406,56 @@ f32 Condition_GotOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     return 1.0f;
   return 0.0f;
 }
+
+// FUNCTION: LEGOBATMAN 0x006a4390
+f32 Condition_PathBlocked(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char *str, void *argument) {
+  // 0x1f0 bit 22: path blocked.
+  if (packet != NULL && (*(u32 *)((u8 *)packet + 0x1f0) & 0x400000))
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a43b0
+f32 Condition_InterruptID(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char *str, void *argument) {
+  // 0xb9: interrupt id.
+  if (process != NULL)
+    return ((u8 *)process)[0xb9];
+  return -1.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a43d0
+void *Condition_IAmInit(AISYS_s *sys, char *arg, AISCRIPT_s *script) {
+  return arg != NULL && GetNamedAPIObjectFn != NULL
+             ? GetNamedAPIObjectFn(sys, arg)
+             : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a43f0
+f32 Condition_IAm(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
+                  char *str, void *argument) {
+  if (packet != NULL && packet->pd0 != NULL) {
+    if (packet->pd0 == argument)
+      return 1.0f;
+    Unk_GameObject54 *character = packet->pd0->character;
+    if (character != NULL && character->file != NULL &&
+        NuStrICmp(character->file, str) == 0)
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a4430
+f32 Condition_StuckTime(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char *str, void *argument) {
+  if (packet != NULL && packet->pd0 != NULL)
+    return *(f32 *)((u8 *)packet->pd0 + 0x1d8);
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a4450
+f32 Condition_Param(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                    AIPACKET_s *packet, char *str, void *argument) {
+  return AIParamToFloatEx(packet, process, str);
+}

@@ -1006,3 +1006,9 @@
 006a3d30 Condition_BaddyInTriggerArea  matched saga body, keyword table
 006a3d60 Condition_GoodyInTriggerArea  matched saga body, keyword table
 006a3e00 Condition_GotOpponent  matched saga body, keyword table
+006a4390 Condition_PathBlocked  matched saga body, keyword table
+006a43b0 Condition_InterruptID  matched saga body, keyword table
+006a43d0 Condition_IAmInit  matched saga body, keyword table
+006a43f0 Condition_IAm  matched saga body, keyword table
+006a4430 Condition_StuckTime  matched saga body, keyword table
+006a4450 Condition_Param  matched saga body, keyword table
