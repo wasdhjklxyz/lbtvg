@@ -40,3 +40,4 @@
 005a2d60 NewBuzz  saga body matches (zero-strength rumble for duration)
 0062db70 Mission_Clear  saga body matches (clear mission, ResetTimer)
 00635c80 ResetCoinPacket  saga body matches unchanged
+006486e0 Arcade_PlayerKilled  saga body matches (arcade kills + Arcade_AwardPoint)

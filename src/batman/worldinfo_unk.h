@@ -43,7 +43,10 @@ struct WORLDINFO_s {
   u8 pad0[0x104];
   variptr_u buf104;    // 0x104
   variptr_u bufEnd108; // 0x108
-  u8 pad1[0x138 - 0x10c];
+  u8 pad1[0x12c - 0x10c];
+  struct LEVELDATA_s *current_level; // 0x12c
+  struct AREADATA_s *area;           // 0x130
+  u8 pad1b[0x138 - 0x134];
   void *p138; // 0x138
   u8 pad2[0x140 - 0x13c];
   nugscn_s *scn140; // 0x140

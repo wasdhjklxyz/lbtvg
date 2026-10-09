@@ -560,7 +560,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00648200,00263988,__Z18Arcade_UpdatePaneli,Arcade_UpdatePanel(int),order,4
 00648290,00263a36,__Z16Arcade_DrawPaneli,Arcade_DrawPanel(int),order,4
 00648390,00263bfc,__Z17Arcade_AwardPointiii,"Arcade_AwardPoint(int, int, int)",order,4
-006486e0,00264012,__Z19Arcade_PlayerKilledii,"Arcade_PlayerKilled(int, int)",gapfill,1
+006486e0,00264012,__Z19Arcade_PlayerKilledii,"Arcade_PlayerKilled(int, int)",confirmed,0
 00648970,002a4b3a,__Z22Episodes_ConfigureListPcP9variptr_uS1_iPi,"Episodes_ConfigureList(char*, variptr_u*, variptr_u*, int, int*)",strings,0
 0064ce30,002fa184,__Z19NewStatusRumbleBuzziffi,"NewStatusRumbleBuzz(int, float, float, int)",gapfill,2
 00652260,00338224,__Z24SuperCounterConfig_ResetP12SUPERCOUNTER,SuperCounterConfig_Reset(SUPERCOUNTER*),gapfill,1

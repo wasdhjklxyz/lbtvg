@@ -92,3 +92,22 @@ void Arcade_UpdatePanel(i32 paused) {
     }
   }
 }
+
+i32 Players_BothActive();
+void Arcade_AwardPoint(i32 player_index, i32 a, i32 extra);
+
+// GLOBAL: LEGOBATMAN 0x00aca440
+extern i32 Arcade_PlayerKills[2];
+
+// FUNCTION: LEGOBATMAN 0x006486e0
+void Arcade_PlayerKilled(i32 player_index, i32 extra) {
+  if ((player_index == 0 || player_index == 1) &&
+      (Arcade_Mode[ArcadeItem.field_c_0xc].field8_0x8 & 1) != 0) {
+    if (Players_BothActive()) {
+      ++Arcade_PlayerKills[player_index];
+      Arcade_AwardPoint(player_index, 0, extra);
+    } else {
+      Arcade_AwardPoint(player_index, 0, 0);
+    }
+  }
+}

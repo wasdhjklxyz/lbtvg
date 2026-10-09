@@ -1,7 +1,7 @@
 // gameapi/playeritems_unk.cpp: placed by tools/new.py; file name unproven.
 
+#include "../batman/worldinfo_unk.h"
 #include "../nu2api/nucore/common.h"
-#include "gameobject_unk.h"
 
 // GLOBAL: LEGOBATMAN 0x00962144
 extern i32 g_unk00962144;
@@ -30,6 +30,33 @@ void ResetCoinPacket(COINPACKET_s *packet) {
     packet->double_score_timer = 0.0f;
     packet->active = 1;
   }
+}
+
+struct LEVELDATA_s {
+  u32 pad0[0x64 / 4];
+  u32 flags; // 0x64
+};
+
+struct AREADATA_s {
+  u32 pad0[0x7c / 4];
+  u32 flags; // 0x7c
+};
+
+// GLOBAL: LEGOBATMAN 0x00ab0898
+extern i32 SuperStory;
+
+// FUNCTION: LEGOBATMAN 0x00635de0
+i32 CoinsGoToMainTotal() {
+  WORLDINFO_s *world = WorldInfo_CurrentlyActive();
+  if (world->area != 0 && (world->area->flags & 0x40) != 0)
+    return 1;
+  if (SuperStory != 0)
+    return 1;
+  if (world->area != 0 && (world->area->flags & 0x100) != 0)
+    return 1;
+  if (world->current_level != 0 && (world->current_level->flags & 0x400) != 0)
+    return 1;
+  return 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x006394f0

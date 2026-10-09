@@ -14,7 +14,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | group | todo | with saga body |
 |---|---|---|
 | [Action](#action) | 72 | 57 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 82 | 56 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 81 | 55 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
 | [Text](#text) | 10 | 9 |
@@ -24,10 +24,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GameCam](#gamecam) | 4 | 4 |
 | [Hub](#hub) | 6 | 4 |
 | [near nutrig_gen.cpp](#near-nutrig_gencpp) | 12 | 4 |
-| [Arcade](#arcade) | 3 | 3 |
 | [Area](#area) | 4 | 3 |
 | [GizAction](#gizaction) | 3 | 3 |
 | [Players](#players) | 3 | 3 |
+| [Arcade](#arcade) | 2 | 2 |
 | [Areas](#areas) | 3 | 2 |
 | [Collection](#collection) | 2 | 2 |
 | [Condition](#condition) | 3 | 2 |
@@ -302,7 +302,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005ae240` 64 B `SeekValF(float, float, float)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/move.cpp`
 - [ ] `0059b3c0` 68 B `_AnimPlaying`  **hint** name (gapfill)
 - [ ] `005b0f40` 71 B `GameBufferAlloc(variptr_u*, variptr_u*, int)`  **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
-- [ ] `00635de0` 71 B `CoinsGoToMainTotal()`  **hint** name (gapfill) · **saga** `legoapi/menus/core/panel.cpp`
 - [ ] `00597fc0` 72 B `_AddGameDebris`
 - [ ] `00597e10` 79 B `_FindGameDebris`  **hint** name (gapfill)
 - [ ] `005bc370` 85 B `GizmoGetTypeIDByName(GIZMOSYS_s*, char*)`  **hint** name (gapfill) · **saga** `legoapi/gizmo/base/gizmo.cpp`
@@ -540,12 +539,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006a2730` 401 B `_AIScriptCopyConditions`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
 - [ ] `006a2cc0` 536 B `_AIScriptBuildDerivedScript`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
 
-## Arcade
-
-- [ ] `006486e0` 84 B `Arcade_PlayerKilled(int, int)`  **hint** name (gapfill) · **saga** `legoapi/menus/screens/arcade.cpp`
-- [ ] `00648290` 254 B `Arcade_DrawPanel(int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
-- [ ] `00648390` 842 B `Arcade_AwardPoint(int, int, int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
-
 ## Area
 
 - [ ] `005facd0` 111 B `Area_ShuffleModelList(APICHARACTERMODELLIST_s*, int)`  **hint** name (order)
@@ -564,6 +557,11 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005c2bb0` 45 B `Players_BothActive()`  **hint** name (gapfill) · **saga** `legoapi/characters/core/players.cpp`
 - [ ] `005c18f0` 205 B `Players_AveragePos(nuvec_s*, SOCKPOSITION_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/players.cpp`
 - [ ] `005c12a0` 1028 B `Players_InitPositions(WORLDINFO_s*)`  **saga** `legoapi/characters/core/players.cpp`
+
+## Arcade
+
+- [ ] `00648290` 254 B `Arcade_DrawPanel(int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
+- [ ] `00648390` 842 B `Arcade_AwardPoint(int, int, int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
 
 ## Areas
 
