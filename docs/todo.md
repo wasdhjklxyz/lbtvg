@@ -14,7 +14,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | group | todo | with saga body |
 |---|---|---|
 | [Action](#action) | 72 | 57 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 79 | 53 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 78 | 52 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
 | [Text](#text) | 10 | 9 |
@@ -33,7 +33,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Condition](#condition) | 3 | 2 |
 | [CutScenePlayer](#cutsceneplayer) | 2 | 2 |
 | [CutScenes](#cutscenes) | 3 | 2 |
-| [Door](#door) | 3 | 2 |
 | [Doors](#doors) | 2 | 2 |
 | [GizActions](#gizactions) | 5 | 2 |
 | [GizmoPickup](#gizmopickup) | 2 | 2 |
@@ -54,6 +53,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Cheat](#cheat) | 2 | 1 |
 | [Credits](#credits) | 1 | 1 |
 | [Detonator](#detonator) | 4 | 1 |
+| [Door](#door) | 2 | 1 |
 | [Episodes](#episodes) | 1 | 1 |
 | [EquivalentObject](#equivalentobject) | 1 | 1 |
 | [EquivalentObjects](#equivalentobjects) | 1 | 1 |
@@ -294,7 +294,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0059b540` 35 B `_AnimSpeedZ`  **hint** name (gapfill)
 - [ ] `005bba90` 35 B `GizmoFileReadName(char*)`  **hint** name (gapfill) · **saga** `legoapi/gizmo/base/gizmo.cpp`
 - [ ] `005d9810` 38 B `GizmoBlowupAddDefaultExplosionDebris(nuvec_s*)`  **hint** name (gapfill)
-- [ ] `005a1060` 46 B `ResetTimer(TIMER_s*, float)`  **hint** name (gapfill) · **saga** `legoapi/core/input/timer.cpp`
 - [ ] `00639b10` 49 B `KeepWeaponOut(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
 - [ ] `005a2d90` 54 B `NewBuzzFrames(nupad_s*, int, int)`  **saga** `legoapi/core/input/gamepads.cpp`
 - [ ] `0059a730` 59 B `_ResetAnimPacket`  **hint** name (gapfill)
@@ -589,12 +588,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006188c0` 1074 B `CutScenes_ConfigureList(char*, variptr_u*, variptr_u)`  **saga** `legoapi/cutscenes/cutscenes.cpp`
 - [ ] `0061aa60` 1346 B `CutScenes_Load(char*, nugscn_s*, nugscn_s*, int, variptr_u*, variptr_u*, int, int, WORLDINFO_s*)`  **saga** `legoapi/cutscenes/cutscene.cpp`
 
-## Door
-
-- [ ] `00614f20` 23 B `Door_Reset()`  **hint** name (order) · **saga** `legoapi/props/doors/doors.cpp`
-- [ ] `006152f0` 147 B `Door_DestinationLevel(DOOR_s*)`  **hint** name (order)
-- [ ] `006151e0` 222 B `Door_SetCutCam(DOOR_s*)`  **hint** name (order) · **saga** `legoapi/props/doors/doors.cpp`
-
 ## Doors
 
 - [ ] `00614d10` 528 B `Doors_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/props/doors/doors.cpp`
@@ -692,6 +685,11 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005d5aa0` 183 B `Detonator_FindNearest(nuvec_s*, float, GameObject_s*)`  **hint** name (order) · **saga** `legoapi/items/collect/detonator.cpp`
 - [ ] `005d5b60` 192 B `Detonator_FindOldest(GameObject_s*, float)`  **hint** name (order)
 - [ ] `005d59d0` 204 B `Detonator_FindFreeSlot(GameObject_s*)`  **hint** name (order)
+
+## Door
+
+- [ ] `006152f0` 147 B `Door_DestinationLevel(DOOR_s*)`  **hint** name (order)
+- [ ] `006151e0` 222 B `Door_SetCutCam(DOOR_s*)`  **hint** name (order) · **saga** `legoapi/props/doors/doors.cpp`
 
 ## Episodes
 

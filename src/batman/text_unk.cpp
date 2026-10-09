@@ -40,3 +40,30 @@ void Text_InitStringTable(i32 count, variptr_u *buf, variptr_u *) {
   memset(bits, 0, flags_size);
   buf->addr += flags_size;
 }
+
+#include "../nu2api/numath/nuvec.h"
+
+struct TIMER_s {
+  union {
+    struct {
+      f32 time_elapsed;
+      f32 last_time_elapsed;
+      f32 time_elapsed_mod_seconds;
+    };
+    NUVEC elapsed_components;
+  };
+  i32 update_count;
+};
+typedef struct TIMER_s TIMER;
+
+f32 NuFmod(f32 a, f32 b);
+
+// name is a Mac pairing hint (gapfill): verify
+// from saga legoapi/core/input/timer.cpp
+// FUNCTION: LEGOBATMAN 0x005a1060
+void ResetTimer(TIMER *timer, f32 reset_time) {
+  timer->last_time_elapsed = reset_time;
+  timer->time_elapsed = reset_time;
+  timer->time_elapsed_mod_seconds = NuFmod(reset_time, 1.0f);
+  timer->update_count = 0;
+}

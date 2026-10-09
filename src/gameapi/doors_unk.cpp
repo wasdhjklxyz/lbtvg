@@ -13,6 +13,24 @@ typedef struct WORLDINFO_s {
   i32 door_count; // 0x47ac
 } WORLDINFO_s;
 
+// GLOBAL: LEGOBATMAN 0x00acb000
+char Door_ExitName[64];
+
+// GLOBAL: LEGOBATMAN 0x00acb060
+i32 Door_Start;
+
+// GLOBAL: LEGOBATMAN 0x00963654
+i32 Door_NextSock = -1;
+
+// name is a Mac pairing hint (order): verify
+// from saga legoapi/props/doors/doors.cpp
+// FUNCTION: LEGOBATMAN 0x00614f20
+void Door_Reset() {
+  Door_ExitName[0] = '\0';
+  Door_Start = 0;
+  Door_NextSock = -1;
+}
+
 // FUNCTION: LEGOBATMAN 0x00615190
 DOOR_s *Door_FindByName(WORLDINFO_s *world, char *name) {
   DOOR_s *door = world->doors;
