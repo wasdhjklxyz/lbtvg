@@ -647,6 +647,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0069d8c0,001c6210,__ZN12GraphBuilder17convertToSemanticERKN9Tokenizer5TokenE,GraphBuilder::convertToSemantic(Tokenizer::Token const&),strings,0
 0069f350,001c7168,__ZN12GraphBuilder13processPragmaERK12StringBufferRi,"GraphBuilder::processPragma(StringBuffer const&, int&)",strings,0
 006a0de0,001c831e,__ZN12GraphBuilder16processDirectiveERK12StringBufferRi,"GraphBuilder::processDirective(StringBuffer const&, int&)",strings,0
+006a1950,00233e0a,_AIStateFind,_AIStateFind,confirmed,0
 006a19a0,00233e5e,_AIScriptFind,_AIScriptFind,gapfill,3
 006a2730,00234308,_AIScriptCopyConditions,_AIScriptCopyConditions,gapfill,2
 006a2cc0,00234fea,_AIScriptBuildDerivedScript,_AIScriptBuildDerivedScript,gapfill,2
@@ -657,7 +658,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006a5660,00238c46,_Action_OverrideAnimation,_Action_OverrideAnimation,strings,0
 006a5fe0,0023a2a2,_AISysClearAllPathCnxTypes,_AISysClearAllPathCnxTypes,gapfill,1
 006a6000,0023a2de,_AISysRegisterPathCnxType,_AISysRegisterPathCnxType,calls,1
-006a62b0,00233e0a,_AIStateFind,_AIStateFind,gapfill,1
+006a62b0,002393fa,_AIScriptSetInterrupt,_AIScriptSetInterrupt,confirmed,0
 006a9ac0,00236198,_AIPathFindLocator,_AIPathFindLocator,calls,1
 006a9b20,0023d032,_AIPathFindLocatorSet,_AIPathFindLocatorSet,gapfill,1
 006a9b90,002363f6,_AISysFindArea,_AISysFindArea,gapfill,1

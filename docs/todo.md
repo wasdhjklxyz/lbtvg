@@ -7,7 +7,9 @@ the Mac build) are listed; the other 6,628 are in `tools/symbols/functions.tsv`.
 
 Smallest first inside each group. **saga** = opensagadev/saga has a body
 for it under `ref/saga/src/` (a starting point, not a guaranteed match).
-**stub** = written but not byte-identical yet.
+**stub** = written but not byte-identical yet. **hint** = the name comes
+from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
+`tools/symbols/confirmed.txt` or `rejected.txt`.
 
 | group | todo | with saga body |
 |---|---|---|
@@ -224,108 +226,108 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 ## near rtleditor.cpp
 
 - [ ] `0059b480` 20 B `_CurrentAnim`
-- [ ] `00635c80` 23 B `ResetCoinPacket(COINPACKET_s*)`  **saga** `legoapi/items/base/collection.cpp`
-- [ ] `005c0f70` 25 B `SetFlicker(GameObject_s*, float)`  **saga** `legoapi/characters/core/players.cpp`
-- [ ] `00595ff0` 35 B `_AnimFlags`
-- [ ] `0059b540` 35 B `_AnimSpeedZ`
-- [ ] `005bba90` 35 B `GizmoFileReadName(char*)`  **saga** `legoapi/gizmo/base/gizmo.cpp`
-- [ ] `005d9810` 38 B `GizmoBlowupAddDefaultExplosionDebris(nuvec_s*)`
-- [ ] `005a2d60` 40 B `NewBuzz(nupad_s*, float, int)`  **saga** `legoapi/core/input/gamepads.cpp`
-- [ ] `005a1060` 46 B `ResetTimer(TIMER_s*, float)`  **saga** `legoapi/core/input/timer.cpp`
-- [ ] `0060cee0` 48 B `GetMenuID()`  **saga** `legoapi/menus/core/text.cpp`
-- [ ] `005bdcd0` 49 B `InStory()`  **saga** `legoapi/menus/screens/gamestructure.cpp`
-- [ ] `00639b10` 49 B `KeepWeaponOut(GameObject_s*)`  **saga** `legoapi/characters/core/playeritems.cpp`
+- [ ] `00635c80` 23 B `ResetCoinPacket(COINPACKET_s*)`  **hint** name (order) · **saga** `legoapi/items/base/collection.cpp`
+- [ ] `005c0f70` 25 B `SetFlicker(GameObject_s*, float)`  **hint** name (gapfill) · **saga** `legoapi/characters/core/players.cpp`
+- [ ] `00595ff0` 35 B `_AnimFlags`  **hint** name (gapfill)
+- [ ] `0059b540` 35 B `_AnimSpeedZ`  **hint** name (gapfill)
+- [ ] `005bba90` 35 B `GizmoFileReadName(char*)`  **hint** name (gapfill) · **saga** `legoapi/gizmo/base/gizmo.cpp`
+- [ ] `005d9810` 38 B `GizmoBlowupAddDefaultExplosionDebris(nuvec_s*)`  **hint** name (gapfill)
+- [ ] `005a2d60` 40 B `NewBuzz(nupad_s*, float, int)`  **hint** name (gapfill) · **saga** `legoapi/core/input/gamepads.cpp`
+- [ ] `005a1060` 46 B `ResetTimer(TIMER_s*, float)`  **hint** name (gapfill) · **saga** `legoapi/core/input/timer.cpp`
+- [ ] `0060cee0` 48 B `GetMenuID()`  **hint** name (gapfill) · **saga** `legoapi/menus/core/text.cpp`
+- [ ] `005bdcd0` 49 B `InStory()`  **hint** name (gapfill) · **saga** `legoapi/menus/screens/gamestructure.cpp`
+- [ ] `00639b10` 49 B `KeepWeaponOut(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
 - [ ] `005a2d90` 54 B `NewBuzzFrames(nupad_s*, int, int)`  **saga** `legoapi/core/input/gamepads.cpp`
-- [ ] `005fc350` 58 B `AreaFromMiniKitID(int)`  **saga** `legoapi/world/area.cpp`
-- [ ] `0059a730` 59 B `_ResetAnimPacket`
-- [ ] `0059a0d0` 60 B `_FindAnimIX`
-- [ ] `0060cea0` 60 B `GameDrawMenuEntry(MENU_s*, char*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
-- [ ] `005ae240` 64 B `SeekValF(float, float, float)`  **saga** `legoapi/characters/motion/move.cpp`
-- [ ] `005a2d10` 66 B `NewRumble(nupad_s*, float, int)`  **saga** `legoapi/core/input/gamepads.cpp`
-- [ ] `0059b3c0` 68 B `_AnimPlaying`
-- [ ] `0061f190` 69 B `CharIDFromName(char*)`  **saga** `legoapi/characters/core/characters.cpp`
-- [ ] `005b0f40` 71 B `GameBufferAlloc(variptr_u*, variptr_u*, int)`  **saga** `legoapi/items/objects/gameobjects.cpp`
-- [ ] `00635de0` 71 B `CoinsGoToMainTotal()`  **saga** `legoapi/menus/core/panel.cpp`
+- [ ] `005fc350` 58 B `AreaFromMiniKitID(int)`  **hint** name (gapfill) · **saga** `legoapi/world/area.cpp`
+- [ ] `0059a730` 59 B `_ResetAnimPacket`  **hint** name (gapfill)
+- [ ] `0059a0d0` 60 B `_FindAnimIX`  **hint** name (gapfill)
+- [ ] `0060cea0` 60 B `GameDrawMenuEntry(MENU_s*, char*)`  **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
+- [ ] `005ae240` 64 B `SeekValF(float, float, float)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/move.cpp`
+- [ ] `005a2d10` 66 B `NewRumble(nupad_s*, float, int)`  **hint** name (gapfill) · **saga** `legoapi/core/input/gamepads.cpp`
+- [ ] `0059b3c0` 68 B `_AnimPlaying`  **hint** name (gapfill)
+- [ ] `0061f190` 69 B `CharIDFromName(char*)`  **hint** name (gapfill) · **saga** `legoapi/characters/core/characters.cpp`
+- [ ] `005b0f40` 71 B `GameBufferAlloc(variptr_u*, variptr_u*, int)`  **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
+- [ ] `00635de0` 71 B `CoinsGoToMainTotal()`  **hint** name (gapfill) · **saga** `legoapi/menus/core/panel.cpp`
 - [ ] `00597fc0` 72 B `_AddGameDebris`
-- [ ] `00639670` 76 B `SetWeaponOut(GameObject_s*)`  **saga** `legoapi/characters/core/playeritems.cpp`
-- [ ] `00639b50` 76 B `SetWeaponIn(GameObject_s*)`  **saga** `legoapi/characters/core/playeritems.cpp`
-- [ ] `00597e10` 79 B `_FindGameDebris`
-- [ ] `005bc370` 85 B `GizmoGetTypeIDByName(GIZMOSYS_s*, char*)`  **saga** `legoapi/gizmo/base/gizmo.cpp`
-- [ ] `00597db0` 90 B `_ParticlesPerSecond`
-- [ ] `0059c530` 97 B `_ParseAnimStance`
+- [ ] `00639670` 76 B `SetWeaponOut(GameObject_s*)`  **hint** name (gapfill) · **saga** `legoapi/characters/core/playeritems.cpp`
+- [ ] `00639b50` 76 B `SetWeaponIn(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
+- [ ] `00597e10` 79 B `_FindGameDebris`  **hint** name (gapfill)
+- [ ] `005bc370` 85 B `GizmoGetTypeIDByName(GIZMOSYS_s*, char*)`  **hint** name (gapfill) · **saga** `legoapi/gizmo/base/gizmo.cpp`
+- [ ] `00597db0` 90 B `_ParticlesPerSecond`  **hint** name (gapfill)
+- [ ] `0059c530` 97 B `_ParseAnimStance`  **hint** name (order)
 - [ ] `006419d0` 99 B `InitSnakes(WORLDINFO_s*)`  **saga** `legoapi/actions/character/snake.cpp`
 - [ ] `00675430` 103 B `LoadSpecialSfxFile(WORLDINFO_s*)`  **saga** `legoapi/audio/sfx.cpp`
-- [ ] `005ae1d0` 104 B `SeekLinearF(float, float, float)`  **saga** `legoapi/characters/motion/move.cpp`
-- [ ] `005d3f60` 105 B `FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)`
+- [ ] `005ae1d0` 104 B `SeekLinearF(float, float, float)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/move.cpp`
+- [ ] `005d3f60` 105 B `FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)`  **hint** name (gapfill)
 - [ ] `005a0830` 108 B `ConfigureMusic(char*, variptr_u*, variptr_u*)`  **saga** `nu2api/nusound/nusound3_include.cpp`
-- [ ] `005c8eb0` 113 B `LoadTerrainFile(WORLDINFO_s*)`  **saga** `legoapi/render/core/terrain.cpp`
-- [ ] `005ae640` 119 B `FindAnglesXY(nuvec_s*, unsigned short*, unsigned short*)`  **saga** `legoapi/misc/utilities.cpp`
-- [ ] `005c16b0` 120 B `SetPlayerIDs(int, int)`
-- [ ] `005d3640` 123 B `AddGameMessage(char*, nuvec_s*, float, nuvec_s*, float, unsigned char, unsigned char, unsigned char, unsigned int, float)`  **saga** `legoapi/menus/core/gamemessages.cpp`
-- [ ] `005ae6c0` 124 B `GetRotationAngles(nuvec_s*, unsigned short*, unsigned short*)`  **saga** `legoapi/misc/utilities.cpp`
-- [ ] `005ae5c0` 126 B `FindAnglesZX(nuvec_s*, unsigned short*, unsigned short*)`  **saga** `legoapi/misc/utilities.cpp`
-- [ ] `0059c4b0` 127 B `_ActionFromName`
-- [ ] `0063e540` 131 B `FreeGameObjectLights()`  **saga** `legoapi/render/light/lighting.cpp`
-- [ ] `006394f0` 133 B `FaceOpponent(GameObject_s*, nuvec_s*)`  **saga** `legoapi/characters/motion/move.cpp`
-- [ ] `0065c320` 136 B `LoseHat(GameObject_s*)`
+- [ ] `005c8eb0` 113 B `LoadTerrainFile(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/render/core/terrain.cpp`
+- [ ] `005ae640` 119 B `FindAnglesXY(nuvec_s*, unsigned short*, unsigned short*)`  **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
+- [ ] `005c16b0` 120 B `SetPlayerIDs(int, int)`  **hint** name (order)
+- [ ] `005d3640` 123 B `AddGameMessage(char*, nuvec_s*, float, nuvec_s*, float, unsigned char, unsigned char, unsigned char, unsigned int, float)`  **hint** name (gapfill) · **saga** `legoapi/menus/core/gamemessages.cpp`
+- [ ] `005ae6c0` 124 B `GetRotationAngles(nuvec_s*, unsigned short*, unsigned short*)`  **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
+- [ ] `005ae5c0` 126 B `FindAnglesZX(nuvec_s*, unsigned short*, unsigned short*)`  **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
+- [ ] `0059c4b0` 127 B `_ActionFromName`  **hint** name (gapfill)
+- [ ] `0063e540` 131 B `FreeGameObjectLights()`  **hint** name (order) · **saga** `legoapi/render/light/lighting.cpp`
+- [ ] `006394f0` 133 B `FaceOpponent(GameObject_s*, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/move.cpp`
+- [ ] `0065c320` 136 B `LoseHat(GameObject_s*)`  **hint** name (gapfill)
 - [ ] `005a2dd0` 146 B `NewRumbleAllPlayers(float, float, int, int)`  **saga** `legoapi/core/input/gamepads.cpp`
-- [ ] `005fc2b0` 150 B `DumpAreaData(int, int)`  **saga** `editor/edlevelall.cpp`
-- [ ] `005b00d0` 153 B `LineIntersectCircle(nuvec_s*, nuvec_s*, nuvec_s*, float)`  **saga** `legoapi/misc/utilities.cpp`
+- [ ] `005fc2b0` 150 B `DumpAreaData(int, int)`  **hint** name (order) · **saga** `editor/edlevelall.cpp`
+- [ ] `005b00d0` 153 B `LineIntersectCircle(nuvec_s*, nuvec_s*, nuvec_s*, float)`  **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `005c8f30` 155 B `LoadGrassFile(WORLDINFO_s*)`  **saga** `legoapi/render/core/terrain.cpp`
-- [ ] `00620370` 158 B `DrawHose(GameObject_s*)`
+- [ ] `00620370` 158 B `DrawHose(GameObject_s*)`  **hint** name (gapfill)
 - [ ] `00623850` 166 B `ParseStreakCol(nufpar_s*)`
-- [ ] `005f6df0` 174 B `AddExplosion(nuvec_s*, float, float, GameObject_s*, int, int, int)`  **saga** `legoapi/items/fx/explosions.cpp`
-- [ ] `0059f8d0` 185 B `PlayJumpSfx(GameObject_s*, int)`  **saga** `legoapi/audio/sfx.cpp`
+- [ ] `005f6df0` 174 B `AddExplosion(nuvec_s*, float, float, GameObject_s*, int, int, int)`  **hint** name (gapfill) · **saga** `legoapi/items/fx/explosions.cpp`
+- [ ] `0059f8d0` 185 B `PlayJumpSfx(GameObject_s*, int)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
 - [ ] `0063e3b0` 185 B `LoadLights(WORLDINFO_s*, char*)`  **saga** `legoapi/render/light/lighting.cpp`
 - [ ] `005aa1f0` 187 B `InitGrappleMtls(variptr_u*, variptr_u*)`
-- [ ] `0063e470` 187 B `InitGameObjectLights()`  **saga** `legoapi/render/light/lighting.cpp`
-- [ ] `005d3fd0` 203 B `AddGameMsgCount(nuvec_s*, int, int, unsigned char, unsigned char, unsigned char, float)`  **saga** `legoapi/menus/core/gamemessages.cpp`
-- [ ] `00656130` 203 B `AddRipple(ripple_set_s*, numtx_s*, float, float, float, float, RGBA, RGBA, int, numtl_s*, nuvec_s*)`  **saga** `legoapi/items/fx/ripples.cpp`
+- [ ] `0063e470` 187 B `InitGameObjectLights()`  **hint** name (order) · **saga** `legoapi/render/light/lighting.cpp`
+- [ ] `005d3fd0` 203 B `AddGameMsgCount(nuvec_s*, int, int, unsigned char, unsigned char, unsigned char, float)`  **hint** name (gapfill) · **saga** `legoapi/menus/core/gamemessages.cpp`
+- [ ] `00656130` 203 B `AddRipple(ripple_set_s*, numtx_s*, float, float, float, float, RGBA, RGBA, int, numtl_s*, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/items/fx/ripples.cpp`
 - [ ] `005f7a60` 204 B `LoadPartFile(WORLDINFO_s*)`  **saga** `legoapi/render/fx/parts.cpp`
-- [ ] `005b0000` 205 B `LineIntersectSphere(nuvec_s*, nuvec_s*, nuvec_s*, float, float*)`  **saga** `legoapi/misc/utilities.cpp`
-- [ ] `0059fe80` 206 B `PlayGruntSfx(GameObject_s*)`  **saga** `legoapi/audio/sfx.cpp`
-- [ ] `005a0590` 209 B `PlayRepeatSfx(char*, int, float, char, float, nuvec_s*)`  **saga** `legoapi/audio/sfx.cpp`
-- [ ] `005a3020` 212 B `ConstantRumble(GameObject_s*, float, float)`  **saga** `legoapi/misc/legoapi_misc.cpp`
-- [ ] `005c19c0` 217 B `SetPlayer()`  **saga** `legoapi/characters/core/players.cpp`
+- [ ] `005b0000` 205 B `LineIntersectSphere(nuvec_s*, nuvec_s*, nuvec_s*, float, float*)`  **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
+- [ ] `0059fe80` 206 B `PlayGruntSfx(GameObject_s*)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
+- [ ] `005a0590` 209 B `PlayRepeatSfx(char*, int, float, char, float, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
+- [ ] `005a3020` 212 B `ConstantRumble(GameObject_s*, float, float)`  **hint** name (gapfill) · **saga** `legoapi/misc/legoapi_misc.cpp`
+- [ ] `005c19c0` 217 B `SetPlayer()`  **hint** name (gapfill) · **saga** `legoapi/characters/core/players.cpp`
 - [ ] `005b2a40` 229 B `LoadThingsScene()`
-- [ ] `00639580` 229 B `ObjOpponentStillThere(GameObject_s*, GameObject_s*, float)`  **saga** `legoapi/actions/character/speederchase.cpp`
-- [ ] `006396c0` 233 B `FastWeaponOut(GameObject_s*, int)`  **saga** `legoapi/characters/core/playeritems.cpp`
-- [ ] `00639ba0` 233 B `FastWeaponIn(GameObject_s*, int)`  **saga** `legoapi/characters/core/playeritems.cpp`
+- [ ] `00639580` 229 B `ObjOpponentStillThere(GameObject_s*, GameObject_s*, float)`  **hint** name (order) · **saga** `legoapi/actions/character/speederchase.cpp`
+- [ ] `006396c0` 233 B `FastWeaponOut(GameObject_s*, int)`  **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
+- [ ] `00639ba0` 233 B `FastWeaponIn(GameObject_s*, int)`  **hint** name (gapfill) · **saga** `legoapi/characters/core/playeritems.cpp`
 - [ ] `005bc570` 245 B `GizmoFindByName(GIZMOSYS_s*, int, char*)`  **saga** `legoapi/gizmo/base/gizmo.cpp`
 - [ ] `00620b30` 249 B `RedirectTextFile(char*, char*, int, int*)`  **saga** `legoapi/characters/core/charconfig.cpp`
-- [ ] `00615390` 251 B `StartDoorPositions()`  **saga** `legoapi/props/doors/doors.cpp`
-- [ ] `005fb300` 291 B `AddToModelList(APICHARACTERMODELLIST_s*, int*, int, int, int, EXTRAMODEL*, unsigned char)`  **saga** `legoapi/world/areas.cpp`
-- [ ] `005c1730` 295 B `RememberPlayerIDs(int, int, int)`  **saga** `legoapi/characters/core/players.cpp`
-- [ ] `005aefd0` 305 B `GameShadow(GameObject_s*, nuvec_s*, float, int)`  **saga** `legoapi/items/objects/gameobjects.cpp`
-- [ ] `00635ca0` 307 B `UpdateCoinPacket(COINPACKET_s*, int, int)`  **saga** `legoapi/items/base/collection.cpp`
-- [ ] `005b0e00` 317 B `VecRotateAxis(nuvec_s*, unsigned short, nuvec_s*)`  **saga** `legoapi/misc/utilities.cpp`
-- [ ] `0064ce30` 321 B `NewStatusRumbleBuzz(int, float, float, int)`  **saga** `legoapi/menus/screens/gamestatus_lsw.cpp`
+- [ ] `00615390` 251 B `StartDoorPositions()`  **hint** name (gapfill) · **saga** `legoapi/props/doors/doors.cpp`
+- [ ] `005fb300` 291 B `AddToModelList(APICHARACTERMODELLIST_s*, int*, int, int, int, EXTRAMODEL*, unsigned char)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
+- [ ] `005c1730` 295 B `RememberPlayerIDs(int, int, int)`  **hint** name (order) · **saga** `legoapi/characters/core/players.cpp`
+- [ ] `005aefd0` 305 B `GameShadow(GameObject_s*, nuvec_s*, float, int)`  **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
+- [ ] `00635ca0` 307 B `UpdateCoinPacket(COINPACKET_s*, int, int)`  **hint** name (order) · **saga** `legoapi/items/base/collection.cpp`
+- [ ] `005b0e00` 317 B `VecRotateAxis(nuvec_s*, unsigned short, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
+- [ ] `0064ce30` 321 B `NewStatusRumbleBuzz(int, float, float, int)`  **hint** name (gapfill) · **saga** `legoapi/menus/screens/gamestatus_lsw.cpp`
 - [ ] `006633c0` 324 B `CheckGizAIMessage(GIZAIMESSAGESYS_s*, char const*, GIZAIMESSAGE_s*)`  **saga** `legoapi/gizmo/base/gizmessage.cpp`
-- [ ] `006397b0` 329 B `SlowWeaponOut(GameObject_s*)`  **saga** `legoapi/characters/core/playeritems.cpp`
-- [ ] `00597e60` 336 B `_InitGameDebris`
-- [ ] `0059a110` 338 B `_AnimDuration`
-- [ ] `005b0510` 374 B `InitSplinePosition(SPLINEPOS_s*, nugspline_s*, float, int)`  **saga** `legoapi/render/fx/edsplines.cpp`
-- [ ] `005af8c0` 380 B `LineIntersectXY(nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*)`  **saga** `legoapi/misc/utilities.cpp`
+- [ ] `006397b0` 329 B `SlowWeaponOut(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
+- [ ] `00597e60` 336 B `_InitGameDebris`  **hint** name (order)
+- [ ] `0059a110` 338 B `_AnimDuration`  **hint** name (gapfill)
+- [ ] `005b0510` 374 B `InitSplinePosition(SPLINEPOS_s*, nugspline_s*, float, int)`  **hint** name (order) · **saga** `legoapi/render/fx/edsplines.cpp`
+- [ ] `005af8c0` 380 B `LineIntersectXY(nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `005bd2d0` 423 B `LoadGizmoSys(GIZMOSYS_s*, void*, char*)`  **saga** `legoapi/gizmo/base/gizmo_sys.cpp`
-- [ ] `0059f9a0` 437 B `PlayLandSfx(GameObject_s*, int, int)`  **saga** `legoapi/audio/sfx.cpp`
+- [ ] `0059f9a0` 437 B `PlayLandSfx(GameObject_s*, int, int)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
 - [ ] `00632800` 499 B `DrawRailSparks(RAILSYS_s*, int, GameObject_s*)`
-- [ ] `005cfa30` 501 B `StartBigJump(GameObject_s*, nuvec_s*, int, float, float, int, int)`  **saga** `legoapi/actions/movement/jumping.cpp`
-- [ ] `00639900` 516 B `WeaponOutCode(GameObject_s*)`  **saga** `legoapi/characters/core/playeritems.cpp`
-- [ ] `00620160` 521 B `DrawHoseEx(GAMECHARACTERDATA_s*, numtx_s*, numtl_s*, float)`
+- [ ] `005cfa30` 501 B `StartBigJump(GameObject_s*, nuvec_s*, int, float, float, int, int)`  **hint** name (gapfill) · **saga** `legoapi/actions/movement/jumping.cpp`
+- [ ] `00639900` 516 B `WeaponOutCode(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
+- [ ] `00620160` 521 B `DrawHoseEx(GAMECHARACTERDATA_s*, numtx_s*, numtl_s*, float)`  **hint** name (gapfill)
 - [ ] `0067b270` 575 B `PCSaveSlot(int, void*, int, unsigned int)`  **saga** `gameframework/saveload.cpp`
-- [ ] `005b0690` 619 B `GetNearestSplinePos(nuvec_s*, SPLINEPOS_s*, nugspline_s*, int, short, short)`  **saga** `legoapi/render/fx/edsplines.cpp`
-- [ ] `005c3310` 670 B `LoseHitPoints(GameObject_s*, int)`
-- [ ] `00661d60` 695 B `GizmoBlowupBlowup(GIZMOBLOWUP_s*, int, int, int, GameObject_s*, int)`  **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
-- [ ] `0059fb60` 796 B `PlayFootStepSfx(GameObject_s*)`  **saga** `legoapi/audio/sfx.cpp`
+- [ ] `005b0690` 619 B `GetNearestSplinePos(nuvec_s*, SPLINEPOS_s*, nugspline_s*, int, short, short)`  **hint** name (order) · **saga** `legoapi/render/fx/edsplines.cpp`
+- [ ] `005c3310` 670 B `LoseHitPoints(GameObject_s*, int)`  **hint** name (gapfill)
+- [ ] `00661d60` 695 B `GizmoBlowupBlowup(GIZMOBLOWUP_s*, int, int, int, GameObject_s*, int)`  **hint** name (gapfill) · **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
+- [ ] `0059fb60` 796 B `PlayFootStepSfx(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/audio/sfx.cpp`
 - [ ] `0059c5a0` 876 B `_ConfigureCharacterList`
-- [ ] `005b0170` 915 B `MoveSplinePosition(SPLINEPOS_s*, float)`  **saga** `legoapi/characters/motion/move.cpp`
-- [ ] `0063e5d0` 991 B `LightGameObject(GameObject_s*, void*)`  **saga** `legoapi/render/light/lighting.cpp`
+- [ ] `005b0170` 915 B `MoveSplinePosition(SPLINEPOS_s*, float)`  **hint** name (order) · **saga** `legoapi/characters/motion/move.cpp`
+- [ ] `0063e5d0` 991 B `LightGameObject(GameObject_s*, void*)`  **hint** name (gapfill) · **saga** `legoapi/render/light/lighting.cpp`
 - [ ] `005d3210` 1055 B `AddGameMsg(ADDGAMEMSG*)`  **saga** `legoapi/menus/core/gamemessages.cpp`
 - [ ] `005fc730` 1112 B `DrawGoToArea(MENU_s*, int)`
 - [ ] `0065e780` 1217 B `LoadEditorSplines(WORLDINFO_s*, char*, variptr_u*, variptr_u*)`  **saga** `gameapi/edtools/edtoolsall.cpp`
-- [ ] `005b0900` 1269 B `OutSideSplineArea(nuvec_s*, nugspline_s*, nuvec_s*, nuvec_s*, int)`  **saga** `legoapi/render/fx/edsplines.cpp`
-- [ ] `005b1940` 1286 B `DrawObjectOnCharacter(WORLDINFO_s*, GameObject_s*, int, nuhspecial_s*, int, int, numtx_s*, int, unsigned int, numtx_s*, nuvec_s*, float, float, int, numtx_s*)`  **saga** `legoapi/render/core/render.cpp`
-- [ ] `00633910` 1303 B `AddPickups(int, int, int, int, nuvec_s*, nuvec_s*, float, int, float, float, GameObject_s*, int, int)`  **saga** `legoapi/gizmo/object/gizmopickups.cpp`
+- [ ] `005b0900` 1269 B `OutSideSplineArea(nuvec_s*, nugspline_s*, nuvec_s*, nuvec_s*, int)`  **hint** name (order) · **saga** `legoapi/render/fx/edsplines.cpp`
+- [ ] `005b1940` 1286 B `DrawObjectOnCharacter(WORLDINFO_s*, GameObject_s*, int, nuhspecial_s*, int, int, numtx_s*, int, unsigned int, numtx_s*, nuvec_s*, float, float, int, numtx_s*)`  **hint** name (gapfill) · **saga** `legoapi/render/core/render.cpp`
+- [ ] `00633910` 1303 B `AddPickups(int, int, int, int, nuvec_s*, nuvec_s*, float, int, float, float, GameObject_s*, int, int)`  **hint** name (gapfill) · **saga** `legoapi/gizmo/object/gizmopickups.cpp`
 
 ## Action
 
@@ -404,11 +406,11 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## near pcbatman.cpp
 
-- [ ] `00458c40` 111 B `OpponentShouldntBeAttacked(GameObject_s*)`
+- [ ] `00458c40` 111 B `OpponentShouldntBeAttacked(GameObject_s*)`  **hint** name (gapfill)
 - [ ] `00504680` 151 B `GetPlantLocator(char*)`
-- [ ] `004b8100` 205 B `_VuMtxRotateY`
+- [ ] `004b8100` 205 B `_VuMtxRotateY`  **hint** name (gapfill)
 - [ ] `004c0cb0` 209 B `StartBallooning(GameObject_s*, int)`  **saga** `legoapi/actions/movement/jumping.cpp`
-- [ ] `0044c960` 312 B `PartyMemberInWay(GameObject_s*, GameObject_s*)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0044c960` 312 B `PartyMemberInWay(GameObject_s*, GameObject_s*)`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00447560` 369 B `GetNamedAPIObject(AISYS_s*, char*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `004e34b0` 402 B `UpdateRadios()`  **saga** `legoapi/audio/radio.cpp`
 - [ ] `0044bf50` 403 B `GameAISysReset(AISYS_s*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
@@ -416,7 +418,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 - [ ] `004e8190` 477 B `BuyShopItem(LEGOSHOP_s*, shopitem_s*, int, int)`  **saga** `legoapi/menus/screens/shop.cpp`
 - [ ] `0043ebf0` 500 B `ObjHitShield(GameObject_s*, GameObject_s*, int, BOLT_s*)`  **saga** `legoapi/actions/combat/hits.cpp`
 - [ ] `00430ca0` 514 B `FreezePlayer(GameObject_s*, float, GameObject_s*)`
-- [ ] `004c70e0` 551 B `DrawLightningBolts(GameObject_s*, GameObject_s*, int)`  **saga** `legoapi/characters/motion/move.cpp`
+- [ ] `004c70e0` 551 B `DrawLightningBolts(GameObject_s*, GameObject_s*, int)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/move.cpp`
 - [ ] `004b2710` 594 B `MenuDrawOptions(MENU_s*)`  **saga** `legoapi/menus/screens/gamemenuall.cpp`
 - [ ] `004f5440` 604 B `LoadPermData(bgprocinfo_s*)`  **saga** `legogame/startup.cpp`
 - [ ] `00432480` 609 B `InitPartyCharacterScript(GameObject_s*, int)`
@@ -424,15 +426,15 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 - [ ] `004f7560` 750 B `LoadPerm2()`  **saga** `legoapi/characters/core/characters.cpp`
 - [ ] `004ab420` 791 B `FixUpLevels()`  **saga** `legoapi/world/level.cpp`
 - [ ] `00436e50` 851 B `GizmoBlowupCreateStuff(GIZMOBLOWUP_s*)`  **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
-- [ ] `0043c900` 865 B `PlayerTakeHit(GameObject_s*, GameObject_s*)`  **saga** `legoapi/characters/core/players.cpp`
+- [ ] `0043c900` 865 B `PlayerTakeHit(GameObject_s*, GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/players.cpp`
 - [ ] `00431d80` 870 B `InitGameBeforeConfig()`  **saga** `legogame/game.cpp`
 - [ ] `00522fe0` 1027 B `DIEnumDevicesCallback(IndirectX::DIDEVICEINSTANCEA const*, void*)`
 - [ ] `00408900` 1093 B `InitOnce(int, char**)`  **saga** `legoapi/misc/androidbatman.cpp`
 - [ ] `004f6230` 1144 B `LoadPerm1()`  **saga** `legoapi/characters/core/characters.cpp`
 - [ ] `004e8430` 1201 B `SelectSubItem(LEGOSHOP_s*)`  **saga** `legoapi/menus/screens/shop.cpp`
 - [ ] `004a40f0` 1258 B `ReleaseTakeOver(GameObject_s*, int)`  **saga** `legoapi/items/objects/gameobjects.cpp`
-- [ ] `0043cd40` 1280 B `StunGameObject(GameObject_s*, GameObject_s*, float, int)`  **saga** `legoapi/actions/combat/fighting.cpp`
-- [ ] `00440960` 1312 B `Collide2Objects(APIOBJECT_s*, APIOBJECT_s*)`  **saga** `legoapi/actions/combat/hits.cpp`
+- [ ] `0043cd40` 1280 B `StunGameObject(GameObject_s*, GameObject_s*, float, int)`  **hint** name (order) · **saga** `legoapi/actions/combat/fighting.cpp`
+- [ ] `00440960` 1312 B `Collide2Objects(APIOBJECT_s*, APIOBJECT_s*)`  **hint** name (order) · **saga** `legoapi/actions/combat/hits.cpp`
 - [ ] `004b4dd0` 1398 B `MenuDrawMiniKit(MENU_s*)`  **saga** `gameapi/gui/apimenu.cpp`
 - [ ] `0043a110` 1413 B `AddSurfaceRipples(GameObject_s*)`  **saga** `legoapi/items/fx/ripples.cpp`
 - [ ] `004a36c0` 1583 B `TagCode(GameObject_s*, GameObject_s*, int, int, int)`  **saga** `legoapi/items/objects/gameobjects.cpp`
@@ -454,76 +456,76 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 ## near terrain.c
 
 - [ ] `00572040` 10 B `_NewTerrPlatformsOff`
-- [ ] `00585040` 10 B `edpartSetParticlePage(int)`
+- [ ] `00585040` 10 B `edpartSetParticlePage(int)`  **hint** name (gapfill)
 - [ ] `00571f70` 18 B `_ShadowInfo`
 - [ ] `00571fe0` 18 B `_EShadowInfo`
-- [ ] `005797f0` 31 B `_PlaySfxById`
-- [ ] `005834f0` 33 B `_AddFiniteShotDebrisEffect`
-- [ ] `005798a0` 45 B `_PlaySfx`
+- [ ] `005797f0` 31 B `_PlaySfxById`  **hint** name (gapfill)
+- [ ] `005834f0` 33 B `_AddFiniteShotDebrisEffect`  **hint** name (gapfill)
+- [ ] `005798a0` 45 B `_PlaySfx`  **hint** name (gapfill)
 - [ ] `0058b230` 57 B `_rtlDynamicFree`
-- [ ] `00583520` 61 B `_AddScaledFiniteShotDebrisEffect`
-- [ ] `00574220` 73 B `_PlatOnOff`
+- [ ] `00583520` 61 B `_AddScaledFiniteShotDebrisEffect`  **hint** name (gapfill)
+- [ ] `00574220` 73 B `_PlatOnOff`  **hint** name (gapfill)
 - [ ] `00584ac0` 74 B `PARTLookupType(char*)`
-- [ ] `0057d660` 78 B `_AddVariableShotDebrisEffect`
-- [ ] `0057d5a0` 89 B `_AddVariableShotDebrisEffectTimed1`
+- [ ] `0057d660` 78 B `_AddVariableShotDebrisEffect`  **hint** name (gapfill)
+- [ ] `0057d5a0` 89 B `_AddVariableShotDebrisEffectTimed1`  **hint** name (gapfill)
 - [ ] `0056fef0` 145 B `_RayImpact`  **saga** `legoapi/render/core/terrain.cpp`
 - [ ] `00584e60` 155 B `AddFiniteShotPART(int, nuvec_s*, int)`
 - [ ] `005672e0` 171 B `_DerotateMovementVector`  **saga** `legoapi/render/core/terrain.cpp`
 - [ ] `00584780` 175 B `KillPart(PART_s*, int)`
-- [ ] `00584870` 182 B `FindPart(nuvec_s*, int, void*)`
-- [ ] `0056b0a0` 234 B `_NewShadowEx`
-- [ ] `0057be20` 321 B `_DebFreeInstantly`
+- [ ] `00584870` 182 B `FindPart(nuvec_s*, int, void*)`  **hint** name (gapfill)
+- [ ] `0056b0a0` 234 B `_NewShadowEx`  **hint** name (gapfill)
+- [ ] `0057be20` 321 B `_DebFreeInstantly`  **hint** name (gapfill)
 - [ ] `0056fd80` 325 B `_TerrainImpactNorm`  **saga** `legoapi/render/core/terrain.cpp`
-- [ ] `00567180` 338 B `_TerrainSkinAllocate`  **saga** `legoapi/render/core/terrain_stubs.cpp`
-- [ ] `00572be0` 389 B `_NewRayCast`
-- [ ] `00572d90` 473 B `_NewRayCastScaleYMask`
-- [ ] `00583200` 737 B `_AddFiniteShotDebrisEffect2`
+- [ ] `00567180` 338 B `_TerrainSkinAllocate`  **hint** name (gapfill) · **saga** `legoapi/render/core/terrain_stubs.cpp`
+- [ ] `00572be0` 389 B `_NewRayCast`  **hint** name (gapfill)
+- [ ] `00572d90` 473 B `_NewRayCastScaleYMask`  **hint** name (gapfill)
+- [ ] `00583200` 737 B `_AddFiniteShotDebrisEffect2`  **hint** name (gapfill)
 - [ ] `0056cbb0` 963 B `_HitTerrain`  **saga** `legoapi/render/core/terrain.cpp`
-- [ ] `00566770` 1003 B `_TerrainSkin`  **saga** `legoapi/render/core/terrain.cpp`
-- [ ] `0057d8b0` 1135 B `_AddDebrisEffect`
-- [ ] `00566b60` 1474 B `_SkinPlatform`  **saga** `legoapi/characters/motion/charplatforms.cpp`
-- [ ] `0056c4a0` 1803 B `_HitWallSpline`  **saga** `legoapi/render/core/terrain.cpp`
-- [ ] `0056d1b0` 1818 B `_ScanWallSplineTerrain`  **saga** `legoapi/render/core/terrain.cpp`
+- [ ] `00566770` 1003 B `_TerrainSkin`  **hint** name (gapfill) · **saga** `legoapi/render/core/terrain.cpp`
+- [ ] `0057d8b0` 1135 B `_AddDebrisEffect`  **hint** name (gapfill)
+- [ ] `00566b60` 1474 B `_SkinPlatform`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/charplatforms.cpp`
+- [ ] `0056c4a0` 1803 B `_HitWallSpline`  **hint** name (gapfill) · **saga** `legoapi/render/core/terrain.cpp`
+- [ ] `0056d1b0` 1818 B `_ScanWallSplineTerrain`  **hint** name (gapfill) · **saga** `legoapi/render/core/terrain.cpp`
 - [ ] `00585fa0` 1991 B `AddPart(ADDPART_s*)`
-- [ ] `0057c890` 3006 B `_AddVariableShotDebrisEffectTimed5`
+- [ ] `0057c890` 3006 B `_AddVariableShotDebrisEffectTimed5`  **hint** name (gapfill)
 - [ ] `005632c0` 3491 B `_TerrainInitEx`
 - [ ] `0056d8d0` 7460 B `_ScanTerrain`  **saga** `legoapi/render/core/terrain.cpp`
 
 ## near nupad_gen.cpp
 
-- [ ] `006d7dc0` 43 B `_NuSPrintf`
-- [ ] `006d6910` 69 B `_ImplodeError`  **saga** `nu2api/nucore/implode.cpp`
-- [ ] `006daa40` 149 B `_NuFParGetFloat`  **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006dfc60` 181 B `_NuFParCreateMem`  **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006d7dc0` 43 B `_NuSPrintf`  **hint** name (gapfill)
+- [ ] `006d6910` 69 B `_ImplodeError`  **hint** name (gapfill) · **saga** `nu2api/nucore/implode.cpp`
+- [ ] `006daa40` 149 B `_NuFParGetFloat`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006dfc60` 181 B `_NuFParCreateMem`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006d7f60` 191 B `_NuAToF`  **saga** `nu2api/nucore/nustring_c.cpp`
-- [ ] `006dd060` 226 B `_NuFParGetInt`  **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006dd430` 318 B `_NuFParInterpretWordCTX`  **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006dd2d0` 347 B `_NuFParInterpretWord`  **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006da8d0` 358 B `_NuFParGetWord`  **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006dd060` 226 B `_NuFParGetInt`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006dd430` 318 B `_NuFParInterpretWordCTX`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006dd2d0` 347 B `_NuFParInterpretWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006da8d0` 358 B `_NuFParGetWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006d6d00` 646 B `_ImplodeMakeTable`  **saga** `nu2api/nucore/implode.cpp`
 
 ## Text
 
 - [ ] `0059d770` 62 B `Text_LoadFont(char*, variptr_u*, variptr_u*)`  **saga** `legoapi/menus/core/text.cpp`
-- [ ] `0059d7c0` 119 B `Text_InitStringTable(int, variptr_u*, variptr_u*)`  **saga** `legoapi/menus/core/text.cpp`
-- [ ] `0059dc80` 132 B `Text_MakeScore(unsigned int, char*)`  **saga** `legoapi/menus/core/text.cpp`
-- [ ] `0059dbd0` 161 B `Text_InsertCommasIntoNumber(char*, char*, int)`  **saga** `legoapi/menus/core/text.cpp`
-- [ ] `0059d850` 169 B `Text_PlatformSpecificIgnore(nufpar_s*)`
-- [ ] `0059db20` 173 B `Text_InitTable(TEXTENTRY*, int, int)`  **saga** `legoapi/menus/core/text.cpp`
+- [ ] `0059d7c0` 119 B `Text_InitStringTable(int, variptr_u*, variptr_u*)`  **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
+- [ ] `0059dc80` 132 B `Text_MakeScore(unsigned int, char*)`  **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
+- [ ] `0059dbd0` 161 B `Text_InsertCommasIntoNumber(char*, char*, int)`  **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
+- [ ] `0059d850` 169 B `Text_PlatformSpecificIgnore(nufpar_s*)`  **hint** name (order)
+- [ ] `0059db20` 173 B `Text_InitTable(TEXTENTRY*, int, int)`  **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
 - [ ] `004f9ab0` 287 B `Text_LoadStrings(variptr_u*, variptr_u*)`  **saga** `legoapi/menus/core/text.cpp`
 - [ ] `0059dd10` 392 B `Text_MakeTime(float, int, int, int, char*)`  **saga** `legoapi/menus/core/text.cpp`
 - [ ] `00408e60` 462 B `Text_ExpandButtonString(char*, char*)`  **saga** `legoapi/misc/androidbatman.cpp`
-- [ ] `0059d900` 544 B `Text_LoadAndFixUpStrings(unsigned char*, unsigned char**, char**, int)`  **saga** `legoapi/menus/core/text.cpp`
+- [ ] `0059d900` 544 B `Text_LoadAndFixUpStrings(unsigned char*, unsigned char**, char**, int)`  **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
 
 ## near AIBugPit.cpp
 
-- [ ] `006bf550` 51 B `_MenuReset`
+- [ ] `006bf550` 51 B `_MenuReset`  **hint** name (gapfill)
 - [ ] `006b4f70` 76 B `_AISysRegisterDefaultPathCnxTypes`
 - [ ] `006b3a60` 190 B `_AIScriptLoadAll`  **saga** `gameapi/ai/aisys/aiscript.cpp`
-- [ ] `006b7110` 201 B `_AIMoveInstruction`
-- [ ] `006b9eb0` 274 B `_FollowAPIObject`
+- [ ] `006b7110` 201 B `_AIMoveInstruction`  **hint** name (gapfill)
+- [ ] `006b9eb0` 274 B `_FollowAPIObject`  **hint** name (gapfill)
 - [ ] `006bf2a0` 360 B `_MenuInitialiseEx`  **saga** `legoapi/menus/screens/gamemenuall.cpp`
-- [ ] `006b97b0` 390 B `_AIScriptProcessorInit`  **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006b97b0` 390 B `_AIScriptProcessorInit`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
 - [ ] `006b2aa0` 595 B `_xConditions`  **saga** `gameapi/ai/aisys/aiscript.cpp`
 - [ ] `006b37e0` 622 B `_AIScriptLoadAllPakFile`  **saga** `gameapi/ai/aisys/aiscript.cpp`
 - [ ] `006b3370` 794 B `_xRefScript`  **saga** `gameapi/ai/aisys/aiscript.cpp`
@@ -534,68 +536,68 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## Arcade
 
-- [ ] `006481f0` 9 B `Arcade_ResetPanel()`  **saga** `legoapi/menus/screens/arcade.cpp`
-- [ ] `006481b0` 62 B `Arcade_GetMode(unsigned int*)`  **saga** `legoapi/menus/screens/arcade.cpp`
-- [ ] `006486e0` 84 B `Arcade_PlayerKilled(int, int)`  **saga** `legoapi/menus/screens/arcade.cpp`
-- [ ] `00648290` 254 B `Arcade_DrawPanel(int)`  **saga** `legoapi/menus/screens/arcade.cpp`
-- [ ] `00648390` 842 B `Arcade_AwardPoint(int, int, int)`  **saga** `legoapi/menus/screens/arcade.cpp`
+- [ ] `006481f0` 9 B `Arcade_ResetPanel()`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
+- [ ] `006481b0` 62 B `Arcade_GetMode(unsigned int*)`  **hint** name (gapfill) · **saga** `legoapi/menus/screens/arcade.cpp`
+- [ ] `006486e0` 84 B `Arcade_PlayerKilled(int, int)`  **hint** name (gapfill) · **saga** `legoapi/menus/screens/arcade.cpp`
+- [ ] `00648290` 254 B `Arcade_DrawPanel(int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
+- [ ] `00648390` 842 B `Arcade_AwardPoint(int, int, int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
 
 ## GameCam
 
-- [ ] `005a1fb0` 44 B `GameCam_NewShake(GAMECAMERA_s*, float, float, float)`  **saga** `legoapi/characters/motion/camera.cpp`
-- [ ] `005a2310` 186 B `GameCam_HitJudder()`  **saga** `legoapi/characters/motion/camera.cpp`
-- [ ] `005a27c0` 298 B `GameCam_Blend(GAMECAMERA_s*, float, float, int)`  **saga** `legoapi/characters/motion/camera.cpp`
-- [ ] `005a21e0` 301 B `GameCam_Judder(GAMECAMERA_s*, float, int, nuvec_s*)`  **saga** `legoapi/characters/motion/camera.cpp`
-- [ ] `005a1fe0` 498 B `GameCam_UpdateShake(GAMECAMERA_s*, float)`  **saga** `legoapi/characters/motion/camera.cpp`
+- [ ] `005a1fb0` 44 B `GameCam_NewShake(GAMECAMERA_s*, float, float, float)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/camera.cpp`
+- [ ] `005a2310` 186 B `GameCam_HitJudder()`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/camera.cpp`
+- [ ] `005a27c0` 298 B `GameCam_Blend(GAMECAMERA_s*, float, float, int)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/camera.cpp`
+- [ ] `005a21e0` 301 B `GameCam_Judder(GAMECAMERA_s*, float, int, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/camera.cpp`
+- [ ] `005a1fe0` 498 B `GameCam_UpdateShake(GAMECAMERA_s*, float)`  **hint** name (order) · **saga** `legoapi/characters/motion/camera.cpp`
 
 ## Grabber
 
-- [ ] `00601280` 55 B `Grabber_IsActiveGrabber(GameObject_s*)`
-- [ ] `006013b0` 170 B `Grabber_GetGrabPos(GRABBER_s*, numtx_s*)`  **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
-- [ ] `006012c0` 235 B `Grabber_Terrain(GRABBER_s*, nuvec_s*, int)`
-- [ ] `00601fe0` 649 B `Grabber_SetVictimPos(GRABBER_s*)`  **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
+- [ ] `00601280` 55 B `Grabber_IsActiveGrabber(GameObject_s*)`  **hint** name (order)
+- [ ] `006013b0` 170 B `Grabber_GetGrabPos(GRABBER_s*, numtx_s*)`  **hint** name (order) · **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
+- [ ] `006012c0` 235 B `Grabber_Terrain(GRABBER_s*, nuvec_s*, int)`  **hint** name (order)
+- [ ] `00601fe0` 649 B `Grabber_SetVictimPos(GRABBER_s*)`  **hint** name (gapfill) · **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
 - [ ] `00602270` 710 B `Grabber_Reset(WORLDINFO_s*)`  **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
 - [ ] `00602540` 740 B `Grabber_Drop(GRABBER_s*, nuvec_s*)`  **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
 - [ ] `00600e90` 1004 B `Grabber_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/items/objects/grabber.cpp`
 
 ## near nutrig_gen.cpp
 
-- [ ] `006a5fe0` 31 B `_AISysClearAllPathCnxTypes`
-- [ ] `006a9b90` 80 B `_AISysFindArea`
-- [ ] `006a9bf0` 84 B `_AISysFindPath`
+- [ ] `006a5fe0` 31 B `_AISysClearAllPathCnxTypes`  **hint** name (gapfill)
+- [ ] `006a9b90` 80 B `_AISysFindArea`  **hint** name (gapfill)
+- [ ] `006a9bf0` 84 B `_AISysFindPath`  **hint** name (gapfill)
 - [ ] `006a9ac0` 96 B `_AIPathFindLocator`
-- [ ] `006a9b20` 98 B `_AIPathFindLocatorSet`
+- [ ] `006a9b20` 98 B `_AIPathFindLocatorSet`  **hint** name (gapfill)
 - [ ] `006a34d0` 100 B `_AIParamToFloatEx`  **saga** `gameapi/ai/aisys/aiscript.cpp`
-- [ ] `006a9c50` 114 B `_AIPathFindNode`
+- [ ] `006a9c50` 114 B `_AIPathFindNode`  **hint** name (gapfill)
 - [ ] `006a3380` 125 B `_AIParamToFloat`  **saga** `gameapi/ai/aisys/aiscript.cpp`
 - [ ] `006af110` 142 B `_AiSysIsCurrentPlatform`
 - [ ] `006a6000` 171 B `_AISysRegisterPathCnxType`
-- [ ] `006a19a0` 230 B `_AIScriptFind`  **saga** `gameapi/ai/aisys/aiscript.cpp`
-- [ ] `006a2730` 401 B `_AIScriptCopyConditions`  **saga** `gameapi/ai/aisys/aiscript.cpp`
-- [ ] `006a2cc0` 536 B `_AIScriptBuildDerivedScript`  **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006a19a0` 230 B `_AIScriptFind`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006a2730` 401 B `_AIScriptCopyConditions`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006a2cc0` 536 B `_AIScriptBuildDerivedScript`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
 
 ## Player
 
-- [ ] `005c18b0` 59 B `Player_StartPos(GameObject_s*)`  **saga** `legoapi/characters/core/players.cpp`
-- [ ] `005c1860` 67 B `Player_FindByID(int)`  **saga** `legoapi/characters/core/players.cpp`
+- [ ] `005c18b0` 59 B `Player_StartPos(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/players.cpp`
+- [ ] `005c1860` 67 B `Player_FindByID(int)`  **hint** name (order) · **saga** `legoapi/characters/core/players.cpp`
 - [ ] `005c1b10` 99 B `Player_ClearContext(GameObject_s*, int)`  **saga** `legoapi/characters/core/players.cpp`
 - [ ] `005c1b80` 313 B `Player_ResetContexts(GameObject_s*)`  **saga** `legoapi/characters/core/players.cpp`
 - [ ] `005c2250` 2274 B `Player_ToggleCharacter(GameObject_s*, int, int)`  **saga** `legoapi/characters/core/players.cpp`
 
 ## Area
 
-- [ ] `005facd0` 111 B `Area_ShuffleModelList(APICHARACTERMODELLIST_s*, int)`
-- [ ] `005fb060` 113 B `Area_FindByName(char*, int*)`  **saga** `legoapi/world/areas.cpp`
-- [ ] `005fb1e0` 121 B `Area_FindStatusLevel(AREADATA_s*, int*)`  **saga** `legoapi/world/areas.cpp`
-- [ ] `005fb260` 140 B `Area_FindNextPlayLevel(int)`  **saga** `legoapi/world/areas.cpp`
+- [ ] `005facd0` 111 B `Area_ShuffleModelList(APICHARACTERMODELLIST_s*, int)`  **hint** name (order)
+- [ ] `005fb060` 113 B `Area_FindByName(char*, int*)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
+- [ ] `005fb1e0` 121 B `Area_FindStatusLevel(AREADATA_s*, int*)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
+- [ ] `005fb260` 140 B `Area_FindNextPlayLevel(int)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
 - [ ] `005fb430` 3692 B `Area_Configure(int, int, EXTRAMODEL*, short*)`  **saga** `legoapi/world/areas.cpp`
 
 ## GameAudio
 
-- [ ] `0059f260` 32 B `GameAudio_PlaySfx(int, nuvec_s*, int, int)`  **saga** `legoapi/audio/sfx.cpp`
-- [ ] `0059f160` 34 B `GameAudio_GetPlrSfxBits(void*)`  **saga** `legoapi/audio/sfx.cpp`
-- [ ] `0059f190` 50 B `GameAudio_Reset()`  **saga** `legoapi/audio/sfx.cpp`
-- [ ] `0059f1d0` 141 B `GameAudio_PlaySfxById(int, nuvec_s*, int, int)`  **saga** `legoapi/audio/sfx.cpp`
+- [ ] `0059f260` 32 B `GameAudio_PlaySfx(int, nuvec_s*, int, int)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
+- [ ] `0059f160` 34 B `GameAudio_GetPlrSfxBits(void*)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
+- [ ] `0059f190` 50 B `GameAudio_Reset()`  **hint** name (order) · **saga** `legoapi/audio/sfx.cpp`
+- [ ] `0059f1d0` 141 B `GameAudio_PlaySfxById(int, nuvec_s*, int, int)`  **hint** name (order) · **saga** `legoapi/audio/sfx.cpp`
 
 ## Hub
 
@@ -608,10 +610,10 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## Door
 
-- [ ] `00614f20` 23 B `Door_Reset()`  **saga** `legoapi/props/doors/doors.cpp`
-- [ ] `00615190` 77 B `Door_FindByName(WORLDINFO_s*, char*)`  **saga** `legoapi/props/doors/doors.cpp`
-- [ ] `006152f0` 147 B `Door_DestinationLevel(DOOR_s*)`
-- [ ] `006151e0` 222 B `Door_SetCutCam(DOOR_s*)`  **saga** `legoapi/props/doors/doors.cpp`
+- [ ] `00614f20` 23 B `Door_Reset()`  **hint** name (order) · **saga** `legoapi/props/doors/doors.cpp`
+- [ ] `00615190` 77 B `Door_FindByName(WORLDINFO_s*, char*)`  **hint** name (gapfill) · **saga** `legoapi/props/doors/doors.cpp`
+- [ ] `006152f0` 147 B `Door_DestinationLevel(DOOR_s*)`  **hint** name (order)
+- [ ] `006151e0` 222 B `Door_SetCutCam(DOOR_s*)`  **hint** name (order) · **saga** `legoapi/props/doors/doors.cpp`
 
 ## GizAction
 
@@ -629,25 +631,25 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## Players
 
-- [ ] `005c2bb0` 45 B `Players_BothActive()`  **saga** `legoapi/characters/core/players.cpp`
-- [ ] `005c18f0` 205 B `Players_AveragePos(nuvec_s*, SOCKPOSITION_s*)`  **saga** `legoapi/characters/core/players.cpp`
+- [ ] `005c2bb0` 45 B `Players_BothActive()`  **hint** name (gapfill) · **saga** `legoapi/characters/core/players.cpp`
+- [ ] `005c18f0` 205 B `Players_AveragePos(nuvec_s*, SOCKPOSITION_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/players.cpp`
 - [ ] `005c12a0` 1028 B `Players_InitPositions(WORLDINFO_s*)`  **saga** `legoapi/characters/core/players.cpp`
 
 ## PortalDoors
 
-- [ ] `005c8c50` 49 B `PortalDoors_Reset(WORLDINFO_s*)`  **saga** `legoapi/gizmos/transport/gizportal.cpp`
-- [ ] `005c8b60` 229 B `PortalDoors_Update(WORLDINFO_s*)`  **saga** `legoapi/gizmos/transport/gizportal.cpp`
+- [ ] `005c8c50` 49 B `PortalDoors_Reset(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/gizmos/transport/gizportal.cpp`
+- [ ] `005c8b60` 229 B `PortalDoors_Update(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/gizmos/transport/gizportal.cpp`
 - [ ] `005c8a00` 338 B `PortalDoors_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/gizmos/transport/gizportal.cpp`
 
 ## WorldInfo
 
 - [ ] `005c8150` 6 B `WorldInfo_CurrentlyActive()`  **saga** `legoapi/world/world.cpp`
-- [ ] `005c8130` 21 B `WorldInfo_InitOnce()`  **saga** `legoapi/world/world.cpp`
+- [ ] `005c8130` 21 B `WorldInfo_InitOnce()`  **hint** name (order) · **saga** `legoapi/world/world.cpp`
 - [ ] `005c8240` 131 B `WorldInfo_LoadObjectAnimFile(WORLDINFO_s*)`  **saga** `legoapi/world/world.cpp`
 
 ## Areas
 
-- [ ] `005fb0e0` 240 B `Areas_FixUp(AREAFIXUP*)`  **saga** `legoapi/world/areas.cpp`
+- [ ] `005fb0e0` 240 B `Areas_FixUp(AREAFIXUP*)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
 - [ ] `005fad40` 787 B `Areas_ConfigurePlayersAndResidents(variptr_u*, variptr_u*)`
 - [ ] `005fa1c0` 2813 B `Areas_ConfigureList(char*, variptr_u*, variptr_u*, int, int*)`  **saga** `legoapi/world/areas.cpp`
 
@@ -658,7 +660,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## Collection
 
-- [ ] `006408d0` 128 B `Collection_Got(int)`  **saga** `legoapi/items/base/collection.cpp`
+- [ ] `006408d0` 128 B `Collection_Got(int)`  **hint** name (gapfill) · **saga** `legoapi/items/base/collection.cpp`
 - [ ] `0063ffe0` 1074 B `Collection_Configure(char*, variptr_u*, variptr_u*)`  **saga** `legoapi/items/base/collection.cpp`
 
 ## Condition
@@ -681,7 +683,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 ## Doors
 
 - [ ] `00614d10` 528 B `Doors_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/props/doors/doors.cpp`
-- [ ] `00614f40` 590 B `Doors_Init(WORLDINFO_s*)`  **saga** `legoapi/props/doors/doors.cpp`
+- [ ] `00614f40` 590 B `Doors_Init(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/props/doors/doors.cpp`
 
 ## GizActions
 
@@ -693,7 +695,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## GizmoPickup
 
-- [ ] `006350d0` 84 B `GizmoPickup_FindByName(WORLDINFO_s*, char*)`  **saga** `legoapi/gizmos/fx/gizmopickups.cpp`
+- [ ] `006350d0` 84 B `GizmoPickup_FindByName(WORLDINFO_s*, char*)`  **hint** name (gapfill) · **saga** `legoapi/gizmos/fx/gizmopickups.cpp`
 - [ ] `0048c2e0` 1217 B `GizmoPickup_CollectCoin(WORLDINFO_s*, nuvec_s*, int, int, GameObject_s*, int)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizmopickups.cpp`
 
 ## GizPanel
@@ -703,7 +705,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## Level
 
-- [ ] `0060d6c0` 107 B `Level_FindByName(char*, int*)`  **saga** `legoapi/world/level.cpp`
+- [ ] `0060d6c0` 107 B `Level_FindByName(char*, int*)`  **hint** name (gapfill) · **saga** `legoapi/world/level.cpp`
 - [ ] `0060ee60` 164 B `Level_LoadConfigFile(WORLDINFO_s*)`  **saga** `legoapi/world/level.cpp`
 
 ## LevelConfig
@@ -713,17 +715,17 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## LevelObject
 
-- [ ] `0060ec80` 77 B `LevelObject_FindIndexFromName(char*)`  **saga** `legoapi/world/level.cpp`
-- [ ] `0060e9c0` 156 B `LevelObject_AddExtra(char*, int)`  **saga** `legoapi/world/levelobjects.cpp`
+- [ ] `0060ec80` 77 B `LevelObject_FindIndexFromName(char*)`  **hint** name (gapfill) · **saga** `legoapi/world/level.cpp`
+- [ ] `0060e9c0` 156 B `LevelObject_AddExtra(char*, int)`  **hint** name (order) · **saga** `legoapi/world/levelobjects.cpp`
 
 ## LevelObjects
 
-- [ ] `0060e8e0` 215 B `LevelObjects_InitForGame(LEVELOBJECT*, variptr_u*, variptr_u*, int, int)`  **saga** `legoapi/world/levelobjects.cpp`
-- [ ] `0060ea60` 510 B `LevelObjects_InitForLevel(WORLDINFO_s*)`  **saga** `legoapi/items/objects/objectsall.cpp`
+- [ ] `0060e8e0` 215 B `LevelObjects_InitForGame(LEVELOBJECT*, variptr_u*, variptr_u*, int, int)`  **hint** name (order) · **saga** `legoapi/world/levelobjects.cpp`
+- [ ] `0060ea60` 510 B `LevelObjects_InitForLevel(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/items/objects/objectsall.cpp`
 
 ## Levels
 
-- [ ] `0060d7a0` 267 B `Levels_FixUp(LEVELFIXUP*)`  **saga** `legoapi/world/level.cpp`
+- [ ] `0060d7a0` 267 B `Levels_FixUp(LEVELFIXUP*)`  **hint** name (gapfill) · **saga** `legoapi/world/level.cpp`
 - [ ] `0060d110` 1446 B `Levels_ConfigureList(char*, variptr_u*, variptr_u*, int, int*, void (*)(LEVELDATA_s*))`  **saga** `legoapi/world/level.cpp`
 
 ## LevelSplines
@@ -733,8 +735,8 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## Mission
 
-- [ ] `0062dba0` 33 B `Mission_Active(MISSIONSYS_s*)`  **saga** `legoapi/world/missions.cpp`
-- [ ] `0062db70` 44 B `Mission_Clear(MISSIONSYS_s*)`  **saga** `legoapi/world/missions.cpp`
+- [ ] `0062dba0` 33 B `Mission_Active(MISSIONSYS_s*)`  **hint** name (gapfill) · **saga** `legoapi/world/missions.cpp`
+- [ ] `0062db70` 44 B `Mission_Clear(MISSIONSYS_s*)`  **hint** name (order) · **saga** `legoapi/world/missions.cpp`
 
 ## Move
 
@@ -750,7 +752,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 - [ ] `00727b40` 24 B `_NuMtlUpdate`  **saga** `nu2api/nu3d/numtl.cpp`
 - [ ] `00727f20` 30 B `_NuMtlSetCurrentRenderPlane`
-- [ ] `006ef910` 300 B `_NuMtlUpdatePS`  **saga** `nu2api/nu3d/numtl.cpp`
+- [ ] `006ef910` 300 B `_NuMtlUpdatePS`  **hint** name (gapfill) · **saga** `nu2api/nu3d/numtl.cpp`
 
 ## NuPad
 
@@ -759,14 +761,14 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## NuStr
 
-- [ ] `006d75c0` 75 B `_NuStrNCpy`  **stub** · **saga** `nu2api/nucore/nustring_c.cpp`
+- [ ] `006d75c0` 75 B `_NuStrNCpy`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nucore/nustring_c.cpp`
 - [ ] `006dc300` 120 B `_NuStrIStr`  **stub** · **saga** `nu2api/nucore/nustring_c.cpp`
 
 ## SuperCarry
 
-- [ ] `00645450` 53 B `SuperCarry_Carrying(GameObject_s*)`  **saga** `legoapi/actions/movement/carrying.cpp`
-- [ ] `006445b0` 151 B `SuperCarry_PickUpBlowUp(GameObject_s*)`
-- [ ] `00644700` 930 B `SuperCarry_Start(GameObject_s*, GIZMOBLOWUP_s*, int)`  **saga** `legoapi/actions/movement/carrying.cpp`
+- [ ] `00645450` 53 B `SuperCarry_Carrying(GameObject_s*)`  **hint** name (gapfill) · **saga** `legoapi/actions/movement/carrying.cpp`
+- [ ] `006445b0` 151 B `SuperCarry_PickUpBlowUp(GameObject_s*)`  **hint** name (gapfill)
+- [ ] `00644700` 930 B `SuperCarry_Start(GameObject_s*, GIZMOBLOWUP_s*, int)`  **hint** name (gapfill) · **saga** `legoapi/actions/movement/carrying.cpp`
 
 ## Tag
 
@@ -795,7 +797,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## Cheat
 
-- [ ] `005ce980` 125 B `Cheat_IsOn(CHEAT_s*)`  **saga** `legoapi/core/config/cheats.cpp`
+- [ ] `005ce980` 125 B `Cheat_IsOn(CHEAT_s*)`  **hint** name (gapfill) · **saga** `legoapi/core/config/cheats.cpp`
 - [ ] `004cfe50` 235 B `Cheat_SpecialHits(float, nuvec_s*)`
 
 ## Credits
@@ -804,15 +806,15 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## Detonator
 
-- [ ] `005d5c20` 78 B `Detonator_FindCharacterDetonator(GameObject_s*)`
-- [ ] `005d5aa0` 183 B `Detonator_FindNearest(nuvec_s*, float, GameObject_s*)`  **saga** `legoapi/items/collect/detonator.cpp`
-- [ ] `005d5b60` 192 B `Detonator_FindOldest(GameObject_s*, float)`
-- [ ] `005d59d0` 204 B `Detonator_FindFreeSlot(GameObject_s*)`
+- [ ] `005d5c20` 78 B `Detonator_FindCharacterDetonator(GameObject_s*)`  **hint** name (gapfill)
+- [ ] `005d5aa0` 183 B `Detonator_FindNearest(nuvec_s*, float, GameObject_s*)`  **hint** name (order) · **saga** `legoapi/items/collect/detonator.cpp`
+- [ ] `005d5b60` 192 B `Detonator_FindOldest(GameObject_s*, float)`  **hint** name (order)
+- [ ] `005d59d0` 204 B `Detonator_FindFreeSlot(GameObject_s*)`  **hint** name (order)
 
 ## Detonators
 
-- [ ] `005d59a0` 38 B `Detonators_Reset()`  **saga** `legoapi/items/collect/detonator.cpp`
-- [ ] `005d5970` 48 B `Detonators_GetBombLight(short)`
+- [ ] `005d59a0` 38 B `Detonators_Reset()`  **hint** name (order) · **saga** `legoapi/items/collect/detonator.cpp`
+- [ ] `005d5970` 48 B `Detonators_GetBombLight(short)`  **hint** name (gapfill)
 
 ## Episodes
 
@@ -820,7 +822,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## EquivalentObject
 
-- [ ] `005c8de0` 202 B `EquivalentObject_Find(WORLDINFO_s*, nuhspecial_s*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
+- [ ] `005c8de0` 202 B `EquivalentObject_Find(WORLDINFO_s*, nuhspecial_s*)`  **hint** name (order) · **saga** `legoapi/items/objects/gameobjects.cpp`
 
 ## EquivalentObjects
 
@@ -832,11 +834,11 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## GameMsg
 
-- [ ] `00635760` 841 B `GameMsg_Draw_MiniKitDetector(GAMEMESSAGE_s*, nuvec_s*, float)`  **saga** `legoapi/menus/core/gamehint.cpp`
+- [ ] `00635760` 841 B `GameMsg_Draw_MiniKitDetector(GAMEMESSAGE_s*, nuvec_s*, float)`  **hint** name (order) · **saga** `legoapi/menus/core/gamehint.cpp`
 
 ## GamePad
 
-- [ ] `005a3940` 99 B `GamePad_InputAngle(GameObject_s*, GAMEPAD_s*)`  **saga** `legoapi/core/input/gamepads.cpp`
+- [ ] `005a3940` 99 B `GamePad_InputAngle(GameObject_s*, GAMEPAD_s*)`  **hint** name (gapfill) · **saga** `legoapi/core/input/gamepads.cpp`
 
 ## GizBuildIts
 
@@ -856,7 +858,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## GizmoPickups
 
-- [ ] `00635620` 308 B `GizmoPickups_Collide(WORLDINFO_s*, GameObject_s*, int)`  **saga** `legoapi/gizmos/fx/gizmopickups.cpp`
+- [ ] `00635620` 308 B `GizmoPickups_Collide(WORLDINFO_s*, GameObject_s*, int)`  **hint** name (gapfill) · **saga** `legoapi/gizmos/fx/gizmopickups.cpp`
 
 ## GizObstacles
 
@@ -864,11 +866,11 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## GizTurret
 
-- [ ] `00661c30` 73 B `GizTurret_FindByName(GIZTURRETSYS_s*, char*)`  **saga** `legoapi/gizmos/traps/gizturret.cpp`
+- [ ] `00661c30` 73 B `GizTurret_FindByName(GIZTURRETSYS_s*, char*)`  **hint** name (gapfill) · **saga** `legoapi/gizmos/traps/gizturret.cpp`
 
 ## GizTurrets
 
-- [ ] `005d9e20` 1500 B `GizTurrets_Hit(void*, GIZTURRET_s*, nuvec_s*, int, int)`  **saga** `legoapi/gizmos/traps/gizturret.cpp`
+- [ ] `005d9e20` 1500 B `GizTurrets_Hit(void*, GIZTURRET_s*, nuvec_s*, int, int)`  **hint** name (gapfill) · **saga** `legoapi/gizmos/traps/gizturret.cpp`
 
 ## Grapples
 
@@ -889,19 +891,19 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## near apisave.c
 
-- [ ] `006c53b0` 93 B `_Text3D`
+- [ ] `006c53b0` 93 B `_Text3D`  **hint** name (gapfill)
 - [ ] `006c1590` 96 B `_SaveSystemInitialiseEx`
-- [ ] `006c5f00` 116 B `_SmartTextEx`
+- [ ] `006c5f00` 116 B `_SmartTextEx`  **hint** name (gapfill)
 - [ ] `006c4020` 282 B `_getbutton`
 - [ ] `006c1ee0` 619 B `TextDecodeCodeword(char*, char*)`  **saga** `legoapi/menus/core/text.cpp`
 - [ ] `006c48f0` 876 B `_DrawMenuButtonPromptsEx`
-- [ ] `006c6480` 998 B `_DrawMenuEntryEx`
-- [ ] `006c5410` 2791 B `_SmartTextExLimit`
+- [ ] `006c6480` 998 B `_DrawMenuEntryEx`  **hint** name (gapfill)
+- [ ] `006c5410` 2791 B `_SmartTextExLimit`  **hint** name (order)
 
 ## near nuanim_gen.cpp
 
 - [ ] `00732510` 25 B `_NuGScnRead`
-- [ ] `0072e150` 288 B `_NuQFntDuplicate`  **saga** `nu2api/nu3d/nuqfnt.cpp`
+- [ ] `0072e150` 288 B `_NuQFntDuplicate`  **hint** name (gapfill) · **saga** `nu2api/nu3d/nuqfnt.cpp`
 
 ## near nufile_gen.cpp
 
@@ -910,28 +912,28 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 ## near nutimebar_gen.cpp
 
 - [ ] `007173c0` 666 B `_CreateTimeBar`  **saga** `nu2api/nu3d/android/nutimebar_plain.cpp`
-- [ ] `0071e2d0` 1458 B `_AddCurvePoint`
+- [ ] `0071e2d0` 1458 B `_AddCurvePoint`  **hint** name (gapfill)
 
 ## near oggreader.cpp
 
-- [ ] `00561570` 10 B `_edbitsRegisterThingsScene`
-- [ ] `0055fd40` 21 B `_LookupDebrisEffectPage`
-- [ ] `00559480` 49 B `_PlaySfxAndSetVolume`
+- [ ] `00561570` 10 B `_edbitsRegisterThingsScene`  **hint** name (gapfill)
+- [ ] `0055fd40` 21 B `_LookupDebrisEffectPage`  **hint** name (gapfill)
+- [ ] `00559480` 49 B `_PlaySfxAndSetVolume`  **hint** name (gapfill)
 - [ ] `00558d90` 137 B `_GetSfxId`  **saga** `nu2api/numusic/sfx.cpp`
-- [ ] `0055fd60` 212 B `_LookupDebrisEffectPageOnly`
-- [ ] `0055fc00` 307 B `_LookupDebrisEffectPageIgnore`
+- [ ] `0055fd60` 212 B `_LookupDebrisEffectPageOnly`  **hint** name (gapfill)
+- [ ] `0055fc00` 307 B `_LookupDebrisEffectPageIgnore`  **hint** name (gapfill)
 - [ ] `00558f10` 1377 B `_PlaySfxByIdEx`
 
 ## NuAnim
 
-- [ ] `0070b950` 58 B `_NuAnimEndFrame`
+- [ ] `0070b950` 58 B `_NuAnimEndFrame`  **hint** name (gapfill)
 - [ ] `0070b290` 120 B `_NuAnimCurveSetCreate`
 - [ ] `0072c750` 153 B `_NuAnimDataChunkDestroy`  **saga** `nu2api/nucore/nuanim.cpp`
-- [ ] `0070b350` 176 B `_NuAnimCurveSetDestroy`
+- [ ] `0070b350` 176 B `_NuAnimCurveSetDestroy`  **hint** name (gapfill)
 
 ## NuCommand
 
-- [ ] `006d5540` 24 B `_NuCommandLine`  **stub** · **saga** `nu2api/nucore/nuapi.cpp`
+- [ ] `006d5540` 24 B `_NuCommandLine`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nucore/nuapi.cpp`
 
 ## NuDynamicLight
 
@@ -939,8 +941,8 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## NuFile
 
-- [ ] `006e0dc0` 35 B `_NuFilePakLoad`  **saga** `nu2api/nufile/nufilepak.cpp`
-- [ ] `006e0b60` 549 B `_NuFilePakLoadKeyPrePad`
+- [ ] `006e0dc0` 35 B `_NuFilePakLoad`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufilepak.cpp`
+- [ ] `006e0b60` 549 B `_NuFilePakLoadKeyPrePad`  **hint** name (gapfill)
 - [ ] `006da090` 1125 B `_NuFileExtInitEx`
 
 ## NuInit
@@ -957,19 +959,19 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## NuString
 
-- [ ] `006dc720` 123 B `_NuStringTableGetByName`  **saga** `nu2api/nucore/nustring_c.cpp`
+- [ ] `006dc720` 123 B `_NuStringTableGetByName`  **hint** name (gapfill) · **saga** `nu2api/nucore/nustring_c.cpp`
 
 ## NuUnicode
 
-- [ ] `006d8440` 147 B `_NuUnicodeToAscii`  **stub** · **saga** `nu2api/nucore/nustring_c.cpp`
+- [ ] `006d8440` 147 B `_NuUnicodeToAscii`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nucore/nustring_c.cpp`
 
 ## NuVec
 
-- [ ] `006849f0` 100 B `_NuVecRotateX`  **stub** · **saga** `nu2api/numath/nuvec.cpp`
+- [ ] `006849f0` 100 B `_NuVecRotateX`  **stub** · **hint** name (gapfill) · **saga** `nu2api/numath/nuvec.cpp`
 
 ## ObjHitObj
 
-- [ ] `005dfa60` 104 B `ObjHitObj_Flags(GameObject_s*)`  **saga** `legoapi/actions/combat/hits.cpp`
+- [ ] `005dfa60` 104 B `ObjHitObj_Flags(GameObject_s*)`  **hint** name (gapfill) · **saga** `legoapi/actions/combat/hits.cpp`
 
 ## Particles
 
@@ -977,13 +979,13 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## PartImpact
 
-- [ ] `00504740` 218 B `PartImpact_Seed(PART_s*)`
+- [ ] `00504740` 218 B `PartImpact_Seed(PART_s*)`  **hint** name (order)
 - [ ] `004f9d30` 457 B `PartImpact_ThermalDetonator(PART_s*)`  **saga** `legoapi/items/collect/thermaldetonators.cpp`
-- [ ] `00504a40` 542 B `PartImpact_BlackSeed(PART_s*)`
+- [ ] `00504a40` 542 B `PartImpact_BlackSeed(PART_s*)`  **hint** name (order)
 
 ## PartStop
 
-- [ ] `005f7cc0` 58 B `PartStop_Flickerer(PART_s*)`  **saga** `legoapi/render/fx/parts.cpp`
+- [ ] `005f7cc0` 58 B `PartStop_Flickerer(PART_s*)`  **hint** name (gapfill) · **saga** `legoapi/render/fx/parts.cpp`
 - [ ] `006014c0` 367 B `PartStop_Grabber(PART_s*)`
 
 ## PartUpdate
@@ -1008,8 +1010,8 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## SpecialMove
 
-- [ ] `0062dee0` 75 B `SpecialMove_IsInMultiPhase(GameObject_s*)`
-- [ ] `0062df30` 83 B `SpecialMove_AdjustLayerBits(GameObject_s*, unsigned int&)`
+- [ ] `0062dee0` 75 B `SpecialMove_IsInMultiPhase(GameObject_s*)`  **hint** name (gapfill)
+- [ ] `0062df30` 83 B `SpecialMove_AdjustLayerBits(GameObject_s*, unsigned int&)`  **hint** name (order)
 - [ ] `0062df90` 969 B `SpecialMove_ConfigParticipant(nufpar_s*, unsigned int*, short*, short*)`  **saga** `legoapi/actions/character/specialmoves.cpp`
 
 ## SpecialMoves
@@ -1018,15 +1020,15 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## TakeOver
 
-- [ ] `004a3630` 115 B `TakeOver_SetAction(GameObject_s*, GameObject_s*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
+- [ ] `004a3630` 115 B `TakeOver_SetAction(GameObject_s*, GameObject_s*)`  **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
 
 ## Techno
 
-- [ ] `005a7bd0` 167 B `Techno_FindOperator(void*, GAMEPAD_s**, GameObject_s**)`  **saga** `legoapi/props/objects/techno.cpp`
+- [ ] `005a7bd0` 167 B `Techno_FindOperator(void*, GAMEPAD_s**, GameObject_s**)`  **hint** name (gapfill) · **saga** `legoapi/props/objects/techno.cpp`
 
 ## Technos
 
-- [ ] `005a6550` 65 B `Technos_FindControllingTechno(GameObject_s*)`  **saga** `legoapi/props/objects/techno.cpp`
+- [ ] `005a6550` 65 B `Technos_FindControllingTechno(GameObject_s*)`  **hint** name (gapfill) · **saga** `legoapi/props/objects/techno.cpp`
 
 ## ThermalDetonator
 
@@ -1083,10 +1085,10 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## CD3DCore
 
-- [ ] `0052c1f0` 49 B `CD3DCore::SetNextDisplayMode(unsigned int, unsigned int, unsigned int)`
+- [ ] `0052c1f0` 49 B `CD3DCore::SetNextDisplayMode(unsigned int, unsigned int, unsigned int)`  **hint** name (gapfill)
 - [ ] `0052c0a0` 191 B `CD3DCore::PreInitialize()`
-- [ ] `0052a7a0` 206 B `CD3DCore::DetermineNominalAspectRatio(unsigned int, unsigned int) const`
-- [ ] `0052a610` 390 B `CD3DCore::FindNearestMode(unsigned int, unsigned int, unsigned int) const`
+- [ ] `0052a7a0` 206 B `CD3DCore::DetermineNominalAspectRatio(unsigned int, unsigned int) const`  **hint** name (gapfill)
+- [ ] `0052a610` 390 B `CD3DCore::FindNearestMode(unsigned int, unsigned int, unsigned int) const`  **hint** name (gapfill)
 - [ ] `0052d450` 2415 B `CD3DCore::BuildDeviceFromResolution(int, int)`
 
 ## CharScene
@@ -1102,7 +1104,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 - [ ] `0052e5f0` 72 B `CNuConsole::SendDebugText(char*, ...)`
 - [ ] `0052e640` 92 B `CNuConsole::ExitNow(char*, ...)`
 - [ ] `0052e7b0` 99 B `CNuConsole::SendWarning(char*, ...)`
-- [ ] `0052e860` 119 B `CNuConsole::SendD3DWarning(long, char*, ...)`
+- [ ] `0052e860` 119 B `CNuConsole::SendD3DWarning(long, char*, ...)`  **hint** name (gapfill)
 - [ ] `0052fd10` 172 B `CNuConsole::Initialize()`
 - [ ] `0052e6f0` 190 B `CNuConsole::SendError(char*, ...)`
 
@@ -1127,14 +1129,14 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## DefinedLocators
 
-- [ ] `00620aa0` 82 B `DefinedLocators_FindIX(char*)`
+- [ ] `00620aa0` 82 B `DefinedLocators_FindIX(char*)`  **hint** name (gapfill)
 
 ## DetonatorSys
 
-- [ ] `005d5670` 20 B `DetonatorSys_RegisterCallbacks(void (*)(DETONATOR_s*, float&))`
-- [ ] `005d5930` 51 B `DetonatorSys_GetList(int*)`
-- [ ] `005d5890` 149 B `DetonatorSys_Init(int, int, int, int, int, variptr_u*, variptr_u)`
-- [ ] `005d5690` 502 B `DetonatorSys_RegisterType(DETONATORTYPE*)`
+- [ ] `005d5670` 20 B `DetonatorSys_RegisterCallbacks(void (*)(DETONATOR_s*, float&))`  **hint** name (gapfill)
+- [ ] `005d5930` 51 B `DetonatorSys_GetList(int*)`  **hint** name (order)
+- [ ] `005d5890` 149 B `DetonatorSys_Init(int, int, int, int, int, variptr_u*, variptr_u)`  **hint** name (order)
+- [ ] `005d5690` 502 B `DetonatorSys_RegisterType(DETONATORTYPE*)`  **hint** name (gapfill)
 
 ## DynamicMaterialManager
 
@@ -1191,7 +1193,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## Grapple
 
-- [ ] `005a9390` 399 B `Grapple_Reset(GRAPPLE_s*, nuvec_s*)`
+- [ ] `005a9390` 399 B `Grapple_Reset(GRAPPLE_s*, nuvec_s*)`  **hint** name (gapfill)
 
 ## HLSLShaderBuilder
 
@@ -1211,9 +1213,9 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 ## InteractiveDisplay
 
 - [ ] `004f6ca0` 6 B `InteractiveDisplay::GetClassNameA() const`
-- [ ] `005c4080` 41 B `InteractiveDisplay::GetFirstSpecialMaterial(nugscn_s*, char*)`
-- [ ] `005c7300` 255 B `InteractiveDisplay::InitializeLevel(WORLDINFO_s*)`
-- [ ] `005c71d0` 297 B `InteractiveDisplay::InitializePerm(char*, variptr_u*, variptr_u*)`
+- [ ] `005c4080` 41 B `InteractiveDisplay::GetFirstSpecialMaterial(nugscn_s*, char*)`  **hint** name (gapfill)
+- [ ] `005c7300` 255 B `InteractiveDisplay::InitializeLevel(WORLDINFO_s*)`  **hint** name (gapfill)
+- [ ] `005c71d0` 297 B `InteractiveDisplay::InitializePerm(char*, variptr_u*, variptr_u*)`  **hint** name (gapfill)
 
 ## KillParts
 
@@ -1235,7 +1237,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 ## LightningManager
 
 - [ ] `006572a0` 248 B `LightningManager::Lightning_Configure(WORLDINFO_s*, char*)`
-- [ ] `006567d0` 309 B `LightningManager::Init()`
+- [ ] `006567d0` 309 B `LightningManager::Init()`  **hint** name (gapfill)
 
 ## LMC
 
@@ -1247,7 +1249,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## LoseHP
 
-- [ ] `005c32c0` 72 B `LoseHP_EndDelay(GAMEMESSAGE_s*)`
+- [ ] `005c32c0` 72 B `LoseHP_EndDelay(GAMEMESSAGE_s*)`  **hint** name (gapfill)
 
 ## MemoryManager
 
@@ -1256,7 +1258,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## Minicam
 
-- [ ] `006163b0` 185 B `Minicam_AddSubtitle(MINICAM_ADDSUBTITLE_s const*)`
+- [ ] `006163b0` 185 B `Minicam_AddSubtitle(MINICAM_ADDSUBTITLE_s const*)`  **hint** name (gapfill)
 
 ## MovePlayer
 
@@ -1264,7 +1266,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## near d3dCalls.cpp
 
-- [ ] `00533490` 50 B `_oaGetNextOption`
+- [ ] `00533490` 50 B `_oaGetNextOption`  **hint** name (gapfill)
 - [ ] `00533810` 353 B `_oaInit`
 
 ## near gcutscn.cpp
@@ -1282,7 +1284,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## near NuMovieGrab_PC.cpp
 
-- [ ] `006ebae0` 38 B `_RndrStateSetReflection`
+- [ ] `006ebae0` 38 B `_RndrStateSetReflection`  **hint** name (gapfill)
 
 ## near numtl_dlist.cpp
 
@@ -1297,13 +1299,13 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## near windows.cpp
 
-- [ ] `00528cd0` 127 B `_PCInitStrings`
+- [ ] `00528cd0` 127 B `_PCInitStrings`  **hint** name (gapfill)
 - [ ] `00527d60` 212 B `PCCreateMouseCursorMaterial()`
 - [ ] `00528460` 498 B `NuPCCreateWindow(MacDoze::HINSTANCE__*, int, int)`
 
 ## NuDisplay
 
-- [ ] `0073a000` 1436 B `_NuDisplayListRndrSpecial`
+- [ ] `0073a000` 1436 B `_NuDisplayListRndrSpecial`  **hint** name (gapfill)
 
 ## NudxFw
 
@@ -1323,12 +1325,12 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## NuInstSurfGeom
 
-- [ ] `006e8f20` 32 B `NuInstSurfGeom::DestroyPS()`
+- [ ] `006e8f20` 32 B `NuInstSurfGeom::DestroyPS()`  **hint** name (gapfill)
 - [ ] `00709de0` 101 B `NuInstSurfGeom::Destroy()`
 
 ## NuLgt
 
-- [ ] `007227b0` 283 B `_NuLgtLaser`
+- [ ] `007227b0` 283 B `_NuLgtLaser`  **hint** name (gapfill)
 
 ## NuLog10
 
@@ -1336,7 +1338,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## NuMem
 
-- [ ] `006e2470` 84 B `_NuMemCpy`  **stub**
+- [ ] `006e2470` 84 B `_NuMemCpy`  **stub** · **hint** name (gapfill)
 - [ ] `006e2090` 450 B `_NuMemFreeFn`
 - [ ] `006e1d50` 471 B `_NuMemAllocFn`
 
@@ -1357,8 +1359,8 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## NuRndr
 
-- [ ] `00713e60` 19 B `_NuRndrEndReflectionRender`
-- [ ] `0071e890` 2124 B `_NuRndrCurve`
+- [ ] `00713e60` 19 B `_NuRndrEndReflectionRender`  **hint** name (gapfill)
+- [ ] `0071e890` 2124 B `_NuRndrCurve`  **hint** name (gapfill)
 - [ ] `006fa950` 2130 B `_NuRndrSwapScreen`
 
 ## NuScratch
@@ -1376,26 +1378,26 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## NuSin
 
-- [ ] `004b7d20` 147 B `_NuSinApprox`
-- [ ] `004dbbc0` 147 B `_NuSinApprox`
-- [ ] `004f9c20` 147 B `_NuSinApprox`
-- [ ] `005c8060` 147 B `_NuSinApprox`
+- [ ] `004b7d20` 147 B `_NuSinApprox`  **hint** name (gapfill)
+- [ ] `004dbbc0` 147 B `_NuSinApprox`  **hint** name (gapfill)
+- [ ] `004f9c20` 147 B `_NuSinApprox`  **hint** name (order)
+- [ ] `005c8060` 147 B `_NuSinApprox`  **hint** name (gapfill)
 
 ## NuSound
 
 - [ ] `00535b60` 1 B `_NuSoundAddRumble`
 - [ ] `00535c10` 84 B `_NuSoundStopStereo`
 - [ ] `00534ff0` 274 B `_NuSoundInitPS`
-- [ ] `005354c0` 411 B `_NuSoundPlay3dLoopSfx`
+- [ ] `005354c0` 411 B `_NuSoundPlay3dLoopSfx`  **hint** name (gapfill)
 
 ## NuSpecial
 
-- [ ] `0070f0a0` 144 B `_NuSpecialFindMulti`
+- [ ] `0070f0a0` 144 B `_NuSpecialFindMulti`  **hint** name (order)
 - [ ] `0070f930` 161 B `_NuSpecialGetMtl`
-- [ ] `0070f9e0` 170 B `_NuSpecialSetBounds`
-- [ ] `0070eee0` 183 B `_NuSpecialFindMultiWC`
-- [ ] `0070f510` 185 B `_NuSpecialSetVisibility`
-- [ ] `00739910` 298 B `_NuSpecialClipTestShadowLights`
+- [ ] `0070f9e0` 170 B `_NuSpecialSetBounds`  **hint** name (order)
+- [ ] `0070eee0` 183 B `_NuSpecialFindMultiWC`  **hint** name (order)
+- [ ] `0070f510` 185 B `_NuSpecialSetVisibility`  **hint** name (gapfill)
+- [ ] `00739910` 298 B `_NuSpecialClipTestShadowLights`  **hint** name (gapfill)
 
 ## NuStreamProcessManager
 
@@ -1405,7 +1407,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## NuTime
 
-- [ ] `006e3b30` 67 B `_NuTimeGetTime`
+- [ ] `006e3b30` 67 B `_NuTimeGetTime`  **hint** name (gapfill)
 
 ## NuWater
 
@@ -1413,7 +1415,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## NuWin32
 
-- [ ] `00526230` 39 B `_NuWin32SetDFS`
+- [ ] `00526230` 39 B `_NuWin32SetDFS`  **hint** name (gapfill)
 
 ## OggReader
 
@@ -1430,21 +1432,21 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 ## PcInput
 
 - [ ] `0051f540` 8 B `PcInput_GetCtrlStringPlayer()`
-- [ ] `005235c0` 51 B `_PcInput_GetInputName`
-- [ ] `00523600` 74 B `_PcInput_GetCtrlInputString`
+- [ ] `005235c0` 51 B `_PcInput_GetInputName`  **hint** name (gapfill)
+- [ ] `00523600` 74 B `_PcInput_GetCtrlInputString`  **hint** name (gapfill)
 
 ## PlayerItems
 
-- [ ] `005f1120` 26 B `PlayerItems_GetAllCarriedItemFlags(GameObject_s*)`
-- [ ] `005f3630` 60 B `PlayerItems_RemoveItems(GameObject_s*, int, int, int, unsigned long long)`
-- [ ] `005f1140` 143 B `PlayerItems_DontPickUpItemType(GameObject_s*, PLAYERITEMTYPE_s*)`
-- [ ] `005f3440` 212 B `PlayerItems_RemoveItem(GameObject_s*, PLAYERITEM_s*, int)`
-- [ ] `005f4270` 621 B `PlayerItems_AddItem(GameObject_s*, PLAYERITEMTYPE_s*, GIZMOBLOWUP_s*, int, int, int, float)`
-- [ ] `005f3720` 664 B `PlayerItems_DropItem(GameObject_s*, PLAYERITEM_s*, int, nuvec_s*)`
+- [ ] `005f1120` 26 B `PlayerItems_GetAllCarriedItemFlags(GameObject_s*)`  **hint** name (gapfill)
+- [ ] `005f3630` 60 B `PlayerItems_RemoveItems(GameObject_s*, int, int, int, unsigned long long)`  **hint** name (order)
+- [ ] `005f1140` 143 B `PlayerItems_DontPickUpItemType(GameObject_s*, PLAYERITEMTYPE_s*)`  **hint** name (gapfill)
+- [ ] `005f3440` 212 B `PlayerItems_RemoveItem(GameObject_s*, PLAYERITEM_s*, int)`  **hint** name (gapfill)
+- [ ] `005f4270` 621 B `PlayerItems_AddItem(GameObject_s*, PLAYERITEMTYPE_s*, GIZMOBLOWUP_s*, int, int, int, float)`  **hint** name (gapfill)
+- [ ] `005f3720` 664 B `PlayerItems_DropItem(GameObject_s*, PLAYERITEM_s*, int, nuvec_s*)`  **hint** name (gapfill)
 
 ## PlayerItemTypeSys
 
-- [ ] `005f0250` 52 B `PlayerItemTypeSys_LoadGlobal(char*, nugscn_s*, variptr_u*, variptr_u*)`
+- [ ] `005f0250` 52 B `PlayerItemTypeSys_LoadGlobal(char*, nugscn_s*, variptr_u*, variptr_u*)`  **hint** name (gapfill)
 - [ ] `005ee210` 909 B `PlayerItemTypeSys_ParseLocator(nufpar_s*, PLAYERITEMTYPE_s*, int)`
 - [ ] `005ee5a0` 7330 B `PlayerItemTypeSys_Load(char*, nugscn_s*, variptr_u*, variptr_u*)`
 
@@ -1467,8 +1469,8 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## ScoreMultiplier
 
-- [ ] `00635b10` 83 B `ScoreMultiplier_IncrementMultiplier(GameObject_s*, int, int, float)`
-- [ ] `00635b70` 259 B `ScoreMultiplier_DrawGameMessage(GameObject_s*, GameObject_s*)`
+- [ ] `00635b10` 83 B `ScoreMultiplier_IncrementMultiplier(GameObject_s*, int, int, float)`  **hint** name (gapfill)
+- [ ] `00635b70` 259 B `ScoreMultiplier_DrawGameMessage(GameObject_s*, GameObject_s*)`  **hint** name (order)
 
 ## SecurityCamera
 
@@ -1518,12 +1520,12 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 ## SuperCounter
 
-- [ ] `00652e50` 431 B `SuperCounter_CharCheck(int, nuvec_s*, int, SUPERCOUNTER*, SUPERCOUNTERSAVE*, int)`
+- [ ] `00652e50` 431 B `SuperCounter_CharCheck(int, nuvec_s*, int, SUPERCOUNTER*, SUPERCOUNTERSAVE*, int)`  **hint** name (gapfill)
 - [ ] `00653250` 470 B `SuperCounter_CreateAIMessages(int, int, SUPERCOUNTER*, SUPERCOUNTERSAVE*, int)`
 
 ## SuperCounterConfig
 
-- [ ] `00652260` 43 B `SuperCounterConfig_Reset(SUPERCOUNTER*)`
+- [ ] `00652260` 43 B `SuperCounterConfig_Reset(SUPERCOUNTER*)`  **hint** name (gapfill)
 - [ ] `00652290` 901 B `SuperCounterConfig_ParseLine(SUPERCOUNTER*, nufpar_s*)`
 
 ## SurfaceBit
@@ -1545,9 +1547,9 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 ## WorldMap
 
 - [ ] `00519370` 89 B `WorldMap::GetPointerSpecialName(WORLDINFO_s*, int) const`
-- [ ] `0051a0e0` 195 B `WorldMap::RenderRedBrickInfo(VuVec const&, int, float)`
-- [ ] `00519f60` 297 B `WorldMap::RenderTrueHeroInfo(VuVec const&, int, int, float)`
-- [ ] `0051ad50` 344 B `WorldMap::DumpLevel(WORLDINFO_s*)`
+- [ ] `0051a0e0` 195 B `WorldMap::RenderRedBrickInfo(VuVec const&, int, float)`  **hint** name (order)
+- [ ] `00519f60` 297 B `WorldMap::RenderTrueHeroInfo(VuVec const&, int, int, float)`  **hint** name (order)
+- [ ] `0051ad50` 344 B `WorldMap::DumpLevel(WORLDINFO_s*)`  **hint** name (order)
 - [ ] `0051b0e0` 365 B `WorldMap::InitializePerm(char*, variptr_u*, variptr_u*)`
 - [ ] `0051b2b0` 521 B `WorldMap::InitializeLevel(WORLDINFO_s*)`
 
@@ -1555,5 +1557,5 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 - [ ] `004f6f70` 6 B `WorldMapBase::GetClassNameA() const`
 - [ ] `00678ef0` 198 B `WorldMapBase::InitializeLevel(WORLDINFO_s*)`
-- [ ] `00679ca0` 238 B `WorldMapBase::InitializePerm(char*, variptr_u*, variptr_u*)`
+- [ ] `00679ca0` 238 B `WorldMapBase::InitializePerm(char*, variptr_u*, variptr_u*)`  **hint** name (gapfill)
 - [ ] `0067a590` 588 B `WorldMapBase::parse_location(nufpar_s*)`

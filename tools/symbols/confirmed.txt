@@ -1,0 +1,5 @@
+# PC address -> name, checked by hand against what the code does. These win
+# over tools/macnames.py's automatic pairing (and take the name away from any
+# other address it had been paired to). One per line: address, name, reason.
+006a1950 AIStateFind            saga body matches; sits right before AIScriptFind, as on the Mac
+006a62b0 AIScriptSetInterrupt   checks interrupt_priority (+0xb8), calls AIStateFind: saga's body
