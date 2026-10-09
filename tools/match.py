@@ -103,8 +103,12 @@ def functions_in_obj(obj):
     return out
 
 def find(funcs, name):
+    """Our function by name: a C++ symbol demangles to "... Name(...)"; a C
+    (extern "C") symbol stays undecorated: _Name (cdecl), _Name@N (stdcall),
+    @Name@N (fastcall)."""
     want = re.compile(r"(^|[\s:*&])" + re.escape(name) + r"\(")
-    hits = [k for k in funcs if want.search(k)]
+    c_sym = re.compile(r"^[_@]" + re.escape(name.split("::")[-1]) + r"(@\d+)?$")
+    hits = [k for k in funcs if want.search(k) or c_sym.match(k)]
     if len(hits) != 1:
         die(f"{name}: {'no' if not hits else 'ambiguous'} symbol in .obj ({hits or list(funcs)})")
     return funcs[hits[0]], hits[0]
