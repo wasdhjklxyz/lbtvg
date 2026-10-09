@@ -2608,6 +2608,57 @@ i32 Action_RestockTorpedos(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+// FUNCTION: LEGOBATMAN 0x00455990
+i32 Action_SetAIOverrideControl(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                AIPACKET_s *packet, char **args, int argc,
+                                int flags, f32 time) {
+  Unk_AIPacketObj *object = NULL;
+  i32 enabled = 1;
+  if (flags != 0) {
+    if (packet != NULL && packet->pd0 != NULL)
+      object = packet->pd0;
+    for (i32 i = 0; i < argc; i++) {
+      char *value = NuStrIStr(args[i], "character");
+      if (value != NULL) {
+        if (GetNamedAPIObjectFn != NULL)
+          object = GetNamedAPIObjectFn(sys, value + 10);
+      } else if (NuStrICmp("FALSE", args[i]) == 0) {
+        enabled = 0;
+      }
+    }
+    process->action_data_3 = object;
+  }
+  object = (Unk_AIPacketObj *)process->action_data_3;
+  if (object != NULL) {
+    if (enabled) {
+      GameObject_s *obj = object->obj;
+      if (obj != NULL) {
+        obj->f1544 = 0.0f;
+        obj->f153c = 0.0f;
+        if (obj->b257) {
+          obj->b257 = 0;
+          obj->current_hp = obj->hitpoints;
+          obj->shield_hitpoints = obj->p54->p24->shield_hitpoints;
+          obj->shield_state = 4;
+        }
+        if (obj->p1158 != NULL) {
+          obj->p1158->f1544 = 0.0f;
+          obj->p1158->f153c = 0.0f;
+          if (obj->p1158->b257) {
+            obj->p1158->b257 = 0;
+            obj->p1158->current_hp = obj->p1158->hitpoints;
+            obj->p1158->shield_hitpoints =
+                obj->p1158->p54->p24->shield_hitpoints;
+            obj->p1158->shield_state = 4;
+          }
+        }
+      }
+    }
+    ((GameObject_s *)object)->ai_override_control = enabled;
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x00455f70
 i32 Action_DontSetStoppedFlag(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                               AIPACKET_s *packet, char **args, int argc,
@@ -3782,6 +3833,35 @@ struct GIZTURRET_s {
   u8 pad0[0xe8];
   GameObject_s *controller; // 0xe8
 };
+
+// FUNCTION: LEGOBATMAN 0x0046c700
+i32 Action_SetLastAttacker(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char **args, int argc, int flags,
+                           f32 time) {
+  GameObject_s *attacker = NULL;
+  GameObject_s *victim = NULL;
+  i32 i = 0;
+  if (flags != 0) {
+    if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL)
+      victim = packet->pd0->obj;
+    for (; i < argc; i++) {
+      char *value = NuStrIStr(args[i], "victim=");
+      if (value != NULL) {
+        victim = GetNamedGameObject(sys, value + 7);
+      } else if (NuStrICmp(args[i], "attacker=opponent") == 0) {
+        if (packet != NULL && packet->pe4 != NULL)
+          attacker = packet->pe4->obj;
+      } else if ((value = NuStrIStr(args[i], "attacker=")) != NULL) {
+        attacker = GetNamedGameObject(sys, value + 9);
+      } else if (NuStrICmp(args[i], "attacker=player") == 0) {
+        attacker = (*(Unk_AIPacketObj **)((u8 *)sys + 0x1698))->obj;
+      }
+    }
+    if (victim != NULL && attacker != NULL)
+      victim->last_attacker = attacker;
+  }
+  return 1;
+}
 
 // FUNCTION: LEGOBATMAN 0x0046c880
 i32 Action_LinkTurretToController(AISYS_s *sys, AISCRIPTPROCESS_s *process,

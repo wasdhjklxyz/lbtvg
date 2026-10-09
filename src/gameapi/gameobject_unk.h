@@ -117,6 +117,10 @@ struct GameObject_s {
       u32 : 1;
       u32 dont_push : 1; // 0x1fc bit 1
     };
+    struct {
+      u32 : 8;
+      u32 ai_override_control : 1; // 0x1fc bit 8
+    };
   };
   u8 pad3[0x246 - 0x200];
   u16 u246; // 0x246, MovingBackwards: facing compared with pad input
@@ -265,7 +269,8 @@ struct GameObject_s {
   u8 weapon_scale_state; // 0x131d
   u8 pad131e[0x1321 - 0x131e];
   u8 shield_hitpoints; // 0x1321
-  u8 pad1322[0x132b - 0x1322];
+  u8 shield_state;     // 0x1322, ResetAIOverrideCharacter: 4
+  u8 pad1323[0x132b - 0x1323];
   u8 b132b; // 0x132b
   u8 pad14c[0x135c - 0x132c];
   f32 f135c; // 0x135c
@@ -405,7 +410,11 @@ struct GameObject_s {
   struct AILOCATOR_s *doomed_escape_locator; // 0x143c
   u8 pad16[0x1534 - 0x1440];
   f32 f1534; // 0x1534
-  u8 pad17[0x154c - 0x1538];
+  u8 pad17[0x153c - 0x1538];
+  f32 f153c; // 0x153c, ResetAIOverrideCharacter: 0
+  u8 pad1540[0x1544 - 0x1540];
+  f32 f1544; // 0x1544, ResetAIOverrideCharacter: 0
+  u8 pad1548[0x154c - 0x1548];
   f32 flicker_time; // 0x154c
   u8 pad17b[0x155c - 0x1550];
   f32 hover_height_override; // 0x155c
