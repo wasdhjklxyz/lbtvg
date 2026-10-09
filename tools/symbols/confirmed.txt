@@ -59,3 +59,4 @@
 005b0f40 GameBufferAlloc  saga body shape matches (bounded aligned bump alloc + memset)
 0059dbd0 Text_InsertCommasIntoNumber  saga body matches (per-language separator every 3 digits)
 0060ee60 Level_LoadConfigFile  saga body matches (%s.txt into giz buffer, strip comments)
+005a7bd0 Techno_FindOperator  saga body matches (player in techno context controlling target)

@@ -95,7 +95,9 @@ struct GameObject_s {
   u8 pad9[0x9a8 - 0x99c];
   GameObject_s *force_target;    // 0x9a8
   BlowupTarget_s *blowup_target; // 0x9ac
-  u8 pad9b[0x9d0 - 0x9b0];
+  u8 pad9b[0x9bc - 0x9b0];
+  struct TECHNO_s *techno; // 0x9bc
+  u8 pad9c[0x9d0 - 0x9c0];
   i16 s9d0; // 0x9d0
   i16 s9d2; // 0x9d2
   u8 pad10[0x9d9 - 0x9d4];

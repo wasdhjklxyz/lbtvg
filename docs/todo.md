@@ -92,7 +92,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [SpecialMoves](#specialmoves) | 1 | 1 |
 | [SuperCarry](#supercarry) | 2 | 1 |
 | [TakeOver](#takeover) | 1 | 1 |
-| [Techno](#techno) | 1 | 1 |
 | [ThermalDetonator](#thermaldetonator) | 1 | 1 |
 | [TrafficAnimSys](#trafficanimsys) | 1 | 1 |
 | [Transform](#transform) | 3 | 1 |
@@ -844,10 +843,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## TakeOver
 
 - [ ] `004a3630` 115 B `TakeOver_SetAction(GameObject_s*, GameObject_s*)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
-
-## Techno
-
-- [ ] `005a7bd0` 167 B `Techno_FindOperator(void*, GAMEPAD_s**, GameObject_s**)`  **hint** name (gapfill) · **saga** `legoapi/props/objects/techno.cpp`
 
 ## ThermalDetonator
 
