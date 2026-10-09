@@ -937,6 +937,39 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00625140,0027ca0e,__Z14CC_can_flattenP8nufpar_s,CC_can_flatten(nufpar_s*),confirmed,0
 00625190,0027ca20,__Z17CC_tightrope_walkP8nufpar_s,CC_tightrope_walk(nufpar_s*),confirmed,0
 006251e0,0027ca32,__Z13CC_car_wheelsP8nufpar_s,CC_car_wheels(nufpar_s*),confirmed,0
+006254c0,0027cd20,__Z22CC_clear_default_itemsP8nufpar_s,CC_clear_default_items(nufpar_s*),confirmed,0
+006254f0,0027cd4e,__Z20CC_shield_hit_pointsP8nufpar_s,CC_shield_hit_points(nufpar_s*),confirmed,0
+00625510,0027cd80,__Z13CC_stop_speedP8nufpar_s,CC_stop_speed(nufpar_s*),confirmed,0
+00625530,0027cdb2,__Z13CC_idle_speedP8nufpar_s,CC_idle_speed(nufpar_s*),confirmed,0
+00625550,0027cde4,__Z15CC_tiptoe_speedP8nufpar_s,CC_tiptoe_speed(nufpar_s*),confirmed,0
+00625570,0027ce16,__Z13CC_walk_speedP8nufpar_s,CC_walk_speed(nufpar_s*),confirmed,0
+00625590,0027ce48,__Z12CC_run_speedP8nufpar_s,CC_run_speed(nufpar_s*),confirmed,0
+006255b0,0027ce7a,__Z19CC_backwards_factorP8nufpar_s,CC_backwards_factor(nufpar_s*),confirmed,0
+006255d0,0027ceac,__Z14CC_air_gravityP8nufpar_s,CC_air_gravity(nufpar_s*),confirmed,0
+006255f0,0027cede,__Z13CC_jump_speedP8nufpar_s,CC_jump_speed(nufpar_s*),confirmed,0
+00625610,0027cf10,__Z15CC_jump_2_speedP8nufpar_s,CC_jump_2_speed(nufpar_s*),confirmed,0
+00625630,0027cf42,__Z15CC_accelerationP8nufpar_s,CC_acceleration(nufpar_s*),confirmed,0
+006256a0,0027cfb6,__Z13CC_hit_pointsP8nufpar_s,CC_hit_points(nufpar_s*),confirmed,0
+006256c0,,CC_SetCDataFlagsj,CC_SetCDataFlagsj,confirmed,0
+00625700,0027d048,__Z9CC_baddieP8nufpar_s,CC_baddie(nufpar_s*),confirmed,0
+00625740,0027d05a,__Z7CC_jediP8nufpar_s,CC_jedi(nufpar_s*),confirmed,0
+00625780,0027d06c,__Z8CC_droidP8nufpar_s,CC_droid(nufpar_s*),confirmed,0
+006257c0,0027d07e,__Z11CC_protocolP8nufpar_s,CC_protocol(nufpar_s*),confirmed,0
+00625800,0027d090,__Z12CC_astromechP8nufpar_s,CC_astromech(nufpar_s*),confirmed,0
+00625840,0027d0a2,__Z9CC_cannonP8nufpar_s,CC_cannon(nufpar_s*),confirmed,0
+00625890,0027d0b4,__Z16CC_bounty_hunterP8nufpar_s,CC_bounty_hunter(nufpar_s*),confirmed,0
+006258e0,0027d0c6,__Z10CC_blasterP8nufpar_s,CC_blaster(nufpar_s*),confirmed,0
+00625930,0027d0d8,__Z11CC_teleportP8nufpar_s,CC_teleport(nufpar_s*),confirmed,0
+00625980,0027d0ea,__Z8CC_zipupP8nufpar_s,CC_zipup(nufpar_s*),confirmed,0
+006259d0,0027d0fc,__Z15CC_untargetableP8nufpar_s,CC_untargetable(nufpar_s*),confirmed,0
+00625a20,0027d10e,__Z12CC_orientateP8nufpar_s,CC_orientate(nufpar_s*),confirmed,0
+00625a70,0027d120,__Z10CC_neutralP8nufpar_s,CC_neutral(nufpar_s*),confirmed,0
+00625ac0,0027d132,__Z17CC_complex_shadowP8nufpar_s,CC_complex_shadow(nufpar_s*),confirmed,0
+00625b10,0027d144,__Z21CC_shadow_orientationP8nufpar_s,CC_shadow_orientation(nufpar_s*),confirmed,0
+00625b60,0027d156,__Z17CC_can_open_doorsP8nufpar_s,CC_can_open_doors(nufpar_s*),confirmed,0
+00625bb0,0027d168,__Z12CC_non_stickP8nufpar_s,CC_non_stick(nufpar_s*),confirmed,0
+00625c00,0027d17a,__Z22CC_can_shoot_offscreenP8nufpar_s,CC_can_shoot_offscreen(nufpar_s*),confirmed,0
+00625c50,0027d18c,__Z11CC_can_fireP8nufpar_s,CC_can_fire(nufpar_s*),confirmed,0
 006285d0,00280c32,__Z16AnimInclude_InitPcP9variptr_uS1_,"AnimInclude_Init(char*, variptr_u*, variptr_u*)",strings,0
 00629270,002818fe,__Z23CharConfig_ConfigureAlliP12nufpcomjmp_s,"CharConfig_ConfigureAll(int, nufpcomjmp_s*)",strings,0
 0062d030,002833a2,__Z24CharShadows_InitMaterialP9variptr_uS_,"CharShadows_InitMaterial(variptr_u*, variptr_u)",strings,0
