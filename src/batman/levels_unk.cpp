@@ -485,3 +485,188 @@ void Level_LoadConfigFile(WORLDINFO_s *world) {
     world->config_count = bytesRead;
   }
 }
+
+i32 NuFParGetInt(NUFPAR *parser);
+
+// FUNCTION: LEGOBATMAN 0x0060d8b0
+void LC_BL_mipmapmode(NUFPAR *parser) {
+  levelconfig_ldata->mipmapmode = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060d8e0
+void LC_BL_max_ter_groups(NUFPAR *parser) {
+  levelconfig_ldata->max_ter_groups = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060d900
+void LC_BL_max_ter_platforms(NUFPAR *parser) {
+  levelconfig_ldata->max_ter_platforms = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060da30
+void LC_AL_backr_top(NUFPAR *parser) {
+  levelconfig_ldata->backr_top = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060da50
+void LC_AL_backg_top(NUFPAR *parser) {
+  levelconfig_ldata->backg_top = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060da70
+void LC_AL_backb_top(NUFPAR *parser) {
+  levelconfig_ldata->backb_top = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060da90
+void LC_AL_backr_bottom(NUFPAR *parser) {
+  levelconfig_ldata->backr_bottom = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060dab0
+void LC_AL_backg_bottom(NUFPAR *parser) {
+  levelconfig_ldata->backg_bottom = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060dad0
+void LC_AL_backb_bottom(NUFPAR *parser) {
+  levelconfig_ldata->backb_bottom = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060dc20
+void LC_AL_hover_height(NUFPAR *parser) {
+  levelconfig_ldata->hover_height = NuFParGetFloat(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060dc40
+void LC_AL_blobshadow_alpha(NUFPAR *parser) {
+  levelconfig_ldata->blobshadow_alpha = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060dc60
+void LC_AL_blobshadow_fadenear(NUFPAR *parser) {
+  levelconfig_ldata->blob_shadow_fade_near = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060dc80
+void LC_AL_blobshadow_fadefar(NUFPAR *parser) {
+  levelconfig_ldata->blob_shadow_fade_far = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060dca0
+void LC_AL_reflect_range(NUFPAR *parser) {
+  levelconfig_ldata->reflect_range = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060dcc0
+void LC_AL_reflect_y(NUFPAR *parser) {
+  levelconfig_ldata->reflect_y = NuFParGetFloat(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e0f0
+void LC_AL_cam_tilt(NUFPAR *parser) {
+  levelconfig_ldata->cam_tilt = NuFParGetFloat(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e110
+void LC_AL_raycaststep(NUFPAR *parser) {
+  levelconfig_ldata->raycaststep = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e130
+void LC_AL_plat_scan_dist(NUFPAR *parser) {
+  levelconfig_ldata->plat_scan_dist = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e150
+void LC_AL_waterripple_startcol_r(NUFPAR *parser) {
+  levelconfig_ldata->waterripple_startcol_r = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e170
+void LC_AL_waterripple_startcol_g(NUFPAR *parser) {
+  levelconfig_ldata->waterripple_startcol_g = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e190
+void LC_AL_waterripple_startcol_b(NUFPAR *parser) {
+  levelconfig_ldata->waterripple_startcol_b = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e1b0
+void LC_AL_waterripple_startcol_a(NUFPAR *parser) {
+  levelconfig_ldata->waterripple_startcol_a = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e1d0
+void LC_AL_waterripple_endcol_r(NUFPAR *parser) {
+  levelconfig_ldata->waterripple_endcol_r = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e1f0
+void LC_AL_waterripple_endcol_g(NUFPAR *parser) {
+  levelconfig_ldata->waterripple_endcol_g = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e210
+void LC_AL_waterripple_endcol_b(NUFPAR *parser) {
+  levelconfig_ldata->waterripple_endcol_b = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e230
+void LC_AL_waterripple_endcol_a(NUFPAR *parser) {
+  levelconfig_ldata->waterripple_endcol_a = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e250
+void LC_AL_waterripple_life(NUFPAR *parser) {
+  levelconfig_ldata->waterripple_life = NuFParGetFloat(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e340
+void LC_AL_cam_look_rot_mul_x(NUFPAR *parser) {
+  levelconfig_ldata->cam_look_rot_mul_x = NuFParGetFloat(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e360
+void LC_AL_cam_look_rot_mul_y(NUFPAR *parser) {
+  levelconfig_ldata->cam_look_rot_mul_y = NuFParGetFloat(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e380
+void LC_AL_campos_seek(NUFPAR *parser) {
+  levelconfig_ldata->campos_seek = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e3a0
+void LC_AL_camang_seek(NUFPAR *parser) {
+  levelconfig_ldata->camang_seek = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e3c0
+void LC_AL_shadowtype(NUFPAR *parser) {
+  levelconfig_ldata->shadowtype = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e590
+void LC_AL_char_clip_dist(NUFPAR *parser) {
+  levelconfig_ldata->char_clip_dist = NuFParGetFloat(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x0060d9a0
+void LC_AL_backr(NUFPAR *parser) {
+  levelconfig_ldata->backr_bottom = NuFParGetInt(parser);
+  levelconfig_ldata->backr_top = levelconfig_ldata->backr_bottom;
+}
+
+// FUNCTION: LEGOBATMAN 0x0060d9d0
+void LC_AL_backg(NUFPAR *parser) {
+  levelconfig_ldata->backg_bottom = NuFParGetInt(parser);
+  levelconfig_ldata->backg_top = levelconfig_ldata->backg_bottom;
+}
+
+// FUNCTION: LEGOBATMAN 0x0060da00
+void LC_AL_backb(NUFPAR *parser) {
+  levelconfig_ldata->backb_bottom = NuFParGetInt(parser);
+  levelconfig_ldata->backb_top = levelconfig_ldata->backb_bottom;
+}

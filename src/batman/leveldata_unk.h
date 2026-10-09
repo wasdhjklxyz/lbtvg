@@ -8,14 +8,48 @@ typedef struct LEVELDATA_s {
   unsigned char pad60[0x64 - 0x60];
   u32 flags;             // 0x64
   void (*fns[10])(void); // 0x68; per-level callbacks set by Levels_FixUp
-  unsigned char pad90[0xd9 - 0x90];
+  unsigned char pad90[0x9a - 0x90];
+  u8 backr_top;    // 0x9a
+  u8 backr_bottom; // 0x9b
+  u8 backg_top;    // 0x9c
+  u8 backg_bottom; // 0x9d
+  u8 backb_top;    // 0x9e
+  u8 backb_bottom; // 0x9f
+  unsigned char pada0[0xa2 - 0xa0];
+  i16 max_ter_platforms; // 0xa2
+  i16 max_ter_groups;    // 0xa4
+  unsigned char pada6[0xa8 - 0xa6];
+  u8 mipmapmode;       // 0xa8
+  u8 blobshadow_alpha; // 0xa9
+  unsigned char padaa[0xac - 0xaa];
+  f32 cam_tilt;              // 0xac
+  f32 hover_height;          // 0xb0
+  u8 waterripple_startcol_r; // 0xb4
+  u8 waterripple_startcol_g; // 0xb5
+  u8 waterripple_startcol_b; // 0xb6
+  u8 waterripple_startcol_a; // 0xb7
+  u8 waterripple_endcol_r;   // 0xb8
+  u8 waterripple_endcol_g;   // 0xb9
+  u8 waterripple_endcol_b;   // 0xba
+  u8 waterripple_endcol_a;   // 0xbb
+  f32 waterripple_life;      // 0xbc
+  unsigned char padc0[0xc8 - 0xc0];
+  f32 cam_look_rot_mul_x; // 0xc8
+  f32 cam_look_rot_mul_y; // 0xcc
+  f32 reflect_y;          // 0xd0
+  i32 shadowtype;         // 0xd4
+  unsigned char padd8[0xd9 - 0xd8];
   u8 blob_shadow_fade_near; // 0xd9
   u8 blob_shadow_fade_far;  // 0xda
-  unsigned char paddb[0xe0 - 0xdb];
-  f32 conveyor_x_speed; // 0xe0
-  f32 conveyor_z_speed; // 0xe4
-  unsigned char pade8[0xec - 0xe8];
-  i16 max_gameantinodes; // 0xec
+  u8 campos_seek;           // 0xdb
+  u8 camang_seek;           // 0xdc
+  u8 reflect_range;         // 0xdd
+  u8 raycaststep;           // 0xde
+  u8 plat_scan_dist;        // 0xdf
+  f32 conveyor_x_speed;     // 0xe0
+  f32 conveyor_z_speed;     // 0xe4
+  f32 char_clip_dist;       // 0xe8
+  i16 max_gameantinodes;    // 0xec
   u8 padee[0xf2 - 0xee];
   i16 max_pickups;          // 0xf2
   i16 max_obstacle_objects; // 0xf4

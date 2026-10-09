@@ -851,3 +851,39 @@
 004aa740 LC_BL_max_pushblocks  matched saga body, keyword table
 004aa780 LC_BL_max_pushblock_endpos  matched saga body, keyword table
 004aab80 LC_BL_flock_extras  matched, keyword table
+0060d8b0 LC_BL_mipmapmode  matched saga body, keyword table
+0060d8e0 LC_BL_max_ter_groups  matched saga body, keyword table
+0060d900 LC_BL_max_ter_platforms  matched saga body, keyword table
+0060da30 LC_AL_backr_top  matched saga body, keyword table
+0060da50 LC_AL_backg_top  matched saga body, keyword table
+0060da70 LC_AL_backb_top  matched saga body, keyword table
+0060da90 LC_AL_backr_bottom  matched saga body, keyword table
+0060dab0 LC_AL_backg_bottom  matched saga body, keyword table
+0060dad0 LC_AL_backb_bottom  matched saga body, keyword table
+0060dc20 LC_AL_hover_height  matched saga body, keyword table
+0060dc40 LC_AL_blobshadow_alpha  matched saga body, keyword table
+0060dc60 LC_AL_blobshadow_fadenear  matched saga body, keyword table
+0060dc80 LC_AL_blobshadow_fadefar  matched saga body, keyword table
+0060dca0 LC_AL_reflect_range  matched saga body, keyword table
+0060dcc0 LC_AL_reflect_y  matched saga body, keyword table
+0060e0f0 LC_AL_cam_tilt  matched saga body, keyword table
+0060e110 LC_AL_raycaststep  matched saga body, keyword table
+0060e130 LC_AL_plat_scan_dist  matched saga body, keyword table
+0060e150 LC_AL_waterripple_startcol_r  matched saga body, keyword table
+0060e170 LC_AL_waterripple_startcol_g  matched saga body, keyword table
+0060e190 LC_AL_waterripple_startcol_b  matched saga body, keyword table
+0060e1b0 LC_AL_waterripple_startcol_a  matched saga body, keyword table
+0060e1d0 LC_AL_waterripple_endcol_r  matched saga body, keyword table
+0060e1f0 LC_AL_waterripple_endcol_g  matched saga body, keyword table
+0060e210 LC_AL_waterripple_endcol_b  matched saga body, keyword table
+0060e230 LC_AL_waterripple_endcol_a  matched saga body, keyword table
+0060e250 LC_AL_waterripple_life  matched saga body, keyword table
+0060e340 LC_AL_cam_look_rot_mul_x  matched saga body, keyword table
+0060e360 LC_AL_cam_look_rot_mul_y  matched saga body, keyword table
+0060e380 LC_AL_campos_seek  matched saga body, keyword table
+0060e3a0 LC_AL_camang_seek  matched saga body, keyword table
+0060e3c0 LC_AL_shadowtype  matched saga body, keyword table
+0060e590 LC_AL_char_clip_dist  matched saga body, keyword table
+0060d9a0 LC_AL_backr  matched, keyword table
+0060d9d0 LC_AL_backg  matched, keyword table
+0060da00 LC_AL_backb  matched, keyword table

@@ -843,8 +843,44 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0060d110,002ff8ae,__Z20Levels_ConfigureListPcP9variptr_uS1_iPiPFvP11LEVELDATA_sE,"Levels_ConfigureList(char*, variptr_u*, variptr_u*, int, int*, void (*)(LEVELDATA_s*))",strings,0
 0060d6c0,002ffed8,__Z16Level_FindByNamePcPi,"Level_FindByName(char*, int*)",confirmed,0
 0060d7a0,002fffd8,__Z12Levels_FixUpP10LEVELFIXUP,Levels_FixUp(LEVELFIXUP*),confirmed,0
+0060d8b0,003000a2,__Z16LC_BL_mipmapmodeP8nufpar_s,LC_BL_mipmapmode(nufpar_s*),confirmed,0
+0060d8e0,003000ec,__Z20LC_BL_max_ter_groupsP8nufpar_s,LC_BL_max_ter_groups(nufpar_s*),confirmed,0
+0060d900,0030011e,__Z23LC_BL_max_ter_platformsP8nufpar_s,LC_BL_max_ter_platforms(nufpar_s*),confirmed,0
 0060d920,00300150,__Z22LevelConfig_BeforeLoadP11LEVELDATA_sPcP12nufpcomjmp_s,"LevelConfig_BeforeLoad(LEVELDATA_s*, char*, nufpcomjmp_s*)",strings,0
+0060d9a0,003001e4,__Z11LC_AL_backrP8nufpar_s,LC_AL_backr(nufpar_s*),confirmed,0
+0060d9d0,0030021c,__Z11LC_AL_backgP8nufpar_s,LC_AL_backg(nufpar_s*),confirmed,0
+0060da00,00300254,__Z11LC_AL_backbP8nufpar_s,LC_AL_backb(nufpar_s*),confirmed,0
+0060da30,0030028c,__Z15LC_AL_backr_topP8nufpar_s,LC_AL_backr_top(nufpar_s*),confirmed,0
+0060da50,003002be,__Z15LC_AL_backg_topP8nufpar_s,LC_AL_backg_top(nufpar_s*),confirmed,0
+0060da70,003002f0,__Z15LC_AL_backb_topP8nufpar_s,LC_AL_backb_top(nufpar_s*),confirmed,0
+0060da90,00300322,__Z18LC_AL_backr_bottomP8nufpar_s,LC_AL_backr_bottom(nufpar_s*),confirmed,0
+0060dab0,00300354,__Z18LC_AL_backg_bottomP8nufpar_s,LC_AL_backg_bottom(nufpar_s*),confirmed,0
+0060dad0,00300386,__Z18LC_AL_backb_bottomP8nufpar_s,LC_AL_backb_bottom(nufpar_s*),confirmed,0
+0060dc20,003004ae,__Z18LC_AL_hover_heightP8nufpar_s,LC_AL_hover_height(nufpar_s*),confirmed,0
+0060dc40,003004e0,__Z22LC_AL_blobshadow_alphaP8nufpar_s,LC_AL_blobshadow_alpha(nufpar_s*),confirmed,0
+0060dc60,00300512,__Z25LC_AL_blobshadow_fadenearP8nufpar_s,LC_AL_blobshadow_fadenear(nufpar_s*),confirmed,0
+0060dc80,00300544,__Z24LC_AL_blobshadow_fadefarP8nufpar_s,LC_AL_blobshadow_fadefar(nufpar_s*),confirmed,0
+0060dca0,00300576,__Z19LC_AL_reflect_rangeP8nufpar_s,LC_AL_reflect_range(nufpar_s*),confirmed,0
+0060dcc0,003005a8,__Z15LC_AL_reflect_yP8nufpar_s,LC_AL_reflect_y(nufpar_s*),confirmed,0
+0060e0f0,003007ea,__Z14LC_AL_cam_tiltP8nufpar_s,LC_AL_cam_tilt(nufpar_s*),confirmed,0
+0060e110,0030081c,__Z17LC_AL_raycaststepP8nufpar_s,LC_AL_raycaststep(nufpar_s*),confirmed,0
+0060e130,0030084e,__Z20LC_AL_plat_scan_distP8nufpar_s,LC_AL_plat_scan_dist(nufpar_s*),confirmed,0
+0060e150,00300880,__Z28LC_AL_waterripple_startcol_rP8nufpar_s,LC_AL_waterripple_startcol_r(nufpar_s*),confirmed,0
+0060e170,003008b2,__Z28LC_AL_waterripple_startcol_gP8nufpar_s,LC_AL_waterripple_startcol_g(nufpar_s*),confirmed,0
+0060e190,003008e4,__Z28LC_AL_waterripple_startcol_bP8nufpar_s,LC_AL_waterripple_startcol_b(nufpar_s*),confirmed,0
+0060e1b0,00300916,__Z28LC_AL_waterripple_startcol_aP8nufpar_s,LC_AL_waterripple_startcol_a(nufpar_s*),confirmed,0
+0060e1d0,00300948,__Z26LC_AL_waterripple_endcol_rP8nufpar_s,LC_AL_waterripple_endcol_r(nufpar_s*),confirmed,0
+0060e1f0,0030097a,__Z26LC_AL_waterripple_endcol_gP8nufpar_s,LC_AL_waterripple_endcol_g(nufpar_s*),confirmed,0
+0060e210,003009ac,__Z26LC_AL_waterripple_endcol_bP8nufpar_s,LC_AL_waterripple_endcol_b(nufpar_s*),confirmed,0
+0060e230,003009de,__Z26LC_AL_waterripple_endcol_aP8nufpar_s,LC_AL_waterripple_endcol_a(nufpar_s*),confirmed,0
+0060e250,00300a10,__Z22LC_AL_waterripple_lifeP8nufpar_s,LC_AL_waterripple_life(nufpar_s*),confirmed,0
+0060e340,00300aea,__Z24LC_AL_cam_look_rot_mul_xP8nufpar_s,LC_AL_cam_look_rot_mul_x(nufpar_s*),confirmed,0
+0060e360,00300b1c,__Z24LC_AL_cam_look_rot_mul_yP8nufpar_s,LC_AL_cam_look_rot_mul_y(nufpar_s*),confirmed,0
+0060e380,00300b4e,__Z17LC_AL_campos_seekP8nufpar_s,LC_AL_campos_seek(nufpar_s*),confirmed,0
+0060e3a0,00300b80,__Z17LC_AL_camang_seekP8nufpar_s,LC_AL_camang_seek(nufpar_s*),confirmed,0
+0060e3c0,00300bb2,__Z16LC_AL_shadowtypeP8nufpar_s,LC_AL_shadowtype(nufpar_s*),confirmed,0
 0060e510,00300d9e,__Z14LC_AL_conveyorP8nufpar_s,LC_AL_conveyor(nufpar_s*),strings,0
+0060e590,00300e28,__Z20LC_AL_char_clip_distP8nufpar_s,LC_AL_char_clip_dist(nufpar_s*),confirmed,0
 0060e5b0,00300e5a,__Z21LevelConfig_AfterLoadP11LEVELDATA_sPcP12nufpcomjmp_s,"LevelConfig_AfterLoad(LEVELDATA_s*, char*, nufpcomjmp_s*)",strings,0
 0060e640,00300efa,__Z24LevelSplines_InitForGameP11LEVELSPLINE,LevelSplines_InitForGame(LEVELSPLINE*),strings,0
 0060e6d0,00300f9e,__Z25LevelSplines_InitForLevelP11WORLDINFO_s,LevelSplines_InitForLevel(WORLDINFO_s*),strings,0
