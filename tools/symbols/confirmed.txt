@@ -898,3 +898,26 @@
 0060e010 LC_AL_terrain_rain  matched saga body, keyword table
 0060e060 LC_AL_double_score  matched saga body, keyword table
 0060e0b0 LC_AL_flat_terrain  matched saga body, keyword table
+00 BT_typed  matched, keyword table
+00ac7598 extern BoltTypeKw_s *BT_bolttype;  matched, keyword table
+005e8790 BT_speed  matched, keyword table
+005e87b0 BT_duration  matched, keyword table
+005e87d0 BT_radius  matched, keyword table
+005e87f0 BT_scale  matched, keyword table
+005e8810 BT_scaletime  matched, keyword table
+005e8840 BT_gravity  matched, keyword table
+005e8860 BT_rand_angle  matched, keyword table
+005e8ed0 BT_damage  matched, keyword table
+005e8ef0 BT_nodeflect  matched, keyword table
+005e8f10 BT_converge  matched, keyword table
+005e8f30 BT_canonlyhitplayers  matched, keyword table
+005e8f50 BT_no_terrain  matched, keyword table
+005e8f60 BT_no_collide  matched, keyword table
+005e8f80 BT_trooper_bolt  matched, keyword table
+005e8fa0 BT_single_debris  matched, keyword table
+005e8fc0 BT_bolt_water  matched, keyword table
+005e8fd0 BT_torpedo  matched, keyword table
+005e8fe0 BT_typea  matched, keyword table
+005e8ff0 BT_typeb  matched, keyword table
+005e9010 BT_typec  matched, keyword table
+005e9030 BT_typed  matched, keyword table

@@ -159,3 +159,142 @@ void BoltSys_Init(BOLTSYS *system) {
         system->shoot_direction = Bolt_GetShootDirection_Default;
 }
 #endif
+
+typedef struct nufpar_s NUFPAR;
+f32 NuFParGetFloat(NUFPAR *parser);
+i32 NuFParGetInt(NUFPAR *parser);
+
+// The keyword parsers' view of a bolt type (PC layout).
+struct BoltTypeKw_s {
+  char name[16]; // 0x00
+  f32 speed;     // 0x10
+  f32 duration;  // 0x14
+  f32 gravity;   // 0x18
+  f32 radius;    // 0x1c
+  f32 scale;     // 0x20
+  f32 scaletime; // 0x24
+  u8 pad28[0x3a - 0x28];
+  u8 damage; // 0x3a
+  u8 pad3b[0x3c - 0x3b];
+  i32 rand_angle; // 0x3c
+  u8 pad40[0x58 - 0x40];
+  unsigned __int64 flags; // 0x58
+};
+
+// GLOBAL: LEGOBATMAN 0x00ac7598
+extern BoltTypeKw_s *BT_bolttype;
+
+static inline f32 NuFabs(f32 f) {
+  u32 bits = *(u32 *)&f & 0x7fffffff;
+  return *(f32 *)&bits;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8790
+void BT_speed(NUFPAR *parser) { BT_bolttype->speed = NuFParGetFloat(parser); }
+
+// FUNCTION: LEGOBATMAN 0x005e87b0
+void BT_duration(NUFPAR *parser) {
+  BT_bolttype->duration = NuFParGetFloat(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x005e87d0
+void BT_radius(NUFPAR *parser) { BT_bolttype->radius = NuFParGetFloat(parser); }
+
+// FUNCTION: LEGOBATMAN 0x005e87f0
+void BT_scale(NUFPAR *parser) { BT_bolttype->scale = NuFParGetFloat(parser); }
+
+// FUNCTION: LEGOBATMAN 0x005e8810
+void BT_scaletime(NUFPAR *parser) {
+  BT_bolttype->scaletime = NuFabs(NuFParGetFloat(parser));
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8840
+void BT_gravity(NUFPAR *parser) {
+  BT_bolttype->gravity = NuFParGetFloat(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8860
+void BT_rand_angle(NUFPAR *parser) {
+  BT_bolttype->rand_angle = (i32)(NuFParGetFloat(parser) * 182.04445f);
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8ed0
+void BT_damage(NUFPAR *parser) { BT_bolttype->damage = NuFParGetInt(parser); }
+
+// FUNCTION: LEGOBATMAN 0x005e8ef0
+void BT_nodeflect(NUFPAR *parser) {
+  BoltTypeKw_s *bolt_type = BT_bolttype;
+  bolt_type->flags |= 0x100ull;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8f10
+void BT_converge(NUFPAR *parser) {
+  BoltTypeKw_s *bolt_type = BT_bolttype;
+  bolt_type->flags |= 0x400ull;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8f30
+void BT_canonlyhitplayers(NUFPAR *parser) {
+  BoltTypeKw_s *bolt_type = BT_bolttype;
+  bolt_type->flags |= 0x80ull;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8f50
+void BT_no_terrain(NUFPAR *parser) {
+  BoltTypeKw_s *bolt_type = BT_bolttype;
+  bolt_type->flags |= 4ull;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8f60
+void BT_no_collide(NUFPAR *parser) {
+  BoltTypeKw_s *bolt_type = BT_bolttype;
+  bolt_type->flags |= 0x10000ull;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8f80
+void BT_trooper_bolt(NUFPAR *parser) {
+  BoltTypeKw_s *bolt_type = BT_bolttype;
+  bolt_type->flags |= 0x80000ull;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8fa0
+void BT_single_debris(NUFPAR *parser) {
+  BoltTypeKw_s *bolt_type = BT_bolttype;
+  bolt_type->flags |= 0x20000000ull;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8fc0
+void BT_bolt_water(NUFPAR *parser) {
+  BoltTypeKw_s *bolt_type = BT_bolttype;
+  bolt_type->flags |= 0x200000000ull;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8fd0
+void BT_torpedo(NUFPAR *parser) {
+  BoltTypeKw_s *bolt_type = BT_bolttype;
+  bolt_type->flags |= 0x400000000ull;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8fe0
+void BT_typea(NUFPAR *parser) {
+  BoltTypeKw_s *bolt_type = BT_bolttype;
+  bolt_type->flags |= 0x4000000000ull;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8ff0
+void BT_typeb(NUFPAR *parser) {
+  BoltTypeKw_s *bolt_type = BT_bolttype;
+  bolt_type->flags |= 0x8000000000ull;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e9010
+void BT_typec(NUFPAR *parser) {
+  BoltTypeKw_s *bolt_type = BT_bolttype;
+  bolt_type->flags |= 0x10000000000ull;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e9030
+void BT_typed(NUFPAR *parser) {
+  BoltTypeKw_s *bolt_type = BT_bolttype;
+  bolt_type->flags |= 0x20000000000ull;
+}

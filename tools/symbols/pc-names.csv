@@ -801,6 +801,27 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005d9e20,002c6fce,__Z17GizmoBlowupBlowupP13GIZMOBLOWUP_siiiP12GameObject_si,"GizmoBlowupBlowup(GIZMOBLOWUP_s*, int, int, int, GameObject_s*, int)",confirmed,0
 005dda30,002cb9c0,__Z22GizmoBlowUp_FindByNameP11WORLDINFO_sPc,"GizmoBlowUp_FindByName(WORLDINFO_s*, char*)",calls,1
 005dfa60,002ec12c,__Z15ObjHitObj_FlagsP12GameObject_s,ObjHitObj_Flags(GameObject_s*),gapfill,1
+005e8790,0026b086,__Z8BT_speedP8nufpar_s,BT_speed(nufpar_s*),confirmed,0
+005e87b0,0026b0b4,__Z11BT_durationP8nufpar_s,BT_duration(nufpar_s*),confirmed,0
+005e87d0,0026b0e2,__Z9BT_radiusP8nufpar_s,BT_radius(nufpar_s*),confirmed,0
+005e87f0,0026b110,__Z8BT_scaleP8nufpar_s,BT_scale(nufpar_s*),confirmed,0
+005e8810,0026b13e,__Z12BT_scaletimeP8nufpar_s,BT_scaletime(nufpar_s*),confirmed,0
+005e8840,0026b17e,__Z10BT_gravityP8nufpar_s,BT_gravity(nufpar_s*),confirmed,0
+005e8860,0026b1ac,__Z13BT_rand_angleP8nufpar_s,BT_rand_angle(nufpar_s*),confirmed,0
+005e8ed0,0026b9a2,__Z9BT_damageP8nufpar_s,BT_damage(nufpar_s*),confirmed,0
+005e8ef0,0026b9d0,__Z12BT_nodeflectP8nufpar_s,BT_nodeflect(nufpar_s*),confirmed,0
+005e8f10,0026b9f2,__Z11BT_convergeP8nufpar_s,BT_converge(nufpar_s*),confirmed,0
+005e8f30,0026ba14,__Z20BT_canonlyhitplayersP8nufpar_s,BT_canonlyhitplayers(nufpar_s*),confirmed,0
+005e8f50,0026ba36,__Z13BT_no_terrainP8nufpar_s,BT_no_terrain(nufpar_s*),confirmed,0
+005e8f60,0026ba58,__Z13BT_no_collideP8nufpar_s,BT_no_collide(nufpar_s*),confirmed,0
+005e8f80,0026ba7c,__Z15BT_trooper_boltP8nufpar_s,BT_trooper_bolt(nufpar_s*),confirmed,0
+005e8fa0,0026baa0,__Z16BT_single_debrisP8nufpar_s,BT_single_debris(nufpar_s*),confirmed,0
+005e8fc0,0026bac4,__Z13BT_bolt_waterP8nufpar_s,BT_bolt_water(nufpar_s*),confirmed,0
+005e8fd0,0026bae6,__Z10BT_torpedoP8nufpar_s,BT_torpedo(nufpar_s*),confirmed,0
+005e8fe0,0026bb08,__Z8BT_typeaP8nufpar_s,BT_typea(nufpar_s*),confirmed,0
+005e8ff0,0026bb2a,__Z8BT_typebP8nufpar_s,BT_typeb(nufpar_s*),confirmed,0
+005e9010,0026bb4c,__Z8BT_typecP8nufpar_s,BT_typec(nufpar_s*),confirmed,0
+005e9030,0026bb6e,__Z8BT_typedP8nufpar_s,BT_typed(nufpar_s*),confirmed,0
 005e9790,0026c140,__Z12BoltSys_InitPcP7BOLTSYSP9variptr_uS3_,"BoltSys_Init(char*, BOLTSYS*, variptr_u*, variptr_u*)",strings,0
 005eabf0,0026c3c4,__Z19BoltTypes_ConfigureP11WORLDINFO_sPc,"BoltTypes_Configure(WORLDINFO_s*, char*)",strings,0
 005ee210,0030dc84,__Z30PlayerItemTypeSys_ParseLocatorP8nufpar_sP16PLAYERITEMTYPE_si,"PlayerItemTypeSys_ParseLocator(nufpar_s*, PLAYERITEMTYPE_s*, int)",strings,0
@@ -1550,3 +1571,4 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0073cd6b,00359ff0,___eprintf,___eprintf,gapfill,1
 0075b591,001ad4f6,__ZN7NuMusic11ClassToNameEj,NuMusic::ClassToName(unsigned int),strings,0
 007a2310,00047d3c,__Z17EvilSlums_D_ResetP11WORLDINFO_s,EvilSlums_D_Reset(WORLDINFO_s*),strings,0
+00ac7598,,extern,extern,confirmed,0
