@@ -887,3 +887,14 @@
 0060d9a0 LC_AL_backr  matched, keyword table
 0060d9d0 LC_AL_backg  matched, keyword table
 0060da00 LC_AL_backb  matched, keyword table
+0060d8d0 LC_BL_fix_strobing_anims  matched saga body, keyword table
+0060dd20 LC_AL_metal  matched saga body, keyword table
+0060dd70 LC_AL_in_space  matched saga body, keyword table
+0060ddc0 LC_AL_override_nopickupgravity  matched saga body, keyword table
+0060ded0 LC_AL_pickups_to_panel  matched saga body, keyword table
+0060df20 LC_AL_forget_takeovers  matched saga body, keyword table
+0060df70 LC_AL_narrow_socks  matched saga body, keyword table
+0060dfc0 LC_AL_camera_rain  matched saga body, keyword table
+0060e010 LC_AL_terrain_rain  matched saga body, keyword table
+0060e060 LC_AL_double_score  matched saga body, keyword table
+0060e0b0 LC_AL_flat_terrain  matched saga body, keyword table

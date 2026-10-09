@@ -844,6 +844,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0060d6c0,002ffed8,__Z16Level_FindByNamePcPi,"Level_FindByName(char*, int*)",confirmed,0
 0060d7a0,002fffd8,__Z12Levels_FixUpP10LEVELFIXUP,Levels_FixUp(LEVELFIXUP*),confirmed,0
 0060d8b0,003000a2,__Z16LC_BL_mipmapmodeP8nufpar_s,LC_BL_mipmapmode(nufpar_s*),confirmed,0
+0060d8d0,003000d4,__Z24LC_BL_fix_strobing_animsP8nufpar_s,LC_BL_fix_strobing_anims(nufpar_s*),confirmed,0
 0060d8e0,003000ec,__Z20LC_BL_max_ter_groupsP8nufpar_s,LC_BL_max_ter_groups(nufpar_s*),confirmed,0
 0060d900,0030011e,__Z23LC_BL_max_ter_platformsP8nufpar_s,LC_BL_max_ter_platforms(nufpar_s*),confirmed,0
 0060d920,00300150,__Z22LevelConfig_BeforeLoadP11LEVELDATA_sPcP12nufpcomjmp_s,"LevelConfig_BeforeLoad(LEVELDATA_s*, char*, nufpcomjmp_s*)",strings,0
@@ -862,6 +863,16 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0060dc80,00300544,__Z24LC_AL_blobshadow_fadefarP8nufpar_s,LC_AL_blobshadow_fadefar(nufpar_s*),confirmed,0
 0060dca0,00300576,__Z19LC_AL_reflect_rangeP8nufpar_s,LC_AL_reflect_range(nufpar_s*),confirmed,0
 0060dcc0,003005a8,__Z15LC_AL_reflect_yP8nufpar_s,LC_AL_reflect_y(nufpar_s*),confirmed,0
+0060dd20,0030063a,__Z11LC_AL_metalP8nufpar_s,LC_AL_metal(nufpar_s*),confirmed,0
+0060dd70,0030064c,__Z14LC_AL_in_spaceP8nufpar_s,LC_AL_in_space(nufpar_s*),confirmed,0
+0060ddc0,0030065e,__Z30LC_AL_override_nopickupgravityP8nufpar_s,LC_AL_override_nopickupgravity(nufpar_s*),confirmed,0
+0060ded0,0030076c,__Z22LC_AL_pickups_to_panelP8nufpar_s,LC_AL_pickups_to_panel(nufpar_s*),confirmed,0
+0060df20,0030077e,__Z22LC_AL_forget_takeoversP8nufpar_s,LC_AL_forget_takeovers(nufpar_s*),confirmed,0
+0060df70,00300790,__Z18LC_AL_narrow_socksP8nufpar_s,LC_AL_narrow_socks(nufpar_s*),confirmed,0
+0060dfc0,003007a2,__Z17LC_AL_camera_rainP8nufpar_s,LC_AL_camera_rain(nufpar_s*),confirmed,0
+0060e010,003007b4,__Z18LC_AL_terrain_rainP8nufpar_s,LC_AL_terrain_rain(nufpar_s*),confirmed,0
+0060e060,003007c6,__Z18LC_AL_double_scoreP8nufpar_s,LC_AL_double_score(nufpar_s*),confirmed,0
+0060e0b0,003007d8,__Z18LC_AL_flat_terrainP8nufpar_s,LC_AL_flat_terrain(nufpar_s*),confirmed,0
 0060e0f0,003007ea,__Z14LC_AL_cam_tiltP8nufpar_s,LC_AL_cam_tilt(nufpar_s*),confirmed,0
 0060e110,0030081c,__Z17LC_AL_raycaststepP8nufpar_s,LC_AL_raycaststep(nufpar_s*),confirmed,0
 0060e130,0030084e,__Z20LC_AL_plat_scan_distP8nufpar_s,LC_AL_plat_scan_dist(nufpar_s*),confirmed,0

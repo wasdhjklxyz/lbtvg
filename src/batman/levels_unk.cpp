@@ -670,3 +670,78 @@ void LC_AL_backb(NUFPAR *parser) {
   levelconfig_ldata->backb_bottom = NuFParGetInt(parser);
   levelconfig_ldata->backb_top = levelconfig_ldata->backb_bottom;
 }
+
+// FUNCTION: LEGOBATMAN 0x0060d8d0
+void LC_BL_fix_strobing_anims(NUFPAR *parser) {
+  levelconfig_ldata->flags |= 0x100;
+}
+
+// FUNCTION: LEGOBATMAN 0x0060dd20
+void LC_AL_metal(NUFPAR *parser) {
+  levelconfig_ldata->flags |= 0x1000;
+  if (NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "off") == 0)
+    levelconfig_ldata->flags &= ~0x1000;
+}
+
+// FUNCTION: LEGOBATMAN 0x0060dd70
+void LC_AL_in_space(NUFPAR *parser) {
+  levelconfig_ldata->flags |= 0x40000;
+  if (NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "off") == 0)
+    levelconfig_ldata->flags &= ~0x40000;
+}
+
+// FUNCTION: LEGOBATMAN 0x0060ddc0
+void LC_AL_override_nopickupgravity(NUFPAR *parser) {
+  levelconfig_ldata->flags |= 0x400000;
+  if (NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "off") == 0)
+    levelconfig_ldata->flags &= ~0x400000;
+}
+
+// FUNCTION: LEGOBATMAN 0x0060ded0
+void LC_AL_pickups_to_panel(NUFPAR *parser) {
+  levelconfig_ldata->flags |= 0x80000;
+  if (NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "off") == 0)
+    levelconfig_ldata->flags &= ~0x80000;
+}
+
+// FUNCTION: LEGOBATMAN 0x0060df20
+void LC_AL_forget_takeovers(NUFPAR *parser) {
+  levelconfig_ldata->flags |= 0x100000;
+  if (NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "off") == 0)
+    levelconfig_ldata->flags &= ~0x100000;
+}
+
+// FUNCTION: LEGOBATMAN 0x0060df70
+void LC_AL_narrow_socks(NUFPAR *parser) {
+  levelconfig_ldata->flags |= 0x200000;
+  if (NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "off") == 0)
+    levelconfig_ldata->flags &= ~0x200000;
+}
+
+// FUNCTION: LEGOBATMAN 0x0060dfc0
+void LC_AL_camera_rain(NUFPAR *parser) {
+  levelconfig_ldata->flags |= 0x4000;
+  if (NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "off") == 0)
+    levelconfig_ldata->flags &= ~0x4000;
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e010
+void LC_AL_terrain_rain(NUFPAR *parser) {
+  levelconfig_ldata->flags |= 0x8000;
+  if (NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "off") == 0)
+    levelconfig_ldata->flags &= ~0x8000;
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e060
+void LC_AL_double_score(NUFPAR *parser) {
+  levelconfig_ldata->flags |= 0x800;
+  if (NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "off") == 0)
+    levelconfig_ldata->flags &= ~0x800;
+}
+
+// FUNCTION: LEGOBATMAN 0x0060e0b0
+void LC_AL_flat_terrain(NUFPAR *parser) {
+  levelconfig_ldata->flags |= 0x10;
+  if (NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "off") == 0)
+    levelconfig_ldata->flags &= ~0x10;
+}
