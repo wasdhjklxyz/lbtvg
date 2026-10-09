@@ -148,3 +148,13 @@ enough matched code for the percentage to mean something.
 - **Two calls in if/else with different string arguments tail-merge** into
   one call with the shared trailing arguments pushed before the branch; a
   `c ? "A" : "B"` argument instead gives `mov eax, str` in each arm.
+- **`static` globals are not reloaded after float stores**; `extern` ones are.
+  If a global is re-read in yours but not in the original, make it `static`
+  in its file.
+- **Callees from another file that appear inlined** (`NuStrCpy`, small file
+  readers) match when copied in as a `static inline` helper or an open-coded
+  loop; large ones need `__forceinline`.
+- **A `/GS` cookie on a local struct** with `char` padding arrays: switch the
+  padding to `u32` arrays and the cookie goes away.
+- `make new` skips addresses listed in `tools/symbols/skip.txt` when picking at
+  random: add the ones you gave up on, with a reason.

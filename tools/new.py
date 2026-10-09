@@ -291,6 +291,10 @@ def pick_random(kind):
         m = re.match(r"- \[ \] `([0-9a-f]{8})` (\d+) B `([^`]*)`(.*)", l)
         if m:
             rows.append((int(m.group(1), 16), int(m.group(2)), m.group(3), m.group(4)))
+    skip = ROOT / "tools/symbols/skip.txt"
+    if skip.exists():
+        bad = {int(l.split()[0], 16) for l in skip.read_text().splitlines() if l.strip() and not l.startswith("#")}
+        rows = [r for r in rows if r[0] not in bad]
     if kind != "any":
         easy = [r for r in rows if "**saga**" in r[3] and "**stub**" not in r[3] and r[1] <= 160]
         rows = easy or rows

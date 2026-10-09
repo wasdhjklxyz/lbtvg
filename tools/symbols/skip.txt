@@ -1,0 +1,6 @@
+# Addresses `make new` (random pick) should not offer: tried and known to need
+# more than a quick port (register-argument statics, jump tables, heavy x87,
+# wrong pairings). One per line: address, reason. Picking one explicitly with
+# FUNC= still works.
+004a3630 TakeOver_SetAction: esi/edi register args
+006013b0 register-arg function calling Player_ClearContext; Mac pairing wrong
