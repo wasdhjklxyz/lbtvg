@@ -1637,6 +1637,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00627d60,0027e982,__Z14CC_use_turnmulP8nufpar_s,CC_use_turnmul(nufpar_s*),confirmed,0
 00627db0,0027e9c0,__Z33CC_dont_trigger_vehicle_proximityP8nufpar_s,CC_dont_trigger_vehicle_proximity(nufpar_s*),confirmed,0
 00627e00,0027ea00,__Z25CC_wall_shuffle_face_wallP8nufpar_s,CC_wall_shuffle_face_wall(nufpar_s*),confirmed,0
+00627e50,0027ef28,__Z16CC_awkward_shapeP8nufpar_s,CC_awkward_shape(nufpar_s*),confirmed,0
 00628270,0027ea42,__Z17CC_detonator_typeP8nufpar_s,CC_detonator_type(nufpar_s*),confirmed,0
 00628290,0027ea74,__Z10CC_swimmerP8nufpar_s,CC_swimmer(nufpar_s*),confirmed,0
 006282e0,0027eab8,__Z8CC_diverP8nufpar_s,CC_diver(nufpar_s*),confirmed,0

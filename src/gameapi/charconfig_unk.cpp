@@ -30,7 +30,10 @@ typedef struct CCLAYER_s {
 typedef struct CHARCONFIG_RUNTIME_s {
   void *layer_fn;  // 0x00
   CCLAYER *layers; // 0x04
-  unsigned char pad8[0x44 - 8];
+  unsigned char pad8[0x30 - 8];
+  i8 awkward_locator[4];     // 0x30
+  u8 awkward_type[4];        // 0x34
+  f32 awkward_radius[3];     // 0x38, slot 3 overlaps headlights[0]
   HEADLIGHT_s headlights[2]; // 0x44
   unsigned char pad9c[0xa0 - 0x9c];
   f32 stop_speed;       // 0xa0
@@ -2195,6 +2198,43 @@ void CC_is_a_boy(NUFPAR *parser) {
 static inline f32 NuFabs(f32 f) {
   u32 bits = *(u32 *)&f & 0x7fffffff;
   return *(f32 *)&bits;
+}
+
+static inline f32 NuFabsU(f32 f) {
+  f32 r;
+  *(u32 *)&r = *(u32 *)&f & 0x7fffffff;
+  return r;
+}
+
+// FUNCTION: LEGOBATMAN 0x00627e50
+void CC_awkward_shape(NUFPAR *parser) {
+  i32 i;
+  for (i = 0; i < 4; i++) {
+    if (charconfig.runtime->awkward_locator[i] == -1)
+      break;
+  }
+  if (i >= 4)
+    return;
+  charconfig.runtime->awkward_locator[i] = -1;
+  charconfig.runtime->awkward_type[i] = 0;
+  charconfig.runtime->awkward_radius[i] = 0.0f;
+  while (NuFParGetWord(parser) != 0) {
+    if (NuStrICmp(parser->word_buf, "locator") == 0) {
+      u32 locator = NuFParGetInt(parser);
+      if (locator <= 19)
+        charconfig.runtime->awkward_locator[i] = locator;
+    } else if (NuStrICmp(parser->word_buf, "terrain") == 0) {
+      charconfig.runtime->awkward_type[i] = 1;
+    } else if (NuStrICmp(parser->word_buf, "terrain_xz") == 0) {
+      charconfig.runtime->awkward_type[i] = 2;
+    } else if (NuStrICmp(parser->word_buf, "terrain_xz_with_radius") == 0) {
+      charconfig.runtime->awkward_type[i] = 3;
+    } else if (NuStrICmp(parser->word_buf, "terrain_xz_loc") == 0) {
+      charconfig.runtime->awkward_type[i] = 4;
+    } else if (NuStrICmp(parser->word_buf, "radius") == 0) {
+      charconfig.runtime->awkward_radius[i] = NuFabsU(NuFParGetFloat(parser));
+    }
+  }
 }
 
 // FUNCTION: LEGOBATMAN 0x00627790
