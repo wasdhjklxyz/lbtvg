@@ -216,6 +216,57 @@ i32 Condition_BeenHitByInit(AISYS_s *sys, char *str, AISCRIPT_s *script) {
   return result;
 }
 
+// GLOBAL: LEGOBATMAN 0x0096052c
+extern i32 g_unk0096052c;
+// GLOBAL: LEGOBATMAN 0x00960528
+extern i32 g_unk00960528;
+
+// FUNCTION: LEGOBATMAN 0x0044f620
+i32 Condition_InContextInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  if (NuStrICmp(name, "DEACTIVATED") == 0)
+    return 0x17;
+  if (NuStrICmp(name, "FORCEDBACK") == 0)
+    return 0x22;
+  if (NuStrICmp(name, "GRAB") == 0)
+    return 0x38;
+  if (NuStrICmp(name, "EAT") == 0)
+    return 0x3f;
+  if (NuStrICmp(name, "FORCEPUSHED") == 0)
+    return 0x1c;
+  if (NuStrICmp(name, "FORCEPUSH") == 0)
+    return 0x1b;
+  if (NuStrICmp(name, "GETIN") == 0)
+    return 0x3c;
+  if (NuStrICmp(name, "BALLOONING") == 0)
+    return 0x5d;
+  if (NuStrICmp(name, "STUNNED") == 0)
+    return 0x5a;
+  if (NuStrICmp(name, "FLOAT") == 0)
+    return 0x4b;
+  if (NuStrICmp(name, "GRAPPLE") == 0)
+    return 0x46;
+  if (NuStrICmp(name, "GRAPPLEBATARANG") == 0)
+    return 0x6b;
+  if (NuStrICmp(name, "GRAPPLECATCH") == 0)
+    return 0x6c;
+  if (NuStrICmp(name, "BIGJUMP") == 0)
+    return 0x1f;
+  if (NuStrICmp(name, "FLOAT") == 0)
+    return 0x4b;
+  if (NuStrICmp(name, "SHOOT") == 0)
+    return 0xa;
+  if (NuStrICmp(name, "LEDGE") == 0)
+    return 0x5b;
+  if (NuStrICmp(name, "ZAP") == 0)
+    return 0x16;
+  if (NuStrICmp(name, "ElectricZap") == 0)
+    return 0x7b;
+  if (NuStrICmp(name, "SpecialMove_Victim") == 0)
+    return g_unk0096052c;
+  if (NuStrICmp(name, "SpecialMove_Attacker") == 0)
+    return g_unk00960528;
+  return 0x7c;
+}
 // FUNCTION: LEGOBATMAN 0x0044f980
 i32 Condition_InLayerInit(AISYS_s *sys, char *str, AISCRIPT_s *script) {
   if (!NuStrICmp(str, "WATER"))
