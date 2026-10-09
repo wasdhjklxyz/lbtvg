@@ -36,7 +36,9 @@ struct AIPACKET_s {
   Unk_AIPacketObj *pd4; // 0xd4
   u8 pad1[0xe4 - 0xd8];
   Unk_AIPacketObj *pe4; // 0xe4
-  u8 pade8[0x13f - 0xe8];
+  u8 pade8[0x138 - 0xe8];
+  u8 origin_index; // 0x138, into AISYS_s +0x224 (0xa8-byte entries)
+  u8 pad139[0x13f - 0x139];
   u8 goal_speed_mode; // 0x13f
   u8 pad140[0x144 - 0x140];
   struct AIGROUP_s *group; // 0x144

@@ -7,6 +7,11 @@
 #include "worldinfo_unk.h"
 #include <stddef.h>
 
+void NuVecSub(nuvec_s *out, nuvec_s *a, nuvec_s *b);
+void NuVecRotateY(nuvec_s *v, nuvec_s *v0, i32 a);
+f32 NuVecNorm(nuvec_s *out, nuvec_s *v);
+f32 NuVecDot(nuvec_s *a, nuvec_s *b);
+
 // FUNCTION: LEGOBATMAN 0x00447370
 i32 GameAIActionParseSpeed(char *str, u8 *out) {
   if (!NuStrICmp(str, "RUN")) {
@@ -1593,6 +1598,24 @@ f32 Condition_IAmInSpecialMove(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 0.0f;
 }
 
+extern nuvec_s v001;
+
+// FUNCTION: LEGOBATMAN 0x00452ee0
+f32 Condition_OpponentAngle(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pe4 != NULL) {
+    GameObject_s *obj = packet->pd0->obj;
+    GameObject_s *opponent = packet->pe4->obj;
+    nuvec_s v[2]; // facing, to opponent: two named locals swap frame slots
+    NuVecRotateY(&v[0], &v001, obj->u246);
+    NuVecSub(&v[1], &opponent->v80, &obj->v80);
+    v[1].y = 0.0f;
+    NuVecNorm(&v[1], &v[1]);
+    return NuVecDot(&v[0], &v[1]);
+  }
+  return 0.0f;
+}
+
 // FUNCTION: LEGOBATMAN 0x00452f90
 f32 Condition_OpponentIsAVehicle(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                                  AIPACKET_s *packet, char *str, void *data) {
@@ -1917,6 +1940,57 @@ f32 Condition_PlayerInSock(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   if (argument != NULL && g_unk00960894->sock_sys != NULL &&
       &g_unk00960894->sock_sys->sock[player->sock_id] == argument)
     return 1.0f;
+  return 0.0f;
+}
+
+f32 MidDistanceFromSockStart(struct SOCKSYS_s *sys, u8 *pos);
+
+// FUNCTION: LEGOBATMAN 0x00450300
+f32 Condition_SockDistanceToPlayer(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                   AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL && player != NULL) {
+    GameObject_s *obj = packet->pd0->obj;
+    if (player->sock_id != -1 && player->sock_id == obj->sock_id)
+      return MidDistanceFromSockStart(g_unk00960894->sock_sys,
+                                      &player->sock_pos870) -
+             MidDistanceFromSockStart(g_unk00960894->sock_sys,
+                                      &obj->sock_pos870);
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x004503b0
+f32 Condition_SockDistanceToOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                     AIPACKET_s *packet, char *str,
+                                     void *data) {
+  if (packet != NULL && packet->pd0 != NULL && packet->pe4 != NULL) {
+    GameObject_s *obj = packet->pd0->obj;
+    GameObject_s *opponent = packet->pe4->obj;
+    if (obj != NULL && opponent != NULL && opponent->sock_id != -1 &&
+        opponent->sock_id == obj->sock_id)
+      return MidDistanceFromSockStart(g_unk00960894->sock_sys,
+                                      &opponent->sock_pos870) -
+             MidDistanceFromSockStart(g_unk00960894->sock_sys,
+                                      &obj->sock_pos870);
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00450470
+f32 Condition_SockXDistanceToPlayer(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                    AIPACKET_s *packet, char *str, void *data) {
+  nuvec_s player_offset;
+  nuvec_s object_offset;
+  if (packet != NULL && packet->pd0 != NULL && player != NULL) {
+    GameObject_s *obj = packet->pd0->obj;
+    if (player->sock_id != -1 && player->sock_id == obj->sock_id) {
+      NuVecSub(&player_offset, &player->position, &player->sock_mid);
+      NuVecRotateY(&player_offset, &player_offset, -player->sock_mid_rot_y);
+      NuVecSub(&object_offset, &obj->position, &obj->sock_mid);
+      NuVecRotateY(&object_offset, &object_offset, -obj->sock_mid_rot_y);
+      return player_offset.x - object_offset.x;
+    }
+  }
   return 0.0f;
 }
 
@@ -2664,8 +2738,6 @@ f32 Condition_SpawnCount(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     return (f32) * (u32 *)((u8 *)packet + 0x204);
   return 0.0f;
 }
-
-void NuVecSub(nuvec_s *out, nuvec_s *a, nuvec_s *b);
 
 struct GAMECAMERA_s {
   u8 pad0[0x110];
@@ -3465,6 +3537,81 @@ f32 Condition_Side(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
     }
   }
   return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00451ab0
+f32 Condition_NearestPartyRange(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                AIPACKET_s *packet, char *str, void *data) {
+  f32 nearest = 1.0e9f;
+  if (packet != NULL && packet->pd0 != NULL && sys != NULL) {
+    nuvec_s difference;
+    for (i32 i = 0; i < 8; i++) {
+      GameObject_s *obj = Player[i];
+      if (obj != NULL && (obj->flags1fc & 1) && (obj->flags1fc & 0x1000)) {
+        f32 distance =
+            NuVecDistSqr(&obj->position, &OWNER(packet)->position, &difference);
+        if (distance < nearest)
+          nearest = distance;
+      }
+    }
+    if (nearest != 1.0e9f)
+      nearest = NuFsqrt(nearest);
+  }
+  return nearest;
+}
+
+// 0xa8-byte entries at AISYS_s +0x224, picked by AIPACKET_s::origin_index.
+struct AIORIGIN_s {
+  u8 pad0[0x20];
+  nuvec_s pos; // 0x20
+  u8 pad2c[0xa8 - 0x2c];
+};
+
+// FUNCTION: LEGOBATMAN 0x00451ba0
+f32 Condition_NearestPartyRangeToOrigin(AISYS_s *sys,
+                                        AISCRIPTPROCESS_s *process,
+                                        AIPACKET_s *packet, char *str,
+                                        void *data) {
+  f32 nearest = 1.0e9f;
+  if (packet != NULL && packet->pd0 != NULL && sys != NULL) {
+    AIORIGIN_s *origin =
+        &(*(AIORIGIN_s **)((u8 *)sys + 0x224))[packet->origin_index];
+    nuvec_s difference;
+    for (i32 i = 0; i < 8; i++) {
+      GameObject_s *obj = Player[i];
+      if (obj != NULL && (obj->flags1fc & 1) && (obj->flags1fc & 0x1000)) {
+        f32 distance = NuVecDistSqr(&obj->position, &origin->pos, &difference);
+        if (distance < nearest)
+          nearest = distance;
+      }
+    }
+    if (nearest != 1.0e9f)
+      nearest = NuFsqrt(nearest);
+  }
+  return nearest;
+}
+
+f32 NuVecXZDistSqr(nuvec_s *a, nuvec_s *b, nuvec_s *d);
+
+// FUNCTION: LEGOBATMAN 0x00451cb0
+f32 Condition_NearestPartyXZRange(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                  AIPACKET_s *packet, char *str, void *data) {
+  f32 nearest = 1.0e9f;
+  if (packet != NULL && packet->pd0 != NULL && sys != NULL) {
+    nuvec_s difference;
+    for (i32 i = 0; i < 8; i++) {
+      GameObject_s *obj = Player[i];
+      if (obj != NULL && (obj->flags1fc & 1) && (obj->flags1fc & 0x1000)) {
+        f32 distance = NuVecXZDistSqr(&obj->position, &OWNER(packet)->position,
+                                      &difference);
+        if (distance < nearest)
+          nearest = distance;
+      }
+    }
+    if (nearest != 1.0e9f)
+      nearest = NuFsqrt(nearest);
+  }
+  return nearest;
 }
 
 // FUNCTION: LEGOBATMAN 0x00450cb0

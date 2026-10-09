@@ -156,7 +156,11 @@ struct GameObject_s {
   u8 sock_pos870;   // 0x870, ComplexSockPosition out
   char sock_id;     // 0x871, -1 = none
   i16 sock_segment; // 0x872
-  u8 pad874[0x89c - 0x874];
+  u8 pad874[0x878 - 0x874];
+  nuvec_s sock_mid; // 0x878, ComplexSockPosition midpoint
+  u8 pad884[0x896 - 0x884];
+  u16 sock_mid_rot_y; // 0x896
+  u8 pad898[0x89c - 0x898];
   f32 sock_distance; // 0x89c, distance along the current sock
   u8 pad8a0[0x988 - 0x8a0];
   f32 f988; // 0x988
