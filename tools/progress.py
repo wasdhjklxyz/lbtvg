@@ -180,6 +180,7 @@ def write_site(funcs, lib, names, state, saga, total, by, pct):
         name = src_name.get(a) or names.get(a) or (None if gname.startswith(("FUN_", "thunk_")) else gname)
         short = (name or "").split("(")[0].split(" ")[-1].lstrip("_")
         rows.append([a, s, st, name, where.get(a), saga.get(short) if name else None,
+                     "confirmed" if METHOD.get(a) == "confirmed" else
                      None if a in src_name else METHOD.get(a)])
     data = {
         "generated": datetime.date.today().isoformat(),

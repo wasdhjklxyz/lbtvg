@@ -59,6 +59,9 @@ elif [ -n "$code" ]; then
   echo "pre-commit: no VC8 toolchain (make vc8); skipping the match check" >&2
 fi
 
+# names in src/ that contradict tools/symbols/confirmed.txt (warning only)
+tools/namecheck.py | sed 's/^/pre-commit: warning: /' >&2 || true
+
 # 3. progress
 tools/progress.py --write
 git add README.md docs/todo.md site/data.json
