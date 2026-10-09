@@ -1055,3 +1055,20 @@
 00463df0 Action_AlwaysBackFlip  matched, keyword table + Mac name
 00463e80 Action_PlayerSpeederHack  matched, keyword table + Mac name
 00463850 Action_PrefersPlayers  matched saga body, keyword table
+00453dc0 Action_CanDefend  matched, keyword table + Mac name
+00453e50 Action_DontAimAt  matched, keyword table + Mac name
+00453ee0 Action_ImmuneToKillTerrain  matched, keyword table + Mac name
+00453f70 Action_ImmuneToBolts  matched, keyword table + Mac name
+004540d0 Action_CanUseWeapon  matched, keyword table + Mac name
+00454160 Action_SetBoss  matched, keyword table + Mac name
+00454c80 Action_UpdateSockPos  matched, keyword table + Mac name
+00460180 Action_ApplyGravity  matched, keyword table + Mac name
+00460210 Action_ConveyorOverride  matched, keyword table + Mac name
+004602a0 Action_IgnoreShoveSystem  matched, keyword table + Mac name
+00460330 Action_CannotBeForcedBack  matched, keyword table + Mac name
+004603c0 Action_CanTurn  matched, keyword table + Mac name
+00460560 Action_CannotBeSeen  matched, keyword table + Mac name
+00463450 Action_OnlyActiveWhenTakenOver  matched, keyword table + Mac name
+00470140 Action_CanHelpWithTriggers  matched, keyword table + Mac name
+004702e0 Action_CanCollideWithObjects  matched, keyword table + Mac name
+00470730 Action_SetShootOpponents  matched, keyword table + Mac name
