@@ -1066,6 +1066,15 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00627a90,0027e6b8,__Z15CC_dance_actionP8nufpar_s,CC_dance_action(nufpar_s*),confirmed,0
 00627ac0,0027e702,__Z9CC_phobiaP8nufpar_s,CC_phobia(nufpar_s*),confirmed,0
 00627b40,0027e794,__Z15CC_DeflectBoltsP8nufpar_s,CC_DeflectBolts(nufpar_s*),confirmed,0
+00627b90,0027e7d8,__Z15CC_HoseLocatorsP8nufpar_s,CC_HoseLocators(nufpar_s*),confirmed,0
+00627c00,0027e840,__Z21CC_DieAir_PunchChanceP8nufpar_s,CC_DieAir_PunchChance(nufpar_s*),confirmed,0
+00627c20,0027e872,__Z16CC_NeedsPaddlingP8nufpar_s,CC_NeedsPaddling(nufpar_s*),confirmed,0
+00627c70,0027e8b6,__Z17CC_CanMindControlP8nufpar_s,CC_CanMindControl(nufpar_s*),confirmed,0
+00627cc0,0027e8fa,__Z18CC_grabber_controlP8nufpar_s,CC_grabber_control(nufpar_s*),confirmed,0
+00627d10,0027e93e,__Z13CC_float_highP8nufpar_s,CC_float_high(nufpar_s*),confirmed,0
+00627d60,0027e982,__Z14CC_use_turnmulP8nufpar_s,CC_use_turnmul(nufpar_s*),confirmed,0
+00627db0,0027e9c0,__Z33CC_dont_trigger_vehicle_proximityP8nufpar_s,CC_dont_trigger_vehicle_proximity(nufpar_s*),confirmed,0
+00627e00,0027ea00,__Z25CC_wall_shuffle_face_wallP8nufpar_s,CC_wall_shuffle_face_wall(nufpar_s*),confirmed,0
 006285d0,00280c32,__Z16AnimInclude_InitPcP9variptr_uS1_,"AnimInclude_Init(char*, variptr_u*, variptr_u*)",strings,0
 00629270,002818fe,__Z23CharConfig_ConfigureAlliP12nufpcomjmp_s,"CharConfig_ConfigureAll(int, nufpcomjmp_s*)",strings,0
 0062d030,002833a2,__Z24CharShadows_InitMaterialP9variptr_uS_,"CharShadows_InitMaterial(variptr_u*, variptr_u)",strings,0

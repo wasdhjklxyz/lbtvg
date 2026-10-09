@@ -778,3 +778,12 @@
 00627a60 CC_rider_action  matched, Mac order
 00627a90 CC_dance_action  matched, Mac order
 00627ac0 CC_phobia  matched, Mac order
+00627c20 CC_NeedsPaddling  matched, Mac order
+00627c70 CC_CanMindControl  matched, Mac order
+00627cc0 CC_grabber_control  matched, Mac order
+00627d10 CC_float_high  matched, Mac order
+00627d60 CC_use_turnmul  matched, Mac order
+00627db0 CC_dont_trigger_vehicle_proximity  matched, Mac order
+00627e00 CC_wall_shuffle_face_wall  matched, Mac order
+00627b90 CC_HoseLocators  matched, Mac order
+00627c00 CC_DieAir_PunchChance  matched, Mac order
