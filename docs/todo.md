@@ -37,7 +37,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near nutrig_gen.cpp](#near-nutrig_gencpp) | 10 | 2 |
 | [NuStr](#nustr) | 2 | 2 |
 | [Player](#player) | 2 | 2 |
-| [PortalDoors](#portaldoors) | 2 | 2 |
 | [Tag](#tag) | 2 | 2 |
 | [Areas](#areas) | 2 | 1 |
 | [BoltSys](#boltsys) | 1 | 1 |
@@ -45,7 +44,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [CC](#cc) | 1 | 1 |
 | [CharConfig](#charconfig) | 1 | 1 |
 | [CharPivot](#charpivot) | 1 | 1 |
-| [CharPlatforms](#charplatforms) | 1 | 1 |
 | [Cheat](#cheat) | 2 | 1 |
 | [Collection](#collection) | 1 | 1 |
 | [Credits](#credits) | 1 | 1 |
@@ -78,6 +76,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [PartImpact](#partimpact) | 3 | 1 |
 | [PartUpdate](#partupdate) | 1 | 1 |
 | [Players](#players) | 1 | 1 |
+| [PortalDoors](#portaldoors) | 1 | 1 |
 | [PowerUp](#powerup) | 1 | 1 |
 | [Pulses](#pulses) | 1 | 1 |
 | [RippleEffects](#rippleeffects) | 1 | 1 |
@@ -565,11 +564,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005c1b80` 313 B `Player_ResetContexts(GameObject_s*)`  **saga** `legoapi/characters/core/players.cpp`
 - [ ] `005c2250` 2274 B `Player_ToggleCharacter(GameObject_s*, int, int)`  **saga** `legoapi/characters/core/players.cpp`
 
-## PortalDoors
-
-- [ ] `005c8b60` 229 B `PortalDoors_Update(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/gizmos/transport/gizportal.cpp`
-- [ ] `005c8a00` 338 B `PortalDoors_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/gizmos/transport/gizportal.cpp`
-
 ## Tag
 
 - [ ] `004a54c0` 1219 B `Tag_UpdateHint(HINT_s*)`  **saga** `legoapi/menus/core/panel.cpp`
@@ -599,10 +593,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## CharPivot
 
 - [ ] `006754c0` 518 B `CharPivot_Init(char*, variptr_u*, variptr_u)`  **saga** `legoapi/characters/motion/charpivot.cpp`
-
-## CharPlatforms
-
-- [ ] `00638f90` 358 B `CharPlatforms_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/characters/motion/charplatforms.cpp`
 
 ## Cheat
 
@@ -753,6 +743,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## Players
 
 - [ ] `005c12a0` 1028 B `Players_InitPositions(WORLDINFO_s*)`  **saga** `legoapi/characters/core/players.cpp`
+
+## PortalDoors
+
+- [ ] `005c8b60` 229 B `PortalDoors_Update(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/gizmos/transport/gizportal.cpp`
 
 ## PowerUp
 

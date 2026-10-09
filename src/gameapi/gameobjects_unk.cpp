@@ -196,6 +196,59 @@ i32 NuFParGetLine(NUFPAR *parser);
 i32 NuFParGetWord(NUFPAR *parser);
 void NuFParDestroy(NUFPAR *parser);
 i32 NuStrICmp(const char *a, const char *b);
+i32 NuFParGetInt(NUFPAR *parser);
+
+typedef struct PORTALDOOR_s {
+  nuhspecial_s special; // 0x00
+  u16 flags;            // 0x0c
+  u8 portal_id;         // 0x0e
+  u8 pad_0f;
+} PORTALDOOR;
+
+// from saga legoapi/gizmos/transport/gizportal.cpp
+// FUNCTION: LEGOBATMAN 0x005c8a00
+void PortalDoors_Configure(WORLDINFO_s *world, char *config) {
+  world->portal_doors = NULL;
+  world->portal_door_count = 0;
+  if (world->scn140 == NULL)
+    return;
+
+  NUFPAR *parser = NuFParCreateMem("portaldoors", config, 0xffff);
+  if (parser == NULL)
+    return;
+
+  world->buf104.addr = (world->buf104.addr + 3) & ~3;
+  PORTALDOOR *portal_door = (PORTALDOOR *)world->buf104.void_ptr;
+  world->portal_doors = portal_door;
+
+  while (NuFParGetLine(parser) != 0) {
+    NuFParGetWord(parser);
+    if (NuStrICmp(parser->word_buf, "portaldoor") != 0)
+      continue;
+
+    memset(portal_door, 0, sizeof(PORTALDOOR));
+    if (NuFParGetWord(parser) == 0 ||
+        NuSpecialFind(world->scn140, &portal_door->special, parser->word_buf,
+                      1) == 0)
+      continue;
+
+    portal_door->portal_id = (u8)NuFParGetInt(parser);
+    while (NuFParGetWord(parser) != 0) {
+      if (NuStrICmp(parser->word_buf, "trigger_at_end") == 0) {
+        portal_door->flags |= 1;
+      }
+    }
+
+    ++world->portal_door_count;
+    ++portal_door;
+  }
+
+  NuFParDestroy(parser);
+  if (world->portal_door_count > 0)
+    world->buf104.addr = ((u32)portal_door + 15) & ~15;
+  else
+    world->portal_doors = NULL;
+}
 
 // from saga legoapi/items/objects/objectsall.cpp
 // FUNCTION: LEGOBATMAN 0x005c8c90

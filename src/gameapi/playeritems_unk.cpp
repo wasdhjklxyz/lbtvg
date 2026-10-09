@@ -75,6 +75,83 @@ i32 CoinsGoToMainTotal() {
   return 0;
 }
 
+#include "../nu2api/nu3d/nuspecial.h"
+#include <stddef.h>
+
+typedef struct nufpar_s {
+  u8 pad0[0x910];
+  char *word_buf; // 0x910
+} NUFPAR;
+
+struct CHARPLATFORM_s {
+  nuhspecial_s special; // 0x00
+  i16 object_id;        // 0x0c
+  i16 platform_id;      // 0x0e
+  GameObject_s *object; // 0x10
+};
+
+struct CHARPLATFORMSYS_s {
+  nugscn_s *scene; // 0x00
+  i32 platform_count;
+  CHARPLATFORM_s platforms[1];
+};
+
+NUFPAR *NuFParCreateMem(char *name, char *buffer, i32 bufferSize);
+i32 NuFParGetLine(NUFPAR *parser);
+i32 NuFParGetWord(NUFPAR *parser);
+i32 CharIDFromName(char *name);
+void NuFParDestroy(NUFPAR *parser);
+
+// from saga legoapi/characters/core/charplatforms.cpp
+// FUNCTION: LEGOBATMAN 0x00638f90
+void CharPlatforms_Configure(WORLDINFO_s *world, char *config) {
+  world->char_platform_sys = NULL;
+  if (world->scn140 == NULL)
+    return;
+
+  NUFPAR *parser = NuFParCreateMem("CharPlatforms", config, 0xffff);
+  if (parser == NULL)
+    return;
+
+  world->buf104.addr = (world->buf104.addr + 3) & ~3;
+  CHARPLATFORMSYS_s *system = (CHARPLATFORMSYS_s *)world->buf104.void_ptr;
+  world->char_platform_sys = system;
+  system->scene = world->scn140;
+  world->char_platform_sys->platform_count = 0;
+
+  while (NuFParGetLine(parser) != 0) {
+    if (NuFParGetWord(parser) == 0)
+      break;
+    if (NuStrICmp(parser->word_buf, "char_platform") != 0 ||
+        NuFParGetWord(parser) == 0)
+      continue;
+
+    system = world->char_platform_sys;
+    CHARPLATFORM_s *platform = &system->platforms[system->platform_count];
+    platform->object_id = CharIDFromName(parser->word_buf);
+    if (platform->object_id == -1 || NuFParGetWord(parser) == 0)
+      continue;
+    if (NuSpecialFind(world->scn140, &platform->special, parser->word_buf, 1) ==
+        0)
+      continue;
+
+    platform->platform_id = -1;
+    platform->object = NULL;
+    world->char_platform_sys->platform_count++;
+  }
+
+  NuFParDestroy(parser);
+  if (world->char_platform_sys->platform_count > 0) {
+    world->buf104.addr = (world->buf104.addr + sizeof(CHARPLATFORMSYS_s) +
+                          (world->char_platform_sys->platform_count - 1) *
+                              sizeof(CHARPLATFORM_s) +
+                          3) &
+                         ~3;
+  } else {
+    world->char_platform_sys = NULL;
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x006394f0
 i32 FaceOpponent(GameObject_s *object, nuvec_s *position) {
   if (position == 0) {

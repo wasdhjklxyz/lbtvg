@@ -68,14 +68,19 @@ struct WORLDINFO_s {
   Unk_WorldInfo2b04 *p2b04; // 0x2b04
   u8 pad6[0x2b0c - 0x2b08];
   GIZMOSYS_s *gizmoSys2b0c; // 0x2b0c
-  u8 pad7[0x2bf8 - 0x2b10];
+  u8 pad7[0x2bec - 0x2b10];
+  struct CHARPLATFORMSYS_s *char_platform_sys; // 0x2bec
+  u8 pad7b[0x2bf8 - 0x2bf0];
   AISYS_s *aiSys2bf8; // 0x2bf8
   u8 pad8[0x47bc - 0x2bfc];
   struct GIZFORCESYS_s *giz_force_sys; // 0x47bc
   u8 pad8a[0x47c4 - 0x47c0];
   struct EQUIVALENTOBJECTGROUP_s *equivalent_groups; // 0x47c4
   i32 equivalent_group_count;                        // 0x47c8
-  u8 pad8b[0x5220 - 0x47cc];
+  u8 pad8b[0x51bc - 0x47cc];
+  struct PORTALDOOR_s *portal_doors; // 0x51bc
+  i32 portal_door_count;             // 0x51c0
+  u8 pad8c[0x5220 - 0x51c4];
   Unk_WorldInfo5220 *p5220; // 0x5220
   u8 pad9[0x5228 - 0x5224];
   i32 gizmo_blowup_count; // 0x5228
