@@ -13,7 +13,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [Action](#action) | 60 | 45 |
+| [Action](#action) | 59 | 44 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 44 | 37 |
 | [near rtleditor.cpp](#near-rtleditorcpp) | 59 | 33 |
 | [near terrain.c](#near-terrainc) | 34 | 9 |
@@ -203,7 +203,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `004717b0` 246 B `Action_StunOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub**
 - [ ] `00473510` 308 B `Action_UncoupleVehicles(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `006a5660` 310 B `_Action_OverrideAnimation`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `006b4670` 353 B `_Action_SetInterrupt`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00463f00` 370 B `Action_SetAnimSpeedMul(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00472640` 385 B `Action_AttachNodeToPlatform(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`

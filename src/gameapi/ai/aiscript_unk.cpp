@@ -142,3 +142,64 @@ f32 AIParamToFloatEx(AIPACKET_s *packet, AISCRIPTPROCESS *processor,
 
   return result;
 }
+
+struct APICHARSYS_s {
+  u8 pad0[8];
+  u16 model_id_capacity; // 0x08
+};
+
+// GLOBAL: LEGOBATMAN 0x00a94740
+extern APICHARSYS_s *apicharsys;
+
+struct OverrideAnimPacket_s {
+  u8 pad0[0x126];
+  i16 animation_override_from; // 0x126
+  i16 animation_override_to;   // 0x128
+};
+
+struct OverrideAnimOwner_s {
+  u8 pad0[0x54];
+  void *character_data; // 0x54
+};
+
+i32 FindAnimIX(void *character_data, char *name);
+
+// from saga gameapi/ai/aisys/aisys.cpp
+// FUNCTION: LEGOBATMAN 0x006a5660
+i32 Action_OverrideAnimation(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char **args, int argc,
+                             int flags, f32 time) {
+  i16 from = -1;
+  i16 to = -1;
+  if (packet == NULL || packet->pd0 == NULL || packet->pd0->obj == NULL ||
+      flags == 0)
+    return 1;
+
+  for (i32 index = 0; index < argc; ++index) {
+    if (NuStrICmp(args[index], "from=All") == 0) {
+      from = (i16)apicharsys->model_id_capacity;
+      continue;
+    }
+    char *value = NuStrIStr(args[index], "from=");
+    if (value != NULL) {
+      from = (i16)FindAnimIX(
+          ((OverrideAnimOwner_s *)packet->pd0)->character_data, value + 5);
+      continue;
+    }
+    value = NuStrIStr(args[index], "to=");
+    if (value != NULL) {
+      to = (i16)FindAnimIX(((OverrideAnimOwner_s *)packet->pd0)->character_data,
+                           value + 3);
+      continue;
+    }
+    if (process != NULL)
+      *(f32 *)((u8 *)process + 0xa0) =
+          AIParamToFloatEx(packet, process, args[0]);
+  }
+
+  if (to == -1)
+    from = -1;
+  ((OverrideAnimPacket_s *)packet)->animation_override_from = from;
+  ((OverrideAnimPacket_s *)packet)->animation_override_to = to;
+  return 1;
+}
