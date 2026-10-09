@@ -1169,3 +1169,6 @@
 00473510 Action_UncoupleVehicles  keyword table 0x93bb98
 00472e60 Action_DisableWhip  keyword table 0x93bb98
 004632f0 Action_CanOpenDoors  keyword table 0x93bb98
+0046fa60 Action_GoToNewLevel  keyword table 0x93bb98
+0045db00 Action_SetWalkSpeed  keyword table 0x93bb98
+0045fc50 Action_SetGravityHeight  keyword table 0x93bb98

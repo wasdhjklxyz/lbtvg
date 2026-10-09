@@ -237,7 +237,9 @@ struct GameObject_s {
   void *movement_spline; // 0x137c
   u8 pad1380[0x1383 - 0x1380];
   u8 movement_spline_finished; // 0x1383
-  u8 pad14d[0x1404 - 0x1384];
+  u8 pad14d[0x13f0 - 0x1384];
+  f32 walk_speed_override; // 0x13f0
+  u8 pad13f4[0x1404 - 0x13f4];
   f32 max_y_rot_seek;      // 0x1404
   u32 ignore_trigger_sets; // 0x1408, bit per trigger set 1..31
   union {
@@ -313,7 +315,9 @@ struct GameObject_s {
   f32 f1534; // 0x1534
   u8 pad17[0x154c - 0x1538];
   f32 flicker_time; // 0x154c
-  u8 pad17b[0x1568 - 0x1550];
+  u8 pad17b[0x155c - 0x1550];
+  f32 hover_height_override; // 0x155c
+  u8 pad1560[0x1568 - 0x1560];
   f32 anim_speed_mul; // 0x1568
   u8 pad156c[0x1574 - 0x156c];
   void *hat; // 0x1574, LoseHat clears it

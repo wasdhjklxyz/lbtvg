@@ -3308,3 +3308,89 @@ i32 Action_CanOpenDoors(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 1;
 }
+
+// FUNCTION: LEGOBATMAN 0x0046fa60
+i32 Action_GoToNewLevel(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char **args, int argc, int flags,
+                        f32 time) {
+  LEVELDATA_s *level = 0;
+  LEVELDATA_s *freeplay_level = 0;
+  char *cutscene = 0;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "freeplay_level=");
+      if (s != 0) {
+        if (FreePlay != 0) {
+          s += NuStrLen("freeplay_level=");
+          freeplay_level = Level_FindByName(s, 0);
+        }
+      } else if ((s = NuStrIStr(args[i], "level=")) != 0) {
+        s += NuStrLen("level=");
+        level = Level_FindByName(s, 0);
+      } else if ((s = NuStrIStr(args[i], "cutscene=")) != 0) {
+        cutscene = s + NuStrLen("cutscene=");
+      }
+    }
+  }
+  if (FreePlay == 0 && cutscene != 0 &&
+      NewCutScene(0, g_unk00960894->cutscene_sys, cutscene, 0) != 0)
+    return 1;
+  if (freeplay_level != 0) {
+    GoToNewLevel(freeplay_level->idx);
+    return 1;
+  }
+  if (level != 0)
+    GoToNewLevel(level->idx);
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0045db00
+i32 Action_SetWalkSpeed(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char **args, int argc, int flags,
+                        f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags != 0) {
+    obj->walk_speed_override = 1000000000.0f;
+    if (argc != 0 && NuStrICmp(args[0], "default") != 0)
+      obj->walk_speed_override = AIParamToFloat(process, args[0]);
+  }
+  return 1;
+}
+
+f32 NuRandFloat(void);
+
+// STUB: LEGOBATMAN 0x0045fc50
+// one swap off: the shared tail is `pop ebx; mov eax, 1` in the original,
+// `mov eax, 1; pop ebx` here (wrapping, early returns, nesting all tried)
+i32 Action_SetGravityHeight(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char **args, int argc,
+                            int flags, f32 time) {
+  f32 minimum = 1000000000.0f;
+  f32 maximum = 1000000000.0f;
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags == 0)
+    return 1;
+  obj->flags1410_lo &= ~8;
+  obj->hover_height_override = 1000000000.0f;
+  for (i32 i = 0; i < argc; i++) {
+    if (NuStrICmp(args[i], "reset") == 0)
+      continue;
+    char *s = NuStrIStr(args[i], "min=");
+    if (s != 0) {
+      minimum = AIParamToFloat(process, s + 4);
+    } else if ((s = NuStrIStr(args[i], "max=")) != 0) {
+      maximum = AIParamToFloat(process, s + 4);
+    } else {
+      obj->hover_height_override = AIParamToFloat(process, args[i]);
+    }
+  }
+  if (minimum != 1000000000.0 && maximum != 1000000000.0) {
+    f32 r = NuRandFloat();
+    obj->hover_height_override = (1.0f - r) * minimum + maximum * r;
+  }
+  return 1;
+}
