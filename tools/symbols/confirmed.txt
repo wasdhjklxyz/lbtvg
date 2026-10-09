@@ -393,3 +393,13 @@
 00451da0 Condition_OpponentToPlayerRange   matched (saga gameobjects.cpp shape), Mac order before Condition_GizmoOutputInit
 00451e10 Condition_OpponentPathPosRange   matched (saga gameobjects.cpp shape), Mac order before Condition_GizmoOutputInit
 00451e70 Condition_OpponentRangeY   matched (saga gameobjects.cpp shape), Mac order before Condition_GizmoOutputInit
+00452340 Condition_AnimSpeedMul   matched saga aisys.cpp body, Mac order after Condition_AngleAboutMyLocatorToPlayer
+00452370 Condition_PickupBeenTurnedOnInit   matched saga aisys.cpp body, Mac order after Condition_AngleAboutMyLocatorToPlayer
+004523a0 Condition_PickupBeenTurnedOn   matched saga aisys.cpp body, Mac order after Condition_AngleAboutMyLocatorToPlayer
+004523d0 Condition_CanHearRadio   matched saga aisys.cpp body, Mac order after Condition_AngleAboutMyLocatorToPlayer
+004523f0 Condition_BeingTowed   matched saga aisys.cpp body, Mac order after Condition_AngleAboutMyLocatorToPlayer
+00452420 Condition_MusicOn   matched saga aisys.cpp body, Mac order after Condition_AngleAboutMyLocatorToPlayer
+00452440 Condition_CharacterLoadedInit   matched saga aisys.cpp body, Mac order after Condition_AngleAboutMyLocatorToPlayer
+00452460 Condition_CharacterLoaded   matched saga aisys.cpp body, Mac order after Condition_AngleAboutMyLocatorToPlayer
+00452530 Condition_AreaCompleteInit   matched saga aisys.cpp body, Mac order after Condition_AngleAboutMyLocatorToPlayer
+00452550 Condition_AreaComplete   matched saga aisys.cpp body, Mac order after Condition_AngleAboutMyLocatorToPlayer

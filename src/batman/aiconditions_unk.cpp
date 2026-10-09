@@ -433,6 +433,111 @@ i32 Condition_AngleAboutMyLocatorToPlayerInit(AISYS_s *sys, char *str,
   return -1;
 }
 
+// FUNCTION: LEGOBATMAN 0x00452340
+f32 Condition_AnimSpeedMul(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL)
+    return packet->pd0->obj->anim_speed_mul;
+  return 1.0f;
+}
+
+void *GizmoPickup_FindByName(WORLDINFO_s *world, char *name);
+i32 GizmoPickup_BeenTurnedOn(void *pickup);
+
+// FUNCTION: LEGOBATMAN 0x00452370
+void *Condition_PickupBeenTurnedOnInit(AISYS_s *sys, char *name,
+                                       AISCRIPT_s *script) {
+  return name != NULL ? GizmoPickup_FindByName(g_unk00960894, name) : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x004523a0
+f32 Condition_PickupBeenTurnedOn(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                 AIPACKET_s *packet, char *str,
+                                 void *argument) {
+  if (argument != NULL)
+    return (f32)GizmoPickup_BeenTurnedOn(argument);
+  return 0.0f;
+}
+
+// GLOBAL: LEGOBATMAN 0x009ccb00
+extern i32 radios_playing;
+
+// FUNCTION: LEGOBATMAN 0x004523d0
+f32 Condition_CanHearRadio(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char *str, void *data) {
+  if (radios_playing != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x004523f0
+f32 Condition_BeingTowed(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && (packet->pd0->obj->flags1414 & 0x1000) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// Only the fields the conditions read are evidenced.
+struct GAMESAVE_s {
+  u8 pad0[0xb];
+  u8 music_enabled; // 0x0b
+  u8 pad0c[0x77d0 - 0xc];
+  struct {
+    u8 pad0[0xb];
+    u8 area_complete; // 0x0b
+  } area_save[1];     // 0x77d0, 12 bytes each
+};
+
+// GLOBAL: LEGOBATMAN 0x009c59cc
+extern GAMESAVE_s *g_unk009c59cc;
+
+// FUNCTION: LEGOBATMAN 0x00452420
+f32 Condition_MusicOn(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                      AIPACKET_s *packet, char *str, void *data) {
+  if (g_unk009c59cc->music_enabled != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+void *CharIDFromName(char *name);
+void *APICharacterLoaded(i32 id);
+
+// FUNCTION: LEGOBATMAN 0x00452440
+void *Condition_CharacterLoadedInit(AISYS_s *sys, char *argument,
+                                    AISCRIPT_s *script) {
+  return argument != NULL ? CharIDFromName(argument) : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x00452460
+f32 Condition_CharacterLoaded(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char *str, void *argument) {
+  if ((i32)argument > -1 && APICharacterLoaded((i32)argument) != NULL)
+    return 1.0f;
+  return 0.0f;
+}
+
+void *Area_FindByName(char *name, void *unk);
+
+// FUNCTION: LEGOBATMAN 0x00452530
+void *Condition_AreaCompleteInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  return name != NULL ? Area_FindByName(name, NULL) : NULL;
+}
+
+struct AREADATA_s {
+  u8 pad0[0x84];
+  u8 index; // 0x84
+};
+
+// FUNCTION: LEGOBATMAN 0x00452550
+f32 Condition_AreaComplete(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char *str, void *argument) {
+  AREADATA_s *area = (AREADATA_s *)argument;
+  if (area != NULL && g_unk009c59cc->area_save[area->index].area_complete == 1)
+    return 1.0f;
+  return 0.0f;
+}
+
 i32 Hub_GetRandomCharType(void);
 
 // FUNCTION: LEGOBATMAN 0x00451470
