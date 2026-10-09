@@ -127,6 +127,7 @@ typedef struct CHARCONFIG_RUNTIME_s {
   u8 detonator_type; // 0x236
   unsigned char pad237[0x238 - 0x237];
   i16 dance_action; // 0x238
+  unsigned char pad23a[0x240 - 0x23a];
 } CHARCONFIG_RUNTIME_s;
 
 typedef struct CHARCONFIG_s {
@@ -144,6 +145,7 @@ extern CHARCONFIG_s charconfig;
 i32 NuFParGetInt(NUFPAR *parser);
 int NuAToI(const char *s);
 
+// FUNCTION: LEGOBATMAN 0x00622f30
 static void CC_set_locator(NUFPAR *parser, i8 *locator) {
   if (NuFParGetWord(parser) != 0) {
     i32 value = NuAToI(parser->word_buf);
@@ -1622,4 +1624,19 @@ void CC_backpack_layer(NUFPAR *parser) {
   // The shipped code clears the hose locators here, not the layers.
   for (; i < 4; i++)
     charconfig.runtime->hose_locators[i] = -1;
+}
+
+extern i32 CHARCOUNT;
+extern CHARCONFIG_RUNTIME_s *g_unk00acb82c;
+
+// FUNCTION: LEGOBATMAN 0x006289f0
+void CharConfig_SetGCDataFlagsOnAll(u32 flags) {
+  for (i32 i = 0; i < CHARCOUNT; i++)
+    g_unk00acb82c[i].gcdata_flags |= flags;
+}
+
+// FUNCTION: LEGOBATMAN 0x00628a30
+void CharConfig_ClearGCDataFlagsOnAll(u32 flags) {
+  for (i32 i = 0; i < CHARCOUNT; i++)
+    g_unk00acb82c[i].gcdata_flags &= ~flags;
 }

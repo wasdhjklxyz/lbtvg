@@ -798,3 +798,6 @@
 00628510 CC_sfx_glide_is_brolly  matched, Mac order
 00628270 CC_detonator_type  matched, Mac order
 00628560 CC_backpack_layer  matched, Mac order
+00622f30 CC_set_locator  matched, Mac name, called by CC_*_locator
+006289f0 CharConfig_SetGCDataFlagsOnAll  matched, Mac order
+00628a30 CharConfig_ClearGCDataFlagsOnAll  matched, Mac order

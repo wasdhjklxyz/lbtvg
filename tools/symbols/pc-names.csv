@@ -828,6 +828,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00620aa0,0027a3d2,__Z22DefinedLocators_FindIXPc,DefinedLocators_FindIX(char*),confirmed,0
 00620b30,0027a480,__Z16RedirectTextFilePcS_iPi,"RedirectTextFile(char*, char*, int, int*)",strings,0
 006213c0,0027f374,__Z13CC_anim_startP8nufpar_s,CC_anim_start(nufpar_s*),strings,0
+00622f30,0027afe6,__Z14CC_set_locatorP8nufpar_sPa,"CC_set_locator(nufpar_s*, signed char*)",confirmed,0
 00622f60,0027b024,__Z20CC_collision_locatorP8nufpar_s,CC_collision_locator(nufpar_s*),confirmed,0
 00622fa0,0027b042,__Z19CC_weapon_locator_1P8nufpar_s,CC_weapon_locator_1(nufpar_s*),confirmed,0
 00622fe0,0027b060,__Z19CC_weapon_locator_2P8nufpar_s,CC_weapon_locator_2(nufpar_s*),confirmed,0
@@ -1087,6 +1088,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00628510,0027ec8e,__Z22CC_sfx_glide_is_brollyP8nufpar_s,CC_sfx_glide_is_brolly(nufpar_s*),confirmed,0
 00628560,0027ecd2,__Z17CC_backpack_layerP8nufpar_s,CC_backpack_layer(nufpar_s*),confirmed,0
 006285d0,00280c32,__Z16AnimInclude_InitPcP9variptr_uS1_,"AnimInclude_Init(char*, variptr_u*, variptr_u*)",strings,0
+006289f0,0027eda6,__Z30CharConfig_SetGCDataFlagsOnAllj,CharConfig_SetGCDataFlagsOnAll(unsigned int),confirmed,0
+00628a30,0027ede2,__Z32CharConfig_ClearGCDataFlagsOnAllj,CharConfig_ClearGCDataFlagsOnAll(unsigned int),confirmed,0
 00629270,002818fe,__Z23CharConfig_ConfigureAlliP12nufpcomjmp_s,"CharConfig_ConfigureAll(int, nufpcomjmp_s*)",strings,0
 0062d030,002833a2,__Z24CharShadows_InitMaterialP9variptr_uS_,"CharShadows_InitMaterial(variptr_u*, variptr_u)",strings,0
 0062d7e0,0030ac0e,__Z18Missions_ConfigurePcP9variptr_uS1_P13MISSIONSAVE_s,"Missions_Configure(char*, variptr_u*, variptr_u*, MISSIONSAVE_s*)",strings,0
