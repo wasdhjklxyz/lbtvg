@@ -1330,6 +1330,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00657160,0030753a,__Z21LMC_AddCutSceneStrikeP8nufpar_s,LMC_AddCutSceneStrike(nufpar_s*),strings,0
 006572a0,00307212,__ZN16LightningManager19Lightning_ConfigureEP11WORLDINFO_sPc,"LightningManager::Lightning_Configure(WORLDINFO_s*, char*)",strings,0
 006573e0,0031c714,__Z16Pulses_ConfigureP11WORLDINFO_sPc,"Pulses_Configure(WORLDINFO_s*, char*)",strings,0
+006580a0,0026992a,__Z13Backdrop_velxP8nufpar_s,Backdrop_velx(nufpar_s*),confirmed,0
+006580c0,0026995c,__Z13Backdrop_velyP8nufpar_s,Backdrop_vely(nufpar_s*),confirmed,0
+006580e0,0026998e,__Z13Backdrop_velzP8nufpar_s,Backdrop_velz(nufpar_s*),confirmed,0
+00658160,00269a56,__Z14Backdrop_sizexP8nufpar_s,Backdrop_sizex(nufpar_s*),confirmed,0
+00658180,00269a88,__Z14Backdrop_sizeyP8nufpar_s,Backdrop_sizey(nufpar_s*),confirmed,0
+006581a0,00269aba,__Z14Backdrop_sizezP8nufpar_s,Backdrop_sizez(nufpar_s*),confirmed,0
+006581c0,00269aec,__Z14Backdrop_useBBP8nufpar_s,Backdrop_useBB(nufpar_s*),confirmed,0
+006581e0,00269b1e,__Z19Backdrop_deletedistP8nufpar_s,Backdrop_deletedist(nufpar_s*),confirmed,0
 00658260,00269ba6,__Z21BackdropSys_ConfigureP11WORLDINFO_sPc,"BackdropSys_Configure(WORLDINFO_s*, char*)",strings,0
 00659110,00346fb6,__Z24TrafficAnimSys_ConfigureP11WORLDINFO_sPc,"TrafficAnimSys_Configure(WORLDINFO_s*, char*)",strings,0
 0065c320,002ea63c,__Z7LoseHatP12GameObject_s,LoseHat(GameObject_s*),confirmed,0

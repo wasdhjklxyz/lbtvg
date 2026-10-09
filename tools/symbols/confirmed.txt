@@ -967,3 +967,11 @@
 00655c40 RE_life  matched saga body, keyword table
 00655c60 RE_start_radius  matched saga body, keyword table
 00655c80 RE_end_radius  matched saga body, keyword table
+006580a0 Backdrop_velx  matched, keyword table
+006580c0 Backdrop_vely  matched, keyword table
+006580e0 Backdrop_velz  matched, keyword table
+00658160 Backdrop_sizex  matched, keyword table
+00658180 Backdrop_sizey  matched, keyword table
+006581a0 Backdrop_sizez  matched, keyword table
+006581c0 Backdrop_useBB  matched, keyword table
+006581e0 Backdrop_deletedist  matched, keyword table
