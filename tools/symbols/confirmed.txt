@@ -167,3 +167,13 @@
 00584c50 PARTGetTotalOnTime  saga body (emission period + random); Mac order
 00584c80 PARTGetTotalOffTime  saga body (emission pause + random); Mac order
 00585040 edpartSetParticlePage  saga body (stores load particle page)
+0070b310 NuAnimCurveDestroy  frees curve data then curve (nuanim_gen.cpp lines 0x577/0x578); Mac order between CurveSetCreate and CurveSetDestroy
+0070b410 SetProceduralAnimationFn  saga body; Mac order after NuAnimCurveCreate
+0070b6c0 NuAnimBuffCreateScratch  saga body matches (scratch joints/flags from globalbuffer max_joints)
+0070b710 NuAnimBuffDestroyScratch  saga body matches (two NuScratchRelease)
+0070b860 NuAnimSetUseQuatsFlag  saga body (swap ForceEulerToQuat); Mac order
+0070b870 NuAnimGetUseQuatsFlag  saga body; Mac order
+0070b880 NuAnimPushSetUseQuatsFlag  saga body (4-deep QuatPushes stack); Mac order
+0070b8b0 NuAnimPopUseQuatsFlag  saga body; Mac order
+0070b930 NuAnimNumNodes  saga body (ANI magic check); Mac order before NuAnimEndFrame
+0070b950 NuAnimEndFrame  saga body (ANI magic check, first_frame + frame_count)
