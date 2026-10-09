@@ -21,7 +21,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Grabber](#grabber) | 7 | 5 |
 | [Hub](#hub) | 6 | 4 |
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 5 | 4 |
-| [Text](#text) | 4 | 3 |
 | [Arcade](#arcade) | 2 | 2 |
 | [Area](#area) | 3 | 2 |
 | [Condition](#condition) | 3 | 2 |
@@ -35,6 +34,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near nutrig_gen.cpp](#near-nutrig_gencpp) | 10 | 2 |
 | [NuStr](#nustr) | 2 | 2 |
 | [Tag](#tag) | 2 | 2 |
+| [Text](#text) | 3 | 2 |
 | [Areas](#areas) | 2 | 1 |
 | [BoltSys](#boltsys) | 1 | 1 |
 | [BoltTypes](#bolttypes) | 1 | 1 |
@@ -439,13 +439,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006da8d0` 358 B `_NuFParGetWord`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006d6d00` 646 B `_ImplodeMakeTable`  **saga** `nu2api/nucore/implode.cpp`
 
-## Text
-
-- [ ] `0059d7c0` 119 B `Text_InitStringTable(int, variptr_u*, variptr_u*)`  **stub** · **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
-- [ ] `0059d850` 169 B `Text_PlatformSpecificIgnore(nufpar_s*)`  **hint** name (order)
-- [ ] `00408e60` 462 B `Text_ExpandButtonString(char*, char*)`  **saga** `legoapi/misc/androidbatman.cpp`
-- [ ] `0059d900` 544 B `Text_LoadAndFixUpStrings(unsigned char*, unsigned char**, char**, int)`  **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
-
 ## Arcade
 
 - [ ] `00648290` 254 B `Arcade_DrawPanel(int)`  **stub** · **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
@@ -521,6 +514,12 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `004a54c0` 1219 B `Tag_UpdateHint(HINT_s*)`  **saga** `legoapi/menus/core/panel.cpp`
 - [ ] `004a5ac0` 1541 B `Tag_Check(GameObject_s*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
+
+## Text
+
+- [ ] `0059d7c0` 119 B `Text_InitStringTable(int, variptr_u*, variptr_u*)`  **stub** · **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
+- [ ] `0059d850` 169 B `Text_PlatformSpecificIgnore(nufpar_s*)`  **hint** name (order)
+- [ ] `0059d900` 544 B `Text_LoadAndFixUpStrings(unsigned char*, unsigned char**, char**, int)`  **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
 
 ## Areas
 

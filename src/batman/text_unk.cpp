@@ -4,6 +4,42 @@
 #include <stdio.h>
 #include <string.h>
 
+extern char **TTab;
+char *getbutton(i32 button, char *a, char *b);
+
+// FUNCTION: LEGOBATMAN 0x00408e60
+i32 Text_ExpandButtonString(char *input, char *output) {
+  if (NuStrICmp(input, "[TAG]") == 0 || NuStrICmp(input, "[TRIANGLE]") == 0 ||
+      NuStrICmp(input, "[T]") == 0) {
+    NuStrCpy(output, getbutton(0xc, TTab[0x330], TTab[0x331]));
+    return 1;
+  }
+  if (NuStrICmp(input, "[ACTION]") == 0 || NuStrICmp(input, "[SQUARE]") == 0 ||
+      NuStrICmp(input, "[S]") == 0) {
+    NuStrCpy(output, getbutton(0xf, TTab[0x330], TTab[0x331]));
+    return 1;
+  }
+  if (NuStrICmp(input, "[SPECIAL]") == 0 || NuStrICmp(input, "[CIRCLE]") == 0 ||
+      NuStrICmp(input, "[O]") == 0) {
+    NuStrCpy(output, getbutton(0xd, TTab[0x330], TTab[0x331]));
+    return 1;
+  }
+  if (NuStrICmp(input, "[JUMP]") == 0 || NuStrICmp(input, "[CROSS]") == 0 ||
+      NuStrICmp(input, "[X]") == 0) {
+    NuStrCpy(output, getbutton(0xe, TTab[0x330], TTab[0x331]));
+    return 1;
+  }
+  if (NuStrICmp(input, "[TOGGLELEFT]") == 0) {
+    NuStrCpy(output, getbutton(0x10, TTab[0x330], TTab[0x331]));
+    return 1;
+  }
+  if (NuStrICmp(input, "[TOGGLERIGHT]") == 0) {
+    NuStrCpy(output, getbutton(0x12, TTab[0x330], TTab[0x331]));
+    return 1;
+  }
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x004f9a60
 void Text_DecodeButtons(char *in, char *out) {
   if (!NuStrICmp(in, "wibble"))
