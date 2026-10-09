@@ -40,7 +40,9 @@ struct Unk_GameObject54_24 {
 };
 
 struct Unk_GameObject54 {
-  u8 pad0[0x24];
+  u8 pad0[4];
+  u32 model_flags; // 0x04
+  u8 pad8[0x24 - 8];
   Unk_GameObject54_24 *p24; // 0x24
 };
 
@@ -113,8 +115,9 @@ struct GameObject_s {
   u8 pad13b[0x11cc - 0x115c];
   f32 f11cc; // 0x11cc
   u8 pad14[0x11d8 - 0x11d0];
-  f32 weapon_scale; // 0x11d8
-  u8 pad14a[0x1298 - 0x11dc];
+  f32 weapon_scale;      // 0x11d8
+  f32 weapon_scale_rate; // 0x11dc
+  u8 pad14a[0x1298 - 0x11e0];
   i32 dynamic_light_id;        // 0x1298
   GameObjectLight_s lights[2]; // 0x129c
   u8 pad14a2[0x130c - 0x12f4];

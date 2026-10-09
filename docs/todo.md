@@ -356,7 +356,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005a3020` 212 B `ConstantRumble(GameObject_s*, float, float)`  **hint** name (gapfill) · **saga** `legoapi/misc/legoapi_misc.cpp`
 - [ ] `005b2a40` 229 B `LoadThingsScene()`
 - [ ] `00639580` 229 B `ObjOpponentStillThere(GameObject_s*, GameObject_s*, float)`  **hint** name (order) · **saga** `legoapi/actions/character/speederchase.cpp`
-- [ ] `006396c0` 233 B `FastWeaponOut(GameObject_s*, int)`  **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
+- [ ] `006396c0` 233 B `FastWeaponOut(GameObject_s*, int)`  **stub** · **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
 - [ ] `00639ba0` 233 B `FastWeaponIn(GameObject_s*, int)`  **hint** name (gapfill) · **saga** `legoapi/characters/core/playeritems.cpp`
 - [ ] `005bc570` 245 B `GizmoFindByName(GIZMOSYS_s*, int, char*)`  **saga** `legoapi/gizmo/base/gizmo.cpp`
 - [ ] `00620b30` 249 B `RedirectTextFile(char*, char*, int, int*)`  **saga** `legoapi/characters/core/charconfig.cpp`

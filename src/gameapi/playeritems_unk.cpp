@@ -116,6 +116,51 @@ void SetWeaponOut(GameObject_s *object) {
   }
 }
 
+struct ANIMPACKET_s;
+i32 CurrentAnim(ANIMPACKET_s *packet);
+i32 GameAudio_GetPlrSfxBits(void *object_ptr);
+void GameAudio_PlaySfx(i32 sfx, nuvec_s *position, i32 flags, i32 volume);
+
+// GLOBAL: LEGOBATMAN 0x00ace08c
+extern i32 WeaponInOut_NoAIJediSfx;
+
+static __forceinline void FastWeaponOutSfx(GameObject_s *object) {
+  if (object->weapon_scale_state == 1)
+    return;
+  i32 current_animation = CurrentAnim((ANIMPACKET_s *)((u8 *)object + 8));
+  if (current_animation != -1) {
+    Unk_GameObject50_08_204 **slot =
+        &((Unk_GameObject50_08_204 **)object->p50->p08)[current_animation];
+    if (*slot != 0 && ((*slot)->flags4 & 0x100000) != 0)
+      return;
+  }
+  u32 model_flags = object->p54->model_flags;
+  if ((model_flags & 8) != 0) {
+    if (object->b24c != -1 || WeaponInOut_NoAIJediSfx == 0) {
+      GameAudio_PlaySfx(0x53, &object->v80, GameAudio_GetPlrSfxBits(object), 1);
+    }
+  } else if ((model_flags & 0x80) != 0) {
+    GameAudio_PlaySfx(0x5b, &object->v80, 0, 1);
+  }
+}
+
+// STUB: LEGOBATMAN 0x006396c0
+// close: orig re-reads the anim slot (cmp [slot],0 then mov eax,[slot]);
+// this loads it once. Rest (inlined FastWeaponOutSfx) lines up.
+void FastWeaponOut(GameObject_s *object, i32 force_sound) {
+  if (g_unk00962144 == 0) {
+    char context = object->b9db;
+    if (context != -1 &&
+        (context == LEGOCONTEXT_WEAPONIN || context == LEGOCONTEXT_WEAPONOUT)) {
+      object->b9db = -1;
+    }
+    if (force_sound != 0 && object->weapon_scale == 0.0f)
+      FastWeaponOutSfx(object);
+    object->weapon_scale_rate = 5.0f;
+    object->weapon_scale_state = 1;
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x00639b10
 void KeepWeaponOut(GameObject_s *object) {
   if (g_unk00962144 == 0) {
