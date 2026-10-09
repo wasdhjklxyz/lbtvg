@@ -1,6 +1,7 @@
 // gameapi/area_unk.cpp: placed by tools/new.py; file name unproven.
 
 #include "../nu2api/nucore/common.h"
+#include "../nu2api/numath/nuvec.h"
 
 typedef struct AREADATA_s {
   u16 pad0[0x40 / 2];
@@ -56,6 +57,60 @@ struct PART_s {
   u8 pad104[0x21a - 0x104];
   u8 b21a; // 0x21a
 };
+
+struct GameObject_s;
+
+struct EXPLOSION {
+  i32 field_0x00;
+  i32 field_0x04;
+  GameObject_s *object;
+  nuvec_s position;
+  f32 field_0x18;
+  f32 field_0x1c;
+  f32 field_0x20;
+  i32 field_0x24;
+  i32 field_0x28;
+  u16 field_0x2c;
+  u16 field_0x2e;
+  u16 field_0x30;
+  u8 field_0x32;
+  u8 field_0x33;
+  u8 field_0x34;
+  u8 pad35[3];
+};
+
+// GLOBAL: LEGOBATMAN 0x00aca018
+extern EXPLOSION Explosion[8];
+// GLOBAL: LEGOBATMAN 0x00aca1d8
+extern i32 i_explosion;
+
+i32 qrand(void);
+i32 ObjHitObj_Flags(GameObject_s *object);
+
+// FUNCTION: LEGOBATMAN 0x005f6df0
+EXPLOSION *AddExplosion(nuvec_s *position, float radius, float strength,
+                        GameObject_s *object, i32 effect, i32 flags, i32 b) {
+  EXPLOSION *explosion = &Explosion[i_explosion];
+  explosion->position = *position;
+  explosion->field_0x18 = radius;
+  explosion->field_0x1c = 0;
+  explosion->field_0x20 = strength;
+  explosion->object = object;
+  explosion->field_0x00 = 0;
+  explosion->field_0x04 = 0;
+  explosion->field_0x2c = qrand();
+  explosion->field_0x2e = effect;
+  explosion->field_0x24 = flags;
+  explosion->field_0x28 = ObjHitObj_Flags(object);
+  explosion->field_0x34 = b;
+  explosion->field_0x30 = 0;
+  explosion->field_0x32 = 1;
+  explosion->field_0x33 = 0xff;
+  if (++i_explosion == 8) {
+    i_explosion = 0;
+  }
+  return explosion;
+}
 
 // FUNCTION: LEGOBATMAN 0x005f7cc0
 void PartStop_Flickerer(PART_s *part) {
