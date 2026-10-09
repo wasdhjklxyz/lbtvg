@@ -64,6 +64,13 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00452730,000793c4,__Z28Condition_NetworkGameOnGoingP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_NetworkGameOnGoing(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00452740,000793cc,__Z39Condition_EitherPlayerSuperCarryingInitP7AISYS_sPcP10AISCRIPT_s,"Condition_EitherPlayerSuperCarryingInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 00452790,00079410,__Z35Condition_EitherPlayerSuperCarryingP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_EitherPlayerSuperCarrying(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+00452860,000794ce,__Z31Condition_ContextAnimationFrameP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ContextAnimationFrame(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+004528b0,0007951e,__Z22Condition_OnRideObjectP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OnRideObject(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+004528f0,00079550,__Z30Condition_AnyPartyOnRideObjectP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_AnyPartyOnRideObject(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+00452930,00079598,__Z30Condition_NumberOfActiveSwordsP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_NumberOfActiveSwords(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+00452950,000795b6,__Z34Condition_IsCarryingPlayerItemInitP7AISYS_sPcP10AISCRIPT_s,"Condition_IsCarryingPlayerItemInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+004529f0,00079638,__Z18Condition_IAmWoozyP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_IAmWoozy(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+00452a30,00079664,__Z17Condition_ImAGirlP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ImAGirl(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 004530b0,0009708c,__Z24Action_SetTakeOverTargetP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetTakeOverTarget(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 004541f0,0008f63e,__Z14Action_SetSideP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetSide(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 00454950,00079fac,__Z19Action_SetStateAreaP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetStateArea(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0

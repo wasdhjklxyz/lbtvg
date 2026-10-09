@@ -408,3 +408,10 @@
 00452730 Condition_NetworkGameOnGoing   matched, Mac order after Condition_ShouldAttackOpponent
 00452740 Condition_EitherPlayerSuperCarryingInit   matched, Mac order after Condition_ShouldAttackOpponent
 00452790 Condition_EitherPlayerSuperCarrying   matched, Mac order after Condition_ShouldAttackOpponent
+00452860 Condition_ContextAnimationFrame   matched, Mac order of the Condition_* run after EitherPlayerSuperCarrying
+004528b0 Condition_OnRideObject   matched, Mac order of the Condition_* run after EitherPlayerSuperCarrying
+004528f0 Condition_AnyPartyOnRideObject   matched, Mac order of the Condition_* run after EitherPlayerSuperCarrying
+00452930 Condition_NumberOfActiveSwords   matched, Mac order of the Condition_* run after EitherPlayerSuperCarrying
+00452950 Condition_IsCarryingPlayerItemInit   matched, Mac order of the Condition_* run after EitherPlayerSuperCarrying
+004529f0 Condition_IAmWoozy   matched, Mac order of the Condition_* run after EitherPlayerSuperCarrying
+00452a30 Condition_ImAGirl   matched, Mac order of the Condition_* run after EitherPlayerSuperCarrying

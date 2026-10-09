@@ -76,3 +76,5 @@
 005c1d20 MovingBackwards: RotDiff argument load order (pad angle vs camera yaw), 5 tries
 00623690 CC_shadow_locators: GetWord loop rotation differs (4 spellings tried)
 006236e0 CC_thrust_locators: same loop rotation difference as CC_shadow_locators
+00452820 Condition_IsContextAnimationFinished: x87 result kept in register, 3 tries
+00452980 Condition_IsCarryingPlayerItem: register choice for the list pointer, 3 tries

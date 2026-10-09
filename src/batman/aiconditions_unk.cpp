@@ -2,6 +2,7 @@
 // (0x0044da30..0x00452120).
 
 #include "../gameapi/ai/aisys_unk.h"
+#include "../nu2api/nucore/nulist.h"
 #include "../nu2api/nucore/nustring.h"
 #include "worldinfo_unk.h"
 #include <stddef.h>
@@ -610,6 +611,112 @@ f32 Condition_EitherPlayerSuperCarrying(AISYS_s *sys,
         g_unk00960500 != -1 && Player[i]->b9d9 != g_unk00960500)
       return 1.0f;
   }
+  return 0.0f;
+}
+
+// STUB: LEGOBATMAN 0x00452820
+// close: orig keeps a 0.0 result on the x87 stack across the checks and
+// fcom-s it against 0x98c; ours spills or reloads.
+f32 Condition_IsContextAnimationFinished(AISYS_s *sys,
+                                         AISCRIPTPROCESS_s *process,
+                                         AIPACKET_s *packet, char *str,
+                                         void *data) {
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL)
+    return packet->pd0->obj->f98c <= 0.0f;
+  return 0.0f;
+}
+
+f32 *ContextAnimFrame0059b3c0(void *anim, i32 context, i32 a, i32 b);
+
+// FUNCTION: LEGOBATMAN 0x00452860
+f32 Condition_ContextAnimationFrame(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                    AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL) {
+    GameObject_s *object = packet->pd0->obj;
+    f32 *frame =
+        ContextAnimFrame0059b3c0((char *)object + 8, object->s9d0, 1, 0);
+    if (frame != NULL)
+      return *frame;
+  }
+  return 0.0f;
+}
+
+i32 RideObject_On00663df0(GameObject_s *object);
+
+// FUNCTION: LEGOBATMAN 0x004528b0
+f32 Condition_OnRideObject(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL &&
+      RideObject_On00663df0(packet->pd0->obj) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x004528f0
+f32 Condition_AnyPartyOnRideObject(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                   AIPACKET_s *packet, char *str, void *data) {
+  for (i32 i = 0; i < 8; i++) {
+    if (Player[i] != NULL && RideObject_On00663df0(Player[i]) != 0)
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// GLOBAL: LEGOBATMAN 0x009ccafd
+extern u8 g_unk009ccafd;
+
+// FUNCTION: LEGOBATMAN 0x00452930
+f32 Condition_NumberOfActiveSwords(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                   AIPACKET_s *packet, char *str, void *data) {
+  return g_unk009ccafd;
+}
+
+i16 PlayerItemType_FindIndex005ee0f0(char *name);
+void *PlayerItemType_Get005ee1a0(i32 index);
+
+// FUNCTION: LEGOBATMAN 0x00452950
+void *Condition_IsCarryingPlayerItemInit(AISYS_s *sys, char *name,
+                                         AISCRIPT_s *script) {
+  if (name != NULL) {
+    i32 index = PlayerItemType_FindIndex005ee0f0(name);
+    if (index != -1)
+      return PlayerItemType_Get005ee1a0(index);
+  }
+  return NULL;
+}
+
+// STUB: LEGOBATMAN 0x00452980
+// close: register choice only (obj in eax, lea esi vs mov esi; add).
+f32 Condition_IsCarryingPlayerItem(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                   AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL) {
+    // 0xb18: list of carried player items, item type at node + 8.
+    NULISTHDR *items;
+    NULISTLNK *node =
+        NuListGetHead(items = (NULISTHDR *)((char *)packet->pd0->obj + 0xb18));
+    while (node != NULL) {
+      if (data == NULL || data == ((void **)node)[2])
+        return 1.0f;
+      node = NuListGetNext(items, node);
+    }
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x004529f0
+f32 Condition_IAmWoozy(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                       AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL &&
+      (packet->pd0->obj->flags1418 & 0x20000) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00452a30
+f32 Condition_ImAGirl(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                      AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL)
+    return (f32)((packet->pd0->obj->flags1414 >> 14) & 1);
   return 0.0f;
 }
 
