@@ -74,7 +74,9 @@ i32 GizmoFileReadName(char *name) {
 }
 
 typedef struct GIZMOTYPE_s {
-  char name[0xa0]; // name first; rest unknown
+  char name[0x44];                         // 0x00
+  char *(*get_gizmo_name_fn)(void *gizmo); // 0x44
+  u32 pad48[(0xa0 - 0x48) / 4];
 } GIZMOTYPE;
 
 typedef struct GIZMOTYPES_s {
@@ -99,6 +101,60 @@ i32 GizmoGetTypeIDByName(GIZMOSYS_s *gizmo_sys, char *name) {
   }
 
   return -1;
+}
+
+typedef struct GIZMO_s {
+  u32 data[2];
+} GIZMO;
+
+typedef struct GIZMOSET_s {
+  u32 pad0;
+  i32 count; // 0x04
+  u32 pad8;
+  GIZMO *gizmos; // 0x0c
+  u32 pad10;
+} GIZMOSET;
+
+struct GIZMOSYS_s {
+  GIZMOSET *sets; // 0x00
+};
+
+int NuStrICmp(const char *a, const char *b);
+
+// FUNCTION: LEGOBATMAN 0x005bc570
+GIZMO *GizmoFindByName(GIZMOSYS_s *gizmo_sys, i32 type_id, char *name) {
+  if (gizmotypes != 0 && gizmo_sys != 0 && name != 0) {
+    if (type_id >= 0 && type_id <= gizmotypes->count) {
+      GIZMOTYPE &type = gizmotypes->types[type_id];
+      GIZMOSET &set = gizmo_sys->sets[type_id];
+      if (type.get_gizmo_name_fn != 0) {
+        GIZMO *gizmo = set.gizmos;
+        for (i32 i = 0; i < set.count; ++i, ++gizmo) {
+          char *gizmo_name = type.get_gizmo_name_fn(gizmo);
+          if (NuStrICmp(gizmo_name, name) == 0) {
+            return gizmo;
+          }
+        }
+      }
+    } else {
+      GIZMOTYPE *type = gizmotypes->types;
+      GIZMOSET *set = gizmo_sys->sets;
+      for (i32 type_index = 0; type_index < gizmotypes->count;
+           ++type_index, ++type, ++set) {
+        if (type->get_gizmo_name_fn != 0) {
+          GIZMO *gizmo = set->gizmos;
+          for (i32 gizmo_index = 0; gizmo_index < set->count;
+               ++gizmo_index, ++gizmo) {
+            char *gizmo_name = type->get_gizmo_name_fn(gizmo);
+            if (NuStrICmp(gizmo_name, name) == 0) {
+              return gizmo;
+            }
+          }
+        }
+      }
+    }
+  }
+  return 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x005bdcd0
