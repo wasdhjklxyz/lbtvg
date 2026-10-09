@@ -165,6 +165,12 @@ float NuRandFloat(void) {
   return *(float *)&bits - 1.0f;
 }
 
+// FUNCTION: LEGOBATMAN 0x0068b570
+unsigned int NuRandIntSeeded(unsigned int *seed) {
+  *seed = *seed * 0x19660d + 0x3c6ef35f;
+  return *seed;
+}
+
 // FUNCTION: LEGOBATMAN 0x0068b590
 unsigned int NuRandInt(void) {
   fseed = fseed * 0x19660d + 0x3c6ef35f;
@@ -209,6 +215,9 @@ int NuRand(NURAND *rand) {
   rand->value ^= 0x075bd924;
   return rand->value;
 }
+
+// FUNCTION: LEGOBATMAN 0x0068b650
+float NuFloatRand(NURAND *rand) { return NuRand(rand) / 2.1474836e+09f; }
 
 // FUNCTION: LEGOBATMAN 0x00684190
 static f32 NuSinApprox(i32 angle);

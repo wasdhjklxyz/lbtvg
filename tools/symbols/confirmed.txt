@@ -254,3 +254,23 @@
 0068b5b0 qrand  saga qrand.cpp body (qseed * 0x24cd + 1 & 0xffff)
 0068b5d0 NuRandSetSeed  saga nurand.cpp body
 0068b5f0 NuRand  saga nurand.cpp Park-Miller body
+0068b570 NuRandIntSeeded  matched saga-shaped body, Mac order after NuRandFloatSeeded
+0068b650 NuFloatRand  matched saga nurand.cpp body (NuRand / 2^31), follows NuRand
+005c30e0 GetMaxHitPoints  matched Mac-shaped body (Cheat_IsOn on cheat index, two HP globals), Mac order before SetHitPoints
+005c3120 SetHitPoints  matched saga players.cpp body, Mac order before LoseHP_EndDelay
+005c3150 Players_UpdateHitPoints  matched (Cheat_IsOn max HP, rescales and clamps Player[0..7]), Mac order after SetHitPoints
+005c2be0 Player_HasInvincibility  matched saga body (cheat flag 0x80), Mac order after Players_BothActive
+005c2c20 Player_HasFastBuild  matched (cheat flag 0x4000, Mac same extra model bit test), Mac order
+005c2c70 Player_HasDeflectBolts  matched (cheat flag 0x80000, same as Mac), Mac order
+005c2d10 Player_HasDoubleBoltDamage_FromBolt  matched saga body (bolt flags 1/2 pick player, cheat flag 2 inlined)
+005c2d90 Player_HasDoubleWeaponDamage  matched (cheat flag 0x400, same as Mac), Mac order
+005c2dd0 Player_HasFastDig  matched (cheat flag 0x8000000, same as Mac), Mac order
+005c2e10 Player_HasFastMech  matched (cheat flag 0x10000000, same as Mac), Mac order
+005c2e50 ActivePlayerInRange  matched saga body as a loop, Mac order before SuperWeirdo
+005ce730 CheatSys_Init  matched (counts the cheat list, resets per-entry bytes), Mac order before Cheat_FindByName
+005ce7e0 Cheat_FindByName  matched saga body via cheat->name, Mac order
+005ce830 Cheats_SetFlags  matched saga-shaped body (u64 flags), Mac order
+005ce8d0 Cheats_CheckFlags  matched (CheatSystem->flags & u64), Mac order; called by every Player_Has*
+005ce930 Cheat_SetOn  matched (find entry by CHEAT_s*, set enabled, Cheats_SetFlags), Mac order
+005ceac0 Cheat_MultiplyScore  matched saga body (flags 4..0x40 multipliers)
+005ceb30 Cheats_TurnOff  matched (flag 0x2200000 or all), Mac order

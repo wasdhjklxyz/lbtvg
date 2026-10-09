@@ -39,7 +39,9 @@ struct Unk_GameObject54_24 {
   f32 fbc; // 0xbc, GameShadow: 0 = ignore hover layer
   u8 pad0c0[0x148 - 0xc0];
   u32 flags148; // 0x148
-  u8 pad1[0x1d6 - 0x14c];
+  u8 pad14c[0x150 - 0x14c];
+  u8 b150; // 0x150, bit 1: Player_HasFastBuild
+  u8 pad1[0x1d6 - 0x151];
   i16 s1d6; // 0x1d6
   u8 pad2[4];
   u8 b1dc[1]; // 0x1dc
@@ -146,7 +148,10 @@ struct GameObject_s {
   } locator_mtx[22]; // 0xb98
   u8 pad1118[0x112c - 0x1118];
   Unk_GameObject112c *p112c; // 0x112c
-  u8 pad13[0x114c - 0x1130];
+  u8 pad13[0x1144 - 0x1130];
+  struct Unk_GameObject1144
+      *p1144; // 0x1144, byte 0x14 bit 2: Player_HasDeflectBolts
+  u8 pad1148[0x114c - 0x1148];
   struct TORPEDOPACKET_s *torpedo; // 0x114c
   u8 pad13a[0x1158 - 0x1150];
   GameObject_s *p1158; // 0x1158
@@ -178,7 +183,8 @@ struct GameObject_s {
   u8 pad1268[0x1270 - 0x1268];
   f32 f1270; // 0x1270
   f32 f1274; // 0x1274
-  u8 pad14a[0x1298 - 0x1278];
+  f32 f1278; // 0x1278, > 0 grants every Player_Has* power
+  u8 pad14a[0x1298 - 0x127c];
   i32 dynamic_light_id;        // 0x1298
   GameObjectLight_s lights[2]; // 0x129c
   u8 pad14a2[0x12fc - 0x12f4];
@@ -221,7 +227,10 @@ struct GameObject_s {
   i16 type15b0; // 0x15b0
   u8 pad15b2[0x15bc - 0x15b2];
   i16 platform_id; // 0x15bc, -1 = none (PlatOnOff index)
-  u8 pad15be[0x1618 - 0x15be];
+  u8 pad15be[0x15c6 - 0x15be];
+  u8 hitpoints;  // 0x15c6, max
+  i8 current_hp; // 0x15c7
+  u8 pad15c8[0x1618 - 0x15c8];
   struct GIZFORCE_s *gizforce_target; // 0x1618
   u8 pad19[0x162c - 0x161c];
   i16 s162c; // 0x162c

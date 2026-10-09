@@ -290,6 +290,168 @@ i32 Players_BothActive() {
   return 0;
 }
 
+typedef struct CHEAT_s {
+  u32 pad0[4];
+} CHEAT_s;
+
+// GLOBAL: LEGOBATMAN 0x00936f10
+extern CHEAT_s g_unk00936f10[];
+// GLOBAL: LEGOBATMAN 0x00960b08
+extern i32 g_unk00960b08;
+// GLOBAL: LEGOBATMAN 0x00960674
+extern i32 g_unk00960674;
+// GLOBAL: LEGOBATMAN 0x00960678
+extern i32 g_unk00960678;
+
+i32 Cheat_IsOn(CHEAT_s *cheat);
+
+unsigned __int64 Cheats_CheckFlags(unsigned __int64 flags);
+
+struct Unk_GameObject1144 {
+  u8 pad0[0x14];
+  u8 flags14; // 0x14
+};
+
+// GLOBAL: LEGOBATMAN 0x00960b10
+extern i32 g_unk00960b10;
+
+// FUNCTION: LEGOBATMAN 0x005c2be0
+i32 Player_HasInvincibility(GameObject_s *object) {
+  if (Cheats_CheckFlags(0x80) != 0)
+    return 1;
+  if (object != 0 && object->f1278 > 0.0f)
+    return 1;
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x005c2c20
+i32 Player_HasFastBuild(GameObject_s *player) {
+  if (Cheats_CheckFlags(0x4000) != 0)
+    return 1;
+  if (player != 0 && player->f1278 > 0.0f)
+    return 1;
+  return (player->p54->p24->b150 >> 1) & 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x005c2c70
+i32 Player_HasDeflectBolts(GameObject_s *object) {
+  if (Cheats_CheckFlags(0x80000) != 0)
+    return 1;
+  if (object->p1144 != 0 && (object->p1144->flags14 & 4) &&
+      g_unk00960b10 != 0 && Cheat_IsOn(&g_unk00936f10[g_unk00960b10]))
+    return 1;
+  if (object->f1278 > 0.0f)
+    return 1;
+  return 0;
+}
+
+i32 Player_HasDoubleBoltDamage(GameObject_s *object) {
+  if (Cheats_CheckFlags(2) != 0)
+    return 1;
+  if (object != 0 && object->f1278 > 0.0f)
+    return 1;
+  return 0;
+}
+
+typedef struct BOLT_s {
+  u8 pad0[0xf0];
+  unsigned __int64 flags; // 0xf0
+} BOLT_s;
+
+// FUNCTION: LEGOBATMAN 0x005c2d10
+i32 Player_HasDoubleBoltDamage_FromBolt(BOLT_s *bolt) {
+  i32 player;
+  if (bolt->flags & 1)
+    player = 0;
+  else if (bolt->flags & 2)
+    player = 1;
+  else
+    return 0;
+  return Player_HasDoubleBoltDamage(Player[player]);
+}
+
+// FUNCTION: LEGOBATMAN 0x005c2d90
+i32 Player_HasDoubleWeaponDamage(GameObject_s *object) {
+  if (Cheats_CheckFlags(0x400) != 0)
+    return 1;
+  if (object != 0 && object->f1278 > 0.0f)
+    return 1;
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x005c2dd0
+i32 Player_HasFastDig(GameObject_s *object) {
+  if (Cheats_CheckFlags(0x8000000) != 0)
+    return 1;
+  if (object != 0 && object->f1278 > 0.0f)
+    return 1;
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x005c2e10
+i32 Player_HasFastMech(GameObject_s *object) {
+  if (Cheats_CheckFlags(0x10000000) != 0)
+    return 1;
+  if (object != 0 && object->f1278 > 0.0f)
+    return 1;
+  return 0;
+}
+
+float NuVecDistSqr(nuvec_s *a, nuvec_s *b, nuvec_s *d);
+
+// FUNCTION: LEGOBATMAN 0x005c2e50
+i32 ActivePlayerInRange(nuvec_s *position, float range_squared,
+                        float *distance_squared) {
+  f32 distance;
+  i32 i;
+  for (i = 0; i < 8; i++) {
+    if (Player[i] != 0 && (Player[i]->flags1fc & 0x80) &&
+        (distance = NuVecDistSqr(&Player[i]->v80, position, 0)) <
+            range_squared) {
+      if (distance_squared != 0)
+        *distance_squared = distance;
+      return 1;
+    }
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x005c30e0
+i32 GetMaxHitPoints(GameObject_s *obj) {
+  if (obj->b24c != -1 && g_unk00960b08 != -1 &&
+      Cheat_IsOn(&g_unk00936f10[g_unk00960b08]))
+    return g_unk00960678;
+  return g_unk00960674;
+}
+
+// FUNCTION: LEGOBATMAN 0x005c3120
+void SetHitPoints(GameObject_s *obj, i32 hp) {
+  obj->current_hp = (u8)hp;
+  if ((i8)hp > (i32)(u32)obj->hitpoints) {
+    obj->current_hp = obj->hitpoints;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x005c3150
+void Players_UpdateHitPoints(void) {
+  i32 maxhp;
+  i32 i;
+  if (g_unk00960b08 != -1 && Cheat_IsOn(&g_unk00936f10[g_unk00960b08]))
+    maxhp = g_unk00960678;
+  else
+    maxhp = g_unk00960674;
+  for (i = 0; i < 8; i++) {
+    if (Player[i] != 0) {
+      if (maxhp > Player[i]->hitpoints)
+        Player[i]->current_hp =
+            Player[i]->current_hp * maxhp / Player[i]->hitpoints;
+      Player[i]->hitpoints = (u8)maxhp;
+      if (Player[i]->current_hp > Player[i]->hitpoints)
+        Player[i]->current_hp = Player[i]->hitpoints;
+    }
+  }
+}
+
 struct GAMEMESSAGE_s {
   u8 pad000[0x101];
   i8 player; // 0x101, 0/1 = that player's pad, else all players

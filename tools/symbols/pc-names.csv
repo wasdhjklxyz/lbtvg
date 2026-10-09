@@ -436,6 +436,17 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005c1b80,00319982,__Z20Player_ResetContextsP12GameObject_s,Player_ResetContexts(GameObject_s*),calls,3
 005c2250,0031ad5e,__Z22Player_ToggleCharacterP12GameObject_sii,"Player_ToggleCharacter(GameObject_s*, int, int)",strings,0
 005c2bb0,0031a160,__Z18Players_BothActivev,Players_BothActive(),confirmed,0
+005c2be0,0031a198,__Z23Player_HasInvincibilityP12GameObject_s,Player_HasInvincibility(GameObject_s*),confirmed,0
+005c2c20,0031a1ee,__Z19Player_HasFastBuildP12GameObject_s,Player_HasFastBuild(GameObject_s*),confirmed,0
+005c2c70,0031a252,__Z22Player_HasDeflectBoltsP12GameObject_s,Player_HasDeflectBolts(GameObject_s*),confirmed,0
+005c2d10,0031b84e,__Z35Player_HasDoubleBoltDamage_FromBoltP6BOLT_s,Player_HasDoubleBoltDamage_FromBolt(BOLT_s*),confirmed,0
+005c2d90,0031a328,__Z28Player_HasDoubleWeaponDamageP12GameObject_s,Player_HasDoubleWeaponDamage(GameObject_s*),confirmed,0
+005c2dd0,0031a37e,__Z17Player_HasFastDigP12GameObject_s,Player_HasFastDig(GameObject_s*),confirmed,0
+005c2e10,0031a3d4,__Z18Player_HasFastMechP12GameObject_s,Player_HasFastMech(GameObject_s*),confirmed,0
+005c2e50,0031a42a,__Z19ActivePlayerInRangeP7nuvec_sfPf,"ActivePlayerInRange(nuvec_s*, float, float*)",confirmed,0
+005c30e0,0031a794,__Z15GetMaxHitPointsP12GameObject_s,GetMaxHitPoints(GameObject_s*),confirmed,0
+005c3120,0031a7e4,__Z12SetHitPointsP12GameObject_si,"SetHitPoints(GameObject_s*, int)",confirmed,0
+005c3150,0031a80e,__Z23Players_UpdateHitPointsv,Players_UpdateHitPoints(),confirmed,0
 005c32c0,0031a8c8,__Z15LoseHP_EndDelayP13GAMEMESSAGE_s,LoseHP_EndDelay(GAMEMESSAGE_s*),confirmed,0
 005c3310,0031a934,__Z13LoseHitPointsP12GameObject_si,"LoseHitPoints(GameObject_s*, int)",gapfill,2
 005c4080,002ecc00,__ZN18InteractiveDisplay23GetFirstSpecialMaterialEP8nugscn_sPc,"InteractiveDisplay::GetFirstSpecialMaterial(nugscn_s*, char*)",gapfill,1
@@ -455,7 +466,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005c8eb0,0034ece0,__Z15LoadTerrainFileP11WORLDINFO_s,LoadTerrainFile(WORLDINFO_s*),confirmed,0
 005c8f30,0034ed7e,__Z13LoadGrassFileP11WORLDINFO_s,LoadGrassFile(WORLDINFO_s*),strings,0
 005cd170,002b7664,__Z16GizBuildIts_LoadPvS_,"GizBuildIts_Load(void*, void*)",strings,0
+005ce730,00283b88,__Z13CheatSys_InitP9CHEATLIST,CheatSys_Init(CHEATLIST*),confirmed,0
+005ce7e0,00283c4a,__Z16Cheat_FindByNamePc,Cheat_FindByName(char*),confirmed,0
+005ce830,00283c98,__Z15Cheats_SetFlagsv,Cheats_SetFlags(),confirmed,0
+005ce8d0,00283d62,__Z17Cheats_CheckFlagsy,Cheats_CheckFlags(unsigned long long),confirmed,0
+005ce930,00283dda,__Z11Cheat_SetOnP7CHEAT_sii,"Cheat_SetOn(CHEAT_s*, int, int)",confirmed,0
 005ce980,00283e3a,__Z10Cheat_IsOnP7CHEAT_s,Cheat_IsOn(CHEAT_s*),gapfill,1
+005ceac0,002844e0,__Z19Cheat_MultiplyScorej,Cheat_MultiplyScore(unsigned int),confirmed,0
+005ceb30,00283ff0,__Z14Cheats_TurnOffi,Cheats_TurnOff(int),confirmed,0
 005cfa30,002f5e58,__Z12StartBigJumpP12GameObject_sP7nuvec_siffii,"StartBigJump(GameObject_s*, nuvec_s*, int, float, float, int, int)",gapfill,2
 005d3210,002adeaa,__Z10AddGameMsgP10ADDGAMEMSG,AddGameMsg(ADDGAMEMSG*),calls,3
 005d3640,002ae2fe,__Z14AddGameMessagePcP7nuvec_sfS1_fhhhjf,"AddGameMessage(char*, nuvec_s*, float, nuvec_s*, float, unsigned char, unsigned char, unsigned char, unsigned int, float)",confirmed,0
@@ -671,10 +689,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0068b4e0,001a1436,_NuRandGetSeed,_NuRandGetSeed,confirmed,0
 0068b4f0,001a1448,_NuRandFloatSeeded,_NuRandFloatSeeded,confirmed,0
 0068b530,001a9304,_NuRandFloat,_NuRandFloat,calls,1
+0068b570,001a148c,_NuRandIntSeeded,_NuRandIntSeeded,confirmed,0
 0068b590,001a91e2,_NuRandInt,_NuRandInt,confirmed,0
 0068b5b0,00354d0a,__Z5qrandv,qrand(),confirmed,0
 0068b5d0,001a14c4,_NuRandSetSeed,_NuRandSetSeed,confirmed,0
 0068b5f0,001a14e2,_NuRand,_NuRand,confirmed,0
+0068b650,001abbb0,_NuFloatRand,_NuFloatRand,confirmed,0
 0068e660,001a2012,_nugraphFreeTempCurveData,_nugraphFreeTempCurveData,strings,0
 0068e6b0,001aa5c6,_nugraphCalcCurve,_nugraphCalcCurve,strings,0
 0068fa00,001a9ed6,_NuAtan2D,_NuAtan2D,gapfill,1
