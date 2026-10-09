@@ -41,7 +41,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizActions](#gizactions) | 5 | 2 |
 | [GizmoPickup](#gizmopickup) | 2 | 2 |
 | [GizPanel](#gizpanel) | 2 | 2 |
-| [LevelConfig](#levelconfig) | 2 | 2 |
 | [LevelObject](#levelobject) | 2 | 2 |
 | [LevelObjects](#levelobjects) | 2 | 2 |
 | [Levels](#levels) | 2 | 2 |
@@ -80,6 +79,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Grapples](#grapples) | 1 | 1 |
 | [LC](#lc) | 1 | 1 |
 | [Level](#level) | 1 | 1 |
+| [LevelConfig](#levelconfig) | 1 | 1 |
 | [MiniKit](#minikit) | 2 | 1 |
 | [Missions](#missions) | 1 | 1 |
 | [near apisave.c](#near-apisavec) | 8 | 1 |
@@ -662,11 +662,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0048f750` 993 B `GizPanel_Update(void*, void*, float)`  **saga** `legoapi/gizmos/object/gizpanel.cpp`
 - [ ] `00490b20` 1178 B `GizPanel_MoveCode(WORLDINFO_s*, GameObject_s*, int)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizpanel.cpp`
 
-## LevelConfig
-
-- [ ] `0060d920` 115 B `LevelConfig_BeforeLoad(LEVELDATA_s*, char*, nufpcomjmp_s*)`  **saga** `legoapi/world/levelconfig.cpp`
-- [ ] `0060e5b0` 141 B `LevelConfig_AfterLoad(LEVELDATA_s*, char*, nufpcomjmp_s*)`  **saga** `legoapi/world/levelconfig.cpp`
-
 ## LevelObject
 
 - [ ] `0060ec80` 77 B `LevelObject_FindIndexFromName(char*)`  **hint** name (gapfill) · **saga** `legoapi/world/level.cpp`
@@ -839,6 +834,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `0060ee60` 164 B `Level_LoadConfigFile(WORLDINFO_s*)`  **saga** `legoapi/world/level.cpp`
 
+## LevelConfig
+
+- [ ] `0060e5b0` 141 B `LevelConfig_AfterLoad(LEVELDATA_s*, char*, nufpcomjmp_s*)`  **saga** `legoapi/world/levelconfig.cpp`
+
 ## MiniKit
 
 - [ ] `00647150` 433 B `MiniKit_InitPieces(MINIKIT*, int, variptr_u*, variptr_u*)`  **saga** `legoapi/gizmo/base/gizmo_sys.cpp`
@@ -878,7 +877,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00561570` 10 B `_edbitsRegisterThingsScene`  **hint** name (gapfill)
 - [ ] `0055fd40` 21 B `_LookupDebrisEffectPage`  **hint** name (gapfill)
 - [ ] `00559480` 49 B `_PlaySfxAndSetVolume`  **hint** name (gapfill)
-- [ ] `00558d90` 137 B `_GetSfxId`  **saga** `nu2api/numusic/sfx.cpp`
+- [ ] `00558d90` 137 B `_GetSfxId`  **stub** · **saga** `nu2api/numusic/sfx.cpp`
 - [ ] `0055fd60` 212 B `_LookupDebrisEffectPageOnly`  **hint** name (gapfill)
 - [ ] `0055fc00` 307 B `_LookupDebrisEffectPageIgnore`  **hint** name (gapfill)
 - [ ] `00558f10` 1377 B `_PlaySfxByIdEx`

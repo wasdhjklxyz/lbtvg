@@ -131,3 +131,39 @@ LEVELDATA *Level_FindByName(char *name, i32 *idx_out) {
 
   return 0;
 }
+
+typedef struct nufpar_s NUFPAR;
+typedef struct nufpcomjmp_s {
+  char *name;
+  void (*fn)(NUFPAR *parser);
+} nufpcomjmp_s;
+
+NUFPAR *NuFParCreateMem(char *name, char *buffer, i32 size);
+void NuFParPushCom2(NUFPAR *parser, nufpcomjmp_s *a, nufpcomjmp_s *b);
+i32 NuFParGetLine(NUFPAR *parser);
+i32 NuFParGetWord(NUFPAR *parser);
+i32 NuFParInterpretWord(NUFPAR *parser);
+void NuFParDestroy(NUFPAR *parser);
+
+// GLOBAL: LEGOBATMAN 0x00aca828
+extern LEVELDATA *levelconfig_ldata;
+// GLOBAL: LEGOBATMAN 0x0096324c
+extern nufpcomjmp_s LevelConfig_BeforeLoad_GenericKeywords[];
+
+// FUNCTION: LEGOBATMAN 0x0060d920
+void LevelConfig_BeforeLoad(LEVELDATA *level, char *buffer,
+                            nufpcomjmp_s *keywords) {
+  NUFPAR *parser = NuFParCreateMem("levelbeforeload", buffer, 0xffff);
+  if (parser == 0) {
+    return;
+  }
+
+  levelconfig_ldata = level;
+  NuFParPushCom2(parser, LevelConfig_BeforeLoad_GenericKeywords, keywords);
+  while (NuFParGetLine(parser) != 0) {
+    if (NuFParGetWord(parser) != 0) {
+      NuFParInterpretWord(parser);
+    }
+  }
+  NuFParDestroy(parser);
+}
