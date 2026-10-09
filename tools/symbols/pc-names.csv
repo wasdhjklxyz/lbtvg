@@ -712,7 +712,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d7770,00187b7e,_NuStrCmp,_NuStrCmp,gapfill,2
 006d7dc0,0018b9d4,_NuSPrintf,_NuSPrintf,gapfill,1
 006d7f60,00187f1a,_NuAToF,_NuAToF,calls,1
-006d8020,00187ec6,_NuAToI,_NuAToI,gapfill,1
+006d8020,00187ec6,_NuAToI,_NuAToI,confirmed,0
 006d8440,00187e42,_NuUnicodeToAscii,_NuUnicodeToAscii,gapfill,2
 006da090,0018b224,_NuFileExtInitEx,_NuFileExtInitEx,strings,0
 006da8d0,0018d4c2,_NuFParGetWord,_NuFParGetWord,gapfill,1

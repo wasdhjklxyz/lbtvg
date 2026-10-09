@@ -17,17 +17,17 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Action](#action) | 72 | 57 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
-| [near nupad_gen.cpp](#near-nupad_gencpp) | 10 | 9 |
 | [Text](#text) | 10 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 14 | 8 |
+| [near nupad_gen.cpp](#near-nupad_gencpp) | 9 | 8 |
 | [Arcade](#arcade) | 5 | 5 |
 | [GameCam](#gamecam) | 5 | 5 |
 | [Grabber](#grabber) | 7 | 5 |
-| [near nutrig_gen.cpp](#near-nutrig_gencpp) | 13 | 5 |
 | [Player](#player) | 5 | 5 |
 | [Area](#area) | 5 | 4 |
 | [GameAudio](#gameaudio) | 4 | 4 |
 | [Hub](#hub) | 6 | 4 |
+| [near nutrig_gen.cpp](#near-nutrig_gencpp) | 12 | 4 |
 | [Door](#door) | 4 | 3 |
 | [GizAction](#gizaction) | 3 | 3 |
 | [NuTex](#nutex) | 5 | 3 |
@@ -491,19 +491,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005632c0` 3491 B `_TerrainInitEx`
 - [ ] `0056d8d0` 7460 B `_ScanTerrain`  **saga** `legoapi/render/core/terrain.cpp`
 
-## near nupad_gen.cpp
-
-- [ ] `006d7dc0` 43 B `_NuSPrintf`  **hint** name (gapfill)
-- [ ] `006d6910` 69 B `_ImplodeError`  **hint** name (gapfill) · **saga** `nu2api/nucore/implode.cpp`
-- [ ] `006daa40` 149 B `_NuFParGetFloat`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006dfc60` 181 B `_NuFParCreateMem`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006d7f60` 191 B `_NuAToF`  **saga** `nu2api/nucore/nustring_c.cpp`
-- [ ] `006dd060` 226 B `_NuFParGetInt`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006dd430` 318 B `_NuFParInterpretWordCTX`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006dd2d0` 347 B `_NuFParInterpretWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006da8d0` 358 B `_NuFParGetWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006d6d00` 646 B `_ImplodeMakeTable`  **saga** `nu2api/nucore/implode.cpp`
-
 ## Text
 
 - [ ] `0059d770` 62 B `Text_LoadFont(char*, variptr_u*, variptr_u*)`  **saga** `legoapi/menus/core/text.cpp`
@@ -534,6 +521,18 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006bc410` 1430 B `_AISysProcessCharacter`
 - [ ] `006b5000` 3215 B `_AISysLoadEx`
 
+## near nupad_gen.cpp
+
+- [ ] `006d7dc0` 43 B `_NuSPrintf`  **hint** name (gapfill)
+- [ ] `006d6910` 69 B `_ImplodeError`  **hint** name (gapfill) · **saga** `nu2api/nucore/implode.cpp`
+- [ ] `006daa40` 149 B `_NuFParGetFloat`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006dfc60` 181 B `_NuFParCreateMem`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006dd060` 226 B `_NuFParGetInt`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006dd430` 318 B `_NuFParInterpretWordCTX`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006dd2d0` 347 B `_NuFParInterpretWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006da8d0` 358 B `_NuFParGetWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006d6d00` 646 B `_ImplodeMakeTable`  **saga** `nu2api/nucore/implode.cpp`
+
 ## Arcade
 
 - [ ] `006481f0` 9 B `Arcade_ResetPanel()`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
@@ -559,22 +558,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00602270` 710 B `Grabber_Reset(WORLDINFO_s*)`  **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
 - [ ] `00602540` 740 B `Grabber_Drop(GRABBER_s*, nuvec_s*)`  **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
 - [ ] `00600e90` 1004 B `Grabber_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/items/objects/grabber.cpp`
-
-## near nutrig_gen.cpp
-
-- [ ] `006a5fe0` 31 B `_AISysClearAllPathCnxTypes`  **hint** name (gapfill)
-- [ ] `006a9b90` 80 B `_AISysFindArea`  **hint** name (gapfill)
-- [ ] `006a9bf0` 84 B `_AISysFindPath`  **hint** name (gapfill)
-- [ ] `006a9ac0` 96 B `_AIPathFindLocator`
-- [ ] `006a9b20` 98 B `_AIPathFindLocatorSet`  **hint** name (gapfill)
-- [ ] `006a34d0` 100 B `_AIParamToFloatEx`  **saga** `gameapi/ai/aisys/aiscript.cpp`
-- [ ] `006a9c50` 114 B `_AIPathFindNode`  **hint** name (gapfill)
-- [ ] `006a3380` 125 B `_AIParamToFloat`  **saga** `gameapi/ai/aisys/aiscript.cpp`
-- [ ] `006af110` 142 B `_AiSysIsCurrentPlatform`
-- [ ] `006a6000` 171 B `_AISysRegisterPathCnxType`
-- [ ] `006a19a0` 230 B `_AIScriptFind`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
-- [ ] `006a2730` 401 B `_AIScriptCopyConditions`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
-- [ ] `006a2cc0` 536 B `_AIScriptBuildDerivedScript`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
 
 ## Player
 
@@ -607,6 +590,21 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `004974c0` 748 B `Hub_DrawMiniKitPanel(float, int)`
 - [ ] `00497f00` 1753 B `Hub_Reset(WORLDINFO_s*)`  **saga** `legoapi/world/levels/hub.cpp`
 - [ ] `0049c700` 2138 B `Hub_UpdateMiniKits(WORLDINFO_s*)`  **saga** `legoapi/world/levels/hub.cpp`
+
+## near nutrig_gen.cpp
+
+- [ ] `006a5fe0` 31 B `_AISysClearAllPathCnxTypes`  **hint** name (gapfill)
+- [ ] `006a9b90` 80 B `_AISysFindArea`  **hint** name (gapfill)
+- [ ] `006a9bf0` 84 B `_AISysFindPath`  **hint** name (gapfill)
+- [ ] `006a9ac0` 96 B `_AIPathFindLocator`
+- [ ] `006a9b20` 98 B `_AIPathFindLocatorSet`  **hint** name (gapfill)
+- [ ] `006a34d0` 100 B `_AIParamToFloatEx`  **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006a9c50` 114 B `_AIPathFindNode`  **hint** name (gapfill)
+- [ ] `006af110` 142 B `_AiSysIsCurrentPlatform`
+- [ ] `006a6000` 171 B `_AISysRegisterPathCnxType`
+- [ ] `006a19a0` 230 B `_AIScriptFind`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006a2730` 401 B `_AIScriptCopyConditions`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006a2cc0` 536 B `_AIScriptBuildDerivedScript`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
 
 ## Door
 

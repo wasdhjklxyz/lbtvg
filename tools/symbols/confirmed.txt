@@ -6,3 +6,4 @@
 006d4220 NuListGetHead lgtm
 006d4240 NuListGetNext lgtm
 006dc3a0 NuStrICmp lgtm
+006d8020 NuAToI lgtm

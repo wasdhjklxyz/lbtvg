@@ -2,6 +2,8 @@
 // __FILE__ anchors). The string helpers from ~0x006d7500 on may belong to a
 // neighbouring TU; see the report.
 
+#include "common.h"
+
 // Outside this file; names unknown.
 void Unk006e2ac0(void);
 void Unk006e3c90(void);
@@ -144,6 +146,47 @@ NuPadUnk006d7400 *NuPadUnk006d7400::Clear() {
   i8 = 0;
   ic = 0;
   return this;
+}
+
+// from saga nu2api/nucore/nustring_c.cpp
+// FUNCTION: LEGOBATMAN 0x006d7f60
+f32 NuAToF(char *string) {
+  f32 dividend = 0.0f;
+  f32 divisor = 1.0f;
+
+  char c = *string;
+  string++;
+
+  if (c == '-') {
+    divisor = -1.0f;
+
+    c = *string;
+    string++;
+  }
+
+  while (c >= '0' && c <= '9') {
+    dividend *= 10.0f;
+    dividend += (f32)(c - 0x30);
+
+    c = *string;
+    string++;
+  }
+
+  if (c == '.') {
+    c = *string;
+    string++;
+
+    while (c >= '0' && c <= '9') {
+      divisor *= 10.0f;
+      dividend *= 10.0f;
+      dividend += (f32)(c - 0x30);
+
+      c = *string;
+      string++;
+    }
+  }
+
+  return dividend / divisor;
 }
 
 // FUNCTION: LEGOBATMAN 0x006dc180
