@@ -345,3 +345,36 @@
 00624640 CC_smash_vehicle_proximities  matched (0x14c bit 29), Mac order
 00624690 CC_use_awkward_shapes  matched (0x14c bit 30), Mac order
 006246e0 CC_throw_kill_parts_up  matched (0x14c bit 31), Mac order
+00623de0 CC_define_locator  matched (DefinedLocators_FindIX index into runtime 0x1dc), Mac order
+00623e30 CC_boost_locator  matched (runtime 0x21c, -1..19), Mac order
+00623ea0 CC_head_joint  matched saga body (inlined CC_set_joint, runtime 0x21d), Mac order
+00623ee0 CC_cloak_joint  matched (runtime 0x21e), Mac order
+00623f20 CC_cloak_joint2  matched saga body (runtime 0x21f), Mac order
+00622f60 CC_collision_locator 0x215   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+00622fa0 CC_weapon_locator_1 0x1ec   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+00622fe0 CC_weapon_locator_2 0x1ed   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+00623020 CC_weapon_locator_3 0x1ee   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+00623060 CC_weapon_locator_4 0x1ef   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+006230a0 CC_weapon_shoot_locator_1 0x1f0   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+006230e0 CC_weapon_shoot_locator_2 0x1f1   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+00623120 CC_weapon_shoot_locator_3 0x1f2   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+00623160 CC_weapon_shoot_locator_4 0x1f3   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+006231a0 CC_shield_locator 0x213   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+006231e0 CC_throw_locator 0x219   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+00623220 CC_place_locator 0x220   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+00623260 CC_grapple_gun_locator 0x1db   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+006232a0 CC_grapple_locator 0x20a/0x20b   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+00623310 CC_extra_character_locator 0x221   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+00623350 CC_charplatform_locator 0x222   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+00623390 CC_cable_locator 0x223   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+006233d0 CC_attracto_count_locator 0x224   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+00623410 CC_attracto_suck_locator 0x225   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+00623450 CC_pivot_locator_1 0x20c   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+00623490 CC_pivot_locator_2 0x20d   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+006234d0 CC_ride_locator 0x21a   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+00623510 CC_poo_locator 0x21b   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+00623550 CC_head_locator 0x214   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+00623590 CC_rocket_locator 0x212   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+006235d0 CC_thingy_locator 0x216   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+00623610 CC_helmet_locator 0x217   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+00623650 CC_hat_locator 0x218   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run

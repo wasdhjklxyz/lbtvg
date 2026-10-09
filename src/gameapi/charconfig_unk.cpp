@@ -32,7 +32,37 @@ typedef struct CHARCONFIG_RUNTIME_s {
   i16 sfx_land_slam;       // 0x1be
   i16 sfx_land_combatroll; // 0x1c0
   i16 sfx_siren;           // 0x1c2
-  unsigned char pad1c4[0x233 - 0x1c4];
+  unsigned char pad1c4[0x1db - 0x1c4];
+  i8 grapple_gun_locator;     // 0x1db
+  i8 defined_locators[0x10];  // 0x1dc
+  i8 weapon_locator[4];       // 0x1ec
+  i8 weapon_shoot_locator[4]; // 0x1f0
+  unsigned char pad1f4[0x20a - 0x1f4];
+  i8 grapple_locator[2]; // 0x20a
+  i8 pivot_locator_1;    // 0x20c
+  i8 pivot_locator_2;    // 0x20d
+  unsigned char pad20e[0x212 - 0x20e];
+  i8 rocket_locator;          // 0x212
+  i8 shield_locator;          // 0x213
+  i8 head_locator;            // 0x214
+  i8 collision_locator;       // 0x215
+  i8 thingy_locator;          // 0x216
+  i8 helmet_locator;          // 0x217
+  i8 hat_locator;             // 0x218
+  i8 throw_locator;           // 0x219
+  i8 ride_locator;            // 0x21a
+  i8 poo_locator;             // 0x21b
+  i8 boost_locator;           // 0x21c
+  i8 head_joint;              // 0x21d
+  i8 cloak_joint;             // 0x21e
+  i8 cloak_joint_2;           // 0x21f
+  i8 place_locator;           // 0x220
+  i8 extra_character_locator; // 0x221
+  i8 charplatform_locator;    // 0x222
+  i8 cable_locator;           // 0x223
+  i8 attracto_count_locator;  // 0x224
+  i8 attracto_suck_locator;   // 0x225
+  unsigned char pad226[0x233 - 0x226];
   u8 chatter_delay; // 0x233
 } CHARCONFIG_RUNTIME_s;
 
@@ -45,6 +75,198 @@ i32 GetSfxId(char *name);
 
 // GLOBAL: LEGOBATMAN 0x00acb864
 extern CHARCONFIG_s charconfig;
+
+i32 NuFParGetInt(NUFPAR *parser);
+int NuAToI(const char *s);
+
+static void CC_set_locator(NUFPAR *parser, i8 *locator) {
+  if (NuFParGetWord(parser) != 0) {
+    i32 value = NuAToI(parser->word_buf);
+    if (value >= -1 && value < 20)
+      *locator = (i8)value;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00622f60
+void CC_collision_locator(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->collision_locator);
+}
+
+// FUNCTION: LEGOBATMAN 0x00622fa0
+void CC_weapon_locator_1(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->weapon_locator[0]);
+}
+
+// FUNCTION: LEGOBATMAN 0x00622fe0
+void CC_weapon_locator_2(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->weapon_locator[1]);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623020
+void CC_weapon_locator_3(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->weapon_locator[2]);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623060
+void CC_weapon_locator_4(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->weapon_locator[3]);
+}
+
+// FUNCTION: LEGOBATMAN 0x006230a0
+void CC_weapon_shoot_locator_1(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->weapon_shoot_locator[0]);
+}
+
+// FUNCTION: LEGOBATMAN 0x006230e0
+void CC_weapon_shoot_locator_2(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->weapon_shoot_locator[1]);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623120
+void CC_weapon_shoot_locator_3(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->weapon_shoot_locator[2]);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623160
+void CC_weapon_shoot_locator_4(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->weapon_shoot_locator[3]);
+}
+
+// FUNCTION: LEGOBATMAN 0x006231a0
+void CC_shield_locator(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->shield_locator);
+}
+
+// FUNCTION: LEGOBATMAN 0x006231e0
+void CC_throw_locator(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->throw_locator);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623220
+void CC_place_locator(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->place_locator);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623260
+void CC_grapple_gun_locator(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->grapple_gun_locator);
+}
+
+// FUNCTION: LEGOBATMAN 0x006232a0
+void CC_grapple_locator(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->grapple_locator[0]);
+  CC_set_locator(parser, &charconfig.runtime->grapple_locator[1]);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623310
+void CC_extra_character_locator(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->extra_character_locator);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623350
+void CC_charplatform_locator(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->charplatform_locator);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623390
+void CC_cable_locator(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->cable_locator);
+}
+
+// FUNCTION: LEGOBATMAN 0x006233d0
+void CC_attracto_count_locator(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->attracto_count_locator);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623410
+void CC_attracto_suck_locator(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->attracto_suck_locator);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623450
+void CC_pivot_locator_1(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->pivot_locator_1);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623490
+void CC_pivot_locator_2(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->pivot_locator_2);
+}
+
+// FUNCTION: LEGOBATMAN 0x006234d0
+void CC_ride_locator(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->ride_locator);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623510
+void CC_poo_locator(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->poo_locator);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623550
+void CC_head_locator(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->head_locator);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623590
+void CC_rocket_locator(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->rocket_locator);
+}
+
+// FUNCTION: LEGOBATMAN 0x006235d0
+void CC_thingy_locator(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->thingy_locator);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623610
+void CC_helmet_locator(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->helmet_locator);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623650
+void CC_hat_locator(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->hat_locator);
+}
+
+i16 DefinedLocators_FindIX(char *name);
+
+// FUNCTION: LEGOBATMAN 0x00623de0
+void CC_define_locator(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0) {
+    i32 index = DefinedLocators_FindIX(parser->word_buf);
+    if (index >= 0 && index < 0x10)
+      charconfig.runtime->defined_locators[index] = (i8)NuFParGetInt(parser);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00623e30
+void CC_boost_locator(NUFPAR *parser) {
+  CC_set_locator(parser, &charconfig.runtime->boost_locator);
+}
+
+// Stand-alone copy at 0x00623e70 takes the parser in esi.
+static void CC_set_joint(NUFPAR *parser, i8 *joint) {
+  if (NuFParGetWord(parser) != 0) {
+    i32 value = NuAToI(parser->word_buf);
+    if (value >= 0)
+      *joint = (i8)value;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00623ea0
+void CC_head_joint(NUFPAR *parser) {
+  CC_set_joint(parser, &charconfig.runtime->head_joint);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623ee0
+void CC_cloak_joint(NUFPAR *parser) {
+  CC_set_joint(parser, &charconfig.runtime->cloak_joint);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623f20
+void CC_cloak_joint2(NUFPAR *parser) {
+  CC_set_joint(parser, &charconfig.runtime->cloak_joint_2);
+}
 
 // Stand-alone copy at 0x00623f60 takes the parser in esi.
 static void CC_set_sfx(NUFPAR *parser, i16 *sfx) {
@@ -99,8 +321,6 @@ void CC_sfx_footstep(NUFPAR *parser) {
 void CC_sfx_chatter(NUFPAR *parser) {
   CC_set_sfx(parser, &charconfig.runtime->sfx_chatter);
 }
-
-i32 NuFParGetInt(NUFPAR *parser);
 
 // FUNCTION: LEGOBATMAN 0x006241d0
 void CC_chatter_delay(NUFPAR *parser) {
