@@ -94,7 +94,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [bugThing](#bugthing) | 4 | 0 |
 | [CD3DCore](#cd3dcore) | 3 | 0 |
 | [CharScene](#charscene) | 1 | 0 |
-| [CharShadows](#charshadows) | 1 | 0 |
 | [Create](#create) | 1 | 0 |
 | [Customiser](#customiser) | 4 | 0 |
 | [CustomiserInternal](#customiserinternal) | 5 | 0 |
@@ -710,10 +709,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## CharScene
 
 - [ ] `0061f2d0` 156 B `CharScene_Load(int, CHARSCENE*, variptr_u*, variptr_u)`
-
-## CharShadows
-
-- [ ] `0062d030` 257 B `CharShadows_InitMaterial(variptr_u*, variptr_u)`
 
 ## Create
 

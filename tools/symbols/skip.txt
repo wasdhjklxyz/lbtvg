@@ -158,3 +158,4 @@
 00514bd0 ShopComputer::InitializeLevel: pop ebp scheduled one store early, 3 tries
 005013a0 ArkhamAsylum_B_Reset: eax/ecx swapped in the reset loop, 3 tries
 006e3b80 NuTimeGetTicksPS: i64 wrap arithmetic reassociated, 3 tries
+00680d60 SockSys_Configure: uses the camera keyword table 0x9693f8 (naming decision pending)
