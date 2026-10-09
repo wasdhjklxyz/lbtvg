@@ -4295,6 +4295,79 @@ i32 Action_MoveNode(AISYS_s *sys, AISCRIPTPROCESS_s *process,
 
 void NuVecRotateY(nuvec_s *v, nuvec_s *v0, i32 a);
 
+struct nugspline_s *NuSplineFind(nugscn_s *scene, char *name);
+int NuSplineFindAllBeg(nugscn_s *scene, char *name,
+                       struct nugspline_s **results, int max);
+
+// GLOBAL: LEGOBATMAN 0x009c61c8
+extern struct nugspline_s *script_spline_selected;
+
+// spline length word: bit 15 marks "in use" while picking.
+struct SPLINEHDR_s {
+  u16 len : 15;
+  u16 in_use : 1;
+};
+#define SPLINE_USED(s) (((SPLINEHDR_s *)(s))->in_use)
+
+// STUB: LEGOBATMAN 0x0045c570
+// only the unused-spline collect loop differs: original counts in ecx and
+// holds the spline in eax, ours swaps them (5 tries)
+i32 Action_SelectRandomSpline(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char **args, int argc,
+                              int flags, f32 time) {
+  struct nugspline_s *splines[32];
+  struct nugspline_s *unused_splines[32];
+  i32 count = 0;
+  i32 unused = 0;
+  i32 unused_count = 0;
+  i32 i;
+  if (flags) {
+    script_spline_selected = NULL;
+    for (i = 0; i < argc; i++) {
+      char *value = NuStrIStr(args[i], "splines=");
+      if (value != NULL) {
+        count += NuSplineFindAllBeg(g_unk00960894->scn140, value + 8,
+                                    &splines[count], 32 - count);
+      } else if ((value = NuStrIStr(args[i], "spline=")) != NULL) {
+        struct nugspline_s *spline =
+            NuSplineFind(g_unk00960894->scn140, value + 7);
+        if (spline != NULL && count < 32)
+          splines[count++] = spline;
+      } else if (NuStrIStr(args[i], "unused") != NULL) {
+        unused = 1;
+      }
+    }
+    if (count != 0) {
+      if (unused) {
+        GameObject_s *object = Obj;
+        for (i = 0; i < HIGHGAMEOBJECT; i++, object++) {
+          if ((object->flags1fc & 1) && (object->flags1fc & 0x1000) &&
+              object->b257 == 0 && object->movement_spline != NULL)
+            SPLINE_USED(object->movement_spline) = 1;
+        }
+        for (i = 0; i < count; i++) {
+          struct nugspline_s *spline = splines[i];
+          if (!SPLINE_USED(spline))
+            unused_splines[unused_count++] = spline;
+        }
+        object = Obj;
+        for (i = 0; i < HIGHGAMEOBJECT; i++, object++) {
+          if ((object->flags1fc & 1) && (object->flags1fc & 0x1000) &&
+              object->b257 == 0 && object->movement_spline != NULL)
+            SPLINE_USED(object->movement_spline) = 0;
+        }
+        if (unused_count != 0)
+          script_spline_selected =
+              unused_splines[qrand() / (0xffff / unused_count + 1)];
+      } else {
+        script_spline_selected = splines[qrand() / (0xffff / count + 1)];
+      }
+    }
+  }
+  return 1;
+}
+#undef SPLINE_USED
+
 // FUNCTION: LEGOBATMAN 0x0045d330
 i32 Action_SetCurrentSpeed(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                            AIPACKET_s *packet, char **args, int argc, int flags,
