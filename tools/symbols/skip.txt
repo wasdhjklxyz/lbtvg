@@ -36,3 +36,4 @@
 006dd430 NuFParInterpretWordCTX: cmp [mem],0 then reload, see STUB
 0064ce30 NewStatusRumbleBuzz: heavy x87 stack juggling
 0056fd80 TerrainImpactNorm: jump table
+006dd2d0 NuFParInterpretWord: same cmp [mem],0-then-reload as NuFParInterpretWordCTX

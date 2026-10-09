@@ -1,6 +1,8 @@
 // gameapi/ai/aisys/AIBugPit.cpp: certain range 0x006b1220..0x006be490.
 
 #include "AIBugPit.h"
+#include "../../../nu2api/nucore/nustring.h"
+#include "../aisys_unk.h"
 
 // FUNCTION: LEGOBATMAN 0x006b24d0
 void AIBugPitGridBase::CellOf(int index, int *ix, int *iz) {
@@ -146,6 +148,36 @@ void AIScriptLoadAll(char *path, VARIPTR *buf, VARIPTR *buf_end, AISYS_s *sys) {
   }
 
   AIScriptLoadAllPakFile(pak, path, buf, &pak_start, sys);
+}
+
+i32 AIScriptSetInterrupt(AISCRIPTPROCESS_s *processor, u8 priority, u8 id,
+                         char *state_name, f32 time);
+
+// FUNCTION: LEGOBATMAN 0x006b4670
+i32 Action_SetInterrupt(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                        AIPACKET_s *packet, char **params, i32 param_count,
+                        i32 is_first_time, f32 dt) {
+  f32 time = 0.0f;
+  u8 priority = 0;
+  u8 id = 0;
+  char *state_name = 0;
+  char *value;
+  if (is_first_time && processor != 0) {
+    for (i32 i = 0; i < param_count; i++) {
+      if ((value = NuStrIStr(params[i], "priority")) != 0) {
+        priority = (u8)AIParamToFloatEx(packet, processor, value + 9);
+      } else if ((value = NuStrIStr(params[i], "id")) != 0) {
+        id = (u8)AIParamToFloatEx(packet, processor, value + 3);
+      } else if ((value = NuStrIStr(params[i], "state")) != 0) {
+        state_name = value + 6;
+      } else if ((value = NuStrIStr(params[i], "time")) != 0) {
+        time = AIParamToFloatEx(packet, processor, value + 5);
+      }
+    }
+    if (state_name != 0)
+      AIScriptSetInterrupt(processor, priority, id, state_name, time);
+  }
+  return 1;
 }
 
 // FUNCTION: LEGOBATMAN 0x006b9430
