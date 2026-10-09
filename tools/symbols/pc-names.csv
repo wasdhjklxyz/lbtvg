@@ -397,7 +397,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005c7300,002ecd9c,__ZN18InteractiveDisplay15InitializeLevelEP11WORLDINFO_s,InteractiveDisplay::InitializeLevel(WORLDINFO_s*),gapfill,1
 005c8060,0034d4b6,_NuSinApprox,_NuSinApprox,gapfill,2
 005c8130,0034d54e,__Z18WorldInfo_InitOncev,WorldInfo_InitOnce(),order,4
-005c8150,0034d580,__Z25WorldInfo_CurrentlyActivev,WorldInfo_CurrentlyActive(),calls,3
+005c8150,0034d580,__Z25WorldInfo_CurrentlyActivev,WorldInfo_CurrentlyActive(),confirmed,0
 005c8240,0034d68a,__Z28WorldInfo_LoadObjectAnimFileP11WORLDINFO_s,WorldInfo_LoadObjectAnimFile(WORLDINFO_s*),strings,0
 005c8670,0034e446,__Z28LevelStreaming_DrawDebugTextif,"LevelStreaming_DrawDebugText(int, float)",strings,0
 005c8820,0034e614,__Z35LevelStreaming_DrawDebugDestinationP11WORLDINFO_s,LevelStreaming_DrawDebugDestination(WORLDINFO_s*),strings,0

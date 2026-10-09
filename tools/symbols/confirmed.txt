@@ -48,3 +48,4 @@
 0059dc80 Text_MakeScore  saga body matches (digits then Text_InsertCommasIntoNumber)
 005bba90 GizmoFileReadName  saga body matches (length char then EdFileRead)
 00639b10 KeepWeaponOut  saga body matches (scale 1, weapon anim + keep-out flags)
+005c8150 WorldInfo_CurrentlyActive  returns WORLD (0x960894), as saga

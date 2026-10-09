@@ -54,6 +54,13 @@ extern WORLDINFO WorldInfo[]; // 0xa790 bytes in all
 // FUNCTION: LEGOBATMAN 0x005c8130
 void WorldInfo_InitOnce(void) { memset(WorldInfo, 0, 0xa790); }
 
+// GLOBAL: LEGOBATMAN 0x00960894
+WORLDINFO *WORLD = &WorldInfo[0];
+
+// from saga legoapi/world/world.cpp
+// FUNCTION: LEGOBATMAN 0x005c8150
+WORLDINFO *WorldInfo_CurrentlyActive(void) { return WORLD; }
+
 // FUNCTION: LEGOBATMAN 0x005c8240
 void WorldInfo_LoadObjectAnimFile(WORLDINFO *world) {
   if (world->page_anim == -1) {

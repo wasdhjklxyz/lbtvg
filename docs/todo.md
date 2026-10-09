@@ -100,7 +100,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [ThermalDetonator](#thermaldetonator) | 1 | 1 |
 | [TrafficAnimSys](#trafficanimsys) | 1 | 1 |
 | [Transform](#transform) | 3 | 1 |
-| [WorldInfo](#worldinfo) | 1 | 1 |
 | [AnimInclude](#animinclude) | 1 | 0 |
 | [ArkhamAsylum](#arkhamasylum) | 1 | 0 |
 | [BackdropSys](#backdropsys) | 1 | 0 |
@@ -894,10 +893,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `004ffbf0` 618 B `Transform_DrawBeam(GameObject_s*, nuvec_s*)`
 - [ ] `004ff6d0` 700 B `Transform_FindFreezeObstacleTarget(WORLDINFO_s*, GameObject_s*, float*, float)`
 - [ ] `004fff70` 1030 B `Transform_DrawTarget(int, int, nuvec_s*, float, float)`  **saga** `legoapi/actions/character/transform.cpp`
-
-## WorldInfo
-
-- [ ] `005c8150` 6 B `WorldInfo_CurrentlyActive()`  **saga** `legoapi/world/world.cpp`
 
 ## AnimInclude
 
