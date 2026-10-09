@@ -991,3 +991,14 @@
 0044e2d0 Condition_EitherPlayerPullingLever  matched, keyword table + Mac name
 0044e360 Condition_EitherPlayerUsingPanel  matched, keyword table + Mac name
 0044e3f0 Condition_EitherPlayerUsingTechno  matched, keyword table + Mac name
+006a3540 Condition_Timer  matched saga body, keyword table
+006a3550 Condition_Random  matched saga body, keyword table
+006a3560 Condition_AlwaysTrueInit  matched saga body, keyword table
+006a35a0 Condition_AlwaysTrue  matched saga body, keyword table
+006a3690 Condition_GotLocator  matched saga body, keyword table
+006a36b0 Condition_GotLocatorSet  matched saga body, keyword table
+006a36d0 Condition_OnPath  matched saga body, keyword table
+006a36f0 Condition_PlayerOnPath  matched saga body, keyword table
+006a3710 Condition_OpponentOnPath  matched saga body, keyword table
+006a3740 Condition_TimeOffPath  matched saga body, keyword table
+006a3760 Condition_CurrentLocatorIs  matched saga body, keyword table

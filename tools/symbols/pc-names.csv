@@ -1442,6 +1442,17 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006a2cc0,00234fea,_AIScriptBuildDerivedScript,_AIScriptBuildDerivedScript,gapfill,2
 006a3380,00235f80,_AIParamToFloat,_AIParamToFloat,calls,1
 006a34d0,00235e6c,_AIParamToFloatEx,_AIParamToFloatEx,calls,1
+006a3540,00236138,_Condition_Timer,_Condition_Timer,confirmed,0
+006a3550,00236144,_Condition_Random,_Condition_Random,confirmed,0
+006a3560,0023614e,_Condition_AlwaysTrueInit,_Condition_AlwaysTrueInit,confirmed,0
+006a35a0,00236190,_Condition_AlwaysTrue,_Condition_AlwaysTrue,confirmed,0
+006a3690,00236312,_Condition_GotLocator,_Condition_GotLocator,confirmed,0
+006a36b0,0023632a,_Condition_GotLocatorSet,_Condition_GotLocatorSet,confirmed,0
+006a36d0,00236342,_Condition_OnPath,_Condition_OnPath,confirmed,0
+006a36f0,0023635e,_Condition_PlayerOnPath,_Condition_PlayerOnPath,confirmed,0
+006a3710,00236382,_Condition_OpponentOnPath,_Condition_OpponentOnPath,confirmed,0
+006a3740,002363ae,_Condition_TimeOffPath,_Condition_TimeOffPath,confirmed,0
+006a3760,002363d8,_Condition_CurrentLocatorIs,_Condition_CurrentLocatorIs,confirmed,0
 006a4640,002375dc,_Action_Idle,_Action_Idle,strings,0
 006a4b10,00237b34,_Action_FaceOpponent,_Action_FaceOpponent,strings,0
 006a5660,00238c46,_Action_OverrideAnimation,_Action_OverrideAnimation,strings,0

@@ -267,3 +267,100 @@ i32 Action_OverrideAnimation(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   ((OverrideAnimPacket_s *)packet)->animation_override_to = to;
   return 1;
 }
+
+// Generic AI script conditions (saga aisys.cpp), reached through the
+// condition keyword table.
+
+// FUNCTION: LEGOBATMAN 0x006a3540
+f32 Condition_Timer(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                    AIPACKET_s *packet, char *str, void *argument) {
+  return process->script_timer;
+}
+
+f32 NuRandFloat(void);
+
+// FUNCTION: LEGOBATMAN 0x006a3550
+f32 Condition_Random(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                     AIPACKET_s *packet, char *str, void *argument) {
+  return NuRandFloat();
+}
+
+// FUNCTION: LEGOBATMAN 0x006a3560
+void *Condition_AlwaysTrueInit(AISYS_s *sys, char *arg, AISCRIPT_s *script) {
+  f32 value = 1.0f;
+  if (arg != NULL && NuStrLen(arg) != 0)
+    value = NuAToF(arg);
+  return *(void **)&value;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a35a0
+f32 Condition_AlwaysTrue(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char *str, void *argument) {
+  f32 value;
+  *(void **)&value = argument;
+  return value;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a3690
+f32 Condition_GotLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char *str, void *argument) {
+  // 0xa8: the process's current locator.
+  if (*(void **)((u8 *)process + 0xa8) != NULL)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a36b0
+f32 Condition_GotLocatorSet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char *str, void *argument) {
+  // 0xac: the process's current locator set.
+  if (*(void **)((u8 *)process + 0xac) != NULL)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a36d0
+f32 Condition_OnPath(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                     AIPACKET_s *packet, char *str, void *argument) {
+  // 0x166 bit 0: on path.
+  if (packet != NULL && (((u8 *)packet)[0x166] & 1))
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a36f0
+f32 Condition_PlayerOnPath(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char *str, void *argument) {
+  // 0x1698: player 1; its +4 is its AI packet.
+  u8 *player_1 = *(u8 **)((u8 *)sys + 0x1698);
+  if (player_1 != NULL && ((*(u8 **)(player_1 + 4))[0x166] & 1))
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a3710
+f32 Condition_OpponentOnPath(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char *str, void *argument) {
+  if (packet != NULL && packet->pe4 != NULL) {
+    u8 *ai = (u8 *)packet->pe4->ai;
+    if (ai != NULL && (ai[0x166] & 1))
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a3740
+f32 Condition_TimeOffPath(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char *str, void *argument) {
+  if (packet != NULL)
+    return *(f32 *)((u8 *)packet + 0x210);
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a3760
+f32 Condition_CurrentLocatorIs(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                               AIPACKET_s *packet, char *str, void *argument) {
+  if (argument != NULL && *(void **)((u8 *)process + 0xa8) == argument)
+    return 1.0f;
+  return 0.0f;
+}
