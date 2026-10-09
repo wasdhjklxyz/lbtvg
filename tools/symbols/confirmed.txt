@@ -1530,3 +1530,4 @@
 006b4170 Action_SetRespawnLocator  keyword table 0x99df98
 006a4940 Action_FacePlayer  keyword table 0x99df98
 006a4b10 Action_FaceOpponent  keyword table 0x99df98
+00713e60 NuRndrEndReflectionRender  clears the reflection flag and calls RndrStateSetReflection(0), saga's body

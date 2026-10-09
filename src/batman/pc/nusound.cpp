@@ -284,3 +284,6 @@ void NuSoundUnk00535360(const float *pos, int chan, int vol, int p4, int p5,
     }
   }
 }
+
+// FUNCTION: LEGOBATMAN 0x00535b60
+extern "C" void NuSoundAddRumble() {}

@@ -26,6 +26,24 @@ extern NUDISPLAYMODE *g_unk009d0eec; // display mode table
 // GLOBAL: LEGOBATMAN 0x009d0ef0
 extern i32 g_unk009d0ef0; // current display mode index
 
+void Unk006e47f0(void *shader);
+
+// GLOBAL: LEGOBATMAN 0x029f1b38
+extern void *g_nuInstSurfGeomUnk029f1b38;
+// GLOBAL: LEGOBATMAN 0x029f1b3c
+extern void *g_nuInstSurfGeomUnk029f1b3c;
+
+struct NuInstSurfGeom {
+  static i32 DestroyPS();
+};
+
+// FUNCTION: LEGOBATMAN 0x006e8f20
+i32 NuInstSurfGeom::DestroyPS() {
+  Unk006e47f0(g_nuInstSurfGeomUnk029f1b38);
+  Unk006e47f0(g_nuInstSurfGeomUnk029f1b3c);
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x006ea240
 i32 NuMovieGrabAttachFrameBuffer(NUMOVIEGRABINFO *info) {
   NUDISPLAYMODE mode = g_unk009d0eec[g_unk009d0ef0];

@@ -1342,6 +1342,59 @@ i32 Action_FollowPath(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
   return completion_time >= GTO_TIMER(processor);
 }
 
+void AISysCharacterSetPath(AIPACKET_s *packet, struct AIPATHSET_s *path);
+
+// FUNCTION: LEGOBATMAN 0x006bc000
+i32 Action_MoveAwayFromNode(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                            AIPACKET_s *packet, char **params, i32 param_count,
+                            i32 first_time, f32 elapsed) {
+  nuvec_s difference;
+  if (packet == NULL || packet->pd0 == NULL || packet->path_set == NULL ||
+      packet->path_node == NULL)
+    return 1;
+  if (first_time != 0) {
+    if (param_count == 0)
+      return 0;
+    for (i32 index = 1; index < param_count; ++index) {
+      if (AIActionParseSpeedFn == NULL ||
+          AIActionParseSpeedFn(params[index], &packet->goal_speed_mode) == 0)
+        packet->movement_param =
+            AIParamToFloatEx(packet, processor, params[index]);
+    }
+    GTNPATHNODE_s *node = (GTNPATHNODE_s *)AIPathFindNode(
+        sys, (struct AIPATH_s *)packet->path_set, params[0]);
+    processor->action_data_3 = node;
+    if (node == NULL || node->connection_count == 0)
+      return 1;
+    i32 node_index = node - ((GTNPATH_s *)packet->path_set)->nodes;
+    AISysCharacterSetPath(packet, packet->path_set);
+    GTN_PATHINFO(processor)->connection = node->connections[0];
+    if (GTN_PATHINFO(processor)->connection->node_indices[0] == node_index)
+      GTN_PATHINFO(processor)->dist = 0.0f;
+    else
+      GTN_PATHINFO(processor)->dist = 1.0f;
+    GTN_PATHINFO(processor)->flags |= 1;
+    GTN_PATHINFO(processor)->width = 0.0f;
+    GTN_PATHINFO(processor)->direction = 0;
+    AIMoveInstructionInline(packet, &node->position, 0.0f,
+                            (AIPATHINFO7_s *)GTN_PATHINFO(processor), 2,
+                            packet->movement_param);
+    return 0;
+  }
+  GTNPATHNODE_s *node = (GTNPATHNODE_s *)processor->action_data_3;
+  if (node != NULL) {
+    f32 distance = NuVecXZDistSqr((nuvec_s *)((u8 *)packet + 0x14c),
+                                  &node->position, &difference);
+    if (!(distance < node->radius_squared)) {
+      AIMoveInstructionInline(packet, &node->position, 0.0f,
+                              (AIPATHINFO7_s *)GTN_PATHINFO(processor), 2,
+                              packet->movement_param);
+      return 0;
+    }
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x006bde60
 void AIBugPitOwnerA::Release() {
   if (owned) {

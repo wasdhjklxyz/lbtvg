@@ -563,3 +563,16 @@ void LoseHP_EndDelay(GAMEMESSAGE_s *message) {
   else
     NewBuzzFrames(g_unk00a96388[player].pad, 1, 0);
 }
+
+extern "C" void *NuSpecialGetMtl(nuhspecial_s *special, int index);
+
+struct InteractiveDisplay {
+  static void *GetFirstSpecialMaterial(nugscn_s *scene, char *name);
+};
+
+// FUNCTION: LEGOBATMAN 0x005c4080
+void *InteractiveDisplay::GetFirstSpecialMaterial(nugscn_s *scene, char *name) {
+  nuhspecial_s special;
+  NuSpecialFind(scene, &special, name, 0);
+  return NuSpecialGetMtl(&special, 0);
+}

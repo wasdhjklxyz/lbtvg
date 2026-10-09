@@ -417,3 +417,16 @@ NuTexAnmProg *NuTexAnimProgParseFile(int file, VARIPTR *buffer, VARIPTR end,
   g_texAnmProgs = prog;
   return prog;
 }
+
+void RndrStateSetReflection(i32 reflection);
+
+// GLOBAL: LEGOBATMAN 0x029f3f20
+extern i32 g_nuRndrUnk029f3f20;
+
+// name is a Mac pairing hint (gapfill): verify
+// from saga nu2api/nu3d/nurndr_plain.cpp
+// FUNCTION: LEGOBATMAN 0x00713e60
+extern "C" void NuRndrEndReflectionRender(void) {
+  g_nuRndrUnk029f3f20 = 0;
+  RndrStateSetReflection(0);
+}

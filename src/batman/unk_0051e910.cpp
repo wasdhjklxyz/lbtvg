@@ -17,3 +17,9 @@ void Unk0051e910::Reset() {
   f8 = 0.0f;
   ic = 0;
 }
+
+// GLOBAL: LEGOBATMAN 0x009d02a9
+extern signed char g_pcInputUnk009d02a9;
+
+// FUNCTION: LEGOBATMAN 0x0051f540
+int PcInput_GetCtrlStringPlayer() { return g_pcInputUnk009d02a9; }

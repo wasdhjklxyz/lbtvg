@@ -2145,7 +2145,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00711fd0,0012d082,_pftaEnd,_pftaEnd,confirmed,0
 00711ff0,0012d0b2,_pftaScriptname,_pftaScriptname,confirmed,0
 00712030,00149d44,_NuTexAnimProgParseFile,_NuTexAnimProgParseFile,strings,0
-00713e60,0014ea12,_NuRndrEndReflectionRender,_NuRndrEndReflectionRender,gapfill,4
+00713e60,0014ea12,_NuRndrEndReflectionRender,_NuRndrEndReflectionRender,confirmed,0
 00715180,0012fc58,_NuCameraCreate,_NuCameraCreate,strings,0
 007151e0,0012fccc,_NuCameraDestroy,_NuCameraDestroy,strings,0
 007173c0,001618f8,_CreateTimeBar,_CreateTimeBar,strings,0
