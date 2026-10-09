@@ -232,8 +232,8 @@ enough matched code for the percentage to mean something.
   epilogue-tail order.
 - **An explicit `argc > 0` check** loads argc into a register first
   (`mov reg, [argc]; cmp; jle`); a plain `for` guard compares from memory.
-- **Float to `(i16)`/`(u8)`** is inlined with `fnstcw`/`fistp`; only `(i32)`
-  calls `_ftol2`.
+- **Float to unsigned `(u8)`/`(u16)`** is inlined with `fnstcw`/`fistp`;
+  signed `(i8)`/`(i16)`/`(i32)` call `_ftol2_sse` (checked with cl directly).
 - **A statement plus `return 0` duplicated in two branches** was written twice
   in the source.
 - **Nested ifs ending in one shared `return 0`** push every callee-saved
@@ -257,3 +257,11 @@ enough matched code for the percentage to mean something.
   the `flags` check.
 - **Table entries can be far apart**: a condition's init may live in another
   file (GotCnxCapabilityInit at 0x475e20).
+- **`f64 d = call(); x = d * d;`** gives `fmul st0, st0` with no float
+  rounding store in between.
+- **`-1 - id` and `~id`** compile differently.
+- **`static` on file-local globals** (`BT_bolttype`, fade counters) changes
+  load scheduling, struct copies included.
+- **Half of all keyword-table callbacks are missing from ghidra**: don't
+  filter tables by `functions.tsv` sizes (`tools/scratch/kwsumm.py` ranks
+  tables by unannotated callbacks; run `kwall.py` first).

@@ -11,3 +11,5 @@ are not lost. Run inside `nix develop` from the repo root.
 - `condtab.py`: walk the AI condition table ({keyword, condition, init}
   triples around 0x93b1b4) and print the entries with no FUNCTION/STUB yet,
   named `Condition_<keyword>[Init]`.
+- `kwsumm.py`: rank keyword tables by unannotated callbacks, counting the
+  ones ghidra missed (run `kwall.py` first).
