@@ -1170,16 +1170,23 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006188c0,00293cb4,__Z23CutScenes_ConfigureListPcP9variptr_uS0_,"CutScenes_ConfigureList(char*, variptr_u*, variptr_u)",strings,0
 00618d00,00294126,__Z8CS_fpsecP8nufpar_s,CS_fpsec(nufpar_s*),confirmed,0
 00618d20,00294154,__Z9CS_no_fogP8nufpar_s,CS_no_fog(nufpar_s*),confirmed,0
+00618d30,0029416a,__Z13CS_draw_worldP8nufpar_s,CS_draw_world(nufpar_s*),confirmed,0
+00618d90,002941e2,__Z17CS_draw_gizmo_sysP8nufpar_s,CS_draw_gizmo_sys(nufpar_s*),confirmed,0
+00618df0,00294260,__Z20CS_update_gizmo_flowP8nufpar_s,CS_update_gizmo_flow(nufpar_s*),confirmed,0
 00618e50,002942de,__Z14CS_always_loadP8nufpar_s,CS_always_load(nufpar_s*),confirmed,0
 00618e60,002942f6,__Z14CS_unskippableP8nufpar_s,CS_unskippable(nufpar_s*),confirmed,0
+00618e70,0029430e,__Z16CS_replace_suitsP8nufpar_s,CS_replace_suits(nufpar_s*),confirmed,0
 00618f10,002943b2,__Z10CS_in_gameP8nufpar_s,CS_in_game(nufpar_s*),confirmed,0
 00618f30,002943d0,__Z19CS_blobshadow_alphaP8nufpar_s,CS_blobshadow_alpha(nufpar_s*),confirmed,0
 00618f70,00294414,__Z22CS_blobshadow_fadenearP8nufpar_s,CS_blobshadow_fadenear(nufpar_s*),confirmed,0
 00618f90,00294446,__Z21CS_blobshadow_fadefarP8nufpar_s,CS_blobshadow_fadefar(nufpar_s*),confirmed,0
 00618fb0,00294478,__Z16CS_reflect_rangeP8nufpar_s,CS_reflect_range(nufpar_s*),confirmed,0
 00618fd0,002944aa,__Z15CS_render_groupP8nufpar_s,CS_render_group(nufpar_s*),confirmed,0
+00618ff0,002944dc,__Z11CS_deb_pageP8nufpar_s,CS_deb_page(nufpar_s*),confirmed,0
 00619030,00294538,__Z14CS_stop_debrisP8nufpar_s,CS_stop_debris(nufpar_s*),confirmed,0
 00619050,0029456a,__Z11CS_snap_outP8nufpar_s,CS_snap_out(nufpar_s*),confirmed,0
+00619060,00294580,__Z19CS_fade_up_at_startP8nufpar_s,CS_fade_up_at_start(nufpar_s*),confirmed,0
+006190a0,002945dc,__Z19CS_fade_down_at_endP8nufpar_s,CS_fade_down_at_end(nufpar_s*),confirmed,0
 006190e0,00294638,__Z11CS_cam_onlyP8nufpar_s,CS_cam_only(nufpar_s*),confirmed,0
 006190f0,0029464e,__Z11CS_wipe_outP8nufpar_s,CS_wipe_out(nufpar_s*),confirmed,0
 00619100,00294666,__Z11CS_new_modeP8nufpar_s,CS_new_mode(nufpar_s*),confirmed,0
@@ -1190,6 +1197,21 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00619150,002946dc,__Z20CS_burnout_thresholdP8nufpar_s,CS_burnout_threshold(nufpar_s*),confirmed,0
 00619170,00294718,__Z20CS_burnout_intensityP8nufpar_s,CS_burnout_intensity(nufpar_s*),confirmed,0
 00619190,00294754,__Z16CS_burnout_flareP8nufpar_s,CS_burnout_flare(nufpar_s*),confirmed,0
+006191b0,00294790,__Z18CS_go_through_doorP8nufpar_s,CS_go_through_door(nufpar_s*),confirmed,0
+00619200,002947ea,__Z6CS_sfxP8nufpar_s,CS_sfx(nufpar_s*),confirmed,0
+006193f0,00294a0c,__Z8CS_levelP8nufpar_sPs,"CS_level(nufpar_s*, short*)",confirmed,0
+006194b0,00294ae6,__Z13CS_goto_levelP8nufpar_s,CS_goto_level(nufpar_s*),confirmed,0
+006194d0,00294b04,__Z15CS_skipto_levelP8nufpar_s,CS_skipto_level(nufpar_s*),confirmed,0
+006194f0,00294b22,__Z17CS_next_cut_sceneP8nufpar_s,CS_next_cut_scene(nufpar_s*),confirmed,0
+00619570,00294baa,__Z14CS_level_introP8nufpar_s,CS_level_intro(nufpar_s*),confirmed,0
+00619580,00294bc2,__Z11CS_nearclipP8nufpar_s,CS_nearclip(nufpar_s*),confirmed,0
+006195a0,00294bf0,__Z10CS_farclipP8nufpar_s,CS_farclip(nufpar_s*),confirmed,0
+006195c0,00294c22,__Z13CS_hold_audioP8nufpar_s,CS_hold_audio(nufpar_s*),confirmed,0
+00619630,00294cb8,__Z7CS_fadeP8nufpar_si,"CS_fade(nufpar_s*, int)",confirmed,0
+00619720,00294dd6,__Z13CS_fadescreenP8nufpar_s,CS_fadescreen(nufpar_s*),confirmed,0
+00619740,00294de4,__Z10CS_fadefogP8nufpar_s,CS_fadefog(nufpar_s*),confirmed,0
+0061a020,00294df6,__Z11CS_playonceP8nufpar_s,CS_playonce(nufpar_s*),confirmed,0
+0061a030,00294e0e,__Z31CS_nextcutscene_inplayablelevelP8nufpar_s,CS_nextcutscene_inplayablelevel(nufpar_s*),confirmed,0
 0061aa60,00295598,__Z14CutScenes_LoadPcP8nugscn_sS1_iP9variptr_uS3_iiP11WORLDINFO_s,"CutScenes_Load(char*, nugscn_s*, nugscn_s*, int, variptr_u*, variptr_u*, int, int, WORLDINFO_s*)",strings,0
 0061d1b0,0029b04a,__Z24CutScenePlayer_ConfigurePcP9variptr_uS1_PsS2_S2_S2_S2_S2_S2_,"CutScenePlayer_Configure(char*, variptr_u*, variptr_u*, short*, short*, short*, short*, short*, short*, short*)",strings,0
 0061d990,0029880c,__Z22CutScenePlayer_GetTextiPcS_i,"CutScenePlayer_GetText(int, char*, char*, int)",strings,0

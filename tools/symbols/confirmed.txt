@@ -1283,3 +1283,25 @@
 00623c50 CC_headlight_flash_off_time  keyword table 0x963ff0
 00623c90 CC_headlight_flash_on_time  keyword table 0x963ff0
 00623cd0 CC_headlight_start  keyword table 0x963ff0
+00618d30 CS_draw_world  keyword table 0x9639a0
+00618d90 CS_draw_gizmo_sys  keyword table 0x9639a0
+00618df0 CS_update_gizmo_flow  keyword table 0x9639a0
+00618ff0 CS_deb_page  keyword table 0x9639a0
+00619060 CS_fade_up_at_start  keyword table 0x9639a0
+006190a0 CS_fade_down_at_end  keyword table 0x9639a0
+006191b0 CS_go_through_door  keyword table 0x9639a0
+00619200 CS_sfx  keyword table 0x9639a0
+006194f0 CS_next_cut_scene  keyword table 0x9639a0
+00618e70 CS_replace_suits  keyword table 0x9639a0
+00619570 CS_level_intro  keyword table 0x9639a0
+00619580 CS_nearclip  keyword table 0x9639a0
+006195a0 CS_farclip  keyword table 0x9639a0
+006195c0 CS_hold_audio  keyword table 0x9639a0
+0061a020 CS_playonce  keyword table 0x9639a0
+0061a030 CS_nextcutscene_inplayablelevel  keyword table 0x9639a0
+006194b0 CS_goto_level  keyword table 0x9639a0
+006194d0 CS_skipto_level  keyword table 0x9639a0
+00619720 CS_fadescreen  keyword table 0x9639a0
+00619740 CS_fadefog  keyword table 0x9639a0
+006193f0 CS_level  Mac CS_level(nufpar_s*, short*), sole callee of CS_goto_level/CS_skipto_level
+00619630 CS_fade  Mac CS_fade(nufpar_s*, int), callee of CS_fadescreen/CS_fadefog
