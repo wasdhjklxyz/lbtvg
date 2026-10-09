@@ -987,6 +987,40 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00626100,0027d52a,__Z10CC_critterP8nufpar_s,CC_critter(nufpar_s*),confirmed,0
 00626150,0027d56c,__Z10CC_can_pooP8nufpar_s,CC_can_poo(nufpar_s*),confirmed,0
 006261a0,0027d5ae,__Z18CC_can_super_carryP8nufpar_s,CC_can_super_carry(nufpar_s*),confirmed,0
+006261f0,0027d5f0,__Z10CC_can_zapP8nufpar_s,CC_can_zap(nufpar_s*),confirmed,0
+00626240,0027d632,__Z18CC_can_electrocuteP8nufpar_s,CC_can_electrocute(nufpar_s*),confirmed,0
+00626290,0027d670,__Z27CC_put_weapon_away_on_shootP8nufpar_s,CC_put_weapon_away_on_shoot(nufpar_s*),confirmed,0
+006262e0,0027d6b2,__Z23CC_always_stop_to_shootP8nufpar_s,CC_always_stop_to_shoot(nufpar_s*),confirmed,0
+00626330,0027d6f4,__Z19CC_second_shot_onlyP8nufpar_s,CC_second_shot_only(nufpar_s*),confirmed,0
+00626380,0027d738,__Z21CC_no_start_punch_sfxP8nufpar_s,CC_no_start_punch_sfx(nufpar_s*),confirmed,0
+006263d0,0027d77c,__Z19CC_single_jump_slamP8nufpar_s,CC_single_jump_slam(nufpar_s*),confirmed,0
+00626420,0027d7c0,__Z18CC_dont_draw_riderP8nufpar_s,CC_dont_draw_rider(nufpar_s*),confirmed,0
+00626470,0027d804,__Z18CC_shoot_backwardsP8nufpar_s,CC_shoot_backwards(nufpar_s*),confirmed,0
+006264c0,0027d848,__Z16CC_glide_anytimeP8nufpar_s,CC_glide_anytime(nufpar_s*),confirmed,0
+00626510,0027d88c,__Z18CC_can_communicateP8nufpar_s,CC_can_communicate(nufpar_s*),confirmed,0
+00626560,0027d8d0,__Z20CC_immune_to_magnetsP8nufpar_s,CC_immune_to_magnets(nufpar_s*),confirmed,0
+006265b0,0027d914,__Z22CC_immune_to_forcepushP8nufpar_s,CC_immune_to_forcepush(nufpar_s*),confirmed,0
+00626600,0027d958,__Z14CC_cannot_killP8nufpar_s,CC_cannot_kill(nufpar_s*),confirmed,0
+00626650,0027d99c,__Z25CC_wait_for_weapon_in_outP8nufpar_s,CC_wait_for_weapon_in_out(nufpar_s*),confirmed,0
+006266a0,0027d9e0,__Z20CC_double_jump_hoverP8nufpar_s,CC_double_jump_hover(nufpar_s*),confirmed,0
+006266f0,0027da24,__Z14CC_no_categoryP8nufpar_s,CC_no_category(nufpar_s*),confirmed,0
+00626740,0027da68,__Z11CC_no_forceP8nufpar_s,CC_no_force(nufpar_s*),confirmed,0
+00626790,0027daac,__Z14CC_white_flashP8nufpar_s,CC_white_flash(nufpar_s*),confirmed,0
+006267e0,0027daf0,__Z13CC_buck_riderP8nufpar_s,CC_buck_rider(nufpar_s*),confirmed,0
+00626830,0027db34,__Z23CC_die_usecurrentlayersP8nufpar_s,CC_die_usecurrentlayers(nufpar_s*),confirmed,0
+00626880,0027db78,__Z17CC_no_weapon_drawP8nufpar_s,CC_no_weapon_draw(nufpar_s*),confirmed,0
+006268d0,0027dbb8,__Z15CC_no_jump_fireP8nufpar_s,CC_no_jump_fire(nufpar_s*),confirmed,0
+00626920,0027dbfa,__Z17CC_hover_over_mudP8nufpar_s,CC_hover_over_mud(nufpar_s*),confirmed,0
+00626970,0027dc3c,__Z30CC_toggle_if_not_in_collectionP8nufpar_s,CC_toggle_if_not_in_collection(nufpar_s*),confirmed,0
+006269c0,0027dc7e,__Z29CC_toggle_if_in_minikit_bonusP8nufpar_s,CC_toggle_if_in_minikit_bonus(nufpar_s*),confirmed,0
+00626a10,0027dcc0,__Z33CC_deflect_bolts_in_minikit_bonusP8nufpar_s,CC_deflect_bolts_in_minikit_bonus(nufpar_s*),confirmed,0
+00626a60,0027dd02,__Z14CC_has_grappleP8nufpar_s,CC_has_grapple(nufpar_s*),confirmed,0
+00626ab0,0027dd44,__Z14CC_hover_wingsP8nufpar_s,CC_hover_wings(nufpar_s*),confirmed,0
+00626b00,0027dd86,__Z11CC_has_whipP8nufpar_s,CC_has_whip(nufpar_s*),confirmed,0
+00626b50,0027ddc8,__Z13CC_can_screamP8nufpar_s,CC_can_scream(nufpar_s*),confirmed,0
+00626ba0,0027de0c,__Z19CC_fight_sequentialP8nufpar_s,CC_fight_sequential(nufpar_s*),confirmed,0
+00626bf0,0027de50,__Z13CC_helicopterP8nufpar_s,CC_helicopter(nufpar_s*),confirmed,0
+00626c40,0027de92,__Z13CC_super_turnP8nufpar_s,CC_super_turn(nufpar_s*),confirmed,0
 006285d0,00280c32,__Z16AnimInclude_InitPcP9variptr_uS1_,"AnimInclude_Init(char*, variptr_u*, variptr_u*)",strings,0
 00629270,002818fe,__Z23CharConfig_ConfigureAlliP12nufpcomjmp_s,"CharConfig_ConfigureAll(int, nufpcomjmp_s*)",strings,0
 0062d030,002833a2,__Z24CharShadows_InitMaterialP9variptr_uS_,"CharShadows_InitMaterial(variptr_u*, variptr_u)",strings,0

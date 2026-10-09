@@ -1021,3 +1021,207 @@ void CC_can_super_carry(NUFPAR *parser) {
   ((CCBits *)&charconfig.runtime->flags148)->b12 =
       NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
 }
+
+// FUNCTION: LEGOBATMAN 0x006261f0
+void CC_can_zap(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags148)->b13 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626240
+void CC_can_electrocute(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags150)->b0 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626290
+void CC_put_weapon_away_on_shoot(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags148)->b14 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006262e0
+void CC_always_stop_to_shoot(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags148)->b15 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626330
+void CC_second_shot_only(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags148)->b16 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626380
+void CC_no_start_punch_sfx(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags148)->b17 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006263d0
+void CC_single_jump_slam(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags148)->b18 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626420
+void CC_dont_draw_rider(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags148)->b19 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626470
+void CC_shoot_backwards(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags148)->b22 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006264c0
+void CC_glide_anytime(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags144)->b18 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626510
+void CC_can_communicate(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags144)->b19 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626560
+void CC_immune_to_magnets(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags144)->b20 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006265b0
+void CC_immune_to_forcepush(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags144)->b21 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626600
+void CC_cannot_kill(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags144)->b23 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626650
+void CC_wait_for_weapon_in_out(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags144)->b24 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006266a0
+void CC_double_jump_hover(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags144)->b25 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006266f0
+void CC_no_category(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags144)->b26 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626740
+void CC_no_force(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags144)->b27 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626790
+void CC_white_flash(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags144)->b28 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006267e0
+void CC_buck_rider(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags144)->b29 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626830
+void CC_die_usecurrentlayers(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags144)->b30 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626880
+void CC_no_weapon_draw(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags148)->b1 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006268d0
+void CC_no_jump_fire(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags148)->b2 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626920
+void CC_hover_over_mud(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags148)->b3 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626970
+void CC_toggle_if_not_in_collection(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags148)->b4 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006269c0
+void CC_toggle_if_in_minikit_bonus(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags148)->b5 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626a10
+void CC_deflect_bolts_in_minikit_bonus(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags148)->b6 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626a60
+void CC_has_grapple(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags148)->b7 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626ab0
+void CC_hover_wings(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags148)->b8 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626b00
+void CC_has_whip(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags148)->b9 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626b50
+void CC_can_scream(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags148)->b23 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626ba0
+void CC_fight_sequential(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags)->b16 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626bf0
+void CC_helicopter(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags)->b15 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00626c40
+void CC_super_turn(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags)->b26 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
