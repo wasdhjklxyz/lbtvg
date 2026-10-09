@@ -441,7 +441,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005f3720,003108da,__Z20PlayerItems_DropItemP12GameObject_sP12PLAYERITEM_siP7nuvec_s,"PlayerItems_DropItem(GameObject_s*, PLAYERITEM_s*, int, nuvec_s*)",gapfill,3
 005f4270,00311ee4,__Z19PlayerItems_AddItemP12GameObject_sP16PLAYERITEMTYPE_sP13GIZMOBLOWUP_siiif,"PlayerItems_AddItem(GameObject_s*, PLAYERITEMTYPE_s*, GIZMOBLOWUP_s*, int, int, int, float)",gapfill,2
 005f6df0,002a5c0e,__Z12AddExplosionP7nuvec_sffP12GameObject_siii,"AddExplosion(nuvec_s*, float, float, GameObject_s*, int, int, int)",confirmed,0
-005f7a60,0030bbe4,__Z12LoadPartFileP11WORLDINFO_s,LoadPartFile(WORLDINFO_s*),strings,0
+005f7a60,0030bbe4,__Z12LoadPartFileP11WORLDINFO_s,LoadPartFile(WORLDINFO_s*),confirmed,0
 005f7cc0,0030bd76,__Z18PartStop_FlickererP6PART_s,PartStop_Flickerer(PART_s*),gapfill,2
 005f9230,00339cb2,__Z21SurfaceBit_FindByNamePc,SurfaceBit_FindByName(char*),strings,0
 005f95d0,0033aac2,__Z27Surfaces_ConfigureOverridesP11WORLDINFO_sPc,"Surfaces_ConfigureOverrides(WORLDINFO_s*, char*)",strings,0

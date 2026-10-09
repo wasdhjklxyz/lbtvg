@@ -2,6 +2,7 @@
 
 #include "../nu2api/nucore/common.h"
 #include "../nu2api/numath/nuvec.h"
+#include <stdio.h>
 
 typedef struct AREADATA_s {
   u16 pad0[0x40 / 2];
@@ -110,6 +111,49 @@ EXPLOSION *AddExplosion(nuvec_s *position, float radius, float strength,
     i_explosion = 0;
   }
   return explosion;
+}
+
+struct WORLDINFO_s {
+  u8 pad0[0x80];
+  char config_file[0x84]; // 0x80
+  variptr_u giz_buffer;   // 0x104
+  variptr_u giz_end;      // 0x108
+  u8 pad10c[0x12c - 0x10c];
+  LEVELDATA *current_level; // 0x12c
+  u8 pad130[0x13c - 0x130];
+  void *part_debris_sys; // 0x13c
+  void *current_gscn;    // 0x140
+  u8 pad144[0x2adc - 0x144];
+  i32 page_pp;   // 0x2adc
+  i32 page_part; // 0x2ae0
+};
+
+// GLOBAL: LEGOBATMAN 0x00aca1dc
+extern i32 PDEBCOUNT;
+// GLOBAL: LEGOBATMAN 0x00aca1e0
+extern char **PDebNameList;
+
+void edpartSetParticlePage(i32 page);
+i32 NuFileExists(char *name);
+i32 edpartLoadPage(char *path, i32 a, void *scene);
+void *InitPartDebris(variptr_u *buffer, variptr_u *buffer_end, i32 max,
+                     i32 count, char **names, i32 page);
+
+// FUNCTION: LEGOBATMAN 0x005f7a60
+void LoadPartFile(WORLDINFO_s *world) {
+  char path[256];
+  world->page_part = -1;
+  edpartSetParticlePage(world->page_pp);
+
+  if ((world->current_level->flags & 0xe0) == 0) {
+    sprintf(path, "%s.par", world->config_file);
+    if (NuFileExists(path) > 0) {
+      world->page_part = edpartLoadPage(path, 1, world->current_gscn);
+    }
+    world->part_debris_sys =
+        InitPartDebris(&world->giz_buffer, &world->giz_end, 0x40, PDEBCOUNT,
+                       PDebNameList, world->page_part);
+  }
 }
 
 // FUNCTION: LEGOBATMAN 0x005f7cc0
