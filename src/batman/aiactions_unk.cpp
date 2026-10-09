@@ -4169,3 +4169,99 @@ i32 Action_FaceCamera(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 0;
 }
+
+GIZOBSTACLE_s *GizObstacle_FindByName(struct GIZOBSTACLESYS_s *sys, char *name);
+
+// FUNCTION: LEGOBATMAN 0x00463260
+i32 Action_SetObstacleToEnd(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char **args, int argc,
+                            int flags, f32 time) {
+  GIZOBSTACLE_s *obstacle = 0;
+  if (flags != 0) {
+    if (argc != 0) {
+      for (i32 i = 0; i < argc; i++) {
+        char *s = NuStrIStr(args[i], "name=");
+        if (s != 0)
+          obstacle =
+              GizObstacle_FindByName(g_unk00960894->giz_obstacle_sys, s + 5);
+      }
+      if (obstacle != 0)
+        GizObstacle_JumpToEnd(obstacle);
+    }
+  }
+  return 1;
+}
+
+// GLOBAL: LEGOBATMAN 0x00ab082c
+extern u32 LEGO_AIPATHCNX_JUMP_NOW;
+// GLOBAL: LEGOBATMAN 0x00ab0830
+extern u32 LEGO_AIPATHCNX_DONT_JUMP_NOW;
+
+u32 Unk00461220(char *str); // path connection flag from its name
+u32 *AIPAthFindPathCnx(AISYS_s *sys, SetPathAIPath_s *path, char *from,
+                       char *to, i32 *direction);
+
+// FUNCTION: LEGOBATMAN 0x004657c0
+i32 Action_SetPathCnxFlag(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **args, int argc, int flags,
+                          f32 time) {
+  i32 direction;
+  i32 both_ways = 0;
+  i32 set = 1;
+  char *from = 0;
+  char *to = 0;
+  u32 add = 0;
+  u32 remove = 0;
+  SetPathAISys_s *ai = (SetPathAISys_s *)sys;
+  if (sys == 0 || ai->path_sys == 0 || ai->path_sys->path_count == 0 ||
+      flags == 0)
+    return 1;
+  for (i32 i = 0; i < argc; i++) {
+    char *s = NuStrIStr(args[i], "from");
+    if (s != 0) {
+      from = s + 5;
+      continue;
+    }
+    s = NuStrIStr(args[i], "to");
+    if (s != 0) {
+      to = s + 3;
+      continue;
+    }
+    u32 flag = Unk00461220(args[i]);
+    if (flag != 0) {
+      add |= flag;
+      if (flag == LEGO_AIPATHCNX_JUMP_NOW)
+        remove |= LEGO_AIPATHCNX_DONT_JUMP_NOW;
+      else if (flag == LEGO_AIPATHCNX_DONT_JUMP_NOW)
+        remove |= LEGO_AIPATHCNX_JUMP_NOW;
+      else if (flag == 0x20000000)
+        both_ways = 1;
+      continue;
+    }
+    if (NuStrICmp(args[i], "bothways") == 0)
+      both_ways = 1;
+    else if (NuStrICmp(args[i], "FALSE") == 0)
+      set = 0;
+  }
+  if (from != 0 && to != 0) {
+    u32 *cnx =
+        AIPAthFindPathCnx(sys, ai->path_sys->active_path, from, to, &direction);
+    if (cnx != 0) {
+      if (set != 0) {
+        cnx[direction] |= add;
+        cnx[direction] &= ~remove;
+      } else {
+        cnx[direction] &= ~add;
+      }
+      if (both_ways != 0) {
+        if (set != 0) {
+          cnx[!direction] |= add;
+          cnx[!direction] &= ~remove;
+        } else {
+          cnx[!direction] &= ~add;
+        }
+      }
+    }
+  }
+  return 1;
+}

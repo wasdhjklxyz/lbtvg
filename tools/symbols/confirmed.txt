@@ -1193,3 +1193,5 @@
 0046d4f0 Action_IgnoreSlideTerrain  keyword table 0x93bb98
 00455e60 Action_DontTargetOthersOpponent  keyword table 0x93bb98
 00468190 Action_FaceCamera  keyword table 0x93bb98
+00463260 Action_SetObstacleToEnd  keyword table 0x93bb98
+004657c0 Action_SetPathCnxFlag  keyword table 0x93bb98
