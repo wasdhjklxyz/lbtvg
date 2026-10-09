@@ -19,10 +19,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near terrain.c](#near-terrainc) | 34 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 13 | 7 |
 | [Grabber](#grabber) | 7 | 5 |
-| [Text](#text) | 6 | 5 |
 | [GameCam](#gamecam) | 4 | 4 |
 | [Hub](#hub) | 6 | 4 |
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 5 | 4 |
+| [Text](#text) | 5 | 4 |
 | [GizAction](#gizaction) | 3 | 3 |
 | [Arcade](#arcade) | 2 | 2 |
 | [Area](#area) | 3 | 2 |
@@ -448,15 +448,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00602540` 740 B `Grabber_Drop(GRABBER_s*, nuvec_s*)`  **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
 - [ ] `00600e90` 1004 B `Grabber_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/items/objects/grabber.cpp`
 
-## Text
-
-- [ ] `0059d7c0` 119 B `Text_InitStringTable(int, variptr_u*, variptr_u*)`  **stub** · **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
-- [ ] `0059d850` 169 B `Text_PlatformSpecificIgnore(nufpar_s*)`  **hint** name (order)
-- [ ] `004f9ab0` 287 B `Text_LoadStrings(variptr_u*, variptr_u*)`  **saga** `legoapi/menus/core/text.cpp`
-- [ ] `0059dd10` 392 B `Text_MakeTime(float, int, int, int, char*)`  **saga** `legoapi/menus/core/text.cpp`
-- [ ] `00408e60` 462 B `Text_ExpandButtonString(char*, char*)`  **saga** `legoapi/misc/androidbatman.cpp`
-- [ ] `0059d900` 544 B `Text_LoadAndFixUpStrings(unsigned char*, unsigned char**, char**, int)`  **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
-
 ## GameCam
 
 - [ ] `005a2310` 186 B `GameCam_HitJudder()`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/camera.cpp`
@@ -480,6 +471,14 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006dd2d0` 347 B `_NuFParInterpretWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006da8d0` 358 B `_NuFParGetWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006d6d00` 646 B `_ImplodeMakeTable`  **saga** `nu2api/nucore/implode.cpp`
+
+## Text
+
+- [ ] `0059d7c0` 119 B `Text_InitStringTable(int, variptr_u*, variptr_u*)`  **stub** · **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
+- [ ] `0059d850` 169 B `Text_PlatformSpecificIgnore(nufpar_s*)`  **hint** name (order)
+- [ ] `0059dd10` 392 B `Text_MakeTime(float, int, int, int, char*)`  **saga** `legoapi/menus/core/text.cpp`
+- [ ] `00408e60` 462 B `Text_ExpandButtonString(char*, char*)`  **saga** `legoapi/misc/androidbatman.cpp`
+- [ ] `0059d900` 544 B `Text_LoadAndFixUpStrings(unsigned char*, unsigned char**, char**, int)`  **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
 
 ## GizAction
 
@@ -689,7 +688,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## near nuanim_gen.cpp
 
 - [ ] `00732510` 25 B `_NuGScnRead`
-- [ ] `0072e150` 288 B `_NuQFntDuplicate`  **hint** name (gapfill) · **saga** `nu2api/nu3d/nuqfnt.cpp`
+- [ ] `0072e150` 288 B `_NuQFntDuplicate`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nu3d/nuqfnt.cpp`
 
 ## near nutimebar_gen.cpp
 

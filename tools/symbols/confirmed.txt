@@ -84,3 +84,4 @@
 005a0590 PlayRepeatSfx  saga body matches (repsfxtab ring of 32)
 0060d7a0 Levels_FixUp  saga body matches (fixup table -> Level_FindByName, callbacks; Batman has 10)
 005c1730 RememberPlayerIDs  saga shape matches (PlayerID[2] update from collected chars)
+004f9ab0 Text_LoadStrings  saga shape matches (language path, trc.csv)

@@ -13,3 +13,5 @@
 00639580 ObjOpponentStillThere: x87 + bitfield compare chains
 005a9520 Grapples_Reset: callee Grapple_Reset takes esi; bitfield xor chains
 005fb300 AddToModelList: edi/esi register args
+00620b30 RedirectTextFile: buffer arg arrives in eax
+0072e150 NuQFntDuplicate: empty 0x6fceb0 error calls vanish in our build; STUB

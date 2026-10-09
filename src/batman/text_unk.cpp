@@ -32,6 +32,41 @@ VUFNT *LoadGameFont(char *path, char *name, variptr_u *buf, variptr_u *buf_end,
 VUFNT *LoadButtonFont(char *path, char *name, variptr_u *buf,
                       variptr_u *buf_end, i32 render_plane);
 
+void TextRegisterButtonMapFn(void (*fn)(char *, char *));
+extern i32 Text_Language;
+char *Text_GetLanguagePath(i32 language);
+void Text_LoadAndFixUpStrings(unsigned char *filename, unsigned char **buffer,
+                              char **table, i32 count);
+int NuPadUnk006d6850(void);
+void MenuLoadTechnicalStrings(char *filepath, char *language, variptr_u *buf,
+                              variptr_u buf_end);
+
+// from saga legoapi/menus/core/text.cpp
+// FUNCTION: LEGOBATMAN 0x004f9ab0
+void Text_LoadStrings(variptr_u *buf, variptr_u *buf_end) {
+  unsigned char *string_buffer;
+  char language[32];
+  char path[256];
+
+  TextRegisterButtonMapFn(Text_DecodeButtons);
+  NuStrCpy(language, Text_GetLanguagePath(Text_Language));
+  NuStrCpy(path, "stuff\\text\\");
+  NuStrCat(path, language);
+  NuStrCat(path, ".txt");
+  string_buffer = buf->u8_ptr;
+  Text_LoadAndFixUpStrings((unsigned char *)path, &string_buffer, TTab, 1000);
+  buf->u8_ptr = string_buffer;
+  if (Text_Language == 3 && NuPadUnk006d6850() == 2) {
+    string_buffer = buf->u8_ptr;
+    Text_LoadAndFixUpStrings((unsigned char *)"stuff\\text\\american.txt",
+                             &string_buffer, TTab, 1000);
+    buf->u8_ptr = string_buffer;
+    NuStrCpy(language, "american");
+  }
+  buf->addr = ((u32)string_buffer + 3) & ~3;
+  MenuLoadTechnicalStrings("stuff\\text\\trc.csv", language, buf, *buf_end);
+}
+
 // FUNCTION: LEGOBATMAN 0x0059d770
 void Text_LoadFont(char *path, variptr_u *buf, variptr_u *buf_end) {
   create_qfont3dz = 1;
