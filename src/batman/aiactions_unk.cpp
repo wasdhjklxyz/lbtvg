@@ -4518,3 +4518,78 @@ i32 Action_ContextSetAnimation(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     return 0;
   return 1;
 }
+
+struct ADDPART_s {
+  numtx_s *matrix; // 0x00
+  u32 pad4;
+  nuvec_s *velocity; // 0x08
+  u32 padc[2];
+  f32 f14;     // 0x14
+  f32 f18;     // 0x18
+  f32 gravity; // 0x1c
+  u32 pad20;
+  nuhspecial_s *special; // 0x24
+  u32 pad28;
+  u32 flags; // 0x2c
+  u32 pad30[4];
+  void (*collide)(PART_s *part); // 0x40
+  u32 pad44[(0x9c - 0x44) / 4];
+  f32 time_step; // 0x9c
+  u32 pada0[(0xd8 - 0xa0) / 4];
+};
+
+// GLOBAL: LEGOBATMAN 0x0095e070
+extern ADDPART_s Default_ADDPART;
+// GLOBAL: LEGOBATMAN 0x00941728
+extern f32 ForceThrowGravity;
+// GLOBAL: LEGOBATMAN 0x0094172c
+extern f32 ForceThrowSpeed;
+extern f32 FRAMETIME;
+
+void MakeThrowVector(nuvec_s *out, nuvec_s *from, nuvec_s *to, nuvec_s *vel,
+                     f32 speed, f32 gravity);
+void NuMtxSetTranslation(numtx_s *m, nuvec_s *v);
+void PartCollide_3D(PART_s *part);
+PART_s *AddPart(ADDPART_s *part);
+void NewRumble(nupad_s *pad, f32 strength, i32 frames);
+
+// FUNCTION: LEGOBATMAN 0x0045e830
+i32 Action_AddPart(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
+                   char **args, int argc, int flags, f32 time) {
+  if (flags != 0) {
+    nuhspecial_s special;
+    nuvec_s pos;
+    memset(&special, 0, sizeof(special));
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "name");
+      if (s != 0)
+        NuSpecialFind(g_unk00960894->scn140, &special, s + 5, 1);
+      else if ((s = NuStrIStr(args[i], "x")) != 0)
+        pos.x = AIParamToFloat(process, s + 2);
+      else if ((s = NuStrIStr(args[i], "y")) != 0)
+        pos.y = AIParamToFloat(process, s + 2);
+      else if ((s = NuStrIStr(args[i], "z")) != 0)
+        pos.z = AIParamToFloat(process, s + 2);
+    }
+    if (NuSpecialExistsFn(&special) != 0) {
+      nuvec_s vel;
+      numtx_s mtx;
+      MakeThrowVector(&vel, &pos, &player->v80, &player->velocity,
+                      ForceThrowSpeed, ForceThrowGravity);
+      NuMtxSetTranslation(&mtx, &pos);
+      ADDPART_s part = Default_ADDPART;
+      part.f14 = 0.1f;
+      part.f18 = 0.1f;
+      part.gravity = ForceThrowGravity;
+      part.time_step = FRAMETIME;
+      part.matrix = &mtx;
+      part.velocity = &vel;
+      part.special = &special;
+      part.flags = 0x29b;
+      part.collide = PartCollide_3D;
+      AddPart(&part);
+      NewRumble(player->p112c->pad0, 0.5f, 0);
+    }
+  }
+  return 1;
+}
