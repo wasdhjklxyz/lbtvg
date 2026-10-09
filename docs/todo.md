@@ -11,7 +11,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 | group | todo | with saga body |
 |---|---|---|
-| [near rtleditor.cpp](#near-rtleditorcpp) | 105 | 79 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 104 | 78 |
 | [Action](#action) | 72 | 57 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
@@ -230,7 +230,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 - [ ] `00595ff0` 35 B `_AnimFlags`
 - [ ] `0059b540` 35 B `_AnimSpeedZ`
 - [ ] `005bba90` 35 B `GizmoFileReadName(char*)`  **saga** `legoapi/gizmo/base/gizmo.cpp`
-- [ ] `005ae740` 38 B `RotDiff(unsigned short, unsigned short)`  **saga** `legoapi/misc/utilities.cpp`
 - [ ] `005d9810` 38 B `GizmoBlowupAddDefaultExplosionDebris(nuvec_s*)`
 - [ ] `005a2d60` 40 B `NewBuzz(nupad_s*, float, int)`  **saga** `legoapi/core/input/gamepads.cpp`
 - [ ] `005a1060` 46 B `ResetTimer(TIMER_s*, float)`  **saga** `legoapi/core/input/timer.cpp`
