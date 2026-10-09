@@ -4739,3 +4739,32 @@ i32 Action_SetHoverPhase(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 1;
 }
+
+i32 AISysSetLevelPath(AISYS_s *sys, char *name);
+
+// FUNCTION: LEGOBATMAN 0x00460f70
+i32 Action_SetLevelPath(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char **args, int argc, int flags,
+                        f32 time) {
+  char *name = 0;
+  if (flags != 0 && ((SetPathAISys_s *)sys)->path_sys != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "name");
+      if (s != 0)
+        name = s + 5;
+    }
+    if (AISysSetLevelPath(sys, name) != 0) {
+      for (i32 i = 0; i < 8; i++) {
+        GameObject_s *obj = Player[i];
+        if (obj != 0 && (obj->flags1fc & 1) != 0 &&
+            (obj->flags1fc & 0x1000) != 0) {
+          AISysCharacterSetPath(obj->process290,
+                                ((SetPathAISys_s *)sys)->path_sys->active_path);
+          AISysGetCharacterPathPos(g_unk00960894->aiSys2bf8, obj,
+                                   obj->process290, 0xff, obj->b24d);
+        }
+      }
+    }
+  }
+  return 1;
+}
