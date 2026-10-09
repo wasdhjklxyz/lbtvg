@@ -975,3 +975,16 @@
 006581a0 Backdrop_sizez  matched, keyword table
 006581c0 Backdrop_useBB  matched, keyword table
 006581e0 Backdrop_deletedist  matched, keyword table
+00620c40 CC_name_id  matched, keyword table
+00620c60 CC_mass  matched, keyword table
+00620c80 CC_radius  matched, keyword table
+00620ca0 CC_miny  matched, keyword table
+00620cc0 CC_maxy  matched, keyword table
+00620ce0 CC_scale  matched, keyword table
+006243b0 CC_clear_sfx_misc  matched, keyword table
+00625230 CC_is_a_girl  matched, keyword table
+00625240 CC_is_a_boy  matched, keyword table
+00627790 CC_blobshadow_size  matched, keyword table
+006277f0 CC_weight  matched, keyword table
+00627830 CC_stun_die_chance  matched, keyword table
+00627890 CC_hover_time  matched, keyword table

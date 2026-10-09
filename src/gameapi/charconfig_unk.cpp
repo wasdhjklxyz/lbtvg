@@ -23,7 +23,8 @@ typedef struct CHARCONFIG_RUNTIME_s {
   f32 jump_2_speed; // 0xcc
   unsigned char padd0[0xd8 - 0xd0];
   f32 acceleration; // 0xd8
-  unsigned char paddc[0xe4 - 0xdc];
+  f32 hover_time;   // 0xdc
+  unsigned char pade0[0xe4 - 0xe0];
   f32 maxheadturn;           // 0xe4
   f32 maxheadtilt;           // 0xe8
   f32 headrotrate;           // 0xec
@@ -39,12 +40,14 @@ typedef struct CHARCONFIG_RUNTIME_s {
   f32 slow_down_time;        // 0x114
   f32 jump_move_speed_scale; // 0x118
   f32 loop_height;           // 0x11c
-  unsigned char pad120[0x12c - 0x120];
-  f32 die_air_punch_chance; // 0x12c
-  f32 banking;              // 0x130
-  f32 banking2;             // 0x134
-  f32 thrust_draw_scale;    // 0x138
-  u32 gcdata_flags;         // 0x13c
+  f32 blobshadow_size;       // 0x120
+  f32 weight;                // 0x124
+  f32 stun_die_chance;       // 0x128
+  f32 die_air_punch_chance;  // 0x12c
+  f32 banking;               // 0x130
+  f32 banking2;              // 0x134
+  f32 thrust_draw_scale;     // 0x138
+  u32 gcdata_flags;          // 0x13c
   unsigned char pad140[0x144 - 0x140];
   u32 flags144; // 0x144
   u32 flags148; // 0x148
@@ -859,8 +862,14 @@ void CC_hit_points(NUFPAR *parser) {
 }
 
 struct CCCharacter_s {
-  u8 pad0[4];
+  i32 name_id;     // 0x00
   u32 model_flags; // 0x04
+  u8 pad8[0x2c - 8];
+  f32 mass;   // 0x2c
+  f32 radius; // 0x30
+  f32 miny;   // 0x34
+  f32 maxy;   // 0x38
+  f32 scale;  // 0x3c
 };
 
 // saga's charconfig.character; charconfig.runtime follows it.
@@ -1639,4 +1648,64 @@ void CharConfig_SetGCDataFlagsOnAll(u32 flags) {
 void CharConfig_ClearGCDataFlagsOnAll(u32 flags) {
   for (i32 i = 0; i < CHARCOUNT; i++)
     g_unk00acb82c[i].gcdata_flags &= ~flags;
+}
+
+// FUNCTION: LEGOBATMAN 0x00620c40
+void CC_name_id(NUFPAR *parser) {
+  g_unk00acb860->name_id = NuFParGetInt(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x00620c60
+void CC_mass(NUFPAR *parser) { g_unk00acb860->mass = NuFParGetFloat(parser); }
+
+// FUNCTION: LEGOBATMAN 0x00620c80
+void CC_radius(NUFPAR *parser) {
+  g_unk00acb860->radius = NuFParGetFloat(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x00620ca0
+void CC_miny(NUFPAR *parser) { g_unk00acb860->miny = NuFParGetFloat(parser); }
+
+// FUNCTION: LEGOBATMAN 0x00620cc0
+void CC_maxy(NUFPAR *parser) { g_unk00acb860->maxy = NuFParGetFloat(parser); }
+
+// FUNCTION: LEGOBATMAN 0x00620ce0
+void CC_scale(NUFPAR *parser) { g_unk00acb860->scale = NuFParGetFloat(parser); }
+
+// FUNCTION: LEGOBATMAN 0x006243b0
+void CC_clear_sfx_misc(NUFPAR *parser) { charconfig.runtime->sfx_misc[0] = -1; }
+
+// FUNCTION: LEGOBATMAN 0x00625230
+void CC_is_a_girl(NUFPAR *parser) {
+  charconfig.runtime->gcdata_flags |= 0x20000;
+}
+
+// FUNCTION: LEGOBATMAN 0x00625240
+void CC_is_a_boy(NUFPAR *parser) {
+  charconfig.runtime->gcdata_flags &= ~0x20000;
+}
+
+static inline f32 NuFabs(f32 f) {
+  u32 bits = *(u32 *)&f & 0x7fffffff;
+  return *(f32 *)&bits;
+}
+
+// FUNCTION: LEGOBATMAN 0x00627790
+void CC_blobshadow_size(NUFPAR *parser) {
+  charconfig.runtime->blobshadow_size = NuFabs(NuFParGetFloat(parser));
+}
+
+// FUNCTION: LEGOBATMAN 0x006277f0
+void CC_weight(NUFPAR *parser) {
+  charconfig.runtime->weight = NuFabs(NuFParGetFloat(parser));
+}
+
+// FUNCTION: LEGOBATMAN 0x00627830
+void CC_stun_die_chance(NUFPAR *parser) {
+  charconfig.runtime->stun_die_chance = NuFabs(NuFParGetFloat(parser));
+}
+
+// FUNCTION: LEGOBATMAN 0x00627890
+void CC_hover_time(NUFPAR *parser) {
+  charconfig.runtime->hover_time = NuFabs(NuFParGetFloat(parser));
 }
