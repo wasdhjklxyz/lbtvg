@@ -32,7 +32,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Player](#player) | 3 | 3 |
 | [Players](#players) | 3 | 3 |
 | [PortalDoors](#portaldoors) | 3 | 3 |
-| [WorldInfo](#worldinfo) | 3 | 3 |
 | [Areas](#areas) | 3 | 2 |
 | [Collection](#collection) | 2 | 2 |
 | [Condition](#condition) | 3 | 2 |
@@ -49,12 +48,12 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [LevelSplines](#levelsplines) | 2 | 2 |
 | [Mission](#mission) | 2 | 2 |
 | [Move](#move) | 2 | 2 |
-| [NuCamera](#nucamera) | 2 | 2 |
 | [NuPad](#nupad) | 2 | 2 |
 | [NuStr](#nustr) | 2 | 2 |
 | [NuTex](#nutex) | 4 | 2 |
 | [SuperCarry](#supercarry) | 3 | 2 |
 | [Tag](#tag) | 2 | 2 |
+| [WorldInfo](#worldinfo) | 2 | 2 |
 | [BoltSys](#boltsys) | 1 | 1 |
 | [BoltTypes](#bolttypes) | 1 | 1 |
 | [CC](#cc) | 1 | 1 |
@@ -89,6 +88,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near nutimebar_gen.cpp](#near-nutimebar_gencpp) | 2 | 1 |
 | [near oggreader.cpp](#near-oggreadercpp) | 7 | 1 |
 | [NuAnim](#nuanim) | 4 | 1 |
+| [NuCamera](#nucamera) | 1 | 1 |
 | [NuCommand](#nucommand) | 1 | 1 |
 | [NuDynamicLight](#nudynamiclight) | 1 | 1 |
 | [NuInit](#nuinit) | 1 | 1 |
@@ -611,12 +611,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005c8b60` 229 B `PortalDoors_Update(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/gizmos/transport/gizportal.cpp`
 - [ ] `005c8a00` 338 B `PortalDoors_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/gizmos/transport/gizportal.cpp`
 
-## WorldInfo
-
-- [ ] `005c8150` 6 B `WorldInfo_CurrentlyActive()`  **saga** `legoapi/world/world.cpp`
-- [ ] `005c8130` 21 B `WorldInfo_InitOnce()`  **hint** name (order) · **saga** `legoapi/world/world.cpp`
-- [ ] `005c8240` 131 B `WorldInfo_LoadObjectAnimFile(WORLDINFO_s*)`  **saga** `legoapi/world/world.cpp`
-
 ## Areas
 
 - [ ] `005fb0e0` 240 B `Areas_FixUp(AREAFIXUP*)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
@@ -703,11 +697,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `004cb910` 438 B `Move_CHARACTER(GameObject_s*)`  **saga** `legoapi/characters/motion/move.cpp`
 - [ ] `004ccf50` 1344 B `Move_BEAST(GameObject_s*)`  **saga** `legoapi/characters/motion/move.cpp`
 
-## NuCamera
-
-- [ ] `007151e0` 28 B `_NuCameraDestroy`  **saga** `nu2api/nu3d/generic/nucamera_gen.cpp`
-- [ ] `00715180` 90 B `_NuCameraCreate`  **saga** `nu2api/nu3d/generic/nucamera_gen.cpp`
-
 ## NuPad
 
 - [ ] `006d5700` 105 B `_NuPadOpen`  **saga** `nu2api/nucore/nupad.cpp`
@@ -735,6 +724,11 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `004a54c0` 1219 B `Tag_UpdateHint(HINT_s*)`  **saga** `legoapi/menus/core/panel.cpp`
 - [ ] `004a5ac0` 1541 B `Tag_Check(GameObject_s*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
+
+## WorldInfo
+
+- [ ] `005c8150` 6 B `WorldInfo_CurrentlyActive()`  **saga** `legoapi/world/world.cpp`
+- [ ] `005c8130` 21 B `WorldInfo_InitOnce()`  **hint** name (order) · **saga** `legoapi/world/world.cpp`
 
 ## BoltSys
 
@@ -895,6 +889,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0070b290` 120 B `_NuAnimCurveSetCreate`
 - [ ] `0072c750` 153 B `_NuAnimDataChunkDestroy`  **saga** `nu2api/nucore/nuanim.cpp`
 - [ ] `0070b350` 176 B `_NuAnimCurveSetDestroy`  **hint** name (gapfill)
+
+## NuCamera
+
+- [ ] `00715180` 90 B `_NuCameraCreate`  **saga** `nu2api/nu3d/generic/nucamera_gen.cpp`
 
 ## NuCommand
 

@@ -1,6 +1,7 @@
 // gameapi/terrain_unk.cpp: placed by tools/new.py; file name unproven.
 
 #include "../nu2api/nucore/common.h"
+#include <stdio.h>
 
 typedef struct LEVELDATA_s {
   unsigned char pad0[0x64];
@@ -23,11 +24,30 @@ typedef struct WORLDINFO_s {
   void *current_gscn; // 0x140
   unsigned char pad144[0x2964 - 0x144];
   void *terrain; // 0x2964
+  unsigned char pad2968[0x2adc - 0x2968];
+  i32 unk2adc; // 0x2adc
+  unsigned char pad2ae0[0x2ae4 - 0x2ae0];
+  i32 page_anim; // 0x2ae4
 } WORLDINFO;
 
 void *TerrainInitEx(i32 level_idx, u32 *buffer, void *buffer_end, i32 a,
                     char *path, void *gscn, i32 b, u32 groups, u32 groups2,
                     u32 platforms);
+
+i32 NuFileExists(char *name);
+i32 edanimLoadPage(char *path, void *scene, i32 unk);
+
+// FUNCTION: LEGOBATMAN 0x005c8240
+void WorldInfo_LoadObjectAnimFile(WORLDINFO *world) {
+  if (world->page_anim == -1) {
+    char path[256];
+    sprintf(path, "%s.anm", world->config_file);
+    if (NuFileExists(path)) {
+      world->page_anim =
+          edanimLoadPage(path, world->current_gscn, world->unk2adc);
+    }
+  }
+}
 
 // FUNCTION: LEGOBATMAN 0x005c8eb0
 void LoadTerrainFile(WORLDINFO *world) {
