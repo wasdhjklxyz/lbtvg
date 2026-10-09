@@ -107,8 +107,10 @@ struct GameObject_s {
   nuvec_s v80; // 0x80
   u8 pad2[0x1dc - 0x8c];
   f32 radius; // 0x1dc, PartyMemberInWay: sphere radius - 0.125
-  u8 pad1e0[0x1f8 - 0x1e0];
-  u32 flags1f8; // 0x1f8
+  u8 pad1e0[0x1e8 - 0x1e0];
+  unsigned __int64 collide_mask; // 0x1e8, CollidingWithObject: what I am
+  unsigned __int64 collide_with; // 0x1f0, CollidingWithObject: what I touch
+  u32 flags1f8;                  // 0x1f8
   union {
     u32 flags1fc; // 0x1fc
     struct {

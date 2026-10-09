@@ -1262,3 +1262,6 @@
 00452640 Condition_InSameTriggerAreaAsNearestPlayer  condition table
 00451720 Condition_EmptyTakeOver  condition table
 0044ec20 Condition_EitherPlayerLocatorRangeXZ  condition table
+00450850 Condition_MaulShouldRunAway  condition table
+00452190 Condition_AngleAboutMyLocatorToPlayer  condition table
+0044f1e0 Condition_CollidingWithObject  condition table

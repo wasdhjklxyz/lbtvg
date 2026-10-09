@@ -12,6 +12,16 @@ void NuVecRotateY(nuvec_s *v, nuvec_s *v0, i32 a);
 f32 NuVecNorm(nuvec_s *out, nuvec_s *v);
 f32 NuVecDot(nuvec_s *a, nuvec_s *b);
 f32 NuVecXZDistSqr(nuvec_s *a, nuvec_s *b, nuvec_s *d);
+f32 NuVecXZDist(nuvec_s *a, nuvec_s *b, nuvec_s *d);
+i32 NuAtan2D(f32 dx, f32 dy);
+i32 NuAngSub(i32 a, i32 b);
+
+// 0x44-byte AI locators (AISYS_s +0x234).
+struct AILocator44_s {
+  u8 pad0[0x10];
+  nuvec_s pos; // 0x10
+  u8 pad1c[0x44 - 0x1c];
+};
 
 // FUNCTION: LEGOBATMAN 0x00447370
 i32 GameAIActionParseSpeed(char *str, u8 *out) {
@@ -1157,6 +1167,41 @@ i32 Condition_AngleAboutMyLocatorToPlayerInit(AISYS_s *sys, char *str,
       return 2;
   }
   return -1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00452190
+f32 Condition_AngleAboutMyLocatorToPlayer(AISYS_s *sys,
+                                          AISCRIPTPROCESS_s *process,
+                                          AIPACKET_s *packet, char *str,
+                                          void *data) {
+#define MY_LOCATOR (*(AILocator44_s **)((u8 *)process + 0xa8))
+  if (MY_LOCATOR != NULL && packet != NULL && packet->pd0 != NULL) {
+    GameObject_s *target;
+    if ((i32)data == -1)
+      target = player;
+    else if ((i32)data == 0)
+      target = Player[0];
+    else if ((i32)data == 1)
+      target = Player[1];
+    else if ((i32)data == 2) {
+      target = player;
+      if (player2 != NULL &&
+          NuVecDistSqr(&player2->position, &OWNER(packet)->position, NULL) <
+              NuVecDistSqr(&player->position, &OWNER(packet)->position, NULL))
+        target = player2;
+    } else
+      return 0.0f;
+    if (target != NULL) {
+      i32 object_angle =
+          NuAtan2D(OWNER(packet)->position.x - MY_LOCATOR->pos.x,
+                   OWNER(packet)->position.z - MY_LOCATOR->pos.z);
+      i32 player_angle = NuAtan2D(target->position.x - MY_LOCATOR->pos.x,
+                                  target->position.z - MY_LOCATOR->pos.z);
+      return NuAngSub(player_angle, object_angle) * 0.005493164f;
+    }
+  }
+  return 0.0f;
+#undef MY_LOCATOR
 }
 
 // FUNCTION: LEGOBATMAN 0x00452340
@@ -2656,14 +2701,6 @@ f32 Condition_BeenAlerted(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 0.0f;
 }
 
-struct AILocator44_s {
-  u8 pad0[0x10];
-  nuvec_s pos; // 0x10
-  u8 pad1c[0x44 - 0x1c];
-};
-
-f32 NuVecXZDist(nuvec_s *a, nuvec_s *b, nuvec_s *d);
-
 static inline f32 NuFmin(f32 a, f32 b) { return a < b ? a : b; }
 
 // FUNCTION: LEGOBATMAN 0x0044ec20
@@ -3383,6 +3420,33 @@ static inline GameObject_s *GetNamedGameObject(AISYS_s *sys, char *name) {
   return 0;
 }
 
+// FUNCTION: LEGOBATMAN 0x0044f1e0
+f32 Condition_CollidingWithObject(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                  AIPACKET_s *packet, char *str, void *data) {
+  char *name;
+  if (NuStrICmp(str, "Player") == 0) {
+    if (((AISysPlayer1_s *)sys)->player_1 != NULL &&
+        (OWNER(packet)->collide_with & player->collide_mask) != 0)
+      return 1.0f;
+    if (((AISysPlayer1_s *)sys)->player_2 != NULL &&
+        (OWNER(packet)->collide_with & player2->collide_mask) != 0)
+      return 1.0f;
+  } else if ((name = NuStrIStr(str, "PlayerTakenOver=")) != NULL) {
+    name += 16;
+    for (i32 i = 0; i < 8; i++) {
+      if (Player[i] != NULL && (Player[i]->flags1fc & 0x80) &&
+          NuStrICmp(Player[i]->p54->file, name) == 0 &&
+          (OWNER(packet)->collide_with & Player[i]->collide_mask) != 0)
+        return 1.0f;
+    }
+  } else {
+    GameObject_s *obj = GetNamedGameObject(sys, str);
+    if (obj != NULL && (OWNER(packet)->collide_with & obj->collide_mask) != 0)
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
 // FUNCTION: LEGOBATMAN 0x0044e8c0
 void *Condition_OffScreenTimerInit(AISYS_s *sys, char *name,
                                    AISCRIPT_s *script) {
@@ -3555,6 +3619,31 @@ struct AITRIGGERSETSYS_s {
   i8 set_index[0x40];  // 0x4a80
   i8 area_index[0x40]; // 0x4ac0
 };
+
+// FUNCTION: LEGOBATMAN 0x00450850
+f32 Condition_MaulShouldRunAway(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                AIPACKET_s *packet, char *str, void *data) {
+  nuvec_s d;
+  if (packet->pd0 != NULL) {
+    i32 angle;
+    d.x = OWNER(packet)->v80.x - 5.5f;
+    d.z = OWNER(packet)->v80.z - 3.65f;
+    angle = NuAtan2D(d.x, d.z);
+    for (i32 i = 0; i < 2; i++) {
+      GameObject_s *obj = Player[i];
+      if (obj != NULL && (obj->flags1fc & 1) && (obj->flags1fc & 0x1000)) {
+        d.x = obj->v80.x - 5.5f;
+        d.z = obj->v80.z - 3.65f;
+        if (d.x * d.x + d.z * d.z < 25.0f) {
+          i32 a = NuAtan2D(d.x, d.z);
+          if (NuAngSub(a, angle) < 0xe38)
+            return 1.0f;
+        }
+      }
+    }
+  }
+  return 0.0f;
+}
 
 // FUNCTION: LEGOBATMAN 0x004509e0
 f32 Condition_HelpWithTriggers(AISYS_s *sys, AISCRIPTPROCESS_s *process,
