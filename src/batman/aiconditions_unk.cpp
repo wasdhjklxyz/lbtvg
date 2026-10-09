@@ -3006,3 +3006,102 @@ f32 Condition_EitherPlayerUsingTechno(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 0.0f;
 }
+
+i32 GetMenuID();
+
+// FUNCTION: LEGOBATMAN 0x00451960
+f32 Condition_ShopActive(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char *str, void *argument) {
+  if (GetMenuID() == 0xd)
+    return 1.0f;
+  return 0.0f;
+}
+
+// GLOBAL: LEGOBATMAN 0x00a97d70
+extern f32 g_unk00a97d70;
+
+// FUNCTION: LEGOBATMAN 0x004518f0
+f32 Condition_ScreenWipe(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char *str, void *argument) {
+  if (g_unk00a97d70 > 0.0f)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00452510
+f32 Condition_NotTaggableSet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char *str, void *argument) {
+  if (argument != NULL && (((u8 *)argument)[0x9ed] & 2))
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x004510a0
+f32 Condition_PlayerTakenOver(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char *str, void *argument) {
+  if (player != NULL && player->p1158 != NULL && player->b9db != 0x3b)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00451120
+f32 Condition_Player2TakenOver(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                               AIPACKET_s *packet, char *str, void *argument) {
+  if (player2 != NULL && player2->p1158 != NULL && player2->b9db != 0x3b)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x004518c0
+f32 Condition_GotVictim(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char *str, void *argument) {
+  if (packet != NULL && packet->pd0 != NULL &&
+      (((u8 *)packet->pd0)[0x1310] & 4))
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00451570
+f32 Condition_LastAttackerIsActivePlayer(AISYS_s *sys,
+                                         AISCRIPTPROCESS_s *process,
+                                         AIPACKET_s *packet, char *str,
+                                         void *argument) {
+  if (packet != NULL && packet->pd0 != NULL) {
+    // 0x15ec: last attacker.
+    u8 *attacker = *(u8 **)((u8 *)packet->pd0->obj + 0x15ec);
+    if (attacker != NULL && (attacker[0x1fc] & 0x80))
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00452e30
+f32 Condition_MindControlled(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char *str, void *argument) {
+  if (str != NULL && GetNamedAPIObjectFn != NULL) {
+    Unk_AIPacketObj *api = GetNamedAPIObjectFn(sys, str);
+    if (api != NULL && api->obj != NULL &&
+        (*(u32 *)((u8 *)api->obj + 0x1418) & 0x800))
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00452490
+f32 Condition_GoopVehicle(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char *str, void *argument) {
+  if (player != NULL && (player->p54->p24->flags13c & 0x4000000))
+    return 1.0f;
+  if (player2 != NULL && (player2->p54->p24->flags13c & 0x4000000))
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00451910
+f32 Condition_HeadTurnRestricted(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                 AIPACKET_s *packet, char *str,
+                                 void *argument) {
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL)
+    return (f32)((*(u32 *)((u8 *)packet->pd0->obj + 0x1410) >> 20) & 1);
+  return 0.0f;
+}

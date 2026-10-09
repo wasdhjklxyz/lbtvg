@@ -1095,3 +1095,13 @@
 004728d0 Action_NoFightingZone  matched, keyword table + Mac name
 00472940 Action_AllowFightingInMiniCut  matched, keyword table + Mac name
 006a55f0 Action_SetMoveRadius  matched saga body, keyword table
+00451960 Condition_ShopActive  matched, keyword table + Mac name
+004518f0 Condition_ScreenWipe  matched, keyword table + Mac name
+00452510 Condition_NotTaggableSet  matched, keyword table + Mac name
+004510a0 Condition_PlayerTakenOver  matched, keyword table + Mac name
+00451120 Condition_Player2TakenOver  matched, keyword table + Mac name
+004518c0 Condition_GotVictim  matched, keyword table + Mac name
+00451570 Condition_LastAttackerIsActivePlayer  matched, keyword table + Mac name
+00452e30 Condition_MindControlled  matched, keyword table + Mac name
+00452490 Condition_GoopVehicle  matched, keyword table + Mac name
+00451910 Condition_HeadTurnRestricted  matched, keyword table + Mac name
