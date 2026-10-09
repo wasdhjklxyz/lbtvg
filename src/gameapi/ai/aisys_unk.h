@@ -165,7 +165,10 @@ typedef struct AISCRIPTPROCESS_s {
 
   f32 action_timer;
 
-  AIAREA_s *unknown_a0;
+  union {
+    AIAREA_s *unknown_a0;
+    f32 face_timer; // Action_FaceCharacter
+  };
   union {
     AILOCATOR_s *unknown_a4;
     AILOCATOR_s *locator;

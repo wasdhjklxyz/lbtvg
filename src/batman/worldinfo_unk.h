@@ -53,7 +53,9 @@ struct WORLDINFO_s {
   variptr_u buf104;       // 0x104
   variptr_u bufEnd108;    // 0x108
   i32 config_count;       // 0x10c
-  u8 pad1[0x12c - 0x110];
+  u8 pad1[0x124 - 0x110];
+  i32 i124; // 0x124, SuperCounter_AreaCheck area
+  u8 pad128[0x12c - 0x128];
   struct LEVELDATA_s *current_level; // 0x12c
   struct AREADATA_s *area;           // 0x130
   u8 pad1b[0x138 - 0x134];

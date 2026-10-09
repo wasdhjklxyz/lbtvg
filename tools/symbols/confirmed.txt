@@ -1145,3 +1145,11 @@
 00463b60 Action_ProcessScriptWhenDeactivated  keyword table 0x93bb98
 004718f0 Action_SetWoozy  keyword table 0x93bb98
 00473050 Action_GetInRideObject  keyword table 0x93bb98
+004640d0 Action_CatchUpForbidden  keyword table 0x93bb98
+0046d5f0 Action_SplineFollowTerrain  keyword table 0x93bb98
+0045e090 Action_SetShieldHitPoints  keyword table 0x93bb98
+00471b00 Action_SetGenericGoon  keyword table 0x93bb98
+0046f710 Action_DrawBossHitPoints  keyword table 0x93bb98
+004740b0 Action_SetSuperCounter  keyword table 0x93bb98
+00460450 Action_NoIdleSpeed  keyword table 0x93bb98
+004683d0 Action_FaceCharacter  keyword table 0x93bb98

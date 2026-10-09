@@ -51,6 +51,8 @@ struct Unk_GameObject54_24 {
   u8 pad1dd[0x217 - 0x1dd];
   i8 hat_locator2; // 0x217, LoseHat fallback locator
   i8 hat_locator;  // 0x218
+  u8 pad219[0x227 - 0x219];
+  u8 shield_hitpoints; // 0x227
 };
 
 struct Unk_GameObject54 {
@@ -215,7 +217,9 @@ struct GameObject_s {
   u8 pad14b[0x131c - 0x1314];
   u8 b131c;              // 0x131c
   u8 weapon_scale_state; // 0x131d
-  u8 pad131e[0x132b - 0x131e];
+  u8 pad131e[0x1321 - 0x131e];
+  u8 shield_hitpoints; // 0x1321
+  u8 pad1322[0x132b - 0x1322];
   u8 b132b; // 0x132b
   u8 pad14c[0x135c - 0x132c];
   f32 f135c; // 0x135c
@@ -232,6 +236,10 @@ struct GameObject_s {
       u32 flags140c_lo : 24;
       u32 respawnable : 1;       // 0x140c bit 24
       u32 respawn_at_origin : 1; // 0x140c bit 25
+    };
+    struct {
+      u32 : 29;
+      u32 catch_up_forbidden : 1; // 0x140c bit 29
     };
     struct {
       u32 : 13;
@@ -254,6 +262,14 @@ struct GameObject_s {
     struct {
       u32 flags1414_lo : 25;
       u32 item_ignore_los : 1; // 0x1414 bit 25
+    };
+    struct {
+      u32 : 15;
+      u32 spline_follow_terrain : 1; // 0x1414 bit 15
+    };
+    struct {
+      u32 : 27;
+      u32 no_idle_speed : 1; // 0x1414 bit 27
     };
   };
   union {
