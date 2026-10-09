@@ -8,7 +8,7 @@
 #include <string.h>
 
 // Outside this file; names unknown.
-void Unk006e2ac0(void);
+void NuVideoSetBrightnessPS(void);
 void Unk006e3c90(void);
 void Unk006e3ca0(void);
 void Unk006dcb00(int);
@@ -147,7 +147,7 @@ void NuVideoRollingFrameRateReset(void) {}
 // FUNCTION: LEGOBATMAN 0x006d65f0
 void NuVideoSetBrightness(float value) {
   g_nuPadUnk0adf6e0 = value;
-  Unk006e2ac0();
+  NuVideoSetBrightnessPS();
 }
 
 // FUNCTION: LEGOBATMAN 0x006d6830

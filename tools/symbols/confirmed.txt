@@ -1667,3 +1667,15 @@
 006e29f0 NuDebugMsgFunctionTTY  saga static name, returned by 0x6e2a90; matched
 006e2a70 NuDebugMsgProlog       saga body, returns 0x6e2930; matched
 006e2a90 NuDebugMsgPrologTTY    saga body, returns 0x6e29f0; matched
+006e2ab0 NuVideoSetSwapModePS   Mac order after NuDebugMsgPrologTTY, empty; matched
+006e2ac0 NuVideoSetBrightnessPS Mac order; called by NuVideoSetBrightness 0x6d65f0 after storing the value it passes on; matched
+006e2ae0 NuVideoGetRetraceRatePS Mac order, returns 60.0f; matched
+006e2f70 bgprocFreeze           Mac bgproc order; sets freezing, ResetEvent(BGFreeze), SetEvent(BGWorkToDo); matched
+006e2fa0 bgprocUnFreeze         Mac order; clears freezing, SetEvent(BGFreeze); matched
+006e2fc0 bgprocIsFrozen         Mac order; volatile flag != 0; matched
+006e2fd0 bgprocIsFreezing       Mac order; frozen || freezing; matched
+006e2ff0 bgProcIsBgThread       Mac order; GetCurrentThreadId() == bg thread id; matched
+006e3010 bgSuspendMain          Mac order; Sleep(1) while bg work is queued; matched
+006e3040 bgProcClose            Mac order, empty; matched
+006e3050 NuFileInitEarly        Mac order after bgProcClose; one-shot InitializeCriticalSection; matched
+006e3070 NuFileExists           Mac order after NuFileInitEarly; tail call; matched
