@@ -970,6 +970,23 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00625bb0,0027d168,__Z12CC_non_stickP8nufpar_s,CC_non_stick(nufpar_s*),confirmed,0
 00625c00,0027d17a,__Z22CC_can_shoot_offscreenP8nufpar_s,CC_can_shoot_offscreen(nufpar_s*),confirmed,0
 00625c50,0027d18c,__Z11CC_can_fireP8nufpar_s,CC_can_fire(nufpar_s*),confirmed,0
+00625ca0,0027d19e,__Z12CC_bolt_typeP8nufpar_s,CC_bolt_type(nufpar_s*),confirmed,0
+00625d10,0027d216,__Z21CC_not_using_item_sysP8nufpar_s,CC_not_using_item_sys(nufpar_s*),confirmed,0
+00625d20,0027d232,__Z10CC_minikitP8nufpar_s,CC_minikit(nufpar_s*),confirmed,0
+00625d70,0027d244,__Z21CC_minikit_with_sceneP8nufpar_s,CC_minikit_with_scene(nufpar_s*),confirmed,0
+00625de0,0027d28e,__Z30CC_minikit_noscenewhenplayableP8nufpar_s,CC_minikit_noscenewhenplayable(nufpar_s*),confirmed,0
+00625e30,0027d2d2,__Z13CC_lift_hoverP8nufpar_s,CC_lift_hover(nufpar_s*),confirmed,0
+00625e80,0027d316,__Z15CC_freeze_flashP8nufpar_s,CC_freeze_flash(nufpar_s*),confirmed,0
+00625ed0,0027d35a,__Z23CC_shoot_turning_circleP8nufpar_s,CC_shoot_turning_circle(nufpar_s*),confirmed,0
+00625f20,0027d39e,__Z27CC_always_regenerate_heartsP8nufpar_s,CC_always_regenerate_hearts(nufpar_s*),confirmed,0
+00625f70,0027d3e2,__Z20CC_always_fast_buildP8nufpar_s,CC_always_fast_build(nufpar_s*),confirmed,0
+00625fc0,0027d422,__Z14CC_flatten_dieP8nufpar_s,CC_flatten_die(nufpar_s*),confirmed,0
+00626010,0027d464,__Z21CC_can_blend_to_shootP8nufpar_s,CC_can_blend_to_shoot(nufpar_s*),confirmed,0
+00626060,0027d4a6,__Z21CC_can_blend_to_punchP8nufpar_s,CC_can_blend_to_punch(nufpar_s*),confirmed,0
+006260b0,0027d4e8,__Z25CC_supercounter_characterP8nufpar_s,CC_supercounter_character(nufpar_s*),confirmed,0
+00626100,0027d52a,__Z10CC_critterP8nufpar_s,CC_critter(nufpar_s*),confirmed,0
+00626150,0027d56c,__Z10CC_can_pooP8nufpar_s,CC_can_poo(nufpar_s*),confirmed,0
+006261a0,0027d5ae,__Z18CC_can_super_carryP8nufpar_s,CC_can_super_carry(nufpar_s*),confirmed,0
 006285d0,00280c32,__Z16AnimInclude_InitPcP9variptr_uS1_,"AnimInclude_Init(char*, variptr_u*, variptr_u*)",strings,0
 00629270,002818fe,__Z23CharConfig_ConfigureAlliP12nufpcomjmp_s,"CharConfig_ConfigureAll(int, nufpcomjmp_s*)",strings,0
 0062d030,002833a2,__Z24CharShadows_InitMaterialP9variptr_uS_,"CharShadows_InitMaterial(variptr_u*, variptr_u)",strings,0
