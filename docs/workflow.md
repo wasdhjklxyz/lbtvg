@@ -158,3 +158,18 @@ enough matched code for the percentage to mean something.
   padding to `u32` arrays and the cookie goes away.
 - `make new` skips addresses listed in `tools/symbols/skip.txt` when picking at
   random: add the ones you gave up on, with a reason.
+- **Local initialisers are stored in declaration order, floats first.**
+  Reordering declarations fixes the store order.
+- **Distinct globals don't alias**: writing each field of `tab[count]` keeps
+  `count` in a register; going through a pointer may not.
+- **`s = s + NuStrLen("x") + 1; f(s);`** and `f(s + NuStrLen("x") + 1)`
+  allocate registers differently.
+- **Adjacent 1-bit bitfields** set from variables merge into one
+  and/or/shl sequence.
+- **With a /GS buffer, VC8 copies pointer parameters into locals.**
+- **A pointer walk (`obj++`)** strength-reduces; `Obj[i]` reloads `Obj` after
+  every call.
+- **Unsolved:** some originals keep a separate epilogue per early return where
+  our build merges them (Action_SetPath, CheckGizAIMessage,
+  GetNamedAPIObject). Possibly a per-file flag difference; worth testing
+  `/Ob`/`/Oy` variants on one of them.
