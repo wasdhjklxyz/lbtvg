@@ -700,6 +700,39 @@ f32 Condition_Param(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return AIParamToFloatEx(packet, process, str);
 }
 
+// STUB: LEGOBATMAN 0x006a4530
+// close: packet/processor swap ebx/ebp, everything else matches.
+i32 Action_ResetTimer(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                      AIPACKET_s *packet, char **params, i32 param_count,
+                      i32 is_first_time, f32 time) {
+  f32 minimum = 0.0f;
+  f32 maximum = 0.0f;
+  f32 exact = 0.0f;
+  if (is_first_time == 0)
+    return 1;
+  for (i32 param_index = 0; param_index < param_count; ++param_index) {
+    char *value = NuStrIStr(params[param_index], "mintime");
+    if (value != NULL) {
+      minimum = AIParamToFloatEx(packet, processor, value + 8);
+      continue;
+    }
+    value = NuStrIStr(params[param_index], "maxtime");
+    if (value != NULL) {
+      maximum = AIParamToFloatEx(packet, processor, value + 8);
+      continue;
+    }
+    value = NuStrIStr(params[param_index], "time");
+    if (value != NULL)
+      exact = AIParamToFloatEx(packet, processor, value + 5);
+  }
+  if (minimum == 0.0f && maximum == 0.0f)
+    processor->script_timer = exact;
+  else
+    processor->script_timer =
+        NuRandFloat() * maximum + (1.0f - NuRandFloat()) * minimum;
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x006a4840
 i32 Action_SetCircleDirection(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                               AIPACKET_s *packet, char **params,
