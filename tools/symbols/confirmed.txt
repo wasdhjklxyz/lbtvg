@@ -1572,3 +1572,16 @@
 006e1c00 NuMemFlushDiscardable  saga numem.cpp body
 006e1c20 NuMemSetExternal  saga numem.cpp body (memext/memexternal)
 006e1d30 NuMemFree  saga numem.cpp body (NuHeapFree or free)
+006d4fe0 NuTimeStartFrame       Mac nutime order (before NuTimeGetFrameTime), stores NuTimeGetTime; matched
+006d4ff0 NuTimeGetStartFrame    Mac nutime order, returns the start-frame global; matched
+006d5000 NuTimeGetSinceStartFrame Mac nutime order, NuTimeGetTime minus start; matched
+006d5020 NuTimeForceFrameTime   Mac nutime order, saga body (nuapi.forced_frame_time); matched
+006d51e0 NuTimeScanlines        saga body (Seconds*272*60), Mac nutime order; matched
+006d5420 NuFrameSetMinDelay     Mac nuapi order after NuFrameBegin, saga body; matched
+006d5520 NuRegisterEndFrameCallBackFn Mac nuapi order, saga body; matched
+006d5530 NuTerminateHardware    Mac nuapi order, empty (saga stub); matched
+006d5560 NuDisableOSMenuFreeze  saga body (nuapi+0x94 = 1), Mac order; matched
+006d5570 NuMultiThreadRender    Mac nuapi order (setter); matched
+006d5580 NuAPIGetCurrentGScene  Mac nuapi order (getter of same global as 0x6d5590); matched
+006d5590 NuAPISetCurrentGScene  Mac nuapi order (setter); matched
+006d55a0 NuPadUseCorrectDeadZoning saga nupad body (byte store), Mac order; matched

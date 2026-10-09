@@ -15,8 +15,33 @@ void NuTimeGetTicksPerSecondPS(u32 *low, u32 *high);
 // GLOBAL: LEGOBATMAN 0x00adf688
 extern f32 g_nuapiFrameTime;
 
+// nuapi.forced_frame_time
+// GLOBAL: LEGOBATMAN 0x00adf690
+extern f32 g_nuapiForcedFrameTime;
+
+// GLOBAL: LEGOBATMAN 0x00b038cc
+static u32 g_nuTimeStartFrame;
+
+extern "C" unsigned int NuTimeGetTime(void);
+
+// FUNCTION: LEGOBATMAN 0x006d4fe0
+extern "C" void NuTimeStartFrame(void) { g_nuTimeStartFrame = NuTimeGetTime(); }
+
+// FUNCTION: LEGOBATMAN 0x006d4ff0
+extern "C" u32 NuTimeGetStartFrame(void) { return g_nuTimeStartFrame; }
+
+// FUNCTION: LEGOBATMAN 0x006d5000
+extern "C" u32 NuTimeGetSinceStartFrame(void) {
+  return NuTimeGetTime() - g_nuTimeStartFrame;
+}
+
 // FUNCTION: LEGOBATMAN 0x006d5010
 f32 NuTimeGetFrameTime(void) { return g_nuapiFrameTime; }
+
+// FUNCTION: LEGOBATMAN 0x006d5020
+void NuTimeForceFrameTime(f32 frame_time) {
+  g_nuapiForcedFrameTime = frame_time;
+}
 
 // FUNCTION: LEGOBATMAN 0x006d5030
 void NuTimeGet(NUTIME *t) { NuTimeGetTicksPS(&t->low, (u32 *)&t->high); }
@@ -85,3 +110,6 @@ f32 NuTimeMicroSeconds(NUTIME *t) {
 
   return micros;
 }
+
+// FUNCTION: LEGOBATMAN 0x006d51e0
+f32 NuTimeScanlines(NUTIME *t) { return NuTimeSeconds(t) * 272.0f * 60.0f; }
