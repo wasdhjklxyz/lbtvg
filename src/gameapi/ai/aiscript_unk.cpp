@@ -8,9 +8,24 @@
 
 #include "aisys_unk.h"
 
+struct AICHARMODEL_s {
+  i16 model_id;
+};
+
+// Per-creature defaults (0xa8 bytes), indexed by AIPACKET_s::origin_index.
+struct AICREATURE_s {
+  u8 pad0[0x94];
+  f32 view_distance;   // 0x94
+  f32 hear_distance;   // 0x98
+  f32 max_view_height; // 0x9c
+  f32 min_view_height; // 0xa0
+  u8 popa4[0xa8 - 0xa4];
+};
+
 struct AISYS_s {
-  u8 pad0[0x228];
-  NULISTHDR scripts; // 0x228
+  u8 pad0[0x224];
+  AICREATURE_s *creatures; // 0x224
+  NULISTHDR scripts;       // 0x228
 };
 
 // GLOBAL: LEGOBATMAN 0x00ad435c
@@ -229,6 +244,124 @@ struct OverrideAnimOwner_s {
 i32 FindAnimIX(void *character_data, char *name);
 
 // from saga gameapi/ai/aisys/aisys.cpp
+AISTATE *AIStateFind(char *name, AISCRIPT *script);
+
+// GLOBAL: LEGOBATMAN 0x00ad4524
+extern i32 g_unk00ad4524;
+// Lone `ret`s in the shipped build (debug reports compiled out).
+void AIDebugUnk006a10a0(...);
+void AIDebugUnk006a10b0(...);
+
+// FUNCTION: LEGOBATMAN 0x006a4470
+i32 Action_SetState(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                    AIPACKET_s *packet, char **args, int argc, int flags,
+                    f32 time) {
+  if (flags != 0 && argc != 0) {
+    process->next_state = AIStateFind(args[0], process->script);
+    process->unknown_flag_4 = 0;
+    for (i32 i = 1; i < argc; i++) {
+      if (NuStrICmp(args[i], "KeepBlockedMessages") == 0)
+        process->unknown_flag_4 = 1;
+    }
+    if (process->next_state == NULL) {
+      if (g_unk00ad4524 == 1)
+        AIDebugUnk006a10b0(args[0], process->script->name,
+                           process->state->name);
+      else
+        AIDebugUnk006a10a0(args[0], process->script->name,
+                           process->state->name);
+    }
+  }
+  return 0;
+}
+
+// GLOBAL: LEGOBATMAN 0x00ad6930
+extern f32 (*GetViewRangeFn)(i32 model_id);
+// GLOBAL: LEGOBATMAN 0x00ad6934
+extern f32 (*GetHearDistanceFn)(i32 model_id);
+// GLOBAL: LEGOBATMAN 0x00ad6938
+extern f32 (*GetMaxViewHeightFn)(i32 model_id);
+// GLOBAL: LEGOBATMAN 0x00ad693c
+extern f32 (*GetMinViewHeightFn)(i32 model_id);
+
+// FUNCTION: LEGOBATMAN 0x006a52b0
+i32 Action_SetViewDistance(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char **args, int argc, int flags,
+                           f32 time) {
+  if (packet == NULL || packet->pd0 == NULL || flags == 0)
+    return 1;
+  Unk_AIPacketObj *object = packet->pd0;
+  if (packet->origin_index != 0xff)
+    object->viewdistance = sys->creatures[packet->origin_index].view_distance;
+  else if (GetViewRangeFn != NULL)
+    packet->pd0->viewdistance =
+        GetViewRangeFn(object->character_model->model_id);
+  else
+    object->viewdistance = 1.0f;
+  if (argc != 0 && NuStrICmp(args[0], "default") != 0)
+    packet->pd0->viewdistance = AIParamToFloatEx(packet, process, args[0]);
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a5380
+i32 Action_SetMinViewHeight(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char **args, int argc,
+                            int flags, f32 time) {
+  if (packet == NULL || packet->pd0 == NULL || flags == 0)
+    return 1;
+  Unk_AIPacketObj *object = packet->pd0;
+  if (packet->origin_index != 0xff)
+    object->minviewheight =
+        sys->creatures[packet->origin_index].min_view_height;
+  else if (GetMinViewHeightFn != NULL)
+    packet->pd0->minviewheight =
+        GetMinViewHeightFn(object->character_model->model_id);
+  else
+    object->minviewheight = 1.0f;
+  if (argc != 0 && NuStrICmp(args[0], "default") != 0)
+    packet->pd0->minviewheight = AIParamToFloatEx(packet, process, args[0]);
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a5450
+i32 Action_SetMaxViewHeight(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char **args, int argc,
+                            int flags, f32 time) {
+  if (packet == NULL || packet->pd0 == NULL || flags == 0)
+    return 1;
+  Unk_AIPacketObj *object = packet->pd0;
+  if (packet->origin_index != 0xff)
+    object->maxviewheight =
+        sys->creatures[packet->origin_index].max_view_height;
+  else if (GetMaxViewHeightFn != NULL)
+    packet->pd0->maxviewheight =
+        GetMaxViewHeightFn(object->character_model->model_id);
+  else
+    object->maxviewheight = 1.0f;
+  if (argc != 0 && NuStrICmp(args[0], "default") != 0)
+    packet->pd0->maxviewheight = AIParamToFloatEx(packet, process, args[0]);
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a5520
+i32 Action_SetHearDistance(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char **args, int argc, int flags,
+                           f32 time) {
+  if (packet == NULL || packet->pd0 == NULL || flags == 0)
+    return 1;
+  Unk_AIPacketObj *object = packet->pd0;
+  if (packet->origin_index != 0xff)
+    object->heardistance = sys->creatures[packet->origin_index].hear_distance;
+  else if (GetHearDistanceFn != NULL)
+    packet->pd0->heardistance =
+        GetHearDistanceFn(object->character_model->model_id);
+  else
+    object->heardistance = 1.0f;
+  if (argc != 0 && NuStrICmp(args[0], "default") != 0)
+    packet->pd0->heardistance = AIParamToFloatEx(packet, process, args[0]);
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x006a5660
 i32 Action_OverrideAnimation(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                              AIPACKET_s *packet, char **args, int argc,

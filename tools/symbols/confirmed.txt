@@ -1424,3 +1424,8 @@
 005389e0 NuMusic::xIdent  Mac; sole callee of NuMusic::xsIdent
 00538ef0 NuMusic::xAlbum  Mac; sole callee of NuMusic::xsAlbum
 00536cd0 NuMusic::GlobalParseErrorFn  Mac; handler NuMusic::xsStrict installs
+006a4470 Action_SetState  keyword table 0x99df98
+006a52b0 Action_SetViewDistance  keyword table 0x99df98
+006a5380 Action_SetMinViewHeight  keyword table 0x99df98
+006a5450 Action_SetMaxViewHeight  keyword table 0x99df98
+006a5520 Action_SetHearDistance  keyword table 0x99df98

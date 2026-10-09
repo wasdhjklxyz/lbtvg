@@ -1829,6 +1829,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006a43f0,0023738e,_Condition_IAm,_Condition_IAm,confirmed,0
 006a4430,002373d8,_Condition_StuckTime,_Condition_StuckTime,confirmed,0
 006a4450,002373f8,_Condition_Param,_Condition_Param,confirmed,0
+006a4470,0023740e,_Action_SetState,_Action_SetState,confirmed,0
 006a4640,002375dc,_Action_Idle,_Action_Idle,strings,0
 006a4b10,00237b34,_Action_FaceOpponent,_Action_FaceOpponent,strings,0
 006a4d50,00237ef6,_Action_IgnoreWallSplines,_Action_IgnoreWallSplines,confirmed,0
@@ -1841,6 +1842,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006a5140,0023829c,_Action_CanSeeBehind,_Action_CanSeeBehind,confirmed,0
 006a51c0,00238316,_Action_RequiresLOS,_Action_RequiresLOS,confirmed,0
 006a5230,00238380,_Action_SetFullPathSearch,_Action_SetFullPathSearch,confirmed,0
+006a52b0,002383fa,_Action_SetViewDistance,_Action_SetViewDistance,confirmed,0
+006a5380,002384dc,_Action_SetMinViewHeight,_Action_SetMinViewHeight,confirmed,0
+006a5450,002385be,_Action_SetMaxViewHeight,_Action_SetMaxViewHeight,confirmed,0
+006a5520,002386a0,_Action_SetHearDistance,_Action_SetHearDistance,confirmed,0
 006a55f0,00238782,_Action_SetMoveRadius,_Action_SetMoveRadius,confirmed,0
 006a5660,00238c46,_Action_OverrideAnimation,_Action_OverrideAnimation,strings,0
 006a58d0,002395a4,_Action_NoShadows,_Action_NoShadows,confirmed,0

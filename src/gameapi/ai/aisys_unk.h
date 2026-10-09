@@ -22,8 +22,9 @@ struct AISCRIPTPROCESS_s;
 struct Unk_AIPacketObj {
   GameObject_s *obj;            // 0x00
   struct AISCRIPTPROCESS_s *ai; // 0x04
-  u8 pad0[0x54 - 8];
-  struct Unk_GameObject54 *character; // 0x54
+  u8 pad0[0x50 - 8];
+  struct AICHARMODEL_s *character_model; // 0x50, model id (i16) first
+  struct Unk_GameObject54 *character;    // 0x54
   u8 pad58[0x5c - 0x58];
   nuvec_s pos5c; // 0x5c
   u8 pad68[0x1b4 - 0x68];
@@ -32,6 +33,11 @@ struct Unk_AIPacketObj {
   nuvec_s respawn_pos; // 0x1cc
   u8 pad1d8[0x1f8 - 0x1d8];
   u32 flags1f8; // 0x1f8, Condition_Side
+  u8 pad1fc[0x230 - 0x1fc];
+  f32 viewdistance;  // 0x230
+  f32 heardistance;  // 0x234
+  f32 maxviewheight; // 0x238
+  f32 minviewheight; // 0x23c
 };
 
 struct AIPACKET_s {
