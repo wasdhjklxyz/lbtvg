@@ -1027,3 +1027,15 @@
 006a5bb0 Action_ReturnToState  matched, keyword table
 006a5be0 Action_Else  matched, keyword table
 006a5c20 Action_EndIf  matched, keyword table
+006b3ca0 Condition_LocatorRangeInit  matched saga body, keyword table + Mac order
+006b3cc0 Condition_CurrentLocatorIsInit  matched saga body, keyword table + Mac order
+006b3ce0 Condition_InTriggerAreaInit  matched saga body, keyword table + Mac order
+006b3d00 Condition_InLevelNodeInit  matched saga body, keyword table + Mac order
+006b3d40 Condition_PlayerInLevelNodeInit  matched saga body, keyword table + Mac order
+006b3d80 Condition_LevelNodeRangeInit  matched saga body, keyword table + Mac order
+006b3dc0 Condition_PlayerInTriggerAreaInit  matched saga body, keyword table + Mac order
+006b3de0 Condition_BaddyInTriggerAreaInit  matched saga body, keyword table + Mac order
+006b3e00 Condition_GoodyInTriggerAreaInit  matched saga body, keyword table + Mac order
+006b3e20 Condition_OpponentInTriggerAreaInit  matched saga body, keyword table + Mac order
+006b3e40 Condition_OpponentToLocatorInit  matched saga body, keyword table + Mac order
+006b3e60 Condition_PlayerToLocatorInit  matched saga body, keyword table + Mac order

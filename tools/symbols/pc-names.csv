@@ -118,7 +118,6 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0044eaa0,0007654c,__Z22Condition_OnObjectInitP7AISYS_sPcP10AISCRIPT_s,"Condition_OnObjectInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 0044eb10,000765aa,__Z24Condition_PlayerOnObjectP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_PlayerOnObject(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044eb60,000765f2,__Z30Condition_EitherPlayerOnObjectP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_EitherPlayerOnObject(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
-0044ec00,0007666c,__Z26Condition_LocatorRangeInitP7AISYS_sPcP10AISCRIPT_s,"Condition_LocatorRangeInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 0044ed00,0007673a,__Z18Condition_OnObjectP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OnObject(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044ed70,0007678c,__Z30Condition_OnSameObjectAsPlayerP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OnSameObjectAsPlayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044ee00,000767f4,__Z20Condition_SpawnCountP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_SpawnCount(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
@@ -1497,6 +1496,18 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006b3370,0024a87e,_xRefScript,_xRefScript,strings,0
 006b37e0,002352c0,_AIScriptLoadAllPakFile,_AIScriptLoadAllPakFile,strings,0
 006b3a60,00235516,_AIScriptLoadAll,_AIScriptLoadAll,confirmed,0
+006b3ca0,0007666c,__Z26Condition_LocatorRangeInitP7AISYS_sPcP10AISCRIPT_s,"Condition_LocatorRangeInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+006b3cc0,002363c4,_Condition_CurrentLocatorIsInit,_Condition_CurrentLocatorIsInit,confirmed,0
+006b3ce0,002525d2,_Condition_InTriggerAreaInit,_Condition_InTriggerAreaInit,confirmed,0
+006b3d00,002367c2,_Condition_InLevelNodeInit,_Condition_InLevelNodeInit,confirmed,0
+006b3d40,00236852,_Condition_PlayerInLevelNodeInit,_Condition_PlayerInLevelNodeInit,confirmed,0
+006b3d80,0023697e,_Condition_LevelNodeRangeInit,_Condition_LevelNodeRangeInit,confirmed,0
+006b3dc0,00252632,_Condition_PlayerInTriggerAreaInit,_Condition_PlayerInTriggerAreaInit,confirmed,0
+006b3de0,00252692,_Condition_BaddyInTriggerAreaInit,_Condition_BaddyInTriggerAreaInit,confirmed,0
+006b3e00,002526f2,_Condition_GoodyInTriggerAreaInit,_Condition_GoodyInTriggerAreaInit,confirmed,0
+006b3e20,00252752,_Condition_OpponentInTriggerAreaInit,_Condition_OpponentInTriggerAreaInit,confirmed,0
+006b3e40,0023709c,_Condition_OpponentToLocatorInit,_Condition_OpponentToLocatorInit,confirmed,0
+006b3e60,002371b8,_Condition_PlayerToLocatorInit,_Condition_PlayerToLocatorInit,confirmed,0
 006b4670,0024921c,_Action_SetInterrupt,_Action_SetInterrupt,strings,0
 006b4f70,0023a378,_AISysRegisterDefaultPathCnxTypes,_AISysRegisterDefaultPathCnxTypes,confirmed,0
 006b5000,0023aa0a,_AISysLoadEx,_AISysLoadEx,strings,0

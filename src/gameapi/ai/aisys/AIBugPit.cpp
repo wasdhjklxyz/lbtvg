@@ -257,3 +257,103 @@ void AIBugPitOwnerB::Release() {
     data = 0;
   }
 }
+
+// Script condition inits (saga aisys.cpp), reached through the condition
+// keyword table.
+
+void *AISysFindArea(AISYS_s *sys, char *name);
+struct AILOCATOR_s *AIPathFindLocator(AISYS_s *aisys, char *name);
+void *AIPathFindNode(AISYS_s *sys, void *path, char *name);
+
+struct AIPathSysInit_s {
+  u8 path_count; // 0x00
+  u8 pad1[8 - 1];
+  void *active_path; // 0x08
+};
+
+// FUNCTION: LEGOBATMAN 0x006b3ca0
+void *Condition_LocatorRangeInit(AISYS_s *sys, char *arg, AISCRIPT_s *script) {
+  return arg != NULL ? AIPathFindLocator(sys, arg) : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x006b3cc0
+void *Condition_CurrentLocatorIsInit(AISYS_s *sys, char *arg,
+                                     AISCRIPT_s *script) {
+  return arg != NULL ? AIPathFindLocator(sys, arg) : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x006b3ce0
+void *Condition_InTriggerAreaInit(AISYS_s *sys, char *arg, AISCRIPT_s *script) {
+  return arg != NULL ? AISysFindArea(sys, arg) : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x006b3d00
+void *Condition_InLevelNodeInit(AISYS_s *sys, char *arg, AISCRIPT_s *script) {
+  // 0x21c: the path system.
+  AIPathSysInit_s *path_sys;
+  if (sys != NULL &&
+      (path_sys = *(AIPathSysInit_s **)((u8 *)sys + 0x21c)) != NULL &&
+      path_sys->path_count != 0)
+    return AIPathFindNode(sys, path_sys->active_path, arg);
+  return NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x006b3d40
+void *Condition_PlayerInLevelNodeInit(AISYS_s *sys, char *arg,
+                                      AISCRIPT_s *script) {
+  // 0x21c: the path system.
+  AIPathSysInit_s *path_sys;
+  if (sys != NULL &&
+      (path_sys = *(AIPathSysInit_s **)((u8 *)sys + 0x21c)) != NULL &&
+      path_sys->path_count != 0)
+    return AIPathFindNode(sys, path_sys->active_path, arg);
+  return NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x006b3d80
+void *Condition_LevelNodeRangeInit(AISYS_s *sys, char *arg,
+                                   AISCRIPT_s *script) {
+  // 0x21c: the path system.
+  AIPathSysInit_s *path_sys;
+  if (sys != NULL &&
+      (path_sys = *(AIPathSysInit_s **)((u8 *)sys + 0x21c)) != NULL &&
+      path_sys->path_count != 0)
+    return AIPathFindNode(sys, path_sys->active_path, arg);
+  return NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x006b3dc0
+void *Condition_PlayerInTriggerAreaInit(AISYS_s *sys, char *arg,
+                                        AISCRIPT_s *script) {
+  return arg != NULL ? AISysFindArea(sys, arg) : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x006b3de0
+void *Condition_BaddyInTriggerAreaInit(AISYS_s *sys, char *arg,
+                                       AISCRIPT_s *script) {
+  return arg != NULL ? AISysFindArea(sys, arg) : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x006b3e00
+void *Condition_GoodyInTriggerAreaInit(AISYS_s *sys, char *arg,
+                                       AISCRIPT_s *script) {
+  return arg != NULL ? AISysFindArea(sys, arg) : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x006b3e20
+void *Condition_OpponentInTriggerAreaInit(AISYS_s *sys, char *arg,
+                                          AISCRIPT_s *script) {
+  return arg != NULL ? AISysFindArea(sys, arg) : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x006b3e40
+void *Condition_OpponentToLocatorInit(AISYS_s *sys, char *arg,
+                                      AISCRIPT_s *script) {
+  return arg != NULL ? AIPathFindLocator(sys, arg) : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x006b3e60
+void *Condition_PlayerToLocatorInit(AISYS_s *sys, char *arg,
+                                    AISCRIPT_s *script) {
+  return arg != NULL ? AIPathFindLocator(sys, arg) : NULL;
+}
