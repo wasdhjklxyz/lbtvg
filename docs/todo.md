@@ -638,7 +638,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## MiniKit
 
-- [ ] `00647150` 433 B `MiniKit_InitPieces(MINIKIT*, int, variptr_u*, variptr_u*)`  **saga** `legoapi/gizmo/base/gizmo_sys.cpp`
+- [ ] `00647150` 433 B `MiniKit_InitPieces(MINIKIT*, int, variptr_u*, variptr_u*)`  **stub** · **saga** `legoapi/gizmo/base/gizmo_sys.cpp`
 - [ ] `0047a6c0` 1482 B `MiniKit_Update(STATUS_STAGE_s*, STATUSPACKET_s*, float)`
 
 ## Missions
