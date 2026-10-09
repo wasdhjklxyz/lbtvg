@@ -30,6 +30,66 @@ void Unk005f8b10(void *p);
 extern u8 g_unk009623b4;
 extern u8 g_unk00aca1f8;
 
+// WORLDINFO +0x5220: 0x2c-byte records.
+struct AABRESETITEM_s {
+  u8 pad0[0x17];
+  u8 kind;  // 0x17
+  u8 flags; // 0x18
+  u8 pad19[0x24 - 0x19];
+  u8 active; // 0x24
+  u8 pad25[0x2c - 0x25];
+};
+
+struct AABRESETLIST_s {
+  AABRESETITEM_s *items; // 0x00
+  u32 pad4;
+  i32 count; // 0x08
+};
+
+// GLOBAL: LEGOBATMAN 0x009ce74c
+extern u8 g_unk009ce74c;
+// GLOBAL: LEGOBATMAN 0x009ce74d
+extern u8 g_unk009ce74d;
+// GLOBAL: LEGOBATMAN 0x009ce74e
+extern u8 g_unk009ce74e;
+// GLOBAL: LEGOBATMAN 0x009ce74f
+extern u8 g_unk009ce74f;
+// GLOBAL: LEGOBATMAN 0x009ce780
+extern u8 g_unk009ce780;
+// GLOBAL: LEGOBATMAN 0x009ce760
+extern i32 g_aabGhostCount;
+// GLOBAL: LEGOBATMAN 0x009ce764
+extern void *g_aabGhosts[7];
+
+extern "C" int NuSPrintf(char *buf, char *fmt, ...);
+void *Unk0044c930(AISYS_s *sys, char *name);
+
+#define AAB_LIST(w) (*(AABRESETLIST_s **)((u8 *)(w) + 0x5220))
+
+// STUB: LEGOBATMAN 0x005013a0
+// close: item/temp registers swapped eax-ecx in the reset loop, 3 tries
+void ArkhamAsylum_B_Reset(WORLDINFO_s *world) {
+  char name[12];
+  AABRESETITEM_s *item = AAB_LIST(world)->items;
+  g_unk009ce74f = 0;
+  g_unk009ce74c = 0;
+  g_unk009ce74e = 0;
+  g_unk009ce74d = 0;
+  g_unk009ce780 = 0;
+  for (i32 i = 0; item != NULL && i < AAB_LIST(world)->count; i++, item++) {
+    if ((item->flags & 8) == 0 && (u8)(item->kind - 1) <= 2)
+      item->active = 0;
+  }
+  g_aabGhostCount = 0;
+  for (i32 i = 0; i < 7; i++) {
+    NuSPrintf(name, "GHOST%d", i + 1);
+    g_aabGhosts[i] = Unk0044c930(world->aiSys2bf8, name);
+    if (g_aabGhosts[i] == NULL)
+      break;
+    g_aabGhostCount++;
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x005088e0
 void NastySewersC_Init(WORLDINFO_s *wi) {
   g_unk009ca23c = GizmoBlowUp_FindByName(wi, "sonar_mirror1");

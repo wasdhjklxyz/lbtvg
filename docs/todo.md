@@ -662,7 +662,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## ArkhamAsylum
 
-- [ ] `005013a0` 196 B `ArkhamAsylum_B_Reset(WORLDINFO_s*)`
+- [ ] `005013a0` 196 B `ArkhamAsylum_B_Reset(WORLDINFO_s*)`  **stub**
 
 ## Backdrop
 
