@@ -623,7 +623,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006573e0,0031c714,__Z16Pulses_ConfigureP11WORLDINFO_sPc,"Pulses_Configure(WORLDINFO_s*, char*)",strings,0
 00658260,00269ba6,__Z21BackdropSys_ConfigureP11WORLDINFO_sPc,"BackdropSys_Configure(WORLDINFO_s*, char*)",strings,0
 00659110,00346fb6,__Z24TrafficAnimSys_ConfigureP11WORLDINFO_sPc,"TrafficAnimSys_Configure(WORLDINFO_s*, char*)",strings,0
-0065c320,002ea63c,__Z7LoseHatP12GameObject_s,LoseHat(GameObject_s*),gapfill,3
+0065c320,002ea63c,__Z7LoseHatP12GameObject_s,LoseHat(GameObject_s*),confirmed,0
 0065e780,002a38f0,__Z17LoadEditorSplinesP11WORLDINFO_sPcP9variptr_uS3_,"LoadEditorSplines(WORLDINFO_s*, char*, variptr_u*, variptr_u*)",strings,0
 00661c30,002dba26,__Z20GizTurret_FindByNameP14GIZTURRETSYS_sPc,"GizTurret_FindByName(GIZTURRETSYS_s*, char*)",confirmed,0
 00661d60,002dbb98,__Z14GizTurrets_HitPvP11GIZTURRET_sP7nuvec_sii,"GizTurrets_Hit(void*, GIZTURRET_s*, nuvec_s*, int, int)",confirmed,0

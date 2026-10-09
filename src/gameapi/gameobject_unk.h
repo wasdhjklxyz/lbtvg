@@ -30,6 +30,8 @@ struct Unk_GameObject50 {
   u8 pad0[8];
   Unk_GameObject50_08 *p08; // 0x08
   Unk_GameObject50_0c *p0c; // 0x0c
+  u8 pad10[4];
+  void *locator_present[1]; // 0x14, indexed by locator
 };
 
 struct Unk_GameObject54_24 {
@@ -41,6 +43,9 @@ struct Unk_GameObject54_24 {
   i16 s1d6; // 0x1d6
   u8 pad2[4];
   u8 b1dc[1]; // 0x1dc
+  u8 pad1dd[0x217 - 0x1dd];
+  i8 hat_locator2; // 0x217, LoseHat fallback locator
+  i8 hat_locator;  // 0x218
 };
 
 struct Unk_GameObject54 {
@@ -135,7 +140,11 @@ struct GameObject_s {
       carried_item_flags; // 0xb38, PlayerItems_GetAllCarriedItemFlags
   u8 pad12b[0xb88 - 0xb40];
   struct SCOREMULTIPLIER_s *score_multiplier; // 0xb88
-  u8 pad12c[0x112c - 0xb8c];
+  u8 pad12c[0xb98 - 0xb8c];
+  struct {
+    f32 m[16];
+  } locator_mtx[22]; // 0xb98
+  u8 pad1118[0x112c - 0x1118];
   Unk_GameObject112c *p112c; // 0x112c
   u8 pad13[0x114c - 0x1130];
   struct TORPEDOPACKET_s *torpedo; // 0x114c
@@ -204,7 +213,9 @@ struct GameObject_s {
   f32 flicker_time; // 0x154c
   u8 pad17b[0x1568 - 0x1550];
   f32 anim_speed_mul; // 0x1568
-  u8 pad156c[0x157c - 0x156c];
+  u8 pad156c[0x1574 - 0x156c];
+  void *hat; // 0x1574, LoseHat clears it
+  u8 pad1578[0x157c - 0x1578];
   CABLE_s *cable157c; // 0x157c
   u8 pad18[0x15b0 - 0x1580];
   i16 type15b0; // 0x15b0

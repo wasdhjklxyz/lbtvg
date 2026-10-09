@@ -15,7 +15,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 |---|---|---|
 | [Action](#action) | 57 | 42 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 43 | 37 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 40 | 27 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 39 | 27 |
 | [near terrain.c](#near-terrainc) | 23 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 11 | 6 |
 | [Grabber](#grabber) | 6 | 5 |
@@ -299,7 +299,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `005d3f60` 105 B `FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)`  **stub** · **hint** name (gapfill)
 - [ ] `0059c4b0` 127 B `_ActionFromName`  **stub** · **hint** name (gapfill)
-- [ ] `0065c320` 136 B `LoseHat(GameObject_s*)`  **hint** name (gapfill)
 - [ ] `005b00d0` 153 B `LineIntersectCircle(nuvec_s*, nuvec_s*, nuvec_s*, float)`  **stub** · **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `00620370` 158 B `DrawHose(GameObject_s*)`  **hint** name (gapfill)
 - [ ] `00623850` 166 B `ParseStreakCol(nufpar_s*)`
