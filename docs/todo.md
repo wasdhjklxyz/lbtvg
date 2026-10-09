@@ -121,7 +121,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Legal](#legal) | 1 | 0 |
 | [LevelStreaming](#levelstreaming) | 2 | 0 |
 | [LightningManager](#lightningmanager) | 2 | 0 |
-| [LMC](#lmc) | 1 | 0 |
 | [LoadAreaData](#loadareadata) | 1 | 0 |
 | [MemoryManager](#memorymanager) | 2 | 0 |
 | [MovePlayer](#moveplayer) | 1 | 0 |
@@ -839,10 +838,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `006572a0` 248 B `LightningManager::Lightning_Configure(WORLDINFO_s*, char*)`
 - [ ] `006567d0` 309 B `LightningManager::Init()`  **hint** name (gapfill)
-
-## LMC
-
-- [ ] `00657160` 248 B `LMC_AddCutSceneStrike(nufpar_s*)`
 
 ## LoadAreaData
 

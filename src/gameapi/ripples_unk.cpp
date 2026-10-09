@@ -295,3 +295,51 @@ void RE_start_radius(NUFPAR *parser) {
 void RE_end_radius(NUFPAR *parser) {
   RE_rippleeffect->end_size = NuFParGetFloat(parser);
 }
+
+#include "../nu2api/nu3d/nuspecial.h"
+
+WORLDINFO_s *WorldInfo_CurrentlyLoading(void);
+extern "C" char *NuStrIStr(char *str, char *sub);
+int NuAToI(const char *s);
+
+// WORLDINFO +0x53b4
+class LightningManager {
+public:
+  void Unk00656a10(i32 frame, nuhspecial_s *special);
+
+  u8 pad0[3];
+  i8 strike_count; // 0x03
+  u8 pad4[0xcc - 4];
+  struct {
+    i32 frame;
+    u8 pad4[0x18 - 4];
+  } strikes[32]; // 0xcc
+};
+
+#define LM_OF(w) (*(LightningManager **)((u8 *)(w) + 0x53b4))
+
+// FUNCTION: LEGOBATMAN 0x00657160
+void LMC_AddCutSceneStrike(NUFPAR *parser) {
+  nuhspecial_s special;
+  WORLDINFO_s *world = WorldInfo_CurrentlyLoading();
+  i32 frame = -1;
+  char *special_name = NULL;
+  while (NuFParGetWord(parser)) {
+    if (NuStrIStr(parser->word_buf, "frame") != NULL)
+      frame = NuAToI(parser->word_buf + NuStrLen("frame "));
+    else if (NuStrIStr(parser->word_buf, "special") != NULL)
+      special_name = parser->word_buf + NuStrLen("special ");
+  }
+  if (frame != -1) {
+    if (special_name != NULL) {
+      NuSpecialFind(world->scn140, &special, special_name, 0);
+      LM_OF(world)->Unk00656a10(frame, &special);
+      return;
+    }
+    LightningManager *lm = LM_OF(world);
+    if (lm->strike_count < 32) {
+      lm->strikes[lm->strike_count].frame = frame;
+      lm->strike_count++;
+    }
+  }
+}
