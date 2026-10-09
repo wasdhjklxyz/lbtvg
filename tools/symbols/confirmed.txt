@@ -1178,3 +1178,6 @@
 0046cc10 Action_ReleaseTakeOver  keyword table 0x93bb98
 00468ce0 Action_FollowCharacter  keyword table 0x93bb98
 00470840 Action_MoveNode  keyword table 0x93bb98
+0045d330 Action_SetCurrentSpeed  keyword table 0x93bb98
+004606e0 Action_SpecialObjSetPos  keyword table 0x93bb98
+00472640 Action_AttachNodeToPlatform  keyword table 0x93bb98

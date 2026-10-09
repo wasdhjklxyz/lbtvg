@@ -3582,7 +3582,12 @@ i32 Action_FollowCharacter(AISYS_s *sys, AISCRIPTPROCESS_s *process,
 struct AIPATHNODE_s {
   char *name;  // 0x00
   nuvec_s pos; // 0x04
-  u8 pad10[0x5c - 0x10];
+  u8 pad10[0x2a - 0x10];
+  u8 on_platform; // 0x2a
+  u8 pad2b[0x40 - 0x2b];
+  nuhspecial_s platform; // 0x40
+  nuvec_s platform_pos;  // 0x4c, pos in the platform's space
+  u8 pad58[0x5c - 0x58];
 };
 
 AIPATHNODE_s *AIPathFindNode(AISYS_s *sys, AIPATH_s *path, char *name);
@@ -3617,6 +3622,136 @@ i32 Action_MoveNode(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       if (z != 1000000000.0)
         node->pos.z = z;
       AIPathNodeBeenMoved(sys, ai->path_sys->active_path, node);
+    }
+  }
+  return 1;
+}
+
+void NuVecRotateY(nuvec_s *v, nuvec_s *v0, i32 a);
+
+// FUNCTION: LEGOBATMAN 0x0045d330
+i32 Action_SetCurrentSpeed(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char **args, int argc, int flags,
+                           f32 time) {
+  f32 speed = 0.0f;
+  i32 mode = -1;
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags == 0)
+    return 1;
+  for (i32 i = 0; i < argc; i++) {
+    char *s = NuStrIStr(args[i], "character=");
+    if (s != 0)
+      obj = GetNamedGameObject(sys, s + 10);
+    else if (NuStrICmp("speed=TIPTOE", args[i]) == 0)
+      mode = 2;
+    else if (NuStrICmp("speed=WALK", args[i]) == 0)
+      mode = 1;
+    else if (NuStrICmp("speed=RUN", args[i]) == 0)
+      mode = 0;
+    else
+      speed = AIParamToFloat(process, args[i]);
+  }
+  if (obj != 0) {
+    if (mode == 2) {
+      speed = obj->p54->p24->tiptoe_speed;
+    } else if (mode == 1) {
+      speed = obj->p54->p24->walk_speed;
+    } else if (mode == 0) {
+      speed = obj->p54->p24->run_speed;
+      obj->f1254 = 1.0f;
+    }
+    obj->velocity.x = 0.0f;
+    obj->velocity.y = 0.0f;
+    obj->velocity.z = speed;
+    NuVecRotateY(&obj->velocity, &obj->velocity, obj->yaw58);
+  }
+  return 1;
+}
+
+nuvec_s *NuSpecialGetDrawPos(nuhspecial_s *special);
+void NuSpecialSetDrawPos(nuhspecial_s *special, nuvec_s *pos);
+
+// FUNCTION: LEGOBATMAN 0x004606e0
+i32 Action_SpecialObjSetPos(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char **args, int argc,
+                            int flags, f32 time) {
+  nuvec_s pos;
+  pos.x = 1000000000.0f;
+  pos.y = 1000000000.0f;
+  pos.z = 1000000000.0f;
+  if (flags != 0) {
+    nuhspecial_s special;
+    memset(&special, 0, sizeof(special));
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "name");
+      if (s != 0)
+        NuSpecialFind(g_unk00960894->scn140, &special, s + 5, 1);
+      else if ((s = NuStrIStr(args[i], "x=")) != 0)
+        pos.x = AIParamToFloat(process, s + 2);
+      else if ((s = NuStrIStr(args[i], "y=")) != 0)
+        pos.y = AIParamToFloat(process, s + 2);
+      else if ((s = NuStrIStr(args[i], "z=")) != 0)
+        pos.z = AIParamToFloat(process, s + 2);
+    }
+    if (NuSpecialExistsFn(&special) != 0) {
+      nuvec_s *cur = NuSpecialGetDrawPos(&special);
+      if (cur != 0) {
+        if (pos.x == 1000000000.0)
+          pos.x = cur->x;
+        if (pos.y == 1000000000.0)
+          pos.y = cur->y;
+        if (pos.z == 1000000000.0)
+          pos.z = cur->z;
+        NuSpecialSetDrawPos(&special, &pos);
+      }
+    }
+  }
+  return 1;
+}
+
+AIPATH_s *AISysFindPath(AISYS_s *sys, char *name);
+numtx_s *NuSpecialGetMtx(nuhspecial_s *special);
+void NuVecInvMtxTransform(nuvec_s *out, nuvec_s *v, numtx_s *m);
+
+// FUNCTION: LEGOBATMAN 0x00472640
+i32 Action_AttachNodeToPlatform(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                AIPACKET_s *packet, char **args, int argc,
+                                int flags, f32 time) {
+  char *node_name = 0;
+  char *path_name = 0;
+  char *platform_name = 0;
+  AIPATH_s *path = 0;
+  WORLDINFO_s *world = WorldInfo_CurrentlyActive();
+  nuhspecial_s special;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "node");
+      if (s != 0) {
+        node_name = s + NuStrLen("node") + 1;
+      } else if ((s = NuStrIStr(args[i], "path")) != 0) {
+        path_name = s + NuStrLen("path") + 1;
+      } else if ((s = NuStrIStr(args[i], "platform")) != 0) {
+        platform_name = s + NuStrLen("platform") + 1;
+      }
+    }
+    if (path_name != 0)
+      path = AISysFindPath(sys, path_name);
+    if (node_name != 0) {
+      AIPATHNODE_s *node = AIPathFindNode(sys, path, node_name);
+      if (node != 0) {
+        NuSpecialFind(world->scn140, &special, platform_name, 0);
+        if (NuSpecialExistsFn(&special) != 0) {
+          node->platform = special;
+          node->on_platform = 1;
+          NuVecInvMtxTransform(&node->platform_pos, &node->pos,
+                               NuSpecialGetMtx(&special));
+        } else {
+          memset(&node->platform, 0, sizeof(node->platform));
+          node->on_platform = 0;
+        }
+      }
     }
   }
   return 1;

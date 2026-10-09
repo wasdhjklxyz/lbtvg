@@ -35,7 +35,11 @@ struct Unk_GameObject50 {
 };
 
 struct Unk_GameObject54_24 {
-  u8 pad0[0xbc];
+  u8 pad0[0xa8];
+  f32 tiptoe_speed; // 0xa8
+  f32 walk_speed;   // 0xac
+  f32 run_speed;    // 0xb0
+  u8 padb4[0xbc - 0xb4];
   f32 fbc; // 0xbc, GameShadow: 0 = ignore hover layer
   u8 pad0c0[0x13c - 0xc0];
   u32 flags13c; // 0x13c, ability bits (Condition_HasAbility)
@@ -93,10 +97,11 @@ struct GameObject_s {
   u8 pad0[0x50];
   Unk_GameObject50 *p50; // 0x50
   Unk_GameObject54 *p54; // 0x54
-  u8 pad1[0x5a - 0x58];
-  i16 facing_angle; // 0x5a
-  nuvec_s position; // 0x5c
-  u8 pad1b[0x80 - 0x68];
+  u16 yaw58;             // 0x58, Action_SetCurrentSpeed rotates velocity by it
+  i16 facing_angle;      // 0x5a
+  nuvec_s position;      // 0x5c
+  nuvec_s velocity;      // 0x68
+  u8 pad1b[0x80 - 0x74];
   nuvec_s v80; // 0x80
   u8 pad2[0x1dc - 0x8c];
   f32 radius; // 0x1dc, PartyMemberInWay: sphere radius - 0.125
@@ -213,7 +218,8 @@ struct GameObject_s {
   f32 f123c; // 0x123c
   u8 pad1240[0x1250 - 0x1240];
   f32 f1250; // 0x1250
-  u8 pad1254[0x1264 - 0x1254];
+  f32 f1254; // 0x1254, Action_SetCurrentSpeed sets 1 for RUN
+  u8 pad1258[0x1264 - 0x1258];
   f32 f1264; // 0x1264
   u8 pad1268[0x1270 - 0x1268];
   f32 f1270; // 0x1270
