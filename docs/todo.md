@@ -13,7 +13,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [near rtleditor.cpp](#near-rtleditorcpp) | 96 | 70 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 95 | 69 |
 | [Action](#action) | 72 | 57 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
@@ -23,10 +23,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GameCam](#gamecam) | 5 | 5 |
 | [Grabber](#grabber) | 7 | 5 |
 | [Arcade](#arcade) | 4 | 4 |
-| [Area](#area) | 5 | 4 |
 | [Hub](#hub) | 6 | 4 |
 | [near nutrig_gen.cpp](#near-nutrig_gencpp) | 12 | 4 |
 | [Player](#player) | 4 | 4 |
+| [Area](#area) | 4 | 3 |
 | [Door](#door) | 4 | 3 |
 | [GameAudio](#gameaudio) | 3 | 3 |
 | [GizAction](#gizaction) | 3 | 3 |
@@ -263,7 +263,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0063e540` 131 B `FreeGameObjectLights()`  **hint** name (order) · **saga** `legoapi/render/light/lighting.cpp`
 - [ ] `006394f0` 133 B `FaceOpponent(GameObject_s*, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/move.cpp`
 - [ ] `0065c320` 136 B `LoseHat(GameObject_s*)`  **hint** name (gapfill)
-- [ ] `005fc2b0` 150 B `DumpAreaData(int, int)`  **hint** name (order) · **saga** `editor/edlevelall.cpp`
 - [ ] `005b00d0` 153 B `LineIntersectCircle(nuvec_s*, nuvec_s*, nuvec_s*, float)`  **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `005c8f30` 155 B `LoadGrassFile(WORLDINFO_s*)`  **saga** `legoapi/render/core/terrain.cpp`
 - [ ] `00620370` 158 B `DrawHose(GameObject_s*)`  **hint** name (gapfill)
@@ -549,14 +548,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00648290` 254 B `Arcade_DrawPanel(int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
 - [ ] `00648390` 842 B `Arcade_AwardPoint(int, int, int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
 
-## Area
-
-- [ ] `005facd0` 111 B `Area_ShuffleModelList(APICHARACTERMODELLIST_s*, int)`  **hint** name (order)
-- [ ] `005fb060` 113 B `Area_FindByName(char*, int*)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
-- [ ] `005fb1e0` 121 B `Area_FindStatusLevel(AREADATA_s*, int*)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
-- [ ] `005fb260` 140 B `Area_FindNextPlayLevel(int)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
-- [ ] `005fb430` 3692 B `Area_Configure(int, int, EXTRAMODEL*, short*)`  **saga** `legoapi/world/areas.cpp`
-
 ## Hub
 
 - [ ] `004931b0` 68 B `Hub_SignalSwitchHeroVillain(HubSwitchMode)`  **stub**
@@ -587,6 +578,13 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005c1b10` 99 B `Player_ClearContext(GameObject_s*, int)`  **saga** `legoapi/characters/core/players.cpp`
 - [ ] `005c1b80` 313 B `Player_ResetContexts(GameObject_s*)`  **saga** `legoapi/characters/core/players.cpp`
 - [ ] `005c2250` 2274 B `Player_ToggleCharacter(GameObject_s*, int, int)`  **saga** `legoapi/characters/core/players.cpp`
+
+## Area
+
+- [ ] `005facd0` 111 B `Area_ShuffleModelList(APICHARACTERMODELLIST_s*, int)`  **hint** name (order)
+- [ ] `005fb060` 113 B `Area_FindByName(char*, int*)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
+- [ ] `005fb260` 140 B `Area_FindNextPlayLevel(int)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
+- [ ] `005fb430` 3692 B `Area_Configure(int, int, EXTRAMODEL*, short*)`  **saga** `legoapi/world/areas.cpp`
 
 ## Door
 

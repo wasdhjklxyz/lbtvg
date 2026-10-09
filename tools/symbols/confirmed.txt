@@ -15,3 +15,5 @@
 005d3640 AddGameMessage  saga body matches (AddGameMsg_Default copy + AddGameMsg)
 0061f190 CharIDFromName  saga body matches (CDataList scan by file name)
 005c1860 Player_FindByID  saga body matches (Player[8] scan by id, flags 0x1001)
+005fc2b0 DumpAreaData  saga body shape matches (3 scenes removed, mode passed on)
+005fb1e0 Area_FindStatusLevel  saga body matches (first area level with LEVEL_STATUS 0x400)
