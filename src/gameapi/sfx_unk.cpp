@@ -9,6 +9,10 @@ typedef struct WORLDINFO_s {
   char config_file[0x84]; // 0x80
   variptr_u buf104;       // 0x104
   variptr_u bufEnd108;    // 0x108
+  unsigned char pad10c[0x140 - 0x10c];
+  struct nugscn_s *scn140; // 0x140
+  unsigned char pad144[0x52fc - 0x144];
+  struct PUZZLE_s *puzzle; // 0x52fc
 } WORLDINFO;
 
 i32 NuFileExists(char *name);
@@ -182,6 +186,39 @@ extern i32 g_unk009c5a00;
 extern f32 g_unk00968c74;
 
 typedef void(__thiscall *WorldMapPermFn)(WorldMapBase *, char *);
+
+struct PUZZLE_s {
+  u8 pad0[8];
+  nuhspecial_s pieces[9]; // 0x08
+};
+
+// GLOBAL: LEGOBATMAN 0x00a958ac
+extern nugscn_s *things_scene;
+// GLOBAL: LEGOBATMAN 0x00ad2a58
+extern nuhspecial_s g_puzzleTarget;
+// GLOBAL: LEGOBATMAN 0x00ad2a64
+extern nuhspecial_s g_puzzleGlow;
+
+extern "C" void NuSpecialSetVisibility(void *special_ptr, int visible);
+
+// FUNCTION: LEGOBATMAN 0x006763f0
+void Puzzle_PreLoad(void *world_ptr, void *unused) {
+  char name[0x20];
+  WORLDINFO *world = (WORLDINFO *)world_ptr;
+  if (world != NULL && world->puzzle != NULL) {
+    i32 i = 0;
+    nuhspecial_s *piece = world->puzzle->pieces;
+    for (; i < 9; i++, piece++) {
+      sprintf(name, "Ac_%d", i + 1);
+      if (NuSpecialFind(world->scn140, piece, name, 1))
+        NuSpecialSetVisibility(piece, 0);
+    }
+    if (!NuSpecialExistsFn(&g_puzzleTarget))
+      NuSpecialFind(things_scene, &g_puzzleTarget, "Ac_Target", 0);
+    if (!NuSpecialExistsFn(&g_puzzleGlow))
+      NuSpecialFind(things_scene, &g_puzzleGlow, "Ac_Glow", 0);
+  }
+}
 
 // STUB: LEGOBATMAN 0x00679ca0
 // close: only the scheduling of the leading int/float member stores and the

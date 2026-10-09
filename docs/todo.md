@@ -159,7 +159,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [PlayerItems](#playeritems) | 3 | 0 |
 | [PlayerItemTypeSys](#playeritemtypesys) | 2 | 0 |
 | [PreInterpretor](#preinterpretor) | 6 | 0 |
-| [Puzzle](#puzzle) | 1 | 0 |
 | [RailSys](#railsys) | 1 | 0 |
 | [ScoreMultiplier](#scoremultiplier) | 2 | 0 |
 | [SecurityCamera](#securitycamera) | 1 | 0 |
@@ -1019,10 +1018,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00698550` 431 B `PreInterpretor::PreInterpretor(VirtualStackAllocator&, SFShaderLang)`
 - [ ] `00698c30` 798 B `PreInterpretor::printUniforms(StringBuffer&)`
 - [ ] `006990b0` 1616 B `PreInterpretor::printVaryings(StringBuffer&)`
-
-## Puzzle
-
-- [ ] `006763f0` 218 B `Puzzle_PreLoad(void*, void*)`
 
 ## RailSys
 
