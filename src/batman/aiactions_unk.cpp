@@ -2201,6 +2201,54 @@ i32 Action_SetUseOneAtOnce(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+// STUB: LEGOBATMAN 0x0046fc00
+// from the goalrange call on, temporaries land one register later than the
+// original (eax/ecx/edx rotated); layout matches (6 tries)
+i32 Action_CircleLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  u8 *locator;
+  if (packet == NULL || packet->pd0 == NULL || packet->pd0->obj == NULL ||
+      packet->path_set == NULL || packet->path_node == NULL)
+    return 1;
+  if (flags != 0) {
+    process->action_data_1 = 0;
+    process->action_data_3 = *(void **)((u8 *)process + 0xa8);
+    if (argc != 0) {
+      for (i32 i = 0; i < argc; i++) {
+        char *value;
+        if (AIActionParseSpeedFn != 0 &&
+            AIActionParseSpeedFn(args[i], &packet->goal_speed_mode) != 0)
+          continue;
+        if ((value = NuStrIStr(args[i], "name=")) != NULL ||
+            (value = NuStrIStr(args[i], "teleport")) != NULL) {
+          process->action_data_3 =
+              AIPathFindLocator(sys, value + NuStrLen("name="));
+        } else if ((value = NuStrIStr(args[i], "goalrange")) != NULL) {
+          packet->movement_param = AIParamToFloatEx(
+              packet, process, value + NuStrLen("goalrange") + 1);
+        } else if (NuStrICmp(args[i], "reverse") == 0) {
+          packet->circle_clockwise ^= 1;
+        } else if (NuStrICmp(args[i], "anticlockwise") == 0) {
+          packet->circle_clockwise = 0;
+        } else if (NuStrICmp(args[i], "clockwise") == 0) {
+          packet->circle_clockwise = 1;
+        } else {
+          packet->movement_param = AIParamToFloatEx(packet, process, args[i]);
+        }
+      }
+    }
+  }
+  locator = (u8 *)process->action_data_3;
+  if (locator != NULL) {
+    AIMoveInstruction(packet, (nuvec_s *)(locator + 0x10),
+                      packet->movement_param, (AIPATHINFO *)(locator + 0x20), 3,
+                      packet->movement_param);
+    return 0;
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x0046f470
 i32 Action_SetAO_InitRowDist(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                              AIPACKET_s *packet, char **args, int argc,

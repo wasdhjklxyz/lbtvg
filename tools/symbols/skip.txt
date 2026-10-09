@@ -94,3 +94,4 @@
 00451690 Condition_GotOpponentLOS: esi push hoisted + else arm out of line, 4 tries
 00451150 Condition_EitherPlayerTakenOver: named-object load folded + return-tail sharing, 4 tries
 00455b90 Action_SetLastSafePathPos: separate early-return epilogue + ebx/edi swap, 3 tries
+0046fc00 Action_CircleLocator: register rotation after goalrange arg, 6 tries

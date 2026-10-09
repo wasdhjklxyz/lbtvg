@@ -55,8 +55,14 @@ struct AIPACKET_s {
   u8 pad160[0x184 - 0x160];
   f32 movement_param; // 0x184
   u8 pad188[0x1ec - 0x188];
-  nuvec_s *look_target;     // 0x1ec
-  u32 movement_event_flags; // 0x1f0
+  nuvec_s *look_target; // 0x1ec
+  union {
+    u32 movement_event_flags; // 0x1f0
+    struct {
+      u32 : 9;
+      u32 circle_clockwise : 1; // 0x1f0 bit 9, Action_CircleLocator
+    };
+  };
   u8 pad1f4[0x1fc - 0x1f4];
   u32 cnx_capabilities; // 0x1fc
 };
