@@ -33,6 +33,64 @@ i32 Action_Explode(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
   return 1;
 }
 
+AISTATE *AIStateFind(char *name, AISCRIPT *script);
+void AIScriptProcessorInit(AISYS_s *sys, AISCRIPTPROCESS_s *ai,
+                           AISCRIPTPROCESS_s *process, void *a, void *b,
+                           void *c, i32 d, AISCRIPT *script, AISTATE *state);
+
+// FUNCTION: LEGOBATMAN 0x00455750
+i32 Action_SetScriptState(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **args, int argc, int flags,
+                          f32 time) {
+  i32 set = 0;
+  char *state_name = 0;
+  Unk_AIPacketObj *target = 0;
+  AISTATE *state;
+  char *s;
+  i32 i;
+  if (flags) {
+    if (packet && packet->pd0)
+      target = packet->pd0;
+    for (i = 0; i < argc; i++) {
+      if ((s = NuStrIStr(args[i], "character="))) {
+        if (GetNamedAPIObjectFn)
+          target = GetNamedAPIObjectFn(sys, s + 10);
+      } else if ((s = NuStrIStr(args[i], "set="))) {
+        set = (i32)AIParamToFloat(process, s + 4);
+        if (set < 0 || set > 16)
+          set = 0;
+      } else if ((s = NuStrIStr(args[i], "state="))) {
+        state_name = s + 6;
+      }
+    }
+    if (state_name != 0) {
+      if (set != 0) {
+        GameObject_s *object = Obj;
+        for (i = 0; i < HIGHGAMEOBJECT; i++, object++) {
+          Unk_AIPacketObj *obj = (Unk_AIPacketObj *)object;
+          if ((object->flags1fc & 1) && (object->flags1fc & 0x1000) &&
+              object->process290[0x344 - 0x290] == set) {
+            state = AIStateFind(state_name, obj->ai->base_script);
+            if (state != 0) {
+              obj->ai->active_ref_count = 0;
+              AIScriptProcessorInit(sys, obj->ai, obj->ai, 0, 0, 0, 0,
+                                    obj->ai->base_script, state);
+            }
+          }
+        }
+      } else if (target && target->ai && target->ai->base_script) {
+        state = AIStateFind(state_name, target->ai->base_script);
+        if (state != 0) {
+          target->ai->active_ref_count = 0;
+          AIScriptProcessorInit(sys, target->ai, target->ai, 0, 0, 0, 0,
+                                target->ai->base_script, state);
+        }
+      }
+    }
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x0045af10
 i32 Action_SetIgnorePlayerItemsTargetting(AISYS_s *sys,
                                           AISCRIPTPROCESS_s *process,

@@ -18,9 +18,11 @@ struct AILOCALMESSAGE_s;
 
 // APIOBJECT_s in ref/saga/src/legoapi/items/base/apiobject.h: a GameObject_s*
 // first, position at +0x5c.
+struct AISCRIPTPROCESS_s;
 struct Unk_AIPacketObj {
-  GameObject_s *obj; // 0x00
-  u8 pad0[0x5c - 4];
+  GameObject_s *obj;            // 0x00
+  struct AISCRIPTPROCESS_s *ai; // 0x04
+  u8 pad0[0x5c - 8];
   nuvec_s pos5c; // 0x5c
 };
 

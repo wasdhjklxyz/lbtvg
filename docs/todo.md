@@ -13,7 +13,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [Action](#action) | 64 | 49 |
+| [Action](#action) | 63 | 48 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 45 | 38 |
 | [near rtleditor.cpp](#near-rtleditorcpp) | 59 | 33 |
 | [near terrain.c](#near-terrainc) | 34 | 9 |
@@ -211,7 +211,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0045f9e0` 404 B `Action_SetMaxMovementRange(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00470fd0` 412 B `Action_AddItem(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `00468190` 453 B `Action_FaceCamera(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00455750` 455 B `Action_SetScriptState(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00473e40` 471 B `Action_ChangeSpecialRoute(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `006a4640` 490 B `_Action_Idle`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00464d10` 493 B `Action_UseForce(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
