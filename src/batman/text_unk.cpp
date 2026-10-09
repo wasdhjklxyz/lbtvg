@@ -1,6 +1,7 @@
 // batman/, file unknown (between LoadPerm2 and Text_LoadStrings).
 
 #include "../nu2api/nucore/nustring.h"
+#include <stdio.h>
 #include <string.h>
 
 // FUNCTION: LEGOBATMAN 0x004f9a60
@@ -191,6 +192,55 @@ void Text_MakeScore(u32 score, char *text) {
   }
 
   Text_InsertCommasIntoNumber(first, text, static_cast<i32>(end - first));
+}
+
+f32 NuFmod(f32 a, f32 b);
+
+// FUNCTION: LEGOBATMAN 0x0059dd10
+void Text_MakeTime(float time, i32 show_hours, i32 show_minutes,
+                   i32 show_centiseconds, char *text) {
+  if (time < 0.0f)
+    time = 0.0f;
+
+  i32 hours;
+  i32 minutes;
+  if (show_hours != 0) {
+    hours = static_cast<i32>(time / 3600.0f);
+    minutes = static_cast<i32>(NuFmod(time / 60.0f, 60.0f));
+  } else {
+    hours = 0;
+    minutes = static_cast<i32>(time / 60.0f);
+  }
+
+  i32 seconds;
+  if (show_hours != 0 || show_minutes != 0) {
+    seconds = static_cast<i32>(NuFmod(time, 60.0f));
+  } else {
+    seconds = static_cast<i32>(time);
+  }
+  const i32 centiseconds = static_cast<i32>(NuFmod(time, 1.0f) * 100.0f);
+
+  if (text == 0) {
+    return;
+  }
+
+  if (show_hours != 0) {
+    if (show_centiseconds != 0) {
+      sprintf(text, "%i:%.2i:%.2i.%.2i", hours, minutes, seconds, centiseconds);
+    } else {
+      sprintf(text, "%i:%.2i:%.2i", hours, minutes, seconds);
+    }
+  } else if (show_minutes != 0) {
+    if (show_centiseconds != 0) {
+      sprintf(text, "%i:%.2i.%.2i", minutes, seconds, centiseconds);
+    } else {
+      sprintf(text, "%i:%.2i", minutes, seconds);
+    }
+  } else if (show_centiseconds != 0) {
+    sprintf(text, "%i.%.2i", seconds, centiseconds);
+  } else {
+    sprintf(text, "%i", seconds);
+  }
 }
 
 // name is a Mac pairing hint (gapfill): verify

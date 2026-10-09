@@ -21,7 +21,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Grabber](#grabber) | 7 | 5 |
 | [Hub](#hub) | 6 | 4 |
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 5 | 4 |
-| [Text](#text) | 5 | 4 |
+| [Text](#text) | 4 | 3 |
 | [Arcade](#arcade) | 2 | 2 |
 | [Area](#area) | 3 | 2 |
 | [Condition](#condition) | 3 | 2 |
@@ -339,7 +339,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006397b0` 329 B `SlowWeaponOut(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
 - [ ] `00597e60` 336 B `_InitGameDebris`  **hint** name (order)
 - [ ] `0059a110` 338 B `_AnimDuration`  **hint** name (gapfill)
-- [ ] `005b0510` 374 B `InitSplinePosition(SPLINEPOS_s*, nugspline_s*, float, int)`  **hint** name (order) · **saga** `legoapi/render/fx/edsplines.cpp`
+- [ ] `005b0510` 374 B `InitSplinePosition(SPLINEPOS_s*, nugspline_s*, float, int)`  **stub** · **hint** name (order) · **saga** `legoapi/render/fx/edsplines.cpp`
 - [ ] `005af8c0` 380 B `LineIntersectXY(nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `005bd2d0` 423 B `LoadGizmoSys(GIZMOSYS_s*, void*, char*)`  **saga** `legoapi/gizmo/base/gizmo_sys.cpp`
 - [ ] `0059f9a0` 437 B `PlayLandSfx(GameObject_s*, int, int)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
@@ -445,7 +445,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `0059d7c0` 119 B `Text_InitStringTable(int, variptr_u*, variptr_u*)`  **stub** · **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
 - [ ] `0059d850` 169 B `Text_PlatformSpecificIgnore(nufpar_s*)`  **hint** name (order)
-- [ ] `0059dd10` 392 B `Text_MakeTime(float, int, int, int, char*)`  **saga** `legoapi/menus/core/text.cpp`
 - [ ] `00408e60` 462 B `Text_ExpandButtonString(char*, char*)`  **saga** `legoapi/misc/androidbatman.cpp`
 - [ ] `0059d900` 544 B `Text_LoadAndFixUpStrings(unsigned char*, unsigned char**, char**, int)`  **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
 
