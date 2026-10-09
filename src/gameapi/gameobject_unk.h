@@ -359,6 +359,10 @@ struct GameObject_s {
       u32 : 26;
       u32 ignore_last_safe_path_pos : 1; // 0x1414 bit 26
     };
+    struct {
+      u32 : 16;
+      u32 use_one_at_once : 1; // 0x1414 bit 16
+    };
   };
   union {
     u32 flags1418; // 0x1418
@@ -425,8 +429,9 @@ struct GameObject_s {
   GameObject_s *last_attacker; // 0x15ec, Condition_BeenHitBy
   u8 pad15f0[0x1618 - 0x15f0];
   struct GIZFORCE_s *gizforce_target; // 0x1618
-  u8 pad19[0x162c - 0x161c];
-  i16 s162c; // 0x162c
+  u8 pad19[0x1628 - 0x161c];
+  struct AITRIGGERSET_s *active_trigger_set; // 0x1628, Action_UseTriggerSet
+  i16 s162c;                                 // 0x162c
   u8 pad20[0x1648 - 0x162e];
 };
 

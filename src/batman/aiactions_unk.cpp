@@ -2114,6 +2114,35 @@ i32 Action_WalkBackwards(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 0;
 }
 
+// FUNCTION: LEGOBATMAN 0x0046f160
+i32 Action_SetUseOneAtOnce(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char **args, int argc, int flags,
+                           f32 time) {
+  GameObject_s *obj = NULL;
+  i32 enabled = 1;
+  if (flags != 0) {
+    if (packet != NULL)
+      obj = packet->pd0->obj;
+    if (argc != 0) {
+      for (i32 i = 0; i < argc; i++) {
+        char *value = NuStrIStr(args[i], "character");
+        if (value != NULL) {
+          value += 10;
+          if (NuStrICmp(value, "myself") == 0 && packet != NULL)
+            obj = packet->pd0->obj;
+          else
+            obj = GetNamedGameObject(g_unk00960894->aiSys2bf8, value);
+        } else if (NuStrICmp(args[i], "FALSE") == 0) {
+          enabled = 0;
+        }
+      }
+    }
+    if (obj != NULL)
+      obj->use_one_at_once = enabled;
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x0046f470
 i32 Action_SetAO_InitRowDist(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                              AIPACKET_s *packet, char **args, int argc,
@@ -5070,6 +5099,47 @@ f32 GameShadow(GameObject_s *object, nuvec_s *position, f32 probe_height,
 void AISysGetPathPos2(AISYS_s *sys, nuvec_s *pos, AIPATHINFO *info,
                       nuvec_s *out, struct AIPATHSET_s *path, i32 a);
 i32 GizTechno_CanUseTechno(GameObject_s *obj, TECHNO_s *techno);
+
+// 0x254-byte trigger sets at WORLDINFO_s::ai_trigger_set_sys.
+struct AITRIGGERSET_s {
+  u8 pad0[0x250];
+  u16 flags; // 0x250
+  u8 pad252[0x254 - 0x252];
+};
+
+i32 Action_HelpWithTriggers(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char **args, int argc,
+                            int flags, f32 time);
+
+// FUNCTION: LEGOBATMAN 0x00469f60
+i32 Action_UseTriggerSet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  GameObject_s *obj;
+  AITRIGGERSET_s *set;
+  if (packet == NULL || packet->pd0 == NULL || packet->pd0->obj == NULL ||
+      sys == NULL || *(GameObject_s **)((u8 *)sys + 0x1698) == NULL)
+    return 1;
+  obj = packet->pd0->obj;
+  if (flags != 0 && g_unk00960894->ai_trigger_set_sys != NULL) {
+    for (i32 i = 0; i < argc; i++) {
+      char *value = NuStrIStr(args[i], "set=");
+      if (value != NULL) {
+        i32 index = (i32)AIParamToFloat(process, value + 4);
+        if ((u32)(index - 1) <= 31)
+          process->action_data_3 =
+              &((AITRIGGERSET_s *)g_unk00960894->ai_trigger_set_sys)[index - 1];
+      }
+    }
+  }
+  set = (AITRIGGERSET_s *)process->action_data_3;
+  if (set != NULL) {
+    obj->active_trigger_set = set;
+    set->flags |= 2;
+    Action_HelpWithTriggers(sys, process, packet, args, argc, flags, time);
+  }
+  return 0;
+}
 
 // FUNCTION: LEGOBATMAN 0x0046a670
 i32 Action_UseTechno(AISYS_s *sys, AISCRIPTPROCESS_s *process,
