@@ -199,3 +199,16 @@
 0070f7d0 NuSpecialGetFirst  saga body (first legacy or display special)
 0070f830 NuSpecialGetNext  saga body (advance 0x50 legacy / 0xd0 display)
 0070f8b0 NuSpecialNumMtls  saga body (last-LOD material links or clip-object count)
+0070fc30 NuSpecialGetInstanceMtx  saga body (legacy instance or display draw_mtx)
+0070fc50 NuSpecialSetInstanceMtx  saga body (copies matrix into legacy instance)
+0070fd40 NuSpecialClear  saga body (zero handle)
+0070fdf0 NuSpecialSetClipping  saga body (swap clip state, -1 when disabled)
+0070fe20 NuSpecialAddShadowLight  appends light to the 4-entry active shadow light list (saga stub is empty)
+0070fed0 NuSpecialClearShadowLights  clears the active shadow light list and clip overrides
+0070ff10 NuSpecialGetActiveShadowLights  Mac order after SetClipping; returns active count
+0070ff20 NuSpecialHasActiveShadowLights  Mac order; count > 0
+0070ff30 NuSpecialGetShadowLight  Mac order; indexes active list
+0070ff40 NuSpecialHaveShadowClipTestResults  saga body
+0070ff50 NuSpecialGetShadowClipTestResult  Mac order; -1 without overrides
+0070ff70 NuSpecialClearShadowClipTestResults  saga body
+0070ff80 NuSpecialSetShadowClipTestResultsOff  Mac order; sets overrides on, results 0

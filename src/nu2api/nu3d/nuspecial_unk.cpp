@@ -484,6 +484,21 @@ numtx_s *NuSpecialGetDrawMtx(nuhspecial_s *sp) {
   return 0;
 }
 
+// FUNCTION: LEGOBATMAN 0x0070fc30
+numtx_s *NuSpecialGetInstanceMtx(nuhspecial_s *special) {
+  if (special->special != 0)
+    return (numtx_s *)special->special->instance;
+  if (special->display_special != 0)
+    return &special->display_special->draw_mtx;
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070fc50
+void NuSpecialSetInstanceMtx(nuhspecial_s *special, numtx_s *matrix) {
+  if (special != 0 && special->scene != 0 && special->special != 0)
+    *(numtx_s *)special->special->instance = *matrix;
+}
+
 // FUNCTION: LEGOBATMAN 0x0070fce0
 nuinstanim_s *NuSpecialGetInstAnim(nuhspecial_s *sp) {
   nuinstanim_s *anim;
@@ -504,6 +519,111 @@ int NuSpecialCompare(nuhspecial_s *a, nuhspecial_s *b) {
   if (a->display_special && a->display_special == b->display_special)
     return 1;
   return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070fd40
+void NuSpecialClear(nuhspecial_s *special) {
+  special->scene = 0;
+  special->special = 0;
+  special->display_special = 0;
+}
+
+// GLOBAL: LEGOBATMAN 0x009a248c
+extern int nuspecial_clip_state;
+
+// FUNCTION: LEGOBATMAN 0x0070fdf0
+int NuSpecialSetClipping(int enabled, int state) {
+  int previous = nuspecial_clip_state;
+  if (enabled == 0)
+    nuspecial_clip_state = -1;
+  else
+    nuspecial_clip_state = state;
+  return previous;
+}
+
+struct nulight_s {
+  unsigned char pad0[4];
+  unsigned char enabled; // 0x04
+  unsigned char pad5;
+  unsigned char casts_shadow; // 0x06
+  unsigned char pad7[0x12e0 - 7];
+  int shadow_active; // 0x12e0
+};
+
+class NuShadowLightManagerUnk {
+public:
+  void AddUnk0070a420(nulight_s *light);
+};
+
+// GLOBAL: LEGOBATMAN 0x029e6380
+extern NuShadowLightManagerUnk nuspecial_shadow_manager;
+
+// GLOBAL: LEGOBATMAN 0x029e6514
+extern int nuspecial_nshadowlights;
+
+// GLOBAL: LEGOBATMAN 0x029edc84
+extern nulight_s *nuspecial_shadowlights[4];
+
+// GLOBAL: LEGOBATMAN 0x029f1964
+extern int nuspecial_shadowLightHaveClipOverrides;
+
+// GLOBAL: LEGOBATMAN 0x029ee850
+extern int nuspecial_shadowLightClipOverrides[4];
+
+// FUNCTION: LEGOBATMAN 0x0070fe20
+void NuSpecialAddShadowLight(nulight_s *light) {
+  if (nuspecial_nshadowlights < 4 && light->enabled != 0 &&
+      light->shadow_active == 0 && light->casts_shadow != 0) {
+    light->shadow_active = 1;
+    nuspecial_shadowlights[nuspecial_nshadowlights++] = light;
+    nuspecial_shadowLightHaveClipOverrides = 0;
+    nuspecial_shadow_manager.AddUnk0070a420(light);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x0070fed0
+void NuSpecialClearShadowLights(void) {
+  for (int i = 0; i != nuspecial_nshadowlights; i++)
+    nuspecial_shadowlights[i]->shadow_active = 0;
+  nuspecial_nshadowlights = 0;
+  nuspecial_shadowLightHaveClipOverrides = 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070ff10
+int NuSpecialGetActiveShadowLights(void) { return nuspecial_nshadowlights; }
+
+// FUNCTION: LEGOBATMAN 0x0070ff20
+int NuSpecialHasActiveShadowLights(void) { return nuspecial_nshadowlights > 0; }
+
+// FUNCTION: LEGOBATMAN 0x0070ff30
+nulight_s *NuSpecialGetShadowLight(int index) {
+  return nuspecial_shadowlights[index];
+}
+
+// FUNCTION: LEGOBATMAN 0x0070ff40
+int NuSpecialHaveShadowClipTestResults(void) {
+  return nuspecial_shadowLightHaveClipOverrides;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070ff50
+int NuSpecialGetShadowClipTestResult(int index) {
+  if (nuspecial_shadowLightHaveClipOverrides == 0)
+    return -1;
+  return nuspecial_shadowLightClipOverrides[index];
+}
+
+// FUNCTION: LEGOBATMAN 0x0070ff70
+void NuSpecialClearShadowClipTestResults(void) {
+  nuspecial_shadowLightHaveClipOverrides = 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070ff80
+void NuSpecialSetShadowClipTestResultsOff(void) {
+  nuspecial_shadowLightHaveClipOverrides = 1;
+  nuspecial_shadowLightClipOverrides[0] = 0;
+  nuspecial_shadowLightClipOverrides[1] = 0;
+  nuspecial_shadowLightClipOverrides[2] = 0;
+  nuspecial_shadowLightClipOverrides[3] = 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x0070ffe0
