@@ -110,6 +110,50 @@ void GameAudio_PlaySfx(i32 sfx, nuvec_s *position, i32 flags, i32 volume) {
   }
 }
 
+// STUB: LEGOBATMAN 0x0059f8d0
+// skipped: switch on jump type compiles to a jump table; not attempted.
+#if 0
+void PlaySfxByIdAndSetVolume(i32 sfx_id, nuvec_s *position, f32 volume);
+
+// from saga legoapi/audio/sfx.cpp
+void PlayJumpSfx(GameObject_s *object, i32 type) {
+    i32 sfx;
+    const u32 flags = object->apiobj.character_data->model_flags;
+    if ((flags & 0x40) != 0) {
+        sfx = GameAudio->sfx_ids[1];
+    } else if ((flags & 8) != 0) {
+        switch (type) {
+            case 0:
+                sfx = GameAudio->sfx_ids[2];
+                break;
+            case 1:
+                sfx = GameAudio->sfx_ids[3];
+                break;
+            case 2:
+                sfx = GameAudio->sfx_ids[6];
+                break;
+            case 3:
+                sfx = GameAudio->sfx_ids[4];
+                break;
+            case 4:
+                sfx = GameAudio->sfx_ids[5];
+                break;
+            default:
+                return;
+        }
+    } else {
+        sfx = GameAudio->sfx_ids[0];
+    }
+    if (sfx != -1) {
+        if (static_cast<i8>(object->apiobj.flags_low) >= 0 && (object->field_0xefb & 8) == 0) {
+            PlaySfxByIdAndSetVolume(sfx, &object->apiobj.lower_position, 0.5f);
+        } else {
+            GameAudio_PlaySfxById(sfx, &object->apiobj.lower_position, 0, 1);
+        }
+    }
+}
+#endif
+
 // FUNCTION: LEGOBATMAN 0x005a1fb0
 void GameCam_NewShake(GAMECAMERA_s *camera, float amount, float duration,
                       float speed) {

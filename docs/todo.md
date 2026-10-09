@@ -300,7 +300,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005b00d0` 153 B `LineIntersectCircle(nuvec_s*, nuvec_s*, nuvec_s*, float)`  **stub** · **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `00620370` 158 B `DrawHose(GameObject_s*)`  **hint** name (gapfill)
 - [ ] `00623850` 166 B `ParseStreakCol(nufpar_s*)`
-- [ ] `0059f8d0` 185 B `PlayJumpSfx(GameObject_s*, int)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
+- [ ] `0059f8d0` 185 B `PlayJumpSfx(GameObject_s*, int)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
 - [ ] `0063e3b0` 185 B `LoadLights(WORLDINFO_s*, char*)`  **saga** `legoapi/render/light/lighting.cpp`
 - [ ] `005aa1f0` 187 B `InitGrappleMtls(variptr_u*, variptr_u*)`
 - [ ] `0063e470` 187 B `InitGameObjectLights()`  **hint** name (order) · **saga** `legoapi/render/light/lighting.cpp`
