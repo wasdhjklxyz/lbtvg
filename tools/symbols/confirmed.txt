@@ -1117,3 +1117,11 @@
 00467eb0 Action_DontRaycastLOS  keyword table 0x93bb98
 0046f470 Action_SetAO_InitRowDist  keyword table 0x93bb98
 00472830 Action_PlayerItemIgnoreLOS  keyword table 0x93bb98
+004633a0 Action_CanShootOffScreen  keyword table 0x93bb98
+00465a10 Action_SetLoopingSfx  keyword table 0x93bb98
+004687f0 Action_PlayOverlay  keyword table 0x93bb98
+0046cce0 Action_RegisterTakeOverObject  keyword table 0x93bb98
+00453900 Action_DropCurrentItem  keyword table 0x93bb98
+0046ba60 Action_ReleaseLocator  keyword table 0x93bb98
+00472580 Action_SetFlockAntinodeActive  keyword table 0x93bb98
+004729b0 Action_SetDontDrawNumFrames  keyword table 0x93bb98

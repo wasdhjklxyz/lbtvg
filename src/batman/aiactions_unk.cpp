@@ -1905,3 +1905,183 @@ i32 Action_PlayerItemIgnoreLOS(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   obj->item_ignore_los = on;
   return 1;
 }
+
+// FUNCTION: LEGOBATMAN 0x004633a0
+i32 Action_CanShootOffScreen(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char **args, int argc,
+                             int flags, f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags != 0) {
+    obj->flags1580 |= 4;
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "TRUE") == 0)
+        obj->flags1580 |= 4;
+      else if (NuStrICmp(args[i], "FALSE") == 0)
+        obj->flags1580 &= ~4;
+    }
+  }
+  return 1;
+}
+
+u16 GetSfxId(char *name);
+
+// FUNCTION: LEGOBATMAN 0x00465a10
+i32 Action_SetLoopingSfx(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  i32 sfx = -1;
+  char *name = 0;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "name=");
+      if (s != 0)
+        name = s + 5;
+    }
+  }
+  GameObject_s *obj = packet->pd0->obj;
+  if (obj != 0) {
+    if (name != 0)
+      sfx = GetSfxId(name);
+    obj->looping_sfx = sfx;
+  }
+  return 1;
+}
+
+struct NuMusic {
+  i32 GetTrackHandle(u32 type, const char *name);
+  void SelectTrackByHandle(u32 type, i32 handle);
+  void PlayTrack(u32 type);
+};
+
+extern NuMusic music_man;
+
+// FUNCTION: LEGOBATMAN 0x004687f0
+i32 Action_PlayOverlay(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                       AIPACKET_s *packet, char **args, int argc, int flags,
+                       f32 time) {
+  char *name = 0;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "name");
+      if (s != 0)
+        name = s + NuStrLen("name") + 1;
+    }
+    if (name != 0) {
+      i32 handle = music_man.GetTrackHandle(8, name);
+      if (handle != -1) {
+        music_man.SelectTrackByHandle(8, handle);
+        music_man.PlayTrack(8);
+      }
+    }
+  }
+  return 1;
+}
+
+void RegisterTakeOverObject(GameObject_s *obj);
+
+// FUNCTION: LEGOBATMAN 0x0046cce0
+i32 Action_RegisterTakeOverObject(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                  AIPACKET_s *packet, char **args, int argc,
+                                  int flags, f32 time) {
+  GameObject_s *obj = 0;
+  if (flags == 0)
+    return 1;
+  if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+    obj = packet->pd0->obj;
+  for (i32 i = 0; i < argc; i++) {
+    char *s = NuStrIStr(args[i], "character=");
+    if (s != 0)
+      obj = GetNamedGameObject(sys, s + 10);
+  }
+  if (obj != 0)
+    RegisterTakeOverObject(obj);
+  return 1;
+}
+
+void PlayerItems_DropCurrentItem(GameObject_s *obj, i32 can_pickup_again,
+                                 nuvec_s *vel);
+
+// FUNCTION: LEGOBATMAN 0x00453900
+i32 Action_DropCurrentItem(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char **args, int argc, int flags,
+                           f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  nuvec_s vel;
+  vel.x = vel.y = vel.z = 0.0f;
+  i32 can_pickup_again = 0;
+  if (flags != 0) {
+    GameObject_s *obj = packet->pd0->obj;
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "can_pickup_again") == 0)
+        can_pickup_again = 1;
+    }
+    PlayerItems_DropCurrentItem(obj, can_pickup_again, &vel);
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0046ba60
+i32 Action_ReleaseLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **args, int argc, int flags,
+                          f32 time) {
+  GameObject_s *obj = 0;
+  if (flags != 0) {
+    if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+      obj = packet->pd0->obj;
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "character=");
+      if (s != 0)
+        obj = GetNamedGameObject(sys, s + 10);
+    }
+    if (obj != 0)
+      *(void **)(obj->process290 + 0xa8) = 0;
+  }
+  return 1;
+}
+
+struct sGizFlockAntinode;
+sGizFlockAntinode *GizFlock_FindAntinodeByName(const char *name);
+void GizFlock_ActivateAntinode(sGizFlockAntinode *antinode, u32 active);
+
+// FUNCTION: LEGOBATMAN 0x00472580
+i32 Action_SetFlockAntinodeActive(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                  AIPACKET_s *packet, char **args, int argc,
+                                  int flags, f32 time) {
+  if (argc != 0) {
+    sGizFlockAntinode *antinode = 0;
+    u32 active = 1;
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "name=");
+      if (s != 0) {
+        s += NuStrLen("name=");
+        antinode = GizFlock_FindAntinodeByName(s);
+      } else if (NuStrICmp(args[i], "FALSE") == 0)
+        active = 0;
+    }
+    if (antinode != 0)
+      GizFlock_ActivateAntinode(antinode, active);
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x004729b0
+i32 Action_SetDontDrawNumFrames(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                AIPACKET_s *packet, char **args, int argc,
+                                int flags, f32 time) {
+  i32 frames = 1;
+  if (packet == 0 || packet->pd0 == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  for (i32 i = 0; i < argc; i++) {
+    char *s = NuStrIStr(args[i], "num_frames");
+    if (s != 0) {
+      s = s + NuStrLen("num_frames") + 1;
+      frames = (i32)AIParamToFloatEx(packet, process, s);
+    }
+  }
+  obj->dont_draw_frames = frames;
+  return 1;
+}

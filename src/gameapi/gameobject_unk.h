@@ -208,9 +208,10 @@ struct GameObject_s {
   u8 pad12fe[0x1300 - 0x12fe];
   i16 s1300; // 0x1300
   i16 s1302; // 0x1302
-  u8 pad1304[0x130c - 0x1304];
-  u32 flags130c; // 0x130c
-  u32 flags1310; // 0x1310
+  u8 pad1304[0x130a - 0x1304];
+  u16 looping_sfx; // 0x130a
+  u32 flags130c;   // 0x130c
+  u32 flags1310;   // 0x1310
   u8 pad14b[0x131c - 0x1314];
   u8 b131c;              // 0x131c
   u8 weapon_scale_state; // 0x131d
@@ -249,11 +250,14 @@ struct GameObject_s {
   void *hat; // 0x1574, LoseHat clears it
   u8 pad1578[0x157c - 0x1578];
   CABLE_s *cable157c; // 0x157c
-  u8 pad18[0x15b0 - 0x1580];
+  u32 flags1580;      // 0x1580, 4 = can shoot off screen
+  u8 pad18[0x15b0 - 0x1584];
   i16 type15b0; // 0x15b0
   u8 pad15b2[0x15bc - 0x15b2];
   i16 platform_id; // 0x15bc, -1 = none (PlatOnOff index)
-  u8 pad15be[0x15c6 - 0x15be];
+  u8 pad15be[0x15bf - 0x15be];
+  u8 dont_draw_frames; // 0x15bf
+  u8 pad15c0[0x15c6 - 0x15c0];
   u8 hitpoints;  // 0x15c6, max
   i8 current_hp; // 0x15c7
   u8 pad15c8[0x15ec - 0x15c8];
