@@ -242,7 +242,9 @@ struct GameObject_s {
   u8 pad15be[0x15c6 - 0x15be];
   u8 hitpoints;  // 0x15c6, max
   i8 current_hp; // 0x15c7
-  u8 pad15c8[0x1618 - 0x15c8];
+  u8 pad15c8[0x15ec - 0x15c8];
+  GameObject_s *last_attacker; // 0x15ec, Condition_BeenHitBy
+  u8 pad15f0[0x1618 - 0x15f0];
   struct GIZFORCE_s *gizforce_target; // 0x1618
   u8 pad19[0x162c - 0x161c];
   i16 s162c; // 0x162c

@@ -217,6 +217,134 @@ i32 Condition_BeenHitByInit(AISYS_s *sys, char *str, AISCRIPT_s *script) {
   return result;
 }
 
+// AISYS_s is opaque here; only player_1 is evidenced.
+struct AISysPlayer1_s {
+  u8 pad0[0x1698];
+  GameObject_s *player_1; // 0x1698
+  GameObject_s *player_2; // 0x169c
+};
+
+i32 ObjHitObj_Flags(GameObject_s *object);
+
+// FUNCTION: LEGOBATMAN 0x0044db10
+f32 Condition_BeenHitBy(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char *str, void *data) {
+  GameObject_s *obj = packet->pd0->obj;
+  if (obj != NULL && (obj->flags140c & 1) && obj->last_attacker != NULL &&
+      ((i32)data & ObjHitObj_Flags(obj->last_attacker)) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044db60
+void *Condition_BeenHitByNamedObjInit(AISYS_s *sys, char *name,
+                                      AISCRIPT_s *script) {
+  return name != NULL && GetNamedAPIObjectFn != NULL
+             ? GetNamedAPIObjectFn(sys, name)
+             : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044db90
+f32 Condition_BeenHitByNamedObj(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                AIPACKET_s *packet, char *str, void *data) {
+  GameObject_s *obj = packet->pd0->obj;
+  if (obj != NULL && data != NULL && (obj->flags140c & 1) &&
+      obj->last_attacker != NULL && obj->last_attacker == data)
+    return 1.0f;
+  return 0.0f;
+}
+
+// The packet's owner is the object itself (GameObject_s view of pd0).
+#define OWNER(packet) ((GameObject_s *)(packet)->pd0)
+
+// FUNCTION: LEGOBATMAN 0x0044dbe0
+f32 Condition_IAmAGoody(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char *str, void *data) {
+  if (packet == NULL || packet->pd0 == NULL)
+    return 0.0f;
+  if (OWNER(packet)->flags1f8 & 5)
+    return 0.0f;
+  return 1.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044dc10
+f32 Condition_IAmABaddy(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL &&
+      (OWNER(packet)->flags1f8 & 0x10001) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044dc40
+f32 Condition_IAmANeutral(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL &&
+      (OWNER(packet)->flags1f8 & 4) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044dc70
+f32 Condition_IAmAGoodieBaddie(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                               AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL &&
+      (OWNER(packet)->flags1f8 & 0x10000) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044dca0
+void *Condition_EitherPlayerIsInit(AISYS_s *sys, char *arg,
+                                   AISCRIPT_s *script) {
+  return arg != NULL && GetNamedAPIObjectFn != NULL
+             ? GetNamedAPIObjectFn(sys, arg)
+             : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044dcd0
+f32 Condition_EitherPlayerIs(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char *str, void *argument) {
+  if (sys != NULL && argument != NULL &&
+      (((AISysPlayer1_s *)sys)->player_1 == argument ||
+       ((AISysPlayer1_s *)sys)->player_2 == argument))
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044dd00
+f32 Condition_Player1Is(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char *str, void *argument) {
+  if (sys != NULL && argument != NULL &&
+      ((AISysPlayer1_s *)sys)->player_1 == argument)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044dd30
+f32 Condition_Player2Is(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char *str, void *argument) {
+  if (sys != NULL && argument != NULL &&
+      ((AISysPlayer1_s *)sys)->player_2 == argument)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044dd60
+f32 Condition_IAmPlayer2(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL) {
+    if (player == Player[0]) {
+      if (packet->pd0->obj == Player[1])
+        return 1.0f;
+    } else if (player == Player[1]) {
+      if (packet->pd0->obj == Player[0])
+        return 1.0f;
+    }
+  }
+  return 0.0f;
+}
+
 // GLOBAL: LEGOBATMAN 0x0096052c
 extern i32 g_unk0096052c;
 // GLOBAL: LEGOBATMAN 0x00960528
@@ -293,12 +421,6 @@ i32 Condition_SideInit(AISYS_s *sys, char *str, AISCRIPT_s *script) {
 }
 
 f32 NuVecDist(nuvec_s *v0, nuvec_s *v1, nuvec_s *d);
-
-// AISYS_s is opaque here; only player_1 is evidenced.
-struct AISysPlayer1_s {
-  u8 pad0[0x1698];
-  GameObject_s *player_1; // 0x1698
-};
 
 // FUNCTION: LEGOBATMAN 0x00451da0
 f32 Condition_OpponentToPlayerRange(AISYS_s *sys, AISCRIPTPROCESS_s *process,

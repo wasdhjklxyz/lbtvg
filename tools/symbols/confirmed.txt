@@ -427,3 +427,15 @@
 00452eb0 Condition_IAmInSpecialMove   matched, Mac order after Condition_GotCnxCapability
 00452f90 Condition_OpponentIsAVehicle  matched, Mac order after Condition_OpponentAngle
 00452fd0 Condition_NeutralInTriggerAreaInit  matched (AISysFindArea), Mac order
+0044db10 Condition_BeenHitBy   matched, Mac order of the Condition_* run after Condition_BeenHitByInit
+0044db60 Condition_BeenHitByNamedObjInit   matched, Mac order of the Condition_* run after Condition_BeenHitByInit
+0044db90 Condition_BeenHitByNamedObj   matched, Mac order of the Condition_* run after Condition_BeenHitByInit
+0044dbe0 Condition_IAmAGoody   matched, Mac order of the Condition_* run after Condition_BeenHitByInit
+0044dc10 Condition_IAmABaddy   matched, Mac order of the Condition_* run after Condition_BeenHitByInit
+0044dc40 Condition_IAmANeutral   matched, Mac order of the Condition_* run after Condition_BeenHitByInit
+0044dc70 Condition_IAmAGoodieBaddie   matched, Mac order of the Condition_* run after Condition_BeenHitByInit
+0044dca0 Condition_EitherPlayerIsInit   matched, Mac order of the Condition_* run after Condition_BeenHitByInit
+0044dcd0 Condition_EitherPlayerIs   matched, Mac order of the Condition_* run after Condition_BeenHitByInit
+0044dd00 Condition_Player1Is   matched, Mac order of the Condition_* run after Condition_BeenHitByInit
+0044dd30 Condition_Player2Is   matched, Mac order of the Condition_* run after Condition_BeenHitByInit
+0044dd60 Condition_IAmPlayer2   matched, Mac order of the Condition_* run after Condition_BeenHitByInit
