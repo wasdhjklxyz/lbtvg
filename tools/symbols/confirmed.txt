@@ -1566,3 +1566,9 @@
 006deae0 NuFileReadChar  saga nufile.cpp typed reader over NuFileRead (twins assigned by PC grouping)
 006deb00 NuFileReadUnsignedChar  saga nufile.cpp typed reader over NuFileRead (twins assigned by PC grouping)
 006deb20 NuFileReadWChar  saga nufile.cpp typed reader over NuFileRead (twins assigned by PC grouping)
+006df610 NuDatOpen  saga nufile.cpp: NuDatOpenEx(path, buf, unused, 0)
+006e1be0 NuMemSetHeap  sets NuMem_Heap (used by NuMemFree), returns the old one
+006e1bf0 NuMemSetDiscardable  saga numem.cpp body
+006e1c00 NuMemFlushDiscardable  saga numem.cpp body
+006e1c20 NuMemSetExternal  saga numem.cpp body (memext/memexternal)
+006e1d30 NuMemFree  saga numem.cpp body (NuHeapFree or free)

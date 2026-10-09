@@ -2060,10 +2060,16 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006deae0,00193b58,_NuFileReadChar,_NuFileReadChar,confirmed,0
 006deb00,00193b82,_NuFileReadUnsignedChar,_NuFileReadUnsignedChar,confirmed,0
 006deb20,00193b2c,_NuFileReadWChar,_NuFileReadWChar,confirmed,0
+006df610,00194aaa,_NuDatOpen,_NuDatOpen,confirmed,0
 006dfc60,00193f7a,_NuFParCreateMem,_NuFParCreateMem,confirmed,0
 006e0530,00196e5e,_NuPadRecordLoad,_NuPadRecordLoad,strings,0
 006e0b60,00195ee8,_NuFilePakLoadKeyPrePad,_NuFilePakLoadKeyPrePad,gapfill,2
 006e0dc0,001961da,_NuFilePakLoad,_NuFilePakLoad,confirmed,0
+006e1be0,001973d4,_NuMemSetHeap,_NuMemSetHeap,confirmed,0
+006e1bf0,001973ee,_NuMemSetDiscardable,_NuMemSetDiscardable,confirmed,0
+006e1c00,00197408,_NuMemFlushDiscardable,_NuMemFlushDiscardable,confirmed,0
+006e1c20,00197420,_NuMemSetExternal,_NuMemSetExternal,confirmed,0
+006e1d30,00197606,_NuMemFree,_NuMemFree,confirmed,0
 006e1d50,00197926,_NuMemAllocFn,_NuMemAllocFn,calls,1
 006e2090,00197564,_NuMemFreeFn,_NuMemFreeFn,calls,1
 006e2470,001978b2,_NuMemCpy,_NuMemCpy,gapfill,1
