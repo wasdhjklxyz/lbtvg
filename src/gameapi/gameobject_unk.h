@@ -181,7 +181,9 @@ struct GameObject_s {
   struct TORPEDOPACKET_s *torpedo; // 0x114c
   u8 pad13a[0x1158 - 0x1150];
   GameObject_s *p1158; // 0x1158
-  u8 pad13b[0x11b0 - 0x115c];
+  u8 pad115c[0x1160 - 0x115c];
+  GameObject_s *coupled_trailer; // 0x1160, Action_UncoupleVehicles
+  u8 pad13b[0x11b0 - 0x1164];
   i32 i11b0; // 0x11b0
   u8 pad11b4[0x11bc - 0x11b4];
   i32 i11bc; // 0x11bc
@@ -285,6 +287,10 @@ struct GameObject_s {
     struct {
       u32 flags1418_lo : 13;
       u32 can_be_mind_controlled : 1; // 0x1418 bit 13
+    };
+    struct {
+      u32 : 22;
+      u32 whip_disabled : 1; // 0x1418 bit 22
     };
     struct {
       u32 : 10;

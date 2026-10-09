@@ -1163,3 +1163,9 @@
 00472210 Action_CanUseSupercarry  keyword table 0x93bb98
 00456410 Action_SetLocatorSet  keyword table 0x93bb98
 004736a0 Action_SetBallooning  keyword table 0x93bb98
+004608c0 Action_EnableSock  keyword table 0x93bb98
+00453c50 Action_DeActivate  keyword table 0x93bb98
+00461080 Action_SetHint  keyword table 0x93bb98
+00473510 Action_UncoupleVehicles  keyword table 0x93bb98
+00472e60 Action_DisableWhip  keyword table 0x93bb98
+004632f0 Action_CanOpenDoors  keyword table 0x93bb98

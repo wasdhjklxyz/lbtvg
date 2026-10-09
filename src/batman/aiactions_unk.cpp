@@ -3126,3 +3126,185 @@ i32 Action_SetBallooning(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 1;
 }
+
+struct SOCK_s {
+  u8 pad0[0x184];
+};
+
+struct SOCKSYS_s {
+  SOCK_s *sock; // 0x00
+};
+
+SOCK_s *FindSock(SOCKSYS_s *sys, char *name);
+void SockOn(SOCKSYS_s *sys, i32 index);
+void SockOff(SOCKSYS_s *sys, i32 index);
+
+// FUNCTION: LEGOBATMAN 0x004608c0
+i32 Action_EnableSock(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                      AIPACKET_s *packet, char **args, int argc, int flags,
+                      f32 time) {
+  i32 on = 1;
+  i32 index = -1;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "ix=");
+      if (s != 0) {
+        index = (i32)AIParamToFloat(process, s + 3);
+      } else if ((s = NuStrIStr(args[i], "name=")) != 0) {
+        SOCK_s *sock = FindSock(g_unk00960894->sock_sys, s + 5);
+        if (sock != 0)
+          index = sock - g_unk00960894->sock_sys->sock;
+      } else if (NuStrIStr(args[i], "FALSE") != 0) {
+        on = 0;
+      }
+    }
+    if (on != 0)
+      SockOn(g_unk00960894->sock_sys, index);
+    else
+      SockOff(g_unk00960894->sock_sys, index);
+  }
+  return 1;
+}
+
+void DeactivateGameObject(GameObject_s *obj);
+
+// FUNCTION: LEGOBATMAN 0x00453c50
+i32 Action_DeActivate(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                      AIPACKET_s *packet, char **args, int argc, int flags,
+                      f32 time) {
+  GameObject_s *obj = 0;
+  i32 set = 0;
+  if (flags == 0)
+    return 1;
+  if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+    obj = packet->pd0->obj;
+  for (i32 i = 0; i < argc; i++) {
+    char *s = NuStrIStr(args[i], "character=");
+    if (s != 0) {
+      obj = GetNamedGameObject(sys, s + 10);
+    } else if ((s = NuStrIStr(args[i], "set=")) != 0) {
+      set = (i32)AIParamToFloat(process, s + 4);
+      if (set < 0 || set > 16)
+        set = 0;
+    }
+  }
+  if (set != 0) {
+    GameObject_s *o = Obj;
+    for (i32 i = 0; i < HIGHGAMEOBJECT; i++, o++) {
+      if ((o->flags1fc & 1) != 0 && (o->flags1fc & 0x1000) != 0 &&
+          o->process290[0x344 - 0x290] == set)
+        DeactivateGameObject(o);
+    }
+  } else if (obj != 0) {
+    DeactivateGameObject(obj);
+  }
+  return 1;
+}
+
+void Hint_SetHintFromId(i32 id, i32 a, i32 ignore_done_flag);
+
+// FUNCTION: LEGOBATMAN 0x00461080
+i32 Action_SetHint(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
+                   char **args, int argc, int flags, f32 time) {
+  i32 ignore_done_flag = 0;
+  i32 id = -1;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "id");
+      if (s != 0)
+        id = (i32)AIParamToFloat(process, s + 3);
+      else if (NuStrIStr(args[i], "ignore_done_flag") != 0)
+        ignore_done_flag = 1;
+    }
+    Hint_SetHintFromId(id, 0, ignore_done_flag);
+  }
+  return 1;
+}
+
+void Uncouple_Objects(GameObject_s *body, GameObject_s *trailer);
+
+// FUNCTION: LEGOBATMAN 0x00473510
+i32 Action_UncoupleVehicles(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char **args, int argc,
+                            int flags, f32 time) {
+  GameObject_s *body = 0;
+  GameObject_s *trailer = 0;
+  GameObject_s *obj = 0;
+  if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+    obj = packet->pd0->obj;
+  if (argc > 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "body");
+      if (s != 0) {
+        s = s + NuStrLen("body") + 1;
+        body = GetNamedGameObject(sys, s);
+      } else {
+        s = NuStrIStr(args[i], "trailer");
+        if (s != 0) {
+          s = s + NuStrLen("trailer") + 1;
+          trailer = GetNamedGameObject(sys, s);
+        }
+      }
+    }
+  }
+  if (obj != 0) {
+    body = obj;
+    trailer = obj->coupled_trailer;
+  }
+  if (body != 0 && trailer != 0)
+    Uncouple_Objects(body, trailer);
+  return 1;
+}
+
+unsigned __int64 PlayerItems_GetAllCarriedItemFlags(GameObject_s *obj);
+void PlayerItems_RemoveItems(GameObject_s *obj, i32 a, i32 b, i32 c,
+                             unsigned __int64 items);
+
+// FUNCTION: LEGOBATMAN 0x00472e60
+i32 Action_DisableWhip(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                       AIPACKET_s *packet, char **args, int argc, int flags,
+                       f32 time) {
+  GameObject_s *obj = 0;
+  i32 disabled;
+  if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+    obj = packet->pd0->obj;
+  if (argc != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "character");
+      if (s != 0)
+        obj = GetNamedGameObject(sys, s + 10);
+      if (NuStrIStr(args[i], "true") != 0) {
+        disabled = 1;
+      } else if (NuStrIStr(args[i], "false") != 0) {
+        disabled = 0;
+        if ((PlayerItems_GetAllCarriedItemFlags(obj) & 0x200000) != 0)
+          PlayerItems_RemoveItems(obj, 1, 1, 0, 0x200000);
+        if ((PlayerItems_GetAllCarriedItemFlags(obj) & 0x80) != 0)
+          PlayerItems_RemoveItems(obj, 1, 1, 0, 0x80);
+      }
+    }
+  }
+  if (obj == 0)
+    return 0;
+  obj->whip_disabled = disabled;
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x004632f0
+i32 Action_CanOpenDoors(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char **args, int argc, int flags,
+                        f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags != 0) {
+    obj->flags1580 |= 1;
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "TRUE") == 0)
+        obj->flags1580 |= 1;
+      else if (NuStrICmp(args[i], "FALSE") == 0)
+        obj->flags1580 &= ~1;
+    }
+  }
+  return 1;
+}
