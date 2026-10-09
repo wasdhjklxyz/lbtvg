@@ -1,19 +1,83 @@
-// gameapi/unk_00595ff0.cpp: placed by tools/new.py; file name unproven.
+// gameapi/apiobject_unk.cpp: saga keeps these in
+// legoapi/items/base/apiobject.cpp; Batman file name unproven.
 
 #include "../nu2api/nucore/common.h"
 #include "../nu2api/numath/numtx.h"
 #include <stddef.h>
 #include <string.h>
 
+struct ANIMPACKET_s {
+  union {
+    f32 current_time;
+    f32 field_0x00;
+  };
+  union {
+    f32 previous_time;
+    f32 field_0x04;
+  };
+  f32 blend_elapsed;  // 0x08
+  f32 blend_duration; // 0x0c
+  union {
+    f32 blend_source_time;
+    f32 time;
+  };
+  union {
+    f32 blend_target_time;
+    f32 time2;
+  };
+  u8 pad_0x18[0x20 - 0x18];
+  union {
+    f32 field_0x20;
+    f32 time_secondary;
+  }; // 0x20
+  u8 pad_0x24[0x30 - 0x24];
+  union {
+    u8 flags;
+    u8 field_0x30;
+  };
+  u8 blending;           // 0x31
+  i16 blend_animation_a; // 0x32
+  i16 blend_animation_b; // 0x34
+  i16 animation_index;   // 0x36
+  union {
+    i16 previous_animation;
+    i16 field_0x38;
+  };
+  union {
+    i16 requested_animation;
+    i16 field_0x3a;
+  };
+  u8 blend_source_reversed; // 0x3c
+  u8 blend_target_reversed; // 0x3d
+  u8 current_reversed;      // 0x3e
+  u8 pad_0x3f[0x42 - 0x3f];
+  union {
+    i16 overlay_animation; // -1 when no overlay is active
+    u16 frame;
+  }; // 0x42
+  f32 field_0x44; // 0x44
+};
+
 struct CHARACTERANIM_s {
-  u32 pad00;
-  u32 flags; // 0x04
+  char *name;       // 0x00
+  u32 flags;        // 0x04
+  i16 animation_id; // 0x08
+  u16 pad0a;
+  u32 pad0c[(0x20 - 0x0c) / 4];
+  f32 action_speed; // 0x20
+  u32 pad24;
+};
+
+struct CHARACTERDATA {
+  u32 pad00[4];
+  CHARACTERANIM_s *animations; // 0x10
 };
 
 struct CHARACTERMODEL_s {
-  u32 pad00[2];
-  void **model_data_a; // 0x08
-  void **model_data_b; // 0x0c
+  u32 pad00;
+  struct NUHGOBJ *hierarchy; // 0x04
+  void **model_data_a;       // 0x08
+  void **model_data_b;       // 0x0c
 };
 
 struct APICHARACTERMODEL {
@@ -412,4 +476,151 @@ void APIDumpCharacterModels(i32 mode) {
     if (apicharsys->models[i].hierarchy != 0)
       NuHGobjDestroy(apicharsys->models[i].hierarchy);
   }
+}
+
+// FUNCTION: LEGOBATMAN 0x0059a0d0
+i16 FindAnimIX(CHARACTERDATA *character, char *name) {
+  if (character != 0) {
+    CHARACTERANIM_s *animation = character->animations;
+    while (animation != 0 && animation->name != 0) {
+      if (NuStrICmp(name, animation->name) == 0)
+        return animation->animation_id;
+      ++animation;
+    }
+  }
+  return -1;
+}
+
+struct NUHGOBJ {
+  u8 pad000[0x190];
+  i32 render_count; // 0x190
+};
+
+// FUNCTION: LEGOBATMAN 0x0059a270
+i32 MakeLayerList_Index(CHARACTERMODEL_s *model, i16 *layers, u32 mask) {
+  if (model == 0)
+    return 0;
+  i32 count = 0;
+  u32 layer_bit = 1;
+  for (i32 layer = 0; layer < 32 && model->hierarchy->render_count > layer;
+       ++layer) {
+    if ((mask & layer_bit) != 0) {
+      *layers++ = (i16)layer;
+      ++count;
+    }
+    layer_bit <<= 1;
+  }
+  return count;
+}
+
+// FUNCTION: LEGOBATMAN 0x0059a730
+void ResetAnimPacket(ANIMPACKET_s *packet, i32 animation) {
+  if (packet == 0)
+    return;
+  packet->requested_animation = animation;
+  packet->previous_animation = packet->requested_animation;
+  packet->animation_index = packet->previous_animation;
+  packet->previous_time = 1.0f;
+  packet->blend_target_time = packet->previous_time;
+  packet->current_time = packet->blend_target_time;
+  packet->blending = 0;
+  packet->flags = 4;
+  packet->overlay_animation = -1;
+  packet->current_reversed = 0;
+  packet->blend_source_reversed = 0;
+  packet->blend_target_reversed = 0;
+}
+
+struct MINIANIMPACKET_s {
+  f32 current_time;  // 0x00
+  f32 previous_time; // 0x04
+  u32 pad08[3];
+  f32 blend_target_time; // 0x14
+  u8 flags;              // 0x18
+  u8 blending;           // 0x19
+  u8 pad1a[4];
+  i16 current_animation_id;   // 0x1e
+  i16 previous_animation_id;  // 0x20
+  i16 requested_animation_id; // 0x22
+};
+
+// FUNCTION: LEGOBATMAN 0x0059a770
+void ResetMiniAnimPacket(MINIANIMPACKET_s *packet, i32 animation) {
+  if (packet != 0) {
+    packet->requested_animation_id = animation;
+    packet->previous_animation_id = packet->requested_animation_id;
+    packet->current_animation_id = packet->previous_animation_id;
+    packet->previous_time = 1.0f;
+    packet->blend_target_time = packet->previous_time;
+    packet->current_time = packet->blend_target_time;
+    packet->blending = 0;
+    packet->flags = 4;
+  }
+}
+
+f32 NuRandFloat(void);
+
+// FUNCTION: LEGOBATMAN 0x0059a7a0
+void SetMiniAnimTimeRandom(CHARACTERMODEL_s *model, MINIANIMPACKET_s *packet) {
+  if (model == 0 || packet == 0)
+    return;
+  if (model->model_data_b[packet->requested_animation_id] != 0)
+    packet->current_time =
+        NuRandFloat() *
+            (NuAnimEndFrame(
+                 model->model_data_b[packet->requested_animation_id]) -
+             1.0f) +
+        1.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0059a7f0
+void SetAnimTimeRandom(CHARACTERMODEL_s *model, ANIMPACKET_s *packet) {
+  if (model == 0 || packet == 0)
+    return;
+  if (model->model_data_b[packet->requested_animation] != 0)
+    packet->current_time =
+        NuRandFloat() *
+            (NuAnimEndFrame(model->model_data_b[packet->requested_animation]) -
+             1.0f) +
+        1.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0059a840
+f32 GetAnimTimeRandom(CHARACTERMODEL_s *model, i32 animation) {
+  if (model == 0 || model->model_data_b[animation] == 0)
+    return 0.0f;
+  return NuRandFloat() *
+             (NuAnimEndFrame(model->model_data_b[animation]) - 1.0f) +
+         1.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0059b3c0
+f32 *AnimPlaying(ANIMPACKET_s *packet, i32 animation, i32 target, i32 source) {
+  if (animation == -1)
+    return 0;
+  if (packet->blending != 0) {
+    if (target != 0 && packet->blend_animation_b == animation)
+      return &packet->blend_target_time;
+    if (source != 0 && packet->blend_animation_a == animation)
+      return &packet->blend_source_time;
+  } else {
+    if (packet->animation_index == animation)
+      return &packet->current_time;
+  }
+  return 0;
+}
+
+// from saga legoapi/items/base/apiobject.cpp
+// FUNCTION: LEGOBATMAN 0x0059b480
+i32 CurrentAnim(ANIMPACKET_s *packet) {
+  if (packet->blending != 0)
+    return packet->blend_animation_b;
+  return packet->animation_index;
+}
+
+// FUNCTION: LEGOBATMAN 0x0059b540
+f32 AnimSpeedZ(CHARACTERMODEL_s *model, i32 animation) {
+  if (animation != -1 && model->model_data_b[animation] != 0)
+    return ((CHARACTERANIM_s *)model->model_data_a[animation])->action_speed;
+  return 0.0f;
 }

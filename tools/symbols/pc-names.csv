@@ -332,7 +332,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0059a080,00254de4,_APIDumpCharacterModels,_APIDumpCharacterModels,confirmed,0
 0059a0d0,00254e3c,_FindAnimIX,_FindAnimIX,confirmed,0
 0059a110,00254e82,_AnimDuration,_AnimDuration,gapfill,3
+0059a270,00254fc6,_MakeLayerList_Index,_MakeLayerList_Index,confirmed,0
 0059a730,00255510,_ResetAnimPacket,_ResetAnimPacket,confirmed,0
+0059a770,00255552,_ResetMiniAnimPacket,_ResetMiniAnimPacket,confirmed,0
+0059a7a0,00255582,_SetMiniAnimTimeRandom,_SetMiniAnimTimeRandom,confirmed,0
+0059a7f0,0025560e,_SetAnimTimeRandom,_SetAnimTimeRandom,confirmed,0
+0059a840,0025569a,_GetAnimTimeRandom,_GetAnimTimeRandom,confirmed,0
 0059b3c0,00255a06,_AnimPlaying,_AnimPlaying,confirmed,0
 0059b480,00255ac8,_CurrentAnim,_CurrentAnim,calls,5
 0059b540,00255ba6,_AnimSpeedZ,_AnimSpeedZ,confirmed,0

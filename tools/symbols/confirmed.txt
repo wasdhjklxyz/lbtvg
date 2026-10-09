@@ -132,3 +132,8 @@
 00599090 APIResetCharacterRemap  saga body matches (playermodelids = -1 unless char flag 2)
 0059a050 APICharacterLoaded  saga body matches (playermodelids lookup into models, stride 0x6c)
 0059a080 APIDumpCharacterModels  saga body matches (NuHGobjDestroy loaded hierarchies)
+0059a270 MakeLayerList_Index  saga body matches (layer bits below hierarchy render_count); Mac order after AnimDuration
+0059a770 ResetMiniAnimPacket  saga body matches; Mac order after ResetAnimPacket
+0059a7a0 SetMiniAnimTimeRandom  same shape as SetAnimTimeRandom on the mini packet; Mac order
+0059a7f0 SetAnimTimeRandom  saga body matches (random time below NuAnimEndFrame)
+0059a840 GetAnimTimeRandom  saga body matches
