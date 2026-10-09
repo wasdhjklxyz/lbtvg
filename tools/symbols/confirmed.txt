@@ -1094,3 +1094,4 @@
 0046f820 Action_AlwaysDrawBossHitPoints  matched, keyword table + Mac name
 004728d0 Action_NoFightingZone  matched, keyword table + Mac name
 00472940 Action_AllowFightingInMiniCut  matched, keyword table + Mac name
+006a55f0 Action_SetMoveRadius  matched saga body, keyword table

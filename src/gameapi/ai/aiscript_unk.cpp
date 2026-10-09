@@ -667,3 +667,16 @@ i32 Action_EndIf(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
   ((AIIfState_s *)((u8 *)process + 0xb5))->state = 0;
   return 1;
 }
+
+// FUNCTION: LEGOBATMAN 0x006a55f0
+i32 Action_SetMoveRadius(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  // 0x120: mover height; owner +0xac: collision radius.
+  if (packet == NULL || packet->pd0 == NULL || flags == 0)
+    return 1;
+  *(f32 *)((u8 *)packet + 0x120) = *(f32 *)((u8 *)packet->pd0 + 0xac) * 2.0f;
+  if (argc != 0 && NuStrICmp(args[0], "default") != 0)
+    *(f32 *)((u8 *)packet + 0x120) = AIParamToFloatEx(packet, process, args[0]);
+  return 1;
+}

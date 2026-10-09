@@ -1525,6 +1525,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006a5140,0023829c,_Action_CanSeeBehind,_Action_CanSeeBehind,confirmed,0
 006a51c0,00238316,_Action_RequiresLOS,_Action_RequiresLOS,confirmed,0
 006a5230,00238380,_Action_SetFullPathSearch,_Action_SetFullPathSearch,confirmed,0
+006a55f0,00238782,_Action_SetMoveRadius,_Action_SetMoveRadius,confirmed,0
 006a5660,00238c46,_Action_OverrideAnimation,_Action_OverrideAnimation,strings,0
 006a58d0,002395a4,_Action_NoShadows,_Action_NoShadows,confirmed,0
 006a5bb0,002398d2,_Action_ReturnToState,_Action_ReturnToState,confirmed,0
