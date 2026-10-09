@@ -97,3 +97,5 @@
 0046fc00 Action_CircleLocator: register rotation after goalrange arg, 6 tries
 0045c570 Action_SelectRandomSpline: eax/ecx swap in collect loop, 5 tries
 006b47e0 Action_ClearInterrupt: lazy per-branch pushes/epilogues, 3 tries
+00657e60 Backdrop_piece: g_unk00ad1c00 store scheduled early, 3 tries
+00657ed0 Backdrop_piece2: g_unk00ad1c00 = 0 store scheduled early, 2 tries

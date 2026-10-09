@@ -1467,3 +1467,10 @@
 00658fb0 Traffic_rand_interval  keyword table 0x9674d8
 00658fd0 Traffic_tfactor  keyword table 0x9674d8
 006590c0 Traffic_vehicle  keyword table 0x9674d8
+00657e60 Backdrop_piece  keyword table 0x9673a8
+00657ed0 Backdrop_piece2  keyword table 0x9673a8
+00657f60 Backdrop_followed_by  keyword table 0x9673a8
+00658000 Backdrop_preceeded_by  keyword table 0x9673a8
+00658100 Backdrop_posx  keyword table 0x9673a8
+00658120 Backdrop_posy  keyword table 0x9673a8
+00658140 Backdrop_posz  keyword table 0x9673a8
