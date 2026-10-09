@@ -82,6 +82,44 @@ void Text_InsertCommasIntoNumber(char *number, char *text, i32 length);
 // GLOBAL: LEGOBATMAN 0x0095eb8c
 extern i32 Text_Language;
 
+struct TEXTENTRY {
+  i16 *text_id;
+  i16 value;
+  i16 pad;
+};
+
+// FUNCTION: LEGOBATMAN 0x0059db20
+void Text_InitTable(TEXTENTRY *entry, i32 first, i32 last) {
+  i32 index = 0;
+  if (entry == 0)
+    return;
+
+  u32 *bits = Text_StringBits;
+  do {
+    if (entry->text_id != 0 && entry->value != -1) {
+      index = entry->value;
+      if (index >= first && index <= last) {
+        entry->value = index;
+        *entry->text_id = index;
+      }
+      index++;
+      entry++;
+    }
+    while (entry->text_id != 0 && entry->value == -1) {
+      if (index >= first && index <= last) {
+        entry->value = index;
+        *entry->text_id = index;
+        bits[index / 32] |= 1 << (index & 0x1f);
+      } else {
+        entry->value = 0;
+        *entry->text_id = 0;
+      }
+      entry++;
+      index++;
+    }
+  } while (entry->text_id != 0);
+}
+
 // FUNCTION: LEGOBATMAN 0x0059dbd0
 void Text_InsertCommasIntoNumber(char *number, char *text, i32 length) {
   char separator = ',';

@@ -321,7 +321,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0059d7c0,003418a8,__Z20Text_InitStringTableiP9variptr_uS0_,"Text_InitStringTable(int, variptr_u*, variptr_u*)",order,1
 0059d850,00341958,__Z27Text_PlatformSpecificIgnoreP8nufpar_s,Text_PlatformSpecificIgnore(nufpar_s*),order,1
 0059d900,00341a36,__Z24Text_LoadAndFixUpStringsPhPS_PPci,"Text_LoadAndFixUpStrings(unsigned char*, unsigned char**, char**, int)",order,1
-0059db20,00341c56,__Z14Text_InitTableP9TEXTENTRYii,"Text_InitTable(TEXTENTRY*, int, int)",order,1
+0059db20,00341c56,__Z14Text_InitTableP9TEXTENTRYii,"Text_InitTable(TEXTENTRY*, int, int)",confirmed,0
 0059dbd0,00341d2c,__Z27Text_InsertCommasIntoNumberPcS_i,"Text_InsertCommasIntoNumber(char*, char*, int)",confirmed,0
 0059dc80,00341dd6,__Z14Text_MakeScorejPc,"Text_MakeScore(unsigned int, char*)",confirmed,0
 0059dd10,00341e28,__Z13Text_MakeTimefiiiPc,"Text_MakeTime(float, int, int, int, char*)",strings,0
