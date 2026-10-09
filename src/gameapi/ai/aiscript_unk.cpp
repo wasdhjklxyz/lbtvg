@@ -758,6 +758,106 @@ i32 Action_SetCircleDirection(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+// FUNCTION: LEGOBATMAN 0x006a4940
+i32 Action_FacePlayer(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                      AIPACKET_s *packet, char **params, i32 param_count,
+                      i32 first_time, f32 elapsed) {
+  f32 min_time = 0.0f;
+  f32 max_time = 0.0f;
+  if (packet == NULL)
+    return 1;
+  if (first_time != 0) {
+    for (i32 index = 0; index < param_count; ++index) {
+      char *value = NuStrIStr(params[index], "mintime");
+      if (value != NULL)
+        min_time = AIParamToFloatEx(packet, processor, value + 8);
+      else if ((value = NuStrIStr(params[index], "maxtime")) != NULL)
+        max_time = AIParamToFloatEx(packet, processor, value + 8);
+      else
+        processor->face_timer =
+            AIParamToFloatEx(packet, processor, params[index]);
+    }
+    if (processor->face_timer == 0.0f && max_time > min_time)
+      processor->face_timer = NuRandFloat() * (max_time - min_time) + min_time;
+  }
+  Unk_AIPacketObj *player = *(Unk_AIPacketObj **)((u8 *)sys + 0x1698);
+  if (player != NULL)
+    packet->look_target = &player->pos5c;
+  if (processor->face_timer > 0.0f) {
+    f32 remaining_time = processor->face_timer - elapsed;
+    processor->face_timer = remaining_time;
+    if (remaining_time <= 0.0f) {
+      processor->face_timer = 0.0f;
+      return 1;
+    }
+  }
+  return 0;
+}
+
+f32 NuVecNorm(nuvec_s *dst, nuvec_s *src);
+// annotated in batman/aiactions_unk.cpp (0x00ad6918)
+extern i32 (*AIActionParseSpeedFn)(char *str, u8 *out);
+
+// FUNCTION: LEGOBATMAN 0x006a4b10
+i32 Action_FaceOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                        AIPACKET_s *packet, char **params, i32 param_count,
+                        i32 first_time, f32 elapsed) {
+  f32 min_time = 0.0f;
+  f32 max_time = 0.0f;
+  if (packet == NULL)
+    return 1;
+  if (first_time != 0) {
+    for (i32 index = 0; index < param_count; ++index) {
+      if (AIActionParseSpeedFn != NULL &&
+          AIActionParseSpeedFn(params[index], &packet->goal_speed_mode) != 0)
+        continue;
+      char *value = NuStrIStr(params[index], "mintime");
+      if (value != NULL)
+        min_time = AIParamToFloatEx(packet, processor, value + 8);
+      else if ((value = NuStrIStr(params[index], "maxtime")) != NULL)
+        max_time = AIParamToFloatEx(packet, processor, value + 8);
+      else if ((value = NuStrIStr(params[index], "faceoffset")) != NULL)
+        processor->action_data_4 =
+            AIParamToFloatEx(packet, processor, value + 11);
+      else if (NuStrICmp(params[index], "nearest_opponent") == 0)
+        processor->action_data_1 = 1;
+      else
+        processor->face_timer =
+            AIParamToFloatEx(packet, processor, params[index]);
+    }
+    if (processor->face_timer == 0.0f && max_time > min_time)
+      processor->face_timer = NuRandFloat() * (max_time - min_time) + min_time;
+  }
+  Unk_AIPacketObj *opponent =
+      processor->action_data_1 != 0 ? packet->pd4 : packet->pe4;
+  if (opponent != NULL && opponent->ai != NULL) {
+    if (processor->action_data_4 == 0.0f) {
+      packet->look_target = &opponent->pos5c;
+    } else {
+      nuvec_s direction;
+      direction.x = opponent->pos5c.z - packet->pd0->pos5c.z;
+      direction.z = packet->pd0->pos5c.x - opponent->pos5c.x;
+      direction.y = 0.0f;
+      NuVecNorm(&direction, &direction);
+      processor->action_pos.x =
+          opponent->pos5c.x + direction.x * processor->action_data_4;
+      processor->action_pos.y = opponent->pos5c.y;
+      processor->action_pos.z =
+          opponent->pos5c.z + direction.z * processor->action_data_4;
+      packet->look_target = (nuvec_s *)&processor->action_pos;
+    }
+  }
+  if (processor->face_timer > 0.0f) {
+    f32 remaining_time = processor->face_timer - elapsed;
+    processor->face_timer = remaining_time;
+    if (remaining_time <= 0.0f) {
+      processor->face_timer = 0.0f;
+      return 1;
+    }
+  }
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x006a4d50
 i32 Action_IgnoreWallSplines(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                              AIPACKET_s *packet, char **args, int argc,
