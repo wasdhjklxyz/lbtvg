@@ -4713,3 +4713,29 @@ i32 Action_SpinOnSpot(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 0;
 }
+
+// FUNCTION: LEGOBATMAN 0x0045f740
+i32 Action_SetHoverPhase(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags != 0) {
+    process->action_data_1 = 1;
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "FALSE") == 0)
+        process->action_data_1 = 0;
+    }
+  }
+  if (process->action_data_1 != 0) {
+    if (obj->b131c != 1) {
+      *(u32 *)((u8 *)obj->p112c + 8) |= g_unk0095f728;
+      return 0;
+    }
+  } else if (obj->b131c == 1) {
+    *(u32 *)((u8 *)obj->p112c + 8) |= g_unk0095f728;
+    return 0;
+  }
+  return 1;
+}

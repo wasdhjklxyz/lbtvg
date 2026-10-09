@@ -1205,3 +1205,4 @@
 0045bd40 Action_SetSpline  keyword table 0x93bb98
 00465ab0 Action_PlaySfx  keyword table 0x93bb98
 004688a0 Action_SpinOnSpot  keyword table 0x93bb98
+0045f740 Action_SetHoverPhase  keyword table 0x93bb98

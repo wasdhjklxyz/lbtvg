@@ -340,6 +340,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0045e830,0007d900,__Z14Action_AddPartP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AddPart(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 0045eac0,00095d4e,__Z20Action_AddPartDebrisP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AddPartDebris(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 0045edf0,00096010,__Z19Action_AddExplosionP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AddExplosion(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
+0045f740,0007e280,__Z20Action_SetHoverPhaseP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetHoverPhase(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 0045f830,0007e316,__Z22Action_UseCurrentSpeedP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_UseCurrentSpeed(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 0045f9e0,0007e48a,__Z26Action_SetMaxMovementRangeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetMaxMovementRange(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 0045fbe0,0007e616,__Z30Action_SetDefaultMovementRangeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetDefaultMovementRange(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
