@@ -47,7 +47,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [LevelSplines](#levelsplines) | 2 | 2 |
 | [Mission](#mission) | 2 | 2 |
 | [Move](#move) | 2 | 2 |
-| [NuPad](#nupad) | 2 | 2 |
 | [NuStr](#nustr) | 2 | 2 |
 | [NuTex](#nutex) | 4 | 2 |
 | [SuperCarry](#supercarry) | 3 | 2 |
@@ -94,6 +93,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [NuInit](#nuinit) | 1 | 1 |
 | [NuMtl](#numtl) | 2 | 1 |
 | [NuMusic](#numusic) | 1 | 1 |
+| [NuPad](#nupad) | 1 | 1 |
 | [NuString](#nustring) | 1 | 1 |
 | [NuUnicode](#nuunicode) | 1 | 1 |
 | [NuVec](#nuvec) | 1 | 1 |
@@ -692,11 +692,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `004cb910` 438 B `Move_CHARACTER(GameObject_s*)`  **saga** `legoapi/characters/motion/move.cpp`
 - [ ] `004ccf50` 1344 B `Move_BEAST(GameObject_s*)`  **saga** `legoapi/characters/motion/move.cpp`
 
-## NuPad
-
-- [ ] `006d5700` 105 B `_NuPadOpen`  **saga** `nu2api/nucore/nupad.cpp`
-- [ ] `006e0530` 158 B `_NuPadRecordLoad`  **saga** `nu2api/nucore/nupad.cpp`
-
 ## NuStr
 
 - [ ] `006d75c0` 75 B `_NuStrNCpy`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nucore/nustring_c.cpp`
@@ -913,6 +908,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## NuMusic
 
 - [ ] `005375d0` 757 B `NuMusic::Debug(int, int)`  **saga** `nu2api/numusic/numusic.cpp`
+
+## NuPad
+
+- [ ] `006d5700` 105 B `_NuPadOpen`  **saga** `nu2api/nucore/nupad.cpp`
 
 ## NuString
 

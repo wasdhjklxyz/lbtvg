@@ -843,3 +843,50 @@ void NuStrLwr(char *dst, const char *src) {
   }
   *dst = *src;
 }
+
+struct NuPadRec {
+  int mode;                 // 0x0
+  unsigned char *buf_start; // 0x4
+  unsigned char *buf_end;   // 0x8
+  unsigned char *record;    // 0xc
+};
+
+// GLOBAL: LEGOBATMAN 0x00adf69c
+extern NuPadRec g_nuPadRec;
+// GLOBAL: LEGOBATMAN 0x00b03884
+extern int g_unk00b03884;
+
+int NuFileOpenUnk006dd7a0(char *path, int mode, int a, int b);
+int NuFileReadUnk006de860(int file, void *dst, int size);
+extern "C" void *NuMemAllocFn(int size, const char *file, int line);
+void Unk006d24b0(void);
+
+static inline int NuFileReadInt(int file) {
+  int v;
+  NuFileReadUnk006de860(file, &v, 4);
+  return v;
+}
+
+// FUNCTION: LEGOBATMAN 0x006e0530
+void NuPadRecordLoad(char *filepath, VARIPTR *buffer, VARIPTR end) {
+  g_nuPadRec.mode = 0;
+  if (filepath != 0) {
+    int file = NuFileOpenUnk006dd7a0(filepath, 0, g_unk00b03884, 0);
+    if (file != 0) {
+      int size = NuFileReadInt(file);
+      g_nuPadRec.record =
+          (unsigned char *)NuMemAllocFn(size + 4, __FILE__, 0x433);
+      g_nuPadRec.record =
+          (unsigned char *)(((unsigned int)g_nuPadRec.record + 3) & ~3);
+      if (g_nuPadRec.record == 0) {
+        Unk006d24b0();
+        return;
+      }
+      g_nuPadRec.buf_start = g_nuPadRec.record;
+      NuFileReadUnk006de860(file, g_nuPadRec.record, size);
+      Unk006dcb00(file);
+      g_nuPadRec.buf_end = g_nuPadRec.record + size;
+      g_nuPadRec.mode = 2;
+    }
+  }
+}
