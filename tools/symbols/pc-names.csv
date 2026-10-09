@@ -208,7 +208,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00514bd0,001066a8,__ZN12ShopComputer15InitializeLevelEP11WORLDINFO_s,ShopComputer::InitializeLevel(WORLDINFO_s*),strings,0
 00515150,001067fe,__ZN12ShopComputer17IsAnyMenuChangingEv,ShopComputer::IsAnyMenuChanging(),strings,0
 005166a0,0010624c,__ZN12ShopComputer14InitializePermEPcP9variptr_uS2_,"ShopComputer::InitializePerm(char*, variptr_u*, variptr_u*)",strings,0
-00519370,00117740,__ZNK8WorldMap21GetPointerSpecialNameEP11WORLDINFO_si,"WorldMap::GetPointerSpecialName(WORLDINFO_s*, int) const",strings,0
+00519370,00117740,__ZNK8WorldMap21GetPointerSpecialNameEP11WORLDINFO_si,"WorldMap::GetPointerSpecialName(WORLDINFO_s*, int) const",confirmed,0
 00519f60,0011785e,__ZN8WorldMap18RenderTrueHeroInfoERK5VuVeciif,"WorldMap::RenderTrueHeroInfo(VuVec const&, int, int, float)",order,1
 0051a0e0,00117920,__ZN8WorldMap18RenderRedBrickInfoERK5VuVecif,"WorldMap::RenderRedBrickInfo(VuVec const&, int, float)",order,1
 0051ad50,00117c28,__ZN8WorldMap9DumpLevelEP11WORLDINFO_s,WorldMap::DumpLevel(WORLDINFO_s*),order,1

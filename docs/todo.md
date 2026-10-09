@@ -186,7 +186,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Surfaces](#surfaces) | 1 | 0 |
 | [Titles](#titles) | 1 | 0 |
 | [TrueHero](#truehero) | 1 | 0 |
-| [WorldMap](#worldmap) | 6 | 0 |
+| [WorldMap](#worldmap) | 5 | 0 |
 | [WorldMapBase](#worldmapbase) | 4 | 0 |
 
 ## Action
@@ -298,7 +298,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## near rtleditor.cpp
 
-- [ ] `005d3f60` 105 B `FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)`  **hint** name (gapfill)
+- [ ] `005d3f60` 105 B `FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)`  **stub** · **hint** name (gapfill)
 - [ ] `005c16b0` 120 B `SetPlayerIDs(int, int)`  **hint** name (order)
 - [ ] `0059c4b0` 127 B `_ActionFromName`  **stub** · **hint** name (gapfill)
 - [ ] `0065c320` 136 B `LoseHat(GameObject_s*)`  **hint** name (gapfill)
@@ -1192,7 +1192,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## WorldMap
 
-- [ ] `00519370` 89 B `WorldMap::GetPointerSpecialName(WORLDINFO_s*, int) const`
 - [ ] `0051a0e0` 195 B `WorldMap::RenderRedBrickInfo(VuVec const&, int, float)`  **hint** name (order)
 - [ ] `00519f60` 297 B `WorldMap::RenderTrueHeroInfo(VuVec const&, int, int, float)`  **hint** name (order)
 - [ ] `0051ad50` 344 B `WorldMap::DumpLevel(WORLDINFO_s*)`  **hint** name (order)

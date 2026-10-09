@@ -80,6 +80,39 @@ extern DETONATORSYS_s *Detonator;
 // GLOBAL: LEGOBATMAN 0x0095fd2c
 extern nuvec_s v001;
 
+// 0x118 bytes per message; only the fields FindGameMsgs reads are declared.
+typedef struct GAMEMESSAGE_s {
+  u8 pad000[0xf4];
+  u8 active; // 0xf4
+  u8 padf5[0xf9 - 0xf5];
+  i8 player; // 0xf9
+  i8 type;   // 0xfa
+  u8 padfb[0x118 - 0xfb];
+} GAMEMESSAGE_s;
+
+// GLOBAL: LEGOBATMAN 0x00abe2f8
+extern GAMEMESSAGE_s GameMsgs[128];
+
+// STUB: LEGOBATMAN 0x005d3f60
+// close: orig bases the pointer walk at &message->type (0xfa), ours at
+// &message->active (0xf4); index form unrolls instead.
+int FindGameMsgs(int type, int unused, int clear, int player,
+                 GAMEMESSAGE_s *exclude, GAMEMESSAGE_s **out) {
+  int count = 0;
+  GAMEMESSAGE_s *message = GameMsgs;
+  for (int i = 0; i < 128; i++, message++) {
+    if (message->active != 0 && message->type == type && message != exclude &&
+        (player == -1 || message->player == player)) {
+      if (out != 0)
+        out[count] = message;
+      count++;
+      if (clear != 0)
+        message->active = 0;
+    }
+  }
+  return count;
+}
+
 // FUNCTION: LEGOBATMAN 0x005d3fd0
 void AddGameMsgCount(nuvec_s *position, i32 count, i32 total, unsigned char red,
                      unsigned char green, unsigned char blue,

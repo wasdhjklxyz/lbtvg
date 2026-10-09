@@ -242,3 +242,4 @@
 006396c0 FastWeaponOut  saga playeritems.cpp body (inlined FastWeaponOutSfx)
 00639ba0 FastWeaponIn  saga playeritems.cpp body (inlined FastWeaponInSfx)
 0062df30 SpecialMove_AdjustLayerBits  same shape as Mac (special-move contexts, ORs move layer bits at 0x77)
+00519370 WorldMap::GetPointerSpecialName  hero/villain_pointer_%s with A/B/C suffix; Mac WorldMap::GetPointerSpecialName

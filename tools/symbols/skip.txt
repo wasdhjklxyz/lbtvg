@@ -67,3 +67,5 @@
 0070f860 NuSpecialGetInstanceix: handle register pick (stub)
 00710030 NuSplineFindAllSub: esi/edi swap (stub)
 00635b10 ScoreMultiplier_IncrementMultiplier: final-store register pick (stub)
+005d3f60 FindGameMsgs: IV base field differs (stub)
+00458c40 OpponentShouldntBeAttacked: object passed in esi (register-arg static)
