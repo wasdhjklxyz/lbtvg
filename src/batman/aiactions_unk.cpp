@@ -509,6 +509,41 @@ i32 Action_PlayGizSpecial(AISYS_s *sys, AISCRIPTPROCESS_s *process,
 void SetForceBack(GameObject_s *obj, nuvec_s *position, f32 radius, i32 type);
 void ResetForceBack(void);
 
+// FUNCTION: LEGOBATMAN 0x00463f00
+i32 Action_SetAnimSpeedMul(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char **params, i32 count,
+                           i32 first, f32 dt) {
+  f32 multiply_by = 1.0f;
+  f32 minimum = 0.0f;
+  f32 maximum = 1.0e9f;
+  GameObject_s *object;
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  object = packet->pd0->obj;
+  if (count != 0) {
+    for (i32 i = 0; i < count; i++) {
+      char *value = NuStrIStr(params[i], "value=");
+      if (value != 0) {
+        object->anim_speed_mul = AIParamToFloat(process, value + 6);
+      } else if ((value = NuStrIStr(params[i], "multiply_by=")) != 0) {
+        multiply_by = AIParamToFloat(process, value + 12);
+      } else if ((value = NuStrIStr(params[i], "max=")) != 0) {
+        maximum = AIParamToFloat(process, value + 4);
+      } else if ((value = NuStrIStr(params[i], "min=")) != 0) {
+        minimum = AIParamToFloat(process, value + 4);
+      }
+    }
+    if (multiply_by != 1.0f) {
+      object->anim_speed_mul *= multiply_by;
+      if (object->anim_speed_mul > maximum)
+        object->anim_speed_mul = maximum;
+      else if (object->anim_speed_mul < minimum)
+        object->anim_speed_mul = minimum;
+    }
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x00467f50
 i32 Action_SetForceBack(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                         AIPACKET_s *packet, char **args, int argc, int flags,
