@@ -81,3 +81,4 @@
 006ebae0 RndrStateSetReflection  saga body matches; sets reflection + bumps state ids
 005b0000 LineIntersectSphere  saga body matches (ray/sphere distance test)
 0059fe80 PlayGruntSfx  saga shape matches (game_character grunt sfx, GameAudio fallback ids)
+005a0590 PlayRepeatSfx  saga body matches (repsfxtab ring of 32)

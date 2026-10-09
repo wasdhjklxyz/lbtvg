@@ -306,6 +306,68 @@ void LevelSplines_InitForGame(LEVELSPLINE *splines) {
   }
 }
 
+// GLOBAL: LEGOBATMAN 0x00963198
+extern i32 LEVOBJREF_FIRSTOBJ;
+// GLOBAL: LEGOBATMAN 0x0096319c
+extern i32 LEVOBJREF_LASTOBJ;
+// GLOBAL: LEGOBATMAN 0x009631a0
+extern i32 LEVOBJREF_FIRSTREFOBJ;
+// GLOBAL: LEGOBATMAN 0x009631a4
+extern i32 LEVOBJREF_LASTREFOBJ;
+
+void FUN_0060d010(i32 size);
+
+// from saga legoapi/world/levelobjects.cpp
+// STUB: LEGOBATMAN 0x0060e8e0
+// one-instruction diff: orig schedules the LEVELOBJECTMAX store after the
+// "or reg, -1" chain; insensitive to source position.
+void LevelObjects_InitForGame(LEVELOBJECT *tab, VARIPTR *buf, VARIPTR *buf_end,
+                              i32 max, i32 name_table_size) {
+  LEVELOBJECTMAX = max;
+  LEVOBJREF_FIRSTOBJ = -1;
+  LEVOBJREF_LASTOBJ = -1;
+  LEVOBJREF_FIRSTREFOBJ = -1;
+  LEVOBJREF_LASTREFOBJ = -1;
+  ObjTabList = tab;
+  LEVELOBJECTCOUNT = 0;
+
+  for (; tab->kind != 0xff; ++tab, ++LEVELOBJECTCOUNT) {
+    if (tab->reflection == 1) {
+      LEVOBJREF_LASTOBJ = LEVELOBJECTCOUNT;
+      if (LEVOBJREF_FIRSTOBJ == -1) {
+        LEVOBJREF_FIRSTOBJ = LEVELOBJECTCOUNT;
+      }
+    }
+    if (tab->reflection == 2) {
+      LEVOBJREF_LASTREFOBJ = LEVELOBJECTCOUNT;
+      if (LEVOBJREF_FIRSTREFOBJ == -1) {
+        LEVOBJREF_FIRSTREFOBJ = LEVELOBJECTCOUNT;
+      }
+    }
+  }
+
+  const i32 object_range = LEVOBJREF_LASTOBJ - LEVOBJREF_FIRSTOBJ;
+  const i32 reflection_range = LEVOBJREF_LASTREFOBJ - LEVOBJREF_FIRSTREFOBJ;
+  if (reflection_range < object_range) {
+    LEVOBJREF_LASTOBJ = LEVOBJREF_FIRSTOBJ + reflection_range;
+  } else if (reflection_range > object_range) {
+    LEVOBJREF_LASTREFOBJ = LEVOBJREF_FIRSTREFOBJ + object_range;
+  }
+
+  if (name_table_size > 0) {
+    u8 *table = buf->u8_ptr;
+    ExtraLevelObject_NameTable = (char *)table;
+    table += name_table_size;
+    buf->u8_ptr = table;
+    if (table < buf_end->u8_ptr) {
+      ExtraLevelObject_NameTableSize = name_table_size;
+      return;
+    }
+    ExtraLevelObject_NameTableSize = name_table_size;
+    FUN_0060d010(name_table_size);
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x0060e9c0
 i32 LevelObject_AddExtra(char *name, i32 kind) {
   if (LEVELOBJECTCOUNT >= LEVELOBJECTMAX)

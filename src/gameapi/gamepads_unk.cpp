@@ -215,6 +215,52 @@ void PlayGruntSfx(GameObject_s *object) {
   }
 }
 
+void PlaySfx(char *name, nuvec_s *pos);
+i32 GetSfxId(const char *name);
+
+struct RepeatSfx {
+  i16 sfx_id;           // 0x0
+  u8 state;             // 0x2
+  char plays_remaining; // 0x3
+  f32 timer;            // 0x4
+  f32 interval;         // 0x8
+  nuvec_s *position;    // 0xc
+};
+
+// GLOBAL: LEGOBATMAN 0x00a95aa4
+extern i32 repsfxcount;
+// GLOBAL: LEGOBATMAN 0x00a95ab8
+extern RepeatSfx repsfxtab[32];
+
+// FUNCTION: LEGOBATMAN 0x005a0590
+void PlayRepeatSfx(char *name, i32 sfx_id, f32 initial_delay, char play_count,
+                   f32 interval, nuvec_s *position) {
+  if (play_count == 1 && initial_delay == 0.0f) {
+    if (sfx_id != -1) {
+      PlaySfxById(sfx_id, position);
+    } else {
+      PlaySfx(name, position);
+    }
+    return;
+  }
+
+  if (initial_delay > 0.0f) {
+    repsfxtab[repsfxcount].state = 1;
+  } else {
+    repsfxtab[repsfxcount].state = 2;
+  }
+
+  if (sfx_id == -1)
+    sfx_id = GetSfxId(name);
+
+  repsfxtab[repsfxcount].sfx_id = (i16)sfx_id;
+  repsfxtab[repsfxcount].timer = initial_delay;
+  repsfxtab[repsfxcount].plays_remaining = play_count;
+  repsfxtab[repsfxcount].interval = interval;
+  repsfxtab[repsfxcount].position = position;
+  repsfxcount = (repsfxcount + 1) & 31;
+}
+
 // FUNCTION: LEGOBATMAN 0x005a1fb0
 void GameCam_NewShake(GAMECAMERA_s *camera, float amount, float duration,
                       float speed) {

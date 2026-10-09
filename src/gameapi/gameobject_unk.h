@@ -22,6 +22,8 @@ struct Unk_GameObject50_0c {
   void *p104; // 0x104
   u8 pad1[0x204 - 0x108];
   void *p204; // 0x204
+  u8 pad2[0x2c8 - 0x208];
+  i32 i2c8; // 0x2c8
 };
 
 struct Unk_GameObject50 {

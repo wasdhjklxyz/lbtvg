@@ -14,8 +14,8 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | group | todo | with saga body |
 |---|---|---|
 | [Action](#action) | 72 | 57 |
-| [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 61 | 35 |
+| [near pcbatman.cpp](#near-pcbatmancpp) | 45 | 38 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 60 | 34 |
 | [near terrain.c](#near-terrainc) | 34 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 13 | 7 |
 | [Grabber](#grabber) | 7 | 5 |
@@ -282,7 +282,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00458c40` 111 B `OpponentShouldntBeAttacked(GameObject_s*)`  **hint** name (gapfill)
 - [ ] `00504680` 151 B `GetPlantLocator(char*)`
 - [ ] `004b8100` 205 B `_VuMtxRotateY`  **hint** name (gapfill)
-- [ ] `004c0cb0` 209 B `StartBallooning(GameObject_s*, int)`  **saga** `legoapi/actions/movement/jumping.cpp`
 - [ ] `0044c960` 312 B `PartyMemberInWay(GameObject_s*, GameObject_s*)`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00447560` 369 B `GetNamedAPIObject(AISYS_s*, char*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `004e34b0` 402 B `UpdateRadios()`  **saga** `legoapi/audio/radio.cpp`
@@ -349,7 +348,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0059f8d0` 185 B `PlayJumpSfx(GameObject_s*, int)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
 - [ ] `005aa1f0` 187 B `InitGrappleMtls(variptr_u*, variptr_u*)`
 - [ ] `00656130` 203 B `AddRipple(ripple_set_s*, numtx_s*, float, float, float, float, RGBA, RGBA, int, numtl_s*, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/items/fx/ripples.cpp`
-- [ ] `005a0590` 209 B `PlayRepeatSfx(char*, int, float, char, float, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
 - [ ] `005a3020` 212 B `ConstantRumble(GameObject_s*, float, float)`  **hint** name (gapfill) · **saga** `legoapi/misc/legoapi_misc.cpp`
 - [ ] `005b2a40` 229 B `LoadThingsScene()`
 - [ ] `00639580` 229 B `ObjOpponentStillThere(GameObject_s*, GameObject_s*, float)`  **hint** name (order) · **saga** `legoapi/actions/character/speederchase.cpp`
@@ -540,7 +538,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## LevelObjects
 
-- [ ] `0060e8e0` 215 B `LevelObjects_InitForGame(LEVELOBJECT*, variptr_u*, variptr_u*, int, int)`  **hint** name (order) · **saga** `legoapi/world/levelobjects.cpp`
+- [ ] `0060e8e0` 215 B `LevelObjects_InitForGame(LEVELOBJECT*, variptr_u*, variptr_u*, int, int)`  **stub** · **hint** name (order) · **saga** `legoapi/world/levelobjects.cpp`
 - [ ] `0060ea60` 510 B `LevelObjects_InitForLevel(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/items/objects/objectsall.cpp`
 
 ## Levels

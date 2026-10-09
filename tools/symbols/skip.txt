@@ -8,3 +8,6 @@
 006b97b0 AIScriptProcessorInit: needs AISYS/AIPACKET type pull-in that doesn't compile; 390 B
 004a6dc0 Titles_GetName: eax/esi register args + jump table
 0043b970 KillGameObject: 3180 B, saga types don't compile
+005a3020 ConstantRumble: x87 fmod/sin-table/fabs
+0060e8e0 LevelObjects_InitForGame: 1-insn scheduling diff (max store), see STUB note
+00639580 ObjOpponentStillThere: x87 + bitfield compare chains
