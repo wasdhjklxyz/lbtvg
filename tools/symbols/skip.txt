@@ -65,3 +65,4 @@
 0070f480 NuSpecialConstTint: xor/and order in else branch (stub)
 0070f780 NuSpecialGetOnScreenFn: handle in ecx vs eax (stub)
 0070f860 NuSpecialGetInstanceix: handle register pick (stub)
+00710030 NuSplineFindAllSub: esi/edi swap (stub)

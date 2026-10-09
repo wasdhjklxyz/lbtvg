@@ -322,7 +322,8 @@ int NuSpecialGetNumSpecials(nugscn_s *scene) {
   return 0;
 }
 
-// 0x006fced0 is a lone `ret` (debug report compiled out).
+// 0x006fced0 is a lone `ret` (debug report compiled out); extern here keeps
+// the call (the static copy below is only seen after this function).
 void NuErrorUnk006fced0(void);
 
 // FUNCTION: LEGOBATMAN 0x0070f7d0
@@ -626,6 +627,19 @@ void NuSpecialSetShadowClipTestResultsOff(void) {
   nuspecial_shadowLightClipOverrides[3] = 0;
 }
 
+// 0x006fced0 again: static and empty, but called with a pointer argument, so
+// VC8 keeps the call and knows it clobbers nothing.
+static void NuDebugUnk006fced0(...) {}
+
+// FUNCTION: LEGOBATMAN 0x0070ffb0
+void NuSplineList(nugscn_s *scene) {
+  if (scene != 0) {
+    nugspline_s *spline = scene->splines;
+    for (int i = 0; i < scene->numsplines; i++, spline++)
+      NuDebugUnk006fced0(i, spline->name);
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x0070ffe0
 nugspline_s *NuSplineFind(nugscn_s *scene, char *name) {
   int i;
@@ -636,6 +650,61 @@ nugspline_s *NuSplineFind(nugscn_s *scene, char *name) {
       if (NuStrICmp(name, s->name) == 0)
         return s;
     }
+  }
+  return 0;
+}
+
+char *NuStrIStr(char *str, const char *sub);
+int NuStrNICmp(const char *a, const char *b, int n);
+
+// STUB: LEGOBATMAN 0x00710030
+// esi/edi swapped (count vs spline) against orig; FindAllBeg, same shape,
+// matches.
+int NuSplineFindAllSub(nugscn_s *scene, char *name, nugspline_s **results,
+                       int capacity) {
+  if (capacity <= 0 || scene == 0)
+    return 0;
+  nugspline_s *spline = scene->splines;
+  int count = 0;
+  for (int i = 0; i < scene->numsplines; spline++, i++) {
+    if (NuStrIStr(spline->name, name) != 0) {
+      results[count++] = spline;
+      if (count >= capacity)
+        break;
+    }
+  }
+  return count;
+}
+
+// FUNCTION: LEGOBATMAN 0x00710090
+int NuSplineFindAllBeg(nugscn_s *scene, char *name, nugspline_s **results,
+                       int capacity) {
+  if (capacity <= 0 || scene == 0)
+    return 0;
+  int count = 0;
+  nugspline_s *spline = scene->splines;
+  for (int i = 0; i < scene->numsplines; spline++, i++) {
+    if (NuStrNICmp(name, spline->name, -1) == 0) {
+      results[count++] = spline;
+      if (count >= capacity)
+        break;
+    }
+  }
+  return count;
+}
+
+// FUNCTION: LEGOBATMAN 0x007100f0
+nugspline_s *NuSplineFindNextBeg(nugscn_s *scene, char *name,
+                                 nugspline_s *previous) {
+  if (scene == 0)
+    return 0;
+  nugspline_s *spline = previous + 1;
+  if (previous == 0)
+    spline = scene->splines;
+  nugspline_s *end = scene->splines + scene->numsplines;
+  for (; spline < end; spline++) {
+    if (NuStrNICmp(name, spline->name, -1) == 0)
+      return spline;
   }
   return 0;
 }

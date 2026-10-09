@@ -212,3 +212,6 @@
 0070ff50 NuSpecialGetShadowClipTestResult  Mac order; -1 without overrides
 0070ff70 NuSpecialClearShadowClipTestResults  saga body
 0070ff80 NuSpecialSetShadowClipTestResultsOff  Mac order; sets overrides on, results 0
+0070ffb0 NuSplineList  Mac order before NuSplineFind; walks splines calling the compiled-out debug print
+00710090 NuSplineFindAllBeg  saga nuspline.c body matches
+007100f0 NuSplineFindNextBeg  saga nuspline.c body matches

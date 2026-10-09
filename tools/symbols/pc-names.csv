@@ -859,7 +859,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0070ff50,0012b9a4,_NuSpecialGetShadowClipTestResult,_NuSpecialGetShadowClipTestResult,confirmed,0
 0070ff70,0012b9c8,_NuSpecialClearShadowClipTestResults,_NuSpecialClearShadowClipTestResults,confirmed,0
 0070ff80,0012b9de,_NuSpecialSetShadowClipTestResultsOff,_NuSpecialSetShadowClipTestResultsOff,confirmed,0
+0070ffb0,0012ba0a,_NuSplineList,_NuSplineList,confirmed,0
 0070ffe0,0012ba22,_NuSplineFind,_NuSplineFind,gapfill,1
+00710090,0012bad4,_NuSplineFindAllBeg,_NuSplineFindAllBeg,confirmed,0
+007100f0,0012bb48,_NuSplineFindNextBeg,_NuSplineFindNextBeg,confirmed,0
 00711580,0012c5ee,_NuTexAnimEnvCreate,_NuTexAnimEnvCreate,strings,0
 00712030,00149d44,_NuTexAnimProgParseFile,_NuTexAnimProgParseFile,strings,0
 00713e60,0014ea12,_NuRndrEndReflectionRender,_NuRndrEndReflectionRender,gapfill,4
