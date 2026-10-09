@@ -75,6 +75,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00452af0,00079710,__Z22Condition_CanGetToNodeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_CanGetToNode(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00452b60,00079778,__Z28Condition_PlayerCanGetToNodeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_PlayerCanGetToNode(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00452bd0,00079840,__Z26Condition_GotCnxCapabilityP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_GotCnxCapability(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+00452c70,0007986a,__Z20Condition_HasAbilityP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_HasAbility(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+00452d70,00079932,__Z20Condition_AlertRangeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_AlertRange(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+00452de0,0007998c,__Z26Condition_LocatorSetIsInitP7AISYS_sPcP10AISCRIPT_s,"Condition_LocatorSetIsInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+00452e10,000799b0,__Z22Condition_LocatorSetIsP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_LocatorSetIs(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+00452e80,000799ce,__Z31Condition_OpponentInSpecialMoveP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OpponentInSpecialMove(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+00452eb0,000799f6,__Z26Condition_IAmInSpecialMoveP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_IAmInSpecialMove(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 004530b0,0009708c,__Z24Action_SetTakeOverTargetP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetTakeOverTarget(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 004541f0,0008f63e,__Z14Action_SetSideP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetSide(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 00454950,00079fac,__Z19Action_SetStateAreaP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetStateArea(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0

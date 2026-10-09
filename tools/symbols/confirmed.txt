@@ -419,3 +419,9 @@
 00452af0 Condition_CanGetToNode   matched, Mac order after Condition_ImAGirl
 00452b60 Condition_PlayerCanGetToNode   matched, Mac order after Condition_ImAGirl
 00452bd0 Condition_GotCnxCapability   matched, Mac order after Condition_ImAGirl
+00452c70 Condition_HasAbility   matched, Mac order after Condition_GotCnxCapability
+00452d70 Condition_AlertRange   matched, Mac order after Condition_GotCnxCapability
+00452de0 Condition_LocatorSetIsInit   matched, Mac order after Condition_GotCnxCapability
+00452e10 Condition_LocatorSetIs   matched, Mac order after Condition_GotCnxCapability
+00452e80 Condition_OpponentInSpecialMove   matched, Mac order after Condition_GotCnxCapability
+00452eb0 Condition_IAmInSpecialMove   matched, Mac order after Condition_GotCnxCapability

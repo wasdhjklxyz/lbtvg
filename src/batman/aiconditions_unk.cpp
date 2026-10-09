@@ -803,6 +803,79 @@ f32 Condition_GotCnxCapability(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 0.0f;
 }
 
+// FUNCTION: LEGOBATMAN 0x00452c70
+f32 Condition_HasAbility(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL) {
+    GameObject_s *obj = packet->pd0->obj;
+    if (obj != NULL) {
+      if (!NuStrICmp(str, "Hazard") &&
+          (obj->p54->p24->flags13c & 0x4000000) != 0)
+        return 1.0f;
+      if (!NuStrICmp(str, "Security") &&
+          (obj->p54->p24->flags13c & 0x2000000) != 0)
+        return 1.0f;
+      if (!NuStrICmp(str, "HighJump") &&
+          (obj->p54->p24->flags13c & 0x400000) != 0)
+        return 1.0f;
+      if (!NuStrICmp(str, "Glide") && (obj->p54->p24->flags144 & 0x40000) != 0)
+        return 1.0f;
+    }
+  }
+  return 0.0f;
+}
+
+// GLOBAL: LEGOBATMAN 0x009c5fc8
+extern nuvec_s g_unk009c5fc8; // alert position
+// GLOBAL: LEGOBATMAN 0x009c5ffc
+extern f32 g_unk009c5ffc; // alert timer
+
+// FUNCTION: LEGOBATMAN 0x00452d70
+f32 Condition_AlertRange(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char *str, void *data) {
+  f32 range = 1.0e9f;
+  if (packet != NULL && packet->pd0 != NULL && sys != NULL &&
+      g_unk009c5ffc > 0.0f)
+    range = NuVecDist(&g_unk009c5fc8, &packet->pd0->pos5c, NULL);
+  return range;
+}
+
+void *AIPathFindLocatorSet(AISYS_s *sys, char *name);
+
+// FUNCTION: LEGOBATMAN 0x00452de0
+void *Condition_LocatorSetIsInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  return name != NULL ? AIPathFindLocatorSet(g_unk00960894->aiSys2bf8, name)
+                      : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x00452e10
+f32 Condition_LocatorSetIs(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char *str, void *data) {
+  // 0xac: the process's current locator set.
+  if (data != NULL && ((void **)process)[0xac / 4] == data)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00452e80
+f32 Condition_OpponentInSpecialMove(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                    AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pe4 != NULL && packet->pe4->obj->b9db == 0x30)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00452eb0
+f32 Condition_IAmInSpecialMove(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                               AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL) {
+    GameObject_s *obj = packet->pd0->obj;
+    if (obj->b9db == 0x30 || obj->b9db == 0x74)
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
 i32 Hub_GetRandomCharType(void);
 
 // FUNCTION: LEGOBATMAN 0x00451470

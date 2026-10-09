@@ -37,7 +37,10 @@ struct Unk_GameObject50 {
 struct Unk_GameObject54_24 {
   u8 pad0[0xbc];
   f32 fbc; // 0xbc, GameShadow: 0 = ignore hover layer
-  u8 pad0c0[0x148 - 0xc0];
+  u8 pad0c0[0x13c - 0xc0];
+  u32 flags13c; // 0x13c, ability bits (Condition_HasAbility)
+  u8 pad140[0x144 - 0x140];
+  u32 flags144; // 0x144
   u32 flags148; // 0x148
   u8 pad14c[0x150 - 0x14c];
   u8 b150; // 0x150, bit 1: Player_HasFastBuild
