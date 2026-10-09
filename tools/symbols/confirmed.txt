@@ -425,3 +425,5 @@
 00452e10 Condition_LocatorSetIs   matched, Mac order after Condition_GotCnxCapability
 00452e80 Condition_OpponentInSpecialMove   matched, Mac order after Condition_GotCnxCapability
 00452eb0 Condition_IAmInSpecialMove   matched, Mac order after Condition_GotCnxCapability
+00452f90 Condition_OpponentIsAVehicle  matched, Mac order after Condition_OpponentAngle
+00452fd0 Condition_NeutralInTriggerAreaInit  matched (AISysFindArea), Mac order

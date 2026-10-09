@@ -22,7 +22,9 @@ struct AISCRIPTPROCESS_s;
 struct Unk_AIPacketObj {
   GameObject_s *obj;            // 0x00
   struct AISCRIPTPROCESS_s *ai; // 0x04
-  u8 pad0[0x5c - 8];
+  u8 pad0[0x54 - 8];
+  struct Unk_GameObject54 *character; // 0x54
+  u8 pad58[0x5c - 0x58];
   nuvec_s pos5c; // 0x5c
 };
 

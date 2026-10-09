@@ -876,6 +876,23 @@ f32 Condition_IAmInSpecialMove(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 0.0f;
 }
 
+// FUNCTION: LEGOBATMAN 0x00452f90
+f32 Condition_OpponentIsAVehicle(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                 AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pe4 != NULL && packet->pe4->obj != NULL &&
+      (packet->pe4->character->model_flags & 0x2000) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+void *AISysFindArea(AISYS_s *sys, char *name);
+
+// FUNCTION: LEGOBATMAN 0x00452fd0
+void *Condition_NeutralInTriggerAreaInit(AISYS_s *sys, char *name,
+                                         AISCRIPT_s *script) {
+  return name != NULL ? AISysFindArea(sys, name) : NULL;
+}
+
 i32 Hub_GetRandomCharType(void);
 
 // FUNCTION: LEGOBATMAN 0x00451470
