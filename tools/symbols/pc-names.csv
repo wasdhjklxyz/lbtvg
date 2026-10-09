@@ -327,7 +327,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0059dd10,00341e28,__Z13Text_MakeTimefiiiPc,"Text_MakeTime(float, int, int, int, char*)",strings,0
 0059f160,0026748c,__Z23GameAudio_GetPlrSfxBitsPv,GameAudio_GetPlrSfxBits(void*),gapfill,1
 0059f190,002674b4,__Z15GameAudio_Resetv,GameAudio_Reset(),order,2
-0059f1d0,00267502,__Z21GameAudio_PlaySfxByIdiP7nuvec_sii,"GameAudio_PlaySfxById(int, nuvec_s*, int, int)",order,2
+0059f1d0,00267502,__Z21GameAudio_PlaySfxByIdiP7nuvec_sii,"GameAudio_PlaySfxById(int, nuvec_s*, int, int)",confirmed,0
 0059f260,002675aa,__Z17GameAudio_PlaySfxiP7nuvec_sii,"GameAudio_PlaySfx(int, nuvec_s*, int, int)",gapfill,1
 0059f8d0,00267b88,__Z11PlayJumpSfxP12GameObject_si,"PlayJumpSfx(GameObject_s*, int)",gapfill,3
 0059f9a0,00267c82,__Z11PlayLandSfxP12GameObject_sii,"PlayLandSfx(GameObject_s*, int, int)",gapfill,2
@@ -535,7 +535,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00638f90,00282e9c,__Z23CharPlatforms_ConfigureP11WORLDINFO_sPc,"CharPlatforms_Configure(WORLDINFO_s*, char*)",strings,0
 006394f0,002a80d0,__Z12FaceOpponentP12GameObject_sP7nuvec_s,"FaceOpponent(GameObject_s*, nuvec_s*)",gapfill,3
 00639580,002a8152,__Z21ObjOpponentStillThereP12GameObject_sS0_f,"ObjOpponentStillThere(GameObject_s*, GameObject_s*, float)",order,4
-00639670,002a821c,__Z12SetWeaponOutP12GameObject_s,SetWeaponOut(GameObject_s*),gapfill,1
+00639670,002a821c,__Z12SetWeaponOutP12GameObject_s,SetWeaponOut(GameObject_s*),confirmed,0
 006396c0,002a827c,__Z13FastWeaponOutP12GameObject_si,"FastWeaponOut(GameObject_s*, int)",order,5
 006397b0,002a83a4,__Z13SlowWeaponOutP12GameObject_s,SlowWeaponOut(GameObject_s*),order,5
 00639900,002a84f6,__Z13WeaponOutCodeP12GameObject_s,WeaponOutCode(GameObject_s*),order,5
@@ -703,7 +703,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d5540,00189208,_NuCommandLine,_NuCommandLine,gapfill,4
 006d5700,001893c0,_NuPadOpen,_NuPadOpen,strings,0
 006d5df0,001897ba,_NuPadGetPort,_NuPadGetPort,calls,2
-006d6910,0018a1ce,_ImplodeError,_ImplodeError,gapfill,1
+006d6910,0018a1ce,_ImplodeError,_ImplodeError,confirmed,0
 006d6d00,0018a2ec,_ImplodeMakeTable,_ImplodeMakeTable,strings,0
 006d7500,00187052,_NuStrCat,_NuStrCat,gapfill,1
 006d7590,001871ae,_NuStrCpy,_NuStrCpy,gapfill,1

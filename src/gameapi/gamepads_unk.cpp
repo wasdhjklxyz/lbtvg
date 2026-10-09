@@ -1,6 +1,7 @@
 // gameapi/gamepads_unk.cpp: placed by tools/new.py; file name unproven.
 
 #include "../nu2api/nucore/common.h"
+#include "../nu2api/numath/nuvec.h"
 
 typedef struct nupad_s nupad_s;
 
@@ -23,6 +24,27 @@ extern f32 DEFAULTFPS;
 
 // GLOBAL: LEGOBATMAN 0x00ab3960
 extern GameObject_s *Player[8];
+
+void PlaySfxById(i32 sfx_id, nuvec_s *position);
+
+// GLOBAL: LEGOBATMAN 0x009e7bd8
+extern nuvec_s nusound_special_positions[3];
+
+// FUNCTION: LEGOBATMAN 0x0059f1d0
+void GameAudio_PlaySfxById(i32 sfx_id, nuvec_s *position, i32 flags, i32) {
+  if (flags != 0) {
+    if (flags == 1 || flags == 3) {
+      nusound_special_positions[1] = *position;
+      PlaySfxById(sfx_id, &nusound_special_positions[1]);
+    }
+    if (flags == 2 || flags == 3) {
+      nusound_special_positions[2] = *position;
+      PlaySfxById(sfx_id, &nusound_special_positions[2]);
+    }
+  } else {
+    PlaySfxById(sfx_id, position);
+  }
+}
 
 // FUNCTION: LEGOBATMAN 0x005a2dd0
 void NewRumbleAllPlayers(float strength, float duration, i32 frames, i32) {

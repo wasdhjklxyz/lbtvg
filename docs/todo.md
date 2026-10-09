@@ -13,22 +13,22 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [near rtleditor.cpp](#near-rtleditorcpp) | 101 | 75 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 100 | 74 |
 | [Action](#action) | 72 | 57 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
 | [Text](#text) | 10 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 14 | 8 |
-| [near nupad_gen.cpp](#near-nupad_gencpp) | 9 | 8 |
+| [near nupad_gen.cpp](#near-nupad_gencpp) | 8 | 7 |
 | [Arcade](#arcade) | 5 | 5 |
 | [GameCam](#gamecam) | 5 | 5 |
 | [Grabber](#grabber) | 7 | 5 |
 | [Player](#player) | 5 | 5 |
 | [Area](#area) | 5 | 4 |
-| [GameAudio](#gameaudio) | 4 | 4 |
 | [Hub](#hub) | 6 | 4 |
 | [near nutrig_gen.cpp](#near-nutrig_gencpp) | 12 | 4 |
 | [Door](#door) | 4 | 3 |
+| [GameAudio](#gameaudio) | 3 | 3 |
 | [GizAction](#gizaction) | 3 | 3 |
 | [NuTex](#nutex) | 5 | 3 |
 | [Players](#players) | 3 | 3 |
@@ -249,7 +249,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005b0f40` 71 B `GameBufferAlloc(variptr_u*, variptr_u*, int)`  **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `00635de0` 71 B `CoinsGoToMainTotal()`  **hint** name (gapfill) · **saga** `legoapi/menus/core/panel.cpp`
 - [ ] `00597fc0` 72 B `_AddGameDebris`
-- [ ] `00639670` 76 B `SetWeaponOut(GameObject_s*)`  **hint** name (gapfill) · **saga** `legoapi/characters/core/playeritems.cpp`
 - [ ] `00639b50` 76 B `SetWeaponIn(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
 - [ ] `00597e10` 79 B `_FindGameDebris`  **hint** name (gapfill)
 - [ ] `005bc370` 85 B `GizmoGetTypeIDByName(GIZMOSYS_s*, char*)`  **hint** name (gapfill) · **saga** `legoapi/gizmo/base/gizmo.cpp`
@@ -522,7 +521,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## near nupad_gen.cpp
 
 - [ ] `006d7dc0` 43 B `_NuSPrintf`  **hint** name (gapfill)
-- [ ] `006d6910` 69 B `_ImplodeError`  **hint** name (gapfill) · **saga** `nu2api/nucore/implode.cpp`
 - [ ] `006daa40` 149 B `_NuFParGetFloat`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006dfc60` 181 B `_NuFParCreateMem`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006dd060` 226 B `_NuFParGetInt`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
@@ -573,13 +571,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005fb260` 140 B `Area_FindNextPlayLevel(int)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
 - [ ] `005fb430` 3692 B `Area_Configure(int, int, EXTRAMODEL*, short*)`  **saga** `legoapi/world/areas.cpp`
 
-## GameAudio
-
-- [ ] `0059f260` 32 B `GameAudio_PlaySfx(int, nuvec_s*, int, int)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
-- [ ] `0059f160` 34 B `GameAudio_GetPlrSfxBits(void*)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
-- [ ] `0059f190` 50 B `GameAudio_Reset()`  **hint** name (order) · **saga** `legoapi/audio/sfx.cpp`
-- [ ] `0059f1d0` 141 B `GameAudio_PlaySfxById(int, nuvec_s*, int, int)`  **hint** name (order) · **saga** `legoapi/audio/sfx.cpp`
-
 ## Hub
 
 - [ ] `004931b0` 68 B `Hub_SignalSwitchHeroVillain(HubSwitchMode)`  **stub**
@@ -610,6 +601,12 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00615190` 77 B `Door_FindByName(WORLDINFO_s*, char*)`  **hint** name (gapfill) · **saga** `legoapi/props/doors/doors.cpp`
 - [ ] `006152f0` 147 B `Door_DestinationLevel(DOOR_s*)`  **hint** name (order)
 - [ ] `006151e0` 222 B `Door_SetCutCam(DOOR_s*)`  **hint** name (order) · **saga** `legoapi/props/doors/doors.cpp`
+
+## GameAudio
+
+- [ ] `0059f260` 32 B `GameAudio_PlaySfx(int, nuvec_s*, int, int)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
+- [ ] `0059f160` 34 B `GameAudio_GetPlrSfxBits(void*)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
+- [ ] `0059f190` 50 B `GameAudio_Reset()`  **hint** name (order) · **saga** `legoapi/audio/sfx.cpp`
 
 ## GizAction
 

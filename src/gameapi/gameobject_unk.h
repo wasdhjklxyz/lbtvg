@@ -86,7 +86,13 @@ struct GameObject_s {
   Unk_GameObject112c *p112c; // 0x112c
   u8 pad13[0x11cc - 0x1130];
   f32 f11cc; // 0x11cc
-  u8 pad14[0x1414 - 0x11d0];
+  u8 pad14[0x11d8 - 0x11d0];
+  f32 weapon_scale; // 0x11d8
+  u8 pad14a[0x130c - 0x11dc];
+  u32 flags130c; // 0x130c
+  u8 pad14b[0x131d - 0x1310];
+  u8 weapon_scale_state; // 0x131d
+  u8 pad14c[0x1414 - 0x131e];
   u32 flags1414; // 0x1414
   u8 pad15[0x1430 - 0x1418];
   u32 flags1430; // 0x1430

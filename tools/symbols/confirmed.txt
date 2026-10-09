@@ -8,3 +8,6 @@
 006dc3a0 NuStrICmp lgtm
 006d8020 NuAToI lgtm
 0060d6c0 Level_FindByName  saga body matches 107B
+006d6910 ImplodeError  saga body matches (putc/vfprintf/exit)
+0059f1d0 GameAudio_PlaySfxById  saga body shape matches (special_positions copy + PlaySfxById)
+00639670 SetWeaponOut  saga body matches (context reset, weapon_scale=1)
