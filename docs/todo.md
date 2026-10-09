@@ -13,7 +13,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [Action](#action) | 70 | 55 |
+| [Action](#action) | 68 | 53 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 45 | 38 |
 | [near rtleditor.cpp](#near-rtleditorcpp) | 59 | 33 |
 | [near terrain.c](#near-terrainc) | 34 | 9 |
@@ -206,11 +206,9 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006a5660` 310 B `_Action_OverrideAnimation`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `006b4670` 353 B `_Action_SetInterrupt`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00463f00` 370 B `Action_SetAnimSpeedMul(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `0046f500` 372 B `Action_SetTechnoComplete(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `0046f880` 383 B `Action_CompleteLevel(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00472640` 385 B `Action_AttachNodeToPlatform(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `00461ff0` 388 B `Action_SetPath(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00463060` 398 B `Action_PlayGizSpecial(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `0045f9e0` 404 B `Action_SetMaxMovementRange(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00470fd0` 412 B `Action_AddItem(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `00468190` 453 B `Action_FaceCamera(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`

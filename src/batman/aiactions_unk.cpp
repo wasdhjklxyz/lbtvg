@@ -172,6 +172,119 @@ i32 Action_PlayGizObstacle(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+struct GAMEANIMSET_s;
+
+struct GIZSPECIAL_s {
+  u8 pad0[0x20];
+  GAMEANIMSET_s *anim_set; // 0x20
+};
+
+// GLOBAL: LEGOBATMAN 0x00967aec
+extern i32 gizspecial_gizmotype_id;
+
+void GameAnimSet_JumpToStart(GAMEANIMSET_s *set);
+void GameAnimSet_JumpToEnd(GAMEANIMSET_s *set);
+void GameAnimSet_Play(GAMEANIMSET_s *set, f32 speed, i32 a);
+
+// FUNCTION: LEGOBATMAN 0x00463060
+i32 Action_PlayGizSpecial(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **args, int argc, int flags,
+                          f32 time) {
+  GIZSPECIAL_s *special = 0;
+  i32 backwards = 0;
+  i32 snap = 0;
+  i32 restart = 0;
+  if (flags != 0 && argc != 0) {
+    for (i32 index = 0; index < argc; ++index) {
+      char *value = NuStrIStr(args[index], "name=");
+      if (value != 0) {
+        GIZMO_s *gizmo = GizmoFindByName(g_unk00960894->gizmoSys2b0c,
+                                         gizspecial_gizmotype_id, value + 5);
+        if (gizmo != 0)
+          special = (GIZSPECIAL_s *)gizmo->object;
+      } else if (NuStrICmp(args[index], "backwards") == 0) {
+        backwards = 1;
+      } else if (NuStrICmp(args[index], "SNAP") == 0) {
+        snap = 1;
+      } else if (NuStrICmp(args[index], "Restart") == 0) {
+        restart = 1;
+      }
+    }
+
+    if (special != 0) {
+      if (backwards != 0) {
+        if (snap != 0) {
+          GameAnimSet_JumpToStart(special->anim_set);
+        } else {
+          if (restart != 0)
+            GameAnimSet_JumpToEnd(special->anim_set);
+          GameAnimSet_Play(special->anim_set, -1.0f, 1);
+        }
+      } else if (snap != 0) {
+        GameAnimSet_JumpToEnd(special->anim_set);
+      } else {
+        if (restart != 0)
+          GameAnimSet_JumpToStart(special->anim_set);
+        GameAnimSet_Play(special->anim_set, 1.0f, 1);
+      }
+    }
+  }
+  return 1;
+}
+
+static inline GameObject_s *GetNamedGameObject(AISYS_s *sys, char *name) {
+  Unk_AIPacketObj *api;
+  if (GetNamedAPIObjectFn && (api = GetNamedAPIObjectFn(sys, name)))
+    return api->obj;
+  return 0;
+}
+
+struct TECHNO_s {
+  u8 pad0[0x8b];
+  u8 flags8b_lo : 3;
+  u8 complete : 1; // 0x8b bit 3
+  u8 flags8b_hi : 4;
+};
+
+i32 GizmoGetTypeIDByName(GIZMOSYS_s *gizmo_sys, char *name);
+TECHNO_s *Technos_FindControllingTechno(GameObject_s *object);
+
+// FUNCTION: LEGOBATMAN 0x0046f500
+i32 Action_SetTechnoComplete(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char **args, int argc,
+                             int flags, f32 time) {
+  i32 complete = 1;
+  TECHNO_s *techno = 0;
+  GameObject_s *obj = 0;
+  Unk_AIPacketObj *api;
+  char *s;
+  i32 i;
+  if (packet && packet->pd0)
+    obj = packet->pd0->obj;
+  if (flags) {
+    for (i = 0; i < argc; i++) {
+      if ((s = NuStrIStr(args[i], "techno"))) {
+        s = s + NuStrLen("techno") + 1;
+        GIZMO_s *gizmo = GizmoFindByName(
+            g_unk00960894->gizmoSys2b0c,
+            GizmoGetTypeIDByName(g_unk00960894->gizmoSys2b0c, "Techno"), s);
+        if (gizmo != 0 && gizmo->object != 0)
+          techno = (TECHNO_s *)gizmo->object;
+      } else if (!NuStrICmp(args[i], "FALSE")) {
+        complete = 0;
+      } else if ((s = NuStrIStr(args[i], "controlling"))) {
+        s = s + NuStrLen("controlling") + 1;
+        obj = GetNamedGameObject(g_unk00960894->aiSys2bf8, s);
+      }
+    }
+    if (obj)
+      techno = Technos_FindControllingTechno(obj);
+    if (techno)
+      techno->complete = complete;
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x0046d6f0
 i32 Action_AddMiscPickups(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                           AIPACKET_s *packet, char **args, int argc, int flags,
