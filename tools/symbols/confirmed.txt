@@ -1484,3 +1484,9 @@
 00614940 D_level_again  keyword table 0x963658
 00614980 D_level_freeplay  keyword table 0x963658
 00614bb0 D_cut_scene  keyword table 0x9636b8
+00559690 fnAudioAudio  keyword table 0x95da20
+0055a060 fnAudioGroup  keyword table 0x95da20
+0055a100 fnReverb  keyword table 0x95da20
+0055a200 fnIfPlatform  keyword table 0x95da20
+0055a270 fnBasePath  keyword table 0x95da20
+006d3fc0 NuFParPopCom  keyword table 0x95da20 (EndIfPlatform; folded)

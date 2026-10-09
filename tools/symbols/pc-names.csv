@@ -810,6 +810,11 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00558d90,0020edaa,_GetSfxId,_GetSfxId,calls,1
 00558f10,001f3ac2,_PlaySfxByIdEx,_PlaySfxByIdEx,calls,2
 00559480,0020ef1a,_PlaySfxAndSetVolume,_PlaySfxAndSetVolume,confirmed,0
+00559690,001f4384,_fnAudioAudio,_fnAudioAudio,confirmed,0
+0055a060,0020fbaa,_fnAudioGroup,_fnAudioGroup,confirmed,0
+0055a100,001f43a8,_fnReverb,_fnReverb,confirmed,0
+0055a200,001f44d0,_fnIfPlatform,_fnIfPlatform,confirmed,0
+0055a270,001f4548,_fnBasePath,_fnBasePath,confirmed,0
 0055fc00,001f961a,_LookupDebrisEffectPageIgnore,_LookupDebrisEffectPageIgnore,gapfill,3
 0055fd40,001f9744,_LookupDebrisEffectPage,_LookupDebrisEffectPage,confirmed,0
 0055fd60,001f9768,_LookupDebrisEffectPageOnly,_LookupDebrisEffectPageOnly,gapfill,2
@@ -1944,6 +1949,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006c6480,00221f50,_DrawMenuEntryEx,_DrawMenuEntryEx,gapfill,3
 006c9ca0,001e7734,_instNuGCutSceneCreate,_instNuGCutSceneCreate,strings,0
 006cd280,001e56a2,_NuScriptLoadCommands,_NuScriptLoadCommands,strings,0
+006d3fc0,0018810e,_NuFParPopCom,_NuFParPopCom,confirmed,0
 006d40d0,00188194,_NuListCheck,_NuListCheck,confirmed,0
 006d40f0,001881ac,_NuListAppend,_NuListAppend,confirmed,0
 006d4120,001881d8,_NuListInsert,_NuListInsert,confirmed,0
