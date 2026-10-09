@@ -15,7 +15,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 |---|---|---|
 | [Action](#action) | 57 | 42 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 44 | 37 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 55 | 29 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 49 | 29 |
 | [near terrain.c](#near-terrainc) | 34 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 12 | 6 |
 | [Grabber](#grabber) | 7 | 5 |
@@ -303,13 +303,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## near rtleditor.cpp
 
-- [ ] `0059b480` 20 B `_CurrentAnim`
-- [ ] `00595ff0` 35 B `_AnimFlags`  **hint** name (gapfill)
-- [ ] `0059b540` 35 B `_AnimSpeedZ`  **hint** name (gapfill)
 - [ ] `005d9810` 38 B `GizmoBlowupAddDefaultExplosionDebris(nuvec_s*)`  **hint** name (gapfill)
-- [ ] `0059a730` 59 B `_ResetAnimPacket`  **hint** name (gapfill)
-- [ ] `0059a0d0` 60 B `_FindAnimIX`  **hint** name (gapfill)
-- [ ] `0059b3c0` 68 B `_AnimPlaying`  **hint** name (gapfill)
 - [ ] `00597fc0` 72 B `_AddGameDebris`
 - [ ] `00597e10` 79 B `_FindGameDebris`  **hint** name (gapfill)
 - [ ] `00597db0` 90 B `_ParticlesPerSecond`  **hint** name (gapfill)

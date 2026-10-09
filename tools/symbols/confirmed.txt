@@ -91,3 +91,8 @@
 005aefd0 GameShadow  saga body shape matches (platform disable list, NewShadowEx, PlatOnOff restore)
 00635ca0 UpdateCoinPacket  saga collection.cpp shape (scale seek, double-score timer, BonusArea coin decrement)
 0059f9a0 PlayLandSfx  saga sfx.cpp shape (type 1-4 cases, sfx_ids 7..14, underwater early-out, 0.5 volume)
+0059b3c0 AnimPlaying  matches saga AnimPlaying shape (packet blend fields, returns time ptr)
+0059b540 AnimSpeedZ  same shape as Mac _AnimSpeedZ (model_data_b check, anim->f20)
+0059a0d0 FindAnimIX  saga FindAnimIX body matches (NuStrICmp walk over animations)
+0059a730 ResetAnimPacket  saga ResetAnimPacket body matches field for field
+00595ff0 AnimFlags  same shape as Mac _AnimFlags (model_data_b check, anim->flags)
