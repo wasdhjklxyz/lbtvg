@@ -1085,6 +1085,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00628470,0027ec06,__Z12CC_can_scareP8nufpar_s,CC_can_scare(nufpar_s*),confirmed,0
 006284c0,0027ec4a,__Z16CC_cannot_freezeP8nufpar_s,CC_cannot_freeze(nufpar_s*),confirmed,0
 00628510,0027ec8e,__Z22CC_sfx_glide_is_brollyP8nufpar_s,CC_sfx_glide_is_brolly(nufpar_s*),confirmed,0
+00628560,0027ecd2,__Z17CC_backpack_layerP8nufpar_s,CC_backpack_layer(nufpar_s*),confirmed,0
 006285d0,00280c32,__Z16AnimInclude_InitPcP9variptr_uS1_,"AnimInclude_Init(char*, variptr_u*, variptr_u*)",strings,0
 00629270,002818fe,__Z23CharConfig_ConfigureAlliP12nufpcomjmp_s,"CharConfig_ConfigureAll(int, nufpcomjmp_s*)",strings,0
 0062d030,002833a2,__Z24CharShadows_InitMaterialP9variptr_uS_,"CharShadows_InitMaterial(variptr_u*, variptr_u)",strings,0

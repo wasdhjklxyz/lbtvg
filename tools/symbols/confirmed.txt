@@ -797,3 +797,4 @@
 006284c0 CC_cannot_freeze  matched, Mac order
 00628510 CC_sfx_glide_is_brolly  matched, Mac order
 00628270 CC_detonator_type  matched, Mac order
+00628560 CC_backpack_layer  matched, Mac order

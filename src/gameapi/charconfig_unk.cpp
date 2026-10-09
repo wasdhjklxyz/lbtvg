@@ -118,7 +118,9 @@ typedef struct CHARCONFIG_RUNTIME_s {
   i8 attracto_suck_locator;   // 0x225
   u8 hit_points;              // 0x226
   u8 shield_hit_points;       // 0x227
-  unsigned char pad228[0x232 - 0x228];
+  unsigned char pad228[0x22c - 0x228];
+  i8 backpack_layers[4]; // 0x22c
+  unsigned char pad230[0x232 - 0x230];
   u8 phobias;       // 0x232
   u8 chatter_delay; // 0x233
   unsigned char pad234[0x236 - 0x234];
@@ -1604,4 +1606,20 @@ void CC_cannot_freeze(NUFPAR *parser) {
 void CC_sfx_glide_is_brolly(NUFPAR *parser) {
   ((CCBits *)&charconfig.runtime->flags)->b24 =
       NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00628560
+void CC_backpack_layer(NUFPAR *parser) {
+  i32 i;
+  for (i = 0; i < 4; i++) {
+    if (NuFParGetWord(parser) == 0)
+      break;
+    i32 layer = NuAToI(parser->word_buf);
+    if ((u32)layer > 31)
+      break;
+    charconfig.runtime->backpack_layers[i] = layer;
+  }
+  // The shipped code clears the hose locators here, not the layers.
+  for (; i < 4; i++)
+    charconfig.runtime->hose_locators[i] = -1;
 }
