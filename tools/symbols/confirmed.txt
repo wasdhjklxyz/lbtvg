@@ -318,3 +318,4 @@
 00635170 GizmoPickups_PostLoad  empty function (ret) right after GizmoPickup_BeenTurnedOn, as in Mac order (Mac body is empty too)
 005c1aa0 CanPullLevers  matched saga-shaped body (+ ability table check), Mac order after SetPlayer
 005c1cc0 SetPlayerControl  matched (bit 7 of 0x1fc, callback, clears per-player timer), Mac order after Player_ResetContexts
+00645500 SuperCarry_CarryingType  matched (returns carried blowup of given type while super-carrying), Mac order after SuperCarry_Carrying

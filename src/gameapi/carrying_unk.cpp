@@ -14,6 +14,27 @@ i32 SuperCarry_Carrying(GameObject_s *object) {
   return 0;
 }
 
+struct GIZMOBLOWUPTYPE_s;
+
+struct GIZMOBLOWUP_s {
+  u8 pad0[0xb0];
+  GIZMOBLOWUPTYPE_s *type; // 0xb0
+};
+
+// FUNCTION: LEGOBATMAN 0x00645500
+GIZMOBLOWUP_s *SuperCarry_CarryingType(GameObject_s *object,
+                                       GIZMOBLOWUPTYPE_s *type) {
+  if (LEGOCONTEXT_SUPERCARRY != -1 && object->b9db == LEGOCONTEXT_SUPERCARRY &&
+      type != 0) {
+    // 0x9bc holds the carried blowup while super-carrying.
+    GIZMOBLOWUP_s *blowup = (GIZMOBLOWUP_s *)object->techno;
+    if (blowup != 0 && blowup->type == type && object->b9d9 != 4 &&
+        object->b9d9 != 1)
+      return blowup;
+  }
+  return 0;
+}
+
 #include "../nu2api/nu3d/nuspecial.h"
 #include "../nu2api/numath/numtx.h"
 
