@@ -1462,3 +1462,8 @@
 0063b070 GizDigSFX_completesfx  keyword table 0x9656e4
 0063b080 GizDigSFX_returnsfx  keyword table 0x9656e4
 0063b090 GizDigSFX_Configure  Mac GizDigSFX_Configure(WORLDINFO_s*, char*); pushes table 0x9656e4, "digSFX"
+00658e60 TrafficAnim_yoffset  keyword table 0x9674d8
+00658f90 Traffic_frame_interval  keyword table 0x9674d8
+00658fb0 Traffic_rand_interval  keyword table 0x9674d8
+00658fd0 Traffic_tfactor  keyword table 0x9674d8
+006590c0 Traffic_vehicle  keyword table 0x9674d8

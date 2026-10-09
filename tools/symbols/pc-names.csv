@@ -1730,6 +1730,11 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006581c0,00269aec,__Z14Backdrop_useBBP8nufpar_s,Backdrop_useBB(nufpar_s*),confirmed,0
 006581e0,00269b1e,__Z19Backdrop_deletedistP8nufpar_s,Backdrop_deletedist(nufpar_s*),confirmed,0
 00658260,00269ba6,__Z21BackdropSys_ConfigureP11WORLDINFO_sPc,"BackdropSys_Configure(WORLDINFO_s*, char*)",strings,0
+00658e60,00346ce0,__Z19TrafficAnim_yoffsetP8nufpar_s,TrafficAnim_yoffset(nufpar_s*),confirmed,0
+00658f90,00346e30,__Z22Traffic_frame_intervalP8nufpar_s,Traffic_frame_interval(nufpar_s*),confirmed,0
+00658fb0,00346e54,__Z21Traffic_rand_intervalP8nufpar_s,Traffic_rand_interval(nufpar_s*),confirmed,0
+00658fd0,00346e78,__Z15Traffic_tfactorP8nufpar_s,Traffic_tfactor(nufpar_s*),confirmed,0
+006590c0,00346e9c,__Z15Traffic_vehicleP8nufpar_s,Traffic_vehicle(nufpar_s*),confirmed,0
 00659110,00346fb6,__Z24TrafficAnimSys_ConfigureP11WORLDINFO_sPc,"TrafficAnimSys_Configure(WORLDINFO_s*, char*)",strings,0
 0065c320,002ea63c,__Z7LoseHatP12GameObject_s,LoseHat(GameObject_s*),confirmed,0
 0065e780,002a38f0,__Z17LoadEditorSplinesP11WORLDINFO_sPcP9variptr_uS3_,"LoadEditorSplines(WORLDINFO_s*, char*, variptr_u*, variptr_u*)",strings,0
