@@ -4873,3 +4873,77 @@ i32 Action_UseTechno(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 0;
 }
+
+void GizmoActivate(GIZMOSYS_s *sys, GIZMO_s *gizmo, i32 active, i32 a);
+
+// FUNCTION: LEGOBATMAN 0x0046fe90
+i32 Action_GizmoActivate(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  GIZMO_s *gizmo = 0;
+  i32 active = 1;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "name=");
+      if (s != 0) {
+        s += NuStrLen("name=");
+        gizmo = GizmoFindByName(g_unk00960894->gizmoSys2b0c, -1, s);
+      } else if (NuStrICmp(args[i], "FALSE") == 0) {
+        active = 0;
+      }
+    }
+    if (gizmo != 0)
+      GizmoActivate(g_unk00960894->gizmoSys2b0c, gizmo, active, 1);
+  }
+  return 1;
+}
+
+struct GIZAIMESSAGE_s {
+  u8 pad0[0x28];
+  f32 value; // 0x28
+};
+
+extern GIZAIMESSAGESYS_s *gizaimessagesys;
+
+void AddGameMsgCount(nuvec_s *pos, i32 count, i32 total, u8 red, u8 green,
+                     u8 blue, f32 scale);
+
+// FUNCTION: LEGOBATMAN 0x0046cd90
+i32 Action_AddGameMsgCount(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char **args, int argc, int flags,
+                           f32 time) {
+  i32 count = 0;
+  i32 total = 0;
+  u8 red = 0;
+  u8 green = 0;
+  u8 blue = 0;
+  nuvec_s *pos = 0;
+  GameObject_s *obj = 0;
+  if (flags != 0) {
+    if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+      obj = packet->pd0->obj;
+    for (i32 i = 0; i < argc; i++) {
+      char *s;
+      if (NuStrICmp("mypos", args[i]) == 0 && obj != 0) {
+        pos = &obj->v80;
+      } else if ((s = NuStrIStr(args[i], "total=")) != 0) {
+        total = (i32)AIParamToFloat(process, s + 6);
+      } else if ((s = NuStrIStr(args[i], "count=")) != 0) {
+        count = (i32)AIParamToFloat(process, s + 6);
+      } else if ((s = NuStrIStr(args[i], "messageval=")) != 0) {
+        GIZAIMESSAGE_s *msg = CheckGizAIMessage(gizaimessagesys, s + 11, 0);
+        if (msg != 0)
+          count = (i32)msg->value;
+      } else if ((s = NuStrIStr(args[i], "Red=")) != 0) {
+        red = (u8)AIParamToFloat(process, s + 4);
+      } else if ((s = NuStrIStr(args[i], "Green=")) != 0) {
+        green = (u8)AIParamToFloat(process, s + 6);
+      } else if ((s = NuStrIStr(args[i], "Blue=")) != 0) {
+        blue = (u8)AIParamToFloat(process, s + 5);
+      }
+    }
+    if (count != 0 && count <= total)
+      AddGameMsgCount(pos, count, total, red, green, blue, 0.75f);
+  }
+  return 1;
+}

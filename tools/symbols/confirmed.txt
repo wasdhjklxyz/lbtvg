@@ -1209,3 +1209,5 @@
 00460f70 Action_SetLevelPath  keyword table 0x93bb98
 004635e0 Action_SnapWeaponOut  keyword table 0x93bb98
 0046a670 Action_UseTechno  keyword table 0x93bb98
+0046fe90 Action_GizmoActivate  keyword table 0x93bb98
+0046cd90 Action_AddGameMsgCount  keyword table 0x93bb98
