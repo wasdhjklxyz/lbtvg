@@ -19,10 +19,14 @@ typedef struct GameObject_s {
   GruntCharacterData_s *character; // 0x54
   unsigned char pad58[0x80 - 0x58];
   nuvec_s pos80; // 0x80
-  unsigned char pad8c[0x1fc - 0x8c];
+  unsigned char pad8c[0x19c - 0x8c];
+  nuvec_s lower_position; // 0x19c
+  unsigned char pad1a8[0x1fc - 0x1a8];
   u8 flags_low; // 0x1fc
-  unsigned char pad1fd[0x254 - 0x1fd];
-  u8 b254; // 0x254
+  unsigned char pad1fd[0x252 - 0x1fd];
+  u8 is_underwater;    // 0x252
+  u8 intersects_water; // 0x253
+  u8 b254;             // 0x254
   unsigned char pad255[0x871 - 0x255];
   char sock_id; // 0x871
   unsigned char pad872[0x896 - 0x872];
@@ -173,6 +177,11 @@ struct GruntGameCharacter_s {
   u32 flags14c; // 0x14c
   u8 pad150[0x1a6 - 0x150];
   i16 sfx_grunt; // 0x1a6
+  u8 pad1a8[0x1ba - 0x1a8];
+  i16 s1ba; // 0x1ba, PlayLandSfx: per-character land sfx ids (-1 = none)
+  i16 s1bc; // 0x1bc
+  i16 s1be; // 0x1be
+  i16 s1c0; // 0x1c0
 };
 
 struct GruntCharacterData_s {
@@ -181,6 +190,79 @@ struct GruntCharacterData_s {
   u8 pad8[0x24 - 8];
   GruntGameCharacter_s *game_character; // 0x24
 };
+
+struct LEVELDATA_s {
+  u8 pad0[0x64];
+  u32 flags; // 0x64
+};
+
+typedef struct WORLDINFO_s {
+  u8 pad0[0x12c];
+  LEVELDATA_s *current_level; // 0x12c
+  u8 pad130[0x29cc - 0x130];
+  struct SOCKSYS_s *sock_sys; // 0x29cc
+  u8 pad29d0[0x51ec - 0x29d0];
+  struct TECHNO_s *technos; // 0x51ec
+  i32 ntechnos;             // 0x51f0
+} WORLDINFO;
+WORLDINFO_s *WorldInfo_CurrentlyActive(void);
+void PlaySfxByIdAndSetVolume(i32 sfx_id, nuvec_s *position, f32 volume);
+
+// FUNCTION: LEGOBATMAN 0x0059f9a0
+void PlayLandSfx(GameObject_s *object, i32 type, i32 unk) {
+  i32 sfx;
+  if (type == -1)
+    return;
+  if (type == 1) {
+    if (object->character->game_character->s1bc != -1) {
+      if ((object->character->game_character->flags13c & 0x800000) &&
+          object->character->game_character->s1be != -1)
+        PlaySfxById(object->character->game_character->s1be,
+                    &object->lower_position);
+      sfx = object->character->game_character->s1bc;
+    } else {
+      if ((object->character->model_flags & 8) == 0)
+        return;
+      sfx = GameAudio->sfx_ids[0xb];
+    }
+  } else if (type == 2) {
+    if (object->character->game_character->s1be == -1)
+      return;
+    sfx = object->character->game_character->s1be;
+  } else if (type == 3) {
+    sfx = GameAudio->sfx_ids[0xd];
+  } else if (type == 4) {
+    if (object->character->game_character->s1c0 != -1)
+      sfx = object->character->game_character->s1bc;
+    else
+      sfx = GameAudio->sfx_ids[0xe];
+  } else {
+    if (object->is_underwater != 0 || object->intersects_water != 0)
+      return;
+    i32 alternate = WorldInfo_CurrentlyActive()->current_level->flags & 0x1000;
+    if (object->character->model_flags & 0x10) {
+      if (alternate != 0)
+        sfx = GameAudio->sfx_ids[10];
+      else
+        sfx = GameAudio->sfx_ids[9];
+    } else {
+      if (type != 0)
+        return;
+      if (alternate != 0)
+        sfx = GameAudio->sfx_ids[8];
+      else if (object->character->game_character->s1ba != -1)
+        sfx = object->character->game_character->s1ba;
+      else
+        sfx = GameAudio->sfx_ids[7];
+    }
+  }
+  if (sfx != -1) {
+    if ((object->flags_low & 0x80) || (object->flags140c & 0x80000000))
+      PlaySfxById(sfx, &object->lower_position);
+    else
+      PlaySfxByIdAndSetVolume(sfx, &object->lower_position, 0.5f);
+  }
+}
 
 // FUNCTION: LEGOBATMAN 0x0059fe80
 void PlayGruntSfx(GameObject_s *object) {
@@ -331,14 +413,6 @@ typedef struct SOCK_s {
 typedef struct SOCKSYS_s {
   SOCK *sock;
 } SOCKSYS;
-
-typedef struct WORLDINFO_s {
-  u8 pad0[0x29cc];
-  SOCKSYS *sock_sys; // 0x29cc
-  u8 pad29d0[0x51ec - 0x29d0];
-  TECHNO *technos; // 0x51ec
-  i32 ntechnos;    // 0x51f0
-} WORLDINFO;
 
 // GLOBAL: LEGOBATMAN 0x00960894
 extern WORLDINFO *WORLD;

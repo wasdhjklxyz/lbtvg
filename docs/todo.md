@@ -15,7 +15,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 |---|---|---|
 | [Action](#action) | 57 | 42 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 44 | 37 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 56 | 30 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 55 | 29 |
 | [near terrain.c](#near-terrainc) | 34 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 12 | 6 |
 | [Grabber](#grabber) | 7 | 5 |
@@ -341,7 +341,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005b0510` 374 B `InitSplinePosition(SPLINEPOS_s*, nugspline_s*, float, int)`  **stub** · **hint** name (order) · **saga** `legoapi/render/fx/edsplines.cpp`
 - [ ] `005af8c0` 380 B `LineIntersectXY(nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `005bd2d0` 423 B `LoadGizmoSys(GIZMOSYS_s*, void*, char*)`  **stub** · **saga** `legoapi/gizmo/base/gizmo_sys.cpp`
-- [ ] `0059f9a0` 437 B `PlayLandSfx(GameObject_s*, int, int)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
 - [ ] `00632800` 499 B `DrawRailSparks(RAILSYS_s*, int, GameObject_s*)`
 - [ ] `005cfa30` 501 B `StartBigJump(GameObject_s*, nuvec_s*, int, float, float, int, int)`  **hint** name (gapfill) · **saga** `legoapi/actions/movement/jumping.cpp`
 - [ ] `00639900` 516 B `WeaponOutCode(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`

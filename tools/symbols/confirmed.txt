@@ -90,3 +90,4 @@
 005a27c0 GameCam_Blend  matches saga camera.cpp body byte-for-byte (blend fields, mode==-1 guard)
 005aefd0 GameShadow  saga body shape matches (platform disable list, NewShadowEx, PlatOnOff restore)
 00635ca0 UpdateCoinPacket  saga collection.cpp shape (scale seek, double-score timer, BonusArea coin decrement)
+0059f9a0 PlayLandSfx  saga sfx.cpp shape (type 1-4 cases, sfx_ids 7..14, underwater early-out, 0.5 volume)
