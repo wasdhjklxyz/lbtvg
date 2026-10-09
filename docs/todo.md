@@ -72,7 +72,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Missions](#missions) | 1 | 1 |
 | [near apisave.c](#near-apisavec) | 8 | 1 |
 | [near nuanim_gen.cpp](#near-nuanim_gencpp) | 2 | 1 |
-| [near nufile_gen.cpp](#near-nufile_gencpp) | 1 | 1 |
 | [near nutimebar_gen.cpp](#near-nutimebar_gencpp) | 2 | 1 |
 | [near oggreader.cpp](#near-oggreadercpp) | 7 | 1 |
 | [NuCommand](#nucommand) | 1 | 1 |
@@ -751,10 +750,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `00732510` 25 B `_NuGScnRead`
 - [ ] `0072e150` 288 B `_NuQFntDuplicate`  **hint** name (gapfill) · **saga** `nu2api/nu3d/nuqfnt.cpp`
-
-## near nufile_gen.cpp
-
-- [ ] `006e2e40` 162 B `_bgProcInit`  **saga** `nu2api/nucore/android/bgproc_android.cpp`
 
 ## near nutimebar_gen.cpp
 
