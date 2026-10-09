@@ -381,3 +381,12 @@
 00623730 CC_hand_locators  matched saga-shaped body (two locators at runtime 0x208), Mac order
 00623790 CC_debris_locators  matched (runtime 0x210), Mac order
 006237f0 CC_backpack_locators  matched (runtime 0x20e), Mac order
+00451ec0 Condition_GizmoOutputInit   matched saga aisys.cpp body, Mac order before Condition_AngleAboutMyLocatorToPlayerInit
+00451f00 Condition_GizmoOutput0   matched saga aisys.cpp body, Mac order before Condition_AngleAboutMyLocatorToPlayerInit
+00451f50 Condition_GizmoOutput1   matched saga aisys.cpp body, Mac order before Condition_AngleAboutMyLocatorToPlayerInit
+00451fa0 Condition_GizmoOutput2   matched saga aisys.cpp body, Mac order before Condition_AngleAboutMyLocatorToPlayerInit
+00451ff0 Condition_GizmoOutput3   matched saga aisys.cpp body, Mac order before Condition_AngleAboutMyLocatorToPlayerInit
+00452040 Condition_GizmoVisibilityInit   matched saga aisys.cpp body, Mac order before Condition_AngleAboutMyLocatorToPlayerInit
+00452080 Condition_GizmoVisibility   matched saga aisys.cpp body, Mac order before Condition_AngleAboutMyLocatorToPlayerInit
+004520c0 Condition_FlowBoxCompleteInit   matched saga aisys.cpp body, Mac order before Condition_AngleAboutMyLocatorToPlayerInit
+004520f0 Condition_FlowBoxComplete   matched saga aisys.cpp body, Mac order before Condition_AngleAboutMyLocatorToPlayerInit

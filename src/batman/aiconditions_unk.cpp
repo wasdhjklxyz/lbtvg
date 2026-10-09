@@ -291,6 +291,88 @@ i32 Condition_SideInit(AISYS_s *sys, char *str, AISCRIPT_s *script) {
   return 0;
 }
 
+i32 GizmoGetOutput(GIZMOSYS_s *sys, GIZMO_s *gizmo, i32 output, i32 a);
+i32 GizmoGetVisibility(GIZMOSYS_s *sys, GIZMO_s *gizmo);
+void *FlowBoxFindByName(void *flow, char *name);
+
+// FUNCTION: LEGOBATMAN 0x00451ec0
+void *Condition_GizmoOutputInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  return name != NULL ? GizmoFindByName(g_unk00960894->gizmoSys2b0c, -1, name)
+                      : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x00451f00
+f32 Condition_GizmoOutput0(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char *str, void *argument) {
+  if (argument != NULL)
+    return (f32)(u32)GizmoGetOutput(g_unk00960894->gizmoSys2b0c,
+                                    (GIZMO_s *)argument, 0, 1);
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00451f50
+f32 Condition_GizmoOutput1(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char *str, void *argument) {
+  if (argument != NULL)
+    return (f32)(u32)GizmoGetOutput(g_unk00960894->gizmoSys2b0c,
+                                    (GIZMO_s *)argument, 1, 1);
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00451fa0
+f32 Condition_GizmoOutput2(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char *str, void *argument) {
+  if (argument != NULL)
+    return (f32)(u32)GizmoGetOutput(g_unk00960894->gizmoSys2b0c,
+                                    (GIZMO_s *)argument, 2, 1);
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00451ff0
+f32 Condition_GizmoOutput3(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char *str, void *argument) {
+  if (argument != NULL)
+    return (f32)(u32)GizmoGetOutput(g_unk00960894->gizmoSys2b0c,
+                                    (GIZMO_s *)argument, 3, 1);
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00452040
+void *Condition_GizmoVisibilityInit(AISYS_s *sys, char *name,
+                                    AISCRIPT_s *script) {
+  return name != NULL ? GizmoFindByName(g_unk00960894->gizmoSys2b0c, -1, name)
+                      : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x00452080
+f32 Condition_GizmoVisibility(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char *str, void *argument) {
+  if (argument != NULL)
+    return (f32)GizmoGetVisibility(g_unk00960894->gizmoSys2b0c,
+                                   (GIZMO_s *)argument);
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x004520c0
+void *Condition_FlowBoxCompleteInit(AISYS_s *sys, char *name,
+                                    AISCRIPT_s *script) {
+  return name != NULL ? FlowBoxFindByName(g_unk00960894->p2b10, name) : NULL;
+}
+
+struct FLOWBOX_s {
+  u8 pad0[0xa];
+  u8 state_flags_low; // 0x0a
+};
+
+// FUNCTION: LEGOBATMAN 0x004520f0
+f32 Condition_FlowBoxComplete(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char *str, void *argument) {
+  FLOWBOX_s *box = (FLOWBOX_s *)argument;
+  if (box != NULL)
+    return (box->state_flags_low & 2) != 0 ? 1.0 : 0.0;
+  return 0.0f;
+}
+
 // FUNCTION: LEGOBATMAN 0x00452120
 i32 Condition_AngleAboutMyLocatorToPlayerInit(AISYS_s *sys, char *str,
                                               AISCRIPT_s *script) {
