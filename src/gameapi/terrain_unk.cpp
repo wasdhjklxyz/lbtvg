@@ -77,6 +77,77 @@ void DerotateMovementVector() {
       NuFsqrt(TerI->mx * TerI->mx + TerI->my * TerI->my + TerI->mz * TerI->mz);
 }
 
+// STUB: LEGOBATMAN 0x0056fd80
+// switch on hit type compiles to a jump table; not attempted
+#if 0
+#include "../nu2api/numath/nuvec.h"
+
+void TerrainMoveImpactData();
+
+i32 terrhitflags;
+
+void RotateVec(nuvec_s *source, nuvec_s *destination);
+
+// from saga legoapi/render/core/terrain.cpp
+void TerrainImpactNorm() {
+    TerrainMoveImpactData();
+
+    const u8 maximum_supported_hit_type = TERRAIN_HIT_TYPE_SECOND_NORMAL | TERRAIN_HIT_TYPE_SPHERE;
+    if (TerI->hit_type > maximum_supported_hit_type) {
+        return;
+    }
+
+    const i32 hit_type_flag = 1 << TerI->hit_type;
+    const i32 sphere_class_mask = 1 << TERRAIN_HIT_TYPE_SPHERE;
+    const i32 rotate_and_mark_mask = sphere_class_mask | (sphere_class_mask << TERRAIN_HIT_TYPE_SECOND_NORMAL);
+    const i32 rotated_surface_mask = (1 << TERRAIN_HIT_TYPE_CYLINDER) | (1 << TERRAIN_HIT_TYPE_VERTEX);
+    const i32 rotate_mask = rotated_surface_mask | (rotated_surface_mask << TERRAIN_HIT_TYPE_SECOND_NORMAL);
+    const i32 face_class_mask = 1 << TERRAIN_HIT_TYPE_FACE;
+    const i32 direct_normal_mask = face_class_mask | (face_class_mask << TERRAIN_HIT_TYPE_SECOND_NORMAL);
+
+    if ((hit_type_flag & rotate_and_mark_mask) != 0) {
+        terrhitflags |= 4;
+    }
+
+    const bool rotated_hit = (hit_type_flag & (rotate_and_mark_mask | rotate_mask)) != 0;
+    if (rotated_hit) {
+        RotateVec(&TerI->movement_normal, &TerI->movement_normal);
+    } else if ((hit_type_flag & direct_normal_mask) == 0) {
+        return;
+    }
+
+    TerrainQuery_s *query = TerI;
+    // Curved hits are produced in collision-height-scaled space and need to
+    // be transformed back. Face normals already come from the terrain in
+    // object space; the target's direct-face branch deliberately bypasses
+    // this scaling before copying the normal below.
+    if (rotated_hit && (query->hit_type & TERRAIN_HIT_TYPE_SECOND_NORMAL) == 0) {
+        query->movement_normal.x *= query->inverse_collision_radius;
+        query->movement_normal.y *= query->inverse_collision_radius;
+        query->movement_normal.z *= query->inverse_collision_radius;
+    }
+
+    if (query->object_scale == 1.0f) {
+        query->impact_normal = query->movement_normal;
+        return;
+    }
+
+    const f32 normal_length =
+        NuFsqrt(query->movement_normal.x * query->movement_normal.x +
+                query->movement_normal.y * query->movement_normal.y * query->inverse_object_scale_sq +
+                query->movement_normal.z * query->movement_normal.z);
+    f32 inverse_normal_length = 0.0f;
+    if (normal_length != 0.0f) {
+        inverse_normal_length = 1.0f / normal_length;
+    }
+
+    query = TerI;
+    query->impact_normal.x = query->movement_normal.x * inverse_normal_length;
+    query->impact_normal.y = query->movement_normal.y * query->inverse_object_scale * inverse_normal_length;
+    query->impact_normal.z = query->movement_normal.z * inverse_normal_length;
+}
+#endif
+
 // STUB: LEGOBATMAN 0x0056fef0
 // skipped: switch on hit_type compiles to a byte-indexed jump table; not
 // attempted.

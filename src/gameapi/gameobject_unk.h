@@ -215,6 +215,14 @@ struct PART_s {
   nuvec_s v80; // 0x80
   u8 pad2[0xd4 - 0x8c];
   GameObject_s *objd4; // 0xd4
+  u8 padd8[0xe0 - 0xd8];
+  f32 radius; // 0xe0
+  u8 pade4[0x100 - 0xe4];
+  f32 f100; // 0x100, ThermalDetonator: beep while in (0, 1)
+  u8 pad104[0x148 - 0x104];
+  u32 flags148; // 0x148
+  u8 pad14c[0x22c - 0x14c];
+  f32 reflection_height; // 0x22c
 };
 
 // GLOBAL: LEGOBATMAN 0x00ab364c

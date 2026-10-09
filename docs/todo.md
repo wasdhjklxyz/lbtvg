@@ -71,7 +71,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [NuVec](#nuvec) | 1 | 1 |
 | [ObjHitObj](#objhitobj) | 1 | 1 |
 | [PartImpact](#partimpact) | 3 | 1 |
-| [PartUpdate](#partupdate) | 1 | 1 |
 | [Player](#player) | 1 | 1 |
 | [Players](#players) | 1 | 1 |
 | [PowerUp](#powerup) | 1 | 1 |
@@ -337,7 +336,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00620b30` 249 B `RedirectTextFile(char*, char*, int, int*)`  **saga** `legoapi/characters/core/charconfig.cpp`
 - [ ] `005fb300` 291 B `AddToModelList(APICHARACTERMODELLIST_s*, int*, int, int, int, EXTRAMODEL*, unsigned char)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
 - [ ] `005b0e00` 317 B `VecRotateAxis(nuvec_s*, unsigned short, nuvec_s*)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
-- [ ] `0064ce30` 321 B `NewStatusRumbleBuzz(int, float, float, int)`  **hint** name (gapfill) · **saga** `legoapi/menus/screens/gamestatus_lsw.cpp`
+- [ ] `0064ce30` 321 B `NewStatusRumbleBuzz(int, float, float, int)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/menus/screens/gamestatus_lsw.cpp`
 - [ ] `006633c0` 324 B `CheckGizAIMessage(GIZAIMESSAGESYS_s*, char const*, GIZAIMESSAGE_s*)`  **stub** · **saga** `legoapi/gizmo/base/gizmessage.cpp`
 - [ ] `006397b0` 329 B `SlowWeaponOut(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
 - [ ] `00597e60` 336 B `_InitGameDebris`  **hint** name (order)
@@ -386,7 +385,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00584870` 182 B `FindPart(nuvec_s*, int, void*)`  **hint** name (gapfill)
 - [ ] `0056b0a0` 234 B `_NewShadowEx`  **hint** name (gapfill)
 - [ ] `0057be20` 321 B `_DebFreeInstantly`  **hint** name (gapfill)
-- [ ] `0056fd80` 325 B `_TerrainImpactNorm`  **saga** `legoapi/render/core/terrain.cpp`
+- [ ] `0056fd80` 325 B `_TerrainImpactNorm`  **stub** · **saga** `legoapi/render/core/terrain.cpp`
 - [ ] `00567180` 338 B `_TerrainSkinAllocate`  **hint** name (gapfill) · **saga** `legoapi/render/core/terrain_stubs.cpp`
 - [ ] `00572be0` 389 B `_NewRayCast`  **hint** name (gapfill)
 - [ ] `00572d90` 473 B `_NewRayCastScaleYMask`  **hint** name (gapfill)
@@ -695,10 +694,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00504740` 218 B `PartImpact_Seed(PART_s*)`  **hint** name (order)
 - [ ] `004f9d30` 457 B `PartImpact_ThermalDetonator(PART_s*)`  **saga** `legoapi/items/collect/thermaldetonators.cpp`
 - [ ] `00504a40` 542 B `PartImpact_BlackSeed(PART_s*)`  **hint** name (order)
-
-## PartUpdate
-
-- [ ] `004f9f70` 341 B `PartUpdate_ThermalDetonator(PART_s*)`  **saga** `legoapi/items/collect/thermaldetonators.cpp`
 
 ## Player
 
