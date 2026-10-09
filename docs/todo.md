@@ -30,7 +30,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [CutScenePlayer](#cutsceneplayer) | 2 | 2 |
 | [CutScenes](#cutscenes) | 3 | 2 |
 | [Doors](#doors) | 2 | 2 |
-| [GizActions](#gizactions) | 5 | 2 |
 | [GizPanel](#gizpanel) | 2 | 2 |
 | [LevelObjects](#levelobjects) | 2 | 2 |
 | [Move](#move) | 2 | 2 |
@@ -117,6 +116,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Flight](#flight) | 1 | 0 |
 | [FortBloxHero](#fortbloxhero) | 2 | 0 |
 | [Game](#game) | 1 | 0 |
+| [GizActions](#gizactions) | 3 | 0 |
 | [GizDigs](#gizdigs) | 1 | 0 |
 | [GizFlock](#gizflock) | 2 | 0 |
 | [Grab](#grab) | 1 | 0 |
@@ -372,7 +372,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0067b270` 575 B `PCSaveSlot(int, void*, int, unsigned int)`  **saga** `gameframework/saveload.cpp`
 - [ ] `005b0690` 619 B `GetNearestSplinePos(nuvec_s*, SPLINEPOS_s*, nugspline_s*, int, short, short)`  **hint** name (order) · **saga** `legoapi/render/fx/edsplines.cpp`
 - [ ] `005c3310` 670 B `LoseHitPoints(GameObject_s*, int)`  **hint** name (gapfill)
-- [ ] `00661d60` 695 B `GizmoBlowupBlowup(GIZMOBLOWUP_s*, int, int, int, GameObject_s*, int)`  **hint** name (gapfill) · **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
 - [ ] `0059fb60` 796 B `PlayFootStepSfx(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/audio/sfx.cpp`
 - [ ] `0059c5a0` 876 B `_ConfigureCharacterList`
 - [ ] `005b0170` 915 B `MoveSplinePosition(SPLINEPOS_s*, float)`  **hint** name (order) · **saga** `legoapi/characters/motion/move.cpp`
@@ -383,6 +382,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005b0900` 1269 B `OutSideSplineArea(nuvec_s*, nugspline_s*, nuvec_s*, nuvec_s*, int)`  **hint** name (order) · **saga** `legoapi/render/fx/edsplines.cpp`
 - [ ] `005b1940` 1286 B `DrawObjectOnCharacter(WORLDINFO_s*, GameObject_s*, int, nuhspecial_s*, int, int, numtx_s*, int, unsigned int, numtx_s*, nuvec_s*, float, float, int, numtx_s*)`  **hint** name (gapfill) · **saga** `legoapi/render/core/render.cpp`
 - [ ] `00633910` 1303 B `AddPickups(int, int, int, int, nuvec_s*, nuvec_s*, float, int, float, float, GameObject_s*, int, int)`  **hint** name (gapfill) · **saga** `legoapi/gizmo/object/gizmopickups.cpp`
+- [ ] `005d9e20` 1500 B `GizmoBlowupBlowup(GIZMOBLOWUP_s*, int, int, int, GameObject_s*, int)`  **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
 
 ## near terrain.c
 
@@ -518,14 +518,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00614d10` 528 B `Doors_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/props/doors/doors.cpp`
 - [ ] `00614f40` 590 B `Doors_Init(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/props/doors/doors.cpp`
 
-## GizActions
-
-- [ ] `00484c00` 336 B `GizActions_SetRailSpecial(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
-- [ ] `00484590` 366 B `GizActions_HitBlowup(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
-- [ ] `00483750` 391 B `GizActions_PlayObstacle(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
-- [ ] `00484f20` 419 B `GizActions_SetRTL(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
-- [ ] `004842b0` 582 B `GizActions_SetSuperCounter(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
-
 ## GizPanel
 
 - [ ] `0048f750` 993 B `GizPanel_Update(void*, void*, float)`  **saga** `legoapi/gizmos/object/gizpanel.cpp`
@@ -641,7 +633,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## GizTurrets
 
-- [ ] `005d9e20` 1500 B `GizTurrets_Hit(void*, GIZTURRET_s*, nuvec_s*, int, int)`  **hint** name (gapfill) · **saga** `legoapi/gizmos/traps/gizturret.cpp`
+- [ ] `00661d60` 695 B `GizTurrets_Hit(void*, GIZTURRET_s*, nuvec_s*, int, int)`  **saga** `legoapi/gizmos/traps/gizturret.cpp`
 
 ## Grapples
 
@@ -937,6 +929,12 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## Game
 
 - [ ] `005be3a0` 525 B `Game_Configure(char*, variptr_u*, variptr_u, int)`
+
+## GizActions
+
+- [ ] `00484c00` 336 B `GizActions_SetRailSpecial(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
+- [ ] `00484f20` 419 B `GizActions_SetRTL(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
+- [ ] `004842b0` 582 B `GizActions_SetSuperCounter(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
 
 ## GizDigs
 

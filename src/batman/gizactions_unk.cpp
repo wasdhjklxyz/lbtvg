@@ -5,6 +5,78 @@
 struct GIZFLOW_s;
 struct FLOWBOX_s;
 
+struct GIZMOSYS_s;
+struct GIZFLOW_s {
+  GIZMOSYS_s *gizmo_sys; // 0x00
+};
+
+struct GIZOBSTACLE_s {
+  u8 pad0[0xc8];
+  u32 flags_c8_lo : 13;
+  u32 stay_open : 1; // 0xc8 bit 13
+  u32 stay_shut : 1; // 0xc8 bit 14
+  u32 flags_c8_hi : 17;
+};
+
+struct GIZMO_s {
+  void *object; // 0x00
+};
+
+// GLOBAL: LEGOBATMAN 0x0095ff24
+extern i32 obstacle_gizmotype_id;
+
+GIZMO_s *GizmoFindByName(GIZMOSYS_s *gizmo_sys, i32 type_id, char *name);
+void GizObstacle_JumpToEnd(GIZOBSTACLE_s *obstacle);
+void GizObstacle_PlayForwards(GIZOBSTACLE_s *obstacle);
+void GizObstacle_JumpToStart(GIZOBSTACLE_s *obstacle);
+void GizObstacle_PlayBackwards(GIZOBSTACLE_s *obstacle);
+
+// from saga legoapi/gizmo/gizmos/gizactions.cpp
+// FUNCTION: LEGOBATMAN 0x00483750
+void GizActions_PlayObstacle(GIZFLOW_s *flow, FLOWBOX_s *box, char **params,
+                             int count) {
+  i32 forwards = 1;
+  i32 snap = 0;
+  i32 stay_open = 0;
+  char *name = 0;
+  i32 stay_shut = 0;
+  for (i32 index = 0; index < count; ++index) {
+    char *value = NuStrIStr(params[index], "Name");
+    if (value != 0) {
+      name = value + NuStrLen("Name") + 1;
+    } else if (NuStrICmp(params[index], "BACKWARD") == 0) {
+      forwards = 0;
+    } else if (NuStrICmp(params[index], "FORWARD") == 0) {
+      forwards = 1;
+    } else if (NuStrICmp(params[index], "SNAP") == 0) {
+      snap = 1;
+    } else if (NuStrICmp(params[index], "STAYOPEN") == 0) {
+      stay_open = 1;
+    } else if (NuStrICmp(params[index], "STAYSHUT") == 0) {
+      stay_shut = 1;
+    }
+  }
+  if (name == 0)
+    return;
+  GIZMO_s *gizmo =
+      GizmoFindByName(flow->gizmo_sys, obstacle_gizmotype_id, name);
+  GIZOBSTACLE_s *obstacle = gizmo != 0 ? (GIZOBSTACLE_s *)gizmo->object : 0;
+  if (obstacle == 0)
+    return;
+  if (forwards != 0) {
+    if (snap != 0)
+      GizObstacle_JumpToEnd(obstacle);
+    else
+      GizObstacle_PlayForwards(obstacle);
+  } else if (snap != 0) {
+    GizObstacle_JumpToStart(obstacle);
+  } else {
+    GizObstacle_PlayBackwards(obstacle);
+  }
+  obstacle->stay_open = stay_open;
+  obstacle->stay_shut = stay_shut;
+}
+
 void PlayRadio(char *special, char *blowup, i32 loop);
 
 // FUNCTION: LEGOBATMAN 0x00483e20
@@ -89,4 +161,59 @@ void GizForceSFX_Configure(WORLDINFO_s *world, char *config) {
   }
   NuFParPopCom(parser);
   NuFParDestroy(parser);
+}
+
+struct GIZTURRET_s;
+struct GIZMOBLOWUP_s;
+
+// GLOBAL: LEGOBATMAN 0x00967a14
+extern i32 turret_gizmotype_id;
+// GLOBAL: LEGOBATMAN 0x00961104
+extern i32 blowup_gizmotype_id;
+
+void GizTurrets_Hit(void *world, GIZTURRET_s *turret, nuvec_s *pos, i32 a,
+                    i32 damage);
+void GizmoBlowupBlowup(GIZMOBLOWUP_s *blowup, i32 a, i32 b, i32 damage,
+                       GameObject_s *obj, i32 c);
+f32 NuAToF(char *string);
+
+// from saga legoapi/gizmo/gizmos/gizactions.cpp
+// FUNCTION: LEGOBATMAN 0x00484590
+void GizActions_HitBlowup(GIZFLOW_s *flow, FLOWBOX_s *box, char **params,
+                          int count) {
+  i8 gizmo_type = 0;
+  i32 damage = 0;
+  char *name = 0;
+  for (i32 index = 0; index < count; ++index) {
+    char *value = NuStrIStr(params[index], "name=");
+    if (value != 0) {
+      name = value + NuStrLen("name=");
+    } else if (NuStrICmp(params[index], "BLOWUP") == 0) {
+      gizmo_type = 0;
+    } else if (NuStrICmp(params[index], "TURRET") == 0) {
+      gizmo_type = 1;
+    } else if ((value = NuStrIStr(params[index], "damage=")) != 0) {
+      value += NuStrLen("damage=");
+      damage = (i32)NuAToF(value);
+    }
+  }
+  if (name == 0 || damage == 0)
+    return;
+  switch (gizmo_type) {
+  case 0: {
+    GIZMO_s *gizmo =
+        GizmoFindByName(g_unk00960894->gizmoSys2b0c, blowup_gizmotype_id, name);
+    if (gizmo != 0 && gizmo->object != 0)
+      GizmoBlowupBlowup((GIZMOBLOWUP_s *)gizmo->object, 1, -1, damage, 0, 1);
+    break;
+  }
+  case 1: {
+    GIZMO_s *gizmo =
+        GizmoFindByName(g_unk00960894->gizmoSys2b0c, turret_gizmotype_id, name);
+    if (gizmo != 0 && gizmo->object != 0)
+      GizTurrets_Hit(g_unk00960894, (GIZTURRET_s *)gizmo->object, 0, -1,
+                     damage);
+    break;
+  }
+  }
 }

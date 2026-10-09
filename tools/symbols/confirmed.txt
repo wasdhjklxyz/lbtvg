@@ -85,3 +85,5 @@
 0060d7a0 Levels_FixUp  saga body matches (fixup table -> Level_FindByName, callbacks; Batman has 10)
 005c1730 RememberPlayerIDs  saga shape matches (PlayerID[2] update from collected chars)
 004f9ab0 Text_LoadStrings  saga shape matches (language path, trc.csv)
+005d9e20 GizmoBlowupBlowup  6-arg (blowup,1,-1,damage,NULL,1) call from GizActions_HitBlowup BLOWUP case; Mac gapfill had it swapped with GizTurrets_Hit
+00661d60 GizTurrets_Hit  (world,turret,NULL,-1,damage) call from GizActions_HitBlowup TURRET case; swapped gapfill
