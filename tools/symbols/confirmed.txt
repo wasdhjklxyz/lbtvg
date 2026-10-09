@@ -543,3 +543,9 @@
 0044d5f0 Condition_ForceAtStart   matched (saga gameobjects.cpp shape), Mac order of the Condition_* run
 0044d630 Condition_ForceAtEnd   matched (saga gameobjects.cpp shape), Mac order of the Condition_* run
 0044d670 Condition_IsVisibleInit   matched (saga gameobjects.cpp shape), Mac order of the Condition_* run
+0044d680 Condition_IsVisible   matched (saga body shape), Mac order of the Condition_* run
+0044d700 Condition_MySet   matched (saga body shape), Mac order of the Condition_* run
+0044d720 Condition_ForcePushingInit   matched (saga body shape), Mac order of the Condition_* run
+0044d750 Condition_ForcePushing   matched (saga body shape), Mac order of the Condition_* run
+0044d7a0 Condition_TurretAliveInit   matched (saga body shape), Mac order of the Condition_* run
+0044d800 Condition_IAmAPartyCharacter   matched (saga body shape), Mac order of the Condition_* run

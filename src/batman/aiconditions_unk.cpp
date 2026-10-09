@@ -782,6 +782,88 @@ void *Condition_IsVisibleInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
   return name;
 }
 
+i32 NuSpecialGetVisibilityFn(nuhspecial_s *special);
+i32 NuSpecialExistsFn(nuhspecial_s *special);
+
+// FUNCTION: LEGOBATMAN 0x0044d680
+f32 Condition_IsVisible(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char *str, void *argument) {
+  nuhspecial_s special = {0};
+  NuSpecialFind(g_unk00960894->scn140, &special, (char *)argument, 1);
+  if (NuSpecialExistsFn(&special) != 0)
+    return (f32)NuSpecialGetVisibilityFn(&special);
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d700
+f32 Condition_MySet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                    AIPACKET_s *packet, char *str, void *data) {
+  return (f32)((u8 *)process)[0xb4];
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d720
+void *Condition_ForcePushingInit(AISYS_s *system, char *name,
+                                 AISCRIPT_s *script) {
+  return name != NULL && GetNamedAPIObjectFn != NULL
+             ? GetNamedAPIObjectFn(system, name)
+             : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d750
+f32 Condition_ForcePushing(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char *str, void *argument) {
+  GameObject_s *object = (GameObject_s *)argument;
+  if (object == NULL) {
+    if (packet == NULL || packet->pd0 == NULL || packet->pd0->obj == NULL ||
+        (object = packet->pd0->obj) == NULL)
+      return 0.0f;
+  }
+  if (object->b9db == 0x1b)
+    return 1.0f;
+  return 0.0f;
+}
+
+// GLOBAL: LEGOBATMAN 0x00967a14
+extern i32 turret_gizmotype_id;
+
+// FUNCTION: LEGOBATMAN 0x0044d7a0
+void *Condition_TurretAliveInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  GIZMO_s *gizmo =
+      GizmoFindByName(g_unk00960894->gizmoSys2b0c, turret_gizmotype_id, name);
+  if (gizmo != NULL) {
+    void *turret = *(void **)gizmo;
+    if (turret != NULL)
+      return turret;
+  }
+  return NULL;
+}
+
+struct GIZTURRET_s {
+  u8 pad0[0x13a];
+  u16 flags_lo : 4; // 0x13a
+  u16 dead : 2;     // bits 4-5
+  u16 flags_hi : 10;
+};
+
+// STUB: LEGOBATMAN 0x0044d7e0
+// close: orig loads the u16 with movzx and tests al; ours tests the byte.
+f32 Condition_TurretAlive(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char *str, void *argument) {
+  // 0x13a: turret flags.
+  GIZTURRET_s *turret = (GIZTURRET_s *)argument;
+  if (turret != NULL && turret->dead == 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d800
+f32 Condition_IAmAPartyCharacter(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                 AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL && OWNER(packet)->b24c != -1)
+    return 1.0f;
+  return 0.0f;
+}
+
 // GLOBAL: LEGOBATMAN 0x0096052c
 extern i32 g_unk0096052c;
 // GLOBAL: LEGOBATMAN 0x00960528

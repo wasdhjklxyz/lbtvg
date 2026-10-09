@@ -52,6 +52,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0044d5f0,000756da,__Z22Condition_ForceAtStartP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ForceAtStart(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044d630,0007571c,__Z20Condition_ForceAtEndP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ForceAtEnd(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044d670,0007575e,__Z23Condition_IsVisibleInitP7AISYS_sPcP10AISCRIPT_s,"Condition_IsVisibleInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+0044d680,00075766,__Z19Condition_IsVisibleP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_IsVisible(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d700,000757d8,__Z15Condition_MySetP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_MySet(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d720,000757f6,__Z26Condition_ForcePushingInitP7AISYS_sPcP10AISCRIPT_s,"Condition_ForcePushingInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+0044d750,00075816,__Z22Condition_ForcePushingP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ForcePushing(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d7a0,0007586a,__Z25Condition_TurretAliveInitP7AISYS_sPcP10AISCRIPT_s,"Condition_TurretAliveInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+0044d800,000758c4,__Z28Condition_IAmAPartyCharacterP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_IAmAPartyCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044da30,00075ab0,__Z23Condition_BeenHitByInitP7AISYS_sPcP10AISCRIPT_s,"Condition_BeenHitByInit(AISYS_s*, char*, AISCRIPT_s*)",strings,0
 0044db10,00075b54,__Z19Condition_BeenHitByP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_BeenHitBy(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044db60,00075b92,__Z31Condition_BeenHitByNamedObjInitP7AISYS_sPcP10AISCRIPT_s,"Condition_BeenHitByNamedObjInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
