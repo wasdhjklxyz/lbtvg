@@ -213,9 +213,11 @@ static __forceinline void FastWeaponOutSfx(GameObject_s *object) {
     return;
   i32 current_animation = CurrentAnim((ANIMPACKET_s *)((u8 *)object + 8));
   if (current_animation != -1) {
-    Unk_GameObject50_08_204 **slot =
-        &((Unk_GameObject50_08_204 **)object->p50->p08)[current_animation];
-    if (*slot != 0 && ((*slot)->flags4 & 0x100000) != 0)
+    if (((Unk_GameObject50_08_204 **)object->p50->p08)[current_animation] !=
+            0 &&
+        (((Unk_GameObject50_08_204 **)object->p50->p08)[current_animation]
+             ->flags4 &
+         0x100000) != 0)
       return;
   }
   u32 model_flags = object->p54->model_flags;
@@ -228,9 +230,7 @@ static __forceinline void FastWeaponOutSfx(GameObject_s *object) {
   }
 }
 
-// STUB: LEGOBATMAN 0x006396c0
-// close: orig re-reads the anim slot (cmp [slot],0 then mov eax,[slot]);
-// this loads it once. Rest (inlined FastWeaponOutSfx) lines up.
+// FUNCTION: LEGOBATMAN 0x006396c0
 void FastWeaponOut(GameObject_s *object, i32 force_sound) {
   if (g_unk00962144 == 0) {
     char context = object->b9db;
@@ -274,9 +274,10 @@ static __forceinline void FastWeaponInSfx(GameObject_s *object) {
     return;
   i32 current_animation = CurrentAnim((ANIMPACKET_s *)((u8 *)object + 8));
   if (current_animation != -1) {
-    void **anims = (void **)object->p50->p08;
-    if (anims[current_animation] != 0 &&
-        (((Unk_GameObject50_08_204 *)anims[current_animation])->flags4 &
+    if (((Unk_GameObject50_08_204 **)object->p50->p08)[current_animation] !=
+            0 &&
+        (((Unk_GameObject50_08_204 **)object->p50->p08)[current_animation]
+             ->flags4 &
          0x200000) != 0)
       return;
   }
@@ -290,8 +291,7 @@ static __forceinline void FastWeaponInSfx(GameObject_s *object) {
   }
 }
 
-// STUB: LEGOBATMAN 0x00639ba0
-// close: same anim-slot re-read as FastWeaponOut (cmp [slot],0 then reload)
+// FUNCTION: LEGOBATMAN 0x00639ba0
 void FastWeaponIn(GameObject_s *object, i32 force_sound) {
   if (g_unk00962144 == 0) {
     char context = object->b9db;

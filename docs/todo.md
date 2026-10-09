@@ -15,7 +15,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 |---|---|---|
 | [Action](#action) | 57 | 42 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 44 | 37 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 43 | 29 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 41 | 27 |
 | [near terrain.c](#near-terrainc) | 23 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 11 | 6 |
 | [Grabber](#grabber) | 6 | 5 |
@@ -311,8 +311,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005a3020` 212 B `ConstantRumble(GameObject_s*, float, float)`  **hint** name (gapfill) · **saga** `legoapi/misc/legoapi_misc.cpp`
 - [ ] `005b2a40` 229 B `LoadThingsScene()`
 - [ ] `00639580` 229 B `ObjOpponentStillThere(GameObject_s*, GameObject_s*, float)`  **hint** name (order) · **saga** `legoapi/actions/character/speederchase.cpp`
-- [ ] `006396c0` 233 B `FastWeaponOut(GameObject_s*, int)`  **stub** · **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
-- [ ] `00639ba0` 233 B `FastWeaponIn(GameObject_s*, int)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/characters/core/playeritems.cpp`
 - [ ] `00620b30` 249 B `RedirectTextFile(char*, char*, int, int*)`  **saga** `legoapi/characters/core/charconfig.cpp`
 - [ ] `005fb300` 291 B `AddToModelList(APICHARACTERMODELLIST_s*, int*, int, int, int, EXTRAMODEL*, unsigned char)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
 - [ ] `005b0e00` 317 B `VecRotateAxis(nuvec_s*, unsigned short, nuvec_s*)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`

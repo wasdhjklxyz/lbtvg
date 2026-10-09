@@ -239,3 +239,5 @@
 005c32c0 LoseHP_EndDelay  buzzes the message's player pad (0/1) or rumbles all players; Mac name pairing, same calls
 0062dee0 SpecialMove_IsInMultiPhase  same as Mac (special-move context, 0x9c-byte move table, byte 0x98 != -1)
 00620aa0 DefinedLocators_FindIX  same as Mac (NuStrICmp over defined locator names)
+006396c0 FastWeaponOut  saga playeritems.cpp body (inlined FastWeaponOutSfx)
+00639ba0 FastWeaponIn  saga playeritems.cpp body (inlined FastWeaponInSfx)
