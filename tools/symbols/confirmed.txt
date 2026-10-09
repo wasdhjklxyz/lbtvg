@@ -29,3 +29,5 @@
 005a6550 Technos_FindControllingTechno  saga body matches (techno target_mode 1 controlling obj)
 006dc720 NuStringTableGetByName  saga body matches (3 string banks by id, NuBlankString fallback)
 005a3940 GamePad_InputAngle  saga body matches (socket-relative vs camera-relative yaw)
+005c8c50 PortalDoors_Reset  saga body matches (clear opened/closed bits on every portal door)
+00615190 Door_FindByName  saga body matches (scan world doors by name)

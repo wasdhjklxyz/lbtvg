@@ -26,17 +26,16 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near nutrig_gen.cpp](#near-nutrig_gencpp) | 12 | 4 |
 | [Arcade](#arcade) | 3 | 3 |
 | [Area](#area) | 4 | 3 |
-| [Door](#door) | 4 | 3 |
 | [GameAudio](#gameaudio) | 3 | 3 |
 | [GizAction](#gizaction) | 3 | 3 |
 | [Player](#player) | 3 | 3 |
 | [Players](#players) | 3 | 3 |
-| [PortalDoors](#portaldoors) | 3 | 3 |
 | [Areas](#areas) | 3 | 2 |
 | [Collection](#collection) | 2 | 2 |
 | [Condition](#condition) | 3 | 2 |
 | [CutScenePlayer](#cutsceneplayer) | 2 | 2 |
 | [CutScenes](#cutscenes) | 3 | 2 |
+| [Door](#door) | 3 | 2 |
 | [Doors](#doors) | 2 | 2 |
 | [GizActions](#gizactions) | 5 | 2 |
 | [GizmoPickup](#gizmopickup) | 2 | 2 |
@@ -48,6 +47,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Move](#move) | 2 | 2 |
 | [NuStr](#nustr) | 2 | 2 |
 | [NuTex](#nutex) | 4 | 2 |
+| [PortalDoors](#portaldoors) | 2 | 2 |
 | [SuperCarry](#supercarry) | 3 | 2 |
 | [Tag](#tag) | 2 | 2 |
 | [BoltSys](#boltsys) | 1 | 1 |
@@ -566,13 +566,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005fb260` 140 B `Area_FindNextPlayLevel(int)`  **stub** · **hint** name (order) · **saga** `legoapi/world/areas.cpp`
 - [ ] `005fb430` 3692 B `Area_Configure(int, int, EXTRAMODEL*, short*)`  **saga** `legoapi/world/areas.cpp`
 
-## Door
-
-- [ ] `00614f20` 23 B `Door_Reset()`  **hint** name (order) · **saga** `legoapi/props/doors/doors.cpp`
-- [ ] `00615190` 77 B `Door_FindByName(WORLDINFO_s*, char*)`  **hint** name (gapfill) · **saga** `legoapi/props/doors/doors.cpp`
-- [ ] `006152f0` 147 B `Door_DestinationLevel(DOOR_s*)`  **hint** name (order)
-- [ ] `006151e0` 222 B `Door_SetCutCam(DOOR_s*)`  **hint** name (order) · **saga** `legoapi/props/doors/doors.cpp`
-
 ## GameAudio
 
 - [ ] `0059f260` 32 B `GameAudio_PlaySfx(int, nuvec_s*, int, int)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
@@ -596,12 +589,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005c2bb0` 45 B `Players_BothActive()`  **hint** name (gapfill) · **saga** `legoapi/characters/core/players.cpp`
 - [ ] `005c18f0` 205 B `Players_AveragePos(nuvec_s*, SOCKPOSITION_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/players.cpp`
 - [ ] `005c12a0` 1028 B `Players_InitPositions(WORLDINFO_s*)`  **saga** `legoapi/characters/core/players.cpp`
-
-## PortalDoors
-
-- [ ] `005c8c50` 49 B `PortalDoors_Reset(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/gizmos/transport/gizportal.cpp`
-- [ ] `005c8b60` 229 B `PortalDoors_Update(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/gizmos/transport/gizportal.cpp`
-- [ ] `005c8a00` 338 B `PortalDoors_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/gizmos/transport/gizportal.cpp`
 
 ## Areas
 
@@ -630,6 +617,12 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0061dd40` 704 B `CutScenes_LoadLevelCharacters(WORLDINFO_s*, char*, int*)`
 - [ ] `006188c0` 1074 B `CutScenes_ConfigureList(char*, variptr_u*, variptr_u)`  **saga** `legoapi/cutscenes/cutscenes.cpp`
 - [ ] `0061aa60` 1346 B `CutScenes_Load(char*, nugscn_s*, nugscn_s*, int, variptr_u*, variptr_u*, int, int, WORLDINFO_s*)`  **saga** `legoapi/cutscenes/cutscene.cpp`
+
+## Door
+
+- [ ] `00614f20` 23 B `Door_Reset()`  **hint** name (order) · **saga** `legoapi/props/doors/doors.cpp`
+- [ ] `006152f0` 147 B `Door_DestinationLevel(DOOR_s*)`  **hint** name (order)
+- [ ] `006151e0` 222 B `Door_SetCutCam(DOOR_s*)`  **hint** name (order) · **saga** `legoapi/props/doors/doors.cpp`
 
 ## Doors
 
@@ -690,6 +683,11 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00711580` 146 B `_NuTexAnimEnvCreate`  **stub**
 - [ ] `00712030` 360 B `_NuTexAnimProgParseFile`  **saga** `nu2api/nucore/nutexanim.cpp`
 - [ ] `006e6490` 820 B `_NuTexReadBitmapMM2`
+
+## PortalDoors
+
+- [ ] `005c8b60` 229 B `PortalDoors_Update(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/gizmos/transport/gizportal.cpp`
+- [ ] `005c8a00` 338 B `PortalDoors_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/gizmos/transport/gizportal.cpp`
 
 ## SuperCarry
 

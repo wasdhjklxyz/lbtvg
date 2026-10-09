@@ -12,6 +12,12 @@ typedef struct LEVELDATA_s {
   u16 max_ter_groups;    // 0xa4
 } LEVELDATA;
 
+typedef struct PORTALDOOR_s {
+  u32 pad0[3];
+  u16 flags; // 0xc
+  u16 pade;
+} PORTALDOOR;
+
 typedef struct WORLDINFO_s {
   unsigned char pad0[0x80];
   char config_file[0x84]; // 0x80
@@ -29,6 +35,9 @@ typedef struct WORLDINFO_s {
   i32 unk2adc; // 0x2adc
   unsigned char pad2ae0[0x2ae4 - 0x2ae0];
   i32 page_anim; // 0x2ae4
+  unsigned char pad2ae8[0x51bc - 0x2ae8];
+  PORTALDOOR *portal_doors; // 0x51bc
+  i32 portal_door_count;    // 0x51c0
 } WORLDINFO;
 
 void *TerrainInitEx(i32 level_idx, u32 *buffer, void *buffer_end, i32 a,
@@ -52,6 +61,16 @@ void WorldInfo_LoadObjectAnimFile(WORLDINFO *world) {
     if (NuFileExists(path)) {
       world->page_anim =
           edanimLoadPage(path, world->current_gscn, world->unk2adc);
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x005c8c50
+void PortalDoors_Reset(WORLDINFO *world_info) {
+  PORTALDOOR *door = world_info->portal_doors;
+  if (door != 0) {
+    for (i32 i = 0; i < world_info->portal_door_count; i++, door++) {
+      door->flags &= ~6;
     }
   }
 }
