@@ -2084,6 +2084,15 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d6850,0018a1a4,_NuRegionGet,_NuRegionGet,confirmed,0
 006d6860,0018a1b6,_NuRegionSet,_NuRegionSet,confirmed,0
 006d6910,0018a1ce,_ImplodeError,_ImplodeError,confirmed,0
+006d6960,0018a244,_ImplodeGetI,_ImplodeGetI,confirmed,0
+006d6990,0018a27c,_ImplodePutI,_ImplodePutI,confirmed,0
+006d69c0,0018a29c,_ImplodeGetByteFromMem,_ImplodeGetByteFromMem,confirmed,0
+006d69e0,0018a2b8,_ImplodePutByteToMem,_ImplodePutByteToMem,confirmed,0
+006d6a00,0018ed1e,_ImplodeFillBuf,_ImplodeFillBuf,confirmed,0
+006d6a80,0018ede0,_ImplodeGetBits,_ImplodeGetBits,confirmed,0
+006d6af0,0018eda2,_ImplodeInitGetBits,_ImplodeInitGetBits,confirmed,0
+006d6b10,0018a2d6,_ExplodeExit,_ExplodeExit,confirmed,0
+006d6cd0,00191026,_ImplodeHufDecodeStart,_ImplodeHufDecodeStart,confirmed,0
 006d6d00,0018a2ec,_ImplodeMakeTable,_ImplodeMakeTable,strings,0
 006d7500,00187052,_NuStrCat,_NuStrCat,gapfill,1
 006d7590,001871ae,_NuStrCpy,_NuStrCpy,gapfill,1

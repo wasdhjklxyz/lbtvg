@@ -1634,3 +1634,12 @@
 006e26d0 NuOnlineSignInPlayerPS Mac PS order (between InitPS and HasPlayerSignedInPS); matched
 006e26e0 NuOnlineHasPlayerSignedInPS Mac PS order, tail-called by 0x6d6640; matched
 006e26f0 NuOnlineHasPlayerDownloadedPS Mac PS order, tail-called by 0x6d6660; matched
+006d6960 ImplodeGetI            saga implode.cpp body (getmasktbl), Mac order after ImplodeError; matched
+006d6990 ImplodePutI            Mac order after ImplodeGetI, inverse of it; matched
+006d69c0 ImplodeGetByteFromMem  saga body (implode_inbuffer++), Mac order; matched
+006d69e0 ImplodePutByteToMem    Mac order, output-side twin of GetByteFromMem; matched
+006d6a00 ImplodeFillBuf         saga body (inlines GetByteFromMem); matched
+006d6a80 ImplodeGetBits         saga body, calls 0x6d6a00; matched
+006d6af0 ImplodeInitGetBits     saga body; matched
+006d6b10 ExplodeExit            saga body (gExplodeInitialised), Mac order; matched
+006d6cd0 ImplodeHufDecodeStart  saga body (InitGetBits inlined, blocksize = 0); matched
