@@ -2,11 +2,12 @@
 // Texture-animation script compiler: tokens from a NuParse stream become
 // 16-bit opcodes in a program block.
 
+#include "../nucore/common.h"
 #include <string.h>
 
 // Not yet named (nupad_gen.cpp / numemblk_gen.cpp ranges).
 extern "C" void *NuMemAllocUnk006e1d50(int size, const char *file, int line);
-extern "C" void NuParseUnk006da8d0(struct NuParse *p);
+extern "C" int NuParseUnk006da8d0(struct NuParse *p);
 extern "C" int NuParseIntUnk006dd060(struct NuParse *p);
 extern "C" int NuStrCmpUnk006dc3a0(const char *a, const char *b);
 extern "C" void NuStrCpyUnk006d7590(char *dst, const char *src);
@@ -234,4 +235,67 @@ void NuTexAnmUnk00711ff0(NuParse *p) {
   dst = g_texAnmProg->name;
   p->token[0x20] = 0;
   strcpy(dst, p->token);
+}
+
+// Not yet named (nufpar / numemblk ranges); saga names in comments.
+extern "C" NuParse *NuParseOpenUnk006dfab0(int file);           // NuFParOpen
+extern "C" void NuParsePushComUnk006d3ec0(NuParse *p, void *t); // NuFParPushCom
+extern "C" int NuParseLineUnk006df910(NuParse *p);              // NuFParGetLine
+extern "C" int NuParseInterpretUnk006dd2d0(NuParse *p); // NuFParInterpretWord
+extern "C" void NuParseCloseUnk006d40c0(NuParse *p);    // NuFParClose
+void NuTexAnmProgInitUnk007112b0(NuTexAnmProg *prog);
+void NuTexAnmProgEndUnk00711480(NuTexAnmProg *prog);
+
+// GLOBAL: LEGOBATMAN 0x009a6de0
+extern unsigned char g_texAnmComTab[];
+// GLOBAL: LEGOBATMAN 0x029f3f48
+extern NuTexAnmProg *g_texAnmProgs;
+
+// STUB: LEGOBATMAN 0x00712030
+// close: orig keeps `end` in its stack slot and caches 0 in ebx (buffer only
+// in eax); ours enregisters end. An inline helper taking &end fixes that but
+// then the empty-error call disappears.
+NuTexAnmProg *NuTexAnimProgParseFile(int file, VARIPTR *buffer, VARIPTR end,
+                                     int p4) {
+  NuTexAnmProg *prog;
+  NuParse *p;
+  int len = 0;
+
+  if (buffer != 0) {
+    prog = (NuTexAnmProg *)((buffer->addr + 3) & ~3);
+  } else {
+    prog = (NuTexAnmProg *)NuMemAllocUnk006e1d50(0x400, __FILE__, 0x3d2);
+    end.addr = (unsigned int)prog + 0x3ff;
+  }
+  g_texAnmNumNames = 0;
+  memset(g_texAnmNames, 0, sizeof(g_texAnmNames));
+  p = NuParseOpenUnk006dfab0(file);
+  if (p == 0)
+    return (NuTexAnmProg *)len;
+  NuParsePushComUnk006d3ec0(p, g_texAnmComTab);
+  if ((unsigned int)(prog + 1) >= end.addr)
+    NuErrorUnk006fceb0();
+  NuTexAnmProgInitUnk007112b0(prog);
+  g_texAnmProg = prog;
+  while (NuParseLineUnk006df910(p) != 0) {
+    len = NuParseUnk006da8d0(p);
+    if (len != 0 && NuParseInterpretUnk006dd2d0(p) == 0 &&
+        p->token[0] != '\0' && p->token[len - 1] == ':') {
+      p->token[len - 1] = '\0';
+      int name = NuTexAnmFindOrAddName(p->token);
+      g_texAnmNameOp[name] = g_texAnmProg->numOps;
+    }
+    if ((unsigned int)&prog->ops[prog->numOps] >= end.addr)
+      NuErrorUnk006fceb0();
+  }
+  if (buffer != 0)
+    buffer->addr = (unsigned int)&prog->ops[prog->numOps];
+  NuParseCloseUnk006d40c0(p);
+  NuTexAnmProgEndUnk00711480(prog);
+  prog->f0 = (int)g_texAnmProgs;
+  if (g_texAnmProgs != 0)
+    g_texAnmProgs->f4 = (int)prog;
+  prog->f4 = 0;
+  g_texAnmProgs = prog;
+  return prog;
 }

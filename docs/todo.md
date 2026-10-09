@@ -672,7 +672,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## NuTex
 
 - [ ] `00711580` 146 B `_NuTexAnimEnvCreate`  **stub**
-- [ ] `00712030` 360 B `_NuTexAnimProgParseFile`  **saga** `nu2api/nucore/nutexanim.cpp`
+- [ ] `00712030` 360 B `_NuTexAnimProgParseFile`  **stub** · **saga** `nu2api/nucore/nutexanim.cpp`
 - [ ] `006e6490` 820 B `_NuTexReadBitmapMM2`
 
 ## NuUnicode
