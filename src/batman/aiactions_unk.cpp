@@ -13,6 +13,7 @@ extern i32 (*AIActionParseSpeedFn)(char *str, u8 *out);
 void AIMoveInstruction(AIPACKET_s *packet, nuvec_s *pos, f32 height,
                        AIPATHINFO *path_info, i32 type, f32 param);
 void Player_ClearContext(GameObject_s *obj, i32 mode);
+extern u8 aicreature_sets_alive[16];
 
 void Detonate(nuvec_s *pos, i32 type, f32 scale);
 void AddMiscPickups(nuvec_s *pos, i32 player_id, i32 coins, i32 torpedoes,
@@ -1319,6 +1320,65 @@ i32 Action_PlayerSpeederHack(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+extern void (*SetPlayerControlFn)(GameObject_s *object);
+void AIScriptSetBaseScriptStateByName(AIPACKET_s *packet, char *name);
+void ResetAICreature(GameObject_s *obj, AISYS_s *sys);
+
+// FUNCTION: LEGOBATMAN 0x00453a10
+i32 Action_Activate(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                    AIPACKET_s *packet, char **args, int argc, int flags,
+                    f32 time) {
+  i32 set = 0;
+  GameObject_s *obj = NULL;
+  if (flags == 0)
+    return 1;
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL)
+    obj = packet->pd0->obj;
+  for (i32 i = 0; i < argc; i++) {
+    char *value = NuStrIStr(args[i], "character=");
+    if (value != NULL) {
+      obj = GetNamedGameObject(sys, value + 10);
+    } else if ((value = NuStrIStr(args[i], "set=")) != NULL) {
+      set = (i32)AIParamToFloat(process, value + 4);
+      if (set < 0 || set > 16)
+        set = 0;
+    }
+  }
+  if (set != 0) {
+    GameObject_s *o = Obj;
+    for (i32 i = 0; i < HIGHGAMEOBJECT; i++, o++) {
+      if ((o->flags1fc & 1) && o->process290[0xb4] == set) {
+        if (o->b3c8 == 0xff) {
+          o->flags1fc |= 0x1000;
+          if (SetPlayerControlFn != NULL)
+            SetPlayerControlFn(o);
+          else
+            AIScriptSetBaseScriptStateByName((AIPACKET_s *)o->process290,
+                                             "Base");
+        } else {
+          ResetAICreature(o, sys);
+        }
+        aicreature_sets_alive[set - 1]++;
+      }
+    }
+    return 1;
+  }
+  if (obj != NULL) {
+    if (obj->b3c8 == 0xff) {
+      obj->flags1fc |= 0x1000;
+      if (SetPlayerControlFn != NULL)
+        SetPlayerControlFn(obj);
+      else
+        AIScriptSetBaseScriptStateByName((AIPACKET_s *)obj->process290, "Base");
+    } else {
+      ResetAICreature(obj, sys);
+    }
+    if (obj->process290[0xb4] != 0 && obj->process290[0xb4] <= 16)
+      aicreature_sets_alive[obj->process290[0xb4] - 1]++;
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x00453dc0
 i32 Action_CanDefend(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                      AIPACKET_s *packet, char **args, int argc, int flags,
@@ -1626,8 +1686,6 @@ i32 Action_ResetGameCamera(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     GameCam_Reset(g_unk0095f624);
   return 1;
 }
-
-extern u8 aicreature_sets_alive[16];
 
 // FUNCTION: LEGOBATMAN 0x0045bbf0
 i32 Action_AddToSet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
