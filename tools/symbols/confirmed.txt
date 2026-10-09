@@ -51,3 +51,4 @@
 005c8150 WorldInfo_CurrentlyActive  returns WORLD (0x960894), as saga
 005ae240 SeekValF  saga body matches (rate*FRAMETIME clamped to 1, lerp)
 0059f160 GameAudio_GetPlrSfxBits  saga body matches (1 << player index)
+005bc370 GizmoGetTypeIDByName  saga body matches (gizmotypes name scan)

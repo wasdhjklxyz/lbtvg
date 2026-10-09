@@ -14,7 +14,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | group | todo | with saga body |
 |---|---|---|
 | [Action](#action) | 72 | 57 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 74 | 48 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 72 | 46 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 14 | 8 |
@@ -290,14 +290,12 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00595ff0` 35 B `_AnimFlags`  **hint** name (gapfill)
 - [ ] `0059b540` 35 B `_AnimSpeedZ`  **hint** name (gapfill)
 - [ ] `005d9810` 38 B `GizmoBlowupAddDefaultExplosionDebris(nuvec_s*)`  **hint** name (gapfill)
-- [ ] `005a2d90` 54 B `NewBuzzFrames(nupad_s*, int, int)`  **saga** `legoapi/core/input/gamepads.cpp`
 - [ ] `0059a730` 59 B `_ResetAnimPacket`  **hint** name (gapfill)
 - [ ] `0059a0d0` 60 B `_FindAnimIX`  **hint** name (gapfill)
 - [ ] `0059b3c0` 68 B `_AnimPlaying`  **hint** name (gapfill)
 - [ ] `005b0f40` 71 B `GameBufferAlloc(variptr_u*, variptr_u*, int)`  **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `00597fc0` 72 B `_AddGameDebris`
 - [ ] `00597e10` 79 B `_FindGameDebris`  **hint** name (gapfill)
-- [ ] `005bc370` 85 B `GizmoGetTypeIDByName(GIZMOSYS_s*, char*)`  **hint** name (gapfill) · **saga** `legoapi/gizmo/base/gizmo.cpp`
 - [ ] `00597db0` 90 B `_ParticlesPerSecond`  **hint** name (gapfill)
 - [ ] `0059c530` 97 B `_ParseAnimStance`  **hint** name (order)
 - [ ] `005d3f60` 105 B `FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)`  **hint** name (gapfill)

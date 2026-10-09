@@ -73,6 +73,34 @@ i32 GizmoFileReadName(char *name) {
   return 0;
 }
 
+typedef struct GIZMOTYPE_s {
+  char name[0xa0]; // name first; rest unknown
+} GIZMOTYPE;
+
+typedef struct GIZMOTYPES_s {
+  i32 count;        // 0x00
+  i32 unk4;         // 0x04
+  GIZMOTYPE *types; // 0x08
+} GIZMOTYPES;
+
+// GLOBAL: LEGOBATMAN 0x00ab07f4
+extern GIZMOTYPES *gizmotypes;
+
+i32 NuStrCmp(const char *a, const char *b);
+
+// FUNCTION: LEGOBATMAN 0x005bc370
+i32 GizmoGetTypeIDByName(GIZMOSYS_s *gizmo_sys, char *name) {
+  if (gizmotypes != 0 && gizmo_sys != 0 && name != 0) {
+    for (i32 i = 0; i < gizmotypes->count; i++) {
+      if (NuStrCmp(gizmotypes->types[i].name, name) == 0) {
+        return i;
+      }
+    }
+  }
+
+  return -1;
+}
+
 // FUNCTION: LEGOBATMAN 0x005bdcd0
 i32 InStory() {
   if (FreePlay != 0 || ChallengeMode != 0 || Mission_Active(0) != 0 ||

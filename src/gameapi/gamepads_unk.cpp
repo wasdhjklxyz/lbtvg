@@ -137,6 +137,12 @@ void NewBuzz(nupad_s *pad, float duration, i32) {
     NuSoundAddRumble(pad, duration, 0, 0.0f, 0.0f);
 }
 
+// FUNCTION: LEGOBATMAN 0x005a2d90
+void NewBuzzFrames(nupad_s *pad, i32 frames, i32) {
+  if (pad != 0)
+    NuSoundAddRumble(pad, (f32)frames / DEFAULTFPS, 0, 0.0f, 0.0f);
+}
+
 // FUNCTION: LEGOBATMAN 0x005a2dd0
 void NewRumbleAllPlayers(float strength, float duration, i32 frames, i32) {
   if (frames > 0) {

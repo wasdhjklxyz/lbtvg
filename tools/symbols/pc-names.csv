@@ -373,7 +373,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005b2a40,00358d26,__Z15LoadThingsScenev,LoadThingsScene(),strings,0
 005b6d60,002d1158,__Z17GizObstacles_LoadPvS_,"GizObstacles_Load(void*, void*)",strings,0
 005bba90,002c350a,__Z17GizmoFileReadNamePc,GizmoFileReadName(char*),confirmed,0
-005bc370,002c3dc8,__Z20GizmoGetTypeIDByNameP10GIZMOSYS_sPc,"GizmoGetTypeIDByName(GIZMOSYS_s*, char*)",gapfill,1
+005bc370,002c3dc8,__Z20GizmoGetTypeIDByNameP10GIZMOSYS_sPc,"GizmoGetTypeIDByName(GIZMOSYS_s*, char*)",confirmed,0
 005bc570,002c447a,__Z15GizmoFindByNameP10GIZMOSYS_siPc,"GizmoFindByName(GIZMOSYS_s*, int, char*)",calls,1
 005bd2d0,002c40ea,__Z12LoadGizmoSysP10GIZMOSYS_sPvPc,"LoadGizmoSys(GIZMOSYS_s*, void*, char*)",strings,0
 005bdcd0,002b3cfe,__Z7InStoryv,InStory(),confirmed,0
