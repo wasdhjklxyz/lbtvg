@@ -2,38 +2,9 @@
 // from saga gameapi/ai/aisys/aistate.cpp
 
 #include "../../nu2api/nucore/common.h"
-#include "../../nu2api/nucore/nulist.h"
 #include "../../nu2api/nucore/nustring.h"
+#include "aisys_unk.h"
 #include <stddef.h>
-
-typedef struct AISCRIPTPARAMS_s {
-  char *name;
-  f32 default_val;
-} AISCRIPTPARAMS;
-
-typedef struct AISTATE_s {
-  NULISTLNK list_node;
-  NULISTHDR conditions;
-  NULISTHDR actions;
-  char *name;
-  NULISTHDR ref_scripts;
-} AISTATE;
-
-typedef struct AISCRIPT_s {
-  NULISTLNK list_node;
-  char *name;         // 0x8
-  char *derived_from; // ??
-  u32 unkown;         // ?? NOTE: Could be before or after derived_from
-  NULISTHDR states;   // 0x14
-  AISCRIPTPARAMS params[4];
-  AISTATE *base_state;
-  u32 is_level_script : 1;
-  u32 is_derived : 1;
-  u32 is_derived_from_level_script : 1;
-  NULISTHDR ref_scripts;
-  NULISTHDR condition_macros;
-  NULISTHDR action_macros;
-} AISCRIPT;
 
 // NOTE: related to LEGOBATMAN 0x006a62b0 it calls this and thats _AIStateFind
 // in mac idk??
@@ -54,4 +25,25 @@ AISTATE *AIStateFindUnk006a1950(char *name, AISCRIPT *script) {
   }
 
   return NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a62b0
+i32 AIStateFind(AISCRIPTPROCESS *processor, u8 priority, u8 id,
+                char *state_name, f32 time) {
+  AISTATE *state;
+
+  if (priority >= processor->interrupt_priority) {
+    state = AIStateFindUnk006a1950(state_name, processor->script);
+
+    if (state != NULL) {
+      processor->interrupt_priority = priority;
+      processor->interrupt_id = id;
+      processor->interrupt_state = state;
+      processor->interrupt_timer = time;
+
+      return 1;
+    }
+  }
+
+  return 0;
 }

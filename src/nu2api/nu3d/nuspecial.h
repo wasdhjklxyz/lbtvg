@@ -7,6 +7,8 @@
 
 #include "../numath/numath.h"
 
+struct NUGSPLINE;
+
 struct nuinstanim_s {
   numtx_s mtx; // 0x00, matrix-first record
 };

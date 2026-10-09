@@ -18,10 +18,10 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 10 | 9 |
 | [Text](#text) | 10 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 14 | 8 |
-| [near nutrig_gen.cpp](#near-nutrig_gencpp) | 14 | 6 |
 | [Arcade](#arcade) | 5 | 5 |
 | [GameCam](#gamecam) | 5 | 5 |
 | [Grabber](#grabber) | 7 | 5 |
+| [near nutrig_gen.cpp](#near-nutrig_gencpp) | 13 | 5 |
 | [Player](#player) | 5 | 5 |
 | [Area](#area) | 5 | 4 |
 | [GameAudio](#gameaudio) | 4 | 4 |
@@ -532,23 +532,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 - [ ] `006bc410` 1430 B `_AISysProcessCharacter`
 - [ ] `006b5000` 3215 B `_AISysLoadEx`
 
-## near nutrig_gen.cpp
-
-- [ ] `006a5fe0` 31 B `_AISysClearAllPathCnxTypes`
-- [ ] `006a9b90` 80 B `_AISysFindArea`
-- [ ] `006a62b0` 84 B `_AIStateFind`  **saga** `gameapi/ai/aisys/aistate.cpp`
-- [ ] `006a9bf0` 84 B `_AISysFindPath`
-- [ ] `006a9ac0` 96 B `_AIPathFindLocator`
-- [ ] `006a9b20` 98 B `_AIPathFindLocatorSet`
-- [ ] `006a34d0` 100 B `_AIParamToFloatEx`  **saga** `gameapi/ai/aisys/aiscript.cpp`
-- [ ] `006a9c50` 114 B `_AIPathFindNode`
-- [ ] `006a3380` 125 B `_AIParamToFloat`  **saga** `gameapi/ai/aisys/aiscript.cpp`
-- [ ] `006af110` 142 B `_AiSysIsCurrentPlatform`
-- [ ] `006a6000` 171 B `_AISysRegisterPathCnxType`
-- [ ] `006a19a0` 230 B `_AIScriptFind`  **saga** `gameapi/ai/aisys/aiscript.cpp`
-- [ ] `006a2730` 401 B `_AIScriptCopyConditions`  **saga** `gameapi/ai/aisys/aiscript.cpp`
-- [ ] `006a2cc0` 536 B `_AIScriptBuildDerivedScript`  **saga** `gameapi/ai/aisys/aiscript.cpp`
-
 ## Arcade
 
 - [ ] `006481f0` 9 B `Arcade_ResetPanel()`  **saga** `legoapi/menus/screens/arcade.cpp`
@@ -574,6 +557,22 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 - [ ] `00602270` 710 B `Grabber_Reset(WORLDINFO_s*)`  **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
 - [ ] `00602540` 740 B `Grabber_Drop(GRABBER_s*, nuvec_s*)`  **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
 - [ ] `00600e90` 1004 B `Grabber_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/items/objects/grabber.cpp`
+
+## near nutrig_gen.cpp
+
+- [ ] `006a5fe0` 31 B `_AISysClearAllPathCnxTypes`
+- [ ] `006a9b90` 80 B `_AISysFindArea`
+- [ ] `006a9bf0` 84 B `_AISysFindPath`
+- [ ] `006a9ac0` 96 B `_AIPathFindLocator`
+- [ ] `006a9b20` 98 B `_AIPathFindLocatorSet`
+- [ ] `006a34d0` 100 B `_AIParamToFloatEx`  **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006a9c50` 114 B `_AIPathFindNode`
+- [ ] `006a3380` 125 B `_AIParamToFloat`  **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006af110` 142 B `_AiSysIsCurrentPlatform`
+- [ ] `006a6000` 171 B `_AISysRegisterPathCnxType`
+- [ ] `006a19a0` 230 B `_AIScriptFind`  **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006a2730` 401 B `_AIScriptCopyConditions`  **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006a2cc0` 536 B `_AIScriptBuildDerivedScript`  **saga** `gameapi/ai/aisys/aiscript.cpp`
 
 ## Player
 
