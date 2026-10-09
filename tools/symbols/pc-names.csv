@@ -816,7 +816,15 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0070eee0,0012aad4,_NuSpecialFindMultiWC,_NuSpecialFindMultiWC,order,2
 0070f0a0,0012ac58,_NuSpecialFindMulti,_NuSpecialFindMulti,order,2
 0070f250,0012ad9a,_NuSpecialGetPos,_NuSpecialGetPos,gapfill,1
+0070f2b0,0012ae00,_NuSpecialGetMtx,_NuSpecialGetMtx,confirmed,0
+0070f2c0,0012ae12,_NuSpecialSetMtx,_NuSpecialSetMtx,confirmed,0
+0070f2e0,0012aee8,_NuSpecialGetAppData,_NuSpecialGetAppData,confirmed,0
+0070f300,0012af06,_NuSpecialSetAppData,_NuSpecialSetAppData,confirmed,0
+0070f330,0012af26,_NuSpecialGetName,_NuSpecialGetName,confirmed,0
+0070f360,0012af50,_NuSpecialVertexStates,_NuSpecialVertexStates,confirmed,0
+0070f380,0012af72,_NuSpecialVertexOffsets,_NuSpecialVertexOffsets,confirmed,0
 0070f3a0,0012af90,_NuSpecialExistsFn,_NuSpecialExistsFn,gapfill,1
+0070f3c0,0012afb4,_NuSpecialMtlMap,_NuSpecialMtlMap,confirmed,0
 0070f510,0012b146,_NuSpecialSetVisibility,_NuSpecialSetVisibility,gapfill,1
 0070f5d0,0012b20a,_NuSpecialSetCollision,_NuSpecialSetCollision,order,4
 0070f630,0012b260,_NuSpecialGetCollision,_NuSpecialGetCollision,order,4

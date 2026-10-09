@@ -35,7 +35,7 @@ struct nuspecial_s {
   nuinstance_s *instance; // 0x40
   char *name;             // 0x44
   unsigned int flags;     // 0x48, 0x200 = collision
-  unsigned char pad2[0x50 - 0x4c];
+  void *app_data;         // 0x4c
 };
 
 // Per-object bounds (saga NuSpecialLegacyObjectBoundsLayout).
@@ -83,12 +83,13 @@ struct NUDISPLAYSPECIAL {
   nuvec_s center;               // 0xa0
   float radius;                 // 0xac
   nuclipobject_s *clip_objects; // 0xb0
-  unsigned char pad1[0xb8 - 0xb4];
-  unsigned int flags; // 0xb8, 0x200 = collision, bit 1 = visible
-  float *clip_range;  // 0xbc, LOD distances, 0-terminated
+  char *name;                   // 0xb4
+  unsigned int flags;           // 0xb8, 0x200 = collision, bit 1 = visible
+  float *clip_range;            // 0xbc, LOD distances, 0-terminated
   unsigned char pad2[0xc4 - 0xc0];
   nuinstanim_s *instance_animation; // 0xc4, -1 when unset
-  unsigned char pad3[0xd0 - 0xc8];
+  unsigned char pad3[0xcc - 0xc8];
+  void *app_data; // 0xcc
 };
 
 struct nugscn_s {

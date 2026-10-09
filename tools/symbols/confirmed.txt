@@ -181,3 +181,11 @@
 0070b1f0 NuAnimDataChunkCreate  saga body (nuanim_gen.cpp lines 0x51d/0x521); Mac order
 0070b250 NuAnimDataCreate  saga body (chunk pointer table at +0x10, line 0x530); Mac order
 0070f9e0 NuSpecialGetBounds  copies last-LOD object min/max out, same as Mac _NuSpecialGetBounds (Mac SetBounds stores instead)
+0070f2b0 NuSpecialGetMtx  saga body; Mac order after NuSpecialGetDrawPos
+0070f2c0 NuSpecialSetMtx  saga body (matrix copy into display/legacy special)
+0070f2e0 NuSpecialGetAppData  Mac order; returns display +0xcc or legacy +0x4c
+0070f300 NuSpecialSetAppData  Mac order; stores display +0xcc or legacy +0x4c
+0070f330 NuSpecialGetName  saga body (display name or legacy name)
+0070f360 NuSpecialVertexStates  saga body (stores states, bumps render state ids)
+0070f380 NuSpecialVertexOffsets  saga body
+0070f3c0 NuSpecialMtlMap  saga body (forced material table, draw state bit 4)

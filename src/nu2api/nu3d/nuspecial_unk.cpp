@@ -64,11 +64,99 @@ nuvec_s *NuSpecialGetDrawPos(nuhspecial_s *sp) {
   return 0;
 }
 
+// FUNCTION: LEGOBATMAN 0x0070f2b0
+numtx_s *NuSpecialGetMtx(nuhspecial_s *sp) {
+  if (sp->display_special != 0)
+    return (numtx_s *)sp->display_special;
+  return (numtx_s *)sp->special;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070f2c0
+void NuSpecialSetMtx(nuhspecial_s *sp, numtx_s *matrix) {
+  if (sp->display_special != 0)
+    sp->display_special->instance_mtx = *matrix;
+  else
+    *(numtx_s *)sp->special = *matrix;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070f2e0
+void *NuSpecialGetAppData(nuhspecial_s *sp) {
+  if (sp->display_special != 0)
+    return sp->display_special->app_data;
+  return sp->special->app_data;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070f300
+void NuSpecialSetAppData(nuhspecial_s *sp, void *data) {
+  if (sp->display_special != 0)
+    sp->display_special->app_data = data;
+  else
+    sp->special->app_data = data;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070f330
+char *NuSpecialGetName(nuhspecial_s *sp) {
+  if (sp == 0)
+    return 0;
+  if (sp->display_special != 0)
+    return sp->display_special->name;
+  return sp->special != 0 ? sp->special->name : 0;
+}
+
+// GLOBAL: LEGOBATMAN 0x029f3f1c
+void *nuspecial_vertex_states;
+
+// GLOBAL: LEGOBATMAN 0x00b102d4
+extern int nurender_global_id;
+
+// GLOBAL: LEGOBATMAN 0x00b102e4
+extern unsigned short nurender_vertex_groups_id;
+
+// FUNCTION: LEGOBATMAN 0x0070f360
+void NuSpecialVertexStates(void *states) {
+  nuspecial_vertex_states = states;
+  ++nurender_global_id;
+  ++nurender_vertex_groups_id;
+}
+
+// GLOBAL: LEGOBATMAN 0x029f3f18
+unsigned int nuspecial_vertex_offsets;
+
+// GLOBAL: LEGOBATMAN 0x029f3f14
+int nuspecial_vertex_noffsets;
+
+// FUNCTION: LEGOBATMAN 0x0070f380
+void NuSpecialVertexOffsets(int count, unsigned int offsets) {
+  nuspecial_vertex_offsets = offsets;
+  nuspecial_vertex_noffsets = count;
+}
+
 // FUNCTION: LEGOBATMAN 0x0070f3a0
 int NuSpecialExistsFn(nuhspecial_s *sp) {
   if (sp && (sp->special || sp->display_special))
     return 1;
   return 0;
+}
+
+// GLOBAL: LEGOBATMAN 0x029f3f10
+extern unsigned int nuspecial_draw_state;
+
+// GLOBAL: LEGOBATMAN 0x029f3f68
+extern void **nurndr_forced_mtl_table;
+
+// GLOBAL: LEGOBATMAN 0x029f3f6c
+extern int nurndr_nforced_mtls;
+
+// FUNCTION: LEGOBATMAN 0x0070f3c0
+void NuSpecialMtlMap(int count, void **materials) {
+  if (count == 0) {
+    nurndr_forced_mtl_table = 0;
+    nuspecial_draw_state &= ~4;
+  } else {
+    nuspecial_draw_state |= 4;
+    nurndr_forced_mtl_table = materials;
+    nurndr_nforced_mtls = count;
+  }
 }
 
 // FUNCTION: LEGOBATMAN 0x0070f5d0
