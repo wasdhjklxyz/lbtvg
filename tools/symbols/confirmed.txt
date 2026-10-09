@@ -517,3 +517,8 @@
 00450c90 Condition_TakeOverTargetInTriggerAreaInit   matched (AISysFindArea), Mac order
 00450e20 Condition_AnyPartyInTriggerAreaInit   matched (AISysFindArea), Mac order
 00450ed0 Condition_AllPartyInTriggerAreaInit   matched (AISysFindArea), Mac order
+004512b0 Condition_BeenTakenOver   matched (saga gameobjects.cpp shape), Mac order before Condition_CharacterTypeExists
+00451340 Condition_OnSpeederBike   matched (saga gameobjects.cpp shape), Mac order before Condition_CharacterTypeExists
+00451390 Condition_UnderPlayerControl   matched (saga gameobjects.cpp shape), Mac order before Condition_CharacterTypeExists
+004513f0 Condition_CharacterExists   matched (saga gameobjects.cpp shape), Mac order before Condition_CharacterTypeExists
+00451400 Condition_CharacterTypeExistsInit   matched (saga gameobjects.cpp shape), Mac order before Condition_CharacterTypeExists

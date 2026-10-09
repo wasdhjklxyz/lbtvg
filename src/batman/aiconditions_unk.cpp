@@ -1863,6 +1863,64 @@ void *Condition_AllPartyInTriggerAreaInit(AISYS_s *sys, char *name,
   return name != NULL ? AISysFindArea(sys, name) : NULL;
 }
 
+// FUNCTION: LEGOBATMAN 0x004512b0
+f32 Condition_BeenTakenOver(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char *str, void *argument) {
+  GameObject_s *object = (GameObject_s *)argument;
+  if (object == NULL && packet->pd0 != NULL)
+    object = packet->pd0->obj;
+  if (object != NULL && object->p1158 != NULL && object->b9db == 0x3b)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00451340
+f32 Condition_OnSpeederBike(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char *str, void *data) {
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00451390
+f32 Condition_UnderPlayerControl(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                 AIPACKET_s *packet, char *str,
+                                 void *argument) {
+  GameObject_s *object = (GameObject_s *)argument;
+  if (object != NULL && (object->flags1fc & 0x80) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x004513f0
+f32 Condition_CharacterExists(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char *str, void *argument) {
+  if (argument != NULL)
+    return 1.0f;
+  return 0.0f;
+}
+
+struct CDATA48_s {
+  u8 pad0[0xc];
+  char *file; // 0x0c
+  u8 pad10[0x48 - 0x10];
+};
+
+// GLOBAL: LEGOBATMAN 0x00acb81c
+extern CDATA48_s *CDataList;
+// GLOBAL: LEGOBATMAN 0x00acb820
+extern i32 CHARCOUNT;
+
+// FUNCTION: LEGOBATMAN 0x00451400
+void *Condition_CharacterTypeExistsInit(AISYS_s *system, char *name,
+                                        AISCRIPT_s *script) {
+  if (name != NULL && system != NULL) {
+    for (i32 index = 0; index < CHARCOUNT; ++index) {
+      if (NuStrICmp(CDataList[index].file, name) == 0)
+        return (void *)index;
+    }
+  }
+  return (void *)-1;
+}
+
 i32 Hub_GetRandomCharType(void);
 
 // FUNCTION: LEGOBATMAN 0x00451470
