@@ -59,6 +59,11 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00452460,00079188,__Z25Condition_CharacterLoadedP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_CharacterLoaded(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00452530,00079206,__Z26Condition_AreaCompleteInitP7AISYS_sPcP10AISCRIPT_s,"Condition_AreaCompleteInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 00452550,00079224,__Z22Condition_AreaCompleteP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_AreaComplete(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+00452590,00079254,__Z30Condition_ShouldAttackOpponentP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ShouldAttackOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+00452600,000792ba,__Z17Condition_InSwampP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_InSwamp(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+00452730,000793c4,__Z28Condition_NetworkGameOnGoingP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_NetworkGameOnGoing(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+00452740,000793cc,__Z39Condition_EitherPlayerSuperCarryingInitP7AISYS_sPcP10AISCRIPT_s,"Condition_EitherPlayerSuperCarryingInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+00452790,00079410,__Z35Condition_EitherPlayerSuperCarryingP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_EitherPlayerSuperCarrying(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 004530b0,0009708c,__Z24Action_SetTakeOverTargetP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetTakeOverTarget(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 004541f0,0008f63e,__Z14Action_SetSideP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetSide(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 00454950,00079fac,__Z19Action_SetStateAreaP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetStateArea(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0

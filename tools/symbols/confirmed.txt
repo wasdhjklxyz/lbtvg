@@ -403,3 +403,8 @@
 00452460 Condition_CharacterLoaded   matched saga aisys.cpp body, Mac order after Condition_AngleAboutMyLocatorToPlayer
 00452530 Condition_AreaCompleteInit   matched saga aisys.cpp body, Mac order after Condition_AngleAboutMyLocatorToPlayer
 00452550 Condition_AreaComplete   matched saga aisys.cpp body, Mac order after Condition_AngleAboutMyLocatorToPlayer
+00452590 Condition_ShouldAttackOpponent  matched saga gameobjects.cpp shape (id_BAT only), Mac order after Condition_AreaComplete
+00452600 Condition_InSwamp   matched, Mac order after Condition_ShouldAttackOpponent
+00452730 Condition_NetworkGameOnGoing   matched, Mac order after Condition_ShouldAttackOpponent
+00452740 Condition_EitherPlayerSuperCarryingInit   matched, Mac order after Condition_ShouldAttackOpponent
+00452790 Condition_EitherPlayerSuperCarrying   matched, Mac order after Condition_ShouldAttackOpponent

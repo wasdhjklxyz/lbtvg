@@ -538,6 +538,81 @@ f32 Condition_AreaComplete(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 0.0f;
 }
 
+// Fields of the AI process embedded at GameObject_s 0x290 (+0xe4 opponent,
+// +0xe8 opponent metric) and the 0x480 flag word.
+struct GameObjectAIView_s {
+  u8 pad0[0x374];
+  Unk_AIPacketObj *opponent; // 0x374
+  f32 opponent_metric;       // 0x378
+  u8 pad37c[0x480 - 0x37c];
+  u32 flags480; // 0x480
+};
+
+// GLOBAL: LEGOBATMAN 0x00936468
+extern i16 id_BAT;
+
+// FUNCTION: LEGOBATMAN 0x00452590
+f32 Condition_ShouldAttackOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                   AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL) {
+    GameObjectAIView_s *object = (GameObjectAIView_s *)packet->pd0->obj;
+    if (object->opponent != NULL && object->opponent->obj != NULL &&
+        (object->flags480 & 0x800) != 0 && object->opponent_metric < 1.0f &&
+        object->opponent->obj->type15b0 == id_BAT)
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00452600
+f32 Condition_InSwamp(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                      AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL &&
+      packet->pd0->obj->b24f == 9)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00452730
+f32 Condition_NetworkGameOnGoing(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                 AIPACKET_s *packet, char *str, void *data) {
+  return 0;
+}
+
+char *NuStrIStr(char *str, const char *sub);
+WORLDINFO_s *WorldInfo_CurrentlyActive(void);
+void *GizmoBlowUpTypeFind005dbcb0(char *name, WORLDINFO_s *world);
+
+// FUNCTION: LEGOBATMAN 0x00452740
+void *Condition_EitherPlayerSuperCarryingInit(AISYS_s *sys, char *name,
+                                              AISCRIPT_s *script) {
+  char *type;
+  if (name != NULL && (type = NuStrIStr(name, "type=")) != NULL)
+    return GizmoBlowUpTypeFind005dbcb0(type + 5, WorldInfo_CurrentlyActive());
+  return NULL;
+}
+
+void *SuperCarry_CarryingType(GameObject_s *object, void *type);
+i32 SuperCarry_Carrying(GameObject_s *object);
+
+// GLOBAL: LEGOBATMAN 0x00960500
+extern i32 g_unk00960500;
+
+// FUNCTION: LEGOBATMAN 0x00452790
+f32 Condition_EitherPlayerSuperCarrying(AISYS_s *sys,
+                                        AISCRIPTPROCESS_s *process,
+                                        AIPACKET_s *packet, char *str,
+                                        void *data) {
+  for (i32 i = 0; i < 2; i++) {
+    if (Player[i] != NULL && (Player[i]->flags1fc & 0x80) &&
+        (data != NULL ? (i32)SuperCarry_CarryingType(Player[i], data)
+                      : SuperCarry_Carrying(Player[i])) != 0 &&
+        g_unk00960500 != -1 && Player[i]->b9d9 != g_unk00960500)
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
 i32 Hub_GetRandomCharType(void);
 
 // FUNCTION: LEGOBATMAN 0x00451470

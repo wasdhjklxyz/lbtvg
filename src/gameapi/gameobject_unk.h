@@ -102,7 +102,9 @@ struct GameObject_s {
   u16 u246; // 0x246, MovingBackwards: facing compared with pad input
   u8 pad248[0x24c - 0x248];
   char b24c; // 0x24c
-  u8 pad4[0x257 - 0x24d];
+  u8 pad24d[0x24f - 0x24d];
+  u8 b24f; // 0x24f, 9 = in swamp (Condition_InSwamp)
+  u8 pad4[0x257 - 0x250];
   char b257; // 0x257
   u8 pad5[0x259 - 0x258];
   u8 b259; // 0x259
