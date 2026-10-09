@@ -1305,3 +1305,21 @@
 00619740 CS_fadefog  keyword table 0x9639a0
 006193f0 CS_level  Mac CS_level(nufpar_s*, short*), sole callee of CS_goto_level/CS_skipto_level
 00619630 CS_fade  Mac CS_fade(nufpar_s*, int), callee of CS_fadescreen/CS_fadefog
+005e8750 BT_name  keyword table 0x961f10
+005e8890 BT_sceneconfig  keyword table 0x961f10
+005e8920 BT_obj  keyword table 0x961f10
+005e89a0 BT_ref_obj  keyword table 0x961f10
+005e8a00 BT_glow_obj  keyword table 0x961f10
+005e8a80 BT_ref_glow_obj  keyword table 0x961f10
+005e8ae0 BT_shadow_obj  keyword table 0x961f10
+005e8b40 BT_debris_shoot  keyword table 0x961f10
+005e8b90 BT_debris_hit  keyword table 0x961f10
+005e8c10 BT_debris_moving  keyword table 0x961f10
+005e8ca0 BT_part_hit  keyword table 0x961f10
+005e8cf0 BT_sfx_shoot  keyword table 0x961f10
+005e8d40 BT_sfx_hit  keyword table 0x961f10
+005e8de0 BT_TargetDeg_Near  keyword table 0x961f10
+005e8e30 BT_TargetDeg_Mid  keyword table 0x961f10
+005e8e80 BT_TargetDeg_Far  keyword table 0x961f10
+005e9050 BT_NoOffscreenCull  keyword table 0x961f10
+005e9060 BT_flags  keyword table 0x961f10

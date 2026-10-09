@@ -2,6 +2,7 @@
 
 #include "../nu2api/nucore/common.h"
 #include <stddef.h>
+#include <stdlib.h>
 
 // STUB: LEGOBATMAN 0x005e9790
 // two-pass bolttype parser with default fn pointers to same-TU statics; not
@@ -164,25 +165,53 @@ typedef struct nufpar_s NUFPAR;
 f32 NuFParGetFloat(NUFPAR *parser);
 i32 NuFParGetInt(NUFPAR *parser);
 
+struct nufpar_s {
+  unsigned char pad0[0x910];
+  char *word_buf; // 0x910
+};
+struct nugscn_s;
+struct nuhspecial_s {
+  void *scene;
+  void *special;
+  void *display_special;
+};
+
 // The keyword parsers' view of a bolt type (PC layout).
 struct BoltTypeKw_s {
-  char name[16]; // 0x00
-  f32 speed;     // 0x10
-  f32 duration;  // 0x14
-  f32 gravity;   // 0x18
-  f32 radius;    // 0x1c
-  f32 scale;     // 0x20
-  f32 scaletime; // 0x24
-  u8 pad28[0x3a - 0x28];
-  u8 damage; // 0x3a
+  char name[16];              // 0x00
+  f32 speed;                  // 0x10
+  f32 duration;               // 0x14
+  f32 gravity;                // 0x18
+  f32 radius;                 // 0x1c
+  f32 scale;                  // 0x20
+  f32 scaletime;              // 0x24
+  i16 debris_shoot;           // 0x28
+  i16 debris_hit[3];          // 0x2a
+  i16 debris_moving[2];       // 0x30
+  i16 debris_moving_count[2]; // 0x34
+  i16 part_hit;               // 0x38
+  u8 damage;                  // 0x3a
   u8 pad3b[0x3c - 0x3b];
   i32 rand_angle; // 0x3c
   u8 pad40[0x58 - 0x40];
   unsigned __int64 flags; // 0x58
+  i16 sfx_shoot;          // 0x60
+  i16 sfx_hit;            // 0x62
+  f32 target_dist_near;   // 0x64, squared
+  f32 target_dist_mid;    // 0x68, squared
+  u16 target_deg_near;    // 0x6c
+  u16 target_deg_mid;     // 0x6e
+  u16 target_deg_far;     // 0x70
+  u8 pad72[0x74 - 0x72];
+  nuhspecial_s obj;          // 0x74
+  nuhspecial_s glow_obj;     // 0x80
+  nuhspecial_s ref_obj;      // 0x8c
+  nuhspecial_s ref_glow_obj; // 0x98
+  nuhspecial_s shadow_obj;   // 0xa4
 };
 
 // GLOBAL: LEGOBATMAN 0x00ac7598
-extern BoltTypeKw_s *BT_bolttype;
+static BoltTypeKw_s *BT_bolttype;
 
 static inline f32 NuFabs(f32 f) {
   u32 bits = *(u32 *)&f & 0x7fffffff;
@@ -297,4 +326,208 @@ void BT_typec(NUFPAR *parser) {
 void BT_typed(NUFPAR *parser) {
   BoltTypeKw_s *bolt_type = BT_bolttype;
   bolt_type->flags |= 0x20000000000ull;
+}
+
+struct BoltFlagName_s {
+  char *name;
+  u32 pad4;
+  unsigned __int64 flag;
+};
+
+i32 NuFParGetWord(NUFPAR *parser);
+i32 NuStrLen(const char *s);
+i32 NuStrCpy(char *dst, const char *src);
+int NuStrICmp(const char *a, const char *b);
+i32 NuSpecialFind(nugscn_s *scene, nuhspecial_s *dest, char *name, i32 flags);
+i32 GetSfxId(char *name);
+i32 PARTLookupType(char *name);
+i32 Unk0055fe40(char *name);
+
+struct BTWorld_s {
+  u8 pad0[0x140];
+  nugscn_s *current_gscn; // 0x140
+};
+
+// GLOBAL: LEGOBATMAN 0x00ac7590
+extern nugscn_s *BT_scene;
+// GLOBAL: LEGOBATMAN 0x00ac75a8
+extern BTWorld_s *BT_worldinfo;
+// GLOBAL: LEGOBATMAN 0x00ac75ac
+extern i32 g_unk00ac75ac;
+// GLOBAL: LEGOBATMAN 0x00ac75a4
+static i32 BT_gdeb_moving_count;
+// GLOBAL: LEGOBATMAN 0x00a958ac
+extern nugscn_s *things_scene;
+extern nugscn_s *area_scene;
+extern nugscn_s *vehicle_scene;
+// GLOBAL: LEGOBATMAN 0x00961d10
+extern BoltFlagName_s g_unk00961d10[];
+
+// FUNCTION: LEGOBATMAN 0x005e8750
+void BT_name(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0 && NuStrLen(parser->word_buf) <= 15)
+    NuStrCpy(BT_bolttype->name, parser->word_buf);
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8890
+void BT_sceneconfig(NUFPAR *parser) {
+  nugscn_s *scene;
+  BT_scene = things_scene;
+  if (NuFParGetWord(parser) == 0)
+    return;
+  if (NuStrICmp(parser->word_buf, "level") == 0) {
+    if (BT_worldinfo == 0)
+      return;
+    scene = BT_worldinfo->current_gscn;
+  } else if (NuStrICmp(parser->word_buf, "area") == 0) {
+    scene = area_scene;
+  } else if (NuStrICmp(parser->word_buf, "vehicle") == 0) {
+    scene = vehicle_scene;
+  } else {
+    return;
+  }
+  if (scene != 0)
+    BT_scene = scene;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8920
+void BT_obj(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "none") != 0 &&
+      BT_scene != 0) {
+    if (NuSpecialFind(BT_scene, &BT_bolttype->obj, parser->word_buf, 1) != 0)
+      BT_bolttype->ref_obj = BT_bolttype->obj;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x005e89a0
+void BT_ref_obj(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "none") != 0 &&
+      BT_scene != 0)
+    NuSpecialFind(BT_scene, &BT_bolttype->ref_obj, parser->word_buf, 1);
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8a00
+void BT_glow_obj(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "none") != 0 &&
+      BT_scene != 0) {
+    if (NuSpecialFind(BT_scene, &BT_bolttype->glow_obj, parser->word_buf, 1) !=
+        0)
+      BT_bolttype->ref_glow_obj = BT_bolttype->glow_obj;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8a80
+void BT_ref_glow_obj(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "none") != 0 &&
+      BT_scene != 0)
+    NuSpecialFind(BT_scene, &BT_bolttype->ref_glow_obj, parser->word_buf, 1);
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8ae0
+void BT_shadow_obj(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "none") != 0 &&
+      BT_scene != 0)
+    NuSpecialFind(BT_scene, &BT_bolttype->shadow_obj, parser->word_buf, 1);
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8b40
+void BT_debris_shoot(NUFPAR *parser) {
+  if (g_unk00ac75ac != 0 && NuFParGetWord(parser) != 0 &&
+      NuStrICmp(parser->word_buf, "none") != 0)
+    BT_bolttype->debris_shoot = Unk0055fe40(parser->word_buf);
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8b90
+void BT_debris_hit(NUFPAR *parser) {
+  i32 i;
+  if (g_unk00ac75ac != 0 && NuFParGetWord(parser) != 0 &&
+      NuStrICmp(parser->word_buf, "none") != 0) {
+    for (i = 0; i < 3; i++) {
+      if (BT_bolttype->debris_hit[i] == -1)
+        break;
+    }
+    if (i < 3)
+      BT_bolttype->debris_hit[i] = Unk0055fe40(parser->word_buf);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8c10
+void BT_debris_moving(NUFPAR *parser) {
+  if (g_unk00ac75ac != 0 && BT_gdeb_moving_count < 2 &&
+      NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "none") != 0) {
+    BT_bolttype->debris_moving[BT_gdeb_moving_count] =
+        Unk0055fe40(parser->word_buf);
+    i32 count = (i32)NuFParGetFloat(parser);
+    BT_bolttype->debris_moving_count[BT_gdeb_moving_count] = abs(count);
+    BT_gdeb_moving_count++;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8ca0
+void BT_part_hit(NUFPAR *parser) {
+  if (BT_worldinfo != 0 && NuFParGetWord(parser) != 0 &&
+      NuStrICmp(parser->word_buf, "none") != 0)
+    BT_bolttype->part_hit = PARTLookupType(parser->word_buf);
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8cf0
+void BT_sfx_shoot(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "none") != 0)
+    BT_bolttype->sfx_shoot = GetSfxId(parser->word_buf);
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8d40
+void BT_sfx_hit(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0) {
+    if (NuStrICmp(parser->word_buf, "none") != 0)
+      BT_bolttype->sfx_hit = GetSfxId(parser->word_buf);
+    else
+      BT_bolttype->sfx_hit = -2;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8da0
+void BT_TargetDist_Near(NUFPAR *parser) {
+  f64 d = NuFParGetFloat(parser);
+  BT_bolttype->target_dist_near = d * d;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8dc0
+void BT_TargetDist_Mid(NUFPAR *parser) {
+  f64 d = NuFParGetFloat(parser);
+  BT_bolttype->target_dist_mid = d * d;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8de0
+void BT_TargetDeg_Near(NUFPAR *parser) {
+  BT_bolttype->target_deg_near = (u16)(NuFParGetFloat(parser) * 182.04445f);
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8e30
+void BT_TargetDeg_Mid(NUFPAR *parser) {
+  BT_bolttype->target_deg_mid = (u16)(NuFParGetFloat(parser) * 182.04445f);
+}
+
+// FUNCTION: LEGOBATMAN 0x005e8e80
+void BT_TargetDeg_Far(NUFPAR *parser) {
+  BT_bolttype->target_deg_far = (u16)(NuFParGetFloat(parser) * 182.04445f);
+}
+
+// FUNCTION: LEGOBATMAN 0x005e9050
+void BT_NoOffscreenCull(NUFPAR *parser) {
+  BoltTypeKw_s *bolt_type = BT_bolttype;
+  bolt_type->flags |= 0x20ull;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e9060
+void BT_flags(NUFPAR *parser) {
+  while (NuFParGetWord(parser) != 0) {
+    for (BoltFlagName_s *f = g_unk00961d10; f->name != 0; f++) {
+      if (NuStrICmp(parser->word_buf, f->name) == 0) {
+        BoltTypeKw_s *bolt_type = BT_bolttype;
+        bolt_type->flags |= f->flag;
+        break;
+      }
+    }
+  }
 }

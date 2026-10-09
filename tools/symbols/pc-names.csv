@@ -1013,6 +1013,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005d9e20,002c6fce,__Z17GizmoBlowupBlowupP13GIZMOBLOWUP_siiiP12GameObject_si,"GizmoBlowupBlowup(GIZMOBLOWUP_s*, int, int, int, GameObject_s*, int)",confirmed,0
 005dda30,002cb9c0,__Z22GizmoBlowUp_FindByNameP11WORLDINFO_sPc,"GizmoBlowUp_FindByName(WORLDINFO_s*, char*)",calls,1
 005dfa60,002ec12c,__Z15ObjHitObj_FlagsP12GameObject_s,ObjHitObj_Flags(GameObject_s*),gapfill,1
+005e8750,0026b032,__Z7BT_nameP8nufpar_s,BT_name(nufpar_s*),confirmed,0
 005e8790,0026b086,__Z8BT_speedP8nufpar_s,BT_speed(nufpar_s*),confirmed,0
 005e87b0,0026b0b4,__Z11BT_durationP8nufpar_s,BT_duration(nufpar_s*),confirmed,0
 005e87d0,0026b0e2,__Z9BT_radiusP8nufpar_s,BT_radius(nufpar_s*),confirmed,0
@@ -1020,6 +1021,21 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005e8810,0026b13e,__Z12BT_scaletimeP8nufpar_s,BT_scaletime(nufpar_s*),confirmed,0
 005e8840,0026b17e,__Z10BT_gravityP8nufpar_s,BT_gravity(nufpar_s*),confirmed,0
 005e8860,0026b1ac,__Z13BT_rand_angleP8nufpar_s,BT_rand_angle(nufpar_s*),confirmed,0
+005e8890,0026b1ee,__Z14BT_sceneconfigP8nufpar_s,BT_sceneconfig(nufpar_s*),confirmed,0
+005e8920,0026b2b4,__Z6BT_objP8nufpar_s,BT_obj(nufpar_s*),confirmed,0
+005e89a0,0026b350,__Z10BT_ref_objP8nufpar_s,BT_ref_obj(nufpar_s*),confirmed,0
+005e8a00,0026b3c8,__Z11BT_glow_objP8nufpar_s,BT_glow_obj(nufpar_s*),confirmed,0
+005e8a80,0026b46a,__Z15BT_ref_glow_objP8nufpar_s,BT_ref_glow_obj(nufpar_s*),confirmed,0
+005e8ae0,0026b4e2,__Z13BT_shadow_objP8nufpar_s,BT_shadow_obj(nufpar_s*),confirmed,0
+005e8b40,0026b55a,__Z15BT_debris_shootP8nufpar_s,BT_debris_shoot(nufpar_s*),confirmed,0
+005e8b90,0026b5c8,__Z13BT_debris_hitP8nufpar_s,BT_debris_hit(nufpar_s*),confirmed,0
+005e8c10,0026b650,__Z16BT_debris_movingP8nufpar_s,BT_debris_moving(nufpar_s*),confirmed,0
+005e8ca0,0026b70e,__Z11BT_part_hitP8nufpar_s,BT_part_hit(nufpar_s*),confirmed,0
+005e8cf0,0026b77c,__Z12BT_sfx_shootP8nufpar_s,BT_sfx_shoot(nufpar_s*),confirmed,0
+005e8d40,0026b7e0,__Z10BT_sfx_hitP8nufpar_s,BT_sfx_hit(nufpar_s*),confirmed,0
+005e8de0,0026b8d6,__Z17BT_TargetDeg_NearP8nufpar_s,BT_TargetDeg_Near(nufpar_s*),confirmed,0
+005e8e30,0026b91a,__Z16BT_TargetDeg_MidP8nufpar_s,BT_TargetDeg_Mid(nufpar_s*),confirmed,0
+005e8e80,0026b95e,__Z16BT_TargetDeg_FarP8nufpar_s,BT_TargetDeg_Far(nufpar_s*),confirmed,0
 005e8ed0,0026b9a2,__Z9BT_damageP8nufpar_s,BT_damage(nufpar_s*),confirmed,0
 005e8ef0,0026b9d0,__Z12BT_nodeflectP8nufpar_s,BT_nodeflect(nufpar_s*),confirmed,0
 005e8f10,0026b9f2,__Z11BT_convergeP8nufpar_s,BT_converge(nufpar_s*),confirmed,0
@@ -1034,6 +1050,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005e8ff0,0026bb2a,__Z8BT_typebP8nufpar_s,BT_typeb(nufpar_s*),confirmed,0
 005e9010,0026bb4c,__Z8BT_typecP8nufpar_s,BT_typec(nufpar_s*),confirmed,0
 005e9030,0026bb6e,__Z8BT_typedP8nufpar_s,BT_typed(nufpar_s*),confirmed,0
+005e9050,0026bb90,__Z18BT_NoOffscreenCullP8nufpar_s,BT_NoOffscreenCull(nufpar_s*),confirmed,0
+005e9060,0026bbb2,__Z8BT_flagsP8nufpar_s,BT_flags(nufpar_s*),confirmed,0
 005e9790,0026c140,__Z12BoltSys_InitPcP7BOLTSYSP9variptr_uS3_,"BoltSys_Init(char*, BOLTSYS*, variptr_u*, variptr_u*)",strings,0
 005eabf0,0026c3c4,__Z19BoltTypes_ConfigureP11WORLDINFO_sPc,"BoltTypes_Configure(WORLDINFO_s*, char*)",strings,0
 005ee210,0030dc84,__Z30PlayerItemTypeSys_ParseLocatorP8nufpar_sP16PLAYERITEMTYPE_si,"PlayerItemTypeSys_ParseLocator(nufpar_s*, PLAYERITEMTYPE_s*, int)",strings,0

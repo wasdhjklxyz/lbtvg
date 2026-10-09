@@ -16,7 +16,7 @@ typedef struct HEADLIGHT_s {
   f32 flash_off_time; // 0x1c
   unsigned char pad20[4];
   i32 yrot_speed; // 0x24
-  i16 xang;       // 0x28
+  u16 xang;       // 0x28
   i8 locator;     // 0x2a
   unsigned char pad2b[1];
 } HEADLIGHT_s;
@@ -419,11 +419,10 @@ void CC_headlight_angle(NUFPAR *parser) {
   charconfig.runtime->headlights[g_unk00963fec].angle = angle;
 }
 
-// STUB: LEGOBATMAN 0x00623bb0
-// original inlines the (i16) conversion (fnstcw/fistp), ours calls _ftol2
+// FUNCTION: LEGOBATMAN 0x00623bb0
 void CC_headlight_xang(NUFPAR *parser) {
-  charconfig.runtime->headlights[g_unk00963fec].xang =
-      (i16)(NuFParGetFloat(parser) * 182.04445f);
+  f32 f = NuFParGetFloat(parser);
+  charconfig.runtime->headlights[g_unk00963fec].xang = (u16)(f * 182.04445f);
 }
 
 // FUNCTION: LEGOBATMAN 0x00623c10
