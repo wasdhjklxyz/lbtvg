@@ -569,3 +569,17 @@
 0044e6c0 Condition_BlowupBeenPickedUpInit  matched (asm body), Mac order
 0044e700 Condition_BlowupBeenPickedUp  matched (asm body), Mac order
 0044e720 Condition_IsAliveInit  matched saga body, Mac order
+0044e7e0 Condition_AIOverrideControlInit  matched saga body, Mac order
+0044e810 Condition_AIOverrideControl  matched saga body, Mac order
+0044e850 Condition_IsOnScreenInit  matched saga body, Mac order
+0044e880 Condition_IsOnScreen  matched saga body, Mac order
+0044e8f0 Condition_OffScreenTimer  matched saga body, Mac order
+0044e930 Condition_PlayerOnGround  matched saga body, Mac order
+0044e960 Condition_OnGround  matched saga body, Mac order
+0044e9a0 Condition_InMud  matched (asm body), Mac order
+0044ea10 Condition_PlayerOnElephantInWater  matched (asm body), Mac order
+0044ea70 Condition_BeenAlerted  matched saga body, Mac order
+0044eaa0 Condition_OnObjectInit  matched saga body, Mac order
+0044eb10 Condition_PlayerOnObject  matched saga body, Mac order
+0044eb60 Condition_EitherPlayerOnObject  matched saga body, Mac order
+0044ec00 Condition_LocatorRangeInit  matched saga body, Mac order

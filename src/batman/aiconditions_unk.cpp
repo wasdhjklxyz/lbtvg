@@ -2427,3 +2427,199 @@ void *Condition_IsAliveInit(AISYS_s *sys, char *arg, AISCRIPT_s *script) {
              ? GetNamedAPIObjectFn(sys, arg)
              : NULL;
 }
+
+struct AIGroupUnk_s {
+  u8 pad0[7];
+  u8 count; // 0x07
+  u8 pad8[0xc - 8];
+  GameObject_s *members[1]; // 0x0c
+};
+
+// STUB: LEGOBATMAN 0x0044e750
+// close: orig tests members[i] in memory then reloads it, and allocates
+// esi/ecx/edx where ours picks edx/esi/eax
+f32 Condition_IsAlive(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                      AIPACKET_s *packet, char *str, void *argument) {
+  GameObject_s *object = (GameObject_s *)argument;
+  if (object != NULL) {
+    // +4: the AI, whose +0x144 is its group.
+    AIGroupUnk_s *group =
+        *(AIGroupUnk_s **)(*(u8 **)((u8 *)object + 4) + 0x144);
+    if (group != NULL) {
+      for (i32 i = 0; i < group->count; i++) {
+        if (group->members[i] != NULL) {
+          GameObject_s *member = group->members[i];
+          if ((member->flags1fc & 1) && (member->flags1fc & 0x1000) &&
+              member->b257 == 0)
+            return 1.0f;
+        }
+      }
+    } else if ((object->flags1fc & 0x1000) && object->b257 == 0) {
+      return 1.0f;
+    }
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e7e0
+void *Condition_AIOverrideControlInit(AISYS_s *sys, char *arg,
+                                      AISCRIPT_s *script) {
+  return arg != NULL && GetNamedAPIObjectFn != NULL
+             ? GetNamedAPIObjectFn(sys, arg)
+             : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e810
+f32 Condition_AIOverrideControl(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                AIPACKET_s *packet, char *str, void *argument) {
+  GameObject_s *object = (GameObject_s *)argument;
+  if (object == NULL) {
+    if (packet == NULL || (object = (GameObject_s *)packet->pd0) == NULL)
+      return 0.0f;
+  }
+  if (object->flags1fc & 0x100)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e850
+void *Condition_IsOnScreenInit(AISYS_s *sys, char *arg, AISCRIPT_s *script) {
+  return arg != NULL && GetNamedAPIObjectFn != NULL
+             ? GetNamedAPIObjectFn(sys, arg)
+             : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e880
+f32 Condition_IsOnScreen(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char *str, void *argument) {
+  u8 *object = (u8 *)argument;
+  if (object == NULL) {
+    if (packet == NULL || (object = (u8 *)packet->pd0) == NULL)
+      return 0.0f;
+  }
+  // 0x254: the model's draw result.
+  if (object[0x254] != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e8f0
+f32 Condition_OffScreenTimer(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char *str, void *argument) {
+  GameObject_s *object = (GameObject_s *)argument;
+  if (object == NULL) {
+    object = packet != NULL && packet->pd0 != NULL ? packet->pd0->obj : NULL;
+  }
+  if (object != NULL)
+    return *(f32 *)((u8 *)object + 0x1438);
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e930
+f32 Condition_PlayerOnGround(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char *str, void *argument) {
+  if (player != NULL &&
+      (((u8 *)player)[0x24d] != 0 || ((u8 *)player)[0x24e] != 0))
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e960
+f32 Condition_OnGround(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                       AIPACKET_s *packet, char *str, void *argument) {
+  if (packet != NULL && packet->pd0 != NULL) {
+    u8 *object = (u8 *)packet->pd0->obj;
+    if (object != NULL && (object[0x24d] != 0 || object[0x24e] != 0))
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e9a0
+f32 Condition_InMud(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                    AIPACKET_s *packet, char *str, void *argument) {
+  if (packet != NULL && packet->pd0 != NULL) {
+    GameObject_s *object = packet->pd0->obj;
+    if (object != NULL && object->b24f == 6)
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044ea70
+f32 Condition_BeenAlerted(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char *str, void *argument) {
+  if (packet != NULL && packet->pd0 != NULL) {
+    GameObject_s *object = packet->pd0->obj;
+    // 0x13d8: alert target.
+    if (object != NULL && *(void **)((u8 *)object + 0x13d8) != NULL)
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044ec00
+void *Condition_LocatorRangeInit(AISYS_s *sys, char *arg, AISCRIPT_s *script) {
+  return arg != NULL ? AIPathFindLocator(sys, arg) : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044ea10
+f32 Condition_PlayerOnElephantInWater(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                      AIPACKET_s *packet, char *str,
+                                      void *argument) {
+  GameObject_s *object = (GameObject_s *)argument;
+  if (object == NULL) {
+    if (packet->pd0 == NULL || (object = packet->pd0->obj) == NULL)
+      return 0.0f;
+  }
+  GameObject_s *rider = object->p1158;
+  if (rider != NULL && object->b9db == 0x3b &&
+      *(i16 *)((u8 *)rider + 0x15b0) == 0x2c && rider->b24f == 1)
+    return 1.0f;
+  return 0.0f;
+}
+
+// GLOBAL: LEGOBATMAN 0x009f78f4
+extern void *CurTerr;
+
+i32 NuSpecialGetInstanceix(nuhspecial_s *special);
+i32 FindPlatInst(i32 instance);
+
+// FUNCTION: LEGOBATMAN 0x0044eaa0
+void *Condition_OnObjectInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  nuhspecial_s special;
+  if (CurTerr != NULL &&
+      NuSpecialFind(g_unk00960894->scn140, &special, name, 1) != 0)
+    return (void *)FindPlatInst(NuSpecialGetInstanceix(&special));
+  return (void *)-1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044eb10
+f32 Condition_PlayerOnObject(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char *str, void *argument) {
+  i32 platform = (i32)argument;
+  if (player != NULL && platform != -1 &&
+      (((u8 *)player)[0x24d] != 0 || ((u8 *)player)[0x24e] != 0) &&
+      *(i16 *)((u8 *)player + 0x24a) == platform &&
+      *(i16 *)((u8 *)player + 0x15b8) == platform)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044eb60
+f32 Condition_EitherPlayerOnObject(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                   AIPACKET_s *packet, char *str,
+                                   void *argument) {
+  i32 platform = (i32)argument;
+  if (player != NULL && platform != -1 &&
+      (((u8 *)player)[0x24d] != 0 || ((u8 *)player)[0x24e] != 0) &&
+      *(i16 *)((u8 *)player + 0x24a) == platform &&
+      *(i16 *)((u8 *)player + 0x15b8) == platform)
+    return 1.0f;
+  if (player2 != NULL && platform != -1 &&
+      (((u8 *)player2)[0x24d] != 0 || ((u8 *)player2)[0x24e] != 0) &&
+      *(i16 *)((u8 *)player2 + 0x24a) == platform &&
+      *(i16 *)((u8 *)player2 + 0x15b8) == platform)
+    return 1.0f;
+  return 0.0f;
+}
