@@ -108,7 +108,9 @@ struct GameObject_s {
   u8 b9df; // 0x9df
   u8 pad12[0x112c - 0x9e0];
   Unk_GameObject112c *p112c; // 0x112c
-  u8 pad13[0x11cc - 0x1130];
+  u8 pad13[0x1158 - 0x1130];
+  GameObject_s *p1158; // 0x1158
+  u8 pad13b[0x11cc - 0x115c];
   f32 f11cc; // 0x11cc
   u8 pad14[0x11d8 - 0x11d0];
   f32 weapon_scale; // 0x11d8
@@ -126,7 +128,8 @@ struct GameObject_s {
   u32 flags140c; // 0x140c
   u8 pad14e[0x1414 - 0x1410];
   u32 flags1414; // 0x1414
-  u8 pad15[0x1430 - 0x1418];
+  u32 flags1418; // 0x1418
+  u8 pad15[0x1430 - 0x141c];
   u32 flags1430; // 0x1430
   u8 pad16[0x1534 - 0x1434];
   f32 f1534; // 0x1534

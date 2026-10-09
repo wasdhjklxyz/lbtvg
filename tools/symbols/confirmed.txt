@@ -73,3 +73,4 @@
 005f7a60 LoadPartFile  saga body matches (%s.par page + InitPartDebris)
 005c18f0 Players_AveragePos  saga body matches (average active player positions, sock lookup)
 006dd060 NuFParGetInt  saga body matches ($/0x hex or NuAToI)
+005c19c0 SetPlayer  saga body matches (player/player2 from active Player[0..1])

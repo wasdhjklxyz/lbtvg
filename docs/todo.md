@@ -15,7 +15,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 |---|---|---|
 | [Action](#action) | 72 | 57 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 65 | 39 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 64 | 38 |
 | [near terrain.c](#near-terrainc) | 34 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 13 | 7 |
 | [Grabber](#grabber) | 7 | 5 |
@@ -354,7 +354,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0059fe80` 206 B `PlayGruntSfx(GameObject_s*)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
 - [ ] `005a0590` 209 B `PlayRepeatSfx(char*, int, float, char, float, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
 - [ ] `005a3020` 212 B `ConstantRumble(GameObject_s*, float, float)`  **hint** name (gapfill) · **saga** `legoapi/misc/legoapi_misc.cpp`
-- [ ] `005c19c0` 217 B `SetPlayer()`  **hint** name (gapfill) · **saga** `legoapi/characters/core/players.cpp`
 - [ ] `005b2a40` 229 B `LoadThingsScene()`
 - [ ] `00639580` 229 B `ObjOpponentStillThere(GameObject_s*, GameObject_s*, float)`  **hint** name (order) · **saga** `legoapi/actions/character/speederchase.cpp`
 - [ ] `006396c0` 233 B `FastWeaponOut(GameObject_s*, int)`  **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`

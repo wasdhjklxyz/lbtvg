@@ -71,6 +71,45 @@ i32 Players_AveragePos(nuvec_s *position, SOCKPOSITION_s *socket_position) {
   return 0;
 }
 
+struct Unk00ad2110 {
+  u32 pad0[0x28 / 4];
+  f32 f28; // 0x28
+};
+
+// GLOBAL: LEGOBATMAN 0x00ab3980
+extern GameObject_s *player;
+// GLOBAL: LEGOBATMAN 0x00ab3984
+extern GameObject_s *player2;
+// GLOBAL: LEGOBATMAN 0x00ad2110
+extern Unk00ad2110 *g_unk00ad2110;
+
+// FUNCTION: LEGOBATMAN 0x005c19c0
+void SetPlayer() {
+  if (Player[0] != 0 && (Player[0]->flags1fc & 0x80)) {
+    player = Player[0];
+    if (Player[0]->flags1418 & 0x800)
+      player = Player[0]->p1158;
+    if (Player[1] != 0 && (Player[1]->flags1fc & 0x80)) {
+      player2 = Player[1];
+      if (Player[1]->flags1418 & 0x800)
+        player2 = Player[1]->p1158;
+    } else {
+      player2 = 0;
+    }
+  } else if (Player[1] != 0 && (Player[1]->flags1fc & 0x80)) {
+    player = Player[1];
+    player2 = 0;
+    if (Player[1]->flags1418 & 0x800)
+      player = Player[1]->p1158;
+  } else {
+    player = 0;
+  }
+  if (g_unk00ad2110 != 0) {
+    f32 v = player2 != 0 ? 1.0f : 0.0f;
+    g_unk00ad2110->f28 = v;
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x005c8de0
 i32 EquivalentObject_Find(WORLDINFO_s *world, nuhspecial_s *special) {
   if (special != 0 && NuSpecialExistsFn(special)) {
