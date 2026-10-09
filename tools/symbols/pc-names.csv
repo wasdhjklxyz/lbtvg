@@ -2052,6 +2052,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006dd2d0,0018c2d6,_NuFParInterpretWord,_NuFParInterpretWord,gapfill,1
 006dd430,0018c1a8,_NuFParInterpretWordCTX,_NuFParInterpretWordCTX,gapfill,1
 006dd970,00194530,_NuFileOpen,_NuFileOpen,confirmed,0
+006dea40,00193c44,_NuFileReadFloat,_NuFileReadFloat,confirmed,0
+006dea60,00193c1e,_NuFileReadInt,_NuFileReadInt,confirmed,0
+006dea80,00193bf8,_NuFileReadUnsignedInt,_NuFileReadUnsignedInt,confirmed,0
+006deaa0,00193bac,_NuFileReadShort,_NuFileReadShort,confirmed,0
+006deac0,00193bd2,_NuFileReadUnsignedShort,_NuFileReadUnsignedShort,confirmed,0
+006deae0,00193b58,_NuFileReadChar,_NuFileReadChar,confirmed,0
+006deb00,00193b82,_NuFileReadUnsignedChar,_NuFileReadUnsignedChar,confirmed,0
+006deb20,00193b2c,_NuFileReadWChar,_NuFileReadWChar,confirmed,0
 006dfc60,00193f7a,_NuFParCreateMem,_NuFParCreateMem,confirmed,0
 006e0530,00196e5e,_NuPadRecordLoad,_NuPadRecordLoad,strings,0
 006e0b60,00195ee8,_NuFilePakLoadKeyPrePad,_NuFilePakLoadKeyPrePad,gapfill,2
