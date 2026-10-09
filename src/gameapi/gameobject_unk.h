@@ -229,14 +229,28 @@ struct PART_s {
   f32 radius; // 0xe0
   u8 pade4[0x100 - 0xe4];
   f32 f100; // 0x100, ThermalDetonator: beep while in (0, 1)
-  u8 pad104[0x148 - 0x104];
+  u8 pad104[0x10c - 0x104];
+  u32 flags10c; // 0x10c, KillPart: 0x20000 = owns debris
+  u8 pad110[0x148 - 0x110];
   u32 flags148; // 0x148
-  u8 pad14c[0x1d0 - 0x14c];
+  u8 pad14c[0x1c4 - 0x14c];
+  void (*kill_callback)(struct PART_s *part, i32 reason); // 0x1c4
+  u8 pad1c8[0x1d0 - 0x1c8];
   void (*stop_callback)(struct PART_s *part); // 0x1d0
-  u8 pad1d4[0x219 - 0x1d4];
+  u8 pad1d4[0x1e0 - 0x1d4];
+  void *debris_key;       // 0x1e0
+  i32 *lighting_template; // 0x1e4
+  u8 pad1e8[0x1fc - 0x1e8];
+  i32 kill_effect; // 0x1fc
+  u8 pad200[0x20c - 0x200];
+  f32 kill_effect_scale; // 0x20c
+  u8 pad210[0x216 - 0x210];
+  i8 force_player_mask; // 0x216
+  u8 pad217[0x219 - 0x217];
   u8 surface219; // 0x219, terrain surface hit (0x1c = kill)
   u8 pad21a[0x22c - 0x21a];
   f32 reflection_height; // 0x22c
+  u8 pad230[0x250 - 0x230];
 };
 
 // GLOBAL: LEGOBATMAN 0x00ab364c

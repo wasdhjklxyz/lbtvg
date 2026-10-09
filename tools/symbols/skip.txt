@@ -60,3 +60,4 @@
 00727f20 NuMtlSetCurrentRenderPlane: needs a pointer-arg NuError call elsewhere in the TU (stub)
 0059c4b0 ActionFromName: check-then-reload on extra->name (stub)
 006a6000 AISysRegisterPathCnxType: empty static debug call dropped, same as 00727f20 (stub)
+0057d660 AddVariableShotDebrisEffect: register-arg matrix helpers (0x557fc0/0x5581c0/0x5580f0)

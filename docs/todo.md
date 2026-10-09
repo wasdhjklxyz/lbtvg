@@ -16,7 +16,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Action](#action) | 57 | 42 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 44 | 37 |
 | [near rtleditor.cpp](#near-rtleditorcpp) | 44 | 29 |
-| [near terrain.c](#near-terrainc) | 27 | 9 |
+| [near terrain.c](#near-terrainc) | 24 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 11 | 6 |
 | [Grabber](#grabber) | 7 | 5 |
 | [Hub](#hub) | 6 | 4 |
@@ -351,13 +351,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00585040` 10 B `edpartSetParticlePage(int)`  **hint** name (gapfill)
 - [ ] `0058b230` 57 B `_rtlDynamicFree`
 - [ ] `00574220` 73 B `_PlatOnOff`  **hint** name (gapfill)
-- [ ] `00584ac0` 74 B `PARTLookupType(char*)`
 - [ ] `0057d660` 78 B `_AddVariableShotDebrisEffect`  **hint** name (gapfill)
 - [ ] `0057d5a0` 89 B `_AddVariableShotDebrisEffectTimed1`  **hint** name (gapfill)
 - [ ] `0056fef0` 145 B `_RayImpact`  **stub** · **saga** `legoapi/render/core/terrain.cpp`
 - [ ] `00584e60` 155 B `AddFiniteShotPART(int, nuvec_s*, int)`
-- [ ] `00584780` 175 B `KillPart(PART_s*, int)`
-- [ ] `00584870` 182 B `FindPart(nuvec_s*, int, void*)`  **hint** name (gapfill)
 - [ ] `0056b0a0` 234 B `_NewShadowEx`  **hint** name (gapfill)
 - [ ] `0057be20` 321 B `_DebFreeInstantly`  **hint** name (gapfill)
 - [ ] `0056fd80` 325 B `_TerrainImpactNorm`  **stub** · **saga** `legoapi/render/core/terrain.cpp`
