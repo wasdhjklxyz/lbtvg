@@ -1242,3 +1242,6 @@
 00451510 Condition_LastAttackerRange  condition table condition slot
 00450a50 Condition_HelpWithCarry  condition table condition slot
 00451a30 Condition_Side  condition table condition slot
+00450e40 Condition_AnyPartyInTriggerArea  condition table condition slot
+00450fd0 Condition_TakenOver  condition table condition slot
+0044d210 Condition_GotGun  condition table condition slot

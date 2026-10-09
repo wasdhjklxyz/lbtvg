@@ -89,3 +89,5 @@
 0045bd40 Action_SetSpline: ebx/ebp swap between spline and argc, 3 tries
 0044fd60 Condition_NumForceObjects: dead mov eax,[esp+0xc] before fldz, 2 tries
 004510d0 Condition_HelpWithCoupledTakeOver: extra mov eax,ecx copy of trailer, 3 tries
+00450fd0 Condition_TakenOver: block layout of the string branches, 2 tries
+0044d210 Condition_GotGun: ecx/edx vs eax/ecx for second call argument, 2 tries

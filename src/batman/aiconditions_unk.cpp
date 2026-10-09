@@ -3389,3 +3389,84 @@ f32 Condition_Side(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
   }
   return 0.0f;
 }
+
+// FUNCTION: LEGOBATMAN 0x00450e40
+f32 Condition_AnyPartyInTriggerArea(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                    AIPACKET_s *packet, char *str, void *data) {
+  if (sys != NULL) {
+    AIAREA_s *area = (AIAREA_s *)data;
+    if (area == NULL)
+      area = ((AIAREA_s **)process)[0xa4 / 4];
+    if (area != NULL) {
+      for (i32 i = 0; i < 8; i++) {
+        GameObject_s *obj = Player[i];
+        if (obj != NULL && area->owner != NULL &&
+            (obj->area_mask &
+             ((unsigned __int64)1 << (area - area->owner->areas))) != 0)
+          return 1.0f;
+      }
+    }
+  }
+  return 0.0f;
+}
+
+// STUB: LEGOBATMAN 0x00450fd0
+// block layout: original places the return-0 tail after the TakeoverTarget
+// branch and the object test after the no-string branch (2 tries)
+f32 Condition_TakenOver(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char *str, void *data) {
+  GameObject_s *obj = (GameObject_s *)data;
+  if (obj == NULL) {
+    if (str != NULL) {
+      if (NuStrICmp(str, "Opponent") == 0) {
+        Unk_AIPacketObj *opp =
+            *(Unk_AIPacketObj **)(packet->pd0->obj->process290 + 0xe4);
+        if (opp == NULL)
+          return 0.0f;
+        obj = opp->obj;
+      } else if (NuStrICmp(str, "TakeoverTarget") == 0) {
+        GameObject_s *self = packet->pd0->obj;
+        if (self == NULL)
+          return 0.0f;
+        obj = self->takeover_target;
+      } else {
+        return 0.0f;
+      }
+    } else {
+      if (packet == NULL || packet->pd0 == NULL || packet->pd0->obj == NULL)
+        return 0.0f;
+      obj = packet->pd0->obj;
+    }
+    if (obj == NULL)
+      return 0.0f;
+  }
+  if (obj->p1158 != NULL && obj->b9db != 0x3b)
+    return 1.0f;
+  return 0.0f;
+}
+
+// GLOBAL: LEGOBATMAN 0x00962144
+extern i32 g_unk00962144;
+
+unsigned __int64 PlayerItems_GetAllCarriedItemFlags(GameObject_s *obj);
+
+// STUB: LEGOBATMAN 0x0044d210
+// second PlayerItems_GetAllCarriedItemFlags argument goes through ecx/edx in
+// the original, eax/ecx here (2 tries)
+f32 Condition_GotGun(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                     AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL) {
+    GameObject_s *obj = packet->pd0->obj;
+    if (g_unk00962144 != 0) {
+      if ((PlayerItems_GetAllCarriedItemFlags(obj) & 1) != 0 ||
+          ((PlayerItems_GetAllCarriedItemFlags(packet->pd0->obj) &
+            0x10000000) != 0 &&
+           packet->pd0->obj->ub48 == 0))
+        return 1.0f;
+    } else if ((obj->flags140c & 0x40) != 0 &&
+               (obj->p54->p24->flags14c & 0x10000000) == 0) {
+      return 1.0f;
+    }
+  }
+  return 0.0f;
+}

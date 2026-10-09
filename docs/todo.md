@@ -19,11 +19,11 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near terrain.c](#near-terrainc) | 23 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 11 | 6 |
 | [Grabber](#grabber) | 6 | 5 |
+| [Condition](#condition) | 6 | 4 |
 | [Hub](#hub) | 6 | 4 |
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 4 | 4 |
 | [Arcade](#arcade) | 2 | 2 |
 | [Area](#area) | 3 | 2 |
-| [Condition](#condition) | 4 | 2 |
 | [CutScenePlayer](#cutsceneplayer) | 2 | 2 |
 | [CutScenes](#cutscenes) | 3 | 2 |
 | [Doors](#doors) | 2 | 2 |
@@ -380,6 +380,15 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00602540` 740 B `Grabber_Drop(GRABBER_s*, nuvec_s*)`  **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
 - [ ] `00600e90` 1004 B `Grabber_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/items/objects/grabber.cpp`
 
+## Condition
+
+- [ ] `0044fd60` 7 B `Condition_NumForceObjects(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)`  **stub** · **saga** `legoapi/items/objects/gameobjects.cpp`
+- [ ] `004510d0` 54 B `Condition_HelpWithCoupledTakeOver(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)`  **stub**
+- [ ] `00451980` 140 B `Condition_SideInit(AISYS_s*, char*, AISCRIPT_s*)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0044d210` 146 B `Condition_GotGun(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00450fd0` 156 B `Condition_TakenOver(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)`  **stub** · **saga** `legoapi/items/objects/gameobjects.cpp`
+- [ ] `0044da30` 171 B `Condition_BeenHitByInit(AISYS_s*, char*, AISCRIPT_s*)`  **stub**
+
 ## Hub
 
 - [ ] `004931b0` 68 B `Hub_SignalSwitchHeroVillain(HubSwitchMode)`  **stub**
@@ -406,13 +415,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005facd0` 111 B `Area_ShuffleModelList(APICHARACTERMODELLIST_s*, int)`  **hint** name (order)
 - [ ] `005fb260` 140 B `Area_FindNextPlayLevel(int)`  **stub** · **hint** name (order) · **saga** `legoapi/world/areas.cpp`
 - [ ] `005fb430` 3692 B `Area_Configure(int, int, EXTRAMODEL*, short*)`  **saga** `legoapi/world/areas.cpp`
-
-## Condition
-
-- [ ] `0044fd60` 7 B `Condition_NumForceObjects(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)`  **stub** · **saga** `legoapi/items/objects/gameobjects.cpp`
-- [ ] `004510d0` 54 B `Condition_HelpWithCoupledTakeOver(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)`  **stub**
-- [ ] `00451980` 140 B `Condition_SideInit(AISYS_s*, char*, AISCRIPT_s*)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `0044da30` 171 B `Condition_BeenHitByInit(AISYS_s*, char*, AISCRIPT_s*)`  **stub**
 
 ## CutScenePlayer
 

@@ -46,8 +46,8 @@ struct Unk_GameObject54_24 {
   u8 pad140[0x144 - 0x140];
   u32 flags144; // 0x144
   u32 flags148; // 0x148
-  u8 pad14c[0x150 - 0x14c];
-  u8 b150; // 0x150, bit 1: Player_HasFastBuild
+  u32 flags14c; // 0x14c, 0x10000000 = Condition_GotGun override
+  u8 b150;      // 0x150, bit 1: Player_HasFastBuild
   u8 pad1[0x1d6 - 0x151];
   i16 s1d6; // 0x1d6
   u8 pad2[4];
@@ -191,7 +191,9 @@ struct GameObject_s {
   u8 pad12[0xb38 - 0x9f8];
   unsigned __int64
       carried_item_flags; // 0xb38, PlayerItems_GetAllCarriedItemFlags
-  u8 pad12b[0xb88 - 0xb40];
+  u8 pad12b[0xb48 - 0xb40];
+  unsigned __int64 ub48; // 0xb48, Condition_GotGun
+  u8 padb50[0xb88 - 0xb50];
   struct SCOREMULTIPLIER_s *score_multiplier; // 0xb88
   u8 pad12c[0xb98 - 0xb8c];
   struct {
