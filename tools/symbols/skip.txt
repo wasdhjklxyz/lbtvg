@@ -19,3 +19,4 @@
 005eabf0 BoltTypes_Configure: callee FUN_005e8700 takes eax; aligned frame
 00655790 Faders_Configure: regalloc/induction-var diff, see STUB
 00447560 GetNamedAPIObject: epilogue merging differs, see STUB
+00468190 Action_FaceCamera: x87 heavy

@@ -385,6 +385,52 @@ i32 Action_SetLayer(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+void SetForceBack(GameObject_s *obj, nuvec_s *position, f32 radius, i32 type);
+void ResetForceBack(void);
+
+// FUNCTION: LEGOBATMAN 0x00467f50
+i32 Action_SetForceBack(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char **args, int argc, int flags,
+                        f32 time) {
+  GameObject_s *obj = 0;
+  i32 enabled = 1;
+  i32 type = 0;
+  nuvec_s *position = 0;
+  f32 radius = 1.5f;
+  char *s;
+  i32 i;
+  if (flags) {
+    if (packet && packet->pd0 && packet->pd0->obj)
+      obj = packet->pd0->obj;
+    for (i = 0; i < argc; i++) {
+      if ((s = NuStrIStr(args[i], "character="))) {
+        obj = GetNamedGameObject(sys, s + 10);
+      } else if ((s = NuStrIStr(args[i], "locator="))) {
+        u8 *locator = (u8 *)AIPathFindLocator(sys, s + 8);
+        if (locator)
+          position = (nuvec_s *)(locator + 0x10);
+      } else if ((s = NuStrIStr(args[i], "radius="))) {
+        radius = AIParamToFloat(process, s + 7);
+      } else if (!NuStrICmp(args[i], "FALSE")) {
+        enabled = 0;
+      } else if (!NuStrICmp(args[i], "type=CHOKE")) {
+        type = 1;
+      } else if (!NuStrICmp(args[i], "type=DROID")) {
+        type = 2;
+      } else if (!NuStrICmp(args[i], "type=ComboOpponent")) {
+        type = 3;
+      }
+    }
+    if (enabled) {
+      if (obj || position)
+        SetForceBack(obj, position, radius, type);
+    } else {
+      ResetForceBack();
+    }
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x0046d6f0
 i32 Action_AddMiscPickups(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                           AIPACKET_s *packet, char **args, int argc, int flags,
