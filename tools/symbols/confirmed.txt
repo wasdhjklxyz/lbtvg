@@ -1555,3 +1555,6 @@
 006e3b80 NuTimeGetTicksPS  QueryPerformanceCounter minus the start count; called by NuTimeGet
 006e3bf0 NuTimeGetTicksPerSecondPS  returns the QueryPerformanceFrequency value; called by NuTimeSeconds
 006e3c10 NuTimeInitPS  pins affinity, samples QueryPerformanceCounter/Frequency
+006dc4b0 NuStrUpr  mirror of NuStrLwr (0x6dc4f0), saga nustring_c.cpp
+006dc540 NuHexStringToI  saga nustring_c.cpp body (hex digits, inlined NuToUpper)
+006dd970 NuFileOpen  saga nufile.cpp: NuFileOpenDF(path, mode, curr_dat, 0)

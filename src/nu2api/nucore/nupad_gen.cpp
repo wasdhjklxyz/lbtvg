@@ -919,6 +919,36 @@ int NuStrNICmp(const char *a, const char *b, int n) {
   return 0;
 }
 
+void NuStrUpr(char *dst, const char *src) {
+  char c;
+  while ((c = *src) != 0) {
+    if (NU_IS_LOWER(c))
+      c -= 0x20;
+    src++;
+    *dst++ = c;
+  }
+  *dst = *src;
+}
+
+// FUNCTION: LEGOBATMAN 0x006dc540
+int NuHexStringToI(char *string) {
+  int value = 0;
+  for (; *string != 0; string++) {
+    value <<= 4;
+    char c = *string;
+    if (NU_IS_LOWER(c))
+      c -= 0x20;
+    int upper = (unsigned char)c;
+    if (upper <= '9' && upper >= '0')
+      value |= upper - 0x30;
+    else if (upper <= 'F' && upper >= 'A')
+      value |= upper - 0x37;
+    else
+      return 0;
+  }
+  return value;
+}
+
 // FUNCTION: LEGOBATMAN 0x006dc4f0
 void NuStrLwr(char *dst, const char *src) {
   char c;
@@ -944,6 +974,13 @@ extern NuPadRec g_nuPadRec;
 extern int g_unk00b03884;
 
 int NuFileOpenUnk006dd7a0(char *path, int mode, int a, int b);
+
+// Opens through the current data file system (the global swapped by
+// NuWin32SetDFS).
+// FUNCTION: LEGOBATMAN 0x006dd970
+int NuFileOpen(char *path, int mode) {
+  return NuFileOpenUnk006dd7a0(path, mode, g_unk00b03884, 0);
+}
 int NuFileReadUnk006de860(int file, void *dst, int size);
 extern "C" void *NuMemAllocFn(int size, const char *file, int line);
 void Unk006d24b0(void);
