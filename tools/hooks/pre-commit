@@ -34,7 +34,7 @@ VC8=${VC8:-toolchain/vc8}
 if [ -n "$code" ] && [ -f "$VC8/Bin/cl.exe" ]; then
   printf '%s\n' $code | grep -qE '\.h$' && srcs=""     # header changed: check every TU
   mkdir -p build
-  if ! tools/match.py $srcs > build/pre-commit-match.log 2>&1; then
+  if ! NO_COLOR=1 tools/match.py $srcs > build/pre-commit-match.log 2>&1; then
     grep -E '^DIFF' build/pre-commit-match.log || tail -20 build/pre-commit-match.log
     echo "pre-commit: functions above no longer match; fix them or mark them // STUB:" >&2
     exit 1
