@@ -291,6 +291,52 @@ i32 Condition_SideInit(AISYS_s *sys, char *str, AISCRIPT_s *script) {
   return 0;
 }
 
+f32 NuVecDist(nuvec_s *v0, nuvec_s *v1, nuvec_s *d);
+
+// AISYS_s is opaque here; only player_1 is evidenced.
+struct AISysPlayer1_s {
+  u8 pad0[0x1698];
+  GameObject_s *player_1; // 0x1698
+};
+
+// FUNCTION: LEGOBATMAN 0x00451da0
+f32 Condition_OpponentToPlayerRange(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                    AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL && packet->pe4 != NULL &&
+      sys != NULL && ((AISysPlayer1_s *)sys)->player_1 != NULL) {
+    nuvec_s difference;
+    return NuVecDist(&((AISysPlayer1_s *)sys)->player_1->position,
+                     &packet->pe4->pos5c, &difference);
+  }
+  return 1.0e9f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00451e10
+f32 Condition_OpponentPathPosRange(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                   AIPACKET_s *packet, char *str, void *data) {
+  AISCRIPTPROCESS_s *ai;
+  if (packet != NULL && packet->pd0 != NULL && packet->pe4 != NULL &&
+      (ai = packet->pe4->ai) != NULL) {
+    nuvec_s difference;
+    return NuVecDist(&packet->pd0->pos5c, (nuvec_s *)((char *)ai + 0x174),
+                     &difference);
+  }
+  return 1.0e9f;
+}
+
+static inline f32 NuFabs(f32 f) {
+  u32 bits = *(u32 *)&f & 0x7fffffff;
+  return *(f32 *)&bits;
+}
+
+// FUNCTION: LEGOBATMAN 0x00451e70
+f32 Condition_OpponentRangeY(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pe4 != NULL)
+    return NuFabs(packet->pe4->pos5c.y - packet->pd0->pos5c.y);
+  return 1.0e9f;
+}
+
 i32 GizmoGetOutput(GIZMOSYS_s *sys, GIZMO_s *gizmo, i32 output, i32 a);
 i32 GizmoGetVisibility(GIZMOSYS_s *sys, GIZMO_s *gizmo);
 void *FlowBoxFindByName(void *flow, char *name);

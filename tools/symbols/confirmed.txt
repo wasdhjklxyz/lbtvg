@@ -390,3 +390,6 @@
 00452080 Condition_GizmoVisibility   matched saga aisys.cpp body, Mac order before Condition_AngleAboutMyLocatorToPlayerInit
 004520c0 Condition_FlowBoxCompleteInit   matched saga aisys.cpp body, Mac order before Condition_AngleAboutMyLocatorToPlayerInit
 004520f0 Condition_FlowBoxComplete   matched saga aisys.cpp body, Mac order before Condition_AngleAboutMyLocatorToPlayerInit
+00451da0 Condition_OpponentToPlayerRange   matched (saga gameobjects.cpp shape), Mac order before Condition_GizmoOutputInit
+00451e10 Condition_OpponentPathPosRange   matched (saga gameobjects.cpp shape), Mac order before Condition_GizmoOutputInit
+00451e70 Condition_OpponentRangeY   matched (saga gameobjects.cpp shape), Mac order before Condition_GizmoOutputInit
