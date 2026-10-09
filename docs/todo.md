@@ -14,7 +14,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | group | todo | with saga body |
 |---|---|---|
 | [Action](#action) | 72 | 57 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 72 | 46 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 71 | 45 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 14 | 8 |
@@ -298,7 +298,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00597db0` 90 B `_ParticlesPerSecond`  **hint** name (gapfill)
 - [ ] `0059c530` 97 B `_ParseAnimStance`  **hint** name (order)
 - [ ] `005d3f60` 105 B `FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)`  **hint** name (gapfill)
-- [ ] `005a0830` 108 B `ConfigureMusic(char*, variptr_u*, variptr_u*)`  **saga** `nu2api/nusound/nusound3_include.cpp`
 - [ ] `005c16b0` 120 B `SetPlayerIDs(int, int)`  **hint** name (order)
 - [ ] `0059c4b0` 127 B `_ActionFromName`  **hint** name (gapfill)
 - [ ] `0065c320` 136 B `LoseHat(GameObject_s*)`  **hint** name (gapfill)
