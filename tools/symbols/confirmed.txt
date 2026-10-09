@@ -1498,3 +1498,7 @@
 00614b10 D_vehicle  keyword table 0x9636b8
 00614c20 D_teleport_player  keyword table 0x9636b8
 0041d090 CC_security_guard  keyword table 0x936288
+00614840 D_spline  keyword table 0x963658
+006149e0 D_cam_spline  keyword table 0x963658
+00619240 CS_play_sfx  keyword table 0x9639a0
+0061a040 CS_cutsceneplayerobj  keyword table 0x9639a0

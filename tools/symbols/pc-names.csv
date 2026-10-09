@@ -1262,9 +1262,11 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006111a0,0028ca9e,__ZN10Customiser7LoadAllEP11WORLDINFO_s,Customiser::LoadAll(WORLDINFO_s*),strings,0
 006122e0,0028c2c4,__ZN10Customiser15MenuSaveAndExitEv,Customiser::MenuSaveAndExit(),strings,0
 006137e0,0028e3fc,__ZN10Customiser6Draw3DEv,Customiser::Draw3D(),strings,0
+00614840,002a0b86,__Z8D_splineP8nufpar_s,D_spline(nufpar_s*),confirmed,0
 00614900,002a0c8a,__Z7D_levelP8nufpar_s,D_level(nufpar_s*),confirmed,0
 00614940,002a0cde,__Z13D_level_againP8nufpar_s,D_level_again(nufpar_s*),confirmed,0
 00614980,002a0d32,__Z16D_level_freeplayP8nufpar_s,D_level_freeplay(nufpar_s*),confirmed,0
+006149e0,002a0d9a,__Z12D_cam_splineP8nufpar_s,D_cam_spline(nufpar_s*),confirmed,0
 00614a70,002a0e42,__Z10D_cam_waitP8nufpar_s,D_cam_wait(nufpar_s*),confirmed,0
 00614a90,002a0e74,__Z16D_cam_blend_timeP8nufpar_s,D_cam_blend_time(nufpar_s*),confirmed,0
 00614ab0,002a0ea6,__Z19D_cam_lookatplayersP8nufpar_s,D_cam_lookatplayers(nufpar_s*),confirmed,0
@@ -1317,6 +1319,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00619190,00294754,__Z16CS_burnout_flareP8nufpar_s,CS_burnout_flare(nufpar_s*),confirmed,0
 006191b0,00294790,__Z18CS_go_through_doorP8nufpar_s,CS_go_through_door(nufpar_s*),confirmed,0
 00619200,002947ea,__Z6CS_sfxP8nufpar_s,CS_sfx(nufpar_s*),confirmed,0
+00619240,00294846,__Z11CS_play_sfxP8nufpar_s,CS_play_sfx(nufpar_s*),confirmed,0
 006193f0,00294a0c,__Z8CS_levelP8nufpar_sPs,"CS_level(nufpar_s*, short*)",confirmed,0
 006194b0,00294ae6,__Z13CS_goto_levelP8nufpar_s,CS_goto_level(nufpar_s*),confirmed,0
 006194d0,00294b04,__Z15CS_skipto_levelP8nufpar_s,CS_skipto_level(nufpar_s*),confirmed,0
@@ -1330,6 +1333,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00619740,00294de4,__Z10CS_fadefogP8nufpar_s,CS_fadefog(nufpar_s*),confirmed,0
 0061a020,00294df6,__Z11CS_playonceP8nufpar_s,CS_playonce(nufpar_s*),confirmed,0
 0061a030,00294e0e,__Z31CS_nextcutscene_inplayablelevelP8nufpar_s,CS_nextcutscene_inplayablelevel(nufpar_s*),confirmed,0
+0061a040,00294e26,__Z20CS_cutsceneplayerobjP8nufpar_s,CS_cutsceneplayerobj(nufpar_s*),confirmed,0
 0061aa60,00295598,__Z14CutScenes_LoadPcP8nugscn_sS1_iP9variptr_uS3_iiP11WORLDINFO_s,"CutScenes_Load(char*, nugscn_s*, nugscn_s*, int, variptr_u*, variptr_u*, int, int, WORLDINFO_s*)",strings,0
 0061d1b0,0029b04a,__Z24CutScenePlayer_ConfigurePcP9variptr_uS1_PsS2_S2_S2_S2_S2_S2_,"CutScenePlayer_Configure(char*, variptr_u*, variptr_u*, short*, short*, short*, short*, short*, short*, short*)",strings,0
 0061d990,0029880c,__Z22CutScenePlayer_GetTextiPcS_i,"CutScenePlayer_GetText(int, char*, char*, int)",strings,0

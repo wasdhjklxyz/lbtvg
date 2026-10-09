@@ -100,3 +100,4 @@
 00657e60 Backdrop_piece: g_unk00ad1c00 store scheduled early, 3 tries
 00657ed0 Backdrop_piece2: g_unk00ad1c00 = 0 store scheduled early, 2 tries
 006b3e80 Action_FaceLocator: separate guard epilogue + ebx locator, unsolved epilogue puzzle
+006195d0 CS_tex_anim: frame stored direct then re-read for compare; ours spills a temp, 8 spellings

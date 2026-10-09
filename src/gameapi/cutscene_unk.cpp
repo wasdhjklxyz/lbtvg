@@ -9,8 +9,17 @@ typedef struct nufpar_s NUFPAR;
 i32 NuFParGetInt(NUFPAR *parser);
 f32 NuFParGetFloat(NUFPAR *parser);
 
+struct CUTSCENEPLAYEROBJ_s {
+  u8 special[0xc]; // 0x00, nuhspecial_s
+  u8 flags;        // 0x0c: 1 show, 2 hide, 4 anim end
+  u8 padd[3];
+};
+
 struct CUTINFO_s {
-  u8 pad0[0x4f];
+  u8 pad0[0x48];
+  CUTSCENEPLAYEROBJ_s *state_entries; // 0x48
+  u8 state_count;                     // 0x4c
+  u8 pad4d[0x4f - 0x4d];
   u8 end_flags; // 0x4f
   u32 flags;    // 0x50
   u8 pad54[0x60 - 0x54];
@@ -19,8 +28,14 @@ struct CUTINFO_s {
   f32 burnout_intensity; // 0x68
   f32 burnout_flare;     // 0x6c
   f32 near_clip;         // 0x70
-  u8 pad74[0xec - 0x74];
-  u16 far_clip; // 0xec
+  struct {
+    i16 id;   // 0x00
+    u8 flags; // 0x02
+    u8 pad3;
+    f32 frame;   // 0x04
+    f32 x, y, z; // 0x08
+  } sfx[6];      // 0x74
+  u16 far_clip;  // 0xec
   u8 padee[0xf4 - 0xee];
   i16 goto_level;           // 0xf4
   i16 skip_level;           // 0xf6
@@ -33,7 +48,10 @@ struct CUTINFO_s {
   u8 render_group;          // 0xff
   char door_name[0x10];     // 0x100
   char next_cutscene[0x40]; // 0x110
-  u8 pad150[0x170 - 0x150];
+  struct CUTINFO_texanim_s {
+    f32 frame;             // 0x00
+    i32 index;             // 0x04
+  } texture_animations[4]; // 0x150
   struct {
     f32 time, r, g, b;
   } fades[2];      // 0x170
@@ -228,6 +246,42 @@ void CS_sfx(NUFPAR *parser) {
     CS_CutInfo->music_handle = music_man.GetTrackHandle(0x10, parser->word_buf);
 }
 
+i32 GetSfxId(const char *name);
+
+// FUNCTION: LEGOBATMAN 0x00619240
+void CS_play_sfx(NUFPAR *fp) {
+  if (NuFParGetWord(fp) == 0)
+    return;
+  i32 sfx_id = GetSfxId(fp->word_buf);
+  if (sfx_id == -1)
+    return;
+  i32 slot;
+  for (slot = 0; slot < 6 && CS_CutInfo->sfx[slot].id != -1; ++slot) {
+  }
+  if (slot >= 6)
+    return;
+  CS_CutInfo->sfx[slot].id = sfx_id;
+  CS_CutInfo->sfx[slot].flags &= ~1;
+  while (NuFParGetWord(fp) != 0) {
+    if (NuStrICmp(fp->word_buf, "frame") == 0) {
+      CS_CutInfo->sfx[slot].frame = NuFParGetFloat(fp);
+      if (CS_CutInfo->sfx[slot].frame < 1.0f)
+        CS_CutInfo->sfx[slot].frame = 1.0f;
+    } else if (NuStrICmp(fp->word_buf, "pos") == 0) {
+      if (NuFParGetFloat(fp) == 0.0f)
+        continue;
+      CS_CutInfo->sfx[slot].x = NuAToF(fp->word_buf);
+      if (NuFParGetFloat(fp) == 0.0f)
+        continue;
+      CS_CutInfo->sfx[slot].y = NuAToF(fp->word_buf);
+      if (NuFParGetFloat(fp) == 0.0f)
+        continue;
+      CS_CutInfo->sfx[slot].z = NuAToF(fp->word_buf);
+      CS_CutInfo->sfx[slot].flags |= 1;
+    }
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x006194f0
 void CS_next_cut_scene(NUFPAR *parser) {
   if (NuFParGetWord(parser) != 0 && NuStrLen(parser->word_buf) < 0x40 &&
@@ -328,6 +382,26 @@ void CS_skipto_level(NUFPAR *parser) {
 // GLOBAL: LEGOBATMAN 0x00acb79c
 static i32 g_unk00acb79c;
 
+// GLOBAL: LEGOBATMAN 0x00acb738
+static i32 CS_texanimcount;
+
+// STUB: LEGOBATMAN 0x006195d0
+// close: orig stores the GetFloat result straight to frame and re-reads it
+// for the 1.0 compare; ours rounds through a stack temp (4 spellings tried).
+void CS_tex_anim(NUFPAR *fp) {
+  if (CS_texanimcount < 4) {
+    i32 index = NuFParGetInt(fp);
+    CS_CutInfo->texture_animations[CS_texanimcount].index = index;
+    if (index != -1) {
+      CUTINFO_s::CUTINFO_texanim_s *animation =
+          &CS_CutInfo->texture_animations[CS_texanimcount];
+      animation->frame = NuFParGetFloat(fp);
+      if (animation->frame >= 1.0f)
+        CS_texanimcount++;
+    }
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x00619630
 static void CS_fade(NUFPAR *parser, i32 type) {
   f32 f;
@@ -351,6 +425,45 @@ static void CS_fade(NUFPAR *parser, i32 type) {
       }
     }
   }
+}
+
+struct CS_WORLDINFO_s {
+  u8 pad0[0x140];
+  struct nugscn_s *current_gscn; // 0x140
+};
+
+// GLOBAL: LEGOBATMAN 0x00acb790
+extern CS_WORLDINFO_s *CS_worldinfo;
+
+i32 NuSpecialFind(struct nugscn_s *scene, void *out, char *name, i32 a);
+
+// FUNCTION: LEGOBATMAN 0x0061a040
+void CS_cutsceneplayerobj(NUFPAR *fp) {
+  if (CS_CutInfo->state_count >= 0x20 || NuFParGetWord(fp) == 0)
+    return;
+  if (NuSpecialFind(CS_worldinfo->current_gscn,
+                    CS_CutInfo->state_entries[CS_CutInfo->state_count].special,
+                    fp->word_buf, 1) == 0)
+    return;
+  CS_CutInfo->state_entries[CS_CutInfo->state_count].flags &= ~1;
+  CS_CutInfo->state_entries[CS_CutInfo->state_count].flags &= ~2;
+  while (NuFParGetWord(fp) != 0) {
+    if (NuStrICmp(fp->word_buf, "on") == 0) {
+      CS_CutInfo->state_entries[CS_CutInfo->state_count].flags |= 1;
+      CS_CutInfo->state_entries[CS_CutInfo->state_count].flags &= ~2;
+    } else if (NuStrICmp(fp->word_buf, "off") == 0) {
+      CS_CutInfo->state_entries[CS_CutInfo->state_count].flags &= ~1;
+      CS_CutInfo->state_entries[CS_CutInfo->state_count].flags |= 2;
+    } else if (NuStrICmp(fp->word_buf, "end_anim") == 0 ||
+               NuStrICmp(fp->word_buf, "endanim") == 0 ||
+               NuStrICmp(fp->word_buf, "anim_end") == 0 ||
+               NuStrICmp(fp->word_buf, "animend") == 0) {
+      CS_CutInfo->state_entries[CS_CutInfo->state_count].flags &= ~1;
+      CS_CutInfo->state_entries[CS_CutInfo->state_count].flags &= ~2;
+      CS_CutInfo->state_entries[CS_CutInfo->state_count].flags |= 4;
+    }
+  }
+  CS_CutInfo->state_count++;
 }
 
 // FUNCTION: LEGOBATMAN 0x00619720

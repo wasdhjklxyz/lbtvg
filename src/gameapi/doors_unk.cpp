@@ -296,6 +296,29 @@ f32 NuFParGetFloat(NUFPAR *parser);
 
 LEVELDATA *Level_FindByName(char *name, i32 *idx_out);
 
+DOORSPLINE_s *NuSplineFind(struct nugscn_s *scene, char *name);
+
+// FUNCTION: LEGOBATMAN 0x00614840
+void D_spline(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0 && NuStrLen(parser->word_buf) < 64) {
+    NuStrCpy(D_door->name, parser->word_buf);
+    D_door->spline = NuSplineFind(D_worldinfo->scn140, D_door->name);
+    if (D_door->spline == 0 || D_door->spline->length < 4) {
+      D_door->spline = 0;
+    } else {
+      i32 i;
+      for (i = 0; i < D_worldinfo->door_count; i++) {
+        if (D_worldinfo->doors[i].spline == D_door->spline)
+          break;
+      }
+      if (i < D_worldinfo->door_count)
+        D_door->spline = 0;
+    }
+    if (D_door->spline == 0)
+      D_door->name[0] = '\0';
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x00614900
 void D_level(NUFPAR *parser) {
   if (NuFParGetWord(parser) != 0) {
@@ -374,6 +397,19 @@ void D_cut_scene(NUFPAR *parser) {
   if (NuFParGetWord(parser) != 0) {
     D_door->cutscene = CutScene_Find(WorldInfo_CurrentlyLoading()->cutscene_sys,
                                      parser->word_buf);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006149e0
+void D_cam_spline(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0 && NuStrLen(parser->word_buf) < 32) {
+    NuStrCpy(D_door->camera_spline_name, parser->word_buf);
+    D_door->camera_spline =
+        NuSplineFind(D_worldinfo->scn140, D_door->camera_spline_name);
+    if (D_door->camera_spline != 0 && D_door->camera_spline->length != 2) {
+      D_door->camera_spline = 0;
+      D_door->camera_spline_name[0] = '\0';
+    }
   }
 }
 
