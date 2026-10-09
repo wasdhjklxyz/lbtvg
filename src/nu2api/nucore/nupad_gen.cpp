@@ -136,34 +136,34 @@ int NuPadUnk006d5e10(int pad) {
 }
 
 // FUNCTION: LEGOBATMAN 0x006d6500
-int NuPadUnk006d6500(void) { return g_nuPadUnk0adf658; }
+int NuVideoGetAspect(void) { return g_nuPadUnk0adf658; }
 
 // FUNCTION: LEGOBATMAN 0x006d65d0
-int NuPadUnk006d65d0(void) { return g_nuPadUnk0adf654; }
+int NuVideoGetSwapMode(void) { return g_nuPadUnk0adf654; }
 
 // FUNCTION: LEGOBATMAN 0x006d65e0
-void NuPadUnk006d65e0(void) {}
+void NuVideoRollingFrameRateReset(void) {}
 
 // FUNCTION: LEGOBATMAN 0x006d65f0
-void NuPadUnk006d65f0(float value) {
+void NuVideoSetBrightness(float value) {
   g_nuPadUnk0adf6e0 = value;
   Unk006e2ac0();
 }
 
 // FUNCTION: LEGOBATMAN 0x006d6830
-int NuPadUnk006d6830(void) { return g_nuPadUnk0adf648; }
+int NuLanguageGet(void) { return g_nuPadUnk0adf648; }
 
 // FUNCTION: LEGOBATMAN 0x006d6840
-void NuPadUnk006d6840(int value) {
+void NuLanguageSet(int value) {
   g_nuPadUnk0adf648 = value;
   Unk006e3c90();
 }
 
 // FUNCTION: LEGOBATMAN 0x006d6850
-int NuPadUnk006d6850(void) { return g_nuPadUnk0adf64c; }
+int NuRegionGet(void) { return g_nuPadUnk0adf64c; }
 
 // FUNCTION: LEGOBATMAN 0x006d6860
-void NuPadUnk006d6860(int value) {
+void NuRegionSet(int value) {
   g_nuPadUnk0adf64c = value;
   Unk006e3ca0();
 }
@@ -1074,4 +1074,100 @@ void NuPadRecordSetPlayEndButtons(int buttons) {
 // FUNCTION: LEGOBATMAN 0x006d6440
 void NuPadRecordSetRecordEndButtons(int buttons) {
   g_nuPadRecEndRecordButtons = buttons;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d6450
+void SavePadRecord(void) {}
+
+// FUNCTION: LEGOBATMAN 0x006d6460
+void SetPadRecPtr(void) {}
+
+// FUNCTION: LEGOBATMAN 0x006d6470
+void InitPadPlayRecord(void) {}
+
+// --- nuptrblock.cpp ---------------------------------------------------------
+
+// FUNCTION: LEGOBATMAN 0x006d6480
+void *NuPtrBlockFix(void *block) {
+  unsigned int buf;
+  unsigned int ptr;
+  void *start;
+  int count;
+  int i;
+
+  start = (char *)block + 4;
+  buf = *(unsigned int *)block + (unsigned int)block;
+  count = *(int *)buf;
+  buf += 4;
+
+  for (i = 0; i < count; i++) {
+    ptr = *(unsigned int *)buf + buf;
+    if (*(unsigned int *)ptr != 0)
+      *(unsigned int *)ptr = *(unsigned int *)ptr + ptr;
+    buf += 4;
+  }
+
+  return start;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d64c0
+void NuPtrBlockRelocate(void *block, unsigned int base) {
+  unsigned int buf;
+  unsigned int ptr;
+  int count;
+  int i;
+
+  buf = *(unsigned int *)block + (unsigned int)block;
+  count = *(int *)buf;
+  buf += 4;
+
+  for (i = 0; i < count; i++) {
+    ptr = *(unsigned int *)buf + buf;
+    if (*(unsigned int *)ptr != 0)
+      *(unsigned int *)ptr = *(unsigned int *)ptr + base;
+    buf += 4;
+  }
+}
+
+// --- nuvideo.cpp (nuapi fields) ---------------------------------------------
+
+// nuapi.video_mode
+// GLOBAL: LEGOBATMAN 0x00adf650
+int g_nuapiVideoMode;
+// nuapi.screen_width / screen_height
+// GLOBAL: LEGOBATMAN 0x00adf65c
+int g_nuapiScreenWidth;
+// GLOBAL: LEGOBATMAN 0x00adf660
+int g_nuapiScreenHeight;
+// nuapi.fps
+// GLOBAL: LEGOBATMAN 0x00adf664
+float g_nuapiFps;
+
+// FUNCTION: LEGOBATMAN 0x006d6510
+int NuVideoGetMode(void) { return g_nuapiVideoMode; }
+
+// FUNCTION: LEGOBATMAN 0x006d6520
+void NuVideoSetMode(int mode) { g_nuapiVideoMode = mode; }
+
+// FUNCTION: LEGOBATMAN 0x006d6530
+void NuVideoSetResolution(int width, int height) {
+  g_nuapiScreenWidth = width;
+  g_nuapiScreenHeight = height;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d6600
+int NuVideoGetNativeFPS(void) { return (int)g_nuapiFps; }
+
+// FUNCTION: LEGOBATMAN 0x006d6610
+void NuVideoWaitForVSync(void) {}
+
+// --- nulanguage.cpp ---------------------------------------------------------
+
+void NuLanguageInitPS(void);
+
+// FUNCTION: LEGOBATMAN 0x006d6810
+void NuLanguageInit(void) {
+  g_nuPadUnk0adf648 = 2;
+  g_nuPadUnk0adf64c = 0;
+  NuLanguageInitPS();
 }

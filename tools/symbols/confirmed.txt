@@ -1594,3 +1594,43 @@
 006d61b0 NuPadRecordStart       saga body (pad_record flag = 1), Mac order after NuPadResetState; matched
 006d6430 NuPadRecordSetPlayEndButtons saga body, Mac order; matched
 006d6440 NuPadRecordSetRecordEndButtons saga body, Mac order; matched
+006d6450 SavePadRecord          Mac order after NuPadRecordSetRecordEndButtons (6-byte empty on Mac); empty, matched
+006d6460 SetPadRecPtr           Mac order, empty; matched
+006d6470 InitPadPlayRecord      Mac order, empty; matched
+006d6480 NuPtrBlockFix          saga nuptrblock.cpp body, Mac order; matched
+006d64c0 NuPtrBlockRelocate     NuPtrBlockFix shape with an explicit base, Mac order; matched
+006d6500 NuVideoGetAspect       Mac nuvideo order (was NuPadUnk006d6500); matched
+006d6510 NuVideoGetMode         saga nuvideo body, Mac order; matched
+006d6520 NuVideoSetMode         Mac order (setter of 0x6d6510's field); matched
+006d6530 NuVideoSetResolution   saga body (width/height pair), Mac order; matched
+006d65d0 NuVideoGetSwapMode     Mac order, getter of the field 0x6d6550 (SetSwapMode) writes; matched
+006d65e0 NuVideoRollingFrameRateReset Mac order, empty; matched
+006d65f0 NuVideoSetBrightness   Mac order, stores float + PS call; matched
+006d6600 NuVideoGetNativeFPS    Mac order, (int)nuapi.fps (init 60.0); matched
+006d6610 NuVideoWaitForVSync    Mac order, empty; matched
+006d6620 NuOnlineInit           saga body (InitPS tail call), Mac nuonline order; matched
+006d6630 NuOnlineSignInPlayer   Mac order, empty; matched
+006d6640 NuOnlineHasPlayerSignedIn saga body, Mac order; matched
+006d6650 NuOnlineHasPlayerSignedInEx saga body (return 0), Mac order; matched
+006d6660 NuOnlineHasPlayerDownloaded saga body, Mac order; matched
+006d6670 NuOnlineAchievementAchieved saga body, Mac order; matched
+006d6680 NuOnlineAchievementAchievedEx saga body, Mac order; matched
+006d6690 NuOnlineSetPresenceMode Mac order; 8 empty bodies 0x6d6690..0x6d6700 are byte-identical; matched
+006d66a0 NuOnlineSetPresenceModeEx Mac order, empty (identical to its neighbours); matched
+006d66b0 NuOnlineSetDefaultPresenceMode Mac order, empty (identical to its neighbours); matched
+006d66c0 NuOnlineSetContext     Mac order, empty (identical to its neighbours); matched
+006d66d0 NuOnlineSetContextEx   Mac order, empty (identical to its neighbours); matched
+006d66e0 NuOnlineSetDefaultContext Mac order, empty (identical to its neighbours); matched
+006d66f0 NuOnlineSetProperty    Mac order, empty (identical to its neighbours); matched
+006d6700 NuOnlineSetPropertyEx  Mac order, empty (identical to its neighbours); matched
+006d6810 NuLanguageInit         Mac order (before NuLanguageSet), sets language/region; matched
+006d6830 NuLanguageGet          getter of the language field NuLanguageInit sets (was NuPadUnk006d6830); matched
+006d6840 NuLanguageSet          Mac order (was NuPadUnk006d6840); matched
+006d6850 NuRegionGet            Mac order after NuLanguageSet (was NuPadUnk006d6850); matched
+006d6860 NuRegionSet            Mac order (was NuPadUnk006d6860); matched
+006e26a0 NuOnlineAchievementAchievedPS Mac PS order, tail-called by 0x6d6670; matched
+006e26b0 NuOnlineAchievementAchievedExPS Mac PS order, tail-called by 0x6d6680; matched
+006e26c0 NuOnlineInitPS         Mac PS order, tail-called by 0x6d6620; matched
+006e26d0 NuOnlineSignInPlayerPS Mac PS order (between InitPS and HasPlayerSignedInPS); matched
+006e26e0 NuOnlineHasPlayerSignedInPS Mac PS order, tail-called by 0x6d6640; matched
+006e26f0 NuOnlineHasPlayerDownloadedPS Mac PS order, tail-called by 0x6d6660; matched

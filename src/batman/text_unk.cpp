@@ -74,7 +74,7 @@ extern i32 Text_Language;
 char *Text_GetLanguagePath(i32 language);
 void Text_LoadAndFixUpStrings(unsigned char *filename, unsigned char **buffer,
                               char **table, i32 count);
-int NuPadUnk006d6850(void);
+int NuRegionGet(void);
 void MenuLoadTechnicalStrings(char *filepath, char *language, variptr_u *buf,
                               variptr_u buf_end);
 
@@ -93,7 +93,7 @@ void Text_LoadStrings(variptr_u *buf, variptr_u *buf_end) {
   string_buffer = buf->u8_ptr;
   Text_LoadAndFixUpStrings((unsigned char *)path, &string_buffer, TTab, 1000);
   buf->u8_ptr = string_buffer;
-  if (Text_Language == 3 && NuPadUnk006d6850() == 2) {
+  if (Text_Language == 3 && NuRegionGet() == 2) {
     string_buffer = buf->u8_ptr;
     Text_LoadAndFixUpStrings((unsigned char *)"stuff\\text\\american.txt",
                              &string_buffer, TTab, 1000);
