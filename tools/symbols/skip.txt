@@ -135,3 +135,6 @@
 006212d0 CC_ride_layersoff: helpers 0x621030/0x621090 take the mask in esi (register convention)
 006dd150 NuFPar string reader (BloomMethod etc.): passes a local struct to 0x6db510 in esi (register convention)
 0069a520 ShaderBuilderGen::printCgHlslProperty: value pointer arrives in eax (register convention)
+00533710 OA ReplaceAll static: register convention (str in eax), ours cdecl
+00533a00 OA ParseInitString static: register convention (eax + ebx args in orig!), ours cdecl
+00533a80 oaInit: follows from 0x533a00's ebx argument
