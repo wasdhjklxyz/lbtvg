@@ -49,9 +49,10 @@ fmt:
 fmt-check:
 	clang-format --dry-run -Werror $(shell find src -name "*.c" -o -name "*.cpp" -o -name "*.h")
 
-# start a function: pick its file, insert saga's body (or a TODO), try to match
+# start a function (FUNC=0x... or a random easy todo): pick its file, insert
+# saga's body (or a TODO), try to match
 new:
-	tools/new.py $(FUNC)
+	tools/new.py $(or $(FUNC),random)
 
 # regenerate docs/linkmap.md (which source file owns which address range)
 linkmap:

@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# Pre-fill the commit message for commits that add functions under src/:
+#   src: qrand, NuVecAdd
+#
+#   From saga: legoapi/core/input/qrand.cpp
+# Only when you did not give one (-m / -F / amend / merge keep theirs).
+set -euo pipefail
+msgfile=$1 source=${2:-}
+[ -n "$source" ] && exit 0
+cd "$(git rev-parse --show-toplevel)"
+git diff --cached --quiet -- src/ && exit 0
+if ! command -v python3 >/dev/null; then
+  exec nix develop --command "$0" "$@"
+fi
+python3 - "$msgfile" <<'PY'
+import re, subprocess, sys
+diff = subprocess.run(["git", "diff", "--cached", "-U3", "--", "src/"], capture_output=True, text=True).stdout
+names, sagas, stubs = [], [], []
+lines = diff.splitlines()
+for i, l in enumerate(lines):
+    m = re.match(r"\+\s*//\s*(FUNCTION|STUB):\s*LEGOBATMAN\s+0x([0-9a-fA-F]+)", l)
+    if m:
+        name = f"0x{m.group(2)}"
+        for nxt in lines[i + 1:i + 6]:            # the definition right below
+            s = nxt[1:].strip()
+            if s and not s.startswith(("//", "#")):
+                mm = re.search(r"([A-Za-z_][\w:~]*)\s*\(", s)
+                if mm:
+                    name = mm.group(1)
+                break
+        (names if m.group(1) == "FUNCTION" else stubs).append(name)
+    m = re.match(r"\+\s*//\s*from saga (\S+)", l)
+    if m and m.group(1) not in sagas:
+        sagas.append(m.group(1))
+if not names and not stubs:
+    sys.exit(0)
+subject = "src: " + ", ".join(names) if names else "src: stubs " + ", ".join(stubs)
+if names and stubs:
+    subject += " (stubs: " + ", ".join(stubs) + ")"
+if len(subject) > 72:
+    subject = f"src: {len(names)} functions" + (f", {len(stubs)} stubs" if stubs else "")
+body = [subject, ""]
+if len(subject) > 4 and subject.startswith("src: ") and "functions" in subject:
+    body += ["Matched: " + ", ".join(names)] + (["Stubs: " + ", ".join(stubs)] if stubs else []) + [""]
+if sagas:
+    body += ["From saga: " + ", ".join(sagas), ""]
+old = open(sys.argv[1]).read()
+open(sys.argv[1], "w").write("\n".join(body) + "\n" + old)
+PY

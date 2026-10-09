@@ -2,6 +2,8 @@
 """Start work on a function: pick its file, put it there, try it.
 
     tools/new.py 0x005ae160          (or: make new FUNC=0x005ae160)
+    tools/new.py random              (or: make new) a random todo: small, saga has it
+    tools/new.py random any          a random todo of any kind
 
 1. Name: from src/ if already written (then it just says where), else the
    Mac name (tools/symbols/pc-names.csv), else FUN_<addr>.
@@ -85,7 +87,16 @@ def tree_for(saga_path, addr, anc):
     return SRC / "batman"
 
 
+def saga_files_in(path):
+    """Saga files the functions in one of our files were ported from."""
+    return set(re.findall(r"//\s*from saga (\S+)", path.read_text(errors="ignore"))) if path.exists() else set()
+
+
 def choose_file(addr, name, saga_path, done, anc):
+    # a neighbour whose code came from a different saga file is a different TU
+    if saga_path:
+        done = {a: f for a, f in done.items()
+                if not (saga_files_in(f) and saga_path not in saga_files_in(f))}
     before = [a for a in done if a < addr]
     after = [a for a in done if a > addr]
     pa, na = (max(before) if before else None), (min(after) if after else None)
@@ -159,8 +170,28 @@ def saga_decl(ident, saga_file):
     return None
 
 
+def pick_random(kind):
+    """A random entry from docs/todo.md; by default small, not a stub, saga has it."""
+    import random
+    rows = []
+    for l in (ROOT / "docs/todo.md").read_text().splitlines():
+        m = re.match(r"- \[ \] `([0-9a-f]{8})` (\d+) B `([^`]*)`(.*)", l)
+        if m:
+            rows.append((int(m.group(1), 16), int(m.group(2)), m.group(3), m.group(4)))
+    if kind != "any":
+        easy = [r for r in rows if "**saga**" in r[3] and "**stub**" not in r[3] and r[1] <= 160]
+        rows = easy or rows
+    if not rows:
+        sys.exit("todo list is empty")
+    a, size, name, _ = random.choice(rows)
+    print(f"random pick ({'any' if kind == 'any' else 'small, saga has it'}): {a:08x} {size} B {name}\n")
+    return a
+
+
 def main(argv):
     sys.stdout.reconfigure(line_buffering=True)
+    if argv and argv[0] == "random":
+        argv = [f"0x{pick_random(argv[1] if len(argv) > 1 else ''):08x}"]
     if len(argv) != 1 or not argv[0].lower().startswith("0x"):
         sys.exit(__doc__)
     addr = int(argv[0], 16)

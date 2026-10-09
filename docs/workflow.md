@@ -7,7 +7,8 @@ the compiler fetched (`make vc8`) and the ghidra project built
 
 ## 0. the short way
 
-`make new FUNC=0x...` does steps 2–4 for you: picks the file (written
+`make new FUNC=0x...` (or plain `make new` for a random easy todo) does steps
+2–4 for you: picks the file (written
 neighbours, then subsystem, then saga's file name), inserts saga's body in
 address order (pulling missing globals from saga), compiles it and runs the
 match. No saga body: it leaves a TODO with the Mac signature. Then fix the
@@ -86,13 +87,13 @@ order or types in the source, a struct field type (`int` vs `float` changes
 the instruction), a missing `const`, inlining (`/Ob1` vs `/Ob2`), the
 calling convention (`__thiscall` needs a member function).
 
-## 5. format and commit
+## 5. commit
 
-`make fmt` (clang-format, LLVM style, pinned by `.clang-format`), then commit
-one or a few functions as `src: <what they are>`. With the hook installed
-(`make hooks`, once per clone) every commit that touches `src/` re-checks the
-staged files with the harness, refuses the commit if a `FUNCTION` no longer
-matches, and regenerates the README badge, `docs/todo.md` and `site/data.json` (the
+`git add src/ && git commit` (no `-m`): with the hooks installed (`make
+hooks`, once per clone) the message is pre-filled as `src: <names>` plus the
+saga files they came from, and every commit that touches `src/` is
+clang-formatted, re-checked with the harness (refused if a `FUNCTION` no
+longer matches), and regenerates the README badge, `docs/todo.md` and `site/data.json` (the
 progress map at https://wasdhjklxyz.github.io/lbtvg/, published on push)
 into the same commit.
 

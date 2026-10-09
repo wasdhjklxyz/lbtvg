@@ -1,33 +1,49 @@
 #!/usr/bin/env bash
-# lbtvg pre-commit: when src/ changes, check the staged sources still match,
-# then regenerate the progress badge, map and todo list into this commit.
-# Install once with `make hooks`. Skip in an emergency with `git commit --no-verify`.
+# lbtvg pre-commit, for commits that touch src/:
+#   1. clang-format the staged sources (re-staged; files with unstaged edits
+#      are only checked, so nothing you didn't stage sneaks in)
+#   2. re-run the match harness on them (whole tree if a header changed);
+#      refuse the commit if a // FUNCTION: no longer matches
+#   3. regenerate the README badge, docs/todo.md and site/data.json into it
+# Install once with `make hooks`. Emergency bypass: git commit --no-verify.
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
-# need the devshell (lief/pefile/capstone, wibo, VC8 env); re-enter it if absent
-if ! python3 -c 'import lief, pefile, capstone' 2>/dev/null; then
+# need the devshell (lief/pefile/capstone, clang-format, wibo, VC8 env)
+if ! python3 -c 'import lief, pefile, capstone' 2>/dev/null || ! command -v clang-format >/dev/null; then
   exec nix develop --command "$0" "$@"
 fi
 
 staged=$(git diff --cached --name-only --diff-filter=ACMR -- src/)
 [ -z "$staged" ] && exit 0
 
-srcs=$(printf '%s\n' $staged | grep -E '\.(c|cpp)$' || true)
-if [ -n "$srcs" ] && [ -x "${VC8:-toolchain/vc8}/Bin/cl.exe" -o -f "${VC8:-toolchain/vc8}/Bin/cl.exe" ]; then
-  echo "pre-commit: matching $(echo "$srcs" | wc -l) staged source file(s)"
-  # headers changed too? then every TU could be affected: check the whole tree
-  if printf '%s\n' $staged | grep -qE '\.h$'; then srcs=""; fi
+# 1. format
+code=$(printf '%s\n' $staged | grep -E '\.(c|cpp|h)$' || true)
+for f in $code; do
+  if git diff --quiet -- "$f"; then
+    clang-format -i "$f" && git add "$f"
+  elif ! clang-format --dry-run -Werror "$f" 2>/dev/null; then
+    echo "pre-commit: $f is not formatted and has unstaged edits; run make fmt and stage it" >&2
+    exit 1
+  fi
+done
+
+# 2. match
+srcs=$(printf '%s\n' $code | grep -E '\.(c|cpp)$' || true)
+VC8=${VC8:-toolchain/vc8}
+if [ -n "$code" ] && [ -f "$VC8/Bin/cl.exe" ]; then
+  printf '%s\n' $code | grep -qE '\.h$' && srcs=""     # header changed: check every TU
   mkdir -p build
   if ! tools/match.py $srcs > build/pre-commit-match.log 2>&1; then
     grep -E '^DIFF' build/pre-commit-match.log || tail -20 build/pre-commit-match.log
     echo "pre-commit: functions above no longer match; fix them or mark them // STUB:" >&2
     exit 1
   fi
-  tail -1 build/pre-commit-match.log
-elif [ -n "$srcs" ]; then
+  echo "pre-commit: $(tail -1 build/pre-commit-match.log)"
+elif [ -n "$code" ]; then
   echo "pre-commit: no VC8 toolchain (make vc8); skipping the match check" >&2
 fi
 
+# 3. progress
 tools/progress.py --write
 git add README.md docs/todo.md site/data.json
