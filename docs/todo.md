@@ -23,6 +23,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 4 | 4 |
 | [Arcade](#arcade) | 2 | 2 |
 | [Area](#area) | 3 | 2 |
+| [Condition](#condition) | 3 | 2 |
 | [CutScenePlayer](#cutsceneplayer) | 2 | 2 |
 | [CutScenes](#cutscenes) | 3 | 2 |
 | [Doors](#doors) | 2 | 2 |
@@ -40,7 +41,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [CC](#cc) | 1 | 1 |
 | [CharConfig](#charconfig) | 1 | 1 |
 | [Collection](#collection) | 1 | 1 |
-| [Condition](#condition) | 2 | 1 |
 | [Episodes](#episodes) | 1 | 1 |
 | [Faders](#faders) | 1 | 1 |
 | [GameCam](#gamecam) | 1 | 1 |
@@ -407,6 +407,12 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005fb260` 140 B `Area_FindNextPlayLevel(int)`  **stub** · **hint** name (order) · **saga** `legoapi/world/areas.cpp`
 - [ ] `005fb430` 3692 B `Area_Configure(int, int, EXTRAMODEL*, short*)`  **saga** `legoapi/world/areas.cpp`
 
+## Condition
+
+- [ ] `0044fd60` 7 B `Condition_NumForceObjects(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)`  **stub** · **saga** `legoapi/items/objects/gameobjects.cpp`
+- [ ] `00451980` 140 B `Condition_SideInit(AISYS_s*, char*, AISCRIPT_s*)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0044da30` 171 B `Condition_BeenHitByInit(AISYS_s*, char*, AISCRIPT_s*)`  **stub**
+
 ## CutScenePlayer
 
 - [ ] `0061d990` 758 B `CutScenePlayer_GetText(int, char*, char*, int)`  **saga** `legoapi/cutscenes/gcutscn.cpp`
@@ -490,11 +496,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## Collection
 
 - [ ] `0063ffe0` 1074 B `Collection_Configure(char*, variptr_u*, variptr_u*)`  **saga** `legoapi/items/base/collection.cpp`
-
-## Condition
-
-- [ ] `00451980` 140 B `Condition_SideInit(AISYS_s*, char*, AISCRIPT_s*)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `0044da30` 171 B `Condition_BeenHitByInit(AISYS_s*, char*, AISCRIPT_s*)`  **stub**
 
 ## Episodes
 

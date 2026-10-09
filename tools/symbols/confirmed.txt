@@ -1228,3 +1228,13 @@
 0044f110 Condition_HitPointsInit  condition table init slot (0x93b2a0)
 0044f3c0 Condition_XYZPosInit  condition table init slot of XPos/YPos/ZPos (0x93b2d0) + Mac name
 0044fa40 Condition_OnDynamicGrappleInit  condition table init slot (0x93b2ac)
+0044ef80 Condition_BeenHitInit  condition table init slot
+0044fd60 Condition_NumForceObjects  condition table condition slot
+00450bc0 Condition_CharacterRangeInit  condition table init slot
+00451270 Condition_BeenTakenOverInit  condition table init slot
+00451300 Condition_OnSpeederBikeInit  condition table init slot
+00451350 Condition_UnderPlayerControlInit  condition table init slot
+004513b0 Condition_CharacterExistsInit  condition table init slot
+004515b0 Condition_GotLocatorInSetInit  condition table init slot
+00451830 Condition_HasTakeOverTarget  condition table condition slot
+004524e0 Condition_NotTaggableSetInit  condition table init slot

@@ -3239,3 +3239,82 @@ void *Condition_OnDynamicGrappleInit(AISYS_s *sys, char *name,
     obj = GetNamedGameObject(sys, name);
   return obj;
 }
+
+// FUNCTION: LEGOBATMAN 0x0044ef80
+void *Condition_BeenHitInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  return name != NULL ? GetNamedGameObject(sys, name) : NULL;
+}
+
+// STUB: LEGOBATMAN 0x0044fd60
+// original loads `packet` into eax before the fldz (a dead load VC8 only
+// keeps for some construct not found yet)
+f32 Condition_NumForceObjects(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char *str, void *data) {
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00450bc0
+void *Condition_CharacterRangeInit(AISYS_s *sys, char *name,
+                                   AISCRIPT_s *script) {
+  GameObject_s *obj = NULL;
+  if (name != NULL && sys != NULL)
+    obj = GetNamedGameObject(sys, name);
+  return obj;
+}
+
+// FUNCTION: LEGOBATMAN 0x00451270
+void *Condition_BeenTakenOverInit(AISYS_s *sys, char *name,
+                                  AISCRIPT_s *script) {
+  GameObject_s *obj = NULL;
+  if (name != NULL && sys != NULL)
+    obj = GetNamedGameObject(sys, name);
+  return obj;
+}
+
+// FUNCTION: LEGOBATMAN 0x00451300
+void *Condition_OnSpeederBikeInit(AISYS_s *sys, char *name,
+                                  AISCRIPT_s *script) {
+  GameObject_s *obj = NULL;
+  if (name != NULL && sys != NULL)
+    obj = GetNamedGameObject(sys, name);
+  return obj;
+}
+
+// FUNCTION: LEGOBATMAN 0x00451350
+void *Condition_UnderPlayerControlInit(AISYS_s *sys, char *name,
+                                       AISCRIPT_s *script) {
+  GameObject_s *obj = NULL;
+  if (name != NULL && sys != NULL)
+    obj = GetNamedGameObject(sys, name);
+  return obj;
+}
+
+// FUNCTION: LEGOBATMAN 0x004513b0
+void *Condition_CharacterExistsInit(AISYS_s *sys, char *name,
+                                    AISCRIPT_s *script) {
+  GameObject_s *obj = NULL;
+  if (name != NULL && sys != NULL)
+    obj = GetNamedGameObject(sys, name);
+  return obj;
+}
+
+// FUNCTION: LEGOBATMAN 0x004515b0
+void *Condition_GotLocatorInSetInit(AISYS_s *sys, char *name,
+                                    AISCRIPT_s *script) {
+  return AIPathFindLocatorSet(sys, name);
+}
+
+// FUNCTION: LEGOBATMAN 0x00451830
+f32 Condition_HasTakeOverTarget(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL &&
+      packet->pd0->obj->takeover_target != NULL)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x004524e0
+void *Condition_NotTaggableSetInit(AISYS_s *sys, char *name,
+                                   AISCRIPT_s *script) {
+  return GetNamedGameObject(sys, name);
+}
