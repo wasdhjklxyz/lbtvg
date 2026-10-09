@@ -301,7 +301,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005c16b0` 120 B `SetPlayerIDs(int, int)`  **hint** name (order)
 - [ ] `0059c4b0` 127 B `_ActionFromName`  **hint** name (gapfill)
 - [ ] `0065c320` 136 B `LoseHat(GameObject_s*)`  **hint** name (gapfill)
-- [ ] `005b00d0` 153 B `LineIntersectCircle(nuvec_s*, nuvec_s*, nuvec_s*, float)`  **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
+- [ ] `005b00d0` 153 B `LineIntersectCircle(nuvec_s*, nuvec_s*, nuvec_s*, float)`  **stub** · **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `00620370` 158 B `DrawHose(GameObject_s*)`  **hint** name (gapfill)
 - [ ] `00623850` 166 B `ParseStreakCol(nufpar_s*)`
 - [ ] `005f6df0` 174 B `AddExplosion(nuvec_s*, float, float, GameObject_s*, int, int, int)`  **hint** name (gapfill) · **saga** `legoapi/items/fx/explosions.cpp`

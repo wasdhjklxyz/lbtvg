@@ -74,3 +74,18 @@ i32 RotDiff(u16 current, u16 target) {
   }
   return difference;
 }
+
+// name is a Mac pairing hint (order): verify
+// from saga legoapi/misc/utilities.cpp
+// STUB: LEGOBATMAN 0x005b00d0
+// skipped: x87 scheduling differs (orig keeps deltas on the stack, spills dot
+// products); not attempted.
+bool LineIntersectCircle(NUVEC *origin, NUVEC *direction, NUVEC *center,
+                         f32 radius_squared) {
+  f32 x = center->x - origin->x;
+  f32 z = center->z - origin->z;
+  f32 projection = direction->x * x + direction->z * z;
+  if (projection >= 0.0f)
+    return x * x + z * z - projection * projection <= radius_squared;
+  return false;
+}
