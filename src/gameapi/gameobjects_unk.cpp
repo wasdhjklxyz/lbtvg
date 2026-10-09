@@ -186,6 +186,59 @@ void SetPlayer() {
   }
 }
 
+typedef struct nufpar_s {
+  u8 pad0[0x910];
+  char *word_buf; // 0x910
+} NUFPAR;
+
+NUFPAR *NuFParCreateMem(char *name, char *buffer, i32 bufferSize);
+i32 NuFParGetLine(NUFPAR *parser);
+i32 NuFParGetWord(NUFPAR *parser);
+void NuFParDestroy(NUFPAR *parser);
+i32 NuStrICmp(const char *a, const char *b);
+
+// from saga legoapi/items/objects/objectsall.cpp
+// FUNCTION: LEGOBATMAN 0x005c8c90
+void EquivalentObjects_Configure(WORLDINFO_s *world, char *config) {
+  world->equivalent_groups = NULL;
+  world->equivalent_group_count = 0;
+  if (world->scn140 == NULL)
+    return;
+
+  NUFPAR *parser = NuFParCreateMem("equivalentobjects", config, 0xffff);
+  if (parser == NULL)
+    return;
+
+  world->buf104.addr = (world->buf104.addr + 3) & ~3;
+  u8 *cursor = world->buf104.u8_ptr;
+  world->equivalent_groups = (EQUIVALENTOBJECTGROUP_s *)cursor;
+  while (NuFParGetLine(parser) != 0) {
+    NuFParGetWord(parser);
+    if (NuStrICmp(parser->word_buf, "equivalentobjects") != 0)
+      continue;
+
+    EQUIVALENTOBJECTGROUP_s *group = (EQUIVALENTOBJECTGROUP_s *)cursor;
+    group->object_count = 0;
+    group->byte_size = 4;
+    while (NuFParGetWord(parser) != 0) {
+      if (NuSpecialFind(world->scn140, &group->objects[group->object_count],
+                        parser->word_buf, 1) != 0) {
+        ++group->object_count;
+        group->byte_size += sizeof(nuhspecial_s);
+      }
+    }
+    if (group->object_count > 0) {
+      cursor += group->byte_size;
+      ++world->equivalent_group_count;
+    }
+  }
+  NuFParDestroy(parser);
+  if (world->equivalent_group_count > 0)
+    world->buf104.addr = ((u32)cursor + 15) & ~15;
+  else
+    world->equivalent_groups = NULL;
+}
+
 // FUNCTION: LEGOBATMAN 0x005c8de0
 i32 EquivalentObject_Find(WORLDINFO_s *world, nuhspecial_s *special) {
   if (special != 0 && NuSpecialExistsFn(special)) {

@@ -70,7 +70,9 @@ struct WORLDINFO_s {
   GIZMOSYS_s *gizmoSys2b0c; // 0x2b0c
   u8 pad7[0x2bf8 - 0x2b10];
   AISYS_s *aiSys2bf8; // 0x2bf8
-  u8 pad8[0x47c4 - 0x2bfc];
+  u8 pad8[0x47bc - 0x2bfc];
+  struct GIZFORCESYS_s *giz_force_sys; // 0x47bc
+  u8 pad8a[0x47c4 - 0x47c0];
   struct EQUIVALENTOBJECTGROUP_s *equivalent_groups; // 0x47c4
   i32 equivalent_group_count;                        // 0x47c8
   u8 pad8b[0x5220 - 0x47cc];

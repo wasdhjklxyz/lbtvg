@@ -50,12 +50,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Collection](#collection) | 1 | 1 |
 | [Credits](#credits) | 1 | 1 |
 | [Episodes](#episodes) | 1 | 1 |
-| [EquivalentObjects](#equivalentobjects) | 1 | 1 |
 | [Faders](#faders) | 1 | 1 |
 | [GameMsg](#gamemsg) | 1 | 1 |
 | [GizBuildIts](#gizbuildits) | 1 | 1 |
 | [GizForces](#gizforces) | 1 | 1 |
-| [GizForceSFX](#gizforcesfx) | 1 | 1 |
 | [GizmoPickup](#gizmopickup) | 1 | 1 |
 | [GizmoPickups](#gizmopickups) | 1 | 1 |
 | [GizObstacles](#gizobstacles) | 1 | 1 |
@@ -624,10 +622,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `00648970` 912 B `Episodes_ConfigureList(char*, variptr_u*, variptr_u*, int, int*)`  **saga** `legoapi/world/levels/episode.cpp`
 
-## EquivalentObjects
-
-- [ ] `005c8c90` 313 B `EquivalentObjects_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/items/objects/objectsall.cpp`
-
 ## Faders
 
 - [ ] `00655790` 512 B `Faders_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/render/light/faders.cpp`
@@ -643,10 +637,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## GizForces
 
 - [ ] `00486610` 784 B `GizForces_Load(void*, void*)`  **saga** `legoapi/gizmos/traps/gizforce.cpp`
-
-## GizForceSFX
-
-- [ ] `00486350` 258 B `GizForceSFX_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/gizmos/traps/gizforce.cpp`
 
 ## GizmoPickup
 

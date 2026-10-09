@@ -12,3 +12,4 @@
 0060e8e0 LevelObjects_InitForGame: 1-insn scheduling diff (max store), see STUB note
 00639580 ObjOpponentStillThere: x87 + bitfield compare chains
 005a9520 Grapples_Reset: callee Grapple_Reset takes esi; bitfield xor chains
+005fb300 AddToModelList: edi/esi register args
