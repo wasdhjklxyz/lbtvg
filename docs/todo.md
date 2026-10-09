@@ -14,7 +14,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | group | todo | with saga body |
 |---|---|---|
 | [Action](#action) | 72 | 57 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 71 | 45 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 70 | 44 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 14 | 8 |
@@ -292,7 +292,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0059a730` 59 B `_ResetAnimPacket`  **hint** name (gapfill)
 - [ ] `0059a0d0` 60 B `_FindAnimIX`  **hint** name (gapfill)
 - [ ] `0059b3c0` 68 B `_AnimPlaying`  **hint** name (gapfill)
-- [ ] `005b0f40` 71 B `GameBufferAlloc(variptr_u*, variptr_u*, int)`  **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `00597fc0` 72 B `_AddGameDebris`
 - [ ] `00597e10` 79 B `_FindGameDebris`  **hint** name (gapfill)
 - [ ] `00597db0` 90 B `_ParticlesPerSecond`  **hint** name (gapfill)

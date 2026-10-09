@@ -368,7 +368,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005b0690,003568d6,__Z19GetNearestSplinePosP7nuvec_sP11SPLINEPOS_sP11nugspline_siss,"GetNearestSplinePos(nuvec_s*, SPLINEPOS_s*, nugspline_s*, int, short, short)",order,5
 005b0900,00356ac2,__Z17OutSideSplineAreaP7nuvec_sP11nugspline_sS0_S0_i,"OutSideSplineArea(nuvec_s*, nugspline_s*, nuvec_s*, nuvec_s*, int)",order,5
 005b0e00,00356db2,__Z13VecRotateAxisP7nuvec_stS0_,"VecRotateAxis(nuvec_s*, unsigned short, nuvec_s*)",gapfill,4
-005b0f40,00354cb2,__Z15GameBufferAllocP9variptr_uS0_i,"GameBufferAlloc(variptr_u*, variptr_u*, int)",gapfill,1
+005b0f40,00354cb2,__Z15GameBufferAllocP9variptr_uS0_i,"GameBufferAlloc(variptr_u*, variptr_u*, int)",confirmed,0
 005b1940,00357c9a,__Z21DrawObjectOnCharacterP11WORLDINFO_sP12GameObject_siP12nuhspecial_siiP7numtx_sijS6_P7nuvec_sffiS6_,"DrawObjectOnCharacter(WORLDINFO_s*, GameObject_s*, int, nuhspecial_s*, int, int, numtx_s*, int, unsigned int, numtx_s*, nuvec_s*, float, float, int, numtx_s*)",gapfill,1
 005b2a40,00358d26,__Z15LoadThingsScenev,LoadThingsScene(),strings,0
 005b6d60,002d1158,__Z17GizObstacles_LoadPvS_,"GizObstacles_Load(void*, void*)",strings,0
