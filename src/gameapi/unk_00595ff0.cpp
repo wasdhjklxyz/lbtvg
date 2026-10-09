@@ -1,8 +1,9 @@
 // gameapi/unk_00595ff0.cpp: placed by tools/new.py; file name unproven.
 
 #include "../nu2api/nucore/common.h"
-#include "../nu2api/numath/nuvec.h"
+#include "../nu2api/numath/numtx.h"
 #include <stddef.h>
+#include <string.h>
 
 struct CHARACTERANIM_s {
   u32 pad00;
@@ -43,7 +44,7 @@ i32 ParticlesPerSecond(f32 particles_per_second, f32 frame_time) {
   return ParticlesPerFrame(particles_per_second / 60.0f, frame_time);
 }
 
-i32 NuStrICmp(const char *a, const char *b);
+#include "../nu2api/nucore/nustring.h"
 
 struct APIDEBRISENTRY_s {
   i32 effect;      // 0x00
@@ -64,6 +65,59 @@ i32 FindGameDebris(APIDEBRISSYS_s *debris_sys, char *name) {
       return index;
   }
   return -1;
+}
+
+struct DEBRISTYPE_s {
+  char name[16]; // 0x00
+};
+
+// GLOBAL: LEGOBATMAN 0x00a28cb4
+extern i32 EDPP_MAX_TYPES;
+
+// GLOBAL: LEGOBATMAN 0x00a28cb8
+extern DEBRISTYPE_s **debtab;
+
+i32 LookupDebrisEffectPage(char *name, i32 page);
+i32 LookupDebrisEffectPageOnly(char *name, i32 page);
+
+// FUNCTION: LEGOBATMAN 0x00597e60
+APIDEBRISSYS_s *InitGameDebris(variptr_u *cursor, variptr_u end, i32 count,
+                               i32 flags, char **names, i32 page) {
+  APIDEBRISSYS_s *sys = (APIDEBRISSYS_s *)((cursor->addr + 0xf) & ~0xf);
+  cursor->addr = (cursor->addr + 0xf) & ~0xf;
+  cursor->addr += sizeof(*sys);
+  if (sys != 0) {
+    memset(sys, 0, sizeof(*sys));
+    sys->capacity = count;
+    sys->named_count = flags;
+    sys->entries = (APIDEBRISENTRY_s *)((cursor->addr + 0xf) & ~0xf);
+    cursor->addr = (cursor->addr + 0xf) & ~0xf;
+    cursor->addr += count * sizeof(*sys->entries);
+    if (sys->entries != 0) {
+      memset(sys->entries, -1, count * sizeof(*sys->entries));
+
+      i32 i;
+      for (i = 0; i < sys->named_count; i++) {
+        NuStrCpy(sys->entries[i].name, names[i]);
+        sys->entries[i].effect = -1;
+        sys->entries[i].effect =
+            LookupDebrisEffectPage(sys->entries[i].name, page);
+      }
+      for (i32 j = 1; i < sys->capacity && j < EDPP_MAX_TYPES; j++) {
+        sys->entries[i].effect = -1;
+        if (debtab[j] != 0) {
+          NuStrCpy(sys->entries[i].name, debtab[j]->name);
+          sys->entries[i].effect =
+              LookupDebrisEffectPageOnly(sys->entries[i].name, page);
+          i++;
+        }
+      }
+      for (; i < sys->capacity; i++)
+        sys->entries[i].effect = -1;
+      return sys;
+    }
+  }
+  return 0;
 }
 
 void AddFiniteShotDebrisEffect(i32 *handle, i32 effect, nuvec_s *position,
@@ -127,10 +181,31 @@ i32 AddGameDebrisRot(APIDEBRISSYS_s *system, i32 type, nuvec_s *position,
   return 0;
 }
 
-struct numtx_s;
 void AddVariableShotDebrisEffectMtx3(i32 effect, nuvec_s *position,
                                      nuvec_s *momentum, i32 count,
                                      numtx_s *orientation, numtx_s *matrix);
+
+// GLOBAL: LEGOBATMAN 0x00ad3b60
+extern nuvec_s nuvec_zero;
+
+void NuMtxSetRotationX(numtx_s *m, i32 angle);
+void NuMtxMulR(numtx_s *out, numtx_s *a, numtx_s *b);
+
+// FUNCTION: LEGOBATMAN 0x00598130
+i32 AddGameDebrisMtx(APIDEBRISSYS_s *system, i32 type, nuvec_s *position,
+                     i32 count, numtx_s *matrix) {
+  if (type >= 0 && type < system->capacity &&
+      system->entries[type].effect != -1 && count > 0) {
+    numtx_s orientation;
+    NuMtxSetRotationX(&orientation, 0x4000);
+    NuMtxMulR(&orientation, &orientation, matrix);
+    AddVariableShotDebrisEffectMtx3(system->entries[type].effect, position,
+                                    &nuvec_zero, count, &orientation,
+                                    &numtx_identity);
+    return 1;
+  }
+  return 0;
+}
 
 // FUNCTION: LEGOBATMAN 0x005981c0
 i32 AddGameDebrisMom(APIDEBRISSYS_s *system, i32 type, nuvec_s *position,

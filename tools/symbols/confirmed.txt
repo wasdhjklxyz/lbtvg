@@ -118,3 +118,5 @@
 005980e0 AddGameDebrisRot  saga body matches; Mac order
 005981c0 AddGameDebrisMom  saga body matches; Mac order
 00598230 SetAPIObjPlaySfxByIdFn  saga body matches (stores fn pointer), follows AddGameDebrisMom
+00597e60 InitGameDebris  saga body matches (aligned cursor alloc, names then debtab entries)
+00598130 AddGameDebrisMtx  saga body matches; Mac order between Rot and Mom

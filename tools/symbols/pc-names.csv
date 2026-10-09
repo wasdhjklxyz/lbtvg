@@ -310,11 +310,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00597d60,002541ce,_ParticlesPerFrame,_ParticlesPerFrame,confirmed,0
 00597db0,002594b4,_ParticlesPerSecond,_ParticlesPerSecond,confirmed,0
 00597e10,0025422e,_FindGameDebris,_FindGameDebris,confirmed,0
-00597e60,00254280,_InitGameDebris,_InitGameDebris,order,2
+00597e60,00254280,_InitGameDebris,_InitGameDebris,confirmed,0
 00597fc0,00254432,_AddGameDebris,_AddGameDebris,confirmed,0
 00598010,00254486,_AddGameDebrisMomentum,_AddGameDebrisMomentum,confirmed,0
 00598070,002544e8,_AddGameDebrisXYZ,_AddGameDebrisXYZ,confirmed,0
 005980e0,0025455a,_AddGameDebrisRot,_AddGameDebrisRot,confirmed,0
+00598130,002545ce,_AddGameDebrisMtx,_AddGameDebrisMtx,confirmed,0
 005981c0,0025468e,_AddGameDebrisMom,_AddGameDebrisMom,confirmed,0
 00598230,0025471c,_SetAPIObjPlaySfxByIdFn,_SetAPIObjPlaySfxByIdFn,confirmed,0
 0059a0d0,00254e3c,_FindAnimIX,_FindAnimIX,confirmed,0
