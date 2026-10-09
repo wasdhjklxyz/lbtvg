@@ -1502,3 +1502,5 @@
 006149e0 D_cam_spline  keyword table 0x963658
 00619240 CS_play_sfx  keyword table 0x9639a0
 0061a040 CS_cutsceneplayerobj  keyword table 0x9639a0
+00619e20 CS_map_overlay  keyword table 0x9639a0
+006549f0 xCondition  keyword table 0x966ec8

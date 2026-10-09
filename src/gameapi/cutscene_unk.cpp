@@ -32,11 +32,19 @@ struct CUTINFO_s {
     i16 id;   // 0x00
     u8 flags; // 0x02
     u8 pad3;
-    f32 frame;   // 0x04
-    f32 x, y, z; // 0x08
-  } sfx[6];      // 0x74
-  u16 far_clip;  // 0xec
-  u8 padee[0xf4 - 0xee];
+    f32 frame;           // 0x04
+    f32 x, y, z;         // 0x08
+  } sfx[6];              // 0x74
+  u16 far_clip;          // 0xec
+  u16 map_overlay_count; // 0xee
+  struct CUTSCENEMAPOVERLAY_s {
+    f32 start_time;         // 0x00
+    f32 end_time;           // 0x04
+    i32 start_location;     // 0x08
+    i32 end_location;       // 0x0c
+    f32 fade_time;          // 0x10
+    f32 max_alpha;          // 0x14
+  } *map_overlays;          // 0xf0
   i16 goto_level;           // 0xf4
   i16 skip_level;           // 0xf6
   i16 suit_character;       // 0xf8
@@ -436,6 +444,52 @@ struct CS_WORLDINFO_s {
 extern CS_WORLDINFO_s *CS_worldinfo;
 
 i32 NuSpecialFind(struct nugscn_s *scene, void *out, char *name, i32 a);
+
+static inline f32 NuFabs(f32 f) {
+  u32 bits = *(u32 *)&f & 0x7fffffff;
+  return *(f32 *)&bits;
+}
+
+// GLOBAL: LEGOBATMAN 0x00acb768
+extern VARIPTR *CS_buffptr;
+
+// FUNCTION: LEGOBATMAN 0x00619e20
+void CS_map_overlay(NUFPAR *fp) {
+  if (CS_CutInfo->map_overlays == 0)
+    CS_CutInfo->map_overlays =
+        (CUTINFO_s::CUTSCENEMAPOVERLAY_s *)CS_buffptr->addr;
+  CUTINFO_s::CUTSCENEMAPOVERLAY_s *overlay =
+      &CS_CutInfo->map_overlays[CS_CutInfo->map_overlay_count];
+  overlay->start_time = 0.0f;
+  overlay->end_time = 0.0f;
+  overlay->start_location = -1;
+  overlay->end_location = -1;
+  overlay->fade_time = 0.0f;
+  overlay->max_alpha = 0.0f;
+  while (NuFParGetWord(fp) != 0) {
+    if (NuStrICmp(fp->word_buf, "start_location") == 0) {
+      overlay->start_location = NuFParGetInt(fp);
+    } else if (NuStrICmp(fp->word_buf, "end_location") == 0) {
+      overlay->end_location = NuFParGetInt(fp);
+    } else if (NuStrICmp(fp->word_buf, "start_time") == 0) {
+      overlay->start_time = NuFabs(NuFParGetFloat(fp));
+    } else if (NuStrICmp(fp->word_buf, "end_time") == 0) {
+      overlay->end_time = NuFabs(NuFParGetFloat(fp));
+    } else if (NuStrICmp(fp->word_buf, "fade_time") == 0) {
+      overlay->fade_time = NuFabs(NuFParGetFloat(fp));
+    } else if (NuStrICmp(fp->word_buf, "max_alpha") == 0) {
+      overlay->max_alpha = NuFabs(NuFParGetFloat(fp));
+    }
+  }
+  if (overlay->end_time > overlay->start_time && overlay->fade_time >= 0.0f &&
+      overlay->max_alpha > 0.0f && overlay->start_location >= 0 &&
+      overlay->end_location >= 0) {
+    if (overlay->fade_time * 2.0f > overlay->end_time - overlay->start_time)
+      overlay->fade_time = 0.0f;
+    CS_buffptr->addr += sizeof(CUTINFO_s::CUTSCENEMAPOVERLAY_s);
+    CS_CutInfo->map_overlay_count++;
+  }
+}
 
 // FUNCTION: LEGOBATMAN 0x0061a040
 void CS_cutsceneplayerobj(NUFPAR *fp) {

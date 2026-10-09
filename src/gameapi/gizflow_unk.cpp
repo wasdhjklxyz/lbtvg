@@ -22,10 +22,12 @@ struct GIZFLOW_s {
 };
 
 struct FLOWBOX_s {
-  u8 pad0[4];
+  u8 pad0[3];
+  u8 type;       // 0x3
   u8 runtime_id; // 0x4
   u8 pad5[0xa - 0x5];
-  u16 state_flags; // 0xa
+  u16 state_flags;    // 0xa
+  u8 *condition_data; // 0xc
 };
 
 struct FLOWCONDITIONTYPE {
@@ -223,6 +225,47 @@ void xNumGizmos(NUFPAR *parser) { load_numgizmos = NuFParGetInt(parser); }
 // FUNCTION: LEGOBATMAN 0x00654980
 void xAIAssistID(NUFPAR *parser) {
   load_flowbox->runtime_id = NuFParGetInt(parser);
+}
+
+i32 NuFParGetLine(NUFPAR *parser);
+i32 NuFParInterpretWord(NUFPAR *parser);
+i32 NuFParPushCom(NUFPAR *parser, void *commands);
+void NuFParPopCom(NUFPAR *parser);
+void *GizmoBufferAlloc(VARIPTR *buf, VARIPTR *end, i32 size);
+
+// GLOBAL: LEGOBATMAN 0x00ad1a78
+static i8 load_conditionParam;
+// GLOBAL: LEGOBATMAN 0x00ad1bd0
+static VARIPTR *load_buff;
+// GLOBAL: LEGOBATMAN 0x00ad1bd4
+static VARIPTR *load_endbuff;
+// GLOBAL: LEGOBATMAN 0x00966fa0
+extern u8 cfgtab_Condition[];
+
+// FUNCTION: LEGOBATMAN 0x006549f0
+void xCondition(NUFPAR *parser) {
+  if (load_flowbox == 0)
+    return;
+  load_flowbox->type = 1;
+  load_conditiontype = -1;
+  load_conditionParam = -1;
+  NuStrCpy(load_gizmoname, "");
+  NuFParPushCom(parser, cfgtab_Condition);
+  while (NuFParGetLine(parser)) {
+    NuFParGetWord(parser);
+    if (NuStrICmp(parser->word_buf, "}") == 0)
+      break;
+    NuFParInterpretWord(parser);
+  }
+  NuFParPopCom(parser);
+  if (load_conditiontype >= 0) {
+    u8 *condition = (u8 *)GizmoBufferAlloc(load_buff, load_endbuff, 4);
+    if (condition != 0) {
+      condition[0] = load_conditiontype;
+      condition[1] = load_conditionParam;
+    }
+    load_flowbox->condition_data = condition;
+  }
 }
 
 // FUNCTION: LEGOBATMAN 0x00654ac0

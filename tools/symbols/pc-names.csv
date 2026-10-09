@@ -1331,6 +1331,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00619630,00294cb8,__Z7CS_fadeP8nufpar_si,"CS_fade(nufpar_s*, int)",confirmed,0
 00619720,00294dd6,__Z13CS_fadescreenP8nufpar_s,CS_fadescreen(nufpar_s*),confirmed,0
 00619740,00294de4,__Z10CS_fadefogP8nufpar_s,CS_fadefog(nufpar_s*),confirmed,0
+00619e20,00299762,__Z14CS_map_overlayP8nufpar_s,CS_map_overlay(nufpar_s*),confirmed,0
 0061a020,00294df6,__Z11CS_playonceP8nufpar_s,CS_playonce(nufpar_s*),confirmed,0
 0061a030,00294e0e,__Z31CS_nextcutscene_inplayablelevelP8nufpar_s,CS_nextcutscene_inplayablelevel(nufpar_s*),confirmed,0
 0061a040,00294e26,__Z20CS_cutsceneplayerobjP8nufpar_s,CS_cutsceneplayerobj(nufpar_s*),confirmed,0
@@ -1730,6 +1731,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00654930,002c126e,__Z5xNameP8nufpar_s,xName(nufpar_s*),confirmed,0
 00654960,002c12b8,__Z10xNumGizmosP8nufpar_s,xNumGizmos(nufpar_s*),confirmed,0
 00654980,002c12dc,__Z11xAIAssistIDP8nufpar_s,xAIAssistID(nufpar_s*),confirmed,0
+006549f0,002c132e,__Z10xConditionP8nufpar_s,xCondition(nufpar_s*),confirmed,0
 00654ac0,002c1422,__Z14xConditionTypeP8nufpar_s,xConditionType(nufpar_s*),confirmed,0
 00654b30,002c1492,__Z14xMonitorInputsP8nufpar_s,xMonitorInputs(nufpar_s*),confirmed,0
 00655790,002a7a92,__Z16Faders_ConfigureP11WORLDINFO_sPc,"Faders_Configure(WORLDINFO_s*, char*)",strings,0
