@@ -159,6 +159,70 @@ void NuSpecialMtlMap(int count, void **materials) {
   }
 }
 
+// GLOBAL: LEGOBATMAN 0x029f3f64
+void *nurndr_forced_mtl;
+
+// FUNCTION: LEGOBATMAN 0x0070f3f0
+void NuSpecialForceMtl(void *material) {
+  if (material != 0) {
+    nuspecial_draw_state |= 8;
+    nurndr_forced_mtl = material;
+  } else {
+    nuspecial_draw_state &= ~8;
+    nurndr_forced_mtl = 0;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x0070f420
+void NuSpecialMtl(void *material) { nurndr_forced_mtl = material; }
+
+// GLOBAL: LEGOBATMAN 0x009a247c
+extern float nuspecial_const_alpha;
+
+// GLOBAL: LEGOBATMAN 0x009a2480
+extern nuvec_s nuspecial_const_tint;
+
+// GLOBAL: LEGOBATMAN 0x029f3f08
+int nuspecial_const_alpha_enabled;
+
+// GLOBAL: LEGOBATMAN 0x029f3f0c
+int nuspecial_const_tint_enabled;
+
+void NuRndrSetConstColourUnk006eb920(int alpha_enabled, int tint_enabled,
+                                     float alpha, nuvec_s *tint);
+
+// FUNCTION: LEGOBATMAN 0x0070f430
+void NuSpecialConstAlpha(int enabled, float alpha) {
+  if (enabled != 0) {
+    nuspecial_const_alpha = alpha;
+    nuspecial_draw_state |= 1;
+  } else {
+    enabled = 0;
+    nuspecial_draw_state &= ~1;
+  }
+  nuspecial_const_alpha_enabled = enabled;
+  NuRndrSetConstColourUnk006eb920(nuspecial_const_alpha_enabled,
+                                  nuspecial_const_tint_enabled,
+                                  nuspecial_const_alpha, &nuspecial_const_tint);
+}
+
+// STUB: LEGOBATMAN 0x0070f480
+// one swap: orig zeroes ecx before the draw_state &= ~2, ours after.
+void NuSpecialConstTint(int enabled, nuvec_s *tint) {
+  if (enabled != 0) {
+    nuspecial_const_tint_enabled = enabled;
+    nuspecial_const_tint = *tint;
+    nuspecial_draw_state |= 2;
+  } else {
+    enabled = 0;
+    nuspecial_draw_state &= ~2;
+    nuspecial_const_tint_enabled = enabled;
+  }
+  NuRndrSetConstColourUnk006eb920(nuspecial_const_alpha_enabled,
+                                  nuspecial_const_tint_enabled,
+                                  nuspecial_const_alpha, &nuspecial_const_tint);
+}
+
 // FUNCTION: LEGOBATMAN 0x0070f5d0
 void NuSpecialSetCollision(nuhspecial_s *sp, int on) {
   if (sp && sp->scene) {

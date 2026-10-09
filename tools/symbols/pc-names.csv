@@ -825,6 +825,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0070f380,0012af72,_NuSpecialVertexOffsets,_NuSpecialVertexOffsets,confirmed,0
 0070f3a0,0012af90,_NuSpecialExistsFn,_NuSpecialExistsFn,gapfill,1
 0070f3c0,0012afb4,_NuSpecialMtlMap,_NuSpecialMtlMap,confirmed,0
+0070f3f0,0012aff0,_NuSpecialForceMtl,_NuSpecialForceMtl,confirmed,0
+0070f420,0012b022,_NuSpecialMtl,_NuSpecialMtl,confirmed,0
+0070f430,0012b036,_NuSpecialConstAlpha,_NuSpecialConstAlpha,confirmed,0
 0070f510,0012b146,_NuSpecialSetVisibility,_NuSpecialSetVisibility,gapfill,1
 0070f5d0,0012b20a,_NuSpecialSetCollision,_NuSpecialSetCollision,order,4
 0070f630,0012b260,_NuSpecialGetCollision,_NuSpecialGetCollision,order,4

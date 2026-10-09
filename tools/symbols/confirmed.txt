@@ -189,3 +189,6 @@
 0070f360 NuSpecialVertexStates  saga body (stores states, bumps render state ids)
 0070f380 NuSpecialVertexOffsets  saga body
 0070f3c0 NuSpecialMtlMap  saga body (forced material table, draw state bit 4)
+0070f3f0 NuSpecialForceMtl  saga body (draw state bit 8, forced material)
+0070f420 NuSpecialMtl  saga body (sets forced material)
+0070f430 NuSpecialConstAlpha  saga body plus const-colour push to the renderer
