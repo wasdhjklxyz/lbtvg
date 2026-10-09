@@ -261,3 +261,40 @@ void SetWeaponIn(GameObject_s *object) {
     object->weapon_scale_state = 0;
   }
 }
+
+static __forceinline void FastWeaponInSfx(GameObject_s *object) {
+  if (object->weapon_scale_state == 2)
+    return;
+  i32 current_animation = CurrentAnim((ANIMPACKET_s *)((u8 *)object + 8));
+  if (current_animation != -1) {
+    void **anims = (void **)object->p50->p08;
+    if (anims[current_animation] != 0 &&
+        (((Unk_GameObject50_08_204 *)anims[current_animation])->flags4 &
+         0x200000) != 0)
+      return;
+  }
+  u32 model_flags = object->p54->model_flags;
+  if ((model_flags & 8) != 0) {
+    if (object->b24c != -1 || WeaponInOut_NoAIJediSfx == 0) {
+      GameAudio_PlaySfx(0x52, &object->v80, GameAudio_GetPlrSfxBits(object), 1);
+    }
+  } else if ((model_flags & 0x80) != 0) {
+    GameAudio_PlaySfx(0x5a, &object->v80, 0, 1);
+  }
+}
+
+// STUB: LEGOBATMAN 0x00639ba0
+// close: same anim-slot re-read as FastWeaponOut (cmp [slot],0 then reload)
+void FastWeaponIn(GameObject_s *object, i32 force_sound) {
+  if (g_unk00962144 == 0) {
+    char context = object->b9db;
+    if (context != -1 &&
+        (context == LEGOCONTEXT_WEAPONIN || context == LEGOCONTEXT_WEAPONOUT)) {
+      object->b9db = -1;
+    }
+    if (force_sound != 0 && object->weapon_scale == 1.0f)
+      FastWeaponInSfx(object);
+    object->weapon_scale_rate = 5.0f;
+    object->weapon_scale_state = 2;
+  }
+}

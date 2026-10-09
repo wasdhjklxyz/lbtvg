@@ -15,7 +15,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 |---|---|---|
 | [Action](#action) | 59 | 44 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 44 | 37 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 59 | 33 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 58 | 32 |
 | [near terrain.c](#near-terrainc) | 34 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 13 | 7 |
 | [Grabber](#grabber) | 7 | 5 |
@@ -45,7 +45,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [CharPivot](#charpivot) | 1 | 1 |
 | [Cheat](#cheat) | 2 | 1 |
 | [Collection](#collection) | 1 | 1 |
-| [Credits](#credits) | 1 | 1 |
 | [Episodes](#episodes) | 1 | 1 |
 | [Faders](#faders) | 1 | 1 |
 | [GameMsg](#gamemsg) | 1 | 1 |
@@ -334,9 +333,8 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005b2a40` 229 B `LoadThingsScene()`
 - [ ] `00639580` 229 B `ObjOpponentStillThere(GameObject_s*, GameObject_s*, float)`  **hint** name (order) · **saga** `legoapi/actions/character/speederchase.cpp`
 - [ ] `006396c0` 233 B `FastWeaponOut(GameObject_s*, int)`  **stub** · **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
-- [ ] `00639ba0` 233 B `FastWeaponIn(GameObject_s*, int)`  **hint** name (gapfill) · **saga** `legoapi/characters/core/playeritems.cpp`
+- [ ] `00639ba0` 233 B `FastWeaponIn(GameObject_s*, int)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/characters/core/playeritems.cpp`
 - [ ] `00620b30` 249 B `RedirectTextFile(char*, char*, int, int*)`  **saga** `legoapi/characters/core/charconfig.cpp`
-- [ ] `00615390` 251 B `StartDoorPositions()`  **hint** name (gapfill) · **saga** `legoapi/props/doors/doors.cpp`
 - [ ] `005fb300` 291 B `AddToModelList(APICHARACTERMODELLIST_s*, int*, int, int, int, EXTRAMODEL*, unsigned char)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
 - [ ] `005aefd0` 305 B `GameShadow(GameObject_s*, nuvec_s*, float, int)`  **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `00635ca0` 307 B `UpdateCoinPacket(COINPACKET_s*, int, int)`  **hint** name (order) · **saga** `legoapi/items/base/collection.cpp`
@@ -465,7 +463,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## Arcade
 
-- [ ] `00648290` 254 B `Arcade_DrawPanel(int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
+- [ ] `00648290` 254 B `Arcade_DrawPanel(int)`  **stub** · **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
 - [ ] `00648390` 842 B `Arcade_AwardPoint(int, int, int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
 
 ## Area
@@ -577,10 +575,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## Collection
 
 - [ ] `0063ffe0` 1074 B `Collection_Configure(char*, variptr_u*, variptr_u*)`  **saga** `legoapi/items/base/collection.cpp`
-
-## Credits
-
-- [ ] `004a6c60` 260 B `Credits_Init_Game(WORLDINFO_s*)`  **saga** `legoapi/world/level.cpp`
 
 ## Episodes
 

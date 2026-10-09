@@ -5,14 +5,18 @@
 #include "../nu2api/numath/nuvec.h"
 
 typedef struct DOORSPLINE_s {
-  u32 pad0[2];
+  i16 length; // 0x00
+  u16 pad2;
+  u32 pad4;
   nuvec_s *pts; // 0x08
 } DOORSPLINE_s;
 
 typedef struct DOOR_s {
   char name[0x80];               // 0x00
-  char camera_spline_name[0x70]; // 0x80
-  i16 level;                     // 0xf0
+  char camera_spline_name[0x20]; // 0x80
+  DOORSPLINE_s *spline;          // 0xa0
+  u32 pada4[(0xf0 - 0xa4) / 4];
+  i16 level; // 0xf0
   u8 padf2[0xf9 - 0xf2];
   u8 flags; // 0xf9
   u8 padfa[2];
@@ -98,4 +102,47 @@ void Door_SetCutCam(DOOR_s *door) {
   Door_CutCamWait = Door_CutCamWaitTime = door->camera_wait;
   Door_CutCamBlendTime = door->camera_blend_time;
   Door_CutLookAtPlayers = door->flags & 2;
+}
+
+typedef struct PLAYERSTARTENTRY_s {
+  nuvec_s *pos; // 0x00
+  u32 pad4[2];
+  i16 angle; // 0x0c
+  u16 pade;
+} PLAYERSTARTENTRY;
+
+// GLOBAL: LEGOBATMAN 0x00ab3710
+extern PLAYERSTARTENTRY PlayerStart[8];
+
+void NuVecSub(nuvec_s *out, nuvec_s *a, nuvec_s *b);
+i32 NuAtan2D(f32 dx, f32 dy);
+
+// FUNCTION: LEGOBATMAN 0x00615390
+i32 StartDoorPositions(void) {
+  Door_Start = 0;
+  if (Door_ExitName[0] != '\0') {
+    DOOR_s *door = WORLD->doors;
+    if (door != 0) {
+      for (i32 i = 0; i < WORLD->door_count; i++, door++) {
+        if (door->spline != 0 && NuStrICmp(door->name, Door_ExitName) == 0) {
+          for (i32 i = 0; i < 8; i++) {
+            i32 k = i * 2 + 4;
+            if (door->spline->length > k + 1) {
+              nuvec_s tmp;
+              PlayerStart[i].pos = &door->spline->pts[k];
+              NuVecSub(&tmp, &door->spline->pts[k + 1], PlayerStart[i].pos);
+              PlayerStart[i].angle = NuAtan2D(tmp.x, tmp.z);
+            } else {
+              PlayerStart[i].pos = PlayerStart[i - 1].pos;
+              PlayerStart[i].angle = PlayerStart[i - 1].angle;
+            }
+          }
+          Door_Start = 1;
+          return 1;
+        }
+      }
+    }
+    Door_ExitName[0] = '\0';
+  }
+  return 0;
 }

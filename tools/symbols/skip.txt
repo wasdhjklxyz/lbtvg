@@ -28,3 +28,5 @@
 00647150 MiniKit_InitPieces: esi push placement differs, see STUB
 00457460 Action_SetDoomedEscapeLocator: argc load diff, see STUB
 00656130 AddRipple: callee FUN_00656040 takes ecx (register-arg static)
+00639ba0 FastWeaponIn: anim-slot re-read diff, same as FastWeaponOut
+00648290 Arcade_DrawPanel: heavy x87, diverges from saga

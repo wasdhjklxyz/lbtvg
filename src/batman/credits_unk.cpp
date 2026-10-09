@@ -26,6 +26,40 @@ extern Unk_LastAData *LastAData;
 
 i32 qrand(void);
 
+// GLOBAL: LEGOBATMAN 0x009ca3f0
+extern nuhspecial_s Credits_Specials[];
+// GLOBAL: LEGOBATMAN 0x009ca954
+extern i32 Credits_SpecialCount;
+// GLOBAL: LEGOBATMAN 0x00aca840
+extern f32 g_unk_00aca840;
+// GLOBAL: LEGOBATMAN 0x00aca844
+extern f32 g_unk_00aca844;
+
+void NuSpecialSetVisibility(nuhspecial_s *special, i32 visible);
+
+// FUNCTION: LEGOBATMAN 0x004a6c60
+void Credits_Init_Game(WORLDINFO_s *world) {
+  char name[64];
+
+  if (world->scn148 != 0 && world->i2974 != -1) {
+    Credits_SpecialCount = 0;
+    for (i32 j = 0; j < 3; j++) {
+      for (i32 i = 0; i < 6; i++) {
+        if (EDataList[world->i2974].flags1b & 1)
+          NuSPrintf(name, "hero_%i", i + 1);
+        else
+          NuSPrintf(name, "villain_%i", i + 1);
+        if (NuSpecialFind(world->scn148,
+                          &Credits_Specials[Credits_SpecialCount], name,
+                          1) != 0)
+          NuSpecialSetVisibility(&Credits_Specials[Credits_SpecialCount], 0);
+        Credits_SpecialCount++;
+      }
+    }
+  }
+  g_unk_00aca840 = g_unk_00aca844 = 0.0f;
+}
+
 // FUNCTION: LEGOBATMAN 0x004aacb0
 void Credits_LoadImages(WORLDINFO_s *wi) {
   char name[64];

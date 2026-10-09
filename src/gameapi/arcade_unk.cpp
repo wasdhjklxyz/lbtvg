@@ -99,6 +99,35 @@ void Arcade_AwardPoint(i32 player_index, i32 a, i32 extra);
 // GLOBAL: LEGOBATMAN 0x00aca440
 extern i32 Arcade_PlayerKills[2];
 
+// STUB: LEGOBATMAN 0x00648290
+// heavy x87; Batman calls a sine helper FUN_00648080 and reads the text id via
+// a pointer at 0xad117c
+#if 0
+f32 NuFmod(f32 a, f32 b);
+
+f32 NuTrigTable[NUTRIGTABLE_COUNT];
+
+char **TTab;
+
+i16 tARCADE_NEEDTWOPLAYERS;
+
+void SmartTextEx(char *text, f32 x, f32 y, f32 z, f32 x_scale, f32 y_scale, f32 z_scale, u32 alignment, u8 red,
+                     u8 green, u8 blue, f32 max_width, i32 max_lines, void *message_box, i32 suppress_draw, u32 alpha);
+
+// from saga legoapi/menus/screens/arcade.cpp
+void Arcade_DrawPanel(i32 paused) {
+    if (Arcade == 0 || paused != 0 || Arcade_BothPlayersActive()) {
+        return;
+    }
+    f32 phase = NuFmod(GameTimer.time_elapsed_mod_seconds, 0.5f);
+    i32 angle = static_cast<i32>((phase + phase) * 65536.0f);
+    i32 alpha = static_cast<i32>((NuTrigTable[(angle >> 1) & 0x7fff] * 0.2f + 0.8f) * 128.0f);
+    f32 scale = Arcade_NeedTwoPlayers_Scale * 0.6f;
+    SmartTextEx(TTab[tARCADE_NEEDTWOPLAYERS], 0.0f, -0.55f, 1.0f, scale, scale, scale, 0, 255, 0, 0,
+                Arcade_NeedTwoPlayers_Scale * 1.7f, 1, NULL, 0, alpha);
+}
+#endif
+
 // FUNCTION: LEGOBATMAN 0x006486e0
 void Arcade_PlayerKilled(i32 player_index, i32 extra) {
   if ((player_index == 0 || player_index == 1) &&
