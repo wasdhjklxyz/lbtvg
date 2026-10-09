@@ -6,6 +6,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <windows.h>
 
 class CNuConsole {
@@ -15,10 +16,25 @@ public:
   void ExitNow(char *fmt, ...);
   void SendWarning(char *fmt, ...);
   void SendD3DWarning(long hr, char *fmt, ...);
+  void ResetFontUnk0052e580();
+  void Unk0052e8e0();
+  void Initialize();
 
-  u8 pad_000;
+  u8 active;        // 0x000
   u8 debug_enabled; // 0x001
-  u8 pad_002[0x500 - 2];
+  u8 pad_002[0x10 - 2];
+  i32 i10;         // 0x010
+  i32 i14;         // 0x014
+  i32 i18;         // 0x018
+  i32 font_size;   // 0x01c
+  char font[0x80]; // 0x020
+  u32 colours[5];  // 0x0a0
+  i32 *pb4;        // 0x0b4
+  f32 fb8;         // 0x0b8
+  f32 fbc;         // 0x0bc
+  f32 fc0;         // 0x0c0
+  f32 fc4;         // 0x0c4
+  u8 pad_0c8[0x500 - 0xc8];
   void *output;      // 0x500
   u8 output_enabled; // 0x504
 };
@@ -140,4 +156,39 @@ void CNuConsole::SendD3DWarning(long hr, char *fmt, ...) {
   OutputDebugStringA(g_error_msg);
   if (output_enabled && output != NULL)
     FUN_006d3520(output, g_error_msg);
+}
+
+// FUNCTION: LEGOBATMAN 0x0052e580
+void CNuConsole::ResetFontUnk0052e580() {
+  i14 = -1;
+  i10 = -1;
+  i18 = -1;
+  font_size = 12;
+  strcat(font, "Arial");
+  colours[0] = 0xff;
+  colours[1] = 0xff4c5844;
+  colours[2] = 0xff889180;
+  colours[3] = 0xff2d3128;
+  colours[4] = 0xff3e4637;
+}
+
+void *Unk006dd970(char *name, i32 mode);
+
+// FUNCTION: LEGOBATMAN 0x0052fd10
+void CNuConsole::Initialize() {
+  char path[0x400];
+  fb8 = 100.0f;
+  active = 1;
+  fbc = 100.0f;
+  fc0 = 600.0f;
+  fc4 = 500.0f;
+  ResetFontUnk0052e580();
+  pb4 = &i10;
+  Unk0052e8e0();
+  if (output_enabled) {
+    sprintf(path, "Log.txt");
+    output = Unk006dd970(path, 1);
+    if (output != NULL)
+      FUN_006d3520(output, "-- Log Started --\n\n");
+  }
 }
