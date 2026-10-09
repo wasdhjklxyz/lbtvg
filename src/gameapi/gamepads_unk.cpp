@@ -209,6 +209,8 @@ struct LEVELSFXENTRY_s {
 struct LEVELDATA_s {
   u8 pad0[0x64];
   u32 flags; // 0x64
+  u8 pad68[0xa0 - 0x68];
+  i16 ambient_sfx; // 0xa0
 };
 
 typedef struct WORLDINFO_s {
@@ -260,7 +262,7 @@ void ResetLevSfx(WORLDINFO_s *world) {
 // GLOBAL: LEGOBATMAN 0x00ad3b60
 extern nuvec_s nuvec_zero;
 
-i32 GetSfxId(char *name);
+i32 GetSfxId(const char *name);
 
 // STUB: LEGOBATMAN 0x0059f4e0
 // close: orig keeps world in ecx and pushes ebp inside the count > 0 guard;
@@ -326,6 +328,17 @@ void ChatterSfx(GameObject_s *g, i32 a, float b) {
   }
 }
 
+void PlaySfx(char *name, nuvec_s *position);
+
+// FUNCTION: LEGOBATMAN 0x0059f680
+void LevChatterSfx(char *name, nuvec_s *position) {
+  if (chattersfxwait <= 0.0f && qrand() < 0x400) {
+    PlaySfx(name, position);
+    i32 random = qrand();
+    chattersfxwait = (f32)random * (1.0f / 65535.0f) * 2.0f + 3.0f;
+  }
+}
+
 // STUB: LEGOBATMAN 0x0059f8d0
 // skipped: switch on jump type compiles to a jump table; not attempted.
 #if 0
@@ -375,8 +388,11 @@ struct GruntGameCharacter_s {
   u32 flags13c; // 0x13c
   u8 pad140[0x14c - 0x140];
   u32 flags14c; // 0x14c
-  u8 pad150[0x1a6 - 0x150];
-  i16 sfx_grunt; // 0x1a6
+  u8 pad150[0x1a0 - 0x150];
+  i16 sfx_die;    // 0x1a0
+  i16 sfx_hurt;   // 0x1a2
+  i16 sfx_doomed; // 0x1a4
+  i16 sfx_grunt;  // 0x1a6
   u8 pad1a8[0x1ba - 0x1a8];
   i16 s1ba; // 0x1ba, PlayLandSfx: per-character land sfx ids (-1 = none)
   i16 s1bc; // 0x1bc
@@ -485,6 +501,167 @@ void PlayGruntSfx(GameObject_s *object) {
 
 void PlaySfx(char *name, nuvec_s *pos);
 i32 GetSfxId(const char *name);
+
+// GLOBAL: LEGOBATMAN 0x00a95dac
+extern void (*ExtraHurtSfxFn)(GameObject_s *object);
+
+// FUNCTION: LEGOBATMAN 0x0059ff50
+void PlayHurtSfx(GameObject_s *object) {
+  if ((object->flags_low & 0x80) || (object->flags140c & 0x80000000) ||
+      object->b254) {
+    GruntCharacterData_s *character = object->character;
+    GruntGameCharacter_s *game_character = character->game_character;
+    i16 configured_sfx = game_character->sfx_hurt;
+    i32 sfx;
+    if (configured_sfx != -1 &&
+        ((game_character->flags13c & 0x20000) ||
+         !(object->flags1414 & 0x4000)) &&
+        (!(game_character->flags13c & 0x20000) ||
+         (object->flags1414 & 0x4000))) {
+      sfx = configured_sfx;
+    } else if (character->model_flags & 0x40000000) {
+      sfx = GameAudio->sfx_ids[0x22];
+    } else {
+      if ((character->model_flags & 0x4002010) ||
+          (game_character->flags14c & 0x400)) {
+        goto extra;
+      }
+      if (object->flags1414 & 0x4000) {
+        sfx = GameAudio->sfx_ids[0x23];
+      } else {
+        sfx = GameAudio->sfx_ids[0x24];
+      }
+    }
+    if (sfx != -1) {
+      PlaySfxById(sfx, &object->pos80);
+    }
+  extra:
+    if (ExtraHurtSfxFn != 0)
+      ExtraHurtSfxFn(object);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x005a0030
+i32 PlayDoomedSfx(GameObject_s *object) {
+  if ((object->flags_low & 0x80) || (object->flags140c & 0x80000000) ||
+      object->b254) {
+    GruntGameCharacter_s *game_character = object->character->game_character;
+    i16 configured_sfx = game_character->sfx_doomed;
+    if (configured_sfx != -1 &&
+        ((game_character->flags13c & 0x20000) ||
+         !(object->flags1414 & 0x4000)) &&
+        (!(game_character->flags13c & 0x20000) ||
+         (object->flags1414 & 0x4000))) {
+      PlaySfxById(configured_sfx, &object->pos80);
+      return 1;
+    }
+  }
+  return 0;
+}
+
+// GLOBAL: LEGOBATMAN 0x00a95db0
+extern void (*ExtraDieSfxFn)(GameObject_s *object);
+
+// FUNCTION: LEGOBATMAN 0x005a00b0
+void PlayDieSfx(GameObject_s *object) {
+  if ((object->flags_low & 0x80) || (object->flags140c & 0x80000000) ||
+      object->b254) {
+    GruntCharacterData_s *character = object->character;
+    GruntGameCharacter_s *game_character = character->game_character;
+    i16 configured_sfx = game_character->sfx_die;
+    i32 sfx;
+    if (configured_sfx != -1 &&
+        ((game_character->flags13c & 0x20000) ||
+         !(object->flags1414 & 0x4000)) &&
+        (!(game_character->flags13c & 0x20000) ||
+         (object->flags1414 & 0x4000))) {
+      sfx = configured_sfx;
+    } else if (game_character->flags13c & 0x800) {
+      sfx = GameAudio->sfx_ids[0x25];
+    } else if (character->model_flags & 0x2000) {
+      if (game_character->flags14c & 0x4000) {
+        sfx = GameAudio->sfx_ids[0x26];
+      } else if (game_character->flags14c & 0x2000) {
+        sfx = GameAudio->sfx_ids[0x27];
+      } else {
+        sfx = GameAudio->sfx_ids[0x25];
+      }
+    } else if (character->model_flags & 0x4000000) {
+      sfx = GameAudio->sfx_ids[0x28];
+    } else if (character->model_flags & 0x10) {
+      sfx = GameAudio->sfx_ids[0x29];
+    } else if (character->model_flags & 0x40000000) {
+      sfx = GameAudio->sfx_ids[0x2a];
+    } else {
+      if (game_character->flags14c & 0x400) {
+        goto extra;
+      }
+      if (object->flags1414 & 0x4000) {
+        sfx = GameAudio->sfx_ids[0x2b];
+      } else {
+        sfx = GameAudio->sfx_ids[0x2c];
+      }
+    }
+    if (sfx != -1) {
+      PlaySfxById(sfx, &object->pos80);
+    }
+  extra:
+    if (ExtraDieSfxFn != 0)
+      ExtraDieSfxFn(object);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x005a03c0
+void AddLevelSfxFromName(char *sfx_name, i32 *sfx_ids, i32 *sfx_count,
+                         i32 max_sfx_count) {
+  if (sfx_ids != 0 && sfx_count != 0 && *sfx_count < max_sfx_count) {
+    i32 sfx_id = GetSfxId(sfx_name);
+    if (sfx_id != -1) {
+      for (i32 i = 0; i < *sfx_count; i++) {
+        if (sfx_ids[i] == sfx_id)
+          return;
+      }
+      sfx_ids[*sfx_count] = sfx_id;
+      ++*sfx_count;
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x005a0410
+void AddLevelSfxFromId(i32 sfx_id, i32 *sfx_ids, i32 *sfx_count, i32 max_sfx) {
+  if (sfx_id != -1 && sfx_ids != 0 && sfx_count != 0 && *sfx_count < max_sfx) {
+    for (i32 index = 0; index < *sfx_count; ++index) {
+      if (sfx_ids[index] == sfx_id)
+        return;
+    }
+    sfx_ids[*sfx_count] = sfx_id;
+    ++*sfx_count;
+  }
+}
+
+void SfxBitsRestore(void *tab);
+void NuSound3SetReverb(i32 on);
+
+// GLOBAL: LEGOBATMAN 0x00a95cb8
+extern u8 CurrentSFXTAB[];
+// GLOBAL: LEGOBATMAN 0x00acb714
+extern i32 CUTSTOPGAME;
+
+// FUNCTION: LEGOBATMAN 0x005a0460
+void UpdateLevelSfx(WORLDINFO_s *world, i32 paused) {
+  i32 (*check_reverb)(void);
+  SfxBitsRestore(CurrentSFXTAB);
+  if (paused == 0 && (check_reverb = GameAudio->check_reverb_fn) != 0 &&
+      check_reverb() != 0) {
+    NuSound3SetReverb(1);
+  } else {
+    NuSound3SetReverb(0);
+    if (paused != 0)
+      return;
+  }
+  if (CUTSTOPGAME == 0 && world->current_level->ambient_sfx != -1)
+    GameAudio_PlaySfxById(world->current_level->ambient_sfx, 0, 0, 0);
+}
 
 struct RepeatSfx {
   i16 sfx_id;           // 0x0

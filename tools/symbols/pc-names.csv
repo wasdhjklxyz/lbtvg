@@ -383,12 +383,18 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0059f360,0026768e,__Z16legoSetCutVolumef,legoSetCutVolume(float),confirmed,0
 0059f380,002676be,__Z18GameGetMusicVolumeP13OPTIONSSAVE_s,GameGetMusicVolume(OPTIONSSAVE_s*),confirmed,0
 0059f4b0,002676fc,__Z11ResetLevSfxP11WORLDINFO_s,ResetLevSfx(WORLDINFO_s*),confirmed,0
-0059f4e0,00267724,__Z9AddLevSfxP11WORLDINFO_sP7nuvec_sPci,"AddLevSfx(WORLDINFO_s*, nuvec_s*, char*, int)",confirmed,0
 0059f5c0,00267822,__Z10ChatterSfxP12GameObject_sif,"ChatterSfx(GameObject_s*, int, float)",confirmed,0
+0059f680,002678fe,__Z13LevChatterSfxPcP7nuvec_s,"LevChatterSfx(char*, nuvec_s*)",confirmed,0
 0059f8d0,00267b88,__Z11PlayJumpSfxP12GameObject_si,"PlayJumpSfx(GameObject_s*, int)",gapfill,3
 0059f9a0,00267c82,__Z11PlayLandSfxP12GameObject_sii,"PlayLandSfx(GameObject_s*, int, int)",confirmed,0
 0059fb60,00267e5a,__Z15PlayFootStepSfxP12GameObject_s,PlayFootStepSfx(GameObject_s*),order,3
 0059fe80,002681c4,__Z12PlayGruntSfxP12GameObject_s,PlayGruntSfx(GameObject_s*),confirmed,0
+0059ff50,0026829e,__Z11PlayHurtSfxP12GameObject_s,PlayHurtSfx(GameObject_s*),confirmed,0
+005a0030,0026838c,__Z13PlayDoomedSfxP12GameObject_s,PlayDoomedSfx(GameObject_s*),confirmed,0
+005a00b0,00268410,__Z10PlayDieSfxP12GameObject_s,PlayDieSfx(GameObject_s*),confirmed,0
+005a03c0,00268576,__Z19AddLevelSfxFromNamePcPiS0_i,"AddLevelSfxFromName(char*, int*, int*, int)",confirmed,0
+005a0410,002685c6,__Z17AddLevelSfxFromIdiPiS_i,"AddLevelSfxFromId(int, int*, int*, int)",confirmed,0
+005a0460,00268620,__Z14UpdateLevelSfxP11WORLDINFO_si,"UpdateLevelSfx(WORLDINFO_s*, int)",confirmed,0
 005a0590,0026870a,__Z13PlayRepeatSfxPcifcfP7nuvec_s,"PlayRepeatSfx(char*, int, float, char, float, nuvec_s*)",confirmed,0
 005a0830,002689e2,__Z14ConfigureMusicPcP9variptr_uS1_,"ConfigureMusic(char*, variptr_u*, variptr_u*)",strings,0
 005a1060,003462e4,__Z10ResetTimerP7TIMER_sf,"ResetTimer(TIMER_s*, float)",confirmed,0

@@ -291,5 +291,11 @@
 0059f360 legoSetCutVolume  matched (SetClassVolume(0x10); ghidra missed it), Mac order
 0059f380 GameGetMusicVolume  matched saga-shaped body (option bytes 5, 6), Mac order
 0059f4b0 ResetLevSfx  matched saga body (64 level sfx entries at 0x4824), Mac order
-0059f4e0 AddLevSfx  saga body shape (GetSfxId by name, 64-entry level sfx table) matches all but loop-exit layout; Mac order
 0059f5c0 ChatterSfx  matched saga-shaped body (chattersfxwait, last_chatter_sfx), Mac order
+0059f680 LevChatterSfx  matched saga body (ghidra missed it), Mac order after ChatterSfx
+005a03c0 AddLevelSfxFromName  matched saga body, Mac order
+005a0410 AddLevelSfxFromId  matched saga body, Mac order
+0059ff50 PlayHurtSfx  matched saga-shaped body (sfx_hurt 0x1a2, ExtraHurtSfxFn), Mac order after PlayGruntSfx
+005a0030 PlayDoomedSfx  matched (sfx_doomed 0x1a4, returns played), Mac order
+005a00b0 PlayDieSfx  matched saga-shaped body (sfx_die 0x1a0, ExtraDieSfxFn), Mac order
+005a0460 UpdateLevelSfx  matched saga-shaped body (reverb callback, level ambient sfx 0xa0), Mac order
