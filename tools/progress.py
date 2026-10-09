@@ -57,6 +57,9 @@ def saga_bodies():
     for f in list(root.rglob("*.c")) + list(root.rglob("*.cpp")):
         for m in pat.finditer(f.read_text(errors="ignore")):
             defs.setdefault(m.group(1), f.relative_to(root).as_posix())
+    if not defs:
+        sys.exit("progress: ref/saga/src exists but no saga definitions were found; "
+                 "check the submodule (git submodule update --init) before regenerating")
     return defs
 
 
@@ -152,7 +155,7 @@ def write_todo(funcs, state, names, saga, by):
 
 # --- site/data.json: everything the GitHub Pages map needs --------------------
 def write_site(funcs, lib, names, state, saga, total, by, pct):
-    import json, datetime, subprocess
+    import json, datetime
     where, src_name = {}, {}
     decl = re.compile(r"//\s*(?:FUNCTION|STUB):\s*LEGOBATMAN\s+0x([0-9a-fA-F]+)\n(?:\s*//.*\n)*\s*([^\n{;]*?)\s*(?:\{|;|$)", re.M)
     for f in list(ROOT.glob("src/**/*.c")) + list(ROOT.glob("src/**/*.cpp")) + list(ROOT.glob("src/**/*.h")):
@@ -169,13 +172,8 @@ def write_site(funcs, lib, names, state, saga, total, by, pct):
         name = src_name.get(a) or names.get(a) or (None if gname.startswith(("FUN_", "thunk_")) else gname)
         short = (name or "").split("(")[0].split(" ")[-1].lstrip("_")
         rows.append([a, s, st, name, where.get(a), saga.get(short) if name else None])
-    try:
-        rev = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT,
-                             capture_output=True, text=True).stdout.strip()
-    except OSError:
-        rev = ""
     data = {
-        "generated": datetime.date.today().isoformat(), "rev": rev,
+        "generated": datetime.date.today().isoformat(),
         "text": [TEXT_LO, TEXT_HI], "total": total, "pct": round(pct, 3),
         "counts": {k: by[k][0] for k in (MATCHED, STUB, NAMED, UNKNOWN)},
         "bytes": {k: by[k][1] for k in (MATCHED, STUB, NAMED, UNKNOWN)},

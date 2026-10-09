@@ -101,7 +101,7 @@
   document.getElementById("bar").innerHTML =
     `<span style="width:${100 * b.matched / d.total}%;background:var(--m)"></span>` +
     `<span style="width:${100 * b.stub / d.total}%;background:var(--s)"></span>`;
-  document.getElementById("gen").textContent = `updated ${d.generated}` + (d.rev ? ` (${d.rev})` : "");
+  document.getElementById("gen").textContent = `updated ${d.generated}`;
 
   const cv = document.getElementById("map"), ctx = cv.getContext("2d");
   const tip = document.getElementById("tip"), q = document.getElementById("q");
