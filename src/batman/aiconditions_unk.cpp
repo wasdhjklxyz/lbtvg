@@ -586,6 +586,96 @@ f32 Condition_OpponentInLayer(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 0.0f;
 }
 
+i32 GizmoGetOutput(GIZMOSYS_s *sys, GIZMO_s *gizmo, i32 output, i32 a);
+void *AIPathFindLocatorSet(AISYS_s *sys, char *name);
+
+// FUNCTION: LEGOBATMAN 0x0044d1d0
+f32 Condition_GlynTest(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                       AIPACKET_s *packet, char *str, void *data) {
+  return 1.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d1e0
+f32 Condition_Debug(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                    AIPACKET_s *packet, char *str, void *data) {
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d1f0
+f32 Condition_Active(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                     AIPACKET_s *packet, char *str, void *data) {
+  // 0x13e: the packet's reset mode.
+  if (packet != NULL && ((u8 *)packet)[0x13e] == 2)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d2d0
+f32 Condition_PrefersBrawling(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL) {
+    u32 flags = OWNER(packet)->p54->model_flags;
+    if (flags & 0x80000000)
+      return 1.0f;
+    if (!(flags & 0x80))
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d300
+f32 Condition_LocatorExist(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char *str, void *data) {
+  if (g_unk00960894->aiSys2bf8 != NULL && str != NULL &&
+      AIPathFindLocator(g_unk00960894->aiSys2bf8, str) != NULL)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d340
+f32 Condition_LocatorSetExist(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char *str, void *data) {
+  if (g_unk00960894->aiSys2bf8 != NULL && str != NULL &&
+      AIPathFindLocatorSet(g_unk00960894->aiSys2bf8, str) != NULL)
+    return 1.0f;
+  return 0.0f;
+}
+
+// GLOBAL: LEGOBATMAN 0x0095ff24
+extern i32 obstacle_gizmotype_id;
+// GLOBAL: LEGOBATMAN 0x00967aec
+extern i32 gizspecial_gizmotype_id;
+
+// FUNCTION: LEGOBATMAN 0x0044d380
+void *Condition_ObstacleInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  return GizmoFindByName(g_unk00960894->gizmoSys2b0c, obstacle_gizmotype_id,
+                         name);
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d3b0
+void *Condition_GizSpecialInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  return GizmoFindByName(g_unk00960894->gizmoSys2b0c, gizspecial_gizmotype_id,
+                         name);
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d3e0
+f32 Condition_ObstacleAtStart(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char *str, void *argument) {
+  if (argument != NULL && GizmoGetOutput(g_unk00960894->gizmoSys2b0c,
+                                         (GIZMO_s *)argument, 1, 1) == 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d420
+f32 Condition_ObstacleAtEnd(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char *str, void *argument) {
+  if (argument != NULL && GizmoGetOutput(g_unk00960894->gizmoSys2b0c,
+                                         (GIZMO_s *)argument, 0, 1) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
 // GLOBAL: LEGOBATMAN 0x0096052c
 extern i32 g_unk0096052c;
 // GLOBAL: LEGOBATMAN 0x00960528

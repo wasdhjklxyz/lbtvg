@@ -522,3 +522,13 @@
 00451390 Condition_UnderPlayerControl   matched (saga gameobjects.cpp shape), Mac order before Condition_CharacterTypeExists
 004513f0 Condition_CharacterExists   matched (saga gameobjects.cpp shape), Mac order before Condition_CharacterTypeExists
 00451400 Condition_CharacterTypeExistsInit   matched (saga gameobjects.cpp shape), Mac order before Condition_CharacterTypeExists
+0044d1d0 Condition_GlynTest   matched (saga body shape), Mac order after LocalGetRandomLocator
+0044d1e0 Condition_Debug   matched (saga body shape), Mac order after LocalGetRandomLocator
+0044d1f0 Condition_Active   matched (saga body shape), Mac order after LocalGetRandomLocator
+0044d2d0 Condition_PrefersBrawling   matched (saga body shape), Mac order after LocalGetRandomLocator
+0044d300 Condition_LocatorExist   matched (saga body shape), Mac order after LocalGetRandomLocator
+0044d340 Condition_LocatorSetExist   matched (saga body shape), Mac order after LocalGetRandomLocator
+0044d380 Condition_ObstacleInit   matched (saga body shape), Mac order after LocalGetRandomLocator
+0044d3b0 Condition_GizSpecialInit   matched (saga body shape), Mac order after LocalGetRandomLocator
+0044d3e0 Condition_ObstacleAtStart   matched (saga body shape), Mac order after LocalGetRandomLocator
+0044d420 Condition_ObstacleAtEnd   matched (saga body shape), Mac order after LocalGetRandomLocator

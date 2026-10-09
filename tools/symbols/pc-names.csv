@@ -31,6 +31,16 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00447560,0006f664,__Z17GetNamedAPIObjectP7AISYS_sPc,"GetNamedAPIObject(AISYS_s*, char*)",strings,0
 0044bf50,0006fe0c,__Z14GameAISysResetP7AISYS_s,GameAISysReset(AISYS_s*),strings,0
 0044c960,0007503e,__Z16PartyMemberInWayP12GameObject_sS0_,"PartyMemberInWay(GameObject_s*, GameObject_s*)",gapfill,1
+0044d1d0,00075348,__Z18Condition_GlynTestP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_GlynTest(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d1e0,00075350,__Z15Condition_DebugP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_Debug(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d1f0,00075358,__Z16Condition_ActiveP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_Active(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d2d0,00075408,__Z25Condition_PrefersBrawlingP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_PrefersBrawling(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d300,00075432,__Z22Condition_LocatorExistP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_LocatorExist(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d340,00075474,__Z25Condition_LocatorSetExistP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_LocatorSetExist(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d380,000754b6,__Z22Condition_ObstacleInitP7AISYS_sPcP10AISCRIPT_s,"Condition_ObstacleInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+0044d3b0,000754e0,__Z24Condition_GizSpecialInitP7AISYS_sPcP10AISCRIPT_s,"Condition_GizSpecialInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+0044d3e0,0007550a,__Z25Condition_ObstacleAtStartP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ObstacleAtStart(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d420,0007554c,__Z23Condition_ObstacleAtEndP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ObstacleAtEnd(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044da30,00075ab0,__Z23Condition_BeenHitByInitP7AISYS_sPcP10AISCRIPT_s,"Condition_BeenHitByInit(AISYS_s*, char*, AISCRIPT_s*)",strings,0
 0044db10,00075b54,__Z19Condition_BeenHitByP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_BeenHitBy(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044db60,00075b92,__Z31Condition_BeenHitByNamedObjInitP7AISYS_sPcP10AISCRIPT_s,"Condition_BeenHitByNamedObjInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
