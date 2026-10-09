@@ -34,7 +34,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [CutScenes](#cutscenes) | 3 | 2 |
 | [Doors](#doors) | 2 | 2 |
 | [GizActions](#gizactions) | 5 | 2 |
-| [GizmoPickup](#gizmopickup) | 2 | 2 |
 | [GizPanel](#gizpanel) | 2 | 2 |
 | [LevelObjects](#levelobjects) | 2 | 2 |
 | [Levels](#levels) | 2 | 2 |
@@ -62,6 +61,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizBuildIts](#gizbuildits) | 1 | 1 |
 | [GizForces](#gizforces) | 1 | 1 |
 | [GizForceSFX](#gizforcesfx) | 1 | 1 |
+| [GizmoPickup](#gizmopickup) | 1 | 1 |
 | [GizmoPickups](#gizmopickups) | 1 | 1 |
 | [GizObstacles](#gizobstacles) | 1 | 1 |
 | [GizTurrets](#gizturrets) | 1 | 1 |
@@ -580,11 +580,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00484f20` 419 B `GizActions_SetRTL(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
 - [ ] `004842b0` 582 B `GizActions_SetSuperCounter(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
 
-## GizmoPickup
-
-- [ ] `006350d0` 84 B `GizmoPickup_FindByName(WORLDINFO_s*, char*)`  **hint** name (gapfill) · **saga** `legoapi/gizmos/fx/gizmopickups.cpp`
-- [ ] `0048c2e0` 1217 B `GizmoPickup_CollectCoin(WORLDINFO_s*, nuvec_s*, int, int, GameObject_s*, int)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizmopickups.cpp`
-
 ## GizPanel
 
 - [ ] `0048f750` 993 B `GizPanel_Update(void*, void*, float)`  **saga** `legoapi/gizmos/object/gizpanel.cpp`
@@ -706,6 +701,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## GizForceSFX
 
 - [ ] `00486350` 258 B `GizForceSFX_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/gizmos/traps/gizforce.cpp`
+
+## GizmoPickup
+
+- [ ] `0048c2e0` 1217 B `GizmoPickup_CollectCoin(WORLDINFO_s*, nuvec_s*, int, int, GameObject_s*, int)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizmopickups.cpp`
 
 ## GizmoPickups
 

@@ -522,7 +522,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00632800,00327630,__Z14DrawRailSparksP9RAILSYS_siP12GameObject_s,"DrawRailSparks(RAILSYS_s*, int, GameObject_s*)",strings,0
 00632a00,003278e6,__Z16MovePlayer_RailsP12GameObject_s,MovePlayer_Rails(GameObject_s*),strings,0
 00633910,002d02dc,__Z10AddPickupsiiiiP7nuvec_sS0_fiffP12GameObject_sii,"AddPickups(int, int, int, int, nuvec_s*, nuvec_s*, float, int, float, float, GameObject_s*, int, int)",gapfill,2
-006350d0,002ce136,__Z22GizmoPickup_FindByNameP11WORLDINFO_sPc,"GizmoPickup_FindByName(WORLDINFO_s*, char*)",gapfill,1
+006350d0,002ce136,__Z22GizmoPickup_FindByNameP11WORLDINFO_sPc,"GizmoPickup_FindByName(WORLDINFO_s*, char*)",confirmed,0
 00635620,002ce5d6,__Z20GizmoPickups_CollideP11WORLDINFO_sP12GameObject_si,"GizmoPickups_Collide(WORLDINFO_s*, GameObject_s*, int)",gapfill,4
 00635760,002ce734,__Z28GameMsg_Draw_MiniKitDetectorP13GAMEMESSAGE_sP7nuvec_sf,"GameMsg_Draw_MiniKitDetector(GAMEMESSAGE_s*, nuvec_s*, float)",order,5
 00635ab0,002cea5e,__Z15MiniKitDetectorP7nuvec_s,MiniKitDetector(nuvec_s*),order,5

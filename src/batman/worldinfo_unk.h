@@ -15,8 +15,8 @@ struct AILOCATOR_s;
 struct GAMECAMERA_s;
 
 // 0x2c-byte entries of the list at WORLDINFO_s+0x5220.
-struct Unk_WorldInfo5220Entry {
-  u8 pad0[0x17];
+struct Unk_WorldInfo5220Entry { // GIZMOPICKUP_s
+  char name[0x17];
   u8 b17; // 0x17
   u8 b18; // 0x18
   u8 pad1[0x24 - 0x19];

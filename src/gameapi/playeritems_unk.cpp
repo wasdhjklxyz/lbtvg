@@ -23,6 +23,22 @@ typedef struct COINPACKET_s {
   f32 double_score_timer; // 0x0c
 } COINPACKET;
 
+i32 NuStrICmp(const char *a, const char *b);
+
+// FUNCTION: LEGOBATMAN 0x006350d0
+Unk_WorldInfo5220Entry *GizmoPickup_FindByName(WORLDINFO_s *world, char *name) {
+  if (world != 0 && name != 0) {
+    Unk_WorldInfo5220Entry *pickup = world->p5220->list;
+    if (pickup != 0) {
+      for (i32 index = 0; index < world->p5220->count; ++index, ++pickup) {
+        if (NuStrICmp(pickup->name, name) == 0)
+          return pickup;
+      }
+    }
+  }
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x00635c80
 void ResetCoinPacket(COINPACKET_s *packet) {
   if (packet != 0) {

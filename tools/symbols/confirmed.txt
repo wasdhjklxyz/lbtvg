@@ -55,3 +55,4 @@
 00661c30 GizTurret_FindByName  saga body matches (turret name scan)
 005c2bb0 Players_BothActive  saga body matches (Player[0] and Player[1] active)
 005fb060 Area_FindByName  saga body matches (ADataList file scan)
+006350d0 GizmoPickup_FindByName  saga body matches (world pickup sys name scan)
