@@ -5012,3 +5012,70 @@ i32 Action_SetDontMove(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 1;
 }
+
+// FUNCTION: LEGOBATMAN 0x00460ef0
+i32 Action_PlayCutScene(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char **args, int argc, int flags,
+                        f32 time) {
+  char *name = 0;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "name");
+      if (s != 0)
+        name = s + 5;
+    }
+    if (name != 0)
+      NewCutScene(0, g_unk00960894->cutscene_sys, name, 0);
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x004634e0
+i32 Action_KeepWeaponOut(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  GameObject_s *obj = 0;
+  i32 on = 1;
+  if (flags != 0) {
+    if (packet != 0 && packet->pd0 != 0)
+      obj = packet->pd0->obj;
+    if (argc != 0) {
+      for (i32 i = 0; i < argc; i++) {
+        if (NuStrICmp(args[i], "FALSE") == 0) {
+          on = 0;
+        } else {
+          char *s = NuStrIStr(args[i], "character=");
+          if (s != 0)
+            obj = GetNamedGameObject(sys, s + 10);
+        }
+      }
+    }
+    if (obj != 0)
+      obj->keep_weapon_out = on;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00464380
+i32 Action_CannotDropIn(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char **args, int argc, int flags,
+                        f32 time) {
+  GameObject_s *obj = 0;
+  i32 on = 1;
+  if (flags != 0) {
+    if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+      obj = packet->pd0->obj;
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "character=");
+      if (s != 0)
+        obj = GetNamedGameObject(sys, s + 10);
+      else if ((s = NuStrIStr(args[i], "tag_to=")) != 0)
+        GetNamedGameObject(sys, s + 7);
+      else if (NuStrICmp(args[i], "FALSE") == 0)
+        on = 0;
+    }
+    if (obj != 0)
+      obj->cannot_drop_in = on;
+  }
+  return 1;
+}

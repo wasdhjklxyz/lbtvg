@@ -361,6 +361,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00460ca0,0007f092,__Z23Action_JudderGameCameraP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_JudderGameCamera(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00460de0,0007f1aa,__Z18Action_CameraShakeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CameraShake(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00460ec0,0007f25a,__Z22Action_ResetGameCameraP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ResetGameCamera(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
+00460ef0,0007f27e,__Z19Action_PlayCutSceneP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_PlayCutScene(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00460f70,0007f2f4,__Z19Action_SetLevelPathP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetLevelPath(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00461080,0007f3e4,__Z14Action_SetHintP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetHint(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00461140,0007f486,__Z22Action_SetHintCompleteP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetHintComplete(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
@@ -382,6 +383,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004632f0,000805f0,__Z19Action_CanOpenDoorsP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CanOpenDoors(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 004633a0,00080678,__Z24Action_CanShootOffScreenP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CanShootOffScreen(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00463450,00080700,__Z30Action_OnlyActiveWhenTakenOverP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_OnlyActiveWhenTakenOver(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
+004634e0,0008e896,__Z20Action_KeepWeaponOutP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_KeepWeaponOut(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 004635e0,0008e960,__Z20Action_SnapWeaponOutP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SnapWeaponOut(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00463780,0008eab6,__Z19Action_ResetContextP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ResetContext(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00463850,00080768,__Z21Action_PrefersPlayersP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_PrefersPlayers(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
@@ -399,6 +401,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00463f00,00080be2,__Z22Action_SetAnimSpeedMulP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetAnimSpeedMul(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 004640d0,0008ecd6,__Z23Action_CatchUpForbiddenP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CatchUpForbidden(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 004641d0,0008eb56,__Z18Action_SetTaggableP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetTaggable(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
+00464380,0008eda6,__Z19Action_CannotDropInP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CannotDropIn(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 004644c0,0008ef70,__Z19Action_NotWithPartyP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_NotWithParty(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 004645b0,0008eeaa,__Z16Action_CanAttackP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CanAttack(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 004646a0,0008f038,__Z17Action_TakeDamageP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_TakeDamage(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0

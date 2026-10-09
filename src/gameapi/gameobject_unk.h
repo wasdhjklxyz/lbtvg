@@ -284,6 +284,10 @@ struct GameObject_s {
       u32 catch_up_forbidden : 1; // 0x140c bit 29
     };
     struct {
+      u32 : 30;
+      u32 cannot_drop_in : 1; // 0x140c bit 30
+    };
+    struct {
       u32 : 8;
       u32 keep_weapon_out : 1; // 0x140c bit 8
     };

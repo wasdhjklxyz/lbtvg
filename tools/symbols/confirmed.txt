@@ -1214,3 +1214,6 @@
 0045bcb0 Action_SetControlSystem  keyword table 0x93bb98
 00462bc0 Action_AlwaysTriggerObstacle  keyword table 0x93bb98
 00455d70 Action_SetDontMove  keyword table 0x93bb98
+00460ef0 Action_PlayCutScene  keyword table 0x93bb98
+004634e0 Action_KeepWeaponOut  keyword table 0x93bb98
+00464380 Action_CannotDropIn  keyword table 0x93bb98
