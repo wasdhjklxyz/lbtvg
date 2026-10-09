@@ -2292,3 +2292,138 @@ f32 Condition_CharacterTypeExists(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       return 1.0f;
   return 0.0f;
 }
+
+// GLOBAL: LEGOBATMAN 0x00960048
+extern i32 g_unk00960048;
+// GLOBAL: LEGOBATMAN 0x00960a3c
+extern i32 g_unk00960a3c;
+// GLOBAL: LEGOBATMAN 0x009656d8
+extern i32 g_unk009656d8;
+extern i32 blowup_gizmotype_id;
+
+i32 GizForce_Complete(GIZFORCE_s *force);
+i32 GizForce_AnimComplete(GIZFORCE_s *force);
+
+// FUNCTION: LEGOBATMAN 0x0044e480
+void *Condition_LeverActiveInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  void *lever = NULL;
+  if (name != NULL) {
+    GIZMO_s *gizmo =
+        GizmoFindByName(g_unk00960894->gizmoSys2b0c, g_unk00960048, name);
+    if (gizmo != NULL && *(void **)gizmo != NULL)
+      lever = *(void **)gizmo;
+  }
+  return lever;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e4d0
+f32 Condition_LeverActive(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char *str, void *argument) {
+  if (argument != NULL && (((u8 *)argument)[0x94] & 0x80))
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e4f0
+f32 Condition_EitherPlayerWearingHelmet(AISYS_s *sys,
+                                        AISCRIPTPROCESS_s *process,
+                                        AIPACKET_s *packet, char *str,
+                                        void *argument) {
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e500
+void *Condition_ForceCompleteInit(AISYS_s *sys, char *name,
+                                  AISCRIPT_s *script) {
+  GIZMO_s *gizmo =
+      GizmoFindByName(g_unk00960894->gizmoSys2b0c, force_gizmotype_id, name);
+  return gizmo != NULL ? *(void **)gizmo : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e540
+f32 Condition_ForceComplete(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char *str, void *argument) {
+  if (argument != NULL && GizForce_Complete((GIZFORCE_s *)argument) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e570
+f32 Condition_ForceFinished(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char *str, void *argument) {
+  if (argument != NULL && GizForce_AnimComplete((GIZFORCE_s *)argument) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e5a0
+void *Condition_BuildItCompleteInit(AISYS_s *sys, char *name,
+                                    AISCRIPT_s *script) {
+  return GizmoFindByName(g_unk00960894->gizmoSys2b0c, g_unk00960a3c, name);
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e5d0
+f32 Condition_BuildItComplete(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char *str, void *argument) {
+  if (argument != NULL) {
+    u8 *build = *(u8 **)argument;
+    if (build != NULL && build[0x71] == 2)
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e5f0
+void *Condition_DigCompleteInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  return GizmoFindByName(g_unk00960894->gizmoSys2b0c, g_unk009656d8, name);
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e620
+f32 Condition_DigComplete(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char *str, void *argument) {
+  if (argument != NULL) {
+    u8 *dig = *(u8 **)argument;
+    if (dig != NULL && *(i16 *)(dig + 0x70) == 1)
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e650
+void *Condition_BlowupInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  return GizmoFindByName(g_unk00960894->gizmoSys2b0c, blowup_gizmotype_id,
+                         name);
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e680
+f32 Condition_BlowupBlownup(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char *str, void *argument) {
+  if (argument != NULL && GizmoGetOutput(g_unk00960894->gizmoSys2b0c,
+                                         (GIZMO_s *)argument, 0, 1) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e6c0
+void *Condition_BlowupBeenPickedUpInit(AISYS_s *sys, char *name,
+                                       AISCRIPT_s *script) {
+  GIZMO_s *gizmo =
+      GizmoFindByName(g_unk00960894->gizmoSys2b0c, blowup_gizmotype_id, name);
+  return gizmo != NULL ? *(void **)gizmo : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e700
+f32 Condition_BlowupBeenPickedUp(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                 AIPACKET_s *packet, char *str,
+                                 void *argument) {
+  if (argument != NULL && (((u8 *)argument)[0x122] & 1))
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e720
+void *Condition_IsAliveInit(AISYS_s *sys, char *arg, AISCRIPT_s *script) {
+  return arg != NULL && GetNamedAPIObjectFn != NULL
+             ? GetNamedAPIObjectFn(sys, arg)
+             : NULL;
+}
