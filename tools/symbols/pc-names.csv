@@ -306,7 +306,15 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00592080,00231fc8,__ZN13MemoryManager12RenderMemoryEv,MemoryManager::RenderMemory(),strings,0
 00594420,0019ae36,__ZN17NuFmvStreamPCBink14BlitSM1TextureEv,NuFmvStreamPCBink::BlitSM1Texture(),strings,0
 00594dc0,0019a89a,_NuFmvInitSubtitles,_NuFmvInitSubtitles,strings,0
+00595fb0,00253678,_AnimEndFrame,_AnimEndFrame,confirmed,0
 00595ff0,002536d2,_AnimFlags,_AnimFlags,confirmed,0
+00596020,00253700,_SetAnimBlendMode,_SetAnimBlendMode,confirmed,0
+00596030,00253714,_GetAnimBlendMode,_GetAnimBlendMode,confirmed,0
+00596040,00253726,_APIObjectSysInit,_APIObjectSysInit,confirmed,0
+005960e0,00257adc,_APIObjectCreate,_APIObjectCreate,confirmed,0
+00596130,002537de,_APIObjectRemoveFromLOSTable,_APIObjectRemoveFromLOSTable,confirmed,0
+00596180,00256e1a,_APIObjectDestroy,_APIObjectDestroy,confirmed,0
+005961f0,0025384e,_APIObjectDestroyAll,_APIObjectDestroyAll,confirmed,0
 00597d60,002541ce,_ParticlesPerFrame,_ParticlesPerFrame,confirmed,0
 00597db0,002594b4,_ParticlesPerSecond,_ParticlesPerSecond,confirmed,0
 00597e10,0025422e,_FindGameDebris,_FindGameDebris,confirmed,0

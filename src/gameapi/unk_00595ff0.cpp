@@ -16,11 +16,124 @@ struct CHARACTERMODEL_s {
   void **model_data_b; // 0x0c
 };
 
+struct APICHARACTERSYS_s {
+  u32 pad00[2];
+  i32 model_id_capacity; // 0x08
+};
+
+// GLOBAL: LEGOBATMAN 0x00a94740
+extern APICHARACTERSYS_s *apicharsys;
+
+f32 NuAnimEndFrame(void *anim);
+
+// FUNCTION: LEGOBATMAN 0x00595fb0
+f32 AnimEndFrame(CHARACTERMODEL_s *model, i32 animation) {
+  if (model != 0 && animation >= 0 &&
+      animation < apicharsys->model_id_capacity &&
+      model->model_data_b[animation] != 0)
+    return NuAnimEndFrame(model->model_data_b[animation]);
+  return 0.0f;
+}
+
 // FUNCTION: LEGOBATMAN 0x00595ff0
 u32 AnimFlags(CHARACTERMODEL_s *model, i32 animation) {
   if (animation != -1 && model->model_data_b[animation] != 0)
     return ((CHARACTERANIM_s *)model->model_data_a[animation])->flags;
   return 0;
+}
+
+// GLOBAL: LEGOBATMAN 0x0095ea5c
+static i32 AnimBlendMode = 1;
+
+// FUNCTION: LEGOBATMAN 0x00596020
+void SetAnimBlendMode(i32 mode) { AnimBlendMode = mode; }
+
+// FUNCTION: LEGOBATMAN 0x00596030
+i32 GetAnimBlendMode(void) { return AnimBlendMode; }
+
+struct APIOBJECT {
+  u8 pad000[0x1fc];
+  u32 flags; // 0x1fc, bit 0 = in use
+  u8 pad200[0x259 - 0x200];
+  u8 index; // 0x259
+};
+
+struct APIOBJECTSYS_s {
+  u32 object_size;                    // 0x00
+  APIOBJECT *objects;                 // 0x04
+  unsigned __int64 line_of_sight[64]; // 0x08
+  u8 pad208[0x218 - 0x208];
+};
+
+void *AISysBufferAlloc(variptr_u *buf, variptr_u *buf_end, u32 size);
+
+// FUNCTION: LEGOBATMAN 0x00596040
+APIOBJECTSYS_s *APIObjectSysInit(i32 size, variptr_u *buf, variptr_u *buf_end) {
+  APIOBJECTSYS_s *system =
+      (APIOBJECTSYS_s *)AISysBufferAlloc(buf, buf_end, sizeof(APIOBJECTSYS_s));
+  if (system != 0) {
+    memset(system, 0, sizeof(*system));
+    if (size != 0) {
+      system->objects = (APIOBJECT *)AISysBufferAlloc(buf, buf_end, size * 64);
+      if (system->objects != 0) {
+        system->object_size = size;
+        memset(system->objects, 0, size * 64);
+      }
+    }
+  }
+  return system;
+}
+
+// FUNCTION: LEGOBATMAN 0x005960e0
+APIOBJECT *APIObjectCreate(APIOBJECTSYS_s *system) {
+  i32 index;
+  APIOBJECT *object;
+  if (system != 0 && system->object_size != 0) {
+    object = system->objects;
+    for (index = 0; index < 64;
+         ++index, object = (APIOBJECT *)((u8 *)object + system->object_size)) {
+      if ((object->flags & 1) == 0) {
+        memset(object, 0, system->object_size);
+        object->flags |= 1;
+        object->index = index;
+        return object;
+      }
+    }
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00596130
+void APIObjectRemoveFromLOSTable(APIOBJECTSYS_s *system, APIOBJECT *source,
+                                 APIOBJECT *target) {
+  if (source != 0) {
+    system->line_of_sight[source->index] &=
+        ~((unsigned __int64)1 << target->index);
+  } else {
+    system->line_of_sight[target->index] = 0;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00596180
+void APIObjectDestroy(APIOBJECTSYS_s *system, APIOBJECT *object) {
+  if (system == 0 || object == 0 || system->object_size == 0)
+    return;
+  if (system->line_of_sight != 0) {
+    APIOBJECT *other = system->objects;
+    for (i32 i = 0; i < 64; i++) {
+      if ((other->flags & 1) != 0)
+        APIObjectRemoveFromLOSTable(system, other, object);
+      other = (APIOBJECT *)((u8 *)other + system->object_size);
+    }
+    APIObjectRemoveFromLOSTable(system, 0, object);
+  }
+  memset(object, 0, system->object_size);
+}
+
+// FUNCTION: LEGOBATMAN 0x005961f0
+void APIObjectDestroyAll(APIOBJECTSYS_s *system) {
+  if (system != 0)
+    memset(system->objects, 0, system->object_size * 64);
 }
 
 u32 NuRandInt(void);

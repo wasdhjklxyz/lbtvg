@@ -120,3 +120,11 @@
 00598230 SetAPIObjPlaySfxByIdFn  saga body matches (stores fn pointer), follows AddGameDebrisMom
 00597e60 InitGameDebris  saga body matches (aligned cursor alloc, names then debtab entries)
 00598130 AddGameDebrisMtx  saga body matches; Mac order between Rot and Mom
+00595fb0 AnimEndFrame  saga body (plus PC model/capacity checks) calls NuAnimEndFrame; Mac order before AnimFlags
+00596020 SetAnimBlendMode  saga body; Mac order right after AnimFlags
+00596030 GetAnimBlendMode  saga body; Mac order after SetAnimBlendMode
+00596040 APIObjectSysInit  saga body matches (0x218 sys, size*64 objects via AISysBufferAlloc)
+005960e0 APIObjectCreate  saga body matches (first free of 64 slots, SetUsed inlined)
+00596130 APIObjectRemoveFromLOSTable  saga body matches (u64 LOS mask clear)
+00596180 APIObjectDestroy  saga body shape (LOS removal loop, memset object)
+005961f0 APIObjectDestroyAll  saga body matches (memset objects size*64)
