@@ -330,6 +330,10 @@ struct GameObject_s {
       u32 ignore_slide_terrain : 1; // 0x1414 bit 13
     };
     struct {
+      u32 : 10;
+      u32 awkward_shape_override : 1; // 0x1414 bit 10
+    };
+    struct {
       u32 : 27;
       u32 no_idle_speed : 1; // 0x1414 bit 27
     };

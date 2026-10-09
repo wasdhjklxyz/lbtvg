@@ -5079,3 +5079,32 @@ i32 Action_CannotDropIn(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 1;
 }
+
+// FUNCTION: LEGOBATMAN 0x0046d3d0
+i32 Action_AwkwardShapeOverride(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                AIPACKET_s *packet, char **args, int argc,
+                                int flags, f32 time) {
+  GameObject_s *obj = 0;
+  i32 on = 1;
+  if (flags != 0) {
+    if (packet != 0 && packet->pd0 != 0)
+      obj = packet->pd0->obj;
+    if (argc != 0) {
+      for (i32 i = 0; i < argc; i++) {
+        if (NuStrICmp(args[i], "FALSE") == 0) {
+          on = 0;
+        } else {
+          char *s = NuStrIStr(args[i], "character=");
+          if (s != 0)
+            obj = GetNamedGameObject(sys, s + 10);
+        }
+      }
+    }
+    if (obj != 0) {
+      if (obj->b9db == 0x3c || obj->p1158 != 0)
+        Player_ClearContext(obj, 1);
+      obj->awkward_shape_override = on;
+    }
+  }
+  return 1;
+}
