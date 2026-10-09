@@ -170,6 +170,119 @@ def saga_decl(ident, saga_file):
     return None
 
 
+SAGA_H = None
+
+
+def saga_headers():
+    global SAGA_H
+    if SAGA_H is None:
+        SAGA_H = [(f, f.read_text(errors="ignore")) for f in sorted((ROOT / "ref/saga/src").rglob("*.h"))]
+    return SAGA_H
+
+
+def saga_proto(ident):
+    """saga's declaration of function ident, as a prototype line."""
+    pat = re.compile(r"^[ \t]*(?!return\b|#|//)([\w][\w\s\*&:<>,]*?\b" + re.escape(ident) +
+                     r"\s*\([^;{)]*\))\s*;", re.M)
+    for f, text in saga_headers():
+        m = pat.search(text)
+        if m:
+            return m.group(1).strip() + ";"
+    for path, line, body in saga.find(ident):
+        return body[:body.index("{")].strip() + ";"
+    return None
+
+
+def balanced_block(text, start):
+    """From start through the matching close brace and its trailing `name;`."""
+    i = text.index("{", start)
+    depth = 0
+    for j in range(i, len(text)):
+        depth += text[j] == "{"
+        depth -= text[j] == "}"
+        if depth == 0:
+            end = text.index(";", j)
+            return text[start:end + 1]
+    return None
+
+
+def our_header_for(ident):
+    """A header under src/ that already defines type ident."""
+    pat = re.compile(r"(struct|union|enum)\s+" + re.escape(ident) + r"\s*\{|\}\s*" + re.escape(ident) +
+                     r"\s*;|typedef\b[^;{]*\b" + re.escape(ident) + r"\s*;")
+    for h in sorted(SRC.rglob("*.h")):
+        if pat.search(h.read_text(errors="ignore")):
+            return h
+    return None
+
+
+def saga_type(ident):
+    """saga's definition of type ident (struct body and/or typedef)."""
+    out = []
+    for f, text in saga_headers():
+        m = re.search(r"^[ \t]*(typedef\s+)?(struct|union|enum)\s+" + re.escape(ident) + r"\b[^;{]*\{", text, re.M)
+        if m:
+            out.append(balanced_block(text, m.start()))
+            break
+        m = re.search(r"^[ \t]*typedef\s+(struct|union|enum)\s+\w*\s*\{", text, re.M)
+        while m:
+            blk = balanced_block(text, m.start())
+            if blk and re.search(r"\}\s*[^;]*\b" + re.escape(ident) + r"\b[^;]*;$", blk):
+                out.append(blk)
+                break
+            m = re.compile(r"^[ \t]*typedef\s+(struct|union|enum)\s+\w*\s*\{", re.M).search(text, m.end())
+        if out:
+            break
+        m = re.search(r"^[ \t]*typedef\s+(?:struct\s+|union\s+|enum\s+)?(\w+)[\s\*]*\b" + re.escape(ident) + r"\s*;", text, re.M)
+        if m:
+            inner = saga_type(m.group(1)) if m.group(1) != ident else None
+            out += ([inner] if inner else []) + [m.group(0).strip()]
+            break
+    return "\n".join(x for x in out if x) or None
+
+
+def missing_from(errs, path):
+    """(kind, ident) pairs the compiler complained about."""
+    want = []
+    src_lines = path.read_text(errors="ignore").splitlines()
+    for e in errs:
+        m = re.search(r"C3861: '(\w+)': identifier not found", e)
+        if m:
+            want.append(("func", m.group(1))); continue
+        m = re.search(r"C2065: '(\w+)' : undeclared identifier", e)
+        if m:
+            want.append(("var", m.group(1))); continue
+        m = re.search(r"C20(?:61|79|27)[^']*'(?:struct )?(\w+)'", e)
+        if m:
+            want.append(("type", m.group(1))); continue
+        m = re.search(r"\((\d+)\) : error C2146: syntax error : missing ';' before identifier '(\w+)'", e)
+        if m and int(m.group(1)) <= len(src_lines):
+            tm = re.search(r"(\w+)[\s\*&]+" + re.escape(m.group(2)) + r"\b", src_lines[int(m.group(1)) - 1])
+            if tm:
+                want.append(("type", tm.group(1)))
+    return list(dict.fromkeys(want))
+
+
+def resolve(kind, ident, saga_file, path):
+    """Text to put before the function, and a label, or (None, None)."""
+    if kind in ("type", "var"):
+        h = our_header_for(ident)
+        if h:
+            return f'#include "{rel_include(path, h.relative_to(SRC).as_posix())}"', f"{ident} (our {h.relative_to(SRC)})"
+        ty = saga_type(ident)
+        if ty:
+            return ty, f"{ident} (type, saga)"
+    if kind == "var":
+        d = saga_decl(ident, saga_file)
+        if d:
+            return d, f"{ident} (global, saga)"
+    if kind in ("func", "var"):
+        p = saga_proto(ident)
+        if p:
+            return p, f"{ident}() (saga)"
+    return None, None
+
+
 def pick_random(kind):
     """A random entry from docs/todo.md; by default small, not a stub, saga has it."""
     import random
@@ -218,29 +331,36 @@ def main(argv):
         block = f"// from saga {saga_path}\n// FUNCTION: LEGOBATMAN 0x{addr:08x}\n{body}"
         insert(path, addr, block)
         ok, errs = compiles(path)
-        fetched = []
-        for _ in range(6):                       # pull missing globals from saga, retry
+        dep_list, fetched, tried = [], [], set()
+        joined = lambda xs: "\n\n".join(xs)
+        rank = lambda s: 0 if s.startswith("#include") else 1 if re.match(r"\s*(typedef|struct|union|enum)\b", s) else 2
+        for _ in range(12):                      # fetch what the compiler says is missing, retry
             if ok:
                 break
-            missing = re.findall(r"error C2065: '(\w+)' : undeclared identifier", "\n".join(errs))
-            decls = [(m, saga_decl(m, saga_path)) for m in dict.fromkeys(missing)]
-            decls = [(m, d) for m, d in decls if d and m not in fetched]
-            if not decls:
+            add = []
+            for kind, ident in missing_from(errs, path):
+                if (kind, ident) in tried:
+                    continue
+                tried.add((kind, ident))
+                text_, label = resolve(kind, ident, saga_path, path)
+                if text_ and text_ not in dep_list and text_ not in add:
+                    add.append(text_); fetched.append(label)
+            if not add:
                 break
+            old_text = (joined(dep_list) + "\n\n" if dep_list else "") + block
+            dep_list = sorted(dep_list + add, key=rank)   # includes, then types, then the rest
             text = path.read_text()
-            add = "\n".join(d for _, d in decls)
-            path.write_text(text.replace(block, add + "\n\n" + block))
-            block = add + "\n\n" + block
-            fetched += [m for m, _ in decls]
+            path.write_text(text.replace(old_text, joined(dep_list) + "\n\n" + block))
             ok, errs = compiles(path)
+        deps = joined(dep_list)
         if fetched:
-            print(f"globals: pulled from saga: {', '.join(fetched)}")
+            print("pulled:  " + ", ".join(fetched))
         if not ok:
             text = path.read_text()
             reason = (errs[0].split(" error ", 1)[-1] if errs else "compile failed")[:100]
             parked = (f"// STUB: LEGOBATMAN 0x{addr:08x}\n// does not compile yet: {reason}\n#if 0\n"
-                      f"// from saga {saga_path}\n{body}\n#endif")
-            path.write_text(text.replace(block, parked))
+                      + (deps + "\n\n" if deps else "") + f"// from saga {saga_path}\n{body}\n#endif")
+            path.write_text(text.replace((deps + "\n\n" if deps else "") + block, parked))
             print(f"saga:  {saga_path}  -> inserted, but it does not compile yet; parked in #if 0 as a STUB:")
             for e in errs[:6]:
                 print("       " + e.split(str(SRC) + "/")[-1])
