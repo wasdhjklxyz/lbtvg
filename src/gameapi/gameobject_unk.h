@@ -123,9 +123,10 @@ struct GameObject_s {
   u8 b9d9;   // 0x9d9
   u8 b9da;   // 0x9da
   char b9db; // 0x9db
-  u8 pad11[0x9df - 0x9dc];
-  u8 b9df; // 0x9df
-  u8 b9e0; // 0x9e0
+  u8 pad11[0x9de - 0x9dc];
+  char special_move; // 0x9de, -1 = none
+  u8 b9df;           // 0x9df
+  u8 b9e0;           // 0x9e0
   u8 pad9e1[0x9e8 - 0x9e1];
   f32 f9e8;  // 0x9e8
   char b9ec; // 0x9ec

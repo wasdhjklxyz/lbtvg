@@ -236,3 +236,6 @@
 005d5890 DetonatorSys_Init  same as Mac (aligned sys + detonator array from buffer, four i16 params)
 006ea240 NuMovieGrabAttachFrameBuffer  NuMovieGrab_PC.cpp __FILE__ line 0x2e; allocates width*height*bpp frame buffer
 006ea2a0 NuMovieGrabDetachFrameBuffer  NuMovieGrab_PC.cpp __FILE__ line 0x3f; frees the frame buffer
+005c32c0 LoseHP_EndDelay  buzzes the message's player pad (0/1) or rumbles all players; Mac name pairing, same calls
+0062dee0 SpecialMove_IsInMultiPhase  same as Mac (special-move context, 0x9c-byte move table, byte 0x98 != -1)
+00620aa0 DefinedLocators_FindIX  same as Mac (NuStrICmp over defined locator names)

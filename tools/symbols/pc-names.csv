@@ -437,7 +437,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005c1b80,00319982,__Z20Player_ResetContextsP12GameObject_s,Player_ResetContexts(GameObject_s*),calls,3
 005c2250,0031ad5e,__Z22Player_ToggleCharacterP12GameObject_sii,"Player_ToggleCharacter(GameObject_s*, int, int)",strings,0
 005c2bb0,0031a160,__Z18Players_BothActivev,Players_BothActive(),confirmed,0
-005c32c0,0031a8c8,__Z15LoseHP_EndDelayP13GAMEMESSAGE_s,LoseHP_EndDelay(GAMEMESSAGE_s*),gapfill,3
+005c32c0,0031a8c8,__Z15LoseHP_EndDelayP13GAMEMESSAGE_s,LoseHP_EndDelay(GAMEMESSAGE_s*),confirmed,0
 005c3310,0031a934,__Z13LoseHitPointsP12GameObject_si,"LoseHitPoints(GameObject_s*, int)",gapfill,2
 005c4080,002ecc00,__ZN18InteractiveDisplay23GetFirstSpecialMaterialEP8nugscn_sPc,"InteractiveDisplay::GetFirstSpecialMaterial(nugscn_s*, char*)",gapfill,1
 005c71d0,002ed046,__ZN18InteractiveDisplay14InitializePermEPcP9variptr_uS2_,"InteractiveDisplay::InitializePerm(char*, variptr_u*, variptr_u*)",gapfill,1
@@ -550,7 +550,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0061f2d0,00278cbc,__Z14CharScene_LoadiP9CHARSCENEP9variptr_uS1_,"CharScene_Load(int, CHARSCENE*, variptr_u*, variptr_u)",strings,0
 00620160,0027a02a,__Z10DrawHoseExP19GAMECHARACTERDATA_sP7numtx_sP7numtl_sf,"DrawHoseEx(GAMECHARACTERDATA_s*, numtx_s*, numtl_s*, float)",gapfill,3
 00620370,0027a18c,__Z8DrawHoseP12GameObject_s,DrawHose(GameObject_s*),gapfill,2
-00620aa0,0027a3d2,__Z22DefinedLocators_FindIXPc,DefinedLocators_FindIX(char*),gapfill,1
+00620aa0,0027a3d2,__Z22DefinedLocators_FindIXPc,DefinedLocators_FindIX(char*),confirmed,0
 00620b30,0027a480,__Z16RedirectTextFilePcS_iPi,"RedirectTextFile(char*, char*, int, int*)",strings,0
 006213c0,0027f374,__Z13CC_anim_startP8nufpar_s,CC_anim_start(nufpar_s*),strings,0
 00623850,0027b58a,__Z14ParseStreakColP8nufpar_s,ParseStreakCol(nufpar_s*),strings,0
@@ -561,7 +561,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0062d7e0,0030ac0e,__Z18Missions_ConfigurePcP9variptr_uS1_P13MISSIONSAVE_s,"Missions_Configure(char*, variptr_u*, variptr_u*, MISSIONSAVE_s*)",strings,0
 0062db70,0030af92,__Z13Mission_ClearP12MISSIONSYS_s,Mission_Clear(MISSIONSYS_s*),confirmed,0
 0062dba0,0030afd4,__Z14Mission_ActiveP12MISSIONSYS_s,Mission_Active(MISSIONSYS_s*),gapfill,4
-0062dee0,003327b6,__Z26SpecialMove_IsInMultiPhaseP12GameObject_s,SpecialMove_IsInMultiPhase(GameObject_s*),gapfill,3
+0062dee0,003327b6,__Z26SpecialMove_IsInMultiPhaseP12GameObject_s,SpecialMove_IsInMultiPhase(GameObject_s*),confirmed,0
 0062df30,00332812,__Z27SpecialMove_AdjustLayerBitsP12GameObject_sRj,"SpecialMove_AdjustLayerBits(GameObject_s*, unsigned int&)",order,4
 0062df90,00332874,__Z29SpecialMove_ConfigParticipantP8nufpar_sPjPsS2_,"SpecialMove_ConfigParticipant(nufpar_s*, unsigned int*, short*, short*)",strings,0
 0062e360,00332c9a,__Z22SpecialMoves_ConfigurePcP9variptr_uS1_P18SPECIALMOVEFIXUP_s,"SpecialMoves_Configure(char*, variptr_u*, variptr_u*, SPECIALMOVEFIXUP_s*)",strings,0

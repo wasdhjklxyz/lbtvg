@@ -75,7 +75,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [PowerUp](#powerup) | 1 | 1 |
 | [Pulses](#pulses) | 1 | 1 |
 | [SpecialMiniKits](#specialminikits) | 1 | 1 |
-| [SpecialMove](#specialmove) | 3 | 1 |
+| [SpecialMove](#specialmove) | 2 | 1 |
 | [SpecialMoves](#specialmoves) | 1 | 1 |
 | [SuperCarry](#supercarry) | 2 | 1 |
 | [TakeOver](#takeover) | 1 | 1 |
@@ -98,7 +98,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Create](#create) | 1 | 0 |
 | [Customiser](#customiser) | 4 | 0 |
 | [CustomiserInternal](#customiserinternal) | 5 | 0 |
-| [DefinedLocators](#definedlocators) | 1 | 0 |
 | [Detonator](#detonator) | 3 | 0 |
 | [DetonatorSys](#detonatorsys) | 1 | 0 |
 | [Door](#door) | 1 | 0 |
@@ -127,7 +126,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [LightningManager](#lightningmanager) | 2 | 0 |
 | [LMC](#lmc) | 1 | 0 |
 | [LoadAreaData](#loadareadata) | 1 | 0 |
-| [LoseHP](#losehp) | 1 | 0 |
 | [MemoryManager](#memorymanager) | 2 | 0 |
 | [Minicam](#minicam) | 1 | 0 |
 | [MovePlayer](#moveplayer) | 1 | 0 |
@@ -667,7 +665,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## SpecialMove
 
-- [ ] `0062dee0` 75 B `SpecialMove_IsInMultiPhase(GameObject_s*)`  **hint** name (gapfill)
 - [ ] `0062df30` 83 B `SpecialMove_AdjustLayerBits(GameObject_s*, unsigned int&)`  **hint** name (order)
 - [ ] `0062df90` 969 B `SpecialMove_ConfigParticipant(nufpar_s*, unsigned int*, short*, short*)`  **saga** `legoapi/actions/character/specialmoves.cpp`
 
@@ -779,10 +776,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00672c60` 298 B `CustomiserInternal::FindSetFromName(char*)`
 - [ ] `00673420` 494 B `CustomiserInternal::MenuDrawItem(VuVec&, float, MenuItemType, int)`
 - [ ] `00673610` 1480 B `CustomiserInternal::MenuDrawNames()`
-
-## DefinedLocators
-
-- [ ] `00620aa0` 82 B `DefinedLocators_FindIX(char*)`  **hint** name (gapfill)
 
 ## Detonator
 
@@ -912,10 +905,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## LoadAreaData
 
 - [ ] `004a84c0` 2773 B `LoadAreaData_DrawAreaVillain(AREADATA_s*, int, float, float, float, float)`
-
-## LoseHP
-
-- [ ] `005c32c0` 72 B `LoseHP_EndDelay(GAMEMESSAGE_s*)`  **hint** name (gapfill)
 
 ## MemoryManager
 

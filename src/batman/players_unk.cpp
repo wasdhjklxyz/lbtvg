@@ -289,3 +289,29 @@ i32 Players_BothActive() {
   }
   return 0;
 }
+
+struct GAMEMESSAGE_s {
+  u8 pad000[0x101];
+  i8 player; // 0x101, 0/1 = that player's pad, else all players
+};
+
+// 0x60 bytes per player; only the pad pointer is evidenced.
+struct Unk00a96388 {
+  nupad_s *pad; // 0x00
+  u8 pad04[0x60 - 4];
+};
+
+// GLOBAL: LEGOBATMAN 0x00a96388
+extern Unk00a96388 g_unk00a96388[];
+
+void NewRumbleAllPlayers(f32 strength, f32 duration, i32 frames, i32 flags);
+void NewBuzzFrames(nupad_s *pad, i32 frames, i32 flags);
+
+// FUNCTION: LEGOBATMAN 0x005c32c0
+void LoseHP_EndDelay(GAMEMESSAGE_s *message) {
+  i8 player = message->player;
+  if (player != 0 && player != 1)
+    NewRumbleAllPlayers(0.0f, 0.0f, 1, 0);
+  else
+    NewBuzzFrames(g_unk00a96388[player].pad, 1, 0);
+}
