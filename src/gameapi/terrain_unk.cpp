@@ -34,8 +34,9 @@ typedef struct WORLDINFO_s {
   unsigned char pad2968[0x2adc - 0x2968];
   i32 unk2adc; // 0x2adc
   unsigned char pad2ae0[0x2ae4 - 0x2ae0];
-  i32 page_anim; // 0x2ae4
-  unsigned char pad2ae8[0x51bc - 0x2ae8];
+  i32 page_anim;  // 0x2ae4
+  i32 page_grass; // 0x2ae8
+  unsigned char pad2aec[0x51bc - 0x2aec];
   PORTALDOOR *portal_doors; // 0x51bc
   i32 portal_door_count;    // 0x51c0
 } WORLDINFO;
@@ -85,5 +86,26 @@ void LoadTerrainFile(WORLDINFO *world) {
         world->level_idx, &world->giz_buffer, world->giz_buffer_end, 0,
         world->config_file, world->current_gscn, 0, level->max_ter_groups,
         level->max_ter_groups, level->max_ter_platforms);
+  }
+}
+
+// GLOBAL: LEGOBATMAN 0x00abe184
+extern i32 Grass_Available;
+
+i32 edgraLoadPage(char *path, void *scene, void *terrain, u32 *buffer,
+                  void **buffer_end);
+
+// FUNCTION: LEGOBATMAN 0x005c8f30
+void LoadGrassFile(WORLDINFO *world) {
+  char path[256];
+
+  world->page_grass = -1;
+  if (Grass_Available) {
+    sprintf(path, "%s.gra", world->config_file);
+    if (NuFileExists(path)) {
+      world->page_grass =
+          edgraLoadPage(path, world->current_gscn, world->terrain,
+                        &world->giz_buffer, &world->giz_buffer_end);
+    }
   }
 }

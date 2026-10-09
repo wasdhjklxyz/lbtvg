@@ -13,7 +13,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [near rtleditor.cpp](#near-rtleditorcpp) | 91 | 65 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 90 | 64 |
 | [Action](#action) | 72 | 57 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
@@ -59,7 +59,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Cheat](#cheat) | 2 | 1 |
 | [Credits](#credits) | 1 | 1 |
 | [Detonator](#detonator) | 4 | 1 |
-| [Detonators](#detonators) | 2 | 1 |
 | [Episodes](#episodes) | 1 | 1 |
 | [EquivalentObject](#equivalentobject) | 1 | 1 |
 | [EquivalentObjects](#equivalentobjects) | 1 | 1 |
@@ -122,6 +121,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Customiser](#customiser) | 4 | 0 |
 | [CustomiserInternal](#customiserinternal) | 5 | 0 |
 | [DefinedLocators](#definedlocators) | 1 | 0 |
+| [Detonators](#detonators) | 1 | 0 |
 | [DetonatorSys](#detonatorsys) | 4 | 0 |
 | [DynamicMaterialManager](#dynamicmaterialmanager) | 1 | 0 |
 | [ElectricShock](#electricshock) | 1 | 0 |
@@ -252,7 +252,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0059c4b0` 127 B `_ActionFromName`  **hint** name (gapfill)
 - [ ] `0065c320` 136 B `LoseHat(GameObject_s*)`  **hint** name (gapfill)
 - [ ] `005b00d0` 153 B `LineIntersectCircle(nuvec_s*, nuvec_s*, nuvec_s*, float)`  **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
-- [ ] `005c8f30` 155 B `LoadGrassFile(WORLDINFO_s*)`  **saga** `legoapi/render/core/terrain.cpp`
 - [ ] `00620370` 158 B `DrawHose(GameObject_s*)`  **hint** name (gapfill)
 - [ ] `00623850` 166 B `ParseStreakCol(nufpar_s*)`
 - [ ] `005f6df0` 174 B `AddExplosion(nuvec_s*, float, float, GameObject_s*, int, int, int)`  **hint** name (gapfill) · **saga** `legoapi/items/fx/explosions.cpp`
@@ -738,11 +737,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005d5b60` 192 B `Detonator_FindOldest(GameObject_s*, float)`  **hint** name (order)
 - [ ] `005d59d0` 204 B `Detonator_FindFreeSlot(GameObject_s*)`  **hint** name (order)
 
-## Detonators
-
-- [ ] `005d59a0` 38 B `Detonators_Reset()`  **hint** name (order) · **saga** `legoapi/items/collect/detonator.cpp`
-- [ ] `005d5970` 48 B `Detonators_GetBombLight(short)`  **hint** name (gapfill)
-
 ## Episodes
 
 - [ ] `00648970` 912 B `Episodes_ConfigureList(char*, variptr_u*, variptr_u*, int, int*)`  **saga** `legoapi/world/levels/episode.cpp`
@@ -1032,6 +1026,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## DefinedLocators
 
 - [ ] `00620aa0` 82 B `DefinedLocators_FindIX(char*)`  **hint** name (gapfill)
+
+## Detonators
+
+- [ ] `005d5970` 48 B `Detonators_GetBombLight(short)`  **hint** name (gapfill)
 
 ## DetonatorSys
 
