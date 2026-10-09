@@ -921,6 +921,22 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00624d40,0027c868,__Z13CC_resist_zapP8nufpar_s,CC_resist_zap(nufpar_s*),confirmed,0
 00624d90,0027c87a,__Z14CC_has_no_turnP8nufpar_s,CC_has_no_turn(nufpar_s*),confirmed,0
 00624de0,0027c88c,__Z8CC_ghostP8nufpar_s,CC_ghost(nufpar_s*),confirmed,0
+00624e30,0027c89e,__Z16CC_speed_up_timeP8nufpar_s,CC_speed_up_time(nufpar_s*),confirmed,0
+00624e50,0027c8d0,__Z17CC_slow_down_timeP8nufpar_s,CC_slow_down_time(nufpar_s*),confirmed,0
+00624e70,0027c902,__Z24CC_jump_move_speed_scaleP8nufpar_s,CC_jump_move_speed_scale(nufpar_s*),confirmed,0
+00624e90,0027c934,__Z14CC_loop_heightP8nufpar_s,CC_loop_height(nufpar_s*),confirmed,0
+00624eb0,0027c966,__Z12CC_no_tiptoeP8nufpar_s,CC_no_tiptoe(nufpar_s*),confirmed,0
+00624f00,0027c978,__Z18CC_already_got_hatP8nufpar_s,CC_already_got_hat(nufpar_s*),confirmed,0
+00624f50,0027c98a,__Z14CC_not_got_hatP8nufpar_s,CC_not_got_hat(nufpar_s*),confirmed,0
+00624f60,0027c9a2,__Z19CC_punch_weapon_outP8nufpar_s,CC_punch_weapon_out(nufpar_s*),confirmed,0
+00624fb0,0027c9b4,__Z16CC_can_take_overP8nufpar_s,CC_can_take_over(nufpar_s*),confirmed,0
+00625000,0027c9c6,__Z17CC_turning_circleP8nufpar_s,CC_turning_circle(nufpar_s*),confirmed,0
+00625050,0027c9d8,__Z20CC_slide_orientationP8nufpar_s,CC_slide_orientation(nufpar_s*),confirmed,0
+006250a0,0027c9ea,__Z16CC_can_use_cableP8nufpar_s,CC_can_use_cable(nufpar_s*),confirmed,0
+006250f0,0027c9fc,__Z15CC_extra_toggleP8nufpar_s,CC_extra_toggle(nufpar_s*),confirmed,0
+00625140,0027ca0e,__Z14CC_can_flattenP8nufpar_s,CC_can_flatten(nufpar_s*),confirmed,0
+00625190,0027ca20,__Z17CC_tightrope_walkP8nufpar_s,CC_tightrope_walk(nufpar_s*),confirmed,0
+006251e0,0027ca32,__Z13CC_car_wheelsP8nufpar_s,CC_car_wheels(nufpar_s*),confirmed,0
 006285d0,00280c32,__Z16AnimInclude_InitPcP9variptr_uS1_,"AnimInclude_Init(char*, variptr_u*, variptr_u*)",strings,0
 00629270,002818fe,__Z23CharConfig_ConfigureAlliP12nufpcomjmp_s,"CharConfig_ConfigureAll(int, nufpcomjmp_s*)",strings,0
 0062d030,002833a2,__Z24CharShadows_InitMaterialP9variptr_uS_,"CharShadows_InitMaterial(variptr_u*, variptr_u)",strings,0

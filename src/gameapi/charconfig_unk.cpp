@@ -10,15 +10,19 @@ typedef struct nufpar_s {
 
 typedef struct CHARCONFIG_RUNTIME_s {
   unsigned char pad0[0xf0];
-  f32 cloak_up_angle;   // 0xf0
-  f32 cloak_down_angle; // 0xf4
-  f32 viewrange;        // 0xf8
-  f32 heardistance;     // 0xfc
-  f32 max_viewheight;   // 0x100
-  f32 min_viewheight;   // 0x104
-  f32 turn_rate_1;      // 0x108
-  f32 turn_rate_2;      // 0x10c
-  unsigned char pad110[0x130 - 0x110];
+  f32 cloak_up_angle;        // 0xf0
+  f32 cloak_down_angle;      // 0xf4
+  f32 viewrange;             // 0xf8
+  f32 heardistance;          // 0xfc
+  f32 max_viewheight;        // 0x100
+  f32 min_viewheight;        // 0x104
+  f32 turn_rate_1;           // 0x108
+  f32 turn_rate_2;           // 0x10c
+  f32 speed_up_time;         // 0x110
+  f32 slow_down_time;        // 0x114
+  f32 jump_move_speed_scale; // 0x118
+  f32 loop_height;           // 0x11c
+  unsigned char pad120[0x130 - 0x120];
   f32 banking;           // 0x130
   f32 banking2;          // 0x134
   f32 thrust_draw_scale; // 0x138
@@ -689,3 +693,61 @@ void CC_has_no_turn(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x10000); }
 
 // FUNCTION: LEGOBATMAN 0x00624de0
 void CC_ghost(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x8000); }
+
+// FUNCTION: LEGOBATMAN 0x00624e30
+void CC_speed_up_time(NUFPAR *parser) {
+  charconfig.runtime->speed_up_time = NuFParGetFloat(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x00624e50
+void CC_slow_down_time(NUFPAR *parser) {
+  charconfig.runtime->slow_down_time = NuFParGetFloat(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x00624e70
+void CC_jump_move_speed_scale(NUFPAR *parser) {
+  charconfig.runtime->jump_move_speed_scale = NuFParGetFloat(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x00624e90
+void CC_loop_height(NUFPAR *parser) {
+  charconfig.runtime->loop_height = NuFParGetFloat(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x00624eb0
+void CC_no_tiptoe(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x8); }
+
+// FUNCTION: LEGOBATMAN 0x00624f00
+void CC_already_got_hat(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x10); }
+
+// FUNCTION: LEGOBATMAN 0x00624f50
+void CC_not_got_hat(NUFPAR *parser) {
+  charconfig.runtime->gcdata_flags &= ~0x10;
+}
+
+// FUNCTION: LEGOBATMAN 0x00624f60
+void CC_punch_weapon_out(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x20); }
+
+// FUNCTION: LEGOBATMAN 0x00624fb0
+void CC_can_take_over(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x40); }
+
+// FUNCTION: LEGOBATMAN 0x00625000
+void CC_turning_circle(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x100); }
+
+// FUNCTION: LEGOBATMAN 0x00625050
+void CC_slide_orientation(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x200); }
+
+// FUNCTION: LEGOBATMAN 0x006250a0
+void CC_can_use_cable(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x400); }
+
+// FUNCTION: LEGOBATMAN 0x006250f0
+void CC_extra_toggle(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x80000000); }
+
+// FUNCTION: LEGOBATMAN 0x00625140
+void CC_can_flatten(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x1000); }
+
+// FUNCTION: LEGOBATMAN 0x00625190
+void CC_tightrope_walk(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x80000); }
+
+// FUNCTION: LEGOBATMAN 0x006251e0
+void CC_car_wheels(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x100000); }
