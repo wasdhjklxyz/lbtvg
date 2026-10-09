@@ -78,7 +78,12 @@ void BotanicGardens_B_Reset(WORLDINFO_s *wi) {
 typedef struct LEVELDATA_s {
   unsigned char pad0[0x40];
   char name[0x20]; // 0x40
-  unsigned char pad60[0xe0 - 0x60];
+  unsigned char pad60[0x64 - 0x60];
+  u32 flags; // 0x64
+  unsigned char pad68[0xd9 - 0x68];
+  u8 blob_shadow_fade_near; // 0xd9
+  u8 blob_shadow_fade_far;  // 0xda
+  unsigned char paddb[0xe0 - 0xdb];
   f32 conveyor_x_speed; // 0xe0
   f32 conveyor_z_speed; // 0xe4
   unsigned char pade8[0x150 - 0xe8];
@@ -186,4 +191,30 @@ void LC_AL_conveyor(NUFPAR *fp) {
       levelconfig_ldata->conveyor_z_speed = NuFParGetFloat(fp);
     }
   }
+}
+
+// GLOBAL: LEGOBATMAN 0x00963278
+extern nufpcomjmp_s LevelConfig_AfterLoad_GenericKeywords[];
+
+// FUNCTION: LEGOBATMAN 0x0060e5b0
+void LevelConfig_AfterLoad(LEVELDATA *level, char *buffer,
+                           nufpcomjmp_s *keywords) {
+  NUFPAR *parser = NuFParCreateMem("levelafterload", buffer, 0xffff);
+  if (parser == 0) {
+    return;
+  }
+
+  levelconfig_ldata = level;
+  NuFParPushCom2(parser, LevelConfig_AfterLoad_GenericKeywords, keywords);
+  while (NuFParGetLine(parser) != 0) {
+    if (NuFParGetWord(parser) != 0) {
+      NuFParInterpretWord(parser);
+    }
+  }
+  NuFParDestroy(parser);
+
+  if (level->blob_shadow_fade_near > level->blob_shadow_fade_far) {
+    level->blob_shadow_fade_near = level->blob_shadow_fade_far;
+  }
+  level->flags |= 1;
 }

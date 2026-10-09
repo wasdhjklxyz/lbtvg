@@ -2,6 +2,7 @@
 
 #include "../nu2api/nucore/common.h"
 #include "../nu2api/numath/nuvec.h"
+#include <string.h>
 
 typedef struct nupad_s nupad_s;
 
@@ -35,6 +36,26 @@ void PlaySfxById(i32 sfx_id, nuvec_s *position);
 
 // GLOBAL: LEGOBATMAN 0x009e7bd8
 extern nuvec_s nusound_special_positions[3];
+
+struct GAMEAUDIO {
+  i32 (*override_footstep_fn)(GameObject_s *, i32);
+  i32 (*check_reverb_fn)(void);
+  i16 sfx_ids[201];
+};
+
+// GLOBAL: LEGOBATMAN 0x00a95908
+extern GAMEAUDIO GameAudio_Default;
+// GLOBAL: LEGOBATMAN 0x0095ed94
+extern GAMEAUDIO *GameAudio;
+
+// FUNCTION: LEGOBATMAN 0x0059f190
+void GameAudio_Reset() {
+  GameAudio = &GameAudio_Default;
+  memset(&GameAudio_Default, 0, sizeof(GameAudio_Default));
+  for (i32 i = 0; i < 201; ++i) {
+    GameAudio_Default.sfx_ids[i] = -1;
+  }
+}
 
 // FUNCTION: LEGOBATMAN 0x0059f1d0
 void GameAudio_PlaySfxById(i32 sfx_id, nuvec_s *position, i32 flags, i32) {

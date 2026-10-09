@@ -26,7 +26,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near nutrig_gen.cpp](#near-nutrig_gencpp) | 12 | 4 |
 | [Arcade](#arcade) | 3 | 3 |
 | [Area](#area) | 4 | 3 |
-| [GameAudio](#gameaudio) | 3 | 3 |
 | [GizAction](#gizaction) | 3 | 3 |
 | [Player](#player) | 3 | 3 |
 | [Players](#players) | 3 | 3 |
@@ -37,6 +36,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [CutScenes](#cutscenes) | 3 | 2 |
 | [Door](#door) | 3 | 2 |
 | [Doors](#doors) | 2 | 2 |
+| [GameAudio](#gameaudio) | 2 | 2 |
 | [GizActions](#gizactions) | 5 | 2 |
 | [GizmoPickup](#gizmopickup) | 2 | 2 |
 | [GizPanel](#gizpanel) | 2 | 2 |
@@ -73,7 +73,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizTurrets](#gizturrets) | 1 | 1 |
 | [Grapples](#grapples) | 1 | 1 |
 | [Level](#level) | 1 | 1 |
-| [LevelConfig](#levelconfig) | 1 | 1 |
 | [MiniKit](#minikit) | 2 | 1 |
 | [Mission](#mission) | 1 | 1 |
 | [Missions](#missions) | 1 | 1 |
@@ -563,12 +562,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005fb260` 140 B `Area_FindNextPlayLevel(int)`  **stub** · **hint** name (order) · **saga** `legoapi/world/areas.cpp`
 - [ ] `005fb430` 3692 B `Area_Configure(int, int, EXTRAMODEL*, short*)`  **saga** `legoapi/world/areas.cpp`
 
-## GameAudio
-
-- [ ] `0059f260` 32 B `GameAudio_PlaySfx(int, nuvec_s*, int, int)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
-- [ ] `0059f160` 34 B `GameAudio_GetPlrSfxBits(void*)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
-- [ ] `0059f190` 50 B `GameAudio_Reset()`  **hint** name (order) · **saga** `legoapi/audio/sfx.cpp`
-
 ## GizAction
 
 - [ ] `00482ed0` 329 B `GizAction_SetAIMessage(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
@@ -625,6 +618,11 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `00614d10` 528 B `Doors_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/props/doors/doors.cpp`
 - [ ] `00614f40` 590 B `Doors_Init(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/props/doors/doors.cpp`
+
+## GameAudio
+
+- [ ] `0059f260` 32 B `GameAudio_PlaySfx(int, nuvec_s*, int, int)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
+- [ ] `0059f160` 34 B `GameAudio_GetPlrSfxBits(void*)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
 
 ## GizActions
 
@@ -792,10 +790,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## Level
 
 - [ ] `0060ee60` 164 B `Level_LoadConfigFile(WORLDINFO_s*)`  **saga** `legoapi/world/level.cpp`
-
-## LevelConfig
-
-- [ ] `0060e5b0` 141 B `LevelConfig_AfterLoad(LEVELDATA_s*, char*, nufpcomjmp_s*)`  **saga** `legoapi/world/levelconfig.cpp`
 
 ## MiniKit
 
