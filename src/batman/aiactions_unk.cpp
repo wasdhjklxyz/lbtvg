@@ -4470,3 +4470,51 @@ i32 Action_FireSeed(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   Unk00504cf0(obj, type);
   return 1;
 }
+
+i32 ActionFromName(const char *name);
+i16 FindAnimIX(struct Unk_GameObject54 *character, char *name);
+void ResetAnimPacket(void *packet, i32 animation);
+f32 AnimDuration(i32 id, i32 anim, f32 a, f32 b, i32 c);
+
+// FUNCTION: LEGOBATMAN 0x004628c0
+i32 Action_ContextSetAnimation(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                               AIPACKET_s *packet, char **args, int argc,
+                               int flags, f32 time) {
+  i32 ncycles = 0;
+  i32 infinite = 0;
+  i16 anim = -1;
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "action=");
+      if (s != 0)
+        anim = ActionFromName(s + 7);
+      else if ((s = NuStrIStr(args[i], "anim=")) != 0)
+        anim = FindAnimIX(packet->pd0->character, s + 5);
+      else if ((s = NuStrIStr(args[i], "ncycles=")) != 0)
+        ncycles = (i32)AIParamToFloat(process, s + 8);
+      else if (NuStrIStr(args[i], "infinite") != 0)
+        infinite = 1;
+      else if (NuStrIStr(args[i], "wait_until_finished") != 0)
+        process->action_data_1 = 1;
+    }
+    if (anim != -1) {
+      ResetAnimPacket((u8 *)obj + 8, anim);
+      obj->b9db = 0x73;
+      obj->s9d0 = anim;
+      process->action_data_6 = anim;
+      if (infinite != 0)
+        obj->f98c = 1000000000.0f;
+      else if (ncycles != 0)
+        obj->f98c = AnimDuration(obj->type15b0, anim, 0.0f, 0.0f, 1) * ncycles;
+      else
+        obj->f98c = AnimDuration(obj->type15b0, anim, 0.0f, 0.0f, 1);
+    }
+  }
+  if (process->action_data_1 != 0 && obj->b9db == 0x73 &&
+      obj->s9d0 == process->action_data_6)
+    return 0;
+  return 1;
+}
