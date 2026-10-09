@@ -2,6 +2,7 @@
 // lives in another TU: PreInitialize does not know ExitNow never returns.
 
 #include "../../nu2api/nucore/common.h"
+#include <math.h>
 #include <stddef.h>
 #include <windows.h>
 
@@ -68,4 +69,30 @@ void CD3DCore::SetNextDisplayMode(unsigned int width, unsigned int height,
   if (mode >= mode_count)
     mode = current_mode;
   next_mode = mode;
+}
+
+// 0: 4:3, 1: 16:9, 2: 16:10, whichever the desktop is closest to.
+// STUB: LEGOBATMAN 0x0052a7a0
+// close: ours stores/reloads each fabsf result once more than the orig
+// (fabs, fabsf, fabsf of the difference tried)
+i32 CD3DCore::DetermineNominalAspectRatio(unsigned int width,
+                                          unsigned int height) const {
+  i32 result = 0;
+  f32 ratio = (f32)width / (f32)height;
+  f32 best = 1000.0f;
+  f32 diff;
+  diff = fabsf(ratio - 1.3333334f);
+  if (diff < best) {
+    best = diff;
+    result = 0;
+  }
+  diff = fabsf(ratio - 1.7777778f);
+  if (diff < best) {
+    best = diff;
+    result = 1;
+  }
+  diff = fabsf(ratio - 1.6f);
+  if (diff < best)
+    result = 2;
+  return result;
 }

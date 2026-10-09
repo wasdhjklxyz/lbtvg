@@ -152,3 +152,4 @@
 00697cf0 PreInterpretor::Variable::getSemanticString: jump table
 0058fe00 NuStreamProcessManager::Initialize: compiled without optimisation (ebp frame, /Od TU)
 0070f510 NuSpecialSetVisibility: eax/ecx swapped throughout, 3 tries
+0052a7a0 CD3DCore::DetermineNominalAspectRatio: one extra f32 round trip after each fabs, 3 tries

@@ -702,7 +702,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## CD3DCore
 
-- [ ] `0052a7a0` 206 B `CD3DCore::DetermineNominalAspectRatio(unsigned int, unsigned int) const`  **hint** name (gapfill)
+- [ ] `0052a7a0` 206 B `CD3DCore::DetermineNominalAspectRatio(unsigned int, unsigned int) const`  **stub** · **hint** name (gapfill)
 - [ ] `0052a610` 390 B `CD3DCore::FindNearestMode(unsigned int, unsigned int, unsigned int) const`  **hint** name (gapfill)
 - [ ] `0052d450` 2415 B `CD3DCore::BuildDeviceFromResolution(int, int)`
 
