@@ -115,3 +115,4 @@
 00623a20 CC_set_streak_locators/callers: orig passes only parser in a register (LTCG?), ours two
 00623a50 CC_set_streak_locators/callers: orig passes only parser in a register (LTCG?), ours two
 00623a80 CC_set_streak_locators/callers: orig passes only parser in a register (LTCG?), ours two
+006a5820 Action_SetIgnoreAntinodes: object/args swap edi/ebx, 3 tries

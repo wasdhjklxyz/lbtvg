@@ -856,6 +856,37 @@ i32 Action_SetFullPathSearch(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+// 0x1fc bit 17 of the packet object.
+struct AIObjFlags1fc_s {
+  u32 pad : 17;
+  u32 ignore_antinodes : 1;
+};
+
+// STUB: LEGOBATMAN 0x006a5820
+// close: object and args swap edi/ebx (decl order, ternary tried).
+i32 Action_SetIgnoreAntinodes(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char **args, int argc,
+                              int flags, f32 time) {
+  i32 ignore = 1;
+  Unk_AIPacketObj *object = NULL;
+  if (flags == 0)
+    return ignore;
+  if (packet != NULL && packet->pd0 != NULL)
+    object = packet->pd0;
+  for (i32 i = 0; i < argc; i++) {
+    char *value = NuStrIStr(args[i], "character");
+    if (value != NULL) {
+      if (GetNamedAPIObjectFn != NULL)
+        object = GetNamedAPIObjectFn(sys, value + 10);
+    } else if (NuStrICmp("FALSE", args[0]) == 0) {
+      ignore = 0;
+    }
+  }
+  if (object != NULL)
+    ((AIObjFlags1fc_s *)((u8 *)object + 0x1fc))->ignore_antinodes = ignore;
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x006a58d0
 i32 Action_NoShadows(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                      AIPACKET_s *packet, char **args, int argc, int flags,

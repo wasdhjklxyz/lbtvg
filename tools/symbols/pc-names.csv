@@ -1931,6 +1931,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006b16a0,00245478,__ZN8bugThing18BugPitGetMemNeededERK5VuVecS2_iPPciii,"bugThing::BugPitGetMemNeeded(VuVec const&, VuVec const&, int, char**, int, int, int)",strings,0
 006b2aa0,0024a292,_xConditions,_xConditions,strings,0
 006b2d00,00234482,_xActions,_xActions,strings,0
+006b32f0,00234cfe,_xInclude,_xInclude,confirmed,0
 006b3370,0024a87e,_xRefScript,_xRefScript,strings,0
 006b37e0,002352c0,_AIScriptLoadAllPakFile,_AIScriptLoadAllPakFile,strings,0
 006b3a60,00235516,_AIScriptLoadAll,_AIScriptLoadAll,confirmed,0

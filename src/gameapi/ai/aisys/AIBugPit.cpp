@@ -127,6 +127,43 @@ void *NuFilePakLoad(char *filepath, VARIPTR *buf, VARIPTR buf_end,
 void AIScriptLoadAllPakFile(void *pak, char *path, VARIPTR *buf,
                             VARIPTR *buf_end, AISYS_s *sys);
 
+struct nufpar_s {
+  u8 pad0[0x910];
+  char *word_buf; // 0x910
+};
+
+i32 NuFParGetWord(struct nufpar_s *parser);
+void NuFParSuspend(struct nufpar_s *parser);
+void NuFParResume(struct nufpar_s *parser);
+struct AISCRIPT_s;
+void AIScriptOpenPakFileParse(AISCRIPT_s **script, void *pak, char *name,
+                              char *path, VARIPTR *buf, VARIPTR *buf_end);
+
+// annotated in gameapi/ai/aiscript_unk.cpp
+extern VARIPTR *load_buff;
+extern VARIPTR *load_endbuff;
+extern AISCRIPT_s *load_aiscript;
+// GLOBAL: LEGOBATMAN 0x00ad4518
+extern char *load_path;
+// GLOBAL: LEGOBATMAN 0x00ad451c
+extern void *load_pakfile;
+
+// keyword "INCLUDE" in table 0x0099dce0
+// FUNCTION: LEGOBATMAN 0x006b32f0
+void xInclude(struct nufpar_s *parser) {
+  AISCRIPT_s *tmp_script = load_aiscript;
+  VARIPTR *tmp_buf_end = load_endbuff;
+  VARIPTR *tmp_buf = load_buff;
+  NuFParGetWord(parser);
+  NuFParSuspend(parser);
+  AIScriptOpenPakFileParse(&load_aiscript, load_pakfile, parser->word_buf,
+                           load_path, load_buff, load_endbuff);
+  NuFParResume(parser);
+  load_buff = tmp_buf;
+  load_endbuff = tmp_buf_end;
+  load_aiscript = tmp_script;
+}
+
 // FUNCTION: LEGOBATMAN 0x006b3a60
 void AIScriptLoadAll(char *path, VARIPTR *buf, VARIPTR *buf_end, AISYS_s *sys) {
   void *pak;
