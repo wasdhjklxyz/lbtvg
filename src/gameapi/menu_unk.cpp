@@ -3,6 +3,7 @@
 
 #include "../nu2api/nucore/common.h"
 #include <stdio.h>
+#include <string.h>
 
 typedef struct MENUFNINFO_s {
   u32 data[7];
@@ -91,5 +92,28 @@ void MenuInitialiseEx(MENUFNINFO *menu_info, i32 menu_id_count,
   MenuFadeMtl->attrib18 = 1;
   MenuFadeMtl->filter_mode = 1;
   NuMtlUpdate(MenuFadeMtl);
+  FUN_0051fd10(-1);
+}
+
+struct GAMEMENU_s {
+  u8 pad0[0x14];
+  i16 menu; // 0x14
+  u8 pad16[0xe0 - 0x16];
+};
+
+// GLOBAL: LEGOBATMAN 0x00ad69d0
+extern GAMEMENU_s GameMenu[10];
+// GLOBAL: LEGOBATMAN 0x0099e380
+extern i32 MenuSFX;
+// GLOBAL: LEGOBATMAN 0x0099e384
+extern i32 GameMenuLevel;
+
+// from saga legoapi/menus/screens/gamemenuall.cpp
+// FUNCTION: LEGOBATMAN 0x006bf550
+void MenuReset(void) {
+  memset(GameMenu, 0, sizeof(GameMenu));
+  GameMenu[0].menu = -1;
+  MenuSFX = -1;
+  GameMenuLevel = 0;
   FUN_0051fd10(-1);
 }

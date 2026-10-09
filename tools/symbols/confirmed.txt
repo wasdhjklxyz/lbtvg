@@ -1531,3 +1531,16 @@
 006a4940 Action_FacePlayer  keyword table 0x99df98
 006a4b10 Action_FaceOpponent  keyword table 0x99df98
 00713e60 NuRndrEndReflectionRender  clears the reflection flag and calls RndrStateSetReflection(0), saga's body
+005334d0 oaInitOption  Mac order after oaGetNextOption; memset + comparison op -1
+005334f0 oaAddOption  Mac order; forwards through OA function table +0x0c
+00533520 oaAddOptionValue  Mac order; table +0x10, three args
+00533550 oaAddBenchmark  Mac order; table +0x14
+00533580 oaAddResultValue  Mac order; table +0x18
+005335b0 oaSendSignal  Mac order; table +0x2c, returns oaBool
+005335f0 oaInitMessage  Mac order; zeroes the 8-byte message
+00533600 oaStartBenchmark  Mac order; table +0x1c
+00533630 oaDisplayFrame  Mac order; table +0x20 with a double argument
+00533670 oaEndBenchmark  Mac order; table +0x24
+005336a0 Cleanup  Mac static __Z7Cleanupv after oaEndBenchmark: frees init strings, clears table, FreeLibrary
+005339b0 oaGetNextCommand  table +0x04, calls Cleanup on OA_CMD_EXIT
+00533a80 oaInit  "oaInit() called more than once." / "Couldn't parse initialization string."

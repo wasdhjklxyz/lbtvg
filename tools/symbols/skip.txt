@@ -134,3 +134,4 @@
 005a3020 ConstantRumble: 1.25f arg store scheduled before the phase add, 3 tries
 006212d0 CC_ride_layersoff: helpers 0x621030/0x621090 take the mask in esi (register convention)
 006dd150 NuFPar string reader (BloomMethod etc.): passes a local struct to 0x6db510 in esi (register convention)
+0069a520 ShaderBuilderGen::printCgHlslProperty: value pointer arrives in eax (register convention)

@@ -100,6 +100,37 @@ struct PCSettingsManager {
 // GLOBAL: LEGOBATMAN 0x0094bc40
 extern PCSettingsManager g_PCSettings;
 
+class InputRemapClass {
+public:
+  i32 MakeCtrlStringEx(int pad, int ctrl, char *out, int a4, int a5, int a6,
+                       int a7, char *brackets);
+};
+
+// GLOBAL: LEGOBATMAN 0x009cfaf4
+extern InputRemapClass *g_inputRemap;
+// GLOBAL: LEGOBATMAN 0x009d0300
+extern char g_pcInputName[];
+
+int NuPadUnk006d5df0(int i);
+
+// FUNCTION: LEGOBATMAN 0x005235c0
+extern "C" char *PcInput_GetInputName(int pad, int ctrl, int a3, int a4) {
+  g_inputRemap->MakeCtrlStringEx(pad, ctrl, g_pcInputName, a3, a4, 1, 1, "()");
+  return g_pcInputName;
+}
+
+// FUNCTION: LEGOBATMAN 0x00523600
+extern "C" i32 PcInput_GetCtrlInputString(int pad, int ctrl, char *out) {
+  InputRemapClass *remap = g_inputRemap;
+  if (pad < 0)
+    pad = 0;
+  pad = NuPadUnk006d5df0(pad);
+  if (ctrl >= 0)
+    return remap->MakeCtrlStringEx(pad, ctrl, out, 0, 0, 1, 1, "()");
+  *out = 0;
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x00524720
 void PCSettingsManager::xReadFileVersion(NUFPAR *parser) {
   g_PCSettings.file_version = NuFParGetIntRDP(parser);
