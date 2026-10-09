@@ -10,3 +10,4 @@ orig/*.exe
 /ref/*
 !/ref/saga
 __pycache__/
+/play/
