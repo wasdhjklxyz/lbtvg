@@ -103,7 +103,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [DetonatorSys](#detonatorsys) | 1 | 0 |
 | [DynamicMaterialManager](#dynamicmaterialmanager) | 1 | 0 |
 | [ElectricShock](#electricshock) | 1 | 0 |
-| [EvilArctic](#evilarctic) | 2 | 0 |
+| [EvilArctic](#evilarctic) | 1 | 0 |
 | [EvilHarbourC](#evilharbourc) | 1 | 0 |
 | [Factory](#factory) | 1 | 0 |
 | [Flight](#flight) | 1 | 0 |
@@ -760,7 +760,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## EvilArctic
 
-- [ ] `0050bb30` 222 B `EvilArctic_C_Update(WORLDINFO_s*)`
 - [ ] `0050af50` 973 B `EvilArctic_C_Init(WORLDINFO_s*)`
 
 ## EvilHarbourC

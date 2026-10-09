@@ -95,6 +95,40 @@ void NastySewersC_Init(WORLDINFO_s *wi) {
   g_unk009ca23c = GizmoBlowUp_FindByName(wi, "sonar_mirror1");
 }
 
+// GLOBAL: LEGOBATMAN 0x00967aec
+extern i32 g_unk00967aec; // gizmo type of the tread elec bits
+// GLOBAL: LEGOBATMAN 0x009cec2c
+extern nuhspecial_s g_unk009cec2c;
+// GLOBAL: LEGOBATMAN 0x009cec38
+extern nuhspecial_s g_unk009cec38;
+// GLOBAL: LEGOBATMAN 0x009cec64
+extern u8 *g_unk009cec64;
+
+i32 Unk005bc700(GIZMOSYS_s *sys, GIZMO_s *gizmo, i32 a3, i32 a4);
+void Unk0050b6a0();
+void Unk0050b7f0(WORLDINFO_s *world);
+extern "C" void NuSpecialSetVisibility(void *special_ptr, int visible);
+
+// FUNCTION: LEGOBATMAN 0x0050bb30
+void EvilArctic_C_Update(WORLDINFO_s *world) {
+  GIZMO_s *tread1 =
+      GizmoFindByName(world->gizmoSys2b0c, g_unk00967aec, "qaz_tread1_elecbit");
+  GIZMO_s *tread2 =
+      GizmoFindByName(world->gizmoSys2b0c, g_unk00967aec, "qaz_tread2_elecbit");
+  GizmoFindByName(world->gizmoSys2b0c, g_unk00967aec, "qaz_tread3_elecbit");
+  GizmoFindByName(world->gizmoSys2b0c, g_unk00967aec, "qaz_tread4_elecbit");
+  Unk0050b6a0();
+  if (Unk005bc700(world->gizmoSys2b0c, tread1, 0, 0) &&
+      Unk005bc700(world->gizmoSys2b0c, tread2, 0, 0)) {
+    g_unk009cec64[4] = 1;
+    Unk0050b7f0(world);
+    return;
+  }
+  NuSpecialSetVisibility(&g_unk009cec2c, 0);
+  NuSpecialSetVisibility(&g_unk009cec38, 0);
+  g_unk009cec64[4] = 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x005101b0
 void Fairground_C_Reset(WORLDINFO_s *wi) {
   g_unk009ca264 = CheckGizAIMessage(gizaimessagesys, "BossFightPhase", 0);
