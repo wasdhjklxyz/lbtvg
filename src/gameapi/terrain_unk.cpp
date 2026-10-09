@@ -187,6 +187,23 @@ void RayImpact(NUVEC *movement) {
 }
 #endif
 
+struct TERRAIN_SHAPE {
+  u32 pad00[0x60 / 4];
+  u8 material[2]; // 0x60
+};
+
+// GLOBAL: LEGOBATMAN 0x009f7888
+static TERRAIN_SHAPE *ShadPoly;
+
+// GLOBAL: LEGOBATMAN 0x009f79b8
+static TERRAIN_SHAPE *EShadPoly;
+
+// FUNCTION: LEGOBATMAN 0x00571f70
+i32 ShadowInfo(void) { return ShadPoly != 0 ? ShadPoly->material[0] : -1; }
+
+// FUNCTION: LEGOBATMAN 0x00571fe0
+i32 EShadowInfo(void) { return EShadPoly != 0 ? EShadPoly->material[1] : -1; }
+
 // FUNCTION: LEGOBATMAN 0x005c8130
 void WorldInfo_InitOnce(void) { memset(WorldInfo, 0, 0xa790); }
 

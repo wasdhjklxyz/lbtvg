@@ -52,13 +52,22 @@ typedef struct DETONATOR_s {
   GameObject_s *owner; // 0x24
   u8 pad28;
   u8 flags; // 0x29
-  u8 pad2a[0x60 - 0x2a];
+  u8 pad2a[0x34 - 0x2a];
+  GameObject_s *character; // 0x34
+  u32 pad38[(0x60 - 0x38) / 4];
 } DETONATOR_s;
 
 typedef struct DETONATORSYS_s {
   DETONATOR_s *detonators; // 0x00
-  u32 pad4[(0xc4 - 4) / 4];
-  u8 count; // 0xc4
+  struct {
+    u32 pad0[3];
+    i16 light; // 0x0c
+    u16 pad0e[(0x40 - 0x0e) / 2];
+  } bombs[3];    // 0x04, 0x40 each (GetBombLight shl 6, bound 0xc5)
+  u8 count;      // 0xc4
+  u8 bomb_count; // 0xc5
+  u8 padc6[0xd0 - 0xc6];
+  void (*callback)(DETONATOR_s *, float &); // 0xd0
 } DETONATORSYS_s;
 
 // GLOBAL: LEGOBATMAN 0x00ac6f48
@@ -83,6 +92,31 @@ void AddGameMsgCount(nuvec_s *position, i32 count, i32 total, unsigned char red,
     *(float *)((char *)message + 0xd4) = field_0xd4;
     *(float *)((char *)message + 0xd0) = 0.1f;
   }
+}
+
+// FUNCTION: LEGOBATMAN 0x005d5670
+void DetonatorSys_RegisterCallbacks(void (*callback)(DETONATOR_s *, float &)) {
+  if (Detonator != 0)
+    Detonator->callback = callback;
+}
+
+// FUNCTION: LEGOBATMAN 0x005d5930
+DETONATOR_s *DetonatorSys_GetList(int *count) {
+  if (Detonator != 0) {
+    if (count != 0)
+      *count = Detonator->count;
+    return Detonator->detonators;
+  }
+  if (count != 0)
+    *count = 0;
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x005d5970
+i16 Detonators_GetBombLight(i16 bomb) {
+  if (Detonator != 0 && bomb >= 0 && bomb < Detonator->bomb_count)
+    return Detonator->bombs[bomb].light;
+  return -1;
 }
 
 // FUNCTION: LEGOBATMAN 0x005d59a0
@@ -112,4 +146,21 @@ DETONATOR_s *Detonator_FindNearest(nuvec_s *pos, float range,
     }
   }
   return best;
+}
+
+// STUB: LEGOBATMAN 0x005d5c20
+// close: orig walks flags (+0x29) and character (+0x34) with two separate
+// pointer IVs and an extra callee-saved reg; ours folds them into one.
+DETONATOR_s *Detonator_FindCharacterDetonator(GameObject_s *character) {
+  if (Detonator != 0) {
+    i32 count = Detonator->count;
+    DETONATOR_s *list = Detonator->detonators;
+    for (i32 i = 0; i < count; i++) {
+      if ((list[i].flags & 1) != 0) {
+        if (list[i].character == character)
+          return &list[i];
+      }
+    }
+  }
+  return 0;
 }

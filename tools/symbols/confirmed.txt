@@ -96,3 +96,9 @@
 0059a0d0 FindAnimIX  saga FindAnimIX body matches (NuStrICmp walk over animations)
 0059a730 ResetAnimPacket  saga ResetAnimPacket body matches field for field
 00595ff0 AnimFlags  same shape as Mac _AnimFlags (model_data_b check, anim->flags)
+005288a0 NuScratchReset  Mac order Reset/Alloc32/64/128/Release; sets free ptr to scratch base
+005288e0 NuScratchAlloc64  Mac order; same as Alloc32 with 8-byte alignment
+00528910 NuScratchAlloc128  Mac order; same as Alloc32 with 16-byte alignment
+005d5670 DetonatorSys_RegisterCallbacks  same shape as Mac (stores fn into Detonator+0xd0)
+005d5930 DetonatorSys_GetList  returns Detonator->detonators, count byte 0xc4 out
+005d5970 Detonators_GetBombLight  same shape as Mac _Z23Detonators_GetBombLights (bound 0xc5, shl 6)

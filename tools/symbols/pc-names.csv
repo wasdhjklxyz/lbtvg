@@ -230,7 +230,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005270a0,001c4832,__Z30RelaunchMediaCenterIfNecessaryv,RelaunchMediaCenterIfNecessary(),strings,0
 00527d60,001c532a,__Z27PCCreateMouseCursorMaterialv,PCCreateMouseCursorMaterial(),strings,0
 00528460,001c5508,__Z16NuPCCreateWindowPN7MacDoze11HINSTANCE__Eii,"NuPCCreateWindow(MacDoze::HINSTANCE__*, int, int)",strings,0
+005288a0,001c3bd4,_NuScratchReset,_NuScratchReset,confirmed,0
 005288b0,001c3bec,_NuScratchAlloc32,_NuScratchAlloc32,calls,2
+005288e0,001c3c1c,_NuScratchAlloc64,_NuScratchAlloc64,confirmed,0
+00528910,001c3c4c,_NuScratchAlloc128,_NuScratchAlloc128,confirmed,0
 00528940,001c3c7c,_NuScratchRelease,_NuScratchRelease,calls,2
 00528cd0,001d74b8,_PCInitStrings,_PCInitStrings,gapfill,3
 00529440,001b680a,_NudxFw_DrawFrameStats,_NudxFw_DrawFrameStats,strings,0
@@ -415,11 +418,11 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005d3640,002ae2fe,__Z14AddGameMessagePcP7nuvec_sfS1_fhhhjf,"AddGameMessage(char*, nuvec_s*, float, nuvec_s*, float, unsigned char, unsigned char, unsigned char, unsigned int, float)",confirmed,0
 005d3f60,002aeab8,__Z12FindGameMsgsiiiiP13GAMEMESSAGE_sPS0_,"FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)",gapfill,4
 005d3fd0,002aeb64,__Z15AddGameMsgCountP7nuvec_siihhhf,"AddGameMsgCount(nuvec_s*, int, int, unsigned char, unsigned char, unsigned char, float)",confirmed,0
-005d5670,0029b69e,__Z30DetonatorSys_RegisterCallbacksPFvP11DETONATOR_sRfE,"DetonatorSys_RegisterCallbacks(void (*)(DETONATOR_s*, float&))",gapfill,3
+005d5670,0029b69e,__Z30DetonatorSys_RegisterCallbacksPFvP11DETONATOR_sRfE,"DetonatorSys_RegisterCallbacks(void (*)(DETONATOR_s*, float&))",confirmed,0
 005d5690,0029b6bc,__Z25DetonatorSys_RegisterTypeP13DETONATORTYPE,DetonatorSys_RegisterType(DETONATORTYPE*),gapfill,2
 005d5890,0029b8e4,__Z17DetonatorSys_InitiiiiiP9variptr_uS_,"DetonatorSys_Init(int, int, int, int, int, variptr_u*, variptr_u)",order,3
-005d5930,0029b97c,__Z20DetonatorSys_GetListPi,DetonatorSys_GetList(int*),order,3
-005d5970,0029b9b8,__Z23Detonators_GetBombLights,Detonators_GetBombLight(short),gapfill,2
+005d5930,0029b97c,__Z20DetonatorSys_GetListPi,DetonatorSys_GetList(int*),confirmed,0
+005d5970,0029b9b8,__Z23Detonators_GetBombLights,Detonators_GetBombLight(short),confirmed,0
 005d59a0,0029ba0a,__Z16Detonators_Resetv,Detonators_Reset(),order,4
 005d59d0,0029ba4a,__Z22Detonator_FindFreeSlotP12GameObject_s,Detonator_FindFreeSlot(GameObject_s*),order,4
 005d5aa0,0029bb48,__Z21Detonator_FindNearestP7nuvec_sfP12GameObject_s,"Detonator_FindNearest(nuvec_s*, float, GameObject_s*)",confirmed,0
