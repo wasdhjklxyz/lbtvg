@@ -13,7 +13,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [near rtleditor.cpp](#near-rtleditorcpp) | 100 | 74 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 99 | 73 |
 | [Action](#action) | 72 | 57 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
@@ -35,7 +35,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [PortalDoors](#portaldoors) | 3 | 3 |
 | [WorldInfo](#worldinfo) | 3 | 3 |
 | [Areas](#areas) | 3 | 2 |
-| [CC](#cc) | 2 | 2 |
 | [Collection](#collection) | 2 | 2 |
 | [Condition](#condition) | 3 | 2 |
 | [CutScenePlayer](#cutsceneplayer) | 2 | 2 |
@@ -58,6 +57,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Tag](#tag) | 2 | 2 |
 | [BoltSys](#boltsys) | 1 | 1 |
 | [BoltTypes](#bolttypes) | 1 | 1 |
+| [CC](#cc) | 1 | 1 |
 | [CharConfig](#charconfig) | 1 | 1 |
 | [CharPivot](#charpivot) | 1 | 1 |
 | [CharPlatforms](#charplatforms) | 1 | 1 |
@@ -94,7 +94,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [NuDynamicLight](#nudynamiclight) | 1 | 1 |
 | [NuFile](#nufile) | 3 | 1 |
 | [NuInit](#nuinit) | 1 | 1 |
-| [NuLst](#nulst) | 1 | 1 |
 | [NuMtl](#numtl) | 2 | 1 |
 | [NuMusic](#numusic) | 1 | 1 |
 | [NuString](#nustring) | 1 | 1 |
@@ -259,7 +258,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005ae1d0` 104 B `SeekLinearF(float, float, float)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/move.cpp`
 - [ ] `005d3f60` 105 B `FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)`  **hint** name (gapfill)
 - [ ] `005a0830` 108 B `ConfigureMusic(char*, variptr_u*, variptr_u*)`  **saga** `nu2api/nusound/nusound3_include.cpp`
-- [ ] `005c8eb0` 113 B `LoadTerrainFile(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/render/core/terrain.cpp`
 - [ ] `005c16b0` 120 B `SetPlayerIDs(int, int)`  **hint** name (order)
 - [ ] `005d3640` 123 B `AddGameMessage(char*, nuvec_s*, float, nuvec_s*, float, unsigned char, unsigned char, unsigned char, unsigned int, float)`  **hint** name (gapfill) · **saga** `legoapi/menus/core/gamemessages.cpp`
 - [ ] `005ae6c0` 124 B `GetRotationAngles(nuvec_s*, unsigned short*, unsigned short*)`  **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
@@ -646,11 +644,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005fad40` 787 B `Areas_ConfigurePlayersAndResidents(variptr_u*, variptr_u*)`
 - [ ] `005fa1c0` 2813 B `Areas_ConfigureList(char*, variptr_u*, variptr_u*, int, int*)`  **saga** `legoapi/world/areas.cpp`
 
-## CC
-
-- [ ] `00624090` 113 B `CC_sfx_engine(nufpar_s*)`  **saga** `legoapi/characters/core/charconfig.cpp`
-- [ ] `006213c0` 2623 B `CC_anim_start(nufpar_s*)`  **saga** `legoapi/characters/core/charconfig.cpp`
-
 ## Collection
 
 - [ ] `006408d0` 128 B `Collection_Got(int)`  **hint** name (gapfill) · **saga** `legoapi/items/base/collection.cpp`
@@ -764,6 +757,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## BoltTypes
 
 - [ ] `005eabf0` 378 B `BoltTypes_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/items/collect/bolts.cpp`
+
+## CC
+
+- [ ] `006213c0` 2623 B `CC_anim_start(nufpar_s*)`  **saga** `legoapi/characters/core/charconfig.cpp`
 
 ## CharConfig
 
@@ -934,10 +931,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## NuInit
 
 - [ ] `00525100` 2623 B `_NuInitHardware`  **saga** `nu2api/nucore/nuapi.cpp`
-
-## NuLst
-
-- [ ] `0067dd00` 136 B `_NuLstCreate`  **saga** `nu2api/nucore/nulst.cpp`
 
 ## NuMtl
 
