@@ -13,16 +13,16 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [near rtleditor.cpp](#near-rtleditorcpp) | 92 | 66 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 91 | 65 |
 | [Action](#action) | 72 | 57 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
 | [Text](#text) | 10 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 14 | 8 |
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 7 | 6 |
-| [GameCam](#gamecam) | 5 | 5 |
 | [Grabber](#grabber) | 7 | 5 |
 | [Arcade](#arcade) | 4 | 4 |
+| [GameCam](#gamecam) | 4 | 4 |
 | [Hub](#hub) | 6 | 4 |
 | [near nutrig_gen.cpp](#near-nutrig_gencpp) | 12 | 4 |
 | [Area](#area) | 4 | 3 |
@@ -257,7 +257,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005ae6c0` 124 B `GetRotationAngles(nuvec_s*, unsigned short*, unsigned short*)`  **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `005ae5c0` 126 B `FindAnglesZX(nuvec_s*, unsigned short*, unsigned short*)`  **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `0059c4b0` 127 B `_ActionFromName`  **hint** name (gapfill)
-- [ ] `0063e540` 131 B `FreeGameObjectLights()`  **hint** name (order) · **saga** `legoapi/render/light/lighting.cpp`
 - [ ] `0065c320` 136 B `LoseHat(GameObject_s*)`  **hint** name (gapfill)
 - [ ] `005b00d0` 153 B `LineIntersectCircle(nuvec_s*, nuvec_s*, nuvec_s*, float)`  **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `005c8f30` 155 B `LoadGrassFile(WORLDINFO_s*)`  **saga** `legoapi/render/core/terrain.cpp`
@@ -518,14 +517,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006da8d0` 358 B `_NuFParGetWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006d6d00` 646 B `_ImplodeMakeTable`  **saga** `nu2api/nucore/implode.cpp`
 
-## GameCam
-
-- [ ] `005a1fb0` 44 B `GameCam_NewShake(GAMECAMERA_s*, float, float, float)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/camera.cpp`
-- [ ] `005a2310` 186 B `GameCam_HitJudder()`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/camera.cpp`
-- [ ] `005a27c0` 298 B `GameCam_Blend(GAMECAMERA_s*, float, float, int)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/camera.cpp`
-- [ ] `005a21e0` 301 B `GameCam_Judder(GAMECAMERA_s*, float, int, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/camera.cpp`
-- [ ] `005a1fe0` 498 B `GameCam_UpdateShake(GAMECAMERA_s*, float)`  **hint** name (order) · **saga** `legoapi/characters/motion/camera.cpp`
-
 ## Grabber
 
 - [ ] `00601280` 55 B `Grabber_IsActiveGrabber(GameObject_s*)`  **hint** name (order)
@@ -542,6 +533,13 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006486e0` 84 B `Arcade_PlayerKilled(int, int)`  **hint** name (gapfill) · **saga** `legoapi/menus/screens/arcade.cpp`
 - [ ] `00648290` 254 B `Arcade_DrawPanel(int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
 - [ ] `00648390` 842 B `Arcade_AwardPoint(int, int, int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
+
+## GameCam
+
+- [ ] `005a2310` 186 B `GameCam_HitJudder()`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/camera.cpp`
+- [ ] `005a27c0` 298 B `GameCam_Blend(GAMECAMERA_s*, float, float, int)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/camera.cpp`
+- [ ] `005a21e0` 301 B `GameCam_Judder(GAMECAMERA_s*, float, int, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/camera.cpp`
+- [ ] `005a1fe0` 498 B `GameCam_UpdateShake(GAMECAMERA_s*, float)`  **hint** name (order) · **saga** `legoapi/characters/motion/camera.cpp`
 
 ## Hub
 

@@ -56,6 +56,14 @@ struct BlowupTarget_s {
   nuvec_s mid_position; // 0x58
 };
 
+struct NuDynamicLight;
+
+// FreeGameObjectLights: two 0x2c-byte entries at +0x129c, light first.
+struct GameObjectLight_s {
+  NuDynamicLight *light;
+  u8 pad4[0x2c - 4];
+};
+
 struct GameObject_s {
   u8 pad0[0x50];
   Unk_GameObject50 *p50; // 0x50
@@ -102,7 +110,10 @@ struct GameObject_s {
   f32 f11cc; // 0x11cc
   u8 pad14[0x11d8 - 0x11d0];
   f32 weapon_scale; // 0x11d8
-  u8 pad14a[0x130c - 0x11dc];
+  u8 pad14a[0x1298 - 0x11dc];
+  i32 dynamic_light_id;        // 0x1298
+  GameObjectLight_s lights[2]; // 0x129c
+  u8 pad14a2[0x130c - 0x12f4];
   u32 flags130c; // 0x130c
   u8 pad14b[0x131d - 0x1310];
   u8 weapon_scale_state; // 0x131d

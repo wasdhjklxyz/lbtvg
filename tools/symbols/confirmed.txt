@@ -23,3 +23,5 @@
 0060cea0 GameDrawMenuEntry  saga body matches (pause align/X then DrawMenuEntryEx)
 006daa40 NuFParGetFloat  saga body matches (GetWord, utf16/ascii copy, NuAToF)
 005c18b0 Player_StartPos  saga body matches (PlayerStart[idx&7].pos with [0] fallback)
+0063e540 FreeGameObjectLights  saga body matches (rtlDynamicFree per live object) + NuDynamicLight destroy
+005a1fb0 GameCam_NewShake  saga body matches (shake amount/time/speed, GameCam default)

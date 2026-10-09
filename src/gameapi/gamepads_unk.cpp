@@ -46,6 +46,27 @@ void GameAudio_PlaySfxById(i32 sfx_id, nuvec_s *position, i32 flags, i32) {
   }
 }
 
+typedef struct GAMECAMERA_s {
+  u32 pad0[0x1d4 / 4];
+  f32 shake_target_amount; // 0x1d4
+  f32 shake_time;          // 0x1d8
+  f32 shake_speed;         // 0x1dc
+} GAMECAMERA_s;
+
+// GLOBAL: LEGOBATMAN 0x0095f624
+extern GAMECAMERA_s *GameCam;
+
+// FUNCTION: LEGOBATMAN 0x005a1fb0
+void GameCam_NewShake(GAMECAMERA_s *camera, float amount, float duration,
+                      float speed) {
+  if (camera == 0) {
+    camera = GameCam;
+  }
+  camera->shake_target_amount = amount;
+  camera->shake_time = duration;
+  camera->shake_speed = speed;
+}
+
 // FUNCTION: LEGOBATMAN 0x005a2d10
 void NewRumble(nupad_s *pad, float strength, i32) {
   if (pad != 0) {

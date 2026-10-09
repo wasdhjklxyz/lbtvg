@@ -336,7 +336,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005a0590,0026870a,__Z13PlayRepeatSfxPcifcfP7nuvec_s,"PlayRepeatSfx(char*, int, float, char, float, nuvec_s*)",gapfill,1
 005a0830,002689e2,__Z14ConfigureMusicPcP9variptr_uS1_,"ConfigureMusic(char*, variptr_u*, variptr_u*)",strings,0
 005a1060,003462e4,__Z10ResetTimerP7TIMER_sf,"ResetTimer(TIMER_s*, float)",gapfill,5
-005a1fb0,00271c44,__Z16GameCam_NewShakeP12GAMECAMERA_sfff,"GameCam_NewShake(GAMECAMERA_s*, float, float, float)",gapfill,2
+005a1fb0,00271c44,__Z16GameCam_NewShakeP12GAMECAMERA_sfff,"GameCam_NewShake(GAMECAMERA_s*, float, float, float)",confirmed,0
 005a1fe0,00271c76,__Z19GameCam_UpdateShakeP12GAMECAMERA_sf,"GameCam_UpdateShake(GAMECAMERA_s*, float)",order,3
 005a21e0,00271eae,__Z14GameCam_JudderP12GAMECAMERA_sfiP7nuvec_s,"GameCam_Judder(GAMECAMERA_s*, float, int, nuvec_s*)",gapfill,2
 005a2310,00271f96,__Z17GameCam_HitJudderv,GameCam_HitJudder(),gapfill,1
@@ -545,7 +545,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0063b2a0,0029df30,__Z12GizDigs_LoadPvS_,"GizDigs_Load(void*, void*)",strings,0
 0063e3b0,003049c2,__Z10LoadLightsP11WORLDINFO_sPc,"LoadLights(WORLDINFO_s*, char*)",strings,0
 0063e470,00304aa4,__Z20InitGameObjectLightsv,InitGameObjectLights(),order,4
-0063e540,00304b94,__Z20FreeGameObjectLightsv,FreeGameObjectLights(),order,4
+0063e540,00304b94,__Z20FreeGameObjectLightsv,FreeGameObjectLights(),confirmed,0
 0063e5d0,00304c34,__Z15LightGameObjectP12GameObject_sPv,"LightGameObject(GameObject_s*, void*)",gapfill,3
 0063ffe0,00288372,__Z20Collection_ConfigurePcP9variptr_uS1_,"Collection_Configure(char*, variptr_u*, variptr_u*)",strings,0
 006408d0,002889b2,__Z14Collection_Goti,Collection_Got(int),gapfill,3
