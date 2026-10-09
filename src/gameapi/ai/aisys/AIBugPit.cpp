@@ -1077,6 +1077,176 @@ i32 Action_GoToOrigin(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
   return 0;
 }
 
+// AIGROUP_s rows, 0x38 bytes each
+struct AIROW_s {
+  u8 pad0[0x31];
+  u8 is_alive; // 0x31
+  u8 pad32[2];
+  u8 : 1;
+  u8 is_turning : 1; // 0x34 bit 1
+  u8 pad35[3];
+};
+
+struct AIGROUP_s {
+  Unk_AIPacketObj *leader; // 0x00
+  u8 pad4[2];
+  u8 row_count; // 0x06
+  u8 pad7[0x50 - 7];
+  u32 : 2;
+  u32 is_reversed : 1;     // 0x50 bit 2
+  u32 is_in_formation : 1; // 0x50 bit 3
+  u32 is_row_turning : 1;  // 0x50 bit 4
+  AIROW_s rows[1];         // 0x54
+};
+
+typedef i32 (*AIROWMOVEFN)(AIGROUP_s *group, AIROW_s *row, AIROW_s *previous,
+                           Unk_AIPacketObj *leader);
+i32 RowMoveWander(AIGROUP_s *group, AIROW_s *row, AIROW_s *previous,
+                  Unk_AIPacketObj *leader);
+i32 RowMoveTowards(AIGROUP_s *group, AIROW_s *row, AIROW_s *previous,
+                   Unk_AIPacketObj *leader);
+void AIFormationFollow(AIPACKET_s *packet);
+
+// Takes the group in esi: a static whose callers all live in this TU.
+// FUNCTION: LEGOBATMAN 0x006ac0d0
+static void FormationMove(AIGROUP_s *group, AIROWMOVEFN move) {
+  AIROW_s *previous = NULL;
+  i32 turning = 0;
+  if (move != NULL && group->is_in_formation) {
+    if (group->is_reversed) {
+      for (i32 i = group->row_count - 1; i >= 0; --i) {
+        AIROW_s *row = &group->rows[i];
+        if (row->is_alive) {
+          if (move(group, row, previous, group->leader) != 0)
+            break;
+          if (row->is_turning)
+            turning = 1;
+          previous = row;
+        }
+      }
+    } else {
+      for (i32 i = 0; i < group->row_count; ++i) {
+        AIROW_s *row = &group->rows[i];
+        if (row->is_alive) {
+          if (move(group, row, previous, group->leader) != 0)
+            break;
+          if (row->is_turning)
+            turning = 1;
+          previous = row;
+        }
+      }
+    }
+  }
+  group->is_row_turning = turning;
+}
+
+// The whole of AIMoveInstruction, formation case included; constant modes
+// other than 1/4/5 fold the group test away.
+static __forceinline void
+AIMoveInstructionFull(AIPACKET_s *packet, nuvec_s *destination,
+                      f32 stopping_distance, AIPATHINFO7_s *path_info, i32 mode,
+                      f32 movement_parameter) {
+  AIGROUP_s *group = packet->group;
+  if (group != NULL && group->is_in_formation) {
+    switch (mode) {
+    case 1:
+      if (group->leader == packet->pd0)
+        FormationMove(group, RowMoveTowards);
+      AIFormationFollow(packet);
+      return;
+    case 4:
+      if (group->leader == packet->pd0)
+        FormationMove(group, RowMoveWander);
+      AIFormationFollow(packet);
+      return;
+    case 5:
+      mode = 1;
+      break;
+    }
+  }
+  if (destination != NULL)
+    *(nuvec_s *)((u8 *)packet + 0x1b8) = *destination;
+  if (path_info != NULL)
+    *(AIPATHINFO7_s *)((u8 *)packet + 0x1d0) = *path_info;
+  *(f32 *)((u8 *)packet + 0x1c4) = stopping_distance;
+  packet->movement_mode = mode;
+  *(f32 *)((u8 *)packet + 0x1c8) = movement_parameter;
+}
+
+// FUNCTION: LEGOBATMAN 0x006b7110
+extern "C" void AIMoveInstruction(AIPACKET_s *packet, nuvec_s *destination,
+                                  f32 stopping_distance,
+                                  AIPATHINFO7_s *path_info, i32 mode,
+                                  f32 movement_parameter) {
+  AIGROUP_s *group = packet->group;
+  if (group != NULL && group->is_in_formation) {
+    switch (mode) {
+    case 1:
+      if (group->leader == packet->pd0)
+        FormationMove(group, RowMoveTowards);
+      AIFormationFollow(packet);
+      return;
+    case 4:
+      if (group->leader == packet->pd0)
+        FormationMove(group, RowMoveWander);
+      AIFormationFollow(packet);
+      return;
+    case 5:
+      mode = 1;
+      break;
+    }
+  }
+  if (destination != NULL)
+    *(nuvec_s *)((u8 *)packet + 0x1b8) = *destination;
+  if (path_info != NULL)
+    *(AIPATHINFO7_s *)((u8 *)packet + 0x1d0) = *path_info;
+  *(f32 *)((u8 *)packet + 0x1c4) = stopping_distance;
+  packet->movement_mode = mode;
+  *(f32 *)((u8 *)packet + 0x1c8) = movement_parameter;
+}
+
+// STUB: LEGOBATMAN 0x006bbe00
+// close: orig keeps the 0.0f (completion_time, stopping distance) live on
+// the x87 stack from entry, ours re-materialises it with fldz (3 tries).
+i32 Action_FollowPath(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                      AIPACKET_s *packet, char **params, i32 param_count,
+                      i32 first_time, f32 elapsed) {
+  f32 completion_time = 0.0f;
+  f32 min_time = completion_time;
+  f32 max_time = completion_time;
+  if (packet == NULL || packet->pd0 == NULL || packet->pd0->obj == NULL)
+    return 1;
+  if (packet->path_set == NULL || packet->path_node == NULL)
+    return 0;
+  if (first_time != 0) {
+    *(void **)((u8 *)packet + 0x18c) = NULL;
+    for (i32 index = 0; index < param_count; ++index) {
+      if (AIActionParseSpeedFn != NULL &&
+          AIActionParseSpeedFn(params[index], &packet->goal_speed_mode) != 0)
+        continue;
+      char *value = NuStrIStr(params[index], "mintime");
+      if (value != NULL) {
+        min_time = AIParamToFloatEx(packet, processor, value + 8);
+        continue;
+      }
+      value = NuStrIStr(params[index], "maxtime");
+      if (value != NULL) {
+        max_time = AIParamToFloatEx(packet, processor, value + 8);
+        continue;
+      }
+      GTO_TIMER(processor) = AIParamToFloatEx(packet, processor, params[index]);
+    }
+    if (max_time > min_time)
+      GTO_TIMER(processor) =
+          NuRandFloat() * max_time + (1.0f - NuRandFloat()) * min_time;
+  }
+  AIMoveInstructionFull(packet, NULL, 0.0f, NULL, 4, packet->movement_param);
+  if (!(GTO_TIMER(processor) > completion_time))
+    return 0;
+  GTO_TIMER(processor) -= elapsed;
+  return completion_time >= GTO_TIMER(processor);
+}
+
 // FUNCTION: LEGOBATMAN 0x006bde60
 void AIBugPitOwnerA::Release() {
   if (owned) {

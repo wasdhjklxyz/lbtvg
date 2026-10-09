@@ -65,7 +65,8 @@ struct AIPACKET_s {
   union {
     u32 movement_event_flags; // 0x1f0
     struct {
-      u32 : 9;
+      u32 movement_mode : 3; // 0x1f0 bits 0-2, AIMoveInstruction
+      u32 : 6;
       u32 circle_clockwise : 1; // 0x1f0 bit 9, Action_CircleLocator
     };
   };
