@@ -2196,6 +2196,16 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006e3370,001987e8,_NuFileSetAppDirectory,_NuFileSetAppDirectory,confirmed,0
 006e3390,00198810,_NuFileGetAppDirectory,_NuFileGetAppDirectory,confirmed,0
 006e33b0,00198838,_NuFileRename,_NuFileRename,confirmed,0
+006e3820,00198dee,_NuFileCreateDir,_NuFileCreateDir,confirmed,0
+006e3850,00198e1e,_NuFileCreatePath,_NuFileCreatePath,confirmed,0
+006e3940,00198f10,_NuFileDelete,_NuFileDelete,confirmed,0
+006e3950,001985c8,_NuThreadCreateCriticalSection,_NuThreadCreateCriticalSection,confirmed,0
+006e39a0,00198f1a,_NuThreadDestroyCriticalSection,_NuThreadDestroyCriticalSection,confirmed,0
+006e39b0,00198636,_NuThreadCriticalSectionBegin,_NuThreadCriticalSectionBegin,confirmed,0
+006e39d0,0019865e,_NuThreadCriticalSectionEnd,_NuThreadCriticalSectionEnd,confirmed,0
+006e3ad0,0019906e,_NuThreadSignalSend,_NuThreadSignalSend,confirmed,0
+006e3af0,001990a4,_NuThreadSignalRecieve,_NuThreadSignalRecieve,confirmed,0
+006e3b10,001990d2,_NuThreadSignalRecieveTimeout,_NuThreadSignalRecieveTimeout,confirmed,0
 006e3b30,001990ee,_NuTimeGetTime,_NuTimeGetTime,confirmed,0
 006e3b80,00199166,_NuTimeGetTicksPS,_NuTimeGetTicksPS,confirmed,0
 006e3bf0,001991d8,_NuTimeGetTicksPerSecondPS,_NuTimeGetTicksPerSecondPS,confirmed,0

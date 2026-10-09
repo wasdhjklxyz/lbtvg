@@ -1693,3 +1693,13 @@
 006e3370 NuFileSetAppDirectory  Mac order; strcpy into the app-directory buffer; matched
 006e3390 NuFileGetAppDirectory  Mac order; strcpy out of the same buffer; matched
 006e33b0 NuFileRename           Mac order; DeleteFileA(new) + MoveFileA(old, new); matched
+006e3820 NuFileCreateDir        Mac nufile_pc order; CreateDirectoryA with inheritable SECURITY_ATTRIBUTES; matched
+006e3850 NuFileCreatePath       Mac order (after CreateDir), return 0; matched
+006e3940 NuFileDelete           Mac order (after GetInfo); DeleteFileA; matched
+006e3950 NuThreadCreateCriticalSection Mac NuThread order; InitializeCriticalSection on the next of 12 slots; matched
+006e39a0 NuThreadDestroyCriticalSection Mac order, empty; matched
+006e39b0 NuThreadCriticalSectionBegin EnterCriticalSection on slot 1..12; matched
+006e39d0 NuThreadCriticalSectionEnd LeaveCriticalSection on slot 1..12; matched
+006e3ad0 NuThreadSignalSend     Mac order; ReleaseSemaphore(thread signal); matched
+006e3af0 NuThreadSignalRecieve  Mac order; WaitForSingleObject(INFINITE); matched
+006e3b10 NuThreadSignalRecieveTimeout Mac order; WaitForSingleObject(timeout); right before NuTimeGetTime as on the Mac; matched
