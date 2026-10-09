@@ -143,6 +143,44 @@ extern i32 g_unk0096068c[2];
 
 i32 Collection_Got(i32 id);
 
+// GLOBAL: LEGOBATMAN 0x00a958a4
+extern variptr_u things_buffer;
+// GLOBAL: LEGOBATMAN 0x00a958a8
+extern variptr_u things_buffer_end;
+// GLOBAL: LEGOBATMAN 0x00a958ac
+extern nugscn_s *things_scene;
+// GLOBAL: LEGOBATMAN 0x00a958b0
+extern void *things_terrain;
+
+extern "C" i32 NuMtlSetCurrentRenderPlane(i32 render_plane);
+int NuStrCpy(char *dst, const char *src);
+extern "C" void edbitsRegisterThingsScene(struct nugscn_s *scene);
+extern "C" void *TerrainInitEx(i32 level_idx, variptr_u *buffer,
+                               variptr_u buffer_end, i32 a, char *path,
+                               void *gscn, i32 b, u32 groups, u32 groups2,
+                               u32 platforms);
+void Unk00564210(char *path, void **terrain);
+
+// FUNCTION: LEGOBATMAN 0x005b2a40
+void LoadThingsScene() {
+  char path[0x40];
+  things_buffer.addr = (things_buffer.addr + 3) & ~3;
+  i32 plane = NuMtlSetCurrentRenderPlane(0);
+  things_scene =
+      NuGScnRead(&things_buffer, things_buffer_end, "stuff\\things.gsc");
+  NuStrCpy(path, "stuff\\things");
+  NuMtlSetCurrentRenderPlane(plane);
+  if (things_scene != NULL) {
+    edbitsRegisterThingsScene(things_scene);
+    if (things_scene->display_list != NULL)
+      *(u32 *)((u8 *)things_scene->display_list + 0x74) |= 0x10;
+  }
+  things_buffer.addr = (things_buffer.addr + 3) & ~3;
+  things_terrain = TerrainInitEx(-1, &things_buffer, things_buffer_end, 0, path,
+                                 things_scene, 0, 0x14, 0x14, 0x14);
+  Unk00564210(path, &things_terrain);
+}
+
 // FUNCTION: LEGOBATMAN 0x005c16b0
 void SetPlayerIDs(i32 id0, i32 id1) {
   PlayerID[0] = id0;
