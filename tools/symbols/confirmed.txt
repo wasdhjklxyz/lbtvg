@@ -26,3 +26,4 @@
 0063e540 FreeGameObjectLights  saga body matches (rtlDynamicFree per live object) + NuDynamicLight destroy
 005a1fb0 GameCam_NewShake  saga body matches (shake amount/time/speed, GameCam default)
 006481b0 Arcade_GetMode  saga body matches unchanged
+005a6550 Technos_FindControllingTechno  saga body matches (techno target_mode 1 controlling obj)

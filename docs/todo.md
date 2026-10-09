@@ -45,7 +45,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [LevelObjects](#levelobjects) | 2 | 2 |
 | [Levels](#levels) | 2 | 2 |
 | [LevelSplines](#levelsplines) | 2 | 2 |
-| [Mission](#mission) | 2 | 2 |
 | [Move](#move) | 2 | 2 |
 | [NuStr](#nustr) | 2 | 2 |
 | [NuTex](#nutex) | 4 | 2 |
@@ -79,6 +78,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Level](#level) | 1 | 1 |
 | [LevelConfig](#levelconfig) | 1 | 1 |
 | [MiniKit](#minikit) | 2 | 1 |
+| [Mission](#mission) | 1 | 1 |
 | [Missions](#missions) | 1 | 1 |
 | [near apisave.c](#near-apisavec) | 8 | 1 |
 | [near nuanim_gen.cpp](#near-nuanim_gencpp) | 2 | 1 |
@@ -87,7 +87,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near oggreader.cpp](#near-oggreadercpp) | 7 | 1 |
 | [NuCamera](#nucamera) | 1 | 1 |
 | [NuCommand](#nucommand) | 1 | 1 |
-| [NuDynamicLight](#nudynamiclight) | 1 | 1 |
 | [NuInit](#nuinit) | 1 | 1 |
 | [NuMtl](#numtl) | 2 | 1 |
 | [NuMusic](#numusic) | 1 | 1 |
@@ -108,7 +107,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [SpecialMoves](#specialmoves) | 1 | 1 |
 | [TakeOver](#takeover) | 1 | 1 |
 | [Techno](#techno) | 1 | 1 |
-| [Technos](#technos) | 1 | 1 |
 | [ThermalDetonator](#thermaldetonator) | 1 | 1 |
 | [TrafficAnimSys](#trafficanimsys) | 1 | 1 |
 | [Transform](#transform) | 3 | 1 |
@@ -679,11 +677,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0060e640` 135 B `LevelSplines_InitForGame(LEVELSPLINE*)`  **saga** `legoapi/render/fx/edsplines.cpp`
 - [ ] `0060e6d0` 509 B `LevelSplines_InitForLevel(WORLDINFO_s*)`  **saga** `legoapi/render/fx/edsplines.cpp`
 
-## Mission
-
-- [ ] `0062dba0` 33 B `Mission_Active(MISSIONSYS_s*)`  **hint** name (gapfill) · **saga** `legoapi/world/missions.cpp`
-- [ ] `0062db70` 44 B `Mission_Clear(MISSIONSYS_s*)`  **hint** name (order) · **saga** `legoapi/world/missions.cpp`
-
 ## Move
 
 - [ ] `004cb910` 438 B `Move_CHARACTER(GameObject_s*)`  **saga** `legoapi/characters/motion/move.cpp`
@@ -830,6 +823,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00647150` 433 B `MiniKit_InitPieces(MINIKIT*, int, variptr_u*, variptr_u*)`  **saga** `legoapi/gizmo/base/gizmo_sys.cpp`
 - [ ] `0047a6c0` 1482 B `MiniKit_Update(STATUS_STAGE_s*, STATUSPACKET_s*, float)`
 
+## Mission
+
+- [ ] `0062db70` 44 B `Mission_Clear(MISSIONSYS_s*)`  **hint** name (order) · **saga** `legoapi/world/missions.cpp`
+
 ## Missions
 
 - [ ] `0062d7e0` 905 B `Missions_Configure(char*, variptr_u*, variptr_u*, MISSIONSAVE_s*)`  **saga** `legoapi/world/mission.cpp`
@@ -876,10 +873,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## NuCommand
 
 - [ ] `006d5540` 24 B `_NuCommandLine`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nucore/nuapi.cpp`
-
-## NuDynamicLight
-
-- [ ] `0072b040` 43 B `NuDynamicLight::destroy(NuDynamicLight*)`  **saga** `nu2api/nu3d/nu3d_includes.cpp`
 
 ## NuInit
 
@@ -966,10 +959,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## Techno
 
 - [ ] `005a7bd0` 167 B `Techno_FindOperator(void*, GAMEPAD_s**, GameObject_s**)`  **hint** name (gapfill) · **saga** `legoapi/props/objects/techno.cpp`
-
-## Technos
-
-- [ ] `005a6550` 65 B `Technos_FindControllingTechno(GameObject_s*)`  **hint** name (gapfill) · **saga** `legoapi/props/objects/techno.cpp`
 
 ## ThermalDetonator
 

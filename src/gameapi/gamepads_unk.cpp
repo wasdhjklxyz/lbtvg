@@ -94,3 +94,32 @@ void NewRumbleAllPlayers(float strength, float duration, i32 frames, i32) {
     }
   }
 }
+
+typedef struct TECHNO_s {
+  u8 pad0[0x83];
+  u8 target_mode; // 0x83
+  u8 pad84[0xb8 - 0x84];
+  GameObject_s *controlled_object; // 0xb8
+  u8 padbc[0xcc - 0xbc];
+} TECHNO;
+
+typedef struct WORLDINFO_s {
+  u8 pad0[0x51ec];
+  TECHNO *technos; // 0x51ec
+  i32 ntechnos;    // 0x51f0
+} WORLDINFO;
+
+// GLOBAL: LEGOBATMAN 0x00960894
+extern WORLDINFO *WORLD;
+
+// FUNCTION: LEGOBATMAN 0x005a6550
+TECHNO *Technos_FindControllingTechno(GameObject_s *object) {
+  if (object != 0) {
+    for (i32 index = 0; index < WORLD->ntechnos; ++index) {
+      TECHNO *techno = &WORLD->technos[index];
+      if (techno->target_mode == 1 && techno->controlled_object == object)
+        return techno;
+    }
+  }
+  return 0;
+}
