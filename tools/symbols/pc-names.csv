@@ -326,6 +326,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00598130,002545ce,_AddGameDebrisMtx,_AddGameDebrisMtx,confirmed,0
 005981c0,0025468e,_AddGameDebrisMom,_AddGameDebrisMom,confirmed,0
 00598230,0025471c,_SetAPIObjPlaySfxByIdFn,_SetAPIObjPlaySfxByIdFn,confirmed,0
+00598d80,00254730,_APICharacterModelReset,_APICharacterModelReset,confirmed,0
+00599090,00254ca6,_APIResetCharacterRemap,_APIResetCharacterRemap,confirmed,0
+0059a050,00254db0,_APICharacterLoaded,_APICharacterLoaded,confirmed,0
+0059a080,00254de4,_APIDumpCharacterModels,_APIDumpCharacterModels,confirmed,0
 0059a0d0,00254e3c,_FindAnimIX,_FindAnimIX,confirmed,0
 0059a110,00254e82,_AnimDuration,_AnimDuration,gapfill,3
 0059a730,00255510,_ResetAnimPacket,_ResetAnimPacket,confirmed,0

@@ -128,3 +128,7 @@
 00596130 APIObjectRemoveFromLOSTable  saga body matches (u64 LOS mask clear)
 00596180 APIObjectDestroy  saga body shape (LOS removal loop, memset object)
 005961f0 APIObjectDestroyAll  saga body matches (memset objects size*64)
+00598d80 APICharacterModelReset  saga body matches (clears model tables by model_id_capacity, POI memset)
+00599090 APIResetCharacterRemap  saga body matches (playermodelids = -1 unless char flag 2)
+0059a050 APICharacterLoaded  saga body matches (playermodelids lookup into models, stride 0x6c)
+0059a080 APIDumpCharacterModels  saga body matches (NuHGobjDestroy loaded hierarchies)

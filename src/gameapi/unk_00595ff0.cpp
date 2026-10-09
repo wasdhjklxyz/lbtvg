@@ -16,9 +16,34 @@ struct CHARACTERMODEL_s {
   void **model_data_b; // 0x0c
 };
 
+struct APICHARACTERMODEL {
+  u16 model_id;                // 0x00
+  u8 flags;                    // 0x02
+  u8 field_0x3;                // 0x03
+  void *hierarchy;             // 0x04
+  void **model_data_a;         // 0x08
+  void **model_data_b;         // 0x0c
+  void **model_data_c;         // 0x10
+  u8 points_of_interest[0x50]; // 0x14
+  u8 pad64[0x6c - 0x64];
+};
+
+struct APICHARDATA {
+  u32 pad00;
+  u32 model_flags; // 0x04
+  u8 pad08[0x48 - 0x08];
+};
+
 struct APICHARACTERSYS_s {
-  u32 pad00[2];
-  i32 model_id_capacity; // 0x08
+  i32 character_count; // 0x00
+  u32 pad04;
+  i32 model_id_capacity;     // 0x08
+  i32 permanent_model_count; // 0x0c
+  i32 loaded_model_count;    // 0x10
+  u32 pad14;
+  APICHARACTERMODEL *models; // 0x18
+  i16 *playermodelids;       // 0x1c
+  APICHARDATA *char_data;    // 0x20
 };
 
 // GLOBAL: LEGOBATMAN 0x00a94740
@@ -341,4 +366,50 @@ void (*APIObjPlaySfxByIdFn)(i32, nuvec_s *);
 // FUNCTION: LEGOBATMAN 0x00598230
 void SetAPIObjPlaySfxByIdFn(void (*play_sfx)(i32, nuvec_s *)) {
   APIObjPlaySfxByIdFn = play_sfx;
+}
+
+// FUNCTION: LEGOBATMAN 0x00598d80
+void APICharacterModelReset(APICHARACTERMODEL *model) {
+  model->flags &= 0xfe;
+  model->model_id = 0;
+  model->field_0x3 = 0;
+  model->hierarchy = 0;
+  if (apicharsys->model_id_capacity != 0) {
+    memset(model->model_data_a, 0,
+           apicharsys->model_id_capacity * sizeof(void *));
+    memset(model->model_data_b, 0,
+           apicharsys->model_id_capacity * sizeof(void *));
+    memset(model->model_data_c, 0,
+           apicharsys->model_id_capacity * sizeof(void *));
+  }
+  memset(model->points_of_interest, 0, sizeof(model->points_of_interest));
+}
+
+// FUNCTION: LEGOBATMAN 0x00599090
+void APIResetCharacterRemap(void) {
+  for (i32 i = 0; i < apicharsys->character_count; ++i) {
+    if ((apicharsys->char_data[i].model_flags & 2) == 0)
+      apicharsys->playermodelids[i] = -1;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x0059a050
+APICHARACTERMODEL *APICharacterLoaded(i32 character_id) {
+  if (character_id != -1) {
+    i16 model_index = apicharsys->playermodelids[character_id];
+    if (model_index != -1)
+      return &apicharsys->models[model_index];
+  }
+  return 0;
+}
+
+void NuHGobjDestroy(void *hierarchy);
+
+// FUNCTION: LEGOBATMAN 0x0059a080
+void APIDumpCharacterModels(i32 mode) {
+  for (i32 i = mode != 0 ? 0 : apicharsys->permanent_model_count;
+       i < apicharsys->loaded_model_count; i++) {
+    if (apicharsys->models[i].hierarchy != 0)
+      NuHGobjDestroy(apicharsys->models[i].hierarchy);
+  }
 }
