@@ -325,3 +325,15 @@ i32 LevelObject_AddExtra(char *name, i32 kind) {
   ExtraLevelObject_NameTableIndex += nameLen + 1;
   return 1;
 }
+
+// FUNCTION: LEGOBATMAN 0x0060ec80
+i32 LevelObject_FindIndexFromName(char *name) {
+  if (ObjTabList == 0)
+    return -1;
+  for (i32 i = 0; i < LEVELOBJECTCOUNT; i++) {
+    if (NuStrICmp(ObjTabList[i].name, name) == 0) {
+      return i;
+    }
+  }
+  return -1;
+}

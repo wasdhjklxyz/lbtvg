@@ -69,7 +69,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizTurrets](#gizturrets) | 1 | 1 |
 | [Grapples](#grapples) | 1 | 1 |
 | [Level](#level) | 1 | 1 |
-| [LevelObject](#levelobject) | 1 | 1 |
 | [LevelSplines](#levelsplines) | 1 | 1 |
 | [MiniKit](#minikit) | 2 | 1 |
 | [Missions](#missions) | 1 | 1 |
@@ -672,7 +671,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## Cheat
 
-- [ ] `005ce980` 125 B `Cheat_IsOn(CHEAT_s*)`  **hint** name (gapfill) · **saga** `legoapi/core/config/cheats.cpp`
+- [ ] `005ce980` 125 B `Cheat_IsOn(CHEAT_s*)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/core/config/cheats.cpp`
 - [ ] `004cfe50` 235 B `Cheat_SpecialHits(float, nuvec_s*)`
 
 ## Credits
@@ -750,10 +749,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## Level
 
 - [ ] `0060ee60` 164 B `Level_LoadConfigFile(WORLDINFO_s*)`  **saga** `legoapi/world/level.cpp`
-
-## LevelObject
-
-- [ ] `0060ec80` 77 B `LevelObject_FindIndexFromName(char*)`  **hint** name (gapfill) · **saga** `legoapi/world/level.cpp`
 
 ## LevelSplines
 
