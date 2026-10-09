@@ -4666,3 +4666,50 @@ i32 Action_PlaySfx(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
     PlayRepeatSfx(name, -1, start_delay, play_count, repeat_delay, pos_ptr);
   return 1;
 }
+
+void NuVecAdd(nuvec_s *out, nuvec_s *a, nuvec_s *b);
+
+// FUNCTION: LEGOBATMAN 0x004688a0
+i32 Action_SpinOnSpot(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                      AIPACKET_s *packet, char **args, int argc, int flags,
+                      f32 time) {
+  f32 min_time = 0.0f;
+  f32 max_time = 0.0f;
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "mintime=");
+      if (s != 0)
+        min_time = AIParamToFloatEx(packet, process, s + 8);
+      else if ((s = NuStrIStr(args[i], "maxtime=")) != 0)
+        max_time = AIParamToFloatEx(packet, process, s + 8);
+      else if ((s = NuStrIStr(args[i], "time=")) != 0)
+        process->face_timer = AIParamToFloatEx(packet, process, s + 5);
+      else if ((s = NuStrIStr(args[i], "rot_rate=")) != 0)
+        process->action_data_4 =
+            (f32)(i32)(AIParamToFloatEx(packet, process, s + 9) *
+                       182.04444885253906);
+    }
+    if (min_time != max_time)
+      process->face_timer = NuRandFloat() * (max_time - min_time) + min_time;
+    process->action_data_6 = obj->u246;
+  }
+  process->action_data_6 += (i16)(process->action_data_4 * time);
+  process->action_pos.x = 0.0f;
+  process->action_pos.y = 0.0f;
+  process->action_pos.z = 1.0f;
+  NuVecRotateY(&process->action_pos, &process->action_pos,
+               process->action_data_6);
+  NuVecAdd(&process->action_pos, &process->action_pos, &obj->v80);
+  packet->look_target = &process->action_pos;
+  if (process->face_timer > 0.0f) {
+    process->face_timer -= time;
+    if (process->face_timer <= 0.0f) {
+      process->face_timer = 0.0f;
+      return 1;
+    }
+  }
+  return 0;
+}
