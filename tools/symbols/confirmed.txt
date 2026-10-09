@@ -1221,3 +1221,10 @@
 0045e740 Action_CopyMessage  keyword table 0x93bb98
 0045e190 Action_SetMessage  keyword table 0x93bb98
 00468b60 Action_FaceLocator  keyword table 0x93bb98
+0044e8c0 Condition_OffScreenTimerInit  condition table init slot (0x93b1bc) + Mac name
+0044e9d0 Condition_RidingElephantInWaterInit  condition table init slot (0x93b21c)
+0044f000 Condition_BeenHitByBatarangInit  condition table init slot (0x93b27c) + Mac name
+0044f070 Condition_BeenHitByWhipInit  condition table init slot (0x93b288) + Mac name
+0044f110 Condition_HitPointsInit  condition table init slot (0x93b2a0)
+0044f3c0 Condition_XYZPosInit  condition table init slot of XPos/YPos/ZPos (0x93b2d0) + Mac name
+0044fa40 Condition_OnDynamicGrappleInit  condition table init slot (0x93b2ac)

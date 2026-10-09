@@ -3180,3 +3180,62 @@ f32 Condition_CheckCoupled(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     return 1.0f;
   return 0.0f;
 }
+
+static inline GameObject_s *GetNamedGameObject(AISYS_s *sys, char *name) {
+  Unk_AIPacketObj *api;
+  if (GetNamedAPIObjectFn && (api = GetNamedAPIObjectFn(sys, name)))
+    return api->obj;
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e8c0
+void *Condition_OffScreenTimerInit(AISYS_s *sys, char *name,
+                                   AISCRIPT_s *script) {
+  return name != NULL ? GetNamedGameObject(sys, name) : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e9d0
+void *Condition_RidingElephantInWaterInit(AISYS_s *sys, char *name,
+                                          AISCRIPT_s *script) {
+  GameObject_s *obj = NULL;
+  if (name != NULL && sys != NULL)
+    obj = GetNamedGameObject(sys, name);
+  return obj;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044f000
+void *Condition_BeenHitByBatarangInit(AISYS_s *sys, char *name,
+                                      AISCRIPT_s *script) {
+  return name != NULL ? GetNamedGameObject(sys, name) : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044f070
+void *Condition_BeenHitByWhipInit(AISYS_s *sys, char *name,
+                                  AISCRIPT_s *script) {
+  return name != NULL ? GetNamedGameObject(sys, name) : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044f110
+void *Condition_HitPointsInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  GameObject_s *obj = NULL;
+  if (name != NULL && sys != NULL)
+    obj = GetNamedGameObject(sys, name);
+  return obj;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044f3c0
+void *Condition_XYZPosInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  GameObject_s *obj = NULL;
+  if (name != NULL && sys != NULL)
+    obj = GetNamedGameObject(sys, name);
+  return obj;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044fa40
+void *Condition_OnDynamicGrappleInit(AISYS_s *sys, char *name,
+                                     AISCRIPT_s *script) {
+  GameObject_s *obj = NULL;
+  if (name != NULL && sys != NULL)
+    obj = GetNamedGameObject(sys, name);
+  return obj;
+}

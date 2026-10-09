@@ -109,10 +109,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0044e810,000763a8,__Z27Condition_AIOverrideControlP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_AIOverrideControl(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044e850,000763d8,__Z24Condition_IsOnScreenInitP7AISYS_sPcP10AISCRIPT_s,"Condition_IsOnScreenInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 0044e880,000763f8,__Z20Condition_IsOnScreenP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_IsOnScreen(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044e8c0,00099b1e,__Z28Condition_OffScreenTimerInitP7AISYS_sPcP10AISCRIPT_s,"Condition_OffScreenTimerInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 0044e8f0,00076428,__Z24Condition_OffScreenTimerP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OffScreenTimer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044e930,00076458,__Z24Condition_PlayerOnGroundP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_PlayerOnGround(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044e960,0007647a,__Z18Condition_OnGroundP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OnGround(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044e9a0,000764a8,__Z15Condition_InMudP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_InMud(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044e9d0,,Condition_RidingElephantInWaterInit,Condition_RidingElephantInWaterInit,confirmed,0
 0044ea10,000764d4,__Z33Condition_PlayerOnElephantInWaterP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_PlayerOnElephantInWater(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044ea70,00076520,__Z21Condition_BeenAlertedP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_BeenAlerted(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044eaa0,0007654c,__Z22Condition_OnObjectInitP7AISYS_sPcP10AISCRIPT_s,"Condition_OnObjectInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
@@ -125,12 +127,16 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0044eef0,000768c8,__Z25Condition_LocatorOnScreenP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_LocatorOnScreen(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044ef40,0007690a,__Z18Condition_BlockingP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_Blocking(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044efb0,0007693c,__Z17Condition_BeenHitP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_BeenHit(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044f000,00099bc2,__Z31Condition_BeenHitByBatarangInitP7AISYS_sPcP10AISCRIPT_s,"Condition_BeenHitByBatarangInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 0044f030,0007698e,__Z27Condition_BeenHitByBatarangP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_BeenHitByBatarang(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044f070,00099bf4,__Z27Condition_BeenHitByWhipInitP7AISYS_sPcP10AISCRIPT_s,"Condition_BeenHitByWhipInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 0044f0a0,000769c4,__Z23Condition_BeenHitByWhipP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_BeenHitByWhip(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044f0e0,000769fa,__Z20Condition_HoverPhaseP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_HoverPhase(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044f110,00099c26,__Z23Condition_HitPointsInitP7AISYS_sPcP10AISCRIPT_s,"Condition_HitPointsInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 0044f150,00076a2c,__Z19Condition_HitPointsP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_HitPoints(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044f190,00076a6e,__Z31Condition_CollidingWithOpponentP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_CollidingWithOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044f390,00076ac8,__Z19Condition_CollidingP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_Colliding(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044f3c0,00099ca6,__Z20Condition_XYZPosInitP7AISYS_sPcP10AISCRIPT_s,"Condition_XYZPosInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 0044f400,00076af2,__Z14Condition_XPosP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_XPos(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044f440,00076b22,__Z14Condition_YPosP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_YPos(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044f480,00076b52,__Z14Condition_ZPosP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ZPos(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
@@ -148,6 +154,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0044f980,00076fb0,__Z21Condition_InLayerInitP7AISYS_sPcP10AISCRIPT_s,"Condition_InLayerInit(AISYS_s*, char*, AISCRIPT_s*)",strings,0
 0044f9e0,0007700a,__Z17Condition_InLayerP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_InLayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044fa10,00077032,__Z25Condition_OpponentInLayerP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OpponentInLayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044fa40,00099c66,__Z30Condition_OnDynamicGrappleInitP7AISYS_sPcP10AISCRIPT_s,"Condition_OnDynamicGrappleInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 0044fa80,0007705a,__Z26Condition_OnDynamicGrappleP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OnDynamicGrapple(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044fae0,000770b4,__Z23Condition_OnGrappleInitP7AISYS_sPcP10AISCRIPT_s,"Condition_OnGrappleInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 0044fb30,000770fe,__Z19Condition_OnGrappleP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OnGrapple(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
