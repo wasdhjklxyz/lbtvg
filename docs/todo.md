@@ -18,8 +18,8 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 10 | 9 |
 | [Text](#text) | 10 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 14 | 8 |
-| [Arcade](#arcade) | 6 | 6 |
 | [near nutrig_gen.cpp](#near-nutrig_gencpp) | 14 | 6 |
+| [Arcade](#arcade) | 5 | 5 |
 | [GameCam](#gamecam) | 5 | 5 |
 | [Grabber](#grabber) | 7 | 5 |
 | [Player](#player) | 5 | 5 |
@@ -534,15 +534,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 - [ ] `006bc410` 1430 B `_AISysProcessCharacter`
 - [ ] `006b5000` 3215 B `_AISysLoadEx`
 
-## Arcade
-
-- [ ] `006481f0` 9 B `Arcade_ResetPanel()`  **saga** `legoapi/menus/screens/arcade.cpp`
-- [ ] `006481b0` 62 B `Arcade_GetMode(unsigned int*)`  **saga** `legoapi/menus/screens/arcade.cpp`
-- [ ] `006486e0` 84 B `Arcade_PlayerKilled(int, int)`  **saga** `legoapi/menus/screens/arcade.cpp`
-- [ ] `00648200` 133 B `Arcade_UpdatePanel(int)`  **saga** `legoapi/menus/screens/arcade.cpp`
-- [ ] `00648290` 254 B `Arcade_DrawPanel(int)`  **saga** `legoapi/menus/screens/arcade.cpp`
-- [ ] `00648390` 842 B `Arcade_AwardPoint(int, int, int)`  **saga** `legoapi/menus/screens/arcade.cpp`
-
 ## near nutrig_gen.cpp
 
 - [ ] `006a5fe0` 31 B `_AISysClearAllPathCnxTypes`
@@ -559,6 +550,14 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 - [ ] `006a19a0` 230 B `_AIScriptFind`  **saga** `gameapi/ai/aisys/aiscript.cpp`
 - [ ] `006a2730` 401 B `_AIScriptCopyConditions`  **saga** `gameapi/ai/aisys/aiscript.cpp`
 - [ ] `006a2cc0` 536 B `_AIScriptBuildDerivedScript`  **saga** `gameapi/ai/aisys/aiscript.cpp`
+
+## Arcade
+
+- [ ] `006481f0` 9 B `Arcade_ResetPanel()`  **saga** `legoapi/menus/screens/arcade.cpp`
+- [ ] `006481b0` 62 B `Arcade_GetMode(unsigned int*)`  **saga** `legoapi/menus/screens/arcade.cpp`
+- [ ] `006486e0` 84 B `Arcade_PlayerKilled(int, int)`  **saga** `legoapi/menus/screens/arcade.cpp`
+- [ ] `00648290` 254 B `Arcade_DrawPanel(int)`  **saga** `legoapi/menus/screens/arcade.cpp`
+- [ ] `00648390` 842 B `Arcade_AwardPoint(int, int, int)`  **saga** `legoapi/menus/screens/arcade.cpp`
 
 ## GameCam
 
