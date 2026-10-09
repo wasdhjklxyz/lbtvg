@@ -338,9 +338,17 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0059a7a0,00255582,_SetMiniAnimTimeRandom,_SetMiniAnimTimeRandom,confirmed,0
 0059a7f0,0025560e,_SetAnimTimeRandom,_SetAnimTimeRandom,confirmed,0
 0059a840,0025569a,_GetAnimTimeRandom,_GetAnimTimeRandom,confirmed,0
+0059b220,002558c0,_AnimPacket_MiniToFull,_AnimPacket_MiniToFull,confirmed,0
+0059b2a0,00255936,_AnimPacket_FullToMini,_AnimPacket_FullToMini,confirmed,0
+0059b310,002593ae,_UpdateMiniAnimPacket,_UpdateMiniAnimPacket,confirmed,0
+0059b370,0025599a,_AnimBlendingFromTo,_AnimBlendingFromTo,confirmed,0
 0059b3c0,00255a06,_AnimPlaying,_AnimPlaying,confirmed,0
 0059b480,00255ac8,_CurrentAnim,_CurrentAnim,calls,5
+0059b4a0,00255ae0,_AnimSpeedXZ,_AnimSpeedXZ,confirmed,0
 0059b540,00255ba6,_AnimSpeedZ,_AnimSpeedZ,confirmed,0
+0059b570,00255bd6,_AnimListFrame,_AnimListFrame,confirmed,0
+0059b5b0,00255c3c,_AnimStopFrame,_AnimStopFrame,confirmed,0
+0059b5e0,00255c80,_AnimListFrameArray,_AnimListFrameArray,confirmed,0
 0059c4b0,0025615a,_ActionFromName,_ActionFromName,gapfill,1
 0059c530,002561e8,_ParseAnimStance,_ParseAnimStance,order,2
 0059c5a0,00256266,_ConfigureCharacterList,_ConfigureCharacterList,strings,0

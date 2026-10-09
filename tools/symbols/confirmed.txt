@@ -137,3 +137,11 @@
 0059a7a0 SetMiniAnimTimeRandom  same shape as SetAnimTimeRandom on the mini packet; Mac order
 0059a7f0 SetAnimTimeRandom  saga body matches (random time below NuAnimEndFrame)
 0059a840 GetAnimTimeRandom  saga body matches
+0059b220 AnimPacket_MiniToFull  saga body matches field for field
+0059b2a0 AnimPacket_FullToMini  saga body matches field for field
+0059b310 UpdateMiniAnimPacket  saga body matches (MiniToFull, UpdateAnimPacket, FullToMini)
+0059b370 AnimBlendingFromTo  saga body matches
+0059b4a0 AnimSpeedXZ  Mac order after CurrentAnim; returns anim x/z speeds (0x1c/0x20) like AnimSpeedZ
+0059b570 AnimListFrame  saga body matches (u8 event_frames[4] at 0x24)
+0059b5b0 AnimStopFrame  saga body matches (u8 stop frame at 0xb)
+0059b5e0 AnimListFrameArray  saga shape; Batman copies the 4 event frames out as floats

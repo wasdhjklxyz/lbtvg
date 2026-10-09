@@ -25,12 +25,12 @@ struct ANIMPACKET_s {
     f32 blend_target_time;
     f32 time2;
   };
-  u8 pad_0x18[0x20 - 0x18];
+  u32 pad_0x18[(0x20 - 0x18) / 4];
   union {
     f32 field_0x20;
     f32 time_secondary;
   }; // 0x20
-  u8 pad_0x24[0x30 - 0x24];
+  u32 pad_0x24[(0x30 - 0x24) / 4];
   union {
     u8 flags;
     u8 field_0x30;
@@ -50,7 +50,8 @@ struct ANIMPACKET_s {
   u8 blend_source_reversed; // 0x3c
   u8 blend_target_reversed; // 0x3d
   u8 current_reversed;      // 0x3e
-  u8 pad_0x3f[0x42 - 0x3f];
+  u8 pad_0x3f;
+  u16 pad_0x40;
   union {
     i16 overlay_animation; // -1 when no overlay is active
     u16 frame;
@@ -62,10 +63,12 @@ struct CHARACTERANIM_s {
   char *name;       // 0x00
   u32 flags;        // 0x04
   i16 animation_id; // 0x08
-  u16 pad0a;
-  u32 pad0c[(0x20 - 0x0c) / 4];
-  f32 action_speed; // 0x20
-  u32 pad24;
+  u8 pad0a;
+  u8 stop_frame; // 0x0b
+  u32 pad0c[(0x1c - 0x0c) / 4];
+  f32 speed_x;        // 0x1c
+  f32 action_speed;   // 0x20
+  u8 event_frames[4]; // 0x24
 };
 
 struct CHARACTERDATA {
@@ -532,13 +535,16 @@ void ResetAnimPacket(ANIMPACKET_s *packet, i32 animation) {
 }
 
 struct MINIANIMPACKET_s {
-  f32 current_time;  // 0x00
-  f32 previous_time; // 0x04
-  u32 pad08[3];
-  f32 blend_target_time; // 0x14
-  u8 flags;              // 0x18
-  u8 blending;           // 0x19
-  u8 pad1a[4];
+  f32 current_time;           // 0x00
+  f32 previous_time;          // 0x04
+  f32 blend_elapsed;          // 0x08
+  f32 blend_duration;         // 0x0c
+  f32 blend_source_time;      // 0x10
+  f32 blend_target_time;      // 0x14
+  u8 flags;                   // 0x18
+  u8 blending;                // 0x19
+  i16 blend_animation_a;      // 0x1a
+  i16 blend_animation_b;      // 0x1c
   i16 current_animation_id;   // 0x1e
   i16 previous_animation_id;  // 0x20
   i16 requested_animation_id; // 0x22
@@ -594,6 +600,78 @@ f32 GetAnimTimeRandom(CHARACTERMODEL_s *model, i32 animation) {
          1.0f;
 }
 
+// FUNCTION: LEGOBATMAN 0x0059b220
+void AnimPacket_MiniToFull(MINIANIMPACKET_s *mini_packet,
+                           ANIMPACKET_s *packet) {
+  packet->current_time = mini_packet->current_time;
+  packet->previous_time = mini_packet->previous_time;
+  packet->blend_elapsed = mini_packet->blend_elapsed;
+  packet->blend_duration = mini_packet->blend_duration;
+  packet->blend_source_time = mini_packet->blend_source_time;
+  packet->blend_target_time = mini_packet->blend_target_time;
+  packet->flags = mini_packet->flags;
+  packet->blending = mini_packet->blending;
+  packet->blend_animation_a = mini_packet->blend_animation_a;
+  packet->blend_animation_b = mini_packet->blend_animation_b;
+  packet->animation_index = mini_packet->current_animation_id;
+  packet->previous_animation = mini_packet->previous_animation_id;
+  packet->requested_animation = mini_packet->requested_animation_id;
+  packet->blend_source_reversed = 0;
+  packet->blend_target_reversed = 0;
+  packet->current_reversed = 0;
+  packet->overlay_animation = -1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0059b2a0
+void AnimPacket_FullToMini(ANIMPACKET_s *packet,
+                           MINIANIMPACKET_s *mini_packet) {
+  mini_packet->current_time = packet->current_time;
+  mini_packet->previous_time = packet->previous_time;
+  mini_packet->blend_elapsed = packet->blend_elapsed;
+  mini_packet->blend_duration = packet->blend_duration;
+  mini_packet->blend_source_time = packet->blend_source_time;
+  mini_packet->blend_target_time = packet->blend_target_time;
+  mini_packet->flags = packet->flags;
+  mini_packet->blending = packet->blending;
+  mini_packet->blend_animation_a = packet->blend_animation_a;
+  mini_packet->blend_animation_b = packet->blend_animation_b;
+  mini_packet->current_animation_id = packet->animation_index;
+  mini_packet->previous_animation_id = packet->previous_animation;
+  mini_packet->requested_animation_id = packet->requested_animation;
+}
+
+void UpdateAnimPacket(CHARACTERMODEL_s *model, ANIMPACKET_s *packet,
+                      f32 frame_step, f32 movement_speed, f32 blend_step,
+                      f32 extra);
+
+// FUNCTION: LEGOBATMAN 0x0059b310
+void UpdateMiniAnimPacket(CHARACTERMODEL_s *model,
+                          MINIANIMPACKET_s *mini_packet, f32 frame_step,
+                          f32 movement_speed, f32 blend_step) {
+  ANIMPACKET_s packet;
+  AnimPacket_MiniToFull(mini_packet, &packet);
+  UpdateAnimPacket(model, &packet, frame_step, movement_speed, blend_step,
+                   0.0f);
+  AnimPacket_FullToMini(&packet, mini_packet);
+}
+
+// FUNCTION: LEGOBATMAN 0x0059b370
+i32 AnimBlendingFromTo(CHARACTERMODEL_s *model, ANIMPACKET_s *packet,
+                       i32 source_animation, i32 target_animation) {
+  if (packet->blending != 0 && source_animation != -1 &&
+      packet->blend_animation_a == source_animation && target_animation != -1 &&
+      packet->blend_animation_b == target_animation) {
+    if (model != 0) {
+      if (source_animation == -1 || model->model_data_b[source_animation] == 0)
+        return 0;
+      if (target_animation == -1 || model->model_data_b[target_animation] == 0)
+        return 0;
+    }
+    return 1;
+  }
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x0059b3c0
 f32 *AnimPlaying(ANIMPACKET_s *packet, i32 animation, i32 target, i32 source) {
   if (animation == -1)
@@ -618,9 +696,55 @@ i32 CurrentAnim(ANIMPACKET_s *packet) {
   return packet->animation_index;
 }
 
+// FUNCTION: LEGOBATMAN 0x0059b4a0
+i32 AnimSpeedXZ(CHARACTERMODEL_s *model, i32 animation, f32 *x, f32 *z) {
+  if (animation != -1 && model->model_data_b[animation] != 0) {
+    CHARACTERANIM_s *info = (CHARACTERANIM_s *)model->model_data_a[animation];
+    if (info->speed_x != 0.0f || info->action_speed != 0.0f) {
+      if (x != 0)
+        *x = info->speed_x;
+      if (z != 0)
+        *z = info->action_speed;
+      return 1;
+    }
+  }
+  if (x != 0)
+    *x = 0.0f;
+  if (z != 0)
+    *z = 0.0f;
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x0059b540
 f32 AnimSpeedZ(CHARACTERMODEL_s *model, i32 animation) {
   if (animation != -1 && model->model_data_b[animation] != 0)
     return ((CHARACTERANIM_s *)model->model_data_a[animation])->action_speed;
   return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0059b570
+f32 AnimListFrame(CHARACTERMODEL_s *model, i32 animation, i32 frame) {
+  if (animation == -1 || model->model_data_b[animation] == 0 || frame < 0 ||
+      frame > 3)
+    return 0.0f;
+  CHARACTERANIM_s *info = (CHARACTERANIM_s *)model->model_data_a[animation];
+  return info->event_frames[frame];
+}
+
+// FUNCTION: LEGOBATMAN 0x0059b5b0
+f32 AnimStopFrame(CHARACTERMODEL_s *model, i32 animation) {
+  if (animation != -1 && model->model_data_b[animation] != 0)
+    return ((CHARACTERANIM_s *)model->model_data_a[animation])->stop_frame;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0059b5e0
+void AnimListFrameArray(CHARACTERMODEL_s *model, i32 animation, f32 *frames) {
+  if (animation != -1 && model->model_data_b[animation] != 0) {
+    CHARACTERANIM_s *info = (CHARACTERANIM_s *)model->model_data_a[animation];
+    frames[0] = info->event_frames[0];
+    frames[1] = info->event_frames[1];
+    frames[2] = info->event_frames[2];
+    frames[3] = info->event_frames[3];
+  }
 }
