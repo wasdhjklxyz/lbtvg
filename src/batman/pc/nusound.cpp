@@ -287,3 +287,16 @@ void NuSoundUnk00535360(const float *pos, int chan, int vol, int p4, int p5,
 
 // FUNCTION: LEGOBATMAN 0x00535b60
 extern "C" void NuSoundAddRumble() {}
+
+#include <stdio.h>
+
+void Unk00533c60();
+
+// FUNCTION: LEGOBATMAN 0x00535c10
+extern "C" void NuSoundStopStereo(int id) {
+  char text[0x40];
+  sprintf(text, ">>> NuSoundStopStereo %d", id);
+  Unk00533c60();
+  (id == g_nuSoundUnk009e6de0 ? g_nuSoundObjs[0] : g_nuSoundObjs[1])
+      ->Unk005398d0();
+}

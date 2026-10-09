@@ -16,7 +16,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Action](#action) | 49 | 37 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 43 | 37 |
 | [near rtleditor.cpp](#near-rtleditorcpp) | 38 | 27 |
-| [near terrain.c](#near-terrainc) | 22 | 9 |
+| [near terrain.c](#near-terrainc) | 21 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 9 | 6 |
 | [Condition](#condition) | 6 | 4 |
 | [Grabber](#grabber) | 5 | 4 |
@@ -95,7 +95,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [CharScene](#charscene) | 1 | 0 |
 | [CharShadows](#charshadows) | 1 | 0 |
 | [Cheat](#cheat) | 1 | 0 |
-| [CNuConsole](#cnuconsole) | 5 | 0 |
+| [CNuConsole](#cnuconsole) | 1 | 0 |
 | [Create](#create) | 1 | 0 |
 | [Customiser](#customiser) | 4 | 0 |
 | [CustomiserInternal](#customiserinternal) | 5 | 0 |
@@ -130,7 +130,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near d3dCalls.cpp](#near-d3dcallscpp) | 1 | 0 |
 | [near gcutscn.cpp](#near-gcutscncpp) | 1 | 0 |
 | [near listman_gen.cpp](#near-listman_gencpp) | 1 | 0 |
-| [near nugraph_gen.cpp](#near-nugraph_gencpp) | 2 | 0 |
+| [near nugraph_gen.cpp](#near-nugraph_gencpp) | 1 | 0 |
 | [near numtl_dlist.cpp](#near-numtl_dlistcpp) | 1 | 0 |
 | [near pcapi.cpp](#near-pcapicpp) | 4 | 0 |
 | [near windows.cpp](#near-windowscpp) | 3 | 0 |
@@ -151,7 +151,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [NuScreen](#nuscreen) | 1 | 0 |
 | [NuScript](#nuscript) | 1 | 0 |
 | [NuSin](#nusin) | 4 | 0 |
-| [NuSound](#nusound) | 3 | 0 |
+| [NuSound](#nusound) | 2 | 0 |
 | [NuSpecial](#nuspecial) | 4 | 0 |
 | [NuStreamProcessManager](#nustreamprocessmanager) | 3 | 0 |
 | [NuWater](#nuwater) | 1 | 0 |
@@ -325,7 +325,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## near terrain.c
 
-- [ ] `00574220` 73 B `_PlatOnOff`  **hint** name (gapfill)
 - [ ] `0057d660` 78 B `_AddVariableShotDebrisEffect`  **hint** name (gapfill)
 - [ ] `0057d5a0` 89 B `_AddVariableShotDebrisEffectTimed1`  **hint** name (gapfill)
 - [ ] `0056fef0` 145 B `_RayImpact`  **stub** · **saga** `legoapi/render/core/terrain.cpp`
@@ -734,10 +733,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## CNuConsole
 
-- [ ] `0052e5f0` 72 B `CNuConsole::SendDebugText(char*, ...)`
-- [ ] `0052e640` 92 B `CNuConsole::ExitNow(char*, ...)`
-- [ ] `0052e7b0` 99 B `CNuConsole::SendWarning(char*, ...)`
-- [ ] `0052e860` 119 B `CNuConsole::SendD3DWarning(long, char*, ...)`  **hint** name (gapfill)
 - [ ] `0052fd10` 172 B `CNuConsole::Initialize()`
 
 ## Create
@@ -901,7 +896,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## near nugraph_gen.cpp
 
-- [ ] `0068e660` 77 B `_nugraphFreeTempCurveData`
 - [ ] `0068e6b0` 301 B `_nugraphCalcCurve`
 
 ## near numtl_dlist.cpp
@@ -999,7 +993,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## NuSound
 
-- [ ] `00535c10` 84 B `_NuSoundStopStereo`
 - [ ] `00534ff0` 274 B `_NuSoundInitPS`
 - [ ] `005354c0` 411 B `_NuSoundPlay3dLoopSfx`  **hint** name (gapfill)
 

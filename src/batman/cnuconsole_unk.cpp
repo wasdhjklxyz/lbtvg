@@ -11,8 +11,14 @@
 class CNuConsole {
 public:
   void SendError(char *fmt, ...);
+  void SendDebugText(char *fmt, ...);
+  void ExitNow(char *fmt, ...);
+  void SendWarning(char *fmt, ...);
+  void SendD3DWarning(long hr, char *fmt, ...);
 
-  u8 pad_000[0x500];
+  u8 pad_000;
+  u8 debug_enabled; // 0x001
+  u8 pad_002[0x500 - 2];
   void *output;      // 0x500
   u8 output_enabled; // 0x504
 };
@@ -26,6 +32,8 @@ static char g_error_text[0x800];
 
 void FUN_0052e500(char *msg);
 void FUN_006d3520(void *output, char *msg);
+extern "C" const char *WINAPI DXGetErrorString9A(HRESULT hr);
+extern "C" const char *WINAPI DXGetErrorDescription9A(HRESULT hr);
 
 class CD3DCore {
 public:
@@ -80,4 +88,56 @@ void CNuConsole::SendError(char *fmt, ...) {
   if (output_enabled && output != NULL) {
     FUN_006d3520(output, g_error_msg);
   }
+}
+
+// FUNCTION: LEGOBATMAN 0x0052e5f0
+void CNuConsole::SendDebugText(char *fmt, ...) {
+  if (fmt != NULL) {
+    va_list args;
+    va_start(args, fmt);
+    vsprintf(g_error_text, fmt, args);
+  }
+  sprintf(g_error_msg, "NUDEBUG: %s", g_error_text);
+  if (debug_enabled)
+    OutputDebugStringA(g_error_msg);
+}
+
+// FUNCTION: LEGOBATMAN 0x0052e640
+void CNuConsole::ExitNow(char *fmt, ...) {
+  if (fmt != NULL) {
+    va_list args;
+    va_start(args, fmt);
+    vsprintf(g_error_text, fmt, args);
+  }
+  sprintf(g_error_msg, "\n%s\n", g_error_text);
+  MessageBoxA(g_hwnd_0ad31c4, g_error_msg, "Fatal Error!", MB_ICONERROR);
+  raise(SIGABRT);
+  _exit(3);
+}
+
+// FUNCTION: LEGOBATMAN 0x0052e7b0
+void CNuConsole::SendWarning(char *fmt, ...) {
+  if (fmt != NULL) {
+    va_list args;
+    va_start(args, fmt);
+    vsprintf(g_error_text, fmt, args);
+  }
+  sprintf(g_error_msg, "NUWARNING: %s\r\n", g_error_text);
+  OutputDebugStringA(g_error_msg);
+  if (output_enabled && output != NULL)
+    FUN_006d3520(output, g_error_msg);
+}
+
+// FUNCTION: LEGOBATMAN 0x0052e860
+void CNuConsole::SendD3DWarning(long hr, char *fmt, ...) {
+  if (fmt != NULL) {
+    va_list args;
+    va_start(args, fmt);
+    vsprintf(g_error_text, fmt, args);
+  }
+  sprintf(g_error_msg, "NUD3DWARNING: %s, DirectDescription: %s, %s\r\n",
+          g_error_text, DXGetErrorString9A(hr), DXGetErrorDescription9A(hr));
+  OutputDebugStringA(g_error_msg);
+  if (output_enabled && output != NULL)
+    FUN_006d3520(output, g_error_msg);
 }

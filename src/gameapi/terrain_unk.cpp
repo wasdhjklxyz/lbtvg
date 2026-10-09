@@ -224,6 +224,43 @@ static i16 NuTerrPlatsOff;
 // FUNCTION: LEGOBATMAN 0x00572040
 extern "C" void NewTerrPlatformsOff(void) { NuTerrPlatsOff = 1; }
 
+struct TERRAIN_GROUP {
+  u32 pad00[0x2c / 4];
+  i32 chunk_type; // 0x2c
+  u32 pad30[(0x38 - 0x30) / 4];
+};
+
+struct TERRAIN_PLATFORM {
+  u32 pad00[0x48 / 4];
+  i16 terrain_group_index; // 0x48
+  u16 pad4a;
+  u32 pad4c[(0x6c - 0x4c) / 4];
+};
+
+struct TERRSET {
+  TERRAIN_GROUP *groups; // 0x00
+  u32 pad04[(0x68 - 4) / 4];
+  TERRAIN_PLATFORM *platforms; // 0x68
+  u32 pad6c[(0xa48c - 0x6c) / 4];
+  i32 max_platforms; // 0xa48c
+};
+
+// GLOBAL: LEGOBATMAN 0x009f78f4
+extern TERRSET *CurTerr;
+
+// from saga legoapi/render/core/terrain_stubs.cpp
+// FUNCTION: LEGOBATMAN 0x00574220
+extern "C" void PlatOnOff(i32 index, i32 enabled) {
+  if (CurTerr != 0 && index >= 0 && index < CurTerr->max_platforms) {
+    i32 group = CurTerr->platforms[index].terrain_group_index;
+    if (enabled != 0) {
+      CurTerr->groups[group].chunk_type = 1;
+      return;
+    }
+    CurTerr->groups[group].chunk_type = -1;
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x005c8130
 void WorldInfo_InitOnce(void) { memset(WorldInfo, 0, 0xa790); }
 
