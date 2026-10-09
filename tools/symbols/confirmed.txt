@@ -311,3 +311,8 @@
 00655ba0 RE_start_colour  matched saga ripples.cpp body, Mac order
 00655bf0 RE_end_colour  matched saga ripples.cpp body, Mac order
 00655e50 LookupRippleEffectIndex  matched (NuStrICmp over 2 effect names)
+00635020 GizmoPickups_TotalScore  matched saga body, Mac order
+00635070 GizmoPickup_NumberOfType  matched saga-shaped body (type code 0x14 / type index 0x25), Mac order
+00635130 GizmoPickup_TurnOnPickup  matched (bits 1,2,7 on; 1,2 off), Mac order
+00635150 GizmoPickup_BeenTurnedOn  matched saga body, Mac order
+00635170 GizmoPickups_PostLoad  empty function (ret) right after GizmoPickup_BeenTurnedOn, as in Mac order (Mac body is empty too)

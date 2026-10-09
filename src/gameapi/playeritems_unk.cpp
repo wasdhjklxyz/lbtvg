@@ -32,6 +32,50 @@ typedef struct COINPACKET_s {
 
 i32 NuStrICmp(const char *a, const char *b);
 
+struct GIZMOPICKUPTYPE_s {
+  u8 pad0[0x12];
+  u16 score; // 0x12
+  u8 pad14[0x3c - 0x14];
+};
+
+struct GIZMOPICKUPSYS_s {
+  GIZMOPICKUPTYPE_s *types; // 0x00
+};
+
+// GLOBAL: LEGOBATMAN 0x009652e4
+extern GIZMOPICKUPSYS_s *GizmoPickupSys;
+
+// FUNCTION: LEGOBATMAN 0x00635020
+u32 GizmoPickups_TotalScore(void *world) {
+  Unk_WorldInfo5220 *system = ((WORLDINFO_s *)world)->p5220;
+  Unk_WorldInfo5220Entry *pickup = system->list;
+  u32 score = 0;
+  if (pickup != 0) {
+    for (i32 i = 0; i < system->count; ++i, ++pickup)
+      score += GizmoPickupSys->types[pickup->type_index].score;
+  }
+  return score;
+}
+
+// FUNCTION: LEGOBATMAN 0x00635070
+i32 GizmoPickup_NumberOfType(WORLDINFO_s *world, i32 type_index,
+                             char type_code) {
+  Unk_WorldInfo5220 *runtime = world->p5220;
+  Unk_WorldInfo5220Entry *pickup = runtime->list;
+  i32 count = 0;
+  if (type_code == 0 && type_index == -1)
+    return 0;
+  for (i32 index = 0; index < runtime->count; ++index, ++pickup) {
+    if (type_code != 0) {
+      if (pickup->type_code == type_code)
+        count++;
+    } else if (pickup->type_index == type_index) {
+      count++;
+    }
+  }
+  return count;
+}
+
 // FUNCTION: LEGOBATMAN 0x006350d0
 Unk_WorldInfo5220Entry *GizmoPickup_FindByName(WORLDINFO_s *world, char *name) {
   if (world != 0 && name != 0) {
@@ -45,6 +89,28 @@ Unk_WorldInfo5220Entry *GizmoPickup_FindByName(WORLDINFO_s *world, char *name) {
   }
   return 0;
 }
+
+// FUNCTION: LEGOBATMAN 0x00635130
+void GizmoPickup_TurnOnPickup(Unk_WorldInfo5220Entry *pickup, i32 on) {
+  if (pickup != 0) {
+    if (on != 0) {
+      pickup->enabled = 1;
+      pickup->visible = 1;
+      pickup->activated = 1;
+    } else {
+      pickup->enabled = 0;
+      pickup->visible = 0;
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00635150
+i32 GizmoPickup_BeenTurnedOn(Unk_WorldInfo5220Entry *pickup) {
+  return pickup != 0 ? pickup->activated : 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00635170
+void GizmoPickups_PostLoad(void *a, void *b) {}
 
 // FUNCTION: LEGOBATMAN 0x00635c80
 void ResetCoinPacket(COINPACKET_s *packet) {
