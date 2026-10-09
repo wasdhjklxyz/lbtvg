@@ -1403,3 +1403,24 @@
 00654430 xChild  keyword table 0x966ec8
 006540e0 remapParent  Mac remapParent(int), recursive callee of xParent
 00654160 remapChildren  Mac remapChildren(int), recursive callee of xChild
+00538970 NuMusic::xsIndex  keyword table 0x94ebb8
+005389b0 NuMusic::xsNoDuck  keyword table 0x94ebb8
+005389c0 NuMusic::xsLooping  keyword table 0x94ebb8
+005389d0 NuMusic::xsNonLooping  keyword table 0x94ebb8
+00538ea0 NuMusic::xsPath  keyword table 0x94ebb8
+00538ed0 NuMusic::xsStrict  keyword table 0x94ebb8
+005390d0 NuMusic::xsIdent  keyword table 0x94ebb8
+005390e0 NuMusic::xsNoMusic  keyword table 0x94ebb8
+005390f0 NuMusic::xsDuck  keyword table 0x94ebb8
+00539100 NuMusic::xsAttenuation  keyword table 0x94ebb8
+00539110 NuMusic::xsAlbum  keyword table 0x94ebb8
+00539120 NuMusic::xsAction  keyword table 0x94ebb8
+00539140 NuMusic::xsQuiet  keyword table 0x94ebb8
+00539160 NuMusic::xsOverlay  keyword table 0x94ebb8
+00539180 NuMusic::xsSignature  keyword table 0x94ebb8
+005391a0 NuMusic::xsCutscene  keyword table 0x94ebb8
+005391c0 NuMusic::xsNoMusicC  keyword table 0x94ebb8
+005391e0 NuMusic::xsGlobalAttenuation  keyword table 0x94ebb8
+005389e0 NuMusic::xIdent  Mac; sole callee of NuMusic::xsIdent
+00538ef0 NuMusic::xAlbum  Mac; sole callee of NuMusic::xsAlbum
+00536cd0 NuMusic::GlobalParseErrorFn  Mac; handler NuMusic::xsStrict installs

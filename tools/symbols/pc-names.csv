@@ -774,7 +774,28 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005354c0,001b27ea,_NuSoundPlay3dLoopSfx,_NuSoundPlay3dLoopSfx,gapfill,2
 00535b60,001b169c,_NuSoundAddRumble,_NuSoundAddRumble,calls,3
 00535c10,001b1700,_NuSoundStopStereo,_NuSoundStopStereo,strings,0
+00536cd0,001ad58e,__ZN7NuMusic18GlobalParseErrorFnEP8nufpar_s,NuMusic::GlobalParseErrorFn(nufpar_s*),confirmed,0
 005375d0,001ae210,__ZN7NuMusic5DebugEii,"NuMusic::Debug(int, int)",strings,0
+00538970,001ad5f8,__ZN7NuMusic7xsIndexEP8nufpar_sPv,"NuMusic::xsIndex(nufpar_s*, void*)",confirmed,0
+005389b0,001ae668,__ZN7NuMusic8xsNoDuckEP8nufpar_sPv,"NuMusic::xsNoDuck(nufpar_s*, void*)",confirmed,0
+005389c0,001ae678,__ZN7NuMusic9xsLoopingEP8nufpar_sPv,"NuMusic::xsLooping(nufpar_s*, void*)",confirmed,0
+005389d0,001ae688,__ZN7NuMusic12xsNonLoopingEP8nufpar_sPv,"NuMusic::xsNonLooping(nufpar_s*, void*)",confirmed,0
+005389e0,001ad912,__ZN7NuMusic6xIdentEP8nufpar_s,NuMusic::xIdent(nufpar_s*),confirmed,0
+00538ea0,001ad7c8,__ZN7NuMusic6xsPathEP8nufpar_sPv,"NuMusic::xsPath(nufpar_s*, void*)",confirmed,0
+00538ed0,001af144,__ZN7NuMusic8xsStrictEP8nufpar_sPv,"NuMusic::xsStrict(nufpar_s*, void*)",confirmed,0
+00538ef0,001ad89e,__ZN7NuMusic6xAlbumEP8nufpar_s,NuMusic::xAlbum(nufpar_s*),confirmed,0
+005390d0,001ad950,__ZN7NuMusic7xsIdentEP8nufpar_sPv,"NuMusic::xsIdent(nufpar_s*, void*)",confirmed,0
+005390e0,001ada7e,__ZN7NuMusic9xsNoMusicEP8nufpar_sPv,"NuMusic::xsNoMusic(nufpar_s*, void*)",confirmed,0
+005390f0,001ad6de,__ZN7NuMusic6xsDuckEP8nufpar_sPv,"NuMusic::xsDuck(nufpar_s*, void*)",confirmed,0
+00539100,001ad662,__ZN7NuMusic13xsAttenuationEP8nufpar_sPv,"NuMusic::xsAttenuation(nufpar_s*, void*)",confirmed,0
+00539110,001ad8fc,__ZN7NuMusic7xsAlbumEP8nufpar_sPv,"NuMusic::xsAlbum(nufpar_s*, void*)",confirmed,0
+00539120,001af210,__ZN7NuMusic8xsActionEP8nufpar_sPv,"NuMusic::xsAction(nufpar_s*, void*)",confirmed,0
+00539140,001af1cc,__ZN7NuMusic7xsQuietEP8nufpar_sPv,"NuMusic::xsQuiet(nufpar_s*, void*)",confirmed,0
+00539160,001af1ee,__ZN7NuMusic9xsOverlayEP8nufpar_sPv,"NuMusic::xsOverlay(nufpar_s*, void*)",confirmed,0
+00539180,001af188,__ZN7NuMusic11xsSignatureEP8nufpar_sPv,"NuMusic::xsSignature(nufpar_s*, void*)",confirmed,0
+005391a0,001af1aa,__ZN7NuMusic10xsCutsceneEP8nufpar_sPv,"NuMusic::xsCutscene(nufpar_s*, void*)",confirmed,0
+005391c0,001af166,__ZN7NuMusic10xsNoMusicCEP8nufpar_sPv,"NuMusic::xsNoMusicC(nufpar_s*, void*)",confirmed,0
+005391e0,001ad77c,__ZN7NuMusic19xsGlobalAttenuationEP8nufpar_sPv,"NuMusic::xsGlobalAttenuation(nufpar_s*, void*)",confirmed,0
 0053afc0,001b2cc4,__ZN9OggReader4OpenEP10nudathdr_sPcPN7MacDoze13tWAVEFORMATEXE,"OggReader::Open(nudathdr_s*, char*, MacDoze::tWAVEFORMATEX*)",strings,0
 00558d90,0020edaa,_GetSfxId,_GetSfxId,calls,1
 00558f10,001f3ac2,_PlaySfxByIdEx,_PlaySfxByIdEx,calls,2
