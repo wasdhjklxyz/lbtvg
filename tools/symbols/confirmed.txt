@@ -921,3 +921,26 @@
 005e8ff0 BT_typeb  matched, keyword table
 005e9010 BT_typec  matched, keyword table
 005e9030 BT_typed  matched, keyword table
+00acb77c static CUTINFO_s *CS_CutInfo;  matched, keyword table
+00618d00 CS_fpsec  matched, keyword table
+00618f10 CS_in_game  matched, keyword table
+00618f30 CS_blobshadow_alpha  matched, keyword table
+00618f70 CS_blobshadow_fadenear  matched, keyword table
+00618f90 CS_blobshadow_fadefar  matched, keyword table
+00618fb0 CS_reflect_range  matched, keyword table
+00618fd0 CS_render_group  matched, keyword table
+00619030 CS_stop_debris  matched, keyword table
+00619150 CS_burnout_threshold  matched, keyword table
+00619170 CS_burnout_intensity  matched, keyword table
+00619190 CS_burnout_flare  matched, keyword table
+00618d20 CS_no_fog  matched, keyword table
+00618e50 CS_always_load  matched, keyword table
+00618e60 CS_unskippable  matched, keyword table
+00619050 CS_snap_out  matched, keyword table
+006190e0 CS_cam_only  matched, keyword table
+006190f0 CS_wipe_out  matched, keyword table
+00619100 CS_new_mode  matched, keyword table
+00619110 CS_replace_players  matched, keyword table
+00619120 CS_looping  matched, keyword table
+00619130 CS_start_cam  matched, keyword table
+00619140 CS_super_widescreen  matched, keyword table

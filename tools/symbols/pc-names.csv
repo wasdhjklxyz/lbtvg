@@ -935,6 +935,28 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006163b0,00307916,__Z19Minicam_AddSubtitlePK21MINICAM_ADDSUBTITLE_s,Minicam_AddSubtitle(MINICAM_ADDSUBTITLE_s const*),gapfill,1
 006180c0,002ec36e,__Z16HubAreaInfo_InitP11WORLDINFO_s,HubAreaInfo_Init(WORLDINFO_s*),strings,0
 006188c0,00293cb4,__Z23CutScenes_ConfigureListPcP9variptr_uS0_,"CutScenes_ConfigureList(char*, variptr_u*, variptr_u)",strings,0
+00618d00,00294126,__Z8CS_fpsecP8nufpar_s,CS_fpsec(nufpar_s*),confirmed,0
+00618d20,00294154,__Z9CS_no_fogP8nufpar_s,CS_no_fog(nufpar_s*),confirmed,0
+00618e50,002942de,__Z14CS_always_loadP8nufpar_s,CS_always_load(nufpar_s*),confirmed,0
+00618e60,002942f6,__Z14CS_unskippableP8nufpar_s,CS_unskippable(nufpar_s*),confirmed,0
+00618f10,002943b2,__Z10CS_in_gameP8nufpar_s,CS_in_game(nufpar_s*),confirmed,0
+00618f30,002943d0,__Z19CS_blobshadow_alphaP8nufpar_s,CS_blobshadow_alpha(nufpar_s*),confirmed,0
+00618f70,00294414,__Z22CS_blobshadow_fadenearP8nufpar_s,CS_blobshadow_fadenear(nufpar_s*),confirmed,0
+00618f90,00294446,__Z21CS_blobshadow_fadefarP8nufpar_s,CS_blobshadow_fadefar(nufpar_s*),confirmed,0
+00618fb0,00294478,__Z16CS_reflect_rangeP8nufpar_s,CS_reflect_range(nufpar_s*),confirmed,0
+00618fd0,002944aa,__Z15CS_render_groupP8nufpar_s,CS_render_group(nufpar_s*),confirmed,0
+00619030,00294538,__Z14CS_stop_debrisP8nufpar_s,CS_stop_debris(nufpar_s*),confirmed,0
+00619050,0029456a,__Z11CS_snap_outP8nufpar_s,CS_snap_out(nufpar_s*),confirmed,0
+006190e0,00294638,__Z11CS_cam_onlyP8nufpar_s,CS_cam_only(nufpar_s*),confirmed,0
+006190f0,0029464e,__Z11CS_wipe_outP8nufpar_s,CS_wipe_out(nufpar_s*),confirmed,0
+00619100,00294666,__Z11CS_new_modeP8nufpar_s,CS_new_mode(nufpar_s*),confirmed,0
+00619110,0029467e,__Z18CS_replace_playersP8nufpar_s,CS_replace_players(nufpar_s*),confirmed,0
+00619120,00294694,__Z10CS_loopingP8nufpar_s,CS_looping(nufpar_s*),confirmed,0
+00619130,002946ac,__Z12CS_start_camP8nufpar_s,CS_start_cam(nufpar_s*),confirmed,0
+00619140,002946c4,__Z19CS_super_widescreenP8nufpar_s,CS_super_widescreen(nufpar_s*),confirmed,0
+00619150,002946dc,__Z20CS_burnout_thresholdP8nufpar_s,CS_burnout_threshold(nufpar_s*),confirmed,0
+00619170,00294718,__Z20CS_burnout_intensityP8nufpar_s,CS_burnout_intensity(nufpar_s*),confirmed,0
+00619190,00294754,__Z16CS_burnout_flareP8nufpar_s,CS_burnout_flare(nufpar_s*),confirmed,0
 0061aa60,00295598,__Z14CutScenes_LoadPcP8nugscn_sS1_iP9variptr_uS3_iiP11WORLDINFO_s,"CutScenes_Load(char*, nugscn_s*, nugscn_s*, int, variptr_u*, variptr_u*, int, int, WORLDINFO_s*)",strings,0
 0061d1b0,0029b04a,__Z24CutScenePlayer_ConfigurePcP9variptr_uS1_PsS2_S2_S2_S2_S2_S2_,"CutScenePlayer_Configure(char*, variptr_u*, variptr_u*, short*, short*, short*, short*, short*, short*, short*)",strings,0
 0061d990,0029880c,__Z22CutScenePlayer_GetTextiPcS_i,"CutScenePlayer_GetText(int, char*, char*, int)",strings,0
@@ -1572,3 +1594,4 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0075b591,001ad4f6,__ZN7NuMusic11ClassToNameEj,NuMusic::ClassToName(unsigned int),strings,0
 007a2310,00047d3c,__Z17EvilSlums_D_ResetP11WORLDINFO_s,EvilSlums_D_Reset(WORLDINFO_s*),strings,0
 00ac7598,,extern,extern,confirmed,0
+00acb77c,,static,static,confirmed,0
