@@ -1189,3 +1189,5 @@
 004644c0 Action_NotWithParty  keyword table 0x93bb98
 0046f2a0 Action_SetAO_MaxAttackers  keyword table 0x93bb98
 0045b990 Action_DontPush  keyword table 0x93bb98
+00462cb0 Action_CanTriggerObstacle  keyword table 0x93bb98
+0046d4f0 Action_IgnoreSlideTerrain  keyword table 0x93bb98

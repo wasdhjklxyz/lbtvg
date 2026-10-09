@@ -4051,3 +4051,55 @@ i32 Action_DontPush(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 1;
 }
+
+// FUNCTION: LEGOBATMAN 0x00462cb0
+i32 Action_CanTriggerObstacle(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char **args, int argc,
+                              int flags, f32 time) {
+  i32 blocked = 0;
+  GIZOBSTACLE_s *obstacle = 0;
+  if (flags != 0) {
+    if (argc != 0) {
+      for (i32 i = 0; i < argc; i++) {
+        char *s = NuStrIStr(args[i], "name=");
+        if (s != 0) {
+          GIZMO_s *gizmo = GizmoFindByName(g_unk00960894->gizmoSys2b0c,
+                                           obstacle_gizmotype_id, s + 5);
+          if (gizmo != 0)
+            obstacle = (GIZOBSTACLE_s *)gizmo->object;
+        } else if (NuStrICmp(args[i], "FALSE") == 0) {
+          blocked = 1;
+        }
+      }
+      if (obstacle != 0)
+        obstacle->stay_shut = blocked;
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0046d4f0
+i32 Action_IgnoreSlideTerrain(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char **args, int argc,
+                              int flags, f32 time) {
+  GameObject_s *obj = 0;
+  i32 on = 1;
+  if (flags != 0) {
+    if (packet != 0 && packet->pd0 != 0)
+      obj = packet->pd0->obj;
+    if (argc != 0) {
+      for (i32 i = 0; i < argc; i++) {
+        if (NuStrICmp(args[i], "FALSE") == 0) {
+          on = 0;
+        } else {
+          char *s = NuStrIStr(args[i], "character=");
+          if (s != 0)
+            obj = GetNamedGameObject(sys, s + 10);
+        }
+      }
+    }
+    if (obj != 0)
+      obj->ignore_slide_terrain = on;
+  }
+  return 1;
+}

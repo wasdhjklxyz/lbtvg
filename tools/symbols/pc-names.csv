@@ -364,6 +364,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004628c0,0007fd84,__Z26Action_ContextSetAnimationP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ContextSetAnimation(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 00462b40,0007ff9e,__Z31Action_AIScriptAnimContextResetP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AIScriptAnimContextReset(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00462b80,0007ffc6,__Z21Action_AnimTimeRandomP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AnimTimeRandom(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
+00462cb0,000800d2,__Z25Action_CanTriggerObstacleP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CanTriggerObstacle(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00462db0,0008019e,__Z26Action_StopObstacleLoopingP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_StopObstacleLooping(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00462e90,00080268,__Z22Action_PlayGizObstacleP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_PlayGizObstacle(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 00463060,000803ee,__Z21Action_PlayGizSpecialP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_PlayGizSpecial(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
@@ -415,6 +416,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0046cc10,00096f5e,__Z22Action_ReleaseTakeOverP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ReleaseTakeOver(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 0046cce0,00096ffe,__Z29Action_RegisterTakeOverObjectP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_RegisterTakeOverObject(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 0046cd90,00083edc,__Z22Action_AddGameMsgCountP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AddGameMsgCount(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+0046d4f0,00097856,__Z25Action_IgnoreSlideTerrainP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_IgnoreSlideTerrain(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 0046d5f0,00097920,__Z26Action_SplineFollowTerrainP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SplineFollowTerrain(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 0046d6f0,00097388,__Z21Action_AddMiscPickupsP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AddMiscPickups(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 0046d870,000979ea,__Z15Action_SetLayerP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetLayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0

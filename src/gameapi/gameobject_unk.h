@@ -307,6 +307,10 @@ struct GameObject_s {
       u32 spline_follow_terrain : 1; // 0x1414 bit 15
     };
     struct {
+      u32 : 13;
+      u32 ignore_slide_terrain : 1; // 0x1414 bit 13
+    };
+    struct {
       u32 : 27;
       u32 no_idle_speed : 1; // 0x1414 bit 27
     };
