@@ -306,6 +306,10 @@ struct GameObject_s {
       u32 : 28;
       u32 not_with_party : 1; // 0x1410 bit 28
     };
+    struct {
+      u32 : 8;
+      u32 dont_move : 1; // 0x1410 bit 8
+    };
   };
   union {
     u32 flags1414; // 0x1414
