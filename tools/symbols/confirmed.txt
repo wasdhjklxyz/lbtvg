@@ -1220,3 +1220,4 @@
 0046d3d0 Action_AwkwardShapeOverride  keyword table 0x93bb98
 0045e740 Action_CopyMessage  keyword table 0x93bb98
 0045e190 Action_SetMessage  keyword table 0x93bb98
+00468b60 Action_FaceLocator  keyword table 0x93bb98

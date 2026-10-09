@@ -5132,3 +5132,35 @@ i32 Action_CopyMessage(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 1;
 }
+
+// FUNCTION: LEGOBATMAN 0x00468b60
+i32 Action_FaceLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                       AIPACKET_s *packet, char **args, int argc, int flags,
+                       f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags != 0) {
+    process->action_data_3 = *(void **)((u8 *)process + 0xa8);
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "locator");
+      if (s != 0)
+        process->action_data_3 = AIPathFindLocator(sys, s + 8);
+      else if ((s = NuStrIStr(args[i], "time")) != 0)
+        process->face_timer = AIParamToFloat(process, s + 5);
+    }
+  }
+  AILOCATOR_s *locator = (AILOCATOR_s *)process->action_data_3;
+  if (locator != 0) {
+    packet->look_target = (nuvec_s *)((u8 *)locator + 0x10);
+    SetHeadTarget(obj, obj->look_target, 7, 1.0f, 0.0f, 0.0f);
+  }
+  if (process->face_timer > 0.0f) {
+    process->face_timer -= time;
+    if (process->face_timer <= 0.0f) {
+      process->face_timer = 0.0f;
+      return 1;
+    }
+  }
+  return 0;
+}
