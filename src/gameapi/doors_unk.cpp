@@ -15,21 +15,34 @@ typedef struct DOOR_s {
   char name[0x80];               // 0x00
   char camera_spline_name[0x20]; // 0x80
   DOORSPLINE_s *spline;          // 0xa0
-  u32 pada4[(0xf0 - 0xa4) / 4];
-  i16 level; // 0xf0
-  u8 padf2[0xf9 - 0xf2];
-  u8 flags; // 0xf9
-  u8 padfa[2];
+  u32 pada4[(0xd4 - 0xa4) / 4];
+  nuvec_s pos;        // 0xd4
+  f32 radius;         // 0xe0
+  nuvec_s normal;     // 0xe4
+  i16 level;          // 0xf0
+  i16 level_f2;       // 0xf2
+  i16 freeplay_level; // 0xf4
+  u16 padf6;
+  u8 next_sock;                // 0xf8
+  u8 flags;                    // 0xf9
+  u8 vehicle;                  // 0xfa
+  u8 active;                   // 0xfb
   DOORSPLINE_s *camera_spline; // 0xfc
   f32 camera_wait;             // 0x100
   f32 camera_blend_time;       // 0x104
-  u32 pad108[(0x128 - 0x108) / 4];
+  u32 vehicle_mask;            // 0x108
+  u32 vehicle_mode;            // 0x10c
+  u32 pad110[(0x128 - 0x110) / 4];
 } DOOR_s;
 
 typedef struct WORLDINFO_s {
-  u8 pad0[0x120];
+  u8 pad0[0x104];
+  VARIPTR buf104; // 0x104
+  u8 pad108[0x120 - 0x108];
   i32 level_idx; // 0x120
-  u8 pad124[0x47a8 - 0x124];
+  u8 pad124[0x140 - 0x124];
+  struct nugscn_s *scn140; // 0x140
+  u8 pad144[0x47a8 - 0x144];
   DOOR_s *doors;  // 0x47a8
   i32 door_count; // 0x47ac
 } WORLDINFO_s;
@@ -42,6 +55,94 @@ i32 Door_Start;
 
 // GLOBAL: LEGOBATMAN 0x00963654
 i32 Door_NextSock = -1;
+
+typedef struct nufpar_s {
+  u32 pad0[0x910 / 4];
+  char *word_buf; // 0x910
+} NUFPAR;
+
+NUFPAR *NuFParCreateMem(char *name, char *buffer, i32 bufferSize);
+void NuFParPushCom(NUFPAR *parser, void *commands);
+i32 NuFParGetLine(NUFPAR *parser);
+i32 NuFParGetWord(NUFPAR *parser);
+i32 NuFParInterpretWord(NUFPAR *parser);
+void NuFParDestroy(NUFPAR *parser);
+
+// GLOBAL: LEGOBATMAN 0x00963658
+extern u8 Door_ConfigKeywords[];
+// GLOBAL: LEGOBATMAN 0x00acaffc
+extern WORLDINFO_s *D_worldinfo;
+// GLOBAL: LEGOBATMAN 0x00acafe0
+extern DOOR_s *D_door;
+// GLOBAL: LEGOBATMAN 0x00ab056c
+extern nuvec_s v000;
+// GLOBAL: LEGOBATMAN 0x0095fd2c
+extern nuvec_s v001;
+
+// STUB: LEGOBATMAN 0x00614d10
+// close: orig keeps parser in ebp and in_door in the dead `config` slot;
+// ours swaps them. Control flow and stores line up.
+void Doors_Configure(WORLDINFO_s *world, char *config) {
+  world->doors = 0;
+  if (world->scn140 == 0)
+    return;
+
+  NUFPAR *parser = NuFParCreateMem("doors", config, 0xffff);
+  if (parser == 0)
+    return;
+
+  world->buf104.addr = (world->buf104.addr + 15) & ~15;
+  DOOR_s *door = (DOOR_s *)world->buf104.addr;
+  world->doors = door;
+  NuFParPushCom(parser, Door_ConfigKeywords);
+
+  i32 in_door = 0;
+  while (NuFParGetLine(parser) != 0) {
+    if (NuFParGetWord(parser) == 0)
+      continue;
+    if (in_door) {
+      if (NuStrICmp(parser->word_buf, "door_end") == 0) {
+        in_door = 0;
+        if (door->spline != 0 && door->level != -1) {
+          if (door->freeplay_level == -1)
+            door->freeplay_level = door->level;
+          door++;
+          world->door_count++;
+        }
+      } else {
+        NuFParInterpretWord(parser);
+      }
+    } else if (NuStrICmp(parser->word_buf, "door_start") == 0) {
+      door->name[0] = '\0';
+      door->camera_spline_name[0] = '\0';
+      door->spline = 0;
+      door->pos = v000;
+      door->radius = 1.0f;
+      door->normal = v001;
+      door->camera_wait = 0.0f;
+      door->camera_blend_time = 1.0f;
+      in_door = 1;
+      D_worldinfo = world;
+      D_door = door;
+      door->level = -1;
+      door->level_f2 = -1;
+      door->freeplay_level = -1;
+      door->next_sock = 0xff;
+      door->flags = 0;
+      door->vehicle = 0xff;
+      door->active = 0;
+      door->camera_spline = 0;
+      door->vehicle_mask = 0;
+      door->vehicle_mode = 0;
+    }
+  }
+
+  NuFParDestroy(parser);
+  if (world->door_count > 0)
+    world->buf104.addr = ((u32)door + 15) & ~15;
+  else
+    world->doors = 0;
+}
 
 // name is a Mac pairing hint (order): verify
 // from saga legoapi/props/doors/doors.cpp

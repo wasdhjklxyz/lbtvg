@@ -477,7 +477,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## Doors
 
-- [ ] `00614d10` 528 B `Doors_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/props/doors/doors.cpp`
+- [ ] `00614d10` 528 B `Doors_Configure(WORLDINFO_s*, char*)`  **stub** · **saga** `legoapi/props/doors/doors.cpp`
 - [ ] `00614f40` 590 B `Doors_Init(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/props/doors/doors.cpp`
 
 ## GizAction
