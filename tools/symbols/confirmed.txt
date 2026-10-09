@@ -1153,3 +1153,7 @@
 004740b0 Action_SetSuperCounter  keyword table 0x93bb98
 00460450 Action_NoIdleSpeed  keyword table 0x93bb98
 004683d0 Action_FaceCharacter  keyword table 0x93bb98
+0045be70 Action_SetZeroAcceleration  keyword table 0x93bb98
+0045edf0 Action_AddExplosion  keyword table 0x93bb98
+00464be0 Action_TagCharacter  keyword table 0x93bb98
+004701d0 Action_IgnoreTriggerSet  keyword table 0x93bb98

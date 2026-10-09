@@ -83,3 +83,4 @@
 004505d0 Condition_FinishedSpline: return block order, 4 tries
 0044d7e0 Condition_TurretAlive: movzx word + test al vs test byte, 3 tries
 0044e750 Condition_IsAlive: member loop register allocation (cmp [mem],0 then reload) not reproduced
+004701d0 Action_IgnoreTriggerSet: sys/process register swap, set-1 recomputed, 3 tries

@@ -2829,3 +2829,120 @@ i32 Action_FaceCharacter(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 0;
 }
+
+extern GameObject_s *player;
+extern GameObject_s *player2;
+
+// FUNCTION: LEGOBATMAN 0x0045be70
+i32 Action_SetZeroAcceleration(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                               AIPACKET_s *packet, char **args, int argc,
+                               int flags, f32 time) {
+  i32 on = 1;
+  GameObject_s *obj = 0;
+  if (flags != 0) {
+    if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+      obj = packet->pd0->obj;
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrIStr(args[i], "player1") != 0 ||
+          NuStrIStr(args[i], "player") != 0)
+        obj = player;
+      else if (NuStrIStr(args[i], "player2") != 0)
+        obj = player2;
+      else if (NuStrIStr(args[i], "FALSE") != 0)
+        on = 0;
+    }
+    if (obj != 0)
+      obj->zero_acceleration = on;
+  }
+  return 1;
+}
+
+// STUB: LEGOBATMAN 0x004701d0
+// original keeps sys in ebp and reloads process, recomputes set - 1 for the
+// shift and has one epilogue; 3 tries all keep process in ebp
+i32 Action_IgnoreTriggerSet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char **args, int argc,
+                            int flags, f32 time) {
+  GameObject_s *obj = 0;
+  u32 mask = 0;
+  if (flags == 0)
+    return 1;
+  if (packet != 0 && packet->pd0 != 0)
+    obj = packet->pd0->obj;
+  {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "character=");
+      if (s != 0) {
+        obj = GetNamedGameObject(sys, s + 10);
+      } else {
+        s = NuStrIStr(args[i], "set=");
+        if (s != 0) {
+          i32 set = (i32)AIParamToFloat(process, s + 4);
+          if (set > 0 && set < 32)
+            mask |= 1 << (set - 1);
+        }
+      }
+    }
+    if (obj != 0)
+      obj->ignore_trigger_sets |= mask;
+  }
+  return 1;
+}
+
+i32 GizmoBlowupTypeGetIndexFromName(WORLDINFO_s *world, char *name);
+void GizmoBlowUpTypeBlowUp(WORLDINFO_s *world, i32 type, nuvec_s *pos);
+
+// FUNCTION: LEGOBATMAN 0x0045edf0
+i32 Action_AddExplosion(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char **args, int argc, int flags,
+                        f32 time) {
+  i32 type = -1;
+  GameObject_s *obj = 0;
+  if (flags != 0) {
+    if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+      obj = packet->pd0->obj;
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "name");
+      if (s != 0) {
+        type = GizmoBlowupTypeGetIndexFromName(g_unk00960894, s + 5);
+      } else if ((s = NuStrIStr(args[i], "character=")) != 0) {
+        obj = GetNamedGameObject(sys, s + 10);
+      }
+    }
+    if (type != -1 && obj != 0)
+      GizmoBlowUpTypeBlowUp(g_unk00960894, type, &obj->v80);
+  }
+  return 1;
+}
+
+void TagCharacter(GameObject_s *obj, GameObject_s *target, i32 a);
+void SetPlayer(void);
+
+// FUNCTION: LEGOBATMAN 0x00464be0
+i32 Action_TagCharacter(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char **args, int argc, int flags,
+                        f32 time) {
+  GameObject_s *target = 0;
+  GameObject_s *obj = 0;
+  if (flags == 0)
+    return 1;
+  if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+    obj = packet->pd0->obj;
+  if (argc != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "character=");
+      if (s != 0) {
+        obj = GetNamedGameObject(sys, s + 10);
+      } else {
+        s = NuStrIStr(args[i], "tag_to=");
+        if (s != 0)
+          target = GetNamedGameObject(sys, s + 7);
+      }
+    }
+    if (obj != 0) {
+      TagCharacter(obj, target, 0);
+      SetPlayer();
+    }
+  }
+  return 1;
+}

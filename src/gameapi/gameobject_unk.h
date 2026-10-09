@@ -121,9 +121,17 @@ struct GameObject_s {
   u8 pad6[0x3ce - 0x3c9];
   u8 b3ce; // 0x3ce
   u8 pad7[0x480 - 0x3cf];
-  u32 flags480_lo : 26;
-  u32 move_range_type : 2; // 0x480 bits 26-27
-  u32 flags480_hi : 4;
+  union {
+    struct {
+      u32 flags480_lo : 26;
+      u32 move_range_type : 2; // 0x480 bits 26-27
+      u32 flags480_hi : 4;
+    };
+    struct {
+      u32 : 18;
+      u32 zero_acceleration : 1; // 0x480 bit 18
+    };
+  };
   u8 pad7a[0x488 - 0x484];
   f32 move_range; // 0x488
   u8 pad7b[0x871 - 0x48c];
@@ -228,8 +236,8 @@ struct GameObject_s {
   u8 pad1380[0x1383 - 0x1380];
   u8 movement_spline_finished; // 0x1383
   u8 pad14d[0x1404 - 0x1384];
-  f32 max_y_rot_seek; // 0x1404
-  u8 pad1408[0x140c - 0x1408];
+  f32 max_y_rot_seek;      // 0x1404
+  u32 ignore_trigger_sets; // 0x1408, bit per trigger set 1..31
   union {
     u32 flags140c; // 0x140c
     struct {
