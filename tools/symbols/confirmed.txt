@@ -57,3 +57,4 @@
 005fb060 Area_FindByName  saga body matches (ADataList file scan)
 006350d0 GizmoPickup_FindByName  saga body matches (world pickup sys name scan)
 005b0f40 GameBufferAlloc  saga body shape matches (bounded aligned bump alloc + memset)
+0059dbd0 Text_InsertCommasIntoNumber  saga body matches (per-language separator every 3 digits)

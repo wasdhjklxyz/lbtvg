@@ -18,8 +18,8 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 14 | 8 |
-| [Text](#text) | 8 | 7 |
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 7 | 6 |
+| [Text](#text) | 7 | 6 |
 | [Grabber](#grabber) | 7 | 5 |
 | [GameCam](#gamecam) | 4 | 4 |
 | [Hub](#hub) | 6 | 4 |
@@ -460,17 +460,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006bc410` 1430 B `_AISysProcessCharacter`
 - [ ] `006b5000` 3215 B `_AISysLoadEx`
 
-## Text
-
-- [ ] `0059d7c0` 119 B `Text_InitStringTable(int, variptr_u*, variptr_u*)`  **stub** · **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
-- [ ] `0059dbd0` 161 B `Text_InsertCommasIntoNumber(char*, char*, int)`  **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
-- [ ] `0059d850` 169 B `Text_PlatformSpecificIgnore(nufpar_s*)`  **hint** name (order)
-- [ ] `0059db20` 173 B `Text_InitTable(TEXTENTRY*, int, int)`  **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
-- [ ] `004f9ab0` 287 B `Text_LoadStrings(variptr_u*, variptr_u*)`  **saga** `legoapi/menus/core/text.cpp`
-- [ ] `0059dd10` 392 B `Text_MakeTime(float, int, int, int, char*)`  **saga** `legoapi/menus/core/text.cpp`
-- [ ] `00408e60` 462 B `Text_ExpandButtonString(char*, char*)`  **saga** `legoapi/misc/androidbatman.cpp`
-- [ ] `0059d900` 544 B `Text_LoadAndFixUpStrings(unsigned char*, unsigned char**, char**, int)`  **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
-
 ## near nupad_gen.cpp
 
 - [ ] `006d7dc0` 43 B `_NuSPrintf`  **hint** name (gapfill)
@@ -480,6 +469,16 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006dd2d0` 347 B `_NuFParInterpretWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006da8d0` 358 B `_NuFParGetWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006d6d00` 646 B `_ImplodeMakeTable`  **saga** `nu2api/nucore/implode.cpp`
+
+## Text
+
+- [ ] `0059d7c0` 119 B `Text_InitStringTable(int, variptr_u*, variptr_u*)`  **stub** · **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
+- [ ] `0059d850` 169 B `Text_PlatformSpecificIgnore(nufpar_s*)`  **hint** name (order)
+- [ ] `0059db20` 173 B `Text_InitTable(TEXTENTRY*, int, int)`  **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
+- [ ] `004f9ab0` 287 B `Text_LoadStrings(variptr_u*, variptr_u*)`  **saga** `legoapi/menus/core/text.cpp`
+- [ ] `0059dd10` 392 B `Text_MakeTime(float, int, int, int, char*)`  **saga** `legoapi/menus/core/text.cpp`
+- [ ] `00408e60` 462 B `Text_ExpandButtonString(char*, char*)`  **saga** `legoapi/misc/androidbatman.cpp`
+- [ ] `0059d900` 544 B `Text_LoadAndFixUpStrings(unsigned char*, unsigned char**, char**, int)`  **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
 
 ## Grabber
 

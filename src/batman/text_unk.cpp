@@ -79,6 +79,29 @@ f32 NuFmod(f32 a, f32 b);
 
 void Text_InsertCommasIntoNumber(char *number, char *text, i32 length);
 
+// GLOBAL: LEGOBATMAN 0x0095eb8c
+extern i32 Text_Language;
+
+// FUNCTION: LEGOBATMAN 0x0059dbd0
+void Text_InsertCommasIntoNumber(char *number, char *text, i32 length) {
+  char separator = ',';
+  if (Text_Language == 5 || (Text_Language != 2 && Text_Language != 3)) {
+    separator = '.';
+  }
+
+  i32 count = length < 0 ? NuStrLen(number) : length;
+
+  i32 output = 0;
+  for (i32 digit = 0; digit < count; ++digit) {
+    text[output++] = number[digit];
+    const i32 remaining = count - digit - 1;
+    if (remaining != 0 && remaining % 3 == 0) {
+      text[output++] = separator;
+    }
+  }
+  text[output] = '\0';
+}
+
 // name is a Mac pairing hint (order): verify
 // from saga legoapi/menus/core/text.cpp
 // FUNCTION: LEGOBATMAN 0x0059dc80
