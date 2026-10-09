@@ -4191,6 +4191,59 @@ i32 Action_LinkTurretToController(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+void TakeOverGameObject(GameObject_s *obj, GameObject_s *target, i32 a, i32 b);
+
+// FUNCTION: LEGOBATMAN 0x0046c990
+i32 Action_TakeOver(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                    AIPACKET_s *packet, char **args, int argc, int flags,
+                    f32 time) {
+  i32 release = 0;
+  GameObject_s *obj = NULL;
+  GameObject_s *target = NULL;
+  if (flags == 0)
+    return 1;
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL) {
+    obj = packet->pd0->obj;
+    target = obj->takeover_target;
+  }
+  for (i32 i = 0; i < argc; i++) {
+    char *value = NuStrIStr(args[i], "character=");
+    if (value != NULL) {
+      obj = GetNamedGameObject(sys, value + 10);
+    } else if ((value = NuStrIStr(args[i], "player=")) != NULL) {
+      i32 n = (i32)AIParamToFloat(process, value + 7) - 1;
+      if ((u32)n <= 1)
+        obj = Player[n];
+    } else if ((value = NuStrIStr(args[i], "target=")) != NULL) {
+      target = GetNamedGameObject(sys, value + 7);
+    } else if (NuStrIStr(args[i], "last") != NULL) {
+      target = obj->last_takeover;
+    } else if (NuStrIStr(args[i], "Opponent") != NULL) {
+      if (packet->pe4 != NULL)
+        target = packet->pe4->obj;
+    } else if (NuStrIStr(args[i], "release") != NULL) {
+      release = 1;
+    }
+  }
+  if (obj != NULL) {
+    if (target != NULL && !release) {
+      if ((target->p54->model_flags & 0x40000000) &&
+          (target->b9db == 0x17 || target->b9db == 0x3e))
+        return 0;
+      if (target->p1158 == NULL && (target->p54->p24->flags13c & 0x40) &&
+          !(obj->p54->model_flags & 0x10)) {
+        if (!(target->flags1fc & 0x1000))
+          return 0;
+        TakeOverGameObject(obj, target, 1, 0);
+        return 1;
+      }
+    } else if (release) {
+      ReleaseTakeOver(obj, 0);
+    }
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x0046cc10
 i32 Action_ReleaseTakeOver(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                            AIPACKET_s *packet, char **args, int argc, int flags,

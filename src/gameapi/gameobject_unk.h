@@ -225,8 +225,8 @@ struct GameObject_s {
   u8 pad1148[0x114c - 0x1148];
   struct TORPEDOPACKET_s *torpedo; // 0x114c
   u8 pad13a[0x1158 - 0x1150];
-  GameObject_s *p1158; // 0x1158
-  u8 pad115c[0x1160 - 0x115c];
+  GameObject_s *p1158;           // 0x1158
+  GameObject_s *last_takeover;   // 0x115c, Action_TakeOver "last"
   GameObject_s *coupled_trailer; // 0x1160, Action_UncoupleVehicles
   u8 pad13b[0x11b0 - 0x1164];
   i32 i11b0; // 0x11b0
