@@ -32,3 +32,4 @@
 00648290 Arcade_DrawPanel: heavy x87, diverges from saga
 006ef910 NuMtlUpdatePS: PC DX9 body diverges from saga, many unknown fields
 0044c960 PartyMemberInWay: stack-slot/hoist diff, see STUB
+005b0e00 VecRotateAxis: heavy x87

@@ -112,3 +112,35 @@ bool LineIntersectCircle(NUVEC *origin, NUVEC *direction, NUVEC *center,
     return x * x + z * z - projection * projection <= radius_squared;
   return false;
 }
+
+// STUB: LEGOBATMAN 0x005b0e00
+// heavy x87 (axis-angle rotation with double temporaries); not attempted
+#if 0
+f32 NuVecNorm(NUVEC *v, NUVEC *v0);
+
+f32 NuTrigTable[NUTRIGTABLE_COUNT];
+
+// from saga legoapi/misc/utilities.cpp
+void VecRotateAxis(nuvec_s *vector, u16 angle, nuvec_s *axis) {
+    NuVecNorm(axis, axis);
+    const f32 cosine = NuTrigTable[((static_cast<u32>(angle) + 0x4000) >> 1) & 0x7fff];
+    const f32 sine = NuTrigTable[angle >> 1];
+    const f32 complement = 1.0f - cosine;
+    const f32 x = axis->x;
+    const f32 y = axis->y;
+    const f32 z = axis->z;
+    const NUVEC source = *vector;
+    const f32 tx = complement * x;
+    const f32 ty = complement * y;
+    const f32 tz = complement * z;
+    const f32 xy = tx * y;
+    const f32 xz = tx * z;
+    const f32 yz = ty * z;
+    const f32 sx = sine * x;
+    const f32 sy = sine * y;
+    const f32 sz = z * sine;
+    vector->x = ((tx * x + cosine) * source.x + 0.0f) + (xy - sz) * source.y + (xz + sy) * source.z;
+    vector->y = ((xy + sz) * source.x + 0.0f) + (y * ty + cosine) * source.y + (yz - sx) * source.z;
+    vector->z = ((xz - sy) * source.x + 0.0f) + (sx + yz) * source.y + (tz * z + cosine) * source.z;
+}
+#endif

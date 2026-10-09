@@ -56,6 +56,8 @@ struct Unk_GameObject112c {
   nupad_s *pad0; // 0x00
   u8 pad1[0x28 - 4];
   f32 f28; // 0x28
+  u8 pad2c[0x5a - 0x2c];
+  u16 flags5a; // 0x5a
 };
 
 // FaceOpponent: aim point at +0x58.
@@ -116,32 +118,68 @@ struct GameObject_s {
   u8 pad9c[0x9d0 - 0x9c0];
   i16 s9d0; // 0x9d0
   i16 s9d2; // 0x9d2
-  u8 pad10[0x9d9 - 0x9d4];
+  u8 pad10[0x9d8 - 0x9d4];
+  u8 b9d8;   // 0x9d8
   u8 b9d9;   // 0x9d9
   u8 b9da;   // 0x9da
   char b9db; // 0x9db
   u8 pad11[0x9df - 0x9dc];
   u8 b9df; // 0x9df
-  u8 pad12[0x112c - 0x9e0];
+  u8 b9e0; // 0x9e0
+  u8 pad9e1[0x9e8 - 0x9e1];
+  f32 f9e8;  // 0x9e8
+  char b9ec; // 0x9ec
+  u8 pad12[0x112c - 0x9ed];
   Unk_GameObject112c *p112c; // 0x112c
   u8 pad13[0x114c - 0x1130];
   struct TORPEDOPACKET_s *torpedo; // 0x114c
   u8 pad13a[0x1158 - 0x1150];
   GameObject_s *p1158; // 0x1158
-  u8 pad13b[0x11cc - 0x115c];
-  f32 f11cc; // 0x11cc
-  u8 pad14[0x11d8 - 0x11d0];
+  u8 pad13b[0x11b0 - 0x115c];
+  i32 i11b0; // 0x11b0
+  u8 pad11b4[0x11bc - 0x11b4];
+  i32 i11bc; // 0x11bc
+  u8 pad11c0[0x11c4 - 0x11c0];
+  f32 f11c4; // 0x11c4
+  u8 pad11c8[0x11cc - 0x11c8];
+  f32 f11cc;             // 0x11cc
+  f32 f11d0;             // 0x11d0
+  f32 f11d4;             // 0x11d4
   f32 weapon_scale;      // 0x11d8
   f32 weapon_scale_rate; // 0x11dc
-  u8 pad14a[0x1298 - 0x11e0];
+  u8 pad11e0[0x11f0 - 0x11e0];
+  f32 f11f0; // 0x11f0
+  u8 pad11f4[0x1204 - 0x11f4];
+  f32 f1204; // 0x1204
+  f32 f1208; // 0x1208
+  u8 pad120c[0x1228 - 0x120c];
+  f32 f1228; // 0x1228
+  u8 pad122c[0x123c - 0x122c];
+  f32 f123c; // 0x123c
+  u8 pad1240[0x1250 - 0x1240];
+  f32 f1250; // 0x1250
+  u8 pad1254[0x1264 - 0x1254];
+  f32 f1264; // 0x1264
+  u8 pad1268[0x1270 - 0x1268];
+  f32 f1270; // 0x1270
+  f32 f1274; // 0x1274
+  u8 pad14a[0x1298 - 0x1278];
   i32 dynamic_light_id;        // 0x1298
   GameObjectLight_s lights[2]; // 0x129c
-  u8 pad14a2[0x130c - 0x12f4];
+  u8 pad14a2[0x12fc - 0x12f4];
+  i16 s12fc; // 0x12fc
+  u8 pad12fe[0x1300 - 0x12fe];
+  i16 s1300; // 0x1300
+  i16 s1302; // 0x1302
+  u8 pad1304[0x130c - 0x1304];
   u32 flags130c; // 0x130c
   u32 flags1310; // 0x1310
-  u8 pad14b[0x131d - 0x1314];
+  u8 pad14b[0x131c - 0x1314];
+  u8 b131c;              // 0x131c
   u8 weapon_scale_state; // 0x131d
-  u8 pad14c[0x135c - 0x131e];
+  u8 pad131e[0x132b - 0x131e];
+  u8 b132b; // 0x132b
+  u8 pad14c[0x135c - 0x132c];
   f32 f135c; // 0x135c
   u8 pad14d[0x140c - 0x1360];
   u32 flags140c; // 0x140c

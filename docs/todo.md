@@ -34,7 +34,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Move](#move) | 2 | 2 |
 | [near nutrig_gen.cpp](#near-nutrig_gencpp) | 10 | 2 |
 | [NuStr](#nustr) | 2 | 2 |
-| [Player](#player) | 2 | 2 |
 | [Tag](#tag) | 2 | 2 |
 | [Areas](#areas) | 2 | 1 |
 | [BoltSys](#boltsys) | 1 | 1 |
@@ -73,6 +72,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [ObjHitObj](#objhitobj) | 1 | 1 |
 | [PartImpact](#partimpact) | 3 | 1 |
 | [PartUpdate](#partupdate) | 1 | 1 |
+| [Player](#player) | 1 | 1 |
 | [Players](#players) | 1 | 1 |
 | [PowerUp](#powerup) | 1 | 1 |
 | [Pulses](#pulses) | 1 | 1 |
@@ -336,7 +336,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00639ba0` 233 B `FastWeaponIn(GameObject_s*, int)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/characters/core/playeritems.cpp`
 - [ ] `00620b30` 249 B `RedirectTextFile(char*, char*, int, int*)`  **saga** `legoapi/characters/core/charconfig.cpp`
 - [ ] `005fb300` 291 B `AddToModelList(APICHARACTERMODELLIST_s*, int*, int, int, int, EXTRAMODEL*, unsigned char)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
-- [ ] `005b0e00` 317 B `VecRotateAxis(nuvec_s*, unsigned short, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
+- [ ] `005b0e00` 317 B `VecRotateAxis(nuvec_s*, unsigned short, nuvec_s*)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `0064ce30` 321 B `NewStatusRumbleBuzz(int, float, float, int)`  **hint** name (gapfill) · **saga** `legoapi/menus/screens/gamestatus_lsw.cpp`
 - [ ] `006633c0` 324 B `CheckGizAIMessage(GIZAIMESSAGESYS_s*, char const*, GIZAIMESSAGE_s*)`  **stub** · **saga** `legoapi/gizmo/base/gizmessage.cpp`
 - [ ] `006397b0` 329 B `SlowWeaponOut(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
@@ -525,11 +525,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006d75c0` 75 B `_NuStrNCpy`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nucore/nustring_c.cpp`
 - [ ] `006dc300` 120 B `_NuStrIStr`  **stub** · **saga** `nu2api/nucore/nustring_c.cpp`
 
-## Player
-
-- [ ] `005c1b80` 313 B `Player_ResetContexts(GameObject_s*)`  **saga** `legoapi/characters/core/players.cpp`
-- [ ] `005c2250` 2274 B `Player_ToggleCharacter(GameObject_s*, int, int)`  **saga** `legoapi/characters/core/players.cpp`
-
 ## Tag
 
 - [ ] `004a54c0` 1219 B `Tag_UpdateHint(HINT_s*)`  **saga** `legoapi/menus/core/panel.cpp`
@@ -705,6 +700,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## PartUpdate
 
 - [ ] `004f9f70` 341 B `PartUpdate_ThermalDetonator(PART_s*)`  **saga** `legoapi/items/collect/thermaldetonators.cpp`
+
+## Player
+
+- [ ] `005c2250` 2274 B `Player_ToggleCharacter(GameObject_s*, int, int)`  **saga** `legoapi/characters/core/players.cpp`
 
 ## Players
 

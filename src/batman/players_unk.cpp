@@ -233,6 +233,55 @@ void Player_ClearContext(GameObject_s *object, i32 mode) {
   Unk005fed80(object);
 }
 
+// GLOBAL: LEGOBATMAN 0x009604c0
+extern i32 LEGOCONTEXT_unk_009604c0;
+
+i32 qrand(void);
+void ReleaseTakeOver(GameObject_s *object, i32 unk);
+
+// FUNCTION: LEGOBATMAN 0x005c1b80
+void Player_ResetContexts(GameObject_s *object) {
+  object->f9e8 = 0.0f;
+  object->b9ec = -1;
+  if (object->flags130c & 0x80000)
+    object->weapon_scale = 1.0f;
+  else
+    object->weapon_scale = 0.0f;
+  object->weapon_scale_rate = 5.0f;
+  object->f11cc = 0.0f;
+  object->weapon_scale_state = 0;
+  object->f11d4 = 0.0f;
+  object->b9db = -1;
+  object->f11c4 = 0.0f;
+  object->b9e0 = 0;
+  object->b9df = 0;
+  object->p112c->flags5a &= ~4;
+  object->p112c->flags5a &= ~0x10;
+  object->flags130c &= ~0x400;
+  object->i11bc = 0;
+  object->i11b0 = 0;
+  i32 r = qrand();
+  object->f11f0 = 0.0f;
+  object->f1204 = 0.0f;
+  object->f1208 = 0.0f;
+  object->f11d0 = 0.0f;
+  object->b132b = r / 0x8000;
+  object->f1228 = 0.0f;
+  object->f123c = 0.0f;
+  object->s12fc = -1;
+  object->s1300 = -1;
+  object->s1302 = -1;
+  object->s9d2 = 0;
+  object->b9d8 = 0;
+  object->b131c = 0;
+  if (object->b9db == LEGOCONTEXT_unk_009604c0)
+    ReleaseTakeOver(object, 1);
+  object->f1250 = 0.0f;
+  object->f1264 = 0.0f;
+  object->f1270 = 0.0f;
+  object->f1274 = 0.0f;
+}
+
 // FUNCTION: LEGOBATMAN 0x005c2bb0
 i32 Players_BothActive() {
   if (Player[0] != 0 && (Player[0]->flags1fc & 0x80) && Player[1] != 0 &&
