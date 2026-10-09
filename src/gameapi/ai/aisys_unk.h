@@ -35,7 +35,9 @@ struct Unk_AIPacketObj {
 };
 
 struct AIPACKET_s {
-  u8 pad0[0xd0];
+  u8 pad0[0xa8];
+  char *locator_name; // 0xa8, EngageLocator default
+  u8 padac[0xd0 - 0xac];
   Unk_AIPacketObj *pd0; // 0xd0
   Unk_AIPacketObj *pd4; // 0xd4
   u8 pad1[0xe4 - 0xd8];

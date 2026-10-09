@@ -3887,6 +3887,107 @@ extern f32 g_unk0093b110;
 extern f32 g_unk0093b114;
 extern i32 g_unk0096052c;
 
+f32 NuRandFloat(void);
+
+// FUNCTION: LEGOBATMAN 0x00474e00
+i32 Action_EngageBlowup(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char **args, int argc, int flags,
+                        f32 time) {
+  char *name = NULL;
+  GameObject_s *obj;
+  if (packet == NULL || packet->pd0 == NULL || packet->pd0->obj == NULL)
+    return 1;
+  obj = packet->pd0->obj;
+  if (flags != 0) {
+    packet->movement_param = g_unk0093b110;
+    process->action_data_5 = g_unk0093b114;
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "name");
+      if (s != NULL)
+        name = s + 5;
+      else if ((s = NuStrIStr(args[i], "fireinterval")) != NULL)
+        process->action_data_5 = AIParamToFloat(process, s + 13);
+      else if (NuStrIStr(args[i], "predictive") != NULL)
+        process->action_data_1 = 1;
+    }
+    process->face_timer = NuRandFloat() * process->action_data_5;
+    if (name != NULL) {
+      GIZMO_s *gizmo = GizmoFindByName(g_unk00960894->gizmoSys2b0c,
+                                       blowup_gizmotype_id, name);
+      if (gizmo != NULL && gizmo->object != NULL)
+        process->action_data_3 = (u8 *)gizmo->object + 0x58;
+    }
+    if (process->action_data_3 != NULL) {
+      obj->flags140c |= 0x100000;
+      obj->f1204 = NuRandFloat() * process->action_data_5;
+    }
+  }
+  if (process->action_data_3 != NULL) {
+    packet->look_target = (nuvec_s *)process->action_data_3;
+    process->face_timer -= time;
+    obj->aim_target = *(nuvec_s *)process->action_data_3;
+    obj->flags140c |= 0x80200;
+    if (process->face_timer <= 0.0f) {
+      obj->predictive_aim = process->action_data_1;
+      process->face_timer = NuRandFloat() * process->action_data_5 +
+                            process->action_data_5 * 0.5f;
+      obj->p112c->buttons8 |= g_unk0095f72c;
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00475050
+i32 Action_EngageLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  char *name = NULL;
+  GameObject_s *obj;
+  if (packet == NULL || packet->pd0 == NULL || packet->pd0->obj == NULL)
+    return 1;
+  obj = packet->pd0->obj;
+  if (flags != 0) {
+    packet->movement_param = g_unk0093b110;
+    process->action_data_5 = g_unk0093b114;
+    if (packet->locator_name != NULL)
+      name = packet->locator_name;
+    if (argc != 0) {
+      for (i32 i = 0; i < argc; i++) {
+        char *s = NuStrIStr(args[i], "name");
+        if (s != NULL)
+          name = s + 5;
+        else if ((s = NuStrIStr(args[i], "fireinterval")) != NULL)
+          process->action_data_5 = AIParamToFloat(process, s + 13);
+        else if (NuStrIStr(args[i], "predictive") != NULL)
+          process->action_data_1 = 1;
+      }
+      process->face_timer = NuRandFloat() * process->action_data_5;
+    }
+    if (name != NULL) {
+      u8 *locator = (u8 *)AIPathFindLocator(sys, name);
+      if (locator != NULL)
+        process->action_data_3 = locator + 0x10;
+    }
+    if (process->action_data_3 != NULL) {
+      obj->flags140c |= 0x100000;
+      obj->f1204 = NuRandFloat() * process->action_data_5;
+    }
+  }
+  if (process->action_data_3 != NULL) {
+    packet->look_target = (nuvec_s *)process->action_data_3;
+    process->face_timer -= time;
+    obj->aim_target = *(nuvec_s *)process->action_data_3;
+    obj->flags140c |= 0x80200;
+    if (process->face_timer <= 0.0f) {
+      obj->predictive_aim = process->action_data_1;
+      process->face_timer = NuRandFloat() * process->action_data_5 +
+                            process->action_data_5 * 0.5f;
+      obj->p112c->buttons8 |= g_unk0095f72c;
+    }
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x00475350
 i32 Action_StartSpecialMove(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                             AIPACKET_s *packet, char **args, int argc,

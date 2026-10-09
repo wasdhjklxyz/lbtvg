@@ -70,7 +70,9 @@ struct Unk_GameObject54 {
 
 struct Unk_GameObject112c {
   nupad_s *pad0; // 0x00
-  u8 pad1[0x26 - 4];
+  u8 pad1[8 - 4];
+  u32 buttons8; // 0x08, EngageBlowup ORs the fire button in
+  u8 pad0c[0x26 - 0xc];
   u16 input_angle; // 0x26
   f32 f28;         // 0x28, input magnitude
   u8 pad2c[0x54 - 0x2c];
@@ -278,7 +280,9 @@ struct GameObject_s {
   u8 b132b; // 0x132b
   u8 pad14c[0x135c - 0x132c];
   f32 f135c; // 0x135c
-  u8 pad1360[0x137c - 0x1360];
+  u8 pad1360[0x1364 - 0x1360];
+  nuvec_s aim_target; // 0x1364, EngageBlowup
+  u8 pad1370[0x137c - 0x1370];
   void *movement_spline; // 0x137c
   u8 pad1380[0x1383 - 0x1380];
   u8 movement_spline_finished; // 0x1383
@@ -297,6 +301,10 @@ struct GameObject_s {
       u32 flags140c_lo : 24;
       u32 respawnable : 1;       // 0x140c bit 24
       u32 respawn_at_origin : 1; // 0x140c bit 25
+    };
+    struct {
+      u32 : 21;
+      u32 predictive_aim : 1; // 0x140c bit 21, EngageBlowup "predictive"
     };
     struct {
       u32 : 29;
