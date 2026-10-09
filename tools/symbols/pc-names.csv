@@ -63,7 +63,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0044f5a0,00076c42,__Z23Condition_NumInSetAliveP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_NumInSetAlive(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044f5e0,00076c7a,__Z17Condition_ContextP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_Context(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044f620,00076cb4,__Z23Condition_InContextInitP7AISYS_sPcP10AISCRIPT_s,"Condition_InContextInit(AISYS_s*, char*, AISCRIPT_s*)",strings,0
+0044f8c0,00076f1a,__Z19Condition_InContextP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_InContext(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044f900,00076f48,__Z25Condition_OpponentContextP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OpponentContext(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044f940,00076f76,__Z31Condition_EitherPlayerInContextP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_EitherPlayerInContext(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044f980,00076fb0,__Z21Condition_InLayerInitP7AISYS_sPcP10AISCRIPT_s,"Condition_InLayerInit(AISYS_s*, char*, AISCRIPT_s*)",strings,0
+0044f9e0,0007700a,__Z17Condition_InLayerP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_InLayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044fa10,00077032,__Z25Condition_OpponentInLayerP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OpponentInLayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00451470,0007841e,__Z29Condition_CharacterTypeExistsP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_CharacterTypeExists(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",strings,0
 00451980,0007882a,__Z18Condition_SideInitP7AISYS_sPcP10AISCRIPT_s,"Condition_SideInit(AISYS_s*, char*, AISCRIPT_s*)",strings,0
 00451da0,00078b9e,__Z31Condition_OpponentToPlayerRangeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OpponentToPlayerRange(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0

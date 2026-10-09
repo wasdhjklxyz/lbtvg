@@ -539,6 +539,53 @@ f32 Condition_Context(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return -1.0f;
 }
 
+// FUNCTION: LEGOBATMAN 0x0044f8c0
+f32 Condition_InContext(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char *str, void *argument) {
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL &&
+      packet->pd0->obj->b9db == (i32)argument)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044f900
+f32 Condition_OpponentContext(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char *str, void *argument) {
+  if (packet != NULL && packet->pe4 != NULL && packet->pe4->obj != NULL &&
+      packet->pe4->obj->b9db == (i32)argument)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044f940
+f32 Condition_EitherPlayerInContext(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                    AIPACKET_s *packet, char *str,
+                                    void *argument) {
+  if (player != NULL && player->b9db == (i32)argument)
+    return 1.0f;
+  if (player2 != NULL && player2->b9db == (i32)argument)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044f9e0
+f32 Condition_InLayer(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                      AIPACKET_s *packet, char *str, void *argument) {
+  if (packet != NULL && packet->pd0 != NULL &&
+      (i8)OWNER(packet)->b24f == (i32)argument)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044fa10
+f32 Condition_OpponentInLayer(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char *str, void *argument) {
+  if (packet != NULL && packet->pe4 != NULL &&
+      (i8)((GameObject_s *)packet->pe4)->b24f == (i32)argument)
+    return 1.0f;
+  return 0.0f;
+}
+
 // GLOBAL: LEGOBATMAN 0x0096052c
 extern i32 g_unk0096052c;
 // GLOBAL: LEGOBATMAN 0x00960528

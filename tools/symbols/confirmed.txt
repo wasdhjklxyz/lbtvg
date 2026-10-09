@@ -457,3 +457,8 @@
 0044f570 Condition_IsSetAlive   matched saga body, Mac order before Condition_InContextInit
 0044f5a0 Condition_NumInSetAlive   matched saga body, Mac order before Condition_InContextInit
 0044f5e0 Condition_Context   matched saga body, Mac order before Condition_InContextInit
+0044f8c0 Condition_InContext   matched, Mac order around Condition_InLayerInit
+0044f900 Condition_OpponentContext   matched, Mac order around Condition_InLayerInit
+0044f940 Condition_EitherPlayerInContext   matched, Mac order around Condition_InLayerInit
+0044f9e0 Condition_InLayer   matched, Mac order around Condition_InLayerInit
+0044fa10 Condition_OpponentInLayer   matched, Mac order around Condition_InLayerInit
