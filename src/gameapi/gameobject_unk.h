@@ -105,7 +105,9 @@ struct GameObject_s {
   nuvec_s velocity;      // 0x68
   u8 pad1b[0x80 - 0x74];
   nuvec_s v80; // 0x80
-  u8 pad2[0x1dc - 0x8c];
+  nuvec_s v8c; // 0x8c, SnapToOrigin: copy of v80
+  nuvec_s v98; // 0x98, SnapToOrigin: copy of position
+  u8 pad2[0x1dc - 0xa4];
   f32 radius; // 0x1dc, PartyMemberInWay: sphere radius - 0.125
   u8 pad1e0[0x1e8 - 0x1e0];
   unsigned __int64 collide_mask; // 0x1e8, CollidingWithObject: what I am
@@ -144,7 +146,9 @@ struct GameObject_s {
   u8 b3ce;               // 0x3ce
   u8 goal_speed_mode;    // 0x3cf, its packet's goal_speed_mode
   u8 control_rotational; // 0x3d0, Action_SetControlSystem
-  u8 pad7[0x47c - 0x3d1];
+  u8 pad7[0x3f6 - 0x3d1];
+  u16 path_flags3f6; // 0x3f6, bit 0: on path (SnapToOrigin clears)
+  u8 pad3f8[0x47c - 0x3f8];
   nuvec_s *look_target; // 0x47c, AI look target (process290 + 0x1ec)
   union {
     struct {
@@ -436,7 +440,9 @@ struct GameObject_s {
   i8 current_hp; // 0x15c7
   u8 pad15c8[0x15ec - 0x15c8];
   GameObject_s *last_attacker; // 0x15ec, Condition_BeenHitBy
-  u8 pad15f0[0x1618 - 0x15f0];
+  u8 pad15f0[0x1608 - 0x15f0];
+  nuvec_s saved_position; // 0x1608
+  u8 pad1614[0x1618 - 0x1614];
   struct GIZFORCE_s *gizforce_target; // 0x1618
   u8 pad19[0x1628 - 0x161c];
   struct AITRIGGERSET_s *active_trigger_set; // 0x1628, Action_UseTriggerSet

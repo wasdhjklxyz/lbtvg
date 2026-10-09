@@ -2450,6 +2450,61 @@ i32 Action_Respawnable(AISYS_s *sys, AISCRIPTPROCESS_s *process,
 
 void GrabVictim(GameObject_s *obj, GameObject_s *victim);
 
+// 0xa8-byte creature origins at AISYS_s +0x224 (GameObject_s::b3c8 indexes).
+struct AICREATURE_s {
+  u8 pad0[0x20];
+  nuvec_s pos; // 0x20
+  u16 y_rot;   // 0x2c
+  u8 pad2e[0xa8 - 0x2e];
+};
+
+// GLOBAL: LEGOBATMAN 0x00ab3790
+extern nuvec_s plr_lastpos;
+extern nuvec_s v000;
+
+void InitSurfaceInfo(GameObject_s *obj);
+void SetObjOnSurface(GameObject_s *obj, i32 a);
+
+// FUNCTION: LEGOBATMAN 0x00457d70
+i32 Action_SnapToOrigin(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char **args, int argc, int flags,
+                        f32 time) {
+  GameObject_s *obj = NULL;
+  i32 check_terrain = 1;
+  AICREATURE_s *creature;
+  if (flags == 0)
+    return 1;
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL)
+    obj = packet->pd0->obj;
+  for (i32 i = 0; i < argc; i++) {
+    char *value = NuStrIStr(args[i], "character");
+    if (value != NULL)
+      obj = GetNamedGameObject(sys, value + 10);
+    else if (NuStrIStr(args[i], "dont_check_terrain") != NULL)
+      check_terrain = 0;
+  }
+  if (obj == NULL || (obj->flags1f8 & 0x400) == 0 || obj->b3c8 == 0xff)
+    return 1;
+  creature = &(*(AICREATURE_s **)((u8 *)sys + 0x224))[obj->b3c8];
+  obj->position = creature->pos;
+  obj->u246 = creature->y_rot;
+  obj->yaw58 = creature->y_rot;
+  obj->facing_angle = creature->y_rot;
+  obj->path_flags3f6 &= ~1;
+  obj->v80 = obj->position;
+  obj->v98 = obj->position;
+  plr_lastpos = obj->v80;
+  obj->v8c = obj->v80;
+  ((Unk_AIPacketObj *)obj)->respawn_pos = obj->position;
+  ((Unk_AIPacketObj *)obj)->last_safe_pos = obj->position;
+  obj->saved_position = obj->position;
+  obj->velocity = v000;
+  InitSurfaceInfo(obj);
+  if (check_terrain)
+    SetObjOnSurface(obj, 0);
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x0045a830
 i32 Action_GrabVictim(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                       AIPACKET_s *packet, char **args, int argc, int flags,
