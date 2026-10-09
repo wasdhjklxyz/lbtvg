@@ -17,7 +17,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near pcbatman.cpp](#near-pcbatmancpp) | 44 | 37 |
 | [near rtleditor.cpp](#near-rtleditorcpp) | 56 | 30 |
 | [near terrain.c](#near-terrainc) | 34 | 9 |
-| [near AIBugPit.cpp](#near-aibugpitcpp) | 13 | 7 |
+| [near AIBugPit.cpp](#near-aibugpitcpp) | 12 | 6 |
 | [Grabber](#grabber) | 7 | 5 |
 | [Hub](#hub) | 6 | 4 |
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 5 | 4 |
@@ -406,7 +406,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006b4f70` 76 B `_AISysRegisterDefaultPathCnxTypes`
 - [ ] `006b7110` 201 B `_AIMoveInstruction`  **hint** name (gapfill)
 - [ ] `006b9eb0` 274 B `_FollowAPIObject`  **hint** name (gapfill)
-- [ ] `006bf2a0` 360 B `_MenuInitialiseEx`  **saga** `legoapi/menus/screens/gamemenuall.cpp`
 - [ ] `006b97b0` 390 B `_AIScriptProcessorInit`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
 - [ ] `006b2aa0` 595 B `_xConditions`  **saga** `gameapi/ai/aisys/aiscript.cpp`
 - [ ] `006b37e0` 622 B `_AIScriptLoadAllPakFile`  **saga** `gameapi/ai/aisys/aiscript.cpp`
@@ -440,7 +439,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006d7dc0` 43 B `_NuSPrintf`  **hint** name (gapfill)
 - [ ] `006dd430` 318 B `_NuFParInterpretWordCTX`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006dd2d0` 347 B `_NuFParInterpretWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006da8d0` 358 B `_NuFParGetWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006da8d0` 358 B `_NuFParGetWord`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006d6d00` 646 B `_ImplodeMakeTable`  **saga** `nu2api/nucore/implode.cpp`
 
 ## Text

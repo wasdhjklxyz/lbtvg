@@ -20,6 +20,95 @@ typedef struct nufpar_s {
 i32 NuFParGetWord(NUFPAR *parser);
 void NuUnicodeToAscii(char *dst, NUWCHAR16 *src);
 
+// STUB: LEGOBATMAN 0x006da8d0
+// tangled quote/separator state machine (ebp=1 constant, tail jump); not
+// attempted
+#if 0
+i32 NuFParGetWordW(NUFPAR *parser);
+
+static i32 old_line_pos;
+
+#define CLAMP_LINE(pos) pos &(parser->line_buf_size - 1)
+#define CLAMP_WORD(pos) pos &(parser->word_buf_size - 1)
+#define CLAMP_WIDE_LINE(pos) pos &((parser->line_buf_size >> 1) - 1)
+#define CLAMP_WIDE_WORD(pos) pos &((parser->word_buf_size >> 1) - 1)
+
+i32 NuFParGetLine(NUFPAR *parser);
+
+// from saga nu2api/nufile/nufpar.cpp
+i32 NuFParGetWord(NUFPAR *parser) {
+    i32 len;
+    i32 in_quoted_text;
+    i32 found_quotes = 0;
+
+    if (parser->is_utf16) {
+        return NuFParGetWordW(parser);
+    }
+
+    len = 0;
+    in_quoted_text = 0;
+
+    old_line_pos = parser->line_pos;
+
+    while (parser->line_buf[CLAMP_LINE(parser->line_pos)] != 0) {
+        char c = parser->line_buf[parser->line_pos];
+
+        if (parser->separator_tokens != NULL && !in_quoted_text) {
+            if (NuStrChr(parser->separator_tokens, c) != NULL) {
+                if (len == 0) {
+                    parser->word_buf[len] = c;
+                    len++;
+                    parser->line_pos++;
+                }
+
+                parser->word_buf[CLAMP_WORD(len)] = '\0';
+
+                return len;
+            }
+        }
+
+        if (parser->separator_list != NULL && !in_quoted_text) {
+            if (NuStrChr(parser->separator_list, c) != NULL) {
+                c = ' ';
+            }
+        }
+
+        switch (c) {
+            case ' ':
+            case ',':
+            case '\t':
+                if (!in_quoted_text) {
+                    if (len != 0) {
+                        parser->word_buf[CLAMP_WORD(len)] = '\0';
+                        return len;
+                    }
+
+                    break;
+                }
+            default:
+                if (c == '"') {
+                    in_quoted_text = 1 - in_quoted_text;
+                    found_quotes = 1;
+                } else {
+                    parser->word_buf[CLAMP_WORD(len)] = c;
+                    len++;
+                }
+
+                break;
+        }
+
+        parser->line_pos++;
+
+        if (found_quotes && in_quoted_text == 0 && len == 0) {
+            break;
+        }
+    }
+
+    parser->word_buf[CLAMP_WORD(len)] = '\0';
+    return len;
+}
+#endif
+
 // FUNCTION: LEGOBATMAN 0x006daa40
 f32 NuFParGetFloat(NUFPAR *parser) {
   char buf[64];
