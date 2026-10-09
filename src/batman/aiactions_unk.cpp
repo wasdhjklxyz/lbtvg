@@ -544,6 +544,93 @@ i32 Action_SetAnimSpeedMul(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+struct GIZFORCE_s {
+  u8 pad0[0x1c];
+  nuvec_s position; // 0x1c
+  u8 pad28[0xa0 - 0x28];
+  u32 flags; // 0xa0, bit 0 = enabled, bit 1 = visible, bit 15 = pending
+};
+
+// GLOBAL: LEGOBATMAN 0x0093e144
+extern i32 force_gizmotype_id;
+
+i32 qrand(void);
+i32 GizForce_Complete(GIZFORCE_s *force);
+
+// STUB: LEGOBATMAN 0x00464d10
+// close: orig keeps a separate (store-interleaved) epilogue for the
+// triggered_by_hit return 0; ours tail-merges it with the final return 0.
+i32 Action_UseForce(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                    AIPACKET_s *packet, char **params, i32 count, i32 first,
+                    f32 dt) {
+  GameObject_s *object;
+  i32 triggered_by_hit = 0;
+  i32 candidate_count = 0;
+  GIZFORCE_s *force;
+
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  object = packet->pd0->obj;
+
+  if (first != 0) {
+    process->action_data_3 = 0;
+    {
+      GIZFORCE_s *candidates[16];
+      for (i32 i = 0; i < count; i++) {
+        if (NuStrICmp(params[i], "throwable") == 0) {
+          process->action_data_1 = 1;
+        } else if (NuStrICmp(params[i], "inrange") == 0) {
+          process->action_data_2 = 1;
+        } else if (NuStrICmp(params[i], "triggered_by_hit") == 0) {
+          triggered_by_hit = 1;
+        } else {
+          char *name = NuStrIStr(params[i], "name");
+          if (name != 0)
+            name += 5;
+          else
+            name = params[i];
+          if (name != 0 && candidate_count < 16) {
+            GIZMO_s *gizmo = GizmoFindByName(g_unk00960894->gizmoSys2b0c,
+                                             force_gizmotype_id, name);
+            if (gizmo != 0 && gizmo->object != 0) {
+              force = (GIZFORCE_s *)gizmo->object;
+              candidates[candidate_count] = force;
+              if ((force->flags & 2) && !(force->flags & 0x10000))
+                candidate_count++;
+            }
+          }
+        }
+      }
+      if (candidate_count != 0)
+        process->action_data_3 =
+            candidates[qrand() / (0xffff / candidate_count + 1)];
+    }
+  }
+
+  force = (GIZFORCE_s *)process->action_data_3;
+  if (force == 0)
+    return 1;
+  if (force->flags & 1) {
+    if (triggered_by_hit != 0) {
+      force->flags |= 0x8000;
+      return 0;
+    }
+    packet->look_target = &force->position;
+    object->p112c->flags5a |= 4;
+    object->gizforce_target = force;
+    if (process->action_data_1 != 0) {
+      if (packet->pd4 == 0) {
+        object->p112c->flags5a &= ~4;
+        object->gizforce_target = 0;
+      }
+      return 1;
+    }
+    if (GizForce_Complete(force) != 0)
+      return 1;
+  }
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x00467f50
 i32 Action_SetForceBack(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                         AIPACKET_s *packet, char **args, int argc, int flags,

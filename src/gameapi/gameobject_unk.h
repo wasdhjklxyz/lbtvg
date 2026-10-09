@@ -204,7 +204,9 @@ struct GameObject_s {
   i16 type15b0; // 0x15b0
   u8 pad15b2[0x15bc - 0x15b2];
   i16 platform_id; // 0x15bc, -1 = none (PlatOnOff index)
-  u8 pad19[0x162c - 0x15be];
+  u8 pad15be[0x1618 - 0x15be];
+  struct GIZFORCE_s *gizforce_target; // 0x1618
+  u8 pad19[0x162c - 0x161c];
   i16 s162c; // 0x162c
   u8 pad20[0x1648 - 0x162e];
 };

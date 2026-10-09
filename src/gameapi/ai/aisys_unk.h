@@ -32,6 +32,8 @@ struct AIPACKET_s {
   Unk_AIPacketObj *pd4; // 0xd4
   u8 pad1[0xe4 - 0xd8];
   Unk_AIPacketObj *pe4; // 0xe4
+  u8 pade8[0x1ec - 0xe8];
+  nuvec_s *look_target; // 0x1ec
 };
 
 // Per-character route cursor. This type is shared by the AI runtime packet,

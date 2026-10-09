@@ -48,3 +48,4 @@
 004cb910 Move_CHARACTER: Batman body diverges (jetpack/rocket context), long, not attempted
 004e8190 BuyShopItem: long, u64 shifts, many unknown fields
 006a4640 Action_Idle: x87 + ftol, several early returns, not attempted
+00464d10 Action_UseForce: epilogue tail-merge, see STUB
