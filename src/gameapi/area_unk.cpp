@@ -3,7 +3,8 @@
 #include "../nu2api/nucore/common.h"
 
 typedef struct AREADATA_s {
-  u16 pad0[0x60 / 2];
+  u16 pad0[0x40 / 2];
+  char file[0x20];  // 0x40
   i16 levels[0x12]; // 0x60
   u8 pad84;
   u8 level_count; // 0x85
@@ -63,6 +64,28 @@ void PartStop_Flickerer(PART_s *part) {
     part->f100 = 2.5f;
   else if ((part->b21a & 2) != 0)
     part->f100 = 10.0f;
+}
+
+i32 NuStrICmp(const char *a, const char *b);
+
+// FUNCTION: LEGOBATMAN 0x005fb060
+AREADATA *Area_FindByName(char *name, i32 *indexDest) {
+  if (name != 0) {
+    for (i32 i = 0; i < AREACOUNT; i++) {
+      if (NuStrICmp(ADataList[i].file, name) == 0) {
+        if (indexDest != 0) {
+          *indexDest = i;
+        }
+        return &ADataList[i];
+      }
+    }
+  }
+
+  if (indexDest != 0) {
+    *indexDest = -1;
+  }
+
+  return 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x005fb1e0

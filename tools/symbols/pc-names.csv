@@ -389,7 +389,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005c1b10,003198f0,__Z19Player_ClearContextP12GameObject_si,"Player_ClearContext(GameObject_s*, int)",calls,3
 005c1b80,00319982,__Z20Player_ResetContextsP12GameObject_s,Player_ResetContexts(GameObject_s*),calls,3
 005c2250,0031ad5e,__Z22Player_ToggleCharacterP12GameObject_sii,"Player_ToggleCharacter(GameObject_s*, int, int)",strings,0
-005c2bb0,0031a160,__Z18Players_BothActivev,Players_BothActive(),gapfill,4
+005c2bb0,0031a160,__Z18Players_BothActivev,Players_BothActive(),confirmed,0
 005c32c0,0031a8c8,__Z15LoseHP_EndDelayP13GAMEMESSAGE_s,LoseHP_EndDelay(GAMEMESSAGE_s*),gapfill,3
 005c3310,0031a934,__Z13LoseHitPointsP12GameObject_si,"LoseHitPoints(GameObject_s*, int)",gapfill,2
 005c4080,002ecc00,__ZN18InteractiveDisplay23GetFirstSpecialMaterialEP8nugscn_sPc,"InteractiveDisplay::GetFirstSpecialMaterial(nugscn_s*, char*)",gapfill,1
@@ -448,7 +448,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005fa1c0,00264370,__Z19Areas_ConfigureListPcP9variptr_uS1_iPi,"Areas_ConfigureList(char*, variptr_u*, variptr_u*, int, int*)",strings,0
 005facd0,00264f62,__Z21Area_ShuffleModelListP23APICHARACTERMODELLIST_si,"Area_ShuffleModelList(APICHARACTERMODELLIST_s*, int)",order,1
 005fad40,00265006,__Z34Areas_ConfigurePlayersAndResidentsP9variptr_uS0_,"Areas_ConfigurePlayersAndResidents(variptr_u*, variptr_u*)",strings,0
-005fb060,002653ba,__Z15Area_FindByNamePcPi,"Area_FindByName(char*, int*)",order,1
+005fb060,002653ba,__Z15Area_FindByNamePcPi,"Area_FindByName(char*, int*)",confirmed,0
 005fb0e0,00265444,__Z11Areas_FixUpP9AREAFIXUP,Areas_FixUp(AREAFIXUP*),order,1
 005fb1e0,002654de,__Z20Area_FindStatusLevelP10AREADATA_sPi,"Area_FindStatusLevel(AREADATA_s*, int*)",confirmed,0
 005fb260,00265576,__Z22Area_FindNextPlayLeveli,Area_FindNextPlayLevel(int),order,1

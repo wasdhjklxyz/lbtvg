@@ -23,11 +23,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Grabber](#grabber) | 7 | 5 |
 | [GameCam](#gamecam) | 4 | 4 |
 | [Hub](#hub) | 6 | 4 |
-| [Area](#area) | 4 | 3 |
 | [GizAction](#gizaction) | 3 | 3 |
 | [near nutrig_gen.cpp](#near-nutrig_gencpp) | 11 | 3 |
-| [Players](#players) | 3 | 3 |
 | [Arcade](#arcade) | 2 | 2 |
+| [Area](#area) | 3 | 2 |
 | [Areas](#areas) | 3 | 2 |
 | [Collection](#collection) | 2 | 2 |
 | [Condition](#condition) | 3 | 2 |
@@ -42,6 +41,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Move](#move) | 2 | 2 |
 | [NuStr](#nustr) | 2 | 2 |
 | [Player](#player) | 2 | 2 |
+| [Players](#players) | 2 | 2 |
 | [PortalDoors](#portaldoors) | 2 | 2 |
 | [Tag](#tag) | 2 | 2 |
 | [BoltSys](#boltsys) | 1 | 1 |
@@ -508,13 +508,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00497f00` 1753 B `Hub_Reset(WORLDINFO_s*)`  **saga** `legoapi/world/levels/hub.cpp`
 - [ ] `0049c700` 2138 B `Hub_UpdateMiniKits(WORLDINFO_s*)`  **saga** `legoapi/world/levels/hub.cpp`
 
-## Area
-
-- [ ] `005facd0` 111 B `Area_ShuffleModelList(APICHARACTERMODELLIST_s*, int)`  **hint** name (order)
-- [ ] `005fb060` 113 B `Area_FindByName(char*, int*)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
-- [ ] `005fb260` 140 B `Area_FindNextPlayLevel(int)`  **stub** · **hint** name (order) · **saga** `legoapi/world/areas.cpp`
-- [ ] `005fb430` 3692 B `Area_Configure(int, int, EXTRAMODEL*, short*)`  **saga** `legoapi/world/areas.cpp`
-
 ## GizAction
 
 - [ ] `00482ed0` 329 B `GizAction_SetAIMessage(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
@@ -535,16 +528,16 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006a2730` 401 B `_AIScriptCopyConditions`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
 - [ ] `006a2cc0` 536 B `_AIScriptBuildDerivedScript`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
 
-## Players
-
-- [ ] `005c2bb0` 45 B `Players_BothActive()`  **hint** name (gapfill) · **saga** `legoapi/characters/core/players.cpp`
-- [ ] `005c18f0` 205 B `Players_AveragePos(nuvec_s*, SOCKPOSITION_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/players.cpp`
-- [ ] `005c12a0` 1028 B `Players_InitPositions(WORLDINFO_s*)`  **saga** `legoapi/characters/core/players.cpp`
-
 ## Arcade
 
 - [ ] `00648290` 254 B `Arcade_DrawPanel(int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
 - [ ] `00648390` 842 B `Arcade_AwardPoint(int, int, int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
+
+## Area
+
+- [ ] `005facd0` 111 B `Area_ShuffleModelList(APICHARACTERMODELLIST_s*, int)`  **hint** name (order)
+- [ ] `005fb260` 140 B `Area_FindNextPlayLevel(int)`  **stub** · **hint** name (order) · **saga** `legoapi/world/areas.cpp`
+- [ ] `005fb430` 3692 B `Area_Configure(int, int, EXTRAMODEL*, short*)`  **saga** `legoapi/world/areas.cpp`
 
 ## Areas
 
@@ -621,6 +614,11 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `005c1b80` 313 B `Player_ResetContexts(GameObject_s*)`  **saga** `legoapi/characters/core/players.cpp`
 - [ ] `005c2250` 2274 B `Player_ToggleCharacter(GameObject_s*, int, int)`  **saga** `legoapi/characters/core/players.cpp`
+
+## Players
+
+- [ ] `005c18f0` 205 B `Players_AveragePos(nuvec_s*, SOCKPOSITION_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/players.cpp`
+- [ ] `005c12a0` 1028 B `Players_InitPositions(WORLDINFO_s*)`  **saga** `legoapi/characters/core/players.cpp`
 
 ## PortalDoors
 

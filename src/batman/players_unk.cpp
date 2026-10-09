@@ -176,3 +176,12 @@ void Player_ClearContext(GameObject_s *object, i32 mode) {
   Unk005ba400(object);
   Unk005fed80(object);
 }
+
+// FUNCTION: LEGOBATMAN 0x005c2bb0
+i32 Players_BothActive() {
+  if (Player[0] != 0 && (Player[0]->flags1fc & 0x80) && Player[1] != 0 &&
+      (Player[1]->flags1fc & 0x80)) {
+    return 1;
+  }
+  return 0;
+}
