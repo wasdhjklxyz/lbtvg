@@ -7,7 +7,11 @@
 #                           installed into the prefix once via winetricks;
 #                           DXVK=0 uses wine's OpenGL path instead, which cannot
 #                           reach the NVIDIA driver from a nix wine on NixOS (the
-#                           game then exits with "failed to create d3d device")
+#                           game then exits with "failed to create d3d device").
+#                           Runs inside a wine virtual desktop of RES (default
+#                           1920x1080): without it the game sees no display
+#                           modes (resolution 0x0) and renders tiny/blurry.
+#                           WINDOWED=1 runs without the virtual desktop.
 
 #
 # The exe and anything you drop next to it (a proxy dinput8.dll for testing
@@ -67,8 +71,17 @@ run() {
   if [ "${DXVK:-1}" = 1 ] && [ ! -f "$PLAY/.dxvk" ]; then
     winetricks -q dxvk && touch "$PLAY/.dxvk"
   fi
+  # the game saves 640x480 when it once saw no display modes; pin RES in its config
+  res=${RES:-1920x1080}
+  cfg=$(find "$WINEPREFIX/drive_c/users" -path '*LEGO Batman/pcconfig.txt' 2>/dev/null | head -1)
+  if [ -n "$cfg" ]; then
+    sed -i -E "s/^(ScreenWidth +)[0-9]+/\\1${res%x*}/; s/^(ScreenHeight +)[0-9]+/\\1${res#*x}/" "$cfg"
+  fi
   cd "$PLAY/game"
-  exec wine LEGOBatman.exe "$@"
+  if [ "${WINDOWED:-0}" = 1 ]; then
+    exec wine LEGOBatman.exe "$@"
+  fi
+  exec wine explorer "/desktop=lbtvg,$res" LEGOBatman.exe "$@"
 }
 
 case "${1:-run}" in

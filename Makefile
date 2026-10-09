@@ -58,7 +58,8 @@ fmt-check:
 new:
 	tools/new.py $(or $(FUNC),random)
 
-# run the game under wine + DXVK from play/ (outside Steam; DXVK=0 for wined3d)
+# run the game under wine + DXVK from play/ (outside Steam). RES=WxH sets the
+# virtual desktop size (default 1920x1080); DXVK=0 / WINDOWED=1 to opt out
 play:
 	tools/play.sh run
 
