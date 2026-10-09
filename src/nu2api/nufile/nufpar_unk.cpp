@@ -9,7 +9,11 @@ typedef struct nufpar_s {
   char file_name[0x100]; // 0x08
   u32 pad108[(0x910 - 0x108) / 4];
   char *word_buf; // 0x910
-  u32 pad914[(0x978 - 0x914) / 4];
+  u32 pad914[(0x930 - 0x914) / 4];
+  struct nufpcomjump_s *jump_ctx[8];  // 0x930
+  struct nufpcomjump_s *jump_ctx2[8]; // 0x950
+  i32 command_pos;                    // 0x970
+  u32 pad974;
   char is_utf16; // 0x978
 } NUFPAR;
 
@@ -108,6 +112,69 @@ i32 NuFParGetInt(NUFPAR *parser) {
   } else {
     return 0;
   }
+}
+
+typedef void nufpcomfn(NUFPAR *parser);
+typedef void nufpcomctxfn(NUFPAR *parser, void *ctx);
+
+typedef struct nufpcomjump_s {
+  char *fn_name;
+  nufpcomctxfn *fn;
+} NUFPCOMJUMP;
+
+// GLOBAL: LEGOBATMAN 0x00b038c0
+extern nufpcomfn *fnInterpreterError;
+
+// STUB: LEGOBATMAN 0x006dd430
+// close: orig tests jump_ctx2[pos] with cmp [mem],0 then reloads it (same
+// unsolved check-then-reload as FastWeaponOut); ours keeps it in edi
+i32 NuFParInterpretWordCTX(NUFPAR *parser, void *ctx) {
+  char buf[64];
+  i32 i;
+
+  if (parser->is_utf16) {
+    NuUnicodeToAscii(buf, (NUWCHAR16 *)parser->word_buf);
+  } else {
+    char *dst = buf;
+    char *src = parser->word_buf;
+    if (src != 0) {
+      while (*src != '\0') {
+        *dst++ = *src++;
+      }
+    }
+    *dst = '\0';
+  }
+
+  if (buf[0] == '\0')
+    return 0;
+  if (buf[0] == ';')
+    return 0;
+
+  i32 pos = parser->command_pos;
+  if (pos >= 0) {
+    NUFPCOMJUMP *jump = parser->jump_ctx[pos];
+    char *name;
+    for (i = 0; (name = jump[i].fn_name) != 0; i++) {
+      if (NuStrICmp(name, buf) == 0) {
+        jump[i].fn(parser, ctx);
+        return 1;
+      }
+    }
+
+    if (parser->jump_ctx2[pos] != 0) {
+      NUFPCOMJUMP *jump2 = parser->jump_ctx2[pos];
+      for (i = 0; (name = jump2[i].fn_name) != 0; i++) {
+        if (NuStrICmp(name, buf) == 0) {
+          jump2[i].fn(parser, ctx);
+          return 1;
+        }
+      }
+    }
+  }
+
+  if (fnInterpreterError != 0)
+    (*fnInterpreterError)(parser);
+  return 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x006dfc60

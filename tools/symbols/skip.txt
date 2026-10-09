@@ -33,3 +33,4 @@
 006ef910 NuMtlUpdatePS: PC DX9 body diverges from saga, many unknown fields
 0044c960 PartyMemberInWay: stack-slot/hoist diff, see STUB
 005b0e00 VecRotateAxis: heavy x87
+006dd430 NuFParInterpretWordCTX: cmp [mem],0 then reload, see STUB

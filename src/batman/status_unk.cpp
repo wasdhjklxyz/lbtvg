@@ -1,6 +1,7 @@
 // batman/, file unknown: status screen stages (0x00481070).
 
 #include "../gameapi/sfx_unk.h"
+#include "../nu2api/nucore/nustring.h"
 
 struct STATUS_STAGE_s {
   u8 pad0[0x20];
@@ -46,6 +47,58 @@ void BonusTime_Update(STATUS_STAGE_s *stage, STATUSPACKET_s *packet, f32 dt) {
         GameAudio_PlaySfx(0x45, 0, 0, 0);
       NewStatusRumbleBuzz(-1, 0.6f, 0.0f, 0);
     }
+    break;
+  }
+}
+
+struct GIZFLOW_s;
+struct FLOWBOX_s;
+struct GIZAIMESSAGESYS_s;
+
+struct GIZAIMESSAGE_s {
+  u8 pad0[0x28];
+  f32 value; // 0x28
+};
+
+// GLOBAL: LEGOBATMAN 0x00ad210c
+extern GIZAIMESSAGESYS_s *gizaimessagesys;
+
+GIZAIMESSAGE_s *CheckGizAIMessage(GIZAIMESSAGESYS_s *sys, const char *name,
+                                  GIZAIMESSAGE_s *def);
+
+// FUNCTION: LEGOBATMAN 0x00482ed0
+void GizAction_SetAIMessage(GIZFLOW_s *flow, FLOWBOX_s *box, char **params,
+                            int count) {
+  f32 value = 0.0f;
+  i32 mode = 0;
+  char *name = 0;
+  for (i32 index = 0; index < count; index++) {
+    char *argument = NuStrIStr(params[index], "Name");
+    if (argument != 0)
+      name = argument + NuStrLen("Name") + 1;
+    else if ((argument = NuStrIStr(params[index], "Val")) != 0) {
+      argument += NuStrLen("Val") + 1;
+      value = NuAToF(argument);
+    } else if ((argument = NuStrIStr(params[index], "increment=")) != 0) {
+      argument += NuStrLen("increment=");
+      value = NuAToF(argument);
+      mode = 1;
+    } else if ((argument = NuStrIStr(params[index], "decrement=")) != 0) {
+      argument += NuStrLen("decrement=");
+      value = NuAToF(argument);
+      mode = -1;
+    }
+  }
+  GIZAIMESSAGE_s *message = CheckGizAIMessage(gizaimessagesys, name, 0);
+  switch (mode) {
+  case 0:
+    message->value = value;
+    break;
+  case 1:
+    message->value = message->value + value;
+    break;
+  case -1:
+    message->value = message->value - value;
     break;
   }
 }

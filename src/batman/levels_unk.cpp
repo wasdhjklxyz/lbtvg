@@ -9,7 +9,7 @@ GIZMOBLOWUP_s *g_unk009ca23c;
 // GLOBAL: LEGOBATMAN 0x009ca264
 GIZAIMESSAGE_s *g_unk009ca264;
 // GLOBAL: LEGOBATMAN 0x00ad210c
-extern GIZAIMESSAGESYS_s *g_unk00ad210c;
+extern GIZAIMESSAGESYS_s *gizaimessagesys;
 // GLOBAL: LEGOBATMAN 0x009ce9f0
 AILOCATOR_s *g_unk009ce9f0[4];
 // GLOBAL: LEGOBATMAN 0x009ce960
@@ -37,7 +37,7 @@ void NastySewersC_Init(WORLDINFO_s *wi) {
 
 // FUNCTION: LEGOBATMAN 0x005101b0
 void Fairground_C_Reset(WORLDINFO_s *wi) {
-  g_unk009ca264 = CheckGizAIMessage(g_unk00ad210c, "BossFightPhase", 0);
+  g_unk009ca264 = CheckGizAIMessage(gizaimessagesys, "BossFightPhase", 0);
 }
 
 // STUB: LEGOBATMAN 0x005026f0
@@ -52,7 +52,7 @@ void FortBloxHero_B_Init(WORLDINFO_s *wi) {
   NuSpecialFind(wi->scn140, &g_unk009ce994, "Coils_Lane2", 0);
   NuSpecialFind(wi->scn140, &g_unk009ce7a4, "Coils_Lane3", 0);
   NuSpecialFind(wi->scn140, &g_unk009ce8c4, "Coils_Lane4", 0);
-  g_unk009ca264 = CheckGizAIMessage(g_unk00ad210c, "InLaserRoom", 0);
+  g_unk009ca264 = CheckGizAIMessage(gizaimessagesys, "InLaserRoom", 0);
 }
 
 // STUB: LEGOBATMAN 0x00502b60

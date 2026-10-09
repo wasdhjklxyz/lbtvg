@@ -22,13 +22,13 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Hub](#hub) | 6 | 4 |
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 5 | 4 |
 | [Text](#text) | 5 | 4 |
-| [GizAction](#gizaction) | 3 | 3 |
 | [Arcade](#arcade) | 2 | 2 |
 | [Area](#area) | 3 | 2 |
 | [Condition](#condition) | 3 | 2 |
 | [CutScenePlayer](#cutsceneplayer) | 2 | 2 |
 | [CutScenes](#cutscenes) | 3 | 2 |
 | [Doors](#doors) | 2 | 2 |
+| [GizAction](#gizaction) | 2 | 2 |
 | [GizPanel](#gizpanel) | 2 | 2 |
 | [LevelObjects](#levelobjects) | 2 | 2 |
 | [Move](#move) | 2 | 2 |
@@ -440,7 +440,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## near nupad_gen.cpp
 
 - [ ] `006d7dc0` 43 B `_NuSPrintf`  **hint** name (gapfill)
-- [ ] `006dd430` 318 B `_NuFParInterpretWordCTX`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006dd430` 318 B `_NuFParInterpretWordCTX`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006dd2d0` 347 B `_NuFParInterpretWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006da8d0` 358 B `_NuFParGetWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006d6d00` 646 B `_ImplodeMakeTable`  **saga** `nu2api/nucore/implode.cpp`
@@ -452,12 +452,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0059dd10` 392 B `Text_MakeTime(float, int, int, int, char*)`  **saga** `legoapi/menus/core/text.cpp`
 - [ ] `00408e60` 462 B `Text_ExpandButtonString(char*, char*)`  **saga** `legoapi/misc/androidbatman.cpp`
 - [ ] `0059d900` 544 B `Text_LoadAndFixUpStrings(unsigned char*, unsigned char**, char**, int)`  **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
-
-## GizAction
-
-- [ ] `00482ed0` 329 B `GizAction_SetAIMessage(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
-- [ ] `00483070` 693 B `GizAction_SetAIState(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
-- [ ] `00482510` 763 B `GizAction_ActivateChar(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
 
 ## Arcade
 
@@ -491,6 +485,11 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `00614d10` 528 B `Doors_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/props/doors/doors.cpp`
 - [ ] `00614f40` 590 B `Doors_Init(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/props/doors/doors.cpp`
+
+## GizAction
+
+- [ ] `00483070` 693 B `GizAction_SetAIState(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
+- [ ] `00482510` 763 B `GizAction_ActivateChar(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
 
 ## GizPanel
 
