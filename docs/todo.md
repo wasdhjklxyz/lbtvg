@@ -511,7 +511,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006a9c50` 114 B `_AIPathFindNode`  **hint** name (gapfill)
 - [ ] `006af110` 142 B `_AiSysIsCurrentPlatform`
 - [ ] `006a6000` 171 B `_AISysRegisterPathCnxType`
-- [ ] `006a2730` 401 B `_AIScriptCopyConditions`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006a2730` 401 B `_AIScriptCopyConditions`  **stub** · **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
 - [ ] `006a2cc0` 536 B `_AIScriptBuildDerivedScript`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
 
 ## NuStr

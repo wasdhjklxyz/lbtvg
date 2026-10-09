@@ -40,3 +40,4 @@
 006da8d0 NuFParGetWord: tangled state machine, not attempted
 00712030 NuTexAnimProgParseFile: end param enregistered, see STUB
 005b0510 InitSplinePosition: x87 + idiv spline math, not attempted
+006a2730 AIScriptCopyConditions: ebx push placement, see STUB

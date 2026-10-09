@@ -4,6 +4,7 @@
 #include "../../nu2api/nucore/common.h"
 #include "../../nu2api/nucore/nustring.h"
 #include <stddef.h>
+#include <string.h>
 
 #include "aisys_unk.h"
 
@@ -60,6 +61,69 @@ AISCRIPT *AIScriptFind(AISYS_s *sys, char *name, i32 can_use_default,
   }
 
   return NULL;
+}
+
+typedef struct AICONDITION_s {
+  NULISTLNK list_node; // 0x00
+  u32 pad8[3];
+  char *arg; // 0x14
+  u32 pad18[2];
+  char *next_state_name; // 0x20
+  u32 pad24[2];
+} AICONDITION;
+
+extern "C" void NuListAppendUnk006d40f0(NULISTHDR *list, NULISTLNK *node);
+void NuMemCpy(unsigned char *dst, unsigned char *src, int n);
+
+// A lone `ret` in the shipped build (debug logging compiled out), but called
+// as an opaque function: callers reload values around it.
+void AIScriptDebugUnk006a10a0(void);
+
+static void *AIScriptBufferAlloc(VARIPTR *buf, VARIPTR *buf_end, u32 size) {
+  void *ret = 0;
+  if (buf != 0 && buf_end != 0 && buf->addr + size < buf_end->addr) {
+    ret = (void *)((buf->addr + 15) & ~15);
+    buf->addr = ((buf->addr + 15) & ~15) + size;
+    memset(ret, 0, size);
+  } else {
+    AIScriptDebugUnk006a10a0();
+  }
+  return ret;
+}
+
+static char *AIScriptCopyString(char *str, VARIPTR *buf, VARIPTR *buf_end) {
+  char *dst = 0;
+  if (str != 0) {
+    u32 len = NuStrLen(str);
+    if (len != 0) {
+      dst = (char *)AIScriptBufferAlloc(buf, buf_end, len + 1);
+      NuStrCpy(dst, str);
+    }
+  }
+  return dst;
+}
+
+// STUB: LEGOBATMAN 0x006a2730
+// close: orig pushes ebx and loads buf before the NuListGetHead call; ours
+// does it after the empty-list check. Rest lines up.
+void AIScriptCopyConditions(NULISTHDR *src, NULISTHDR *dst, VARIPTR *buf,
+                            VARIPTR *buf_end) {
+  AICONDITION *src_cond;
+  for (src_cond = (AICONDITION *)NuListGetHead(src); src_cond != 0;
+       src_cond = (AICONDITION *)NuListGetNext(src, &src_cond->list_node)) {
+    AICONDITION *dst_cond =
+        (AICONDITION *)AIScriptBufferAlloc(buf, buf_end, sizeof(AICONDITION));
+    if (dst_cond != 0) {
+      memset(dst_cond, 0, sizeof(AICONDITION));
+      NuMemCpy((unsigned char *)dst_cond, (unsigned char *)src_cond,
+               sizeof(AICONDITION));
+      memset(&dst_cond->list_node, 0, sizeof(NULISTLNK));
+      dst_cond->arg = AIScriptCopyString(src_cond->arg, buf, buf_end);
+      dst_cond->next_state_name =
+          AIScriptCopyString(src_cond->next_state_name, buf, buf_end);
+      NuListAppendUnk006d40f0(dst, &dst_cond->list_node);
+    }
+  }
 }
 
 // FUNCTION: LEGOBATMAN 0x006a3380
