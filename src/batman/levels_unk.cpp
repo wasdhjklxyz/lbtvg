@@ -337,3 +337,27 @@ i32 LevelObject_FindIndexFromName(char *name) {
   }
   return -1;
 }
+
+// GLOBAL: LEGOBATMAN 0x00aa0568
+extern char ConfigBuffer[];
+
+i32 NuFileLoadBuffer(char *name, void *buffer, i32 size);
+i32 Text_StripComments(char *in, char *out, i32 flag);
+
+// FUNCTION: LEGOBATMAN 0x0060ee60
+void Level_LoadConfigFile(WORLDINFO_s *world) {
+  char name[128];
+
+  ConfigBuffer[0] = '\0';
+  NuSPrintf(name, "%s.txt", world->config_file);
+
+  world->buf104.addr = (world->buf104.addr + 3) & ~3;
+  i32 bytesRead = NuFileLoadBuffer(name, world->buf104.void_ptr, 0x10000);
+  world->config_count = bytesRead;
+  if (bytesRead > 0) {
+    ((char *)world->buf104.void_ptr)[bytesRead] = '\0';
+    bytesRead =
+        Text_StripComments((char *)world->buf104.void_ptr, ConfigBuffer, 1);
+    world->config_count = bytesRead;
+  }
+}

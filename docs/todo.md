@@ -66,7 +66,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizObstacles](#gizobstacles) | 1 | 1 |
 | [GizTurrets](#gizturrets) | 1 | 1 |
 | [Grapples](#grapples) | 1 | 1 |
-| [Level](#level) | 1 | 1 |
 | [LevelSplines](#levelsplines) | 1 | 1 |
 | [MiniKit](#minikit) | 2 | 1 |
 | [Missions](#missions) | 1 | 1 |
@@ -717,10 +716,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## Grapples
 
 - [ ] `005a9520` 269 B `Grapples_Reset(void*, void*, void*)`  **saga** `legoapi/gizmos/transport/grapples.cpp`
-
-## Level
-
-- [ ] `0060ee60` 164 B `Level_LoadConfigFile(WORLDINFO_s*)`  **saga** `legoapi/world/level.cpp`
 
 ## LevelSplines
 
