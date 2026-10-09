@@ -1585,3 +1585,12 @@
 006d5580 NuAPIGetCurrentGScene  Mac nuapi order (getter of same global as 0x6d5590); matched
 006d5590 NuAPISetCurrentGScene  Mac nuapi order (setter); matched
 006d55a0 NuPadUseCorrectDeadZoning saga nupad body (byte store), Mac order; matched
+006d5770 NuPadClose             saga body (NuPadClosePS + free), Mac order after NuPadOpen; matched
+006d5870 NuPadGetFirstActivePad saga body (returns the pad SetStatus records), Mac order; matched
+006d5c90 NuPadGetMaxGamePads    getter of the global NuPadSetMaxGamePads (0x6d5ca0) sets, Mac order; matched
+006d5cb0 NuPadMapPortToPS2Port  saga body (mapping[pad].port, scanned[port].mapped_to_pad), Mac order; matched
+006d5e30 NuPadPortUsedByPlayer  loops the 3 mappings for a valid one on port, Mac order before NuPadInit; matched
+006d5ee0 NuPadSetDirectMappingState saga body; global is the one NuPadSetMotors (0x6d6100) tests; matched
+006d61b0 NuPadRecordStart       saga body (pad_record flag = 1), Mac order after NuPadResetState; matched
+006d6430 NuPadRecordSetPlayEndButtons saga body, Mac order; matched
+006d6440 NuPadRecordSetRecordEndButtons saga body, Mac order; matched

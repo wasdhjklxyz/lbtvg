@@ -1014,3 +1014,64 @@ void NuPadRecordLoad(char *filepath, VARIPTR *buffer, VARIPTR end) {
     }
   }
 }
+
+// --- nupad.cpp accessors (Mac order: NuPadClose, ..., NuPadGetFirstActivePad,
+// NuPadGetMaxGamePads, ..., NuPadMapPortToPS2Port, ..., NuPadPortUsedByPlayer,
+// NuPadInit, NuPadSetDirectMappingState, ..., NuPadRecordStart,
+// NuPadRecordSetPlayEndButtons, NuPadRecordSetRecordEndButtons) -------------
+
+extern "C" void NuMemFreeFn(void *ptr, const char *file, int line);
+void NuPadClosePS(NUPAD *pad);
+
+// FUNCTION: LEGOBATMAN 0x006d5770
+void NuPadClose(NUPAD *pad) {
+  NuPadClosePS(pad);
+  NuMemFreeFn(pad, __FILE__, 0xcc);
+}
+
+// FUNCTION: LEGOBATMAN 0x006d5870
+int NuPadGetFirstActivePad(void) { return g_nuPadUnk099f2d8; }
+
+// FUNCTION: LEGOBATMAN 0x006d5c90
+int NuPadGetMaxGamePads(void) { return g_nuPadUnk099f2dc; }
+
+// FUNCTION: LEGOBATMAN 0x006d5cb0
+void NuPadMapPortToPS2Port(int pad, int port) {
+  if (g_nuPadUnk0aecb64[pad].value >= 0)
+    g_nuPads[g_nuPadUnk0aecb64[pad].value].i4 = -1;
+  g_nuPadUnk0aecb64[pad].value = port;
+  g_nuPads[port].i4 = pad;
+  g_nuPads[port].i14 = 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d5e30
+int NuPadPortUsedByPlayer(int port) {
+  int i;
+  for (i = 0; i < 3; i++) {
+    if (g_nuPadUnk0aecb64[i].valid && g_nuPadUnk0aecb64[i].value == port)
+      return 1;
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d5ee0
+void NuPadSetDirectMappingState(int state) { g_nuPadUnk0b038f4 = state; }
+
+// FUNCTION: LEGOBATMAN 0x006d61b0
+void NuPadRecordStart(void) { g_nuPadUnk0adf6c0 = 1; }
+
+// nuapi.pad_record.end_play_buttons / end_record_buttons
+// GLOBAL: LEGOBATMAN 0x00adf6bc
+int g_nuPadRecEndPlayButtons;
+// GLOBAL: LEGOBATMAN 0x00adf6b8
+int g_nuPadRecEndRecordButtons;
+
+// FUNCTION: LEGOBATMAN 0x006d6430
+void NuPadRecordSetPlayEndButtons(int buttons) {
+  g_nuPadRecEndPlayButtons = buttons;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d6440
+void NuPadRecordSetRecordEndButtons(int buttons) {
+  g_nuPadRecEndRecordButtons = buttons;
+}

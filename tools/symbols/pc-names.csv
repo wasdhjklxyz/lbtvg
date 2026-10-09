@@ -2039,7 +2039,16 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d5590,00189266,_NuAPISetCurrentGScene,_NuAPISetCurrentGScene,confirmed,0
 006d55a0,0018927a,_NuPadUseCorrectDeadZoning,_NuPadUseCorrectDeadZoning,confirmed,0
 006d5700,001893c0,_NuPadOpen,_NuPadOpen,strings,0
+006d5770,0018944a,_NuPadClose,_NuPadClose,confirmed,0
+006d5870,0018953c,_NuPadGetFirstActivePad,_NuPadGetFirstActivePad,confirmed,0
+006d5c90,0018954e,_NuPadGetMaxGamePads,_NuPadGetMaxGamePads,confirmed,0
+006d5cb0,0018973c,_NuPadMapPortToPS2Port,_NuPadMapPortToPS2Port,confirmed,0
 006d5df0,001897ba,_NuPadGetPort,_NuPadGetPort,calls,2
+006d5e30,00189816,_NuPadPortUsedByPlayer,_NuPadPortUsedByPlayer,confirmed,0
+006d5ee0,001898d0,_NuPadSetDirectMappingState,_NuPadSetDirectMappingState,confirmed,0
+006d61b0,00189bcc,_NuPadRecordStart,_NuPadRecordStart,confirmed,0
+006d6430,00189be2,_NuPadRecordSetPlayEndButtons,_NuPadRecordSetPlayEndButtons,confirmed,0
+006d6440,00189bf6,_NuPadRecordSetRecordEndButtons,_NuPadRecordSetRecordEndButtons,confirmed,0
 006d6910,0018a1ce,_ImplodeError,_ImplodeError,confirmed,0
 006d6d00,0018a2ec,_ImplodeMakeTable,_ImplodeMakeTable,strings,0
 006d7500,00187052,_NuStrCat,_NuStrCat,gapfill,1
