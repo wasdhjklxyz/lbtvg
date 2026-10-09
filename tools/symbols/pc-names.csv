@@ -379,6 +379,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004632f0,000805f0,__Z19Action_CanOpenDoorsP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CanOpenDoors(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 004633a0,00080678,__Z24Action_CanShootOffScreenP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_CanShootOffScreen(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00463450,00080700,__Z30Action_OnlyActiveWhenTakenOverP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_OnlyActiveWhenTakenOver(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
+004635e0,0008e960,__Z20Action_SnapWeaponOutP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SnapWeaponOut(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00463780,0008eab6,__Z19Action_ResetContextP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ResetContext(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00463850,00080768,__Z21Action_PrefersPlayersP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_PrefersPlayers(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 004638d0,000807ce,__Z35Action_SetBoltsDontGetDeflectedBackP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetBoltsDontGetDeflectedBack(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0

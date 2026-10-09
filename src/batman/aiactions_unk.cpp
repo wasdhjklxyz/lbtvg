@@ -4768,3 +4768,40 @@ i32 Action_SetLevelPath(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 1;
 }
+
+// FUNCTION: LEGOBATMAN 0x004635e0
+i32 Action_SnapWeaponOut(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  GameObject_s *obj = 0;
+  i32 keep_out = -1;
+  i32 on = 1;
+  if (flags != 0) {
+    if (packet != 0 && packet->pd0 != 0)
+      obj = packet->pd0->obj;
+    if (argc != 0) {
+      for (i32 i = 0; i < argc; i++) {
+        char *s = NuStrIStr(args[i], "character=");
+        if (s != 0)
+          obj = GetNamedGameObject(sys, s + 10);
+        else if ((s = NuStrIStr(args[i], "keep_out=")) != 0)
+          keep_out = NuStrICmp(s + 9, "TRUE") == 0;
+        else if (NuStrICmp(args[i], "FALSE") == 0)
+          on = 0;
+      }
+    }
+    if (obj != 0) {
+      if (on != 0) {
+        obj->flags130c |= 0x80000;
+        obj->weapon_scale = 1.0f;
+        if (keep_out != -1)
+          obj->keep_weapon_out = keep_out;
+      } else {
+        obj->weapon_scale = 0.0f;
+        obj->flags130c &= ~0x80000;
+        obj->keep_weapon_out = 0;
+      }
+    }
+  }
+  return 1;
+}
