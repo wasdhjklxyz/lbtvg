@@ -197,7 +197,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0045fc50` 331 B `Action_SetGravityHeight(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00461ff0` 388 B `Action_SetPath(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00473e40` 471 B `Action_ChangeSpecialRoute(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub**
-- [ ] `006a4640` 490 B `_Action_Idle`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `006a4640` 490 B `_Action_Idle`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00464d10` 493 B `Action_UseForce(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `0046eee0` 507 B `Action_ForceLightning(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `006ba4b0` 597 B `_Action_CirclePlayer`  **saga** `gameapi/ai/aisys/aisys.cpp`

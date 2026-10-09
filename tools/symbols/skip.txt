@@ -120,3 +120,4 @@
 006babf0 Action_MoveAwayFromPlayer2: same as MoveAwayFromPlayer
 006baf30 Action_GoToNode: epilogue sharing puzzle only, 3+ tries
 006a4530 Action_ResetTimer: packet/processor ebx/ebp swap only, 3 tries
+006a4640 Action_Idle: params/processor register choice, 3 tries

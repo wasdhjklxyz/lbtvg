@@ -733,6 +733,57 @@ i32 Action_ResetTimer(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
   return 1;
 }
 
+// STUB: LEGOBATMAN 0x006a4640
+// close: orig keeps processor in ebx and reloads params each pass; ours
+// enregisters params. Return layout matches.
+i32 Action_Idle(AISYS_s *sys, AISCRIPTPROCESS_s *processor, AIPACKET_s *packet,
+                char **params, i32 param_count, i32 is_first_time,
+                f32 elapsed) {
+  f32 minimum = 0.0f;
+  f32 maximum = 0.0f;
+  i32 frames = 0;
+  i32 result = 0;
+  char *value;
+
+  if (is_first_time) {
+    for (i32 i = 0; i < param_count; i++) {
+      value = NuStrIStr(params[i], "mintime");
+      if (value != NULL) {
+        minimum = AIParamToFloatEx(packet, processor,
+                                   value + NuStrLen("mintime") + 1);
+      } else if ((value = NuStrIStr(params[i], "maxtime")) != NULL) {
+        maximum = AIParamToFloatEx(packet, processor,
+                                   value + NuStrLen("maxtime") + 1);
+      } else if ((value = NuStrIStr(params[i], "frames")) != NULL) {
+        frames =
+            AIParamToFloatEx(packet, processor, value + NuStrLen("frames") + 1);
+      } else {
+        processor->face_timer = AIParamToFloatEx(packet, processor, params[i]);
+      }
+    }
+
+    if (frames != 0) {
+      processor->action_data_1 = frames < 0 ? 0 : (frames > 255 ? 255 : frames);
+      return 0;
+    }
+    if (processor->face_timer == 0.0f && maximum > minimum)
+      processor->face_timer = NuRandFloat() * (maximum - minimum) + minimum;
+    return 0;
+  }
+  if (processor->action_data_1 != 0) {
+    if (--processor->action_data_1 == 0)
+      return 1;
+  } else if (processor->face_timer > 0.0f) {
+    f32 remaining = processor->face_timer - elapsed;
+    processor->face_timer = remaining;
+    if (remaining <= 0.0f) {
+      processor->face_timer = 0.0f;
+      return 1;
+    }
+  }
+  return result;
+}
+
 // FUNCTION: LEGOBATMAN 0x006a4840
 i32 Action_SetCircleDirection(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                               AIPACKET_s *packet, char **params,
