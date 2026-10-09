@@ -2769,3 +2769,123 @@ f32 Condition_CollidingWithOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     return 1.0f;
   return 0.0f;
 }
+
+struct ForcePlatAnimData_s {
+  u8 pad0[2];
+  i16 platform_id; // 0x02
+};
+
+struct ForcePlatAnimObj_s {
+  ForcePlatAnimObj_s *next; // 0x00
+  u8 pad4[0x24 - 4];
+  ForcePlatAnimData_s *data; // 0x24
+};
+
+struct ForcePlatAnimSet_s {
+  u8 pad0[0x24];
+  ForcePlatAnimObj_s *objects; // 0x24
+};
+
+struct ForcePlatGizmo_s {
+  u8 pad0[0x28];
+  ForcePlatAnimSet_s *anim_set; // 0x28
+};
+
+struct TerrPlatform_s {
+  u8 pad0[0x40];
+  numtx_s *mtx; // 0x40
+  u8 pad44[0x6c - 0x44];
+};
+
+struct TerrPlatforms_s {
+  u8 pad0[0x68];
+  TerrPlatform_s *platforms; // 0x68
+};
+
+// FUNCTION: LEGOBATMAN 0x0044df00
+f32 Condition_OnForcePlatform(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char *str, void *argument) {
+  ForcePlatGizmo_s *force = (ForcePlatGizmo_s *)argument;
+  if (force != NULL && packet != NULL && packet->pd0 != NULL) {
+    GameObject_s *object = packet->pd0->obj;
+    if (object != NULL &&
+        (((u8 *)object)[0x24d] != 0 || ((u8 *)object)[0x24e] != 0)) {
+      i16 platform = *(i16 *)((u8 *)object + 0x24a);
+      if (platform == -1)
+        return 0.0f;
+      numtx_s *mtx = ((TerrPlatforms_s *)CurTerr)->platforms[platform].mtx;
+      if (object->position.y >= mtx->m31) {
+        for (ForcePlatAnimObj_s *anim = force->anim_set->objects; anim != NULL;
+             anim = anim->next) {
+          if (platform == anim->data->platform_id)
+            return 1.0f;
+        }
+      }
+    }
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044dfb0
+f32 Condition_PlayerOnForcePlatform(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                    AIPACKET_s *packet, char *str,
+                                    void *argument) {
+  ForcePlatGizmo_s *force = (ForcePlatGizmo_s *)argument;
+  if (force != NULL && player != NULL) {
+    GameObject_s *object = player;
+    if ((((u8 *)object)[0x24d] != 0 || ((u8 *)object)[0x24e] != 0)) {
+      i16 platform = *(i16 *)((u8 *)object + 0x24a);
+      if (platform == -1)
+        return 0.0f;
+      numtx_s *mtx = ((TerrPlatforms_s *)CurTerr)->platforms[platform].mtx;
+      if (object->position.y >= mtx->m31) {
+        for (ForcePlatAnimObj_s *anim = force->anim_set->objects; anim != NULL;
+             anim = anim->next) {
+          if (platform == anim->data->platform_id)
+            return 1.0f;
+        }
+      }
+    }
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e050
+f32 Condition_EitherPlayerOnForcePlatform(AISYS_s *sys,
+                                          AISCRIPTPROCESS_s *process,
+                                          AIPACKET_s *packet, char *str,
+                                          void *argument) {
+  ForcePlatGizmo_s *force = (ForcePlatGizmo_s *)argument;
+  if (force != NULL && player != NULL) {
+    i32 players = 0;
+    if ((((u8 *)player)[0x24d] != 0 || ((u8 *)player)[0x24e] != 0) &&
+        *(i16 *)((u8 *)player + 0x24a) != -1) {
+      numtx_s *mtx = ((TerrPlatforms_s *)CurTerr)
+                         ->platforms[*(i16 *)((u8 *)player + 0x24a)]
+                         .mtx;
+      if (player->position.y >= mtx->m31)
+        players |= 1;
+    }
+    if (player2 != NULL &&
+        (((u8 *)player2)[0x24d] != 0 || ((u8 *)player2)[0x24e] != 0) &&
+        *(i16 *)((u8 *)player2 + 0x24a) != -1) {
+      numtx_s *mtx = ((TerrPlatforms_s *)CurTerr)
+                         ->platforms[*(i16 *)((u8 *)player2 + 0x24a)]
+                         .mtx;
+      if (player2->position.y >= mtx->m31)
+        players |= 2;
+    }
+    if (players != 0) {
+      for (ForcePlatAnimObj_s *anim = force->anim_set->objects; anim != NULL;
+           anim = anim->next) {
+        if ((players & 1) &&
+            *(i16 *)((u8 *)player + 0x24a) == anim->data->platform_id)
+          return 1.0f;
+        if ((players & 2) &&
+            *(i16 *)((u8 *)player2 + 0x24a) == anim->data->platform_id)
+          return 1.0f;
+      }
+    }
+  }
+  return 0.0f;
+}

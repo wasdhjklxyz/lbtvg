@@ -595,3 +595,6 @@
 0044f0e0 Condition_HoverPhase  matched saga body, Mac order
 0044f150 Condition_HitPoints  matched saga body, Mac order
 0044f190 Condition_CollidingWithOpponent  matched saga body, Mac order
+0044df00 Condition_OnForcePlatform  matched saga body, Mac order
+0044dfb0 Condition_PlayerOnForcePlatform  matched saga body, Mac order
+0044e050 Condition_EitherPlayerOnForcePlatform  matched saga body, Mac order
