@@ -182,6 +182,57 @@ void Detonators_Reset() {
 
 f32 NuVecDistSqr(nuvec_s *a, nuvec_s *b, nuvec_s *d);
 
+struct CHEAT_s {
+  u32 pad0[4];
+};
+
+// GLOBAL: LEGOBATMAN 0x00936f10
+extern CHEAT_s g_unk00936f10[];
+// GLOBAL: LEGOBATMAN 0x00960b00
+extern i32 g_unk00960b00; // the detonator cheat
+
+i32 Cheat_IsOn(CHEAT_s *cheat);
+
+// What FindFreeSlot reads of the thrower: obj->p54->p24->b236.
+struct DETTHROWER_s {
+  u8 pad0[0x54];
+  struct {
+    u8 pad0[0x24];
+    struct {
+      u8 pad0[0x236];
+      i8 detonator_type; // 0x236
+    } *p24;
+  } *p54;
+};
+
+// STUB: LEGOBATMAN 0x005d59d0
+// close: orig keeps obj in ebx from entry and widens the i16 limit once
+// (movsx ebp, ax); ours reloads obj and widens inside the loop (3 tries)
+DETONATOR_s *Detonator_FindFreeSlot(GameObject_s *obj) {
+  if (Detonator != 0) {
+    i32 type = ((DETTHROWER_s *)obj)->p54->p24->detonator_type;
+    i16 max;
+    if (Cheat_IsOn(&g_unk00936f10[g_unk00960b00]) && type == 0)
+      max = type + 6;
+    else
+      max = type == 2.0f ? 1 : 3;
+    i32 owned = 0;
+    i32 slot = -1;
+    for (i32 i = 0; i < Detonator->count; i++) {
+      DETONATOR_s *det = &Detonator->detonators[i];
+      if (det->flags & 1) {
+        if (det->owner == obj && ++owned == max)
+          return 0;
+      } else if (slot == -1) {
+        slot = i;
+      }
+    }
+    if (slot != -1)
+      return &Detonator->detonators[slot];
+  }
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x005d5aa0
 DETONATOR_s *Detonator_FindNearest(nuvec_s *pos, float range,
                                    GameObject_s *owner) {

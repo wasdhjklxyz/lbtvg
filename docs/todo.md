@@ -741,7 +741,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `005d5c20` 78 B `Detonator_FindCharacterDetonator(GameObject_s*)`  **stub** · **hint** name (gapfill)
 - [ ] `005d5b60` 192 B `Detonator_FindOldest(GameObject_s*, float)`  **hint** name (order)
-- [ ] `005d59d0` 204 B `Detonator_FindFreeSlot(GameObject_s*)`  **hint** name (order)
+- [ ] `005d59d0` 204 B `Detonator_FindFreeSlot(GameObject_s*)`  **stub** · **hint** name (order)
 
 ## DetonatorSys
 
