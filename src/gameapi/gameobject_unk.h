@@ -134,9 +134,11 @@ struct GameObject_s {
   u8 pad280[0x290 - 0x280];
   u8 process290[0x3c8 - 0x290]; // 0x290  AISCRIPTPROCESS_s
   u8 b3c8;                      // 0x3c8
-  u8 pad6[0x3ce - 0x3c9];
-  u8 b3ce; // 0x3ce
-  u8 pad3cf;
+  u8 pad6[0x3cc - 0x3c9];
+  u8 b3cc;               // 0x3cc, Action_UpdatePathInfo reset_route: 0xff
+  u8 b3cd;               // 0x3cd, Action_UpdatePathInfo reset_route: 0
+  u8 b3ce;               // 0x3ce
+  u8 goal_speed_mode;    // 0x3cf, its packet's goal_speed_mode
   u8 control_rotational; // 0x3d0, Action_SetControlSystem
   u8 pad7[0x47c - 0x3d1];
   nuvec_s *look_target; // 0x47c, AI look target (process290 + 0x1ec)
@@ -349,6 +351,14 @@ struct GameObject_s {
       u32 : 8;
       u32 no_time_based_update : 1; // 0x1414 bit 8
     };
+    struct {
+      u32 : 4;
+      u32 can_be_carried : 1; // 0x1414 bit 4
+    };
+    struct {
+      u32 : 26;
+      u32 ignore_last_safe_path_pos : 1; // 0x1414 bit 26
+    };
   };
   union {
     u32 flags1418; // 0x1418
@@ -379,6 +389,10 @@ struct GameObject_s {
     struct {
       u32 : 17;
       u32 woozy : 1; // 0x1418 bit 17
+    };
+    struct {
+      u32 : 9;
+      u32 can_be_targetted_by_cable : 1; // 0x1418 bit 9
     };
   };
   u8 pad15[0x1430 - 0x141c];
