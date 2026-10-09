@@ -76,6 +76,21 @@ void BotanicGardens_B_Reset(WORLDINFO_s *wi) {
   g_unk009ca23c = GizmoBlowUp_FindByName(wi, "bomb_dropb1");
 }
 
+// FUNCTION: LEGOBATMAN 0x00504680
+AILOCATOR_s *GetPlantLocator(char *name) {
+  AILOCATOR_s *locator = NULL;
+  if (NuStrICmp(name, "Plant1") == 0)
+    locator =
+        AIPathFindLocator(WorldInfo_CurrentlyActive()->aiSys2bf8, "SEED1");
+  else if (NuStrICmp(name, "Plant2") == 0)
+    locator =
+        AIPathFindLocator(WorldInfo_CurrentlyActive()->aiSys2bf8, "SEED2");
+  else if (NuStrICmp(name, "Plant3") == 0)
+    locator =
+        AIPathFindLocator(WorldInfo_CurrentlyActive()->aiSys2bf8, "SEED3");
+  return locator;
+}
+
 typedef struct LEVELDATA_s {
   unsigned char pad0[0x40];
   char name[0x20]; // 0x40

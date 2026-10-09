@@ -14,7 +14,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | group | todo | with saga body |
 |---|---|---|
 | [Action](#action) | 57 | 42 |
-| [near pcbatman.cpp](#near-pcbatmancpp) | 44 | 37 |
+| [near pcbatman.cpp](#near-pcbatmancpp) | 43 | 37 |
 | [near rtleditor.cpp](#near-rtleditorcpp) | 40 | 27 |
 | [near terrain.c](#near-terrainc) | 23 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 11 | 6 |
@@ -252,7 +252,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## near pcbatman.cpp
 
 - [ ] `00458c40` 111 B `OpponentShouldntBeAttacked(GameObject_s*)`  **hint** name (gapfill)
-- [ ] `00504680` 151 B `GetPlantLocator(char*)`
 - [ ] `004b8100` 205 B `_VuMtxRotateY`  **hint** name (gapfill)
 - [ ] `0044c960` 312 B `PartyMemberInWay(GameObject_s*, GameObject_s*)`  **stub** · **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00447560` 369 B `GetNamedAPIObject(AISYS_s*, char*)`  **stub** · **saga** `legoapi/items/objects/gameobjects.cpp`

@@ -189,7 +189,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00503610,0003c576,__Z18StreetsChase_ResetP11WORLDINFO_s,StreetsChase_Reset(WORLDINFO_s*),strings,0
 00503f40,0003cdd6,__Z16Factory_A_UpdateP11WORLDINFO_s,Factory_A_Update(WORLDINFO_s*),strings,0
 00504100,0003cf18,__Z22BotanicGardens_B_ResetP11WORLDINFO_s,BotanicGardens_B_Reset(WORLDINFO_s*),strings,0
-00504680,0003d1a4,__Z15GetPlantLocatorPc,GetPlantLocator(char*),strings,0
+00504680,0003d1a4,__Z15GetPlantLocatorPc,GetPlantLocator(char*),confirmed,0
 00504740,0003d230,__Z15PartImpact_SeedP6PART_s,PartImpact_Seed(PART_s*),order,1
 00504850,0003d322,__Z18PartKill_BlackSeedP6PART_si,"PartKill_BlackSeed(PART_s*, int)",strings,0
 00504a40,0003d488,__Z20PartImpact_BlackSeedP6PART_s,PartImpact_BlackSeed(PART_s*),order,1
