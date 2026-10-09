@@ -266,6 +266,14 @@ struct GameObject_s {
       u32 : 10;
       u32 deflect_bolts : 1; // 0x1418 bit 10
     };
+    struct {
+      u32 : 3;
+      u32 process_when_deactivated : 1; // 0x1418 bit 3
+    };
+    struct {
+      u32 : 17;
+      u32 woozy : 1; // 0x1418 bit 17
+    };
   };
   u8 pad15[0x1430 - 0x141c];
   u32 flags1430; // 0x1430

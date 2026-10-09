@@ -4,6 +4,7 @@
 #include "../gameapi/ai/aisys_unk.h"
 #include "../nu2api/nucore/nustring.h"
 #include "worldinfo_unk.h"
+#include <string.h>
 
 void Detonate(nuvec_s *pos, i32 type, f32 scale);
 void AddMiscPickups(nuvec_s *pos, i32 player_id, i32 coins, i32 torpedoes,
@@ -2480,5 +2481,119 @@ i32 Action_SetFormationCommander(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       group->member_count % group->count_across != 1)
     return 1;
   packet->movement_event_flags |= 0x1000000;
+  return 1;
+}
+
+i32 NuSpecialExistsFn(nuhspecial_s *special);
+void NuSpecialSetVisibility(nuhspecial_s *special, i32 visible);
+
+// FUNCTION: LEGOBATMAN 0x004605f0
+i32 Action_SetVisibility(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  i32 visible = 1;
+  if (flags != 0) {
+    nuhspecial_s special;
+    memset(&special, 0, sizeof(special));
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "name");
+      if (s != 0)
+        NuSpecialFind(g_unk00960894->scn140, &special, s + 5, 1);
+      else if (NuStrIStr(args[i], "FALSE") != 0)
+        visible = 0;
+    }
+    if (NuSpecialExistsFn(&special) != 0)
+      NuSpecialSetVisibility(&special, visible);
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00463b60
+i32 Action_ProcessScriptWhenDeactivated(AISYS_s *sys,
+                                        AISCRIPTPROCESS_s *process,
+                                        AIPACKET_s *packet, char **args,
+                                        int argc, int flags, f32 time) {
+  GameObject_s *obj = 0;
+  i32 on = 1;
+  if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+    obj = packet->pd0->obj;
+  if (argc != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "character=");
+      if (s != 0)
+        obj = GetNamedGameObject(sys, s + 10);
+      else if (NuStrICmp(args[i], "FALSE") == 0)
+        on = 0;
+    }
+  }
+  if (obj != 0)
+    obj->process_when_deactivated = on;
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x004718f0
+i32 Action_SetWoozy(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                    AIPACKET_s *packet, char **args, int argc, int flags,
+                    f32 time) {
+  GameObject_s *obj = 0;
+  i32 woozy;
+  if (argc != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "character");
+      if (s != 0)
+        obj = GetNamedGameObject(sys, s + 10);
+      if (NuStrIStr(args[i], "true") != 0)
+        woozy = 1;
+      else if (NuStrIStr(args[i], "false") != 0)
+        woozy = 0;
+    }
+  }
+  if (obj == 0)
+    return 0;
+  obj->woozy = woozy;
+  return 1;
+}
+
+struct RIDEOBJECT_s {
+  struct TECHNO_s *techno; // 0x00
+  u8 pad4[8 - 4];
+  GameObject_s *rider; // 0x08
+  u8 padc[0x10 - 0xc];
+  f32 radius_sqr;        // 0x10
+  nuhspecial_s *special; // 0x14
+  u8 pad18[0x2c - 0x18];
+  nuvec_s offset; // 0x2c
+};
+
+RIDEOBJECT_s *RideObject_FindAvailable(GameObject_s *obj, i32 a);
+numtx_s *NuSpecialGetDrawMtx(nuhspecial_s *special);
+f32 NuVecDistSqr(nuvec_s *a, nuvec_s *b, nuvec_s *d);
+
+// FUNCTION: LEGOBATMAN 0x00473050
+i32 Action_GetInRideObject(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char **args, int argc, int flags,
+                           f32 time) {
+  nuvec_s pos;
+  nuvec_s d;
+  GameObject_s *obj = packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0
+                          ? packet->pd0->obj
+                          : 0;
+  if (obj == 0)
+    return 0;
+  RIDEOBJECT_s *ride = RideObject_FindAvailable(obj, 0);
+  if (ride != 0) {
+    numtx_s *mtx = NuSpecialGetDrawMtx(ride->special);
+    pos.x = mtx->m30 + ride->offset.x;
+    pos.y = mtx->m31 + ride->offset.y;
+    pos.z = mtx->m32 + ride->offset.z;
+    f32 dist = NuVecDistSqr(&pos, &obj->v80, &d);
+    if (dist < ride->radius_sqr) {
+      obj->b9db = g_unk00960594;
+      obj->techno = ride->techno;
+      obj->f98c = 0.0f;
+      obj->b9d9 = 0;
+      ride->rider = obj;
+    }
+  }
   return 1;
 }

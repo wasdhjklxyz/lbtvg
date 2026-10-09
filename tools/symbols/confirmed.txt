@@ -1141,3 +1141,7 @@
 0045db90 Action_SetMaxYRotSeek  keyword table 0x93bb98
 0045ad50 Action_PressSpecialButton  keyword table 0x93bb98
 0045bfe0 Action_SetFormationCommander  keyword table 0x93bb98
+004605f0 Action_SetVisibility  keyword table 0x93bb98
+00463b60 Action_ProcessScriptWhenDeactivated  keyword table 0x93bb98
+004718f0 Action_SetWoozy  keyword table 0x93bb98
+00473050 Action_GetInRideObject  keyword table 0x93bb98
