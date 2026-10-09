@@ -20,6 +20,30 @@ extern i16 *ActionPairTab;
 // GLOBAL: LEGOBATMAN 0x00a95d84
 extern i16 *AmbientPairTab;
 
+// FUNCTION: LEGOBATMAN 0x005a0780
+i32 ActionFromQuiet(i32 idx) {
+  if (idx != -1) {
+    i16 *tab = ActionPairTab;
+    for (i32 entry = 0; tab[entry * 14] != -1; entry++) {
+      if (tab[entry * 14] == idx)
+        return tab[entry * 14 + 1];
+    }
+  }
+  return -1;
+}
+
+// FUNCTION: LEGOBATMAN 0x005a07e0
+i32 AmbientFromQuiet(i32 idx) {
+  if (idx != -1) {
+    i16 *tab = AmbientPairTab;
+    for (i32 entry = 0; tab[entry * 2] != -1; entry++) {
+      if (tab[entry * 2] == idx)
+        return tab[entry * 2 + 1];
+    }
+  }
+  return -1;
+}
+
 // FUNCTION: LEGOBATMAN 0x005a0830
 nusound_filename_info_s *ConfigureMusic(char *file, VARIPTR *bufferStart,
                                         VARIPTR *bufferEnd) {

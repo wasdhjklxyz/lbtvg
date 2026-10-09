@@ -395,7 +395,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005a03c0,00268576,__Z19AddLevelSfxFromNamePcPiS0_i,"AddLevelSfxFromName(char*, int*, int*, int)",confirmed,0
 005a0410,002685c6,__Z17AddLevelSfxFromIdiPiS_i,"AddLevelSfxFromId(int, int*, int*, int)",confirmed,0
 005a0460,00268620,__Z14UpdateLevelSfxP11WORLDINFO_si,"UpdateLevelSfx(WORLDINFO_s*, int)",confirmed,0
+005a0550,002686be,__Z14ResetRepeatSfxv,ResetRepeatSfx(),confirmed,0
 005a0590,0026870a,__Z13PlayRepeatSfxPcifcfP7nuvec_s,"PlayRepeatSfx(char*, int, float, char, float, nuvec_s*)",confirmed,0
+005a0670,00268840,__Z15UpdateRepeatSfxv,UpdateRepeatSfx(),confirmed,0
+005a0770,00268928,__Z19NewAreaMusicChangesv,NewAreaMusicChanges(),confirmed,0
+005a0780,0026893e,__Z15ActionFromQuieti,ActionFromQuiet(int),confirmed,0
+005a07e0,0026898c,__Z16AmbientFromQuieti,AmbientFromQuiet(int),confirmed,0
 005a0830,002689e2,__Z14ConfigureMusicPcP9variptr_uS1_,"ConfigureMusic(char*, variptr_u*, variptr_u*)",strings,0
 005a1060,003462e4,__Z10ResetTimerP7TIMER_sf,"ResetTimer(TIMER_s*, float)",confirmed,0
 005a1fb0,00271c44,__Z16GameCam_NewShakeP12GAMECAMERA_sfff,"GameCam_NewShake(GAMECAMERA_s*, float, float, float)",confirmed,0

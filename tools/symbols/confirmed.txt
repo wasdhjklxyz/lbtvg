@@ -299,3 +299,8 @@
 005a0030 PlayDoomedSfx  matched (sfx_doomed 0x1a4, returns played), Mac order
 005a00b0 PlayDieSfx  matched saga-shaped body (sfx_die 0x1a0, ExtraDieSfxFn), Mac order
 005a0460 UpdateLevelSfx  matched saga-shaped body (reverb callback, level ambient sfx 0xa0), Mac order
+005a0780 ActionFromQuiet  matched saga nusound3_include.cpp body (ghidra missed it), Mac order
+005a07e0 AmbientFromQuiet  matched saga nusound3_include.cpp body (ghidra missed it), Mac order
+005a0550 ResetRepeatSfx  matched saga-shaped body (memset repsfxtab, sfx_id -1 written 32 times to entry 0), Mac order before PlayRepeatSfx
+005a0670 UpdateRepeatSfx  matched saga body (3-state repeat table), Mac order after PlayRepeatSfx
+005a0770 NewAreaMusicChanges  matched saga body (BeenAttacked = 0), Mac order

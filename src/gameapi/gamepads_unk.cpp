@@ -665,7 +665,7 @@ void UpdateLevelSfx(WORLDINFO_s *world, i32 paused) {
 
 struct RepeatSfx {
   i16 sfx_id;           // 0x0
-  u8 state;             // 0x2
+  char state;           // 0x2
   char plays_remaining; // 0x3
   f32 timer;            // 0x4
   f32 interval;         // 0x8
@@ -676,6 +676,14 @@ struct RepeatSfx {
 extern i32 repsfxcount;
 // GLOBAL: LEGOBATMAN 0x00a95ab8
 extern RepeatSfx repsfxtab[32];
+
+// FUNCTION: LEGOBATMAN 0x005a0550
+void ResetRepeatSfx(void) {
+  memset(repsfxtab, 0, sizeof(repsfxtab));
+  repsfxcount = 0;
+  for (i32 i = 0; i < 32; i++)
+    repsfxtab[0].sfx_id = -1;
+}
 
 // FUNCTION: LEGOBATMAN 0x005a0590
 void PlayRepeatSfx(char *name, i32 sfx_id, f32 initial_delay, char play_count,
@@ -705,6 +713,71 @@ void PlayRepeatSfx(char *name, i32 sfx_id, f32 initial_delay, char play_count,
   repsfxtab[repsfxcount].position = position;
   repsfxcount = (repsfxcount + 1) & 31;
 }
+
+// FUNCTION: LEGOBATMAN 0x005a0670
+void UpdateRepeatSfx(void) {
+  RepeatSfx *repeat = repsfxtab;
+  for (i32 i = 0; i < 32; i++, repeat++) {
+    switch (repeat->state) {
+    case 1:
+      if (repeat->timer > 0.0f)
+        repeat->timer -= FRAMETIME;
+      else
+        repeat->state = 2;
+      break;
+    case 2:
+      PlaySfxById(repeat->sfx_id, repeat->position);
+      repeat->plays_remaining--;
+      if (repeat->plays_remaining > 0) {
+        repeat->timer = repeat->interval;
+        repeat->state = 3;
+      } else {
+        memset(repeat, 0, sizeof(*repeat));
+        repeat->state = 0;
+      }
+      break;
+    case 3:
+      if (repeat->timer > 0.0f)
+        repeat->timer -= FRAMETIME;
+      else
+        repeat->state = 2;
+      break;
+    }
+  }
+}
+
+// GLOBAL: LEGOBATMAN 0x00a95d90
+extern i32 (*g_unk00a95d90)(i32 a);
+// GLOBAL: LEGOBATMAN 0x00aca574
+extern i32 VehicleArea;
+// GLOBAL: LEGOBATMAN 0x0094eaa8
+extern f32 g_unk0094eaa8;
+// GLOBAL: LEGOBATMAN 0x0094eaac
+extern f32 g_unk0094eaac;
+
+// FUNCTION: LEGOBATMAN 0x005a0700
+void SetDefaultAudioOptions005a0700(i32 a, OPTIONSSAVE_s *options) {
+  i32 (*fn)(i32);
+  options->b4 = 8;
+  options->b5 = 6;
+  if ((fn = g_unk00a95d90) == 0 || fn(a) == 0) {
+    if (VehicleArea != 0) {
+      g_unk0094eaac = 10.0f;
+      g_unk0094eaa8 = 80.0f;
+    } else {
+      g_unk0094eaac = 2.0f;
+      g_unk0094eaa8 = 15.0f;
+    }
+  }
+  SetSfxVolumeFromOptions0059f430(options);
+  SetMusicVolumeFromOptions0059f3c0(options);
+}
+
+// GLOBAL: LEGOBATMAN 0x00a95db8
+extern i32 BeenAttacked;
+
+// FUNCTION: LEGOBATMAN 0x005a0770
+void NewAreaMusicChanges(void) { BeenAttacked = 0; }
 
 // FUNCTION: LEGOBATMAN 0x005a1fb0
 void GameCam_NewShake(GAMECAMERA_s *camera, float amount, float duration,
