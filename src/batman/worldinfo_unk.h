@@ -77,7 +77,10 @@ struct WORLDINFO_s {
   u8 pad8a[0x47c4 - 0x47c0];
   struct EQUIVALENTOBJECTGROUP_s *equivalent_groups; // 0x47c4
   i32 equivalent_group_count;                        // 0x47c8
-  u8 pad8b[0x51bc - 0x47cc];
+  u8 pad8b[0x51a8 - 0x47cc];
+  struct FADER_s *faders; // 0x51a8
+  i32 fader_count;        // 0x51ac
+  u8 pad8b2[0x51bc - 0x51b0];
   struct PORTALDOOR_s *portal_doors; // 0x51bc
   i32 portal_door_count;             // 0x51c0
   u8 pad8c[0x5220 - 0x51c4];

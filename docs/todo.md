@@ -280,7 +280,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00504680` 151 B `GetPlantLocator(char*)`
 - [ ] `004b8100` 205 B `_VuMtxRotateY`  **hint** name (gapfill)
 - [ ] `0044c960` 312 B `PartyMemberInWay(GameObject_s*, GameObject_s*)`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00447560` 369 B `GetNamedAPIObject(AISYS_s*, char*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
+- [ ] `00447560` 369 B `GetNamedAPIObject(AISYS_s*, char*)`  **stub** · **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `004e34b0` 402 B `UpdateRadios()`  **saga** `legoapi/audio/radio.cpp`
 - [ ] `0044bf50` 403 B `GameAISysReset(AISYS_s*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `00428a60` 422 B `ResetAICreatures(AISYS_s*)`  **saga** `legoapi/ai/game/creature.cpp`
@@ -613,7 +613,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## Faders
 
-- [ ] `00655790` 512 B `Faders_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/render/light/faders.cpp`
+- [ ] `00655790` 512 B `Faders_Configure(WORLDINFO_s*, char*)`  **stub** · **saga** `legoapi/render/light/faders.cpp`
 
 ## GameMsg
 

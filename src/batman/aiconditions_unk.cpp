@@ -3,6 +3,7 @@
 
 #include "../gameapi/ai/aisys_unk.h"
 #include "../nu2api/nucore/nustring.h"
+#include <stddef.h>
 
 // FUNCTION: LEGOBATMAN 0x00447370
 i32 GameAIActionParseSpeed(char *str, u8 *out) {
@@ -19,6 +20,74 @@ i32 GameAIActionParseSpeed(char *str, u8 *out) {
     return 1;
   }
   return 0;
+}
+
+struct GetNamedAICreature_s {
+  char name[0xa8];
+};
+
+struct GetNamedAISys_s {
+  u8 pad0[0x224];
+  GetNamedAICreature_s *creatures; // 0x224
+};
+
+// GLOBAL: LEGOBATMAN 0x00ab3980
+extern GameObject_s *player;
+// GLOBAL: LEGOBATMAN 0x00ab3960
+extern GameObject_s *Player[8];
+
+int sprintf(char *buf, const char *fmt, ...);
+
+// from saga gameapi/ai/aisys/aisys.cpp
+// STUB: LEGOBATMAN 0x00447560
+// logic right; orig funnels every found path into one /GS epilogue (with a
+// degenerate "test eax; jne +0"), ours duplicates epilogues; params land in
+// swapped registers.
+GameObject_s *GetNamedAPIObject(AISYS_s *sys, char *name) {
+  GetNamedAISys_s *system = (GetNamedAISys_s *)sys;
+  if (system != NULL) {
+    for (i32 index = 0; index < HIGHGAMEOBJECT; ++index) {
+      if ((Obj[index].flags1fc & 1) == 0)
+        continue;
+
+      if ((Obj[index].flags1f8 & 0x400) != 0 && Obj[index].b3c8 != 0xff) {
+        GetNamedAICreature_s *creature = &system->creatures[Obj[index].b3c8];
+        if (creature != NULL && NuStrICmp(creature->name, name) == 0) {
+          GameObject_s *result = &Obj[index];
+          if (result == NULL)
+            break;
+          return result;
+        }
+      }
+      if (NuStrICmp(Obj[index].p54->file, name) == 0) {
+        GameObject_s *result = &Obj[index];
+        if (result == NULL)
+          break;
+        return result;
+      }
+    }
+  }
+
+  GameObject_s *obj;
+  if (NuStrICmp(name, "player") == 0) {
+    obj = player;
+  } else if (NuStrICmp(name, "player_2") == 0) {
+    obj = Player[0] == player ? Player[1] : Player[0];
+  } else {
+    for (i32 index = 0; index < 8; ++index) {
+      if (Player[index] == NULL)
+        continue;
+      char player_name[64];
+      sprintf(player_name, "Player%d", index);
+      if (NuStrICmp(player_name, name) == 0) {
+        obj = Player[index];
+        goto found;
+      }
+    }
+    return NULL;
+  }
+found:
+  return obj != NULL ? (GameObject_s *)obj->pad0 : NULL;
 }
 
 // STUB: LEGOBATMAN 0x0044da30

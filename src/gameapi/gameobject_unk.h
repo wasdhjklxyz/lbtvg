@@ -44,7 +44,9 @@ struct Unk_GameObject54_24 {
 struct Unk_GameObject54 {
   u8 pad0[4];
   u32 model_flags; // 0x04
-  u8 pad8[0x24 - 8];
+  u8 pad8[0xc - 8];
+  char *file; // 0x0c
+  u8 pad10[0x24 - 0x10];
   Unk_GameObject54_24 *p24; // 0x24
 };
 

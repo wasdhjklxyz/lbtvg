@@ -16,3 +16,6 @@
 00620b30 RedirectTextFile: buffer arg arrives in eax
 0072e150 NuQFntDuplicate: empty 0x6fceb0 error calls vanish in our build; STUB
 00635620 GizmoPickups_Collide: callee FUN_006352d0 takes eax
+005eabf0 BoltTypes_Configure: callee FUN_005e8700 takes eax; aligned frame
+00655790 Faders_Configure: regalloc/induction-var diff, see STUB
+00447560 GetNamedAPIObject: epilogue merging differs, see STUB
