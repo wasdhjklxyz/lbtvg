@@ -3,6 +3,7 @@
 #include "../batman/worldinfo_unk.h"
 #include "../nu2api/nucore/common.h"
 #include "../nu2api/nucore/nulist.h"
+#include <string.h>
 
 struct PLAYERITEMTYPESYS_s;
 
@@ -68,12 +69,17 @@ extern GIZMOPICKUPSYS_s *GizmoPickupSys;
 struct PLAYERITEMTYPE_s {
   u32 pad0[0x30 / 4];
   u64 flags; // 0x30
+  u32 pad38[(0xf8 - 0x38) / 4];
+  i16 wf8; // 0xf8
 };
 
 // Carried-item list nodes: the item's type at +8.
-struct PLAYERITEMLNK_s {
+struct PLAYERITEM_s {
   NULISTLNK link;
   PLAYERITEMTYPE_s *type; // 0x08
+  nuvec_s pos;            // 0x0c
+  u8 pad18[0x27 - 0x18];
+  u8 flags; // 0x27, 1 = in use
 };
 
 // FUNCTION: LEGOBATMAN 0x005f1140
@@ -84,9 +90,8 @@ i32 PlayerItems_DontPickUpItemType(GameObject_s *obj, PLAYERITEMTYPE_s *type) {
     return 0;
   if ((*(u64 *)((u8 *)obj + 0xb38) & type->flags) == type->flags) {
     NULISTHDR *list = (NULISTHDR *)((u8 *)obj + 0xb18);
-    for (PLAYERITEMLNK_s *node = (PLAYERITEMLNK_s *)NuListGetHead(list);
-         node != 0;
-         node = (PLAYERITEMLNK_s *)NuListGetNext(list, &node->link)) {
+    for (PLAYERITEM_s *node = (PLAYERITEM_s *)NuListGetHead(list); node != 0;
+         node = (PLAYERITEM_s *)NuListGetNext(list, &node->link)) {
       if (node->type == type)
         return 1;
     }
@@ -418,5 +423,32 @@ void FastWeaponIn(GameObject_s *object, i32 force_sound) {
       FastWeaponInSfx(object);
     object->weapon_scale_rate = 5.0f;
     object->weapon_scale_state = 2;
+  }
+}
+
+void Unk00574270(i32 index);
+void Unk005f0480(nuvec_s *pos, i32 drop);
+void Unk005f13d0(GameObject_s *obj);
+extern "C" void NuListRemove(NULISTHDR *list, NULISTLNK *node);
+extern "C" void NuListAppend(NULISTHDR *list, NULISTLNK *node);
+
+// FUNCTION: LEGOBATMAN 0x005f3440
+void PlayerItems_RemoveItem(GameObject_s *obj, PLAYERITEM_s *item, i32 drop) {
+  if (obj != 0 && item != 0 && (item->flags & 1) != 0) {
+    PLAYERITEMTYPE_s *type = item->type;
+    if ((type->flags & 0x8000) != 0 && type->wf8 != -1 &&
+        *(i16 *)((u8 *)obj + 0xb54) != -1) {
+      Unk00574270(*(i16 *)((u8 *)obj + 0xb54));
+      *(i16 *)((u8 *)obj + 0xb54) = -1;
+      *((u8 *)obj + 0xb57) = 0;
+    }
+    if (*(PLAYERITEM_s **)((u8 *)obj + 0xb20) == item)
+      *(PLAYERITEM_s **)((u8 *)obj + 0xb20) = 0;
+    if (drop != 0)
+      Unk005f0480(&item->pos, drop);
+    NuListRemove((NULISTHDR *)((u8 *)obj + 0xb18), &item->link);
+    memset(item, 0, sizeof(*item));
+    NuListAppend((NULISTHDR *)((u8 *)obj + 0xb10), &item->link);
+    Unk005f13d0(obj);
   }
 }

@@ -156,7 +156,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [OpenAutomate](#openautomate) | 1 | 0 |
 | [PartKill](#partkill) | 1 | 0 |
 | [PartStop](#partstop) | 1 | 0 |
-| [PlayerItems](#playeritems) | 4 | 0 |
+| [PlayerItems](#playeritems) | 3 | 0 |
 | [PlayerItemTypeSys](#playeritemtypesys) | 2 | 0 |
 | [PreInterpretor](#preinterpretor) | 6 | 0 |
 | [Puzzle](#puzzle) | 1 | 0 |
@@ -1005,7 +1005,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## PlayerItems
 
 - [ ] `005f3630` 60 B `PlayerItems_RemoveItems(GameObject_s*, int, int, int, unsigned long long)`  **hint** name (order)
-- [ ] `005f3440` 212 B `PlayerItems_RemoveItem(GameObject_s*, PLAYERITEM_s*, int)`  **hint** name (gapfill)
 - [ ] `005f4270` 621 B `PlayerItems_AddItem(GameObject_s*, PLAYERITEMTYPE_s*, GIZMOBLOWUP_s*, int, int, int, float)`  **hint** name (gapfill)
 - [ ] `005f3720` 664 B `PlayerItems_DropItem(GameObject_s*, PLAYERITEM_s*, int, nuvec_s*)`  **hint** name (gapfill)
 
