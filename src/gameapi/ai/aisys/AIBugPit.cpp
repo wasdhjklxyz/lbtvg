@@ -190,6 +190,44 @@ void AIScriptLoadAll(char *path, VARIPTR *buf, VARIPTR *buf_end, AISYS_s *sys) {
 i32 AIScriptSetInterrupt(AISCRIPTPROCESS_s *processor, u8 priority, u8 id,
                          char *state_name, f32 time);
 
+struct AIPATHCNXOBS_s {
+  u32 traversal_flags; // 0x00
+  u8 pad4[0x16 - 4];
+  u8 open; // 0x16
+};
+
+AIPATHCNXOBS_s *AIPathFindPathCnx(AISYS_s *sys, void *path, char *from,
+                                  char *to, i32 *direction);
+
+// FUNCTION: LEGOBATMAN 0x006b45a0
+i32 Action_PathConnectionObstacle(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                                  AIPACKET_s *packet, char **params,
+                                  i32 param_count, i32 first_time,
+                                  f32 elapsed) {
+  char *from = NULL;
+  char *to = NULL;
+  i32 open = 0;
+  if (sys != NULL && first_time != 0) {
+    for (i32 i = 0; i < param_count; i++) {
+      char *value = NuStrIStr(params[i], "from");
+      if (value != NULL)
+        from = value + 5;
+      else if ((value = NuStrIStr(params[i], "to")) != NULL)
+        to = value + 3;
+      else if (NuStrICmp(params[i], "open") == 0)
+        open = 1;
+    }
+    if (from != NULL && to != NULL) {
+      i32 direction;
+      AIPATHCNXOBS_s *connection =
+          AIPathFindPathCnx(sys, NULL, from, to, &direction);
+      if (connection != NULL && (connection->traversal_flags & 0x20000000) != 0)
+        connection->open = open;
+    }
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x006b4670
 i32 Action_SetInterrupt(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
                         AIPACKET_s *packet, char **params, i32 param_count,
