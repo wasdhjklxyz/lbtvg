@@ -532,3 +532,14 @@
 0044d3b0 Condition_GizSpecialInit   matched (saga body shape), Mac order after LocalGetRandomLocator
 0044d3e0 Condition_ObstacleAtStart   matched (saga body shape), Mac order after LocalGetRandomLocator
 0044d420 Condition_ObstacleAtEnd   matched (saga body shape), Mac order after LocalGetRandomLocator
+0044d460 Condition_ObstaclePlayingInit   matched (saga gameobjects.cpp shape), Mac order of the Condition_* run
+0044d4a0 Condition_ObstaclePlaying   matched (saga gameobjects.cpp shape), Mac order of the Condition_* run
+0044d4d0 Condition_ObstacleLockedShut   matched (saga gameobjects.cpp shape), Mac order of the Condition_* run
+0044d4f0 Condition_ObstacleLockedOpen   matched (saga gameobjects.cpp shape), Mac order of the Condition_* run
+0044d510 Condition_ObstacleOpenedByPlayerInit   matched (saga gameobjects.cpp shape), Mac order of the Condition_* run
+0044d550 Condition_ObstacleOpenedByPlayer   matched (saga gameobjects.cpp shape), Mac order of the Condition_* run
+0044d580 Condition_ObstacleOpenedByEitherPlayer   matched (saga gameobjects.cpp shape), Mac order of the Condition_* run
+0044d5c0 Condition_ForceInit   matched (saga gameobjects.cpp shape), Mac order of the Condition_* run
+0044d5f0 Condition_ForceAtStart   matched (saga gameobjects.cpp shape), Mac order of the Condition_* run
+0044d630 Condition_ForceAtEnd   matched (saga gameobjects.cpp shape), Mac order of the Condition_* run
+0044d670 Condition_IsVisibleInit   matched (saga gameobjects.cpp shape), Mac order of the Condition_* run

@@ -676,6 +676,112 @@ f32 Condition_ObstacleAtEnd(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 0.0f;
 }
 
+// FUNCTION: LEGOBATMAN 0x0044d460
+void *Condition_ObstaclePlayingInit(AISYS_s *sys, char *name,
+                                    AISCRIPT_s *script) {
+  GIZMO_s *gizmo =
+      GizmoFindByName(g_unk00960894->gizmoSys2b0c, obstacle_gizmotype_id, name);
+  return gizmo != NULL ? *(void **)gizmo : NULL;
+}
+
+struct GIZOBSTACLE_s {
+  u8 pad0[0x34];
+  u8 *anim;                        // 0x34, byte 0x0a bit 0: playing
+  GameObject_s *triggering_object; // 0x38
+  u8 pad3c[0xc8 - 0x3c];
+  u32 runtime_flags; // 0xc8
+};
+
+// FUNCTION: LEGOBATMAN 0x0044d4a0
+f32 Condition_ObstaclePlaying(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char *str, void *argument) {
+  GIZOBSTACLE_s *obstacle = (GIZOBSTACLE_s *)argument;
+  if (obstacle != NULL && (obstacle->runtime_flags & 1) &&
+      (obstacle->runtime_flags & 2) && (obstacle->anim[0xa] & 1))
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d4d0
+f32 Condition_ObstacleLockedShut(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                 AIPACKET_s *packet, char *str,
+                                 void *argument) {
+  if ((((GIZOBSTACLE_s *)argument)->runtime_flags & 0x4000) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d4f0
+f32 Condition_ObstacleLockedOpen(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                 AIPACKET_s *packet, char *str,
+                                 void *argument) {
+  if ((((GIZOBSTACLE_s *)argument)->runtime_flags & 0x2000) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d510
+void *Condition_ObstacleOpenedByPlayerInit(AISYS_s *sys, char *name,
+                                           AISCRIPT_s *script) {
+  GIZMO_s *gizmo =
+      GizmoFindByName(g_unk00960894->gizmoSys2b0c, obstacle_gizmotype_id, name);
+  return gizmo != NULL ? *(void **)gizmo : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d550
+f32 Condition_ObstacleOpenedByPlayer(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                     AIPACKET_s *packet, char *str,
+                                     void *argument) {
+  GIZOBSTACLE_s *obstacle = (GIZOBSTACLE_s *)argument;
+  if (obstacle != NULL && player != NULL &&
+      obstacle->triggering_object == player)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d580
+f32 Condition_ObstacleOpenedByEitherPlayer(AISYS_s *sys,
+                                           AISCRIPTPROCESS_s *process,
+                                           AIPACKET_s *packet, char *str,
+                                           void *argument) {
+  GIZOBSTACLE_s *obstacle = (GIZOBSTACLE_s *)argument;
+  if (obstacle != NULL) {
+    if (player != NULL && obstacle->triggering_object == player)
+      return 1.0f;
+    if (player2 != NULL && obstacle->triggering_object == player2)
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d5c0
+void *Condition_ForceInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  return GizmoFindByName(g_unk00960894->gizmoSys2b0c, force_gizmotype_id, name);
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d5f0
+f32 Condition_ForceAtStart(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char *str, void *argument) {
+  if (argument != NULL && GizmoGetOutput(g_unk00960894->gizmoSys2b0c,
+                                         (GIZMO_s *)argument, 1, 1) == 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d630
+f32 Condition_ForceAtEnd(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char *str, void *argument) {
+  if (argument != NULL && GizmoGetOutput(g_unk00960894->gizmoSys2b0c,
+                                         (GIZMO_s *)argument, 0, 1) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044d670
+void *Condition_IsVisibleInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  return name;
+}
+
 // GLOBAL: LEGOBATMAN 0x0096052c
 extern i32 g_unk0096052c;
 // GLOBAL: LEGOBATMAN 0x00960528

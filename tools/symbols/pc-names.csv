@@ -41,6 +41,17 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0044d3b0,000754e0,__Z24Condition_GizSpecialInitP7AISYS_sPcP10AISCRIPT_s,"Condition_GizSpecialInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 0044d3e0,0007550a,__Z25Condition_ObstacleAtStartP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ObstacleAtStart(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044d420,0007554c,__Z23Condition_ObstacleAtEndP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ObstacleAtEnd(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d460,0007558e,__Z29Condition_ObstaclePlayingInitP7AISYS_sPcP10AISCRIPT_s,"Condition_ObstaclePlayingInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+0044d4a0,000755c8,__Z25Condition_ObstaclePlayingP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ObstaclePlaying(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d4d0,000755f2,__Z28Condition_ObstacleLockedShutP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ObstacleLockedShut(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d4f0,0007560a,__Z28Condition_ObstacleLockedOpenP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ObstacleLockedOpen(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d510,00075622,__Z36Condition_ObstacleOpenedByPlayerInitP7AISYS_sPcP10AISCRIPT_s,"Condition_ObstacleOpenedByPlayerInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+0044d550,0007565c,__Z32Condition_ObstacleOpenedByPlayerP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ObstacleOpenedByPlayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d580,0007567e,__Z38Condition_ObstacleOpenedByEitherPlayerP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ObstacleOpenedByEitherPlayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d5c0,000756b0,__Z19Condition_ForceInitP7AISYS_sPcP10AISCRIPT_s,"Condition_ForceInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+0044d5f0,000756da,__Z22Condition_ForceAtStartP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ForceAtStart(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d630,0007571c,__Z20Condition_ForceAtEndP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ForceAtEnd(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044d670,0007575e,__Z23Condition_IsVisibleInitP7AISYS_sPcP10AISCRIPT_s,"Condition_IsVisibleInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 0044da30,00075ab0,__Z23Condition_BeenHitByInitP7AISYS_sPcP10AISCRIPT_s,"Condition_BeenHitByInit(AISYS_s*, char*, AISCRIPT_s*)",strings,0
 0044db10,00075b54,__Z19Condition_BeenHitByP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_BeenHitBy(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044db60,00075b92,__Z31Condition_BeenHitByNamedObjInitP7AISYS_sPcP10AISCRIPT_s,"Condition_BeenHitByNamedObjInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
