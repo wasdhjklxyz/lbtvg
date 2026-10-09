@@ -1514,3 +1514,6 @@
 00625430 CC_default_item  keyword table 0x963ff0
 00627240 CC_transformatron  keyword table 0x963ff0
 006274e0 CC_combat_roll  keyword table 0x963ff0
+00625250 CC_icon  keyword table 0x963ff0
+006252e0 CC_weapon  keyword table 0x963ff0
+00620d00 CC_layer  keyword table 0x963ff0

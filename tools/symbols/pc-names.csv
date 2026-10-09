@@ -1355,6 +1355,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00620ca0,0027a61a,__Z7CC_minyP8nufpar_s,CC_miny(nufpar_s*),confirmed,0
 00620cc0,0027a648,__Z7CC_maxyP8nufpar_s,CC_maxy(nufpar_s*),confirmed,0
 00620ce0,0027a676,__Z8CC_scaleP8nufpar_s,CC_scale(nufpar_s*),confirmed,0
+00620d00,0027a6a4,__Z8CC_layerP8nufpar_s,CC_layer(nufpar_s*),confirmed,0
 00620e40,0027a81e,__Z15CC_fixed_layersP8nufpar_s,CC_fixed_layers(nufpar_s*),confirmed,0
 00620e90,0027a860,__Z18CC_crowd_characterP8nufpar_s,CC_crowd_character(nufpar_s*),confirmed,0
 00620ee0,0027a8a4,__Z19CC_hair_layer_indexP8nufpar_s,CC_hair_layer_index(nufpar_s*),confirmed,0
@@ -1488,6 +1489,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006251e0,0027ca32,__Z13CC_car_wheelsP8nufpar_s,CC_car_wheels(nufpar_s*),confirmed,0
 00625230,0027ca44,__Z12CC_is_a_girlP8nufpar_s,CC_is_a_girl(nufpar_s*),confirmed,0
 00625240,0027ca60,__Z11CC_is_a_boyP8nufpar_s,CC_is_a_boy(nufpar_s*),confirmed,0
+00625250,0027ca7c,__Z7CC_iconP8nufpar_s,CC_icon(nufpar_s*),confirmed,0
+006252e0,0027cb3e,__Z9CC_weaponP8nufpar_s,CC_weapon(nufpar_s*),confirmed,0
 00625430,0027cc96,__Z15CC_default_itemP8nufpar_s,CC_default_item(nufpar_s*),confirmed,0
 006254c0,0027cd20,__Z22CC_clear_default_itemsP8nufpar_s,CC_clear_default_items(nufpar_s*),confirmed,0
 006254f0,0027cd4e,__Z20CC_shield_hit_pointsP8nufpar_s,CC_shield_hit_points(nufpar_s*),confirmed,0

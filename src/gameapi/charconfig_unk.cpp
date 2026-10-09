@@ -21,8 +21,16 @@ typedef struct HEADLIGHT_s {
   unsigned char pad2b[1];
 } HEADLIGHT_s;
 
+typedef struct CCLAYER_s {
+  char name[0x18];           // 0x00
+  i16 mask_bit;              // 0x18
+  i16 hierarchy_layer_index; // 0x1a
+} CCLAYER;
+
 typedef struct CHARCONFIG_RUNTIME_s {
-  unsigned char pad0[0x44];
+  void *layer_fn;  // 0x00
+  CCLAYER *layers; // 0x04
+  unsigned char pad8[0x44 - 8];
   HEADLIGHT_s headlights[2]; // 0x44
   unsigned char pad9c[0xa0 - 0x9c];
   f32 stop_speed;       // 0xa0
@@ -102,7 +110,8 @@ typedef struct CHARCONFIG_RUNTIME_s {
   i16 sfx_siren;             // 0x1c2
   i16 bolt_type;             // 0x1c4
   i16 bolt_type_2;           // 0x1c6
-  unsigned char pad1c8[0x1cc - 0x1c8];
+  unsigned char pad1c8[0x1ca - 0x1c8];
+  i16 weapon_model;           // 0x1ca
   i16 default_items[5];       // 0x1cc
   i16 rider_action;           // 0x1d6
   i16 coin_value;             // 0x1d8
@@ -155,7 +164,9 @@ typedef struct CHARCONFIG_RUNTIME_s {
   u8 detonator_type;      // 0x236
   u8 transformatron_type; // 0x237, 1-based index into 0x00ac73b8
   i16 dance_action;       // 0x238
-  unsigned char pad23a[0x240 - 0x23a];
+  unsigned char pad23a[0x23c - 0x23a];
+  u8 layer_count; // 0x23c
+  unsigned char pad23d[0x240 - 0x23d];
 } CHARCONFIG_RUNTIME_s;
 
 typedef struct CHARCONFIG_s {
@@ -1091,7 +1102,9 @@ void CC_hit_points(NUFPAR *parser) {
 struct CCCharacter_s {
   i32 name_id;     // 0x00
   u32 model_flags; // 0x04
-  u8 pad8[0x2c - 8];
+  u8 pad8[0x16 - 8];
+  i16 icon; // 0x16
+  u8 pad18[0x2c - 0x18];
   f32 mass;   // 0x2c
   f32 radius; // 0x30
   f32 miny;   // 0x34
@@ -1102,6 +1115,51 @@ struct CCCharacter_s {
 // saga's charconfig.character; charconfig.runtime follows it.
 // GLOBAL: LEGOBATMAN 0x00acb860
 extern CCCharacter_s *g_unk00acb860;
+
+// GLOBAL: LEGOBATMAN 0x00acb85c
+extern i32 g_unk00acb85c;
+
+i32 LevelObject_FindIndexFromName(char *name);
+i32 LevelObject_AddExtra(char *name, i32 kind);
+void NuStrCat(char *dst, const char *src);
+
+// FUNCTION: LEGOBATMAN 0x00625250
+void CC_icon(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0) {
+    g_unk00acb860->icon = LevelObject_FindIndexFromName(parser->word_buf);
+    if (g_unk00acb860->icon == -1 && g_unk00acb85c != 0 &&
+        LevelObject_AddExtra(parser->word_buf, 3) != 0) {
+      g_unk00acb860->icon = LevelObject_FindIndexFromName(parser->word_buf);
+      NuStrCat(parser->word_buf, "1");
+      LevelObject_AddExtra(parser->word_buf, 3);
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006252e0
+void CC_weapon(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0) {
+    charconfig.runtime->weapon_model =
+        LevelObject_FindIndexFromName(parser->word_buf);
+    if (charconfig.runtime->weapon_model == -1 && g_unk00acb85c != 0) {
+      char name[96];
+      i32 kind = 0;
+      NuStrCpy(name, parser->word_buf);
+      while (NuFParGetWord(parser) != 0) {
+        if (NuStrICmp(parser->word_buf, "level_scene") == 0)
+          kind = 1;
+        else if (NuStrICmp(parser->word_buf, "area_scene") == 0)
+          kind = 2;
+        else if (NuStrICmp(parser->word_buf, "icon_scene") == 0)
+          kind = 3;
+        else if (NuStrICmp(parser->word_buf, "vehicle_scene") == 0)
+          kind = 5;
+      }
+      if (LevelObject_AddExtra(name, kind) != 0)
+        charconfig.runtime->weapon_model = LevelObject_FindIndexFromName(name);
+    }
+  }
+}
 
 // FUNCTION: LEGOBATMAN 0x006256c0
 static void CC_SetCDataFlagsj(NUFPAR *parser, u32 flags) {
@@ -1939,6 +1997,32 @@ void CC_maxy(NUFPAR *parser) { g_unk00acb860->maxy = NuFParGetFloat(parser); }
 void CC_scale(NUFPAR *parser) { g_unk00acb860->scale = NuFParGetFloat(parser); }
 
 i32 LayerFromName(CHARCONFIG_RUNTIME_s *character, char *name);
+
+void Unk0061fc90();
+
+// FUNCTION: LEGOBATMAN 0x00620d00
+void CC_layer(NUFPAR *parser) {
+  if ((charconfig.flags10 & 4) == 0 || charconfig.runtime->layer_count >= 32)
+    return;
+  if (NuFParGetWord(parser) == 0 || NuStrLen(parser->word_buf) >= 24)
+    return;
+  NuStrCpy(charconfig.runtime->layers[charconfig.runtime->layer_count].name,
+           parser->word_buf);
+  u32 bit = NuFParGetInt(parser);
+  if (bit > 31)
+    return;
+  CHARCONFIG_RUNTIME_s *data = charconfig.runtime;
+  for (i32 i = 0; i < data->layer_count; ++i) {
+    if (data->layers[i].mask_bit == (i32)bit)
+      return;
+  }
+  data->layers[data->layer_count].mask_bit = bit;
+  charconfig.runtime->layers[charconfig.runtime->layer_count]
+      .hierarchy_layer_index = -1;
+  charconfig.runtime->layer_count++;
+  charconfig.named_layers = 1;
+  charconfig.runtime->layer_fn = (void *)Unk0061fc90;
+}
 
 // FUNCTION: LEGOBATMAN 0x00620e40
 void CC_fixed_layers(NUFPAR *parser) {
