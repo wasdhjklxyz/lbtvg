@@ -1552,3 +1552,6 @@
 006d5090 NuTimeSeconds  saga nutime.cpp body
 006d5100 NuTimeMilliSeconds  saga nutime.cpp body
 006d5170 NuTimeMicroSeconds  saga nutime.cpp body
+006e3b80 NuTimeGetTicksPS  QueryPerformanceCounter minus the start count; called by NuTimeGet
+006e3bf0 NuTimeGetTicksPerSecondPS  returns the QueryPerformanceFrequency value; called by NuTimeSeconds
+006e3c10 NuTimeInitPS  pins affinity, samples QueryPerformanceCounter/Frequency
