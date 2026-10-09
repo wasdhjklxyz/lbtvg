@@ -11,93 +11,147 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 | group | todo | with saga body |
 |---|---|---|
-| [Action](#action) | 72 | 0 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 106 | 80 |
+| [Action](#action) | 72 | 57 |
+| [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
+| [near terrain.c](#near-terrainc) | 35 | 10 |
+| [near nupad_gen.cpp](#near-nupad_gencpp) | 10 | 9 |
+| [Text](#text) | 10 | 9 |
+| [near AIBugPit.cpp](#near-aibugpitcpp) | 14 | 8 |
+| [Arcade](#arcade) | 6 | 6 |
+| [near nutrig_gen.cpp](#near-nutrig_gencpp) | 14 | 6 |
+| [GameCam](#gamecam) | 5 | 5 |
+| [Grabber](#grabber) | 7 | 5 |
+| [Player](#player) | 5 | 5 |
+| [Area](#area) | 5 | 4 |
+| [GameAudio](#gameaudio) | 4 | 4 |
+| [Hub](#hub) | 6 | 4 |
+| [Door](#door) | 4 | 3 |
+| [GizAction](#gizaction) | 3 | 3 |
+| [NuTex](#nutex) | 5 | 3 |
+| [Players](#players) | 3 | 3 |
+| [PortalDoors](#portaldoors) | 3 | 3 |
+| [WorldInfo](#worldinfo) | 3 | 3 |
+| [Areas](#areas) | 3 | 2 |
+| [CC](#cc) | 2 | 2 |
+| [Collection](#collection) | 2 | 2 |
+| [Condition](#condition) | 3 | 2 |
+| [CutScenePlayer](#cutsceneplayer) | 2 | 2 |
+| [CutScenes](#cutscenes) | 3 | 2 |
+| [Doors](#doors) | 2 | 2 |
+| [GizActions](#gizactions) | 5 | 2 |
+| [GizmoPickup](#gizmopickup) | 2 | 2 |
+| [GizPanel](#gizpanel) | 2 | 2 |
+| [Level](#level) | 2 | 2 |
+| [LevelConfig](#levelconfig) | 2 | 2 |
+| [LevelObject](#levelobject) | 2 | 2 |
+| [LevelObjects](#levelobjects) | 2 | 2 |
+| [Levels](#levels) | 2 | 2 |
+| [LevelSplines](#levelsplines) | 2 | 2 |
+| [Mission](#mission) | 2 | 2 |
+| [Move](#move) | 2 | 2 |
+| [NuCamera](#nucamera) | 2 | 2 |
+| [NuMtl](#numtl) | 3 | 2 |
+| [NuPad](#nupad) | 2 | 2 |
+| [NuStr](#nustr) | 2 | 2 |
+| [SuperCarry](#supercarry) | 3 | 2 |
+| [Tag](#tag) | 2 | 2 |
+| [BoltSys](#boltsys) | 1 | 1 |
+| [BoltTypes](#bolttypes) | 1 | 1 |
+| [CharConfig](#charconfig) | 1 | 1 |
+| [CharPivot](#charpivot) | 1 | 1 |
+| [CharPlatforms](#charplatforms) | 1 | 1 |
+| [Cheat](#cheat) | 2 | 1 |
+| [Credits](#credits) | 1 | 1 |
+| [Detonator](#detonator) | 4 | 1 |
+| [Detonators](#detonators) | 2 | 1 |
+| [Episodes](#episodes) | 1 | 1 |
+| [EquivalentObject](#equivalentobject) | 1 | 1 |
+| [EquivalentObjects](#equivalentobjects) | 1 | 1 |
+| [Faders](#faders) | 1 | 1 |
+| [GameMsg](#gamemsg) | 1 | 1 |
+| [GamePad](#gamepad) | 1 | 1 |
+| [GizBuildIts](#gizbuildits) | 1 | 1 |
+| [GizForces](#gizforces) | 1 | 1 |
+| [GizForceSFX](#gizforcesfx) | 1 | 1 |
+| [GizmoBlowUp](#gizmoblowup) | 1 | 1 |
+| [GizmoPickups](#gizmopickups) | 1 | 1 |
+| [GizObstacles](#gizobstacles) | 1 | 1 |
+| [GizTurret](#gizturret) | 1 | 1 |
+| [GizTurrets](#gizturrets) | 1 | 1 |
+| [Grapples](#grapples) | 1 | 1 |
+| [LC](#lc) | 1 | 1 |
+| [MiniKit](#minikit) | 2 | 1 |
+| [Missions](#missions) | 1 | 1 |
+| [near apisave.c](#near-apisavec) | 8 | 1 |
+| [near nuanim_gen.cpp](#near-nuanim_gencpp) | 2 | 1 |
+| [near nufile_gen.cpp](#near-nufile_gencpp) | 1 | 1 |
+| [near nutimebar_gen.cpp](#near-nutimebar_gencpp) | 2 | 1 |
+| [near oggreader.cpp](#near-oggreadercpp) | 7 | 1 |
+| [NuAnim](#nuanim) | 4 | 1 |
+| [NuCommand](#nucommand) | 1 | 1 |
+| [NuDynamicLight](#nudynamiclight) | 1 | 1 |
+| [NuFile](#nufile) | 3 | 1 |
+| [NuInit](#nuinit) | 1 | 1 |
+| [NuLst](#nulst) | 1 | 1 |
+| [NuMusic](#numusic) | 1 | 1 |
+| [NuString](#nustring) | 1 | 1 |
+| [NuUnicode](#nuunicode) | 1 | 1 |
+| [NuVec](#nuvec) | 1 | 1 |
+| [ObjHitObj](#objhitobj) | 1 | 1 |
+| [Particles](#particles) | 1 | 1 |
+| [PartImpact](#partimpact) | 3 | 1 |
+| [PartStop](#partstop) | 2 | 1 |
+| [PartUpdate](#partupdate) | 1 | 1 |
+| [PowerUp](#powerup) | 1 | 1 |
+| [Pulses](#pulses) | 1 | 1 |
+| [RippleEffects](#rippleeffects) | 1 | 1 |
+| [SpecialMiniKits](#specialminikits) | 1 | 1 |
+| [SpecialMove](#specialmove) | 3 | 1 |
+| [SpecialMoves](#specialmoves) | 1 | 1 |
+| [TakeOver](#takeover) | 1 | 1 |
+| [Techno](#techno) | 1 | 1 |
+| [Technos](#technos) | 1 | 1 |
+| [ThermalDetonator](#thermaldetonator) | 1 | 1 |
+| [TrafficAnimSys](#trafficanimsys) | 1 | 1 |
+| [Transform](#transform) | 3 | 1 |
 | [AnimInclude](#animinclude) | 1 | 0 |
-| [Arcade](#arcade) | 6 | 0 |
-| [Area](#area) | 5 | 0 |
-| [Areas](#areas) | 3 | 0 |
 | [ArkhamAsylum](#arkhamasylum) | 1 | 0 |
 | [BackdropSys](#backdropsys) | 1 | 0 |
 | [Batarang](#batarang) | 1 | 0 |
 | [Batman](#batman) | 1 | 0 |
 | [Batte](#batte) | 1 | 0 |
-| [BoltSys](#boltsys) | 1 | 0 |
-| [BoltTypes](#bolttypes) | 1 | 0 |
 | [BotanicGardens](#botanicgardens) | 1 | 0 |
 | [BotanicVillain](#botanicvillain) | 1 | 0 |
 | [bugThing](#bugthing) | 4 | 0 |
-| [CC](#cc) | 2 | 0 |
 | [CD3DCore](#cd3dcore) | 5 | 0 |
-| [CharConfig](#charconfig) | 1 | 0 |
-| [CharPivot](#charpivot) | 1 | 0 |
-| [CharPlatforms](#charplatforms) | 1 | 0 |
 | [CharScene](#charscene) | 1 | 0 |
 | [CharShadows](#charshadows) | 1 | 0 |
-| [Cheat](#cheat) | 2 | 0 |
 | [CNuConsole](#cnuconsole) | 6 | 0 |
-| [Collection](#collection) | 2 | 0 |
-| [Condition](#condition) | 3 | 0 |
 | [Create](#create) | 1 | 0 |
-| [Credits](#credits) | 1 | 0 |
 | [Customiser](#customiser) | 4 | 0 |
 | [CustomiserInternal](#customiserinternal) | 5 | 0 |
-| [CutScenePlayer](#cutsceneplayer) | 2 | 0 |
-| [CutScenes](#cutscenes) | 3 | 0 |
 | [DefinedLocators](#definedlocators) | 1 | 0 |
-| [Detonator](#detonator) | 4 | 0 |
-| [Detonators](#detonators) | 2 | 0 |
 | [DetonatorSys](#detonatorsys) | 4 | 0 |
-| [Door](#door) | 4 | 0 |
-| [Doors](#doors) | 2 | 0 |
 | [DynamicMaterialManager](#dynamicmaterialmanager) | 1 | 0 |
 | [ElectricShock](#electricshock) | 1 | 0 |
-| [Episodes](#episodes) | 1 | 0 |
-| [EquivalentObject](#equivalentobject) | 1 | 0 |
-| [EquivalentObjects](#equivalentobjects) | 1 | 0 |
 | [EvilArctic](#evilarctic) | 2 | 0 |
 | [EvilHarbourC](#evilharbourc) | 1 | 0 |
 | [Factory](#factory) | 1 | 0 |
-| [Faders](#faders) | 1 | 0 |
 | [Flight](#flight) | 1 | 0 |
 | [FortBloxHero](#fortbloxhero) | 2 | 0 |
 | [Game](#game) | 1 | 0 |
-| [GameAudio](#gameaudio) | 4 | 0 |
-| [GameCam](#gamecam) | 5 | 0 |
-| [GameMsg](#gamemsg) | 1 | 0 |
-| [GamePad](#gamepad) | 1 | 0 |
-| [GizAction](#gizaction) | 3 | 0 |
-| [GizActions](#gizactions) | 5 | 0 |
-| [GizBuildIts](#gizbuildits) | 1 | 0 |
 | [GizDigs](#gizdigs) | 1 | 0 |
 | [GizFlock](#gizflock) | 2 | 0 |
-| [GizForces](#gizforces) | 1 | 0 |
-| [GizForceSFX](#gizforcesfx) | 1 | 0 |
-| [GizmoBlowUp](#gizmoblowup) | 1 | 0 |
-| [GizmoPickup](#gizmopickup) | 2 | 0 |
-| [GizmoPickups](#gizmopickups) | 1 | 0 |
-| [GizObstacles](#gizobstacles) | 1 | 0 |
-| [GizPanel](#gizpanel) | 2 | 0 |
-| [GizTurret](#gizturret) | 1 | 0 |
-| [GizTurrets](#gizturrets) | 1 | 0 |
 | [Grab](#grab) | 1 | 0 |
-| [Grabber](#grabber) | 7 | 0 |
 | [GraphBuilder](#graphbuilder) | 3 | 0 |
 | [Grapple](#grapple) | 1 | 0 |
-| [Grapples](#grapples) | 1 | 0 |
 | [HLSLShaderBuilder](#hlslshaderbuilder) | 1 | 0 |
-| [Hub](#hub) | 6 | 0 |
 | [HubAreaInfo](#hubareainfo) | 1 | 0 |
 | [InputRemapClass](#inputremapclass) | 4 | 0 |
 | [InteractiveDisplay](#interactivedisplay) | 4 | 0 |
 | [KillParts](#killparts) | 1 | 0 |
-| [LC](#lc) | 1 | 0 |
 | [Legal](#legal) | 1 | 0 |
-| [Level](#level) | 2 | 0 |
-| [LevelConfig](#levelconfig) | 2 | 0 |
-| [LevelObject](#levelobject) | 2 | 0 |
-| [LevelObjects](#levelobjects) | 2 | 0 |
-| [Levels](#levels) | 2 | 0 |
-| [LevelSplines](#levelsplines) | 2 | 0 |
 | [LevelStreaming](#levelstreaming) | 2 | 0 |
 | [LightFlickerOverlay](#lightflickeroverlay) | 1 | 0 |
 | [LightningManager](#lightningmanager) | 2 | 0 |
@@ -106,52 +160,27 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 | [LoseHP](#losehp) | 1 | 0 |
 | [MemoryManager](#memorymanager) | 2 | 0 |
 | [Minicam](#minicam) | 1 | 0 |
-| [MiniKit](#minikit) | 2 | 0 |
-| [Mission](#mission) | 2 | 0 |
-| [Missions](#missions) | 1 | 0 |
-| [Move](#move) | 2 | 0 |
 | [MovePlayer](#moveplayer) | 1 | 0 |
-| [near AIBugPit.cpp](#near-aibugpitcpp) | 14 | 0 |
-| [near apisave.c](#near-apisavec) | 8 | 0 |
 | [near d3dCalls.cpp](#near-d3dcallscpp) | 2 | 0 |
 | [near gcutscn.cpp](#near-gcutscncpp) | 1 | 0 |
 | [near listman_gen.cpp](#near-listman_gencpp) | 1 | 0 |
-| [near nuanim_gen.cpp](#near-nuanim_gencpp) | 2 | 0 |
-| [near nufile_gen.cpp](#near-nufile_gencpp) | 1 | 0 |
 | [near nugraph_gen.cpp](#near-nugraph_gencpp) | 2 | 0 |
 | [near NuMovieGrab_PC.cpp](#near-numoviegrab_pccpp) | 1 | 0 |
 | [near numtl_dlist.cpp](#near-numtl_dlistcpp) | 1 | 0 |
-| [near nupad_gen.cpp](#near-nupad_gencpp) | 10 | 0 |
-| [near nutimebar_gen.cpp](#near-nutimebar_gencpp) | 2 | 0 |
-| [near nutrig_gen.cpp](#near-nutrig_gencpp) | 14 | 0 |
-| [near oggreader.cpp](#near-oggreadercpp) | 7 | 0 |
 | [near pcapi.cpp](#near-pcapicpp) | 4 | 0 |
-| [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 0 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 106 | 0 |
-| [near terrain.c](#near-terrainc) | 35 | 0 |
 | [near windows.cpp](#near-windowscpp) | 3 | 0 |
-| [NuAnim](#nuanim) | 4 | 0 |
-| [NuCamera](#nucamera) | 2 | 0 |
-| [NuCommand](#nucommand) | 1 | 0 |
 | [NuDisplay](#nudisplay) | 1 | 0 |
 | [NudxFw](#nudxfw) | 1 | 0 |
-| [NuDynamicLight](#nudynamiclight) | 1 | 0 |
 | [NuExp10](#nuexp10) | 1 | 0 |
-| [NuFile](#nufile) | 3 | 0 |
 | [NuFmv](#nufmv) | 1 | 0 |
 | [NuFmvStreamPCBink](#nufmvstreampcbink) | 1 | 0 |
-| [NuInit](#nuinit) | 1 | 0 |
 | [NuInstSurfGeom](#nuinstsurfgeom) | 2 | 0 |
 | [NuLgt](#nulgt) | 1 | 0 |
 | [NuList](#nulist) | 1 | 0 |
 | [NuLog10](#nulog10) | 1 | 0 |
-| [NuLst](#nulst) | 1 | 0 |
 | [NuMem](#numem) | 3 | 0 |
 | [NuMotionFilterGen](#numotionfiltergen) | 1 | 0 |
 | [NuMovie](#numovie) | 4 | 0 |
-| [NuMtl](#numtl) | 3 | 0 |
-| [NuMusic](#numusic) | 1 | 0 |
-| [NuPad](#nupad) | 2 | 0 |
 | [NuRain](#nurain) | 1 | 0 |
 | [NuRndr](#nurndr) | 3 | 0 |
 | [NuScratch](#nuscratch) | 2 | 0 |
@@ -160,35 +189,19 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 | [NuSin](#nusin) | 4 | 0 |
 | [NuSound](#nusound) | 4 | 0 |
 | [NuSpecial](#nuspecial) | 6 | 0 |
-| [NuStr](#nustr) | 2 | 0 |
 | [NuStreamProcessManager](#nustreamprocessmanager) | 3 | 0 |
-| [NuString](#nustring) | 1 | 0 |
-| [NuTex](#nutex) | 5 | 0 |
 | [NuTime](#nutime) | 1 | 0 |
-| [NuUnicode](#nuunicode) | 1 | 0 |
-| [NuVec](#nuvec) | 1 | 0 |
 | [NuWater](#nuwater) | 1 | 0 |
 | [NuWin32](#nuwin32) | 1 | 0 |
-| [ObjHitObj](#objhitobj) | 1 | 0 |
 | [OggReader](#oggreader) | 1 | 0 |
 | [OpenAutomate](#openautomate) | 1 | 0 |
-| [Particles](#particles) | 1 | 0 |
-| [PartImpact](#partimpact) | 3 | 0 |
 | [PartKill](#partkill) | 1 | 0 |
-| [PartStop](#partstop) | 2 | 0 |
-| [PartUpdate](#partupdate) | 1 | 0 |
 | [PcInput](#pcinput) | 3 | 0 |
-| [Player](#player) | 5 | 0 |
 | [PlayerItems](#playeritems) | 6 | 0 |
 | [PlayerItemTypeSys](#playeritemtypesys) | 3 | 0 |
-| [Players](#players) | 3 | 0 |
-| [PortalDoors](#portaldoors) | 3 | 0 |
-| [PowerUp](#powerup) | 1 | 0 |
 | [PreInterpretor](#preinterpretor) | 6 | 0 |
-| [Pulses](#pulses) | 1 | 0 |
 | [Puzzle](#puzzle) | 1 | 0 |
 | [RailSys](#railsys) | 1 | 0 |
-| [RippleEffects](#rippleeffects) | 1 | 0 |
 | [ScoreMultiplier](#scoremultiplier) | 2 | 0 |
 | [SecurityCamera](#securitycamera) | 3 | 0 |
 | [ShaderBuilderGen](#shaderbuildergen) | 3 | 0 |
@@ -198,131 +211,846 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 | [SlumsB](#slumsb) | 1 | 0 |
 | [SlumsD](#slumsd) | 1 | 0 |
 | [SockSys](#socksys) | 1 | 0 |
-| [SpecialMiniKits](#specialminikits) | 1 | 0 |
-| [SpecialMove](#specialmove) | 3 | 0 |
-| [SpecialMoves](#specialmoves) | 1 | 0 |
 | [Status](#status) | 1 | 0 |
 | [StreetsChase](#streetschase) | 1 | 0 |
-| [SuperCarry](#supercarry) | 3 | 0 |
 | [SuperCounter](#supercounter) | 2 | 0 |
 | [SuperCounterConfig](#supercounterconfig) | 2 | 0 |
 | [SurfaceBit](#surfacebit) | 1 | 0 |
 | [Surfaces](#surfaces) | 1 | 0 |
-| [Tag](#tag) | 2 | 0 |
-| [TakeOver](#takeover) | 1 | 0 |
-| [Techno](#techno) | 1 | 0 |
-| [Technos](#technos) | 1 | 0 |
-| [Text](#text) | 10 | 0 |
-| [ThermalDetonator](#thermaldetonator) | 1 | 0 |
 | [Titles](#titles) | 1 | 0 |
-| [TrafficAnimSys](#trafficanimsys) | 1 | 0 |
-| [Transform](#transform) | 3 | 0 |
 | [TrueHero](#truehero) | 1 | 0 |
-| [WorldInfo](#worldinfo) | 3 | 0 |
 | [WorldMap](#worldmap) | 6 | 0 |
 | [WorldMapBase](#worldmapbase) | 4 | 0 |
+
+## near rtleditor.cpp
+
+- [ ] `0059b480` 20 B `_CurrentAnim`
+- [ ] `00635c80` 23 B `ResetCoinPacket(COINPACKET_s*)`  **saga** `legoapi/items/base/collection.cpp`
+- [ ] `005ae160` 25 B `qrand()`  **saga** `legoapi/core/input/qrand.cpp`
+- [ ] `005c0f70` 25 B `SetFlicker(GameObject_s*, float)`  **saga** `legoapi/characters/core/players.cpp`
+- [ ] `00595ff0` 35 B `_AnimFlags`
+- [ ] `0059b540` 35 B `_AnimSpeedZ`
+- [ ] `005bba90` 35 B `GizmoFileReadName(char*)`  **saga** `legoapi/gizmo/base/gizmo.cpp`
+- [ ] `005ae740` 38 B `RotDiff(unsigned short, unsigned short)`  **saga** `legoapi/misc/utilities.cpp`
+- [ ] `005d9810` 38 B `GizmoBlowupAddDefaultExplosionDebris(nuvec_s*)`
+- [ ] `005a2d60` 40 B `NewBuzz(nupad_s*, float, int)`  **saga** `legoapi/core/input/gamepads.cpp`
+- [ ] `005a1060` 46 B `ResetTimer(TIMER_s*, float)`  **saga** `legoapi/core/input/timer.cpp`
+- [ ] `0060cee0` 48 B `GetMenuID()`  **saga** `legoapi/menus/core/text.cpp`
+- [ ] `005bdcd0` 49 B `InStory()`  **saga** `legoapi/menus/screens/gamestructure.cpp`
+- [ ] `00639b10` 49 B `KeepWeaponOut(GameObject_s*)`  **saga** `legoapi/characters/core/playeritems.cpp`
+- [ ] `005a2d90` 54 B `NewBuzzFrames(nupad_s*, int, int)`  **saga** `legoapi/core/input/gamepads.cpp`
+- [ ] `005fc350` 58 B `AreaFromMiniKitID(int)`  **saga** `legoapi/world/area.cpp`
+- [ ] `0059a730` 59 B `_ResetAnimPacket`
+- [ ] `0059a0d0` 60 B `_FindAnimIX`
+- [ ] `0060cea0` 60 B `GameDrawMenuEntry(MENU_s*, char*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
+- [ ] `005ae240` 64 B `SeekValF(float, float, float)`  **saga** `legoapi/characters/motion/move.cpp`
+- [ ] `005a2d10` 66 B `NewRumble(nupad_s*, float, int)`  **saga** `legoapi/core/input/gamepads.cpp`
+- [ ] `0059b3c0` 68 B `_AnimPlaying`
+- [ ] `0061f190` 69 B `CharIDFromName(char*)`  **saga** `legoapi/characters/core/characters.cpp`
+- [ ] `005b0f40` 71 B `GameBufferAlloc(variptr_u*, variptr_u*, int)`  **saga** `legoapi/items/objects/gameobjects.cpp`
+- [ ] `00635de0` 71 B `CoinsGoToMainTotal()`  **saga** `legoapi/menus/core/panel.cpp`
+- [ ] `00597fc0` 72 B `_AddGameDebris`
+- [ ] `00639670` 76 B `SetWeaponOut(GameObject_s*)`  **saga** `legoapi/characters/core/playeritems.cpp`
+- [ ] `00639b50` 76 B `SetWeaponIn(GameObject_s*)`  **saga** `legoapi/characters/core/playeritems.cpp`
+- [ ] `00597e10` 79 B `_FindGameDebris`
+- [ ] `005bc370` 85 B `GizmoGetTypeIDByName(GIZMOSYS_s*, char*)`  **saga** `legoapi/gizmo/base/gizmo.cpp`
+- [ ] `00597db0` 90 B `_ParticlesPerSecond`
+- [ ] `00635ab0` 93 B `MiniKitDetector(nuvec_s*)`  **saga** `legoapi/items/collect/minikits.cpp`
+- [ ] `0059c530` 97 B `_ParseAnimStance`
+- [ ] `006419d0` 99 B `InitSnakes(WORLDINFO_s*)`  **saga** `legoapi/actions/character/snake.cpp`
+- [ ] `00675430` 103 B `LoadSpecialSfxFile(WORLDINFO_s*)`  **saga** `legoapi/audio/sfx.cpp`
+- [ ] `005ae1d0` 104 B `SeekLinearF(float, float, float)`  **saga** `legoapi/characters/motion/move.cpp`
+- [ ] `005d3f60` 105 B `FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)`
+- [ ] `005a0830` 108 B `ConfigureMusic(char*, variptr_u*, variptr_u*)`  **saga** `nu2api/nusound/nusound3_include.cpp`
+- [ ] `005c8eb0` 113 B `LoadTerrainFile(WORLDINFO_s*)`  **saga** `legoapi/render/core/terrain.cpp`
+- [ ] `005ae640` 119 B `FindAnglesXY(nuvec_s*, unsigned short*, unsigned short*)`  **saga** `legoapi/misc/utilities.cpp`
+- [ ] `005c16b0` 120 B `SetPlayerIDs(int, int)`
+- [ ] `005d3640` 123 B `AddGameMessage(char*, nuvec_s*, float, nuvec_s*, float, unsigned char, unsigned char, unsigned char, unsigned int, float)`  **saga** `legoapi/menus/core/gamemessages.cpp`
+- [ ] `005ae6c0` 124 B `GetRotationAngles(nuvec_s*, unsigned short*, unsigned short*)`  **saga** `legoapi/misc/utilities.cpp`
+- [ ] `005ae5c0` 126 B `FindAnglesZX(nuvec_s*, unsigned short*, unsigned short*)`  **saga** `legoapi/misc/utilities.cpp`
+- [ ] `0059c4b0` 127 B `_ActionFromName`
+- [ ] `0063e540` 131 B `FreeGameObjectLights()`  **saga** `legoapi/render/light/lighting.cpp`
+- [ ] `006394f0` 133 B `FaceOpponent(GameObject_s*, nuvec_s*)`  **saga** `legoapi/characters/motion/move.cpp`
+- [ ] `0065c320` 136 B `LoseHat(GameObject_s*)`
+- [ ] `005a2dd0` 146 B `NewRumbleAllPlayers(float, float, int, int)`  **saga** `legoapi/core/input/gamepads.cpp`
+- [ ] `005fc2b0` 150 B `DumpAreaData(int, int)`  **saga** `editor/edlevelall.cpp`
+- [ ] `005b00d0` 153 B `LineIntersectCircle(nuvec_s*, nuvec_s*, nuvec_s*, float)`  **saga** `legoapi/misc/utilities.cpp`
+- [ ] `005c8f30` 155 B `LoadGrassFile(WORLDINFO_s*)`  **saga** `legoapi/render/core/terrain.cpp`
+- [ ] `00620370` 158 B `DrawHose(GameObject_s*)`
+- [ ] `00623850` 166 B `ParseStreakCol(nufpar_s*)`
+- [ ] `005f6df0` 174 B `AddExplosion(nuvec_s*, float, float, GameObject_s*, int, int, int)`  **saga** `legoapi/items/fx/explosions.cpp`
+- [ ] `0059f8d0` 185 B `PlayJumpSfx(GameObject_s*, int)`  **saga** `legoapi/audio/sfx.cpp`
+- [ ] `0063e3b0` 185 B `LoadLights(WORLDINFO_s*, char*)`  **saga** `legoapi/render/light/lighting.cpp`
+- [ ] `005aa1f0` 187 B `InitGrappleMtls(variptr_u*, variptr_u*)`
+- [ ] `0063e470` 187 B `InitGameObjectLights()`  **saga** `legoapi/render/light/lighting.cpp`
+- [ ] `005d3fd0` 203 B `AddGameMsgCount(nuvec_s*, int, int, unsigned char, unsigned char, unsigned char, float)`  **saga** `legoapi/menus/core/gamemessages.cpp`
+- [ ] `00656130` 203 B `AddRipple(ripple_set_s*, numtx_s*, float, float, float, float, RGBA, RGBA, int, numtl_s*, nuvec_s*)`  **saga** `legoapi/items/fx/ripples.cpp`
+- [ ] `005f7a60` 204 B `LoadPartFile(WORLDINFO_s*)`  **saga** `legoapi/render/fx/parts.cpp`
+- [ ] `005b0000` 205 B `LineIntersectSphere(nuvec_s*, nuvec_s*, nuvec_s*, float, float*)`  **saga** `legoapi/misc/utilities.cpp`
+- [ ] `0059fe80` 206 B `PlayGruntSfx(GameObject_s*)`  **saga** `legoapi/audio/sfx.cpp`
+- [ ] `005a0590` 209 B `PlayRepeatSfx(char*, int, float, char, float, nuvec_s*)`  **saga** `legoapi/audio/sfx.cpp`
+- [ ] `005a3020` 212 B `ConstantRumble(GameObject_s*, float, float)`  **saga** `legoapi/misc/legoapi_misc.cpp`
+- [ ] `005c19c0` 217 B `SetPlayer()`  **saga** `legoapi/characters/core/players.cpp`
+- [ ] `005b2a40` 229 B `LoadThingsScene()`
+- [ ] `00639580` 229 B `ObjOpponentStillThere(GameObject_s*, GameObject_s*, float)`  **saga** `legoapi/actions/character/speederchase.cpp`
+- [ ] `006396c0` 233 B `FastWeaponOut(GameObject_s*, int)`  **saga** `legoapi/characters/core/playeritems.cpp`
+- [ ] `00639ba0` 233 B `FastWeaponIn(GameObject_s*, int)`  **saga** `legoapi/characters/core/playeritems.cpp`
+- [ ] `005bc570` 245 B `GizmoFindByName(GIZMOSYS_s*, int, char*)`  **saga** `legoapi/gizmo/base/gizmo.cpp`
+- [ ] `00620b30` 249 B `RedirectTextFile(char*, char*, int, int*)`  **saga** `legoapi/characters/core/charconfig.cpp`
+- [ ] `00615390` 251 B `StartDoorPositions()`  **saga** `legoapi/props/doors/doors.cpp`
+- [ ] `005fb300` 291 B `AddToModelList(APICHARACTERMODELLIST_s*, int*, int, int, int, EXTRAMODEL*, unsigned char)`  **saga** `legoapi/world/areas.cpp`
+- [ ] `005c1730` 295 B `RememberPlayerIDs(int, int, int)`  **saga** `legoapi/characters/core/players.cpp`
+- [ ] `005aefd0` 305 B `GameShadow(GameObject_s*, nuvec_s*, float, int)`  **saga** `legoapi/items/objects/gameobjects.cpp`
+- [ ] `00635ca0` 307 B `UpdateCoinPacket(COINPACKET_s*, int, int)`  **saga** `legoapi/items/base/collection.cpp`
+- [ ] `005b0e00` 317 B `VecRotateAxis(nuvec_s*, unsigned short, nuvec_s*)`  **saga** `legoapi/misc/utilities.cpp`
+- [ ] `0064ce30` 321 B `NewStatusRumbleBuzz(int, float, float, int)`  **saga** `legoapi/menus/screens/gamestatus_lsw.cpp`
+- [ ] `006633c0` 324 B `CheckGizAIMessage(GIZAIMESSAGESYS_s*, char const*, GIZAIMESSAGE_s*)`  **saga** `legoapi/gizmo/base/gizmessage.cpp`
+- [ ] `006397b0` 329 B `SlowWeaponOut(GameObject_s*)`  **saga** `legoapi/characters/core/playeritems.cpp`
+- [ ] `00597e60` 336 B `_InitGameDebris`
+- [ ] `0059a110` 338 B `_AnimDuration`
+- [ ] `005b0510` 374 B `InitSplinePosition(SPLINEPOS_s*, nugspline_s*, float, int)`  **saga** `legoapi/render/fx/edsplines.cpp`
+- [ ] `005af8c0` 380 B `LineIntersectXY(nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*)`  **saga** `legoapi/misc/utilities.cpp`
+- [ ] `005bd2d0` 423 B `LoadGizmoSys(GIZMOSYS_s*, void*, char*)`  **saga** `legoapi/gizmo/base/gizmo_sys.cpp`
+- [ ] `0059f9a0` 437 B `PlayLandSfx(GameObject_s*, int, int)`  **saga** `legoapi/audio/sfx.cpp`
+- [ ] `00632800` 499 B `DrawRailSparks(RAILSYS_s*, int, GameObject_s*)`
+- [ ] `005cfa30` 501 B `StartBigJump(GameObject_s*, nuvec_s*, int, float, float, int, int)`  **saga** `legoapi/actions/movement/jumping.cpp`
+- [ ] `00639900` 516 B `WeaponOutCode(GameObject_s*)`  **saga** `legoapi/characters/core/playeritems.cpp`
+- [ ] `00620160` 521 B `DrawHoseEx(GAMECHARACTERDATA_s*, numtx_s*, numtl_s*, float)`
+- [ ] `0067b270` 575 B `PCSaveSlot(int, void*, int, unsigned int)`  **saga** `gameframework/saveload.cpp`
+- [ ] `005b0690` 619 B `GetNearestSplinePos(nuvec_s*, SPLINEPOS_s*, nugspline_s*, int, short, short)`  **saga** `legoapi/render/fx/edsplines.cpp`
+- [ ] `005c3310` 670 B `LoseHitPoints(GameObject_s*, int)`
+- [ ] `00661d60` 695 B `GizmoBlowupBlowup(GIZMOBLOWUP_s*, int, int, int, GameObject_s*, int)`  **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
+- [ ] `0059fb60` 796 B `PlayFootStepSfx(GameObject_s*)`  **saga** `legoapi/audio/sfx.cpp`
+- [ ] `0059c5a0` 876 B `_ConfigureCharacterList`
+- [ ] `005b0170` 915 B `MoveSplinePosition(SPLINEPOS_s*, float)`  **saga** `legoapi/characters/motion/move.cpp`
+- [ ] `0063e5d0` 991 B `LightGameObject(GameObject_s*, void*)`  **saga** `legoapi/render/light/lighting.cpp`
+- [ ] `005d3210` 1055 B `AddGameMsg(ADDGAMEMSG*)`  **saga** `legoapi/menus/core/gamemessages.cpp`
+- [ ] `005fc730` 1112 B `DrawGoToArea(MENU_s*, int)`
+- [ ] `0065e780` 1217 B `LoadEditorSplines(WORLDINFO_s*, char*, variptr_u*, variptr_u*)`  **saga** `gameapi/edtools/edtoolsall.cpp`
+- [ ] `005b0900` 1269 B `OutSideSplineArea(nuvec_s*, nugspline_s*, nuvec_s*, nuvec_s*, int)`  **saga** `legoapi/render/fx/edsplines.cpp`
+- [ ] `005b1940` 1286 B `DrawObjectOnCharacter(WORLDINFO_s*, GameObject_s*, int, nuhspecial_s*, int, int, numtx_s*, int, unsigned int, numtx_s*, nuvec_s*, float, float, int, numtx_s*)`  **saga** `legoapi/render/core/render.cpp`
+- [ ] `00633910` 1303 B `AddPickups(int, int, int, int, nuvec_s*, nuvec_s*, float, int, float, float, GameObject_s*, int, int)`  **saga** `legoapi/gizmo/object/gizmopickups.cpp`
 
 ## Action
 
 - [ ] `004717b0` 246 B `Action_StunOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub**
 - [ ] `00473510` 308 B `Action_UncoupleVehicles(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `006a5660` 310 B `_Action_OverrideAnimation`
-- [ ] `0045b7e0` 334 B `Action_DontAvoidCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `006b4670` 353 B `_Action_SetInterrupt`
-- [ ] `00462e90` 364 B `Action_PlayGizObstacle(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00463f00` 370 B `Action_SetAnimSpeedMul(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `0046f500` 372 B `Action_SetTechnoComplete(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `0046f880` 383 B `Action_CompleteLevel(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `006a5660` 310 B `_Action_OverrideAnimation`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0045b7e0` 334 B `Action_DontAvoidCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `006b4670` 353 B `_Action_SetInterrupt`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00462e90` 364 B `Action_PlayGizObstacle(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00463f00` 370 B `Action_SetAnimSpeedMul(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0046f500` 372 B `Action_SetTechnoComplete(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0046f880` 383 B `Action_CompleteLevel(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00472640` 385 B `Action_AttachNodeToPlatform(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00461ff0` 388 B `Action_SetPath(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00463060` 398 B `Action_PlayGizSpecial(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `0045f9e0` 404 B `Action_SetMaxMovementRange(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `00461ff0` 388 B `Action_SetPath(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00463060` 398 B `Action_PlayGizSpecial(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0045f9e0` 404 B `Action_SetMaxMovementRange(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00470fd0` 412 B `Action_AddItem(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00468190` 453 B `Action_FaceCamera(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00455750` 455 B `Action_SetScriptState(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00467f50` 455 B `Action_SetForceBack(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `0045e500` 456 B `Action_SetScriptParam(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `00468190` 453 B `Action_FaceCamera(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00455750` 455 B `Action_SetScriptState(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00467f50` 455 B `Action_SetForceBack(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0045e500` 456 B `Action_SetScriptParam(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00473e40` 471 B `Action_ChangeSpecialRoute(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `0046d870` 472 B `Action_SetLayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `006a4640` 490 B `_Action_Idle`
-- [ ] `00464d10` 493 B `Action_UseForce(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `0046d870` 472 B `Action_SetLayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `006a4640` 490 B `_Action_Idle`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00464d10` 493 B `Action_UseForce(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `004628c0` 506 B `Action_ContextSetAnimation(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `0046eee0` 507 B `Action_ForceLightning(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00465ab0` 539 B `Action_PlaySfx(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `0046bb20` 544 B `Action_AssignLocatorInSet(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `004688a0` 549 B `Action_SpinOnSpot(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `006a4b10` 565 B `_Action_FaceOpponent`
-- [ ] `00470370` 575 B `Action_AddTorpedoPacket(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `006ba4b0` 597 B `_Action_CirclePlayer`
-- [ ] `00457460` 602 B `Action_SetDoomedEscapeLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `006ba710` 603 B `_Action_CircleOpponent`
-- [ ] `0046cd90` 606 B `Action_AddGameMsgCount(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `0046eee0` 507 B `Action_ForceLightning(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00465ab0` 539 B `Action_PlaySfx(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0046bb20` 544 B `Action_AssignLocatorInSet(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizactions.cpp`
+- [ ] `004688a0` 549 B `Action_SpinOnSpot(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `006a4b10` 565 B `_Action_FaceOpponent`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00470370` 575 B `Action_AddTorpedoPacket(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `006ba4b0` 597 B `_Action_CirclePlayer`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00457460` 602 B `Action_SetDoomedEscapeLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `006ba710` 603 B `_Action_CircleOpponent`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0046cd90` 606 B `Action_AddGameMsgCount(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `004684e0` 627 B `Action_TurnToFaceOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00477ab0` 631 B `Action_CycleCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `004691f0` 634 B `Action_MoveForward(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00454950` 652 B `Action_SetStateArea(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `0045eac0` 653 B `Action_AddPartDebris(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00468ea0` 662 B `Action_GameFollowPlayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `0045e190` 670 B `Action_SetMessage(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `0046e4e0` 680 B `Action_ThrowDetonator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `00477ab0` 631 B `Action_CycleCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `004691f0` 634 B `Action_MoveForward(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/gameai_actions.cpp`
+- [ ] `00454950` 652 B `Action_SetStateArea(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0045eac0` 653 B `Action_AddPartDebris(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00468ea0` 662 B `Action_GameFollowPlayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizactions.cpp`
+- [ ] `0045e190` 670 B `Action_SetMessage(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0046e4e0` 680 B `Action_ThrowDetonator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `0045c1d0` 686 B `Action_CreateRailCreature(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00456a90` 704 B `Action_BigJumpToLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `004530b0` 719 B `Action_SetTakeOverTarget(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `00456a90` 704 B `Action_BigJumpToLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `004530b0` 719 B `Action_SetTakeOverTarget(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `004741c0` 720 B `Action_ZipDown(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00456060` 745 B `Action_SetLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `0045a990` 765 B `Action_FollowDirection(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `00456060` 745 B `Action_SetLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0045a990` 765 B `Action_FollowDirection(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00473140` 773 B `Action_CoupleVehicles(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `006ba190` 795 B `_Action_Circle`
+- [ ] `006ba190` 795 B `_Action_Circle`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00472a70` 800 B `Action_SetHeadlights(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `0045dc80` 819 B `Action_SetHitPoints(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `0046dac0` 844 B `Action_CreateRider(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00461af0` 911 B `Action_CnxHelper(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00459fb0` 999 B `Action_ShootAtOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00456570` 1039 B `Action_SnapToLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `004646a0` 1070 B `Action_TakeDamage(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `004586e0` 1086 B `Action_SetOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `0046bdd0` 1162 B `Action_GetLocatorFromSet(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `0045d520` 1195 B `Action_SetRunSpeed(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `0045dc80` 819 B `Action_SetHitPoints(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0046dac0` 844 B `Action_CreateRider(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00461af0` 911 B `Action_CnxHelper(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00459fb0` 999 B `Action_ShootAtOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00456570` 1039 B `Action_SnapToLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `004646a0` 1070 B `Action_TakeDamage(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `004586e0` 1086 B `Action_SetOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0046bdd0` 1162 B `Action_GetLocatorFromSet(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizactions.cpp`
+- [ ] `0045d520` 1195 B `Action_SetRunSpeed(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `0046dee0` 1226 B `Action_CreateCoupled(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `004678a0` 1236 B `Action_DynamicCameraCut_AddSubtitle(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00457750` 1254 B `Action_SnapToPosition(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00458cd0` 1285 B `Action_AttackOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00456e00` 1294 B `Action_BigJump(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `00457750` 1254 B `Action_SnapToPosition(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00458cd0` 1285 B `Action_AttackOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00456e00` 1294 B `Action_BigJump(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `0046b400` 1295 B `Action_PickUpItem(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `0046ad50` 1364 B `Action_UseLedge(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00457ff0` 1413 B `Action_SnapToSockPosition(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `004541f0` 1469 B `Action_SetSide(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `0045b070` 1517 B `Action_SetInvulnerable(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00454d10` 1961 B `Action_Kill(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00465d60` 2215 B `Action_CameraCut(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00459330` 2559 B `Action_EngageOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `00457ff0` 1413 B `Action_SnapToSockPosition(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `004541f0` 1469 B `Action_SetSide(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0045b070` 1517 B `Action_SetInvulnerable(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00454d10` 1961 B `Action_Kill(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00465d60` 2215 B `Action_CameraCut(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizactions.cpp`
+- [ ] `00459330` 2559 B `Action_EngageOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 
-## AnimInclude
+## near pcbatman.cpp
 
-- [ ] `006285d0` 923 B `AnimInclude_Init(char*, variptr_u*, variptr_u*)`
+- [ ] `00458c40` 111 B `OpponentShouldntBeAttacked(GameObject_s*)`
+- [ ] `00504680` 151 B `GetPlantLocator(char*)`
+- [ ] `004b8100` 205 B `_VuMtxRotateY`
+- [ ] `004c0cb0` 209 B `StartBallooning(GameObject_s*, int)`  **saga** `legoapi/actions/movement/jumping.cpp`
+- [ ] `0044c960` 312 B `PartyMemberInWay(GameObject_s*, GameObject_s*)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00447560` 369 B `GetNamedAPIObject(AISYS_s*, char*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
+- [ ] `004e34b0` 402 B `UpdateRadios()`  **saga** `legoapi/audio/radio.cpp`
+- [ ] `0044bf50` 403 B `GameAISysReset(AISYS_s*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
+- [ ] `00428a60` 422 B `ResetAICreatures(AISYS_s*)`  **saga** `legoapi/ai/game/creature.cpp`
+- [ ] `004e8190` 477 B `BuyShopItem(LEGOSHOP_s*, shopitem_s*, int, int)`  **saga** `legoapi/menus/screens/shop.cpp`
+- [ ] `0043ebf0` 500 B `ObjHitShield(GameObject_s*, GameObject_s*, int, BOLT_s*)`  **saga** `legoapi/actions/combat/hits.cpp`
+- [ ] `00430ca0` 514 B `FreezePlayer(GameObject_s*, float, GameObject_s*)`
+- [ ] `004c70e0` 551 B `DrawLightningBolts(GameObject_s*, GameObject_s*, int)`  **saga** `legoapi/characters/motion/move.cpp`
+- [ ] `004b2710` 594 B `MenuDrawOptions(MENU_s*)`  **saga** `legoapi/menus/screens/gamemenuall.cpp`
+- [ ] `004f5440` 604 B `LoadPermData(bgprocinfo_s*)`  **saga** `legogame/startup.cpp`
+- [ ] `00432480` 609 B `InitPartyCharacterScript(GameObject_s*, int)`
+- [ ] `004ce720` 741 B `TractorBeamCode(GameObject_s*)`  **saga** `legoapi/props/objects/tubes.cpp`
+- [ ] `004f7560` 750 B `LoadPerm2()`  **saga** `legoapi/characters/core/characters.cpp`
+- [ ] `004ab420` 791 B `FixUpLevels()`  **saga** `legoapi/world/level.cpp`
+- [ ] `00436e50` 851 B `GizmoBlowupCreateStuff(GIZMOBLOWUP_s*)`  **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
+- [ ] `0043c900` 865 B `PlayerTakeHit(GameObject_s*, GameObject_s*)`  **saga** `legoapi/characters/core/players.cpp`
+- [ ] `00431d80` 870 B `InitGameBeforeConfig()`  **saga** `legogame/game.cpp`
+- [ ] `00522fe0` 1027 B `DIEnumDevicesCallback(IndirectX::DIDEVICEINSTANCEA const*, void*)`
+- [ ] `00408900` 1093 B `InitOnce(int, char**)`  **saga** `legoapi/misc/androidbatman.cpp`
+- [ ] `004f6230` 1144 B `LoadPerm1()`  **saga** `legoapi/characters/core/characters.cpp`
+- [ ] `004e8430` 1201 B `SelectSubItem(LEGOSHOP_s*)`  **saga** `legoapi/menus/screens/shop.cpp`
+- [ ] `004a40f0` 1258 B `ReleaseTakeOver(GameObject_s*, int)`  **saga** `legoapi/items/objects/gameobjects.cpp`
+- [ ] `0043cd40` 1280 B `StunGameObject(GameObject_s*, GameObject_s*, float, int)`  **saga** `legoapi/actions/combat/fighting.cpp`
+- [ ] `00440960` 1312 B `Collide2Objects(APIOBJECT_s*, APIOBJECT_s*)`  **saga** `legoapi/actions/combat/hits.cpp`
+- [ ] `004b4dd0` 1398 B `MenuDrawMiniKit(MENU_s*)`  **saga** `gameapi/gui/apimenu.cpp`
+- [ ] `0043a110` 1413 B `AddSurfaceRipples(GameObject_s*)`  **saga** `legoapi/items/fx/ripples.cpp`
+- [ ] `004a36c0` 1583 B `TagCode(GameObject_s*, GameObject_s*, int, int, int)`  **saga** `legoapi/items/objects/gameobjects.cpp`
+- [ ] `004a9310` 1641 B `LoadAreaData(bgprocinfo_s*)`  **saga** `legoapi/world/area.cpp`
+- [ ] `004a4b70` 1900 B `TakeOverCode(GameObject_s*, int)`
+- [ ] `004c83e0` 1911 B `FindForcePushTarget(GameObject_s*, int, int)`  **saga** `legoapi/actions/movement/pushing.cpp`
+- [ ] `004dc8e0` 2442 B `DrawPlayerIconPrompts(int, int, float, int, int, int, int, int, int, float, int, int, int, int)`  **saga** `legoapi/menus/core/panel.cpp`
+- [ ] `00435140` 2739 B `CheckResetBits()`  **saga** `legoapi/misc/supportall.cpp`
+- [ ] `0043b970` 3180 B `KillGameObject(GameObject_s*, int, int)`  **saga** `legoapi/items/objects/gameobjects.cpp`
+- [ ] `004c7390` 3335 B `ForcePushCode(GameObject_s*, int, int)`  **saga** `legoapi/characters/motion/move.cpp`
+- [ ] `004165a0` 3565 B `UpdateCables()`  **saga** `legoapi/items/objects/cable.cpp`
+- [ ] `004e0d90` 4818 B `DrawPanel()`  **saga** `legoapi/menus/core/panel.cpp`
+- [ ] `0043ee70` 5506 B `ObjHitObj(GameObject_s*, GameObject_s*, int, int, int, int)`  **saga** `legoapi/actions/combat/hits.cpp`
+- [ ] `004e38a0` 5799 B `SetLevelSfxBits(WORLDINFO_s*)`  **saga** `legoapi/audio/sfx.cpp`
+- [ ] `0042ad10` 6298 B `DrawGameObjectsDraw(int)`  **saga** `legoapi/render/core/render.cpp`
+- [ ] `004375e0` 6466 B `InitGameAfterConfig()`  **saga** `legogame/game.cpp`
+- [ ] `00441740` 7415 B `UpdateGameObjects(WORLDINFO_s*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
+
+## near terrain.c
+
+- [ ] `00572040` 10 B `_NewTerrPlatformsOff`
+- [ ] `00585040` 10 B `edpartSetParticlePage(int)`
+- [ ] `00571f70` 18 B `_ShadowInfo`
+- [ ] `00571fe0` 18 B `_EShadowInfo`
+- [ ] `005797f0` 31 B `_PlaySfxById`
+- [ ] `005834f0` 33 B `_AddFiniteShotDebrisEffect`
+- [ ] `005798a0` 45 B `_PlaySfx`
+- [ ] `0058b230` 57 B `_rtlDynamicFree`
+- [ ] `00583520` 61 B `_AddScaledFiniteShotDebrisEffect`
+- [ ] `00574220` 73 B `_PlatOnOff`
+- [ ] `00584ac0` 74 B `PARTLookupType(char*)`
+- [ ] `0057d660` 78 B `_AddVariableShotDebrisEffect`
+- [ ] `0057d5a0` 89 B `_AddVariableShotDebrisEffectTimed1`
+- [ ] `0056fef0` 145 B `_RayImpact`  **saga** `legoapi/render/core/terrain.cpp`
+- [ ] `00584e60` 155 B `AddFiniteShotPART(int, nuvec_s*, int)`
+- [ ] `005672e0` 171 B `_DerotateMovementVector`  **saga** `legoapi/render/core/terrain.cpp`
+- [ ] `00584780` 175 B `KillPart(PART_s*, int)`
+- [ ] `00584870` 182 B `FindPart(nuvec_s*, int, void*)`
+- [ ] `0056b0a0` 234 B `_NewShadowEx`
+- [ ] `0057be20` 321 B `_DebFreeInstantly`
+- [ ] `0056fd80` 325 B `_TerrainImpactNorm`  **saga** `legoapi/render/core/terrain.cpp`
+- [ ] `00567180` 338 B `_TerrainSkinAllocate`  **saga** `legoapi/render/core/terrain_stubs.cpp`
+- [ ] `00572be0` 389 B `_NewRayCast`
+- [ ] `00572d90` 473 B `_NewRayCastScaleYMask`
+- [ ] `00583200` 737 B `_AddFiniteShotDebrisEffect2`
+- [ ] `0056cbb0` 963 B `_HitTerrain`  **saga** `legoapi/render/core/terrain.cpp`
+- [ ] `00566770` 1003 B `_TerrainSkin`  **saga** `legoapi/render/core/terrain.cpp`
+- [ ] `0057d8b0` 1135 B `_AddDebrisEffect`
+- [ ] `00566b60` 1474 B `_SkinPlatform`  **saga** `legoapi/characters/motion/charplatforms.cpp`
+- [ ] `0056c4a0` 1803 B `_HitWallSpline`  **saga** `legoapi/render/core/terrain.cpp`
+- [ ] `0056d1b0` 1818 B `_ScanWallSplineTerrain`  **saga** `legoapi/render/core/terrain.cpp`
+- [ ] `00585fa0` 1991 B `AddPart(ADDPART_s*)`
+- [ ] `0057c890` 3006 B `_AddVariableShotDebrisEffectTimed5`
+- [ ] `005632c0` 3491 B `_TerrainInitEx`
+- [ ] `0056d8d0` 7460 B `_ScanTerrain`  **saga** `legoapi/render/core/terrain.cpp`
+
+## near nupad_gen.cpp
+
+- [ ] `006d7dc0` 43 B `_NuSPrintf`
+- [ ] `006d6910` 69 B `_ImplodeError`  **saga** `nu2api/nucore/implode.cpp`
+- [ ] `006daa40` 149 B `_NuFParGetFloat`  **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006dfc60` 181 B `_NuFParCreateMem`  **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006d7f60` 191 B `_NuAToF`  **saga** `nu2api/nucore/nustring_c.cpp`
+- [ ] `006dd060` 226 B `_NuFParGetInt`  **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006dd430` 318 B `_NuFParInterpretWordCTX`  **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006dd2d0` 347 B `_NuFParInterpretWord`  **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006da8d0` 358 B `_NuFParGetWord`  **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006d6d00` 646 B `_ImplodeMakeTable`  **saga** `nu2api/nucore/implode.cpp`
+
+## Text
+
+- [ ] `0059d770` 62 B `Text_LoadFont(char*, variptr_u*, variptr_u*)`  **saga** `legoapi/menus/core/text.cpp`
+- [ ] `0059d7c0` 119 B `Text_InitStringTable(int, variptr_u*, variptr_u*)`  **saga** `legoapi/menus/core/text.cpp`
+- [ ] `0059dc80` 132 B `Text_MakeScore(unsigned int, char*)`  **saga** `legoapi/menus/core/text.cpp`
+- [ ] `0059dbd0` 161 B `Text_InsertCommasIntoNumber(char*, char*, int)`  **saga** `legoapi/menus/core/text.cpp`
+- [ ] `0059d850` 169 B `Text_PlatformSpecificIgnore(nufpar_s*)`
+- [ ] `0059db20` 173 B `Text_InitTable(TEXTENTRY*, int, int)`  **saga** `legoapi/menus/core/text.cpp`
+- [ ] `004f9ab0` 287 B `Text_LoadStrings(variptr_u*, variptr_u*)`  **saga** `legoapi/menus/core/text.cpp`
+- [ ] `0059dd10` 392 B `Text_MakeTime(float, int, int, int, char*)`  **saga** `legoapi/menus/core/text.cpp`
+- [ ] `00408e60` 462 B `Text_ExpandButtonString(char*, char*)`  **saga** `legoapi/misc/androidbatman.cpp`
+- [ ] `0059d900` 544 B `Text_LoadAndFixUpStrings(unsigned char*, unsigned char**, char**, int)`  **saga** `legoapi/menus/core/text.cpp`
+
+## near AIBugPit.cpp
+
+- [ ] `006bf550` 51 B `_MenuReset`
+- [ ] `006b4f70` 76 B `_AISysRegisterDefaultPathCnxTypes`
+- [ ] `006b3a60` 190 B `_AIScriptLoadAll`  **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006b7110` 201 B `_AIMoveInstruction`
+- [ ] `006b9eb0` 274 B `_FollowAPIObject`
+- [ ] `006bf2a0` 360 B `_MenuInitialiseEx`  **saga** `legoapi/menus/screens/gamemenuall.cpp`
+- [ ] `006b97b0` 390 B `_AIScriptProcessorInit`  **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006b2aa0` 595 B `_xConditions`  **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006b37e0` 622 B `_AIScriptLoadAllPakFile`  **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006b3370` 794 B `_xRefScript`  **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006b2d00` 797 B `_xActions`  **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006c1200` 912 B `_MenuLoadTechnicalStrings`  **saga** `gameapi/gui/apimenu.cpp`
+- [ ] `006bc410` 1430 B `_AISysProcessCharacter`
+- [ ] `006b5000` 3215 B `_AISysLoadEx`
 
 ## Arcade
 
-- [ ] `006481f0` 9 B `Arcade_ResetPanel()`
-- [ ] `006481b0` 62 B `Arcade_GetMode(unsigned int*)`
-- [ ] `006486e0` 84 B `Arcade_PlayerKilled(int, int)`
-- [ ] `00648200` 133 B `Arcade_UpdatePanel(int)`
-- [ ] `00648290` 254 B `Arcade_DrawPanel(int)`
-- [ ] `00648390` 842 B `Arcade_AwardPoint(int, int, int)`
+- [ ] `006481f0` 9 B `Arcade_ResetPanel()`  **saga** `legoapi/menus/screens/arcade.cpp`
+- [ ] `006481b0` 62 B `Arcade_GetMode(unsigned int*)`  **saga** `legoapi/menus/screens/arcade.cpp`
+- [ ] `006486e0` 84 B `Arcade_PlayerKilled(int, int)`  **saga** `legoapi/menus/screens/arcade.cpp`
+- [ ] `00648200` 133 B `Arcade_UpdatePanel(int)`  **saga** `legoapi/menus/screens/arcade.cpp`
+- [ ] `00648290` 254 B `Arcade_DrawPanel(int)`  **saga** `legoapi/menus/screens/arcade.cpp`
+- [ ] `00648390` 842 B `Arcade_AwardPoint(int, int, int)`  **saga** `legoapi/menus/screens/arcade.cpp`
+
+## near nutrig_gen.cpp
+
+- [ ] `006a5fe0` 31 B `_AISysClearAllPathCnxTypes`
+- [ ] `006a9b90` 80 B `_AISysFindArea`
+- [ ] `006a62b0` 84 B `_AIStateFind`  **saga** `gameapi/ai/aisys/aistate.cpp`
+- [ ] `006a9bf0` 84 B `_AISysFindPath`
+- [ ] `006a9ac0` 96 B `_AIPathFindLocator`
+- [ ] `006a9b20` 98 B `_AIPathFindLocatorSet`
+- [ ] `006a34d0` 100 B `_AIParamToFloatEx`  **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006a9c50` 114 B `_AIPathFindNode`
+- [ ] `006a3380` 125 B `_AIParamToFloat`  **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006af110` 142 B `_AiSysIsCurrentPlatform`
+- [ ] `006a6000` 171 B `_AISysRegisterPathCnxType`
+- [ ] `006a19a0` 230 B `_AIScriptFind`  **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006a2730` 401 B `_AIScriptCopyConditions`  **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006a2cc0` 536 B `_AIScriptBuildDerivedScript`  **saga** `gameapi/ai/aisys/aiscript.cpp`
+
+## GameCam
+
+- [ ] `005a1fb0` 44 B `GameCam_NewShake(GAMECAMERA_s*, float, float, float)`  **saga** `legoapi/characters/motion/camera.cpp`
+- [ ] `005a2310` 186 B `GameCam_HitJudder()`  **saga** `legoapi/characters/motion/camera.cpp`
+- [ ] `005a27c0` 298 B `GameCam_Blend(GAMECAMERA_s*, float, float, int)`  **saga** `legoapi/characters/motion/camera.cpp`
+- [ ] `005a21e0` 301 B `GameCam_Judder(GAMECAMERA_s*, float, int, nuvec_s*)`  **saga** `legoapi/characters/motion/camera.cpp`
+- [ ] `005a1fe0` 498 B `GameCam_UpdateShake(GAMECAMERA_s*, float)`  **saga** `legoapi/characters/motion/camera.cpp`
+
+## Grabber
+
+- [ ] `00601280` 55 B `Grabber_IsActiveGrabber(GameObject_s*)`
+- [ ] `006013b0` 170 B `Grabber_GetGrabPos(GRABBER_s*, numtx_s*)`  **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
+- [ ] `006012c0` 235 B `Grabber_Terrain(GRABBER_s*, nuvec_s*, int)`
+- [ ] `00601fe0` 649 B `Grabber_SetVictimPos(GRABBER_s*)`  **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
+- [ ] `00602270` 710 B `Grabber_Reset(WORLDINFO_s*)`  **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
+- [ ] `00602540` 740 B `Grabber_Drop(GRABBER_s*, nuvec_s*)`  **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
+- [ ] `00600e90` 1004 B `Grabber_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/items/objects/grabber.cpp`
+
+## Player
+
+- [ ] `005c18b0` 59 B `Player_StartPos(GameObject_s*)`  **saga** `legoapi/characters/core/players.cpp`
+- [ ] `005c1860` 67 B `Player_FindByID(int)`  **saga** `legoapi/characters/core/players.cpp`
+- [ ] `005c1b10` 99 B `Player_ClearContext(GameObject_s*, int)`  **saga** `legoapi/characters/core/players.cpp`
+- [ ] `005c1b80` 313 B `Player_ResetContexts(GameObject_s*)`  **saga** `legoapi/characters/core/players.cpp`
+- [ ] `005c2250` 2274 B `Player_ToggleCharacter(GameObject_s*, int, int)`  **saga** `legoapi/characters/core/players.cpp`
 
 ## Area
 
 - [ ] `005facd0` 111 B `Area_ShuffleModelList(APICHARACTERMODELLIST_s*, int)`
-- [ ] `005fb060` 113 B `Area_FindByName(char*, int*)`
-- [ ] `005fb1e0` 121 B `Area_FindStatusLevel(AREADATA_s*, int*)`
-- [ ] `005fb260` 140 B `Area_FindNextPlayLevel(int)`
-- [ ] `005fb430` 3692 B `Area_Configure(int, int, EXTRAMODEL*, short*)`
+- [ ] `005fb060` 113 B `Area_FindByName(char*, int*)`  **saga** `legoapi/world/areas.cpp`
+- [ ] `005fb1e0` 121 B `Area_FindStatusLevel(AREADATA_s*, int*)`  **saga** `legoapi/world/areas.cpp`
+- [ ] `005fb260` 140 B `Area_FindNextPlayLevel(int)`  **saga** `legoapi/world/areas.cpp`
+- [ ] `005fb430` 3692 B `Area_Configure(int, int, EXTRAMODEL*, short*)`  **saga** `legoapi/world/areas.cpp`
+
+## GameAudio
+
+- [ ] `0059f260` 32 B `GameAudio_PlaySfx(int, nuvec_s*, int, int)`  **saga** `legoapi/audio/sfx.cpp`
+- [ ] `0059f160` 34 B `GameAudio_GetPlrSfxBits(void*)`  **saga** `legoapi/audio/sfx.cpp`
+- [ ] `0059f190` 50 B `GameAudio_Reset()`  **saga** `legoapi/audio/sfx.cpp`
+- [ ] `0059f1d0` 141 B `GameAudio_PlaySfxById(int, nuvec_s*, int, int)`  **saga** `legoapi/audio/sfx.cpp`
+
+## Hub
+
+- [ ] `004931b0` 68 B `Hub_SignalSwitchHeroVillain(HubSwitchMode)`  **stub**
+- [ ] `0049e300` 644 B `Hub_UpdateKit()`  **saga** `legoapi/world/levels/hub.cpp`
+- [ ] `004998e0` 706 B `Hub_MakeModelList(AREADATA_s*)`  **saga** `legoapi/world/levels/hub.cpp`
+- [ ] `004974c0` 748 B `Hub_DrawMiniKitPanel(float, int)`
+- [ ] `00497f00` 1753 B `Hub_Reset(WORLDINFO_s*)`  **saga** `legoapi/world/levels/hub.cpp`
+- [ ] `0049c700` 2138 B `Hub_UpdateMiniKits(WORLDINFO_s*)`  **saga** `legoapi/world/levels/hub.cpp`
+
+## Door
+
+- [ ] `00614f20` 23 B `Door_Reset()`  **saga** `legoapi/props/doors/doors.cpp`
+- [ ] `00615190` 77 B `Door_FindByName(WORLDINFO_s*, char*)`  **saga** `legoapi/props/doors/doors.cpp`
+- [ ] `006152f0` 147 B `Door_DestinationLevel(DOOR_s*)`
+- [ ] `006151e0` 222 B `Door_SetCutCam(DOOR_s*)`  **saga** `legoapi/props/doors/doors.cpp`
+
+## GizAction
+
+- [ ] `00482ed0` 329 B `GizAction_SetAIMessage(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
+- [ ] `00483070` 693 B `GizAction_SetAIState(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
+- [ ] `00482510` 763 B `GizAction_ActivateChar(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
+
+## NuTex
+
+- [ ] `006e6340` 76 B `_NuTexGetUnresolvedTextureTIDPS`  **saga** `nu2api/nu3d/nutex.cpp`
+- [ ] `006e6290` 121 B `_NuTexInitExPS`  **saga** `nu2api/nu3d/android/nutex_android.cpp`
+- [ ] `00711580` 146 B `_NuTexAnimEnvCreate`  **stub**
+- [ ] `00712030` 360 B `_NuTexAnimProgParseFile`  **saga** `nu2api/nucore/nutexanim.cpp`
+- [ ] `006e6490` 820 B `_NuTexReadBitmapMM2`
+
+## Players
+
+- [ ] `005c2bb0` 45 B `Players_BothActive()`  **saga** `legoapi/characters/core/players.cpp`
+- [ ] `005c18f0` 205 B `Players_AveragePos(nuvec_s*, SOCKPOSITION_s*)`  **saga** `legoapi/characters/core/players.cpp`
+- [ ] `005c12a0` 1028 B `Players_InitPositions(WORLDINFO_s*)`  **saga** `legoapi/characters/core/players.cpp`
+
+## PortalDoors
+
+- [ ] `005c8c50` 49 B `PortalDoors_Reset(WORLDINFO_s*)`  **saga** `legoapi/gizmos/transport/gizportal.cpp`
+- [ ] `005c8b60` 229 B `PortalDoors_Update(WORLDINFO_s*)`  **saga** `legoapi/gizmos/transport/gizportal.cpp`
+- [ ] `005c8a00` 338 B `PortalDoors_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/gizmos/transport/gizportal.cpp`
+
+## WorldInfo
+
+- [ ] `005c8150` 6 B `WorldInfo_CurrentlyActive()`  **saga** `legoapi/world/world.cpp`
+- [ ] `005c8130` 21 B `WorldInfo_InitOnce()`  **saga** `legoapi/world/world.cpp`
+- [ ] `005c8240` 131 B `WorldInfo_LoadObjectAnimFile(WORLDINFO_s*)`  **saga** `legoapi/world/world.cpp`
 
 ## Areas
 
-- [ ] `005fb0e0` 240 B `Areas_FixUp(AREAFIXUP*)`
+- [ ] `005fb0e0` 240 B `Areas_FixUp(AREAFIXUP*)`  **saga** `legoapi/world/areas.cpp`
 - [ ] `005fad40` 787 B `Areas_ConfigurePlayersAndResidents(variptr_u*, variptr_u*)`
-- [ ] `005fa1c0` 2813 B `Areas_ConfigureList(char*, variptr_u*, variptr_u*, int, int*)`
+- [ ] `005fa1c0` 2813 B `Areas_ConfigureList(char*, variptr_u*, variptr_u*, int, int*)`  **saga** `legoapi/world/areas.cpp`
+
+## CC
+
+- [ ] `00624090` 113 B `CC_sfx_engine(nufpar_s*)`  **saga** `legoapi/characters/core/charconfig.cpp`
+- [ ] `006213c0` 2623 B `CC_anim_start(nufpar_s*)`  **saga** `legoapi/characters/core/charconfig.cpp`
+
+## Collection
+
+- [ ] `006408d0` 128 B `Collection_Got(int)`  **saga** `legoapi/items/base/collection.cpp`
+- [ ] `0063ffe0` 1074 B `Collection_Configure(char*, variptr_u*, variptr_u*)`  **saga** `legoapi/items/base/collection.cpp`
+
+## Condition
+
+- [ ] `00451980` 140 B `Condition_SideInit(AISYS_s*, char*, AISCRIPT_s*)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0044da30` 171 B `Condition_BeenHitByInit(AISYS_s*, char*, AISCRIPT_s*)`  **stub**
+- [ ] `0044f620` 528 B `Condition_InContextInit(AISYS_s*, char*, AISCRIPT_s*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
+
+## CutScenePlayer
+
+- [ ] `0061d990` 758 B `CutScenePlayer_GetText(int, char*, char*, int)`  **saga** `legoapi/cutscenes/gcutscn.cpp`
+- [ ] `0061d1b0` 1363 B `CutScenePlayer_Configure(char*, variptr_u*, variptr_u*, short*, short*, short*, short*, short*, short*, short*)`  **saga** `legoapi/cutscenes/gcutscn.cpp`
+
+## CutScenes
+
+- [ ] `0061dd40` 704 B `CutScenes_LoadLevelCharacters(WORLDINFO_s*, char*, int*)`
+- [ ] `006188c0` 1074 B `CutScenes_ConfigureList(char*, variptr_u*, variptr_u)`  **saga** `legoapi/cutscenes/cutscenes.cpp`
+- [ ] `0061aa60` 1346 B `CutScenes_Load(char*, nugscn_s*, nugscn_s*, int, variptr_u*, variptr_u*, int, int, WORLDINFO_s*)`  **saga** `legoapi/cutscenes/cutscene.cpp`
+
+## Doors
+
+- [ ] `00614d10` 528 B `Doors_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/props/doors/doors.cpp`
+- [ ] `00614f40` 590 B `Doors_Init(WORLDINFO_s*)`  **saga** `legoapi/props/doors/doors.cpp`
+
+## GizActions
+
+- [ ] `00484c00` 336 B `GizActions_SetRailSpecial(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
+- [ ] `00484590` 366 B `GizActions_HitBlowup(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
+- [ ] `00483750` 391 B `GizActions_PlayObstacle(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
+- [ ] `00484f20` 419 B `GizActions_SetRTL(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
+- [ ] `004842b0` 582 B `GizActions_SetSuperCounter(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
+
+## GizmoPickup
+
+- [ ] `006350d0` 84 B `GizmoPickup_FindByName(WORLDINFO_s*, char*)`  **saga** `legoapi/gizmos/fx/gizmopickups.cpp`
+- [ ] `0048c2e0` 1217 B `GizmoPickup_CollectCoin(WORLDINFO_s*, nuvec_s*, int, int, GameObject_s*, int)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizmopickups.cpp`
+
+## GizPanel
+
+- [ ] `0048f750` 993 B `GizPanel_Update(void*, void*, float)`  **saga** `legoapi/gizmos/object/gizpanel.cpp`
+- [ ] `00490b20` 1178 B `GizPanel_MoveCode(WORLDINFO_s*, GameObject_s*, int)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizpanel.cpp`
+
+## Level
+
+- [ ] `0060d6c0` 107 B `Level_FindByName(char*, int*)`  **saga** `legoapi/world/level.cpp`
+- [ ] `0060ee60` 164 B `Level_LoadConfigFile(WORLDINFO_s*)`  **saga** `legoapi/world/level.cpp`
+
+## LevelConfig
+
+- [ ] `0060d920` 115 B `LevelConfig_BeforeLoad(LEVELDATA_s*, char*, nufpcomjmp_s*)`  **saga** `legoapi/world/levelconfig.cpp`
+- [ ] `0060e5b0` 141 B `LevelConfig_AfterLoad(LEVELDATA_s*, char*, nufpcomjmp_s*)`  **saga** `legoapi/world/levelconfig.cpp`
+
+## LevelObject
+
+- [ ] `0060ec80` 77 B `LevelObject_FindIndexFromName(char*)`  **saga** `legoapi/world/level.cpp`
+- [ ] `0060e9c0` 156 B `LevelObject_AddExtra(char*, int)`  **saga** `legoapi/world/levelobjects.cpp`
+
+## LevelObjects
+
+- [ ] `0060e8e0` 215 B `LevelObjects_InitForGame(LEVELOBJECT*, variptr_u*, variptr_u*, int, int)`  **saga** `legoapi/world/levelobjects.cpp`
+- [ ] `0060ea60` 510 B `LevelObjects_InitForLevel(WORLDINFO_s*)`  **saga** `legoapi/items/objects/objectsall.cpp`
+
+## Levels
+
+- [ ] `0060d7a0` 267 B `Levels_FixUp(LEVELFIXUP*)`  **saga** `legoapi/world/level.cpp`
+- [ ] `0060d110` 1446 B `Levels_ConfigureList(char*, variptr_u*, variptr_u*, int, int*, void (*)(LEVELDATA_s*))`  **saga** `legoapi/world/level.cpp`
+
+## LevelSplines
+
+- [ ] `0060e640` 135 B `LevelSplines_InitForGame(LEVELSPLINE*)`  **saga** `legoapi/render/fx/edsplines.cpp`
+- [ ] `0060e6d0` 509 B `LevelSplines_InitForLevel(WORLDINFO_s*)`  **saga** `legoapi/render/fx/edsplines.cpp`
+
+## Mission
+
+- [ ] `0062dba0` 33 B `Mission_Active(MISSIONSYS_s*)`  **saga** `legoapi/world/missions.cpp`
+- [ ] `0062db70` 44 B `Mission_Clear(MISSIONSYS_s*)`  **saga** `legoapi/world/missions.cpp`
+
+## Move
+
+- [ ] `004cb910` 438 B `Move_CHARACTER(GameObject_s*)`  **saga** `legoapi/characters/motion/move.cpp`
+- [ ] `004ccf50` 1344 B `Move_BEAST(GameObject_s*)`  **saga** `legoapi/characters/motion/move.cpp`
+
+## NuCamera
+
+- [ ] `007151e0` 28 B `_NuCameraDestroy`  **saga** `nu2api/nu3d/generic/nucamera_gen.cpp`
+- [ ] `00715180` 90 B `_NuCameraCreate`  **saga** `nu2api/nu3d/generic/nucamera_gen.cpp`
+
+## NuMtl
+
+- [ ] `00727b40` 24 B `_NuMtlUpdate`  **saga** `nu2api/nu3d/numtl.cpp`
+- [ ] `00727f20` 30 B `_NuMtlSetCurrentRenderPlane`
+- [ ] `006ef910` 300 B `_NuMtlUpdatePS`  **saga** `nu2api/nu3d/numtl.cpp`
+
+## NuPad
+
+- [ ] `006d5700` 105 B `_NuPadOpen`  **saga** `nu2api/nucore/nupad.cpp`
+- [ ] `006e0530` 158 B `_NuPadRecordLoad`  **saga** `nu2api/nucore/nupad.cpp`
+
+## NuStr
+
+- [ ] `006d75c0` 75 B `_NuStrNCpy`  **stub** · **saga** `nu2api/nucore/nustring_c.cpp`
+- [ ] `006dc300` 120 B `_NuStrIStr`  **stub** · **saga** `nu2api/nucore/nustring_c.cpp`
+
+## SuperCarry
+
+- [ ] `00645450` 53 B `SuperCarry_Carrying(GameObject_s*)`  **saga** `legoapi/actions/movement/carrying.cpp`
+- [ ] `006445b0` 151 B `SuperCarry_PickUpBlowUp(GameObject_s*)`
+- [ ] `00644700` 930 B `SuperCarry_Start(GameObject_s*, GIZMOBLOWUP_s*, int)`  **saga** `legoapi/actions/movement/carrying.cpp`
+
+## Tag
+
+- [ ] `004a54c0` 1219 B `Tag_UpdateHint(HINT_s*)`  **saga** `legoapi/menus/core/panel.cpp`
+- [ ] `004a5ac0` 1541 B `Tag_Check(GameObject_s*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
+
+## BoltSys
+
+- [ ] `005e9790` 552 B `BoltSys_Init(char*, BOLTSYS*, variptr_u*, variptr_u*)`  **saga** `legoapi/items/collect/bolts.cpp`
+
+## BoltTypes
+
+- [ ] `005eabf0` 378 B `BoltTypes_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/items/collect/bolts.cpp`
+
+## CharConfig
+
+- [ ] `00629270` 1222 B `CharConfig_ConfigureAll(int, nufpcomjmp_s*)`  **saga** `legoapi/characters/core/charconfig.cpp`
+
+## CharPivot
+
+- [ ] `006754c0` 518 B `CharPivot_Init(char*, variptr_u*, variptr_u)`  **saga** `legoapi/characters/motion/charpivot.cpp`
+
+## CharPlatforms
+
+- [ ] `00638f90` 358 B `CharPlatforms_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/characters/motion/charplatforms.cpp`
+
+## Cheat
+
+- [ ] `005ce980` 125 B `Cheat_IsOn(CHEAT_s*)`  **saga** `legoapi/core/config/cheats.cpp`
+- [ ] `004cfe50` 235 B `Cheat_SpecialHits(float, nuvec_s*)`
+
+## Credits
+
+- [ ] `004a6c60` 260 B `Credits_Init_Game(WORLDINFO_s*)`  **saga** `legoapi/world/level.cpp`
+
+## Detonator
+
+- [ ] `005d5c20` 78 B `Detonator_FindCharacterDetonator(GameObject_s*)`
+- [ ] `005d5aa0` 183 B `Detonator_FindNearest(nuvec_s*, float, GameObject_s*)`  **saga** `legoapi/items/collect/detonator.cpp`
+- [ ] `005d5b60` 192 B `Detonator_FindOldest(GameObject_s*, float)`
+- [ ] `005d59d0` 204 B `Detonator_FindFreeSlot(GameObject_s*)`
+
+## Detonators
+
+- [ ] `005d59a0` 38 B `Detonators_Reset()`  **saga** `legoapi/items/collect/detonator.cpp`
+- [ ] `005d5970` 48 B `Detonators_GetBombLight(short)`
+
+## Episodes
+
+- [ ] `00648970` 912 B `Episodes_ConfigureList(char*, variptr_u*, variptr_u*, int, int*)`  **saga** `legoapi/world/levels/episode.cpp`
+
+## EquivalentObject
+
+- [ ] `005c8de0` 202 B `EquivalentObject_Find(WORLDINFO_s*, nuhspecial_s*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
+
+## EquivalentObjects
+
+- [ ] `005c8c90` 313 B `EquivalentObjects_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/items/objects/objectsall.cpp`
+
+## Faders
+
+- [ ] `00655790` 512 B `Faders_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/render/light/faders.cpp`
+
+## GameMsg
+
+- [ ] `00635760` 841 B `GameMsg_Draw_MiniKitDetector(GAMEMESSAGE_s*, nuvec_s*, float)`  **saga** `legoapi/menus/core/gamehint.cpp`
+
+## GamePad
+
+- [ ] `005a3940` 99 B `GamePad_InputAngle(GameObject_s*, GAMEPAD_s*)`  **saga** `legoapi/core/input/gamepads.cpp`
+
+## GizBuildIts
+
+- [ ] `005cd170` 750 B `GizBuildIts_Load(void*, void*)`  **saga** `legoapi/gizmo/object/gizbuildit.cpp`
+
+## GizForces
+
+- [ ] `00486610` 784 B `GizForces_Load(void*, void*)`  **saga** `legoapi/gizmos/traps/gizforce.cpp`
+
+## GizForceSFX
+
+- [ ] `00486350` 258 B `GizForceSFX_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/gizmos/traps/gizforce.cpp`
+
+## GizmoBlowUp
+
+- [ ] `005dda30` 83 B `GizmoBlowUp_FindByName(WORLDINFO_s*, char*)`  **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
+
+## GizmoPickups
+
+- [ ] `00635620` 308 B `GizmoPickups_Collide(WORLDINFO_s*, GameObject_s*, int)`  **saga** `legoapi/gizmos/fx/gizmopickups.cpp`
+
+## GizObstacles
+
+- [ ] `005b6d60` 931 B `GizObstacles_Load(void*, void*)`  **saga** `legoapi/gizmos/object/gizobstacle.cpp`
+
+## GizTurret
+
+- [ ] `00661c30` 73 B `GizTurret_FindByName(GIZTURRETSYS_s*, char*)`  **saga** `legoapi/gizmos/traps/gizturret.cpp`
+
+## GizTurrets
+
+- [ ] `005d9e20` 1500 B `GizTurrets_Hit(void*, GIZTURRET_s*, nuvec_s*, int, int)`  **saga** `legoapi/gizmos/traps/gizturret.cpp`
+
+## Grapples
+
+- [ ] `005a9520` 269 B `Grapples_Reset(void*, void*, void*)`  **saga** `legoapi/gizmos/transport/grapples.cpp`
+
+## LC
+
+- [ ] `0060e510` 121 B `LC_AL_conveyor(nufpar_s*)`  **saga** `legoapi/world/levelconfig.cpp`
+
+## MiniKit
+
+- [ ] `00647150` 433 B `MiniKit_InitPieces(MINIKIT*, int, variptr_u*, variptr_u*)`  **saga** `legoapi/gizmo/base/gizmo_sys.cpp`
+- [ ] `0047a6c0` 1482 B `MiniKit_Update(STATUS_STAGE_s*, STATUSPACKET_s*, float)`
+
+## Missions
+
+- [ ] `0062d7e0` 905 B `Missions_Configure(char*, variptr_u*, variptr_u*, MISSIONSAVE_s*)`  **saga** `legoapi/world/mission.cpp`
+
+## near apisave.c
+
+- [ ] `006c53b0` 93 B `_Text3D`
+- [ ] `006c1590` 96 B `_SaveSystemInitialiseEx`
+- [ ] `006c5f00` 116 B `_SmartTextEx`
+- [ ] `006c4020` 282 B `_getbutton`
+- [ ] `006c1ee0` 619 B `TextDecodeCodeword(char*, char*)`  **saga** `legoapi/menus/core/text.cpp`
+- [ ] `006c48f0` 876 B `_DrawMenuButtonPromptsEx`
+- [ ] `006c6480` 998 B `_DrawMenuEntryEx`
+- [ ] `006c5410` 2791 B `_SmartTextExLimit`
+
+## near nuanim_gen.cpp
+
+- [ ] `00732510` 25 B `_NuGScnRead`
+- [ ] `0072e150` 288 B `_NuQFntDuplicate`  **saga** `nu2api/nu3d/nuqfnt.cpp`
+
+## near nufile_gen.cpp
+
+- [ ] `006e2e40` 162 B `_bgProcInit`  **saga** `nu2api/nucore/android/bgproc_android.cpp`
+
+## near nutimebar_gen.cpp
+
+- [ ] `007173c0` 666 B `_CreateTimeBar`  **saga** `nu2api/nu3d/android/nutimebar_plain.cpp`
+- [ ] `0071e2d0` 1458 B `_AddCurvePoint`
+
+## near oggreader.cpp
+
+- [ ] `00561570` 10 B `_edbitsRegisterThingsScene`
+- [ ] `0055fd40` 21 B `_LookupDebrisEffectPage`
+- [ ] `00559480` 49 B `_PlaySfxAndSetVolume`
+- [ ] `00558d90` 137 B `_GetSfxId`  **saga** `nu2api/numusic/sfx.cpp`
+- [ ] `0055fd60` 212 B `_LookupDebrisEffectPageOnly`
+- [ ] `0055fc00` 307 B `_LookupDebrisEffectPageIgnore`
+- [ ] `00558f10` 1377 B `_PlaySfxByIdEx`
+
+## NuAnim
+
+- [ ] `0070b950` 58 B `_NuAnimEndFrame`
+- [ ] `0070b290` 120 B `_NuAnimCurveSetCreate`
+- [ ] `0072c750` 153 B `_NuAnimDataChunkDestroy`  **saga** `nu2api/nucore/nuanim.cpp`
+- [ ] `0070b350` 176 B `_NuAnimCurveSetDestroy`
+
+## NuCommand
+
+- [ ] `006d5540` 24 B `_NuCommandLine`  **stub** · **saga** `nu2api/nucore/nuapi.cpp`
+
+## NuDynamicLight
+
+- [ ] `0072b040` 43 B `NuDynamicLight::destroy(NuDynamicLight*)`  **saga** `nu2api/nu3d/nu3d_includes.cpp`
+
+## NuFile
+
+- [ ] `006e0dc0` 35 B `_NuFilePakLoad`  **saga** `nu2api/nufile/nufilepak.cpp`
+- [ ] `006e0b60` 549 B `_NuFilePakLoadKeyPrePad`
+- [ ] `006da090` 1125 B `_NuFileExtInitEx`
+
+## NuInit
+
+- [ ] `00525100` 2623 B `_NuInitHardware`  **saga** `nu2api/nucore/nuapi.cpp`
+
+## NuLst
+
+- [ ] `0067dd00` 136 B `_NuLstCreate`  **saga** `nu2api/nucore/nulst.cpp`
+
+## NuMusic
+
+- [ ] `005375d0` 757 B `NuMusic::Debug(int, int)`  **saga** `nu2api/numusic/numusic.cpp`
+
+## NuString
+
+- [ ] `006dc720` 123 B `_NuStringTableGetByName`  **saga** `nu2api/nucore/nustring_c.cpp`
+
+## NuUnicode
+
+- [ ] `006d8440` 147 B `_NuUnicodeToAscii`  **stub** · **saga** `nu2api/nucore/nustring_c.cpp`
+
+## NuVec
+
+- [ ] `006849f0` 100 B `_NuVecRotateX`  **stub** · **saga** `nu2api/numath/nuvec.cpp`
+
+## ObjHitObj
+
+- [ ] `005dfa60` 104 B `ObjHitObj_Flags(GameObject_s*)`  **saga** `legoapi/actions/combat/hits.cpp`
+
+## Particles
+
+- [ ] `006423a0` 188 B `Particles_Load(WORLDINFO_s*, char**, int, int)`  **saga** `legoapi/render/core/terrain_stubs.cpp`
+
+## PartImpact
+
+- [ ] `00504740` 218 B `PartImpact_Seed(PART_s*)`
+- [ ] `004f9d30` 457 B `PartImpact_ThermalDetonator(PART_s*)`  **saga** `legoapi/items/collect/thermaldetonators.cpp`
+- [ ] `00504a40` 542 B `PartImpact_BlackSeed(PART_s*)`
+
+## PartStop
+
+- [ ] `005f7cc0` 58 B `PartStop_Flickerer(PART_s*)`  **saga** `legoapi/render/fx/parts.cpp`
+- [ ] `006014c0` 367 B `PartStop_Grabber(PART_s*)`
+
+## PartUpdate
+
+- [ ] `004f9f70` 341 B `PartUpdate_ThermalDetonator(PART_s*)`  **saga** `legoapi/items/collect/thermaldetonators.cpp`
+
+## PowerUp
+
+- [ ] `0048d650` 163 B `PowerUp_ImpactPart(PART_s*)`  **stub** · **saga** `legoapi/render/fx/parts.cpp`
+
+## Pulses
+
+- [ ] `006573e0` 1327 B `Pulses_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/items/fx/pulses.cpp`
+
+## RippleEffects
+
+- [ ] `00655ca0` 425 B `RippleEffects_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/items/fx/ripples.cpp`
+
+## SpecialMiniKits
+
+- [ ] `00636200` 786 B `SpecialMiniKits_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/gizmos/fx/gizmopickups.cpp`
+
+## SpecialMove
+
+- [ ] `0062dee0` 75 B `SpecialMove_IsInMultiPhase(GameObject_s*)`
+- [ ] `0062df30` 83 B `SpecialMove_AdjustLayerBits(GameObject_s*, unsigned int&)`
+- [ ] `0062df90` 969 B `SpecialMove_ConfigParticipant(nufpar_s*, unsigned int*, short*, short*)`  **saga** `legoapi/actions/character/specialmoves.cpp`
+
+## SpecialMoves
+
+- [ ] `0062e360` 2922 B `SpecialMoves_Configure(char*, variptr_u*, variptr_u*, SPECIALMOVEFIXUP_s*)`  **saga** `legoapi/actions/character/specialmoves.cpp`
+
+## TakeOver
+
+- [ ] `004a3630` 115 B `TakeOver_SetAction(GameObject_s*, GameObject_s*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
+
+## Techno
+
+- [ ] `005a7bd0` 167 B `Techno_FindOperator(void*, GAMEPAD_s**, GameObject_s**)`  **saga** `legoapi/props/objects/techno.cpp`
+
+## Technos
+
+- [ ] `005a6550` 65 B `Technos_FindControllingTechno(GameObject_s*)`  **saga** `legoapi/props/objects/techno.cpp`
+
+## ThermalDetonator
+
+- [ ] `004fafb0` 638 B `ThermalDetonator_ThrowMom(GameObject_s*, nuvec_s*)`  **saga** `legoapi/items/collect/thermaldetonators.cpp`
+
+## TrafficAnimSys
+
+- [ ] `00659110` 650 B `TrafficAnimSys_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/items/objects/traffic.cpp`
+
+## Transform
+
+- [ ] `004ffbf0` 618 B `Transform_DrawBeam(GameObject_s*, nuvec_s*)`
+- [ ] `004ff6d0` 700 B `Transform_FindFreezeObstacleTarget(WORLDINFO_s*, GameObject_s*, float*, float)`
+- [ ] `004fff70` 1030 B `Transform_DrawTarget(int, int, nuvec_s*, float, float)`  **saga** `legoapi/actions/character/transform.cpp`
+
+## AnimInclude
+
+- [ ] `006285d0` 923 B `AnimInclude_Init(char*, variptr_u*, variptr_u*)`
 
 ## ArkhamAsylum
 
@@ -344,14 +1072,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 - [ ] `004b01d0` 4705 B `Batte_main(int, char**)`
 
-## BoltSys
-
-- [ ] `005e9790` 552 B `BoltSys_Init(char*, BOLTSYS*, variptr_u*, variptr_u*)`
-
-## BoltTypes
-
-- [ ] `005eabf0` 378 B `BoltTypes_Configure(WORLDINFO_s*, char*)`
-
 ## BotanicGardens
 
 - [ ] `00504cf0` 648 B `BotanicGardens_D_FireSeed(GameObject_s*, SEED_TYPE)`
@@ -367,11 +1087,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 - [ ] `006b16a0` 799 B `bugThing::BugPitGetMemNeeded(VuVec const&, VuVec const&, int, char**, int, int, int)`
 - [ ] `006b1220` 909 B `bugThing::BugPitData::InitCreepyCrawlies(biospline_s*, char*, nugscn_s**, int)`
 
-## CC
-
-- [ ] `00624090` 113 B `CC_sfx_engine(nufpar_s*)`
-- [ ] `006213c0` 2623 B `CC_anim_start(nufpar_s*)`
-
 ## CD3DCore
 
 - [ ] `0052c1f0` 49 B `CD3DCore::SetNextDisplayMode(unsigned int, unsigned int, unsigned int)`
@@ -380,18 +1095,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 - [ ] `0052a610` 390 B `CD3DCore::FindNearestMode(unsigned int, unsigned int, unsigned int) const`
 - [ ] `0052d450` 2415 B `CD3DCore::BuildDeviceFromResolution(int, int)`
 
-## CharConfig
-
-- [ ] `00629270` 1222 B `CharConfig_ConfigureAll(int, nufpcomjmp_s*)`
-
-## CharPivot
-
-- [ ] `006754c0` 518 B `CharPivot_Init(char*, variptr_u*, variptr_u)`
-
-## CharPlatforms
-
-- [ ] `00638f90` 358 B `CharPlatforms_Configure(WORLDINFO_s*, char*)`
-
 ## CharScene
 
 - [ ] `0061f2d0` 156 B `CharScene_Load(int, CHARSCENE*, variptr_u*, variptr_u)`
@@ -399,11 +1102,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 ## CharShadows
 
 - [ ] `0062d030` 257 B `CharShadows_InitMaterial(variptr_u*, variptr_u)`
-
-## Cheat
-
-- [ ] `005ce980` 125 B `Cheat_IsOn(CHEAT_s*)`
-- [ ] `004cfe50` 235 B `Cheat_SpecialHits(float, nuvec_s*)`
 
 ## CNuConsole
 
@@ -414,24 +1112,9 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 - [ ] `0052fd10` 172 B `CNuConsole::Initialize()`
 - [ ] `0052e6f0` 190 B `CNuConsole::SendError(char*, ...)`
 
-## Collection
-
-- [ ] `006408d0` 128 B `Collection_Got(int)`
-- [ ] `0063ffe0` 1074 B `Collection_Configure(char*, variptr_u*, variptr_u*)`
-
-## Condition
-
-- [ ] `00451980` 140 B `Condition_SideInit(AISYS_s*, char*, AISCRIPT_s*)`  **stub**
-- [ ] `0044da30` 171 B `Condition_BeenHitByInit(AISYS_s*, char*, AISCRIPT_s*)`  **stub**
-- [ ] `0044f620` 528 B `Condition_InContextInit(AISYS_s*, char*, AISCRIPT_s*)`
-
 ## Create
 
 - [ ] `006943f0` 620 B `Create_Bink_shaders(IndirectX::IDirect3DDevice9*)`
-
-## Credits
-
-- [ ] `004a6c60` 260 B `Credits_Init_Game(WORLDINFO_s*)`
 
 ## Customiser
 
@@ -448,32 +1131,9 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 - [ ] `00673420` 494 B `CustomiserInternal::MenuDrawItem(VuVec&, float, MenuItemType, int)`
 - [ ] `00673610` 1480 B `CustomiserInternal::MenuDrawNames()`
 
-## CutScenePlayer
-
-- [ ] `0061d990` 758 B `CutScenePlayer_GetText(int, char*, char*, int)`
-- [ ] `0061d1b0` 1363 B `CutScenePlayer_Configure(char*, variptr_u*, variptr_u*, short*, short*, short*, short*, short*, short*, short*)`
-
-## CutScenes
-
-- [ ] `0061dd40` 704 B `CutScenes_LoadLevelCharacters(WORLDINFO_s*, char*, int*)`
-- [ ] `006188c0` 1074 B `CutScenes_ConfigureList(char*, variptr_u*, variptr_u)`
-- [ ] `0061aa60` 1346 B `CutScenes_Load(char*, nugscn_s*, nugscn_s*, int, variptr_u*, variptr_u*, int, int, WORLDINFO_s*)`
-
 ## DefinedLocators
 
 - [ ] `00620aa0` 82 B `DefinedLocators_FindIX(char*)`
-
-## Detonator
-
-- [ ] `005d5c20` 78 B `Detonator_FindCharacterDetonator(GameObject_s*)`
-- [ ] `005d5aa0` 183 B `Detonator_FindNearest(nuvec_s*, float, GameObject_s*)`
-- [ ] `005d5b60` 192 B `Detonator_FindOldest(GameObject_s*, float)`
-- [ ] `005d59d0` 204 B `Detonator_FindFreeSlot(GameObject_s*)`
-
-## Detonators
-
-- [ ] `005d59a0` 38 B `Detonators_Reset()`
-- [ ] `005d5970` 48 B `Detonators_GetBombLight(short)`
 
 ## DetonatorSys
 
@@ -482,18 +1142,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 - [ ] `005d5890` 149 B `DetonatorSys_Init(int, int, int, int, int, variptr_u*, variptr_u)`
 - [ ] `005d5690` 502 B `DetonatorSys_RegisterType(DETONATORTYPE*)`
 
-## Door
-
-- [ ] `00614f20` 23 B `Door_Reset()`
-- [ ] `00615190` 77 B `Door_FindByName(WORLDINFO_s*, char*)`
-- [ ] `006152f0` 147 B `Door_DestinationLevel(DOOR_s*)`
-- [ ] `006151e0` 222 B `Door_SetCutCam(DOOR_s*)`
-
-## Doors
-
-- [ ] `00614d10` 528 B `Doors_Configure(WORLDINFO_s*, char*)`
-- [ ] `00614f40` 590 B `Doors_Init(WORLDINFO_s*)`
-
 ## DynamicMaterialManager
 
 - [ ] `0067a870` 400 B `DynamicMaterialManager::GetMaterial(char const*, char const*, int)`
@@ -501,18 +1149,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 ## ElectricShock
 
 - [ ] `0042ffd0` 1968 B `ElectricShock_MoveCode(GameObject_s*, int, int)`
-
-## Episodes
-
-- [ ] `00648970` 912 B `Episodes_ConfigureList(char*, variptr_u*, variptr_u*, int, int*)`
-
-## EquivalentObject
-
-- [ ] `005c8de0` 202 B `EquivalentObject_Find(WORLDINFO_s*, nuhspecial_s*)`
-
-## EquivalentObjects
-
-- [ ] `005c8c90` 313 B `EquivalentObjects_Configure(WORLDINFO_s*, char*)`
 
 ## EvilArctic
 
@@ -527,10 +1163,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 - [ ] `00503f40` 347 B `Factory_A_Update(WORLDINFO_s*)`
 
-## Faders
-
-- [ ] `00655790` 512 B `Faders_Configure(WORLDINFO_s*, char*)`
-
 ## Flight
 
 - [ ] `00511010` 374 B `Flight_Reset(WORLDINFO_s*)`
@@ -544,47 +1176,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 - [ ] `005be3a0` 525 B `Game_Configure(char*, variptr_u*, variptr_u, int)`
 
-## GameAudio
-
-- [ ] `0059f260` 32 B `GameAudio_PlaySfx(int, nuvec_s*, int, int)`
-- [ ] `0059f160` 34 B `GameAudio_GetPlrSfxBits(void*)`
-- [ ] `0059f190` 50 B `GameAudio_Reset()`
-- [ ] `0059f1d0` 141 B `GameAudio_PlaySfxById(int, nuvec_s*, int, int)`
-
-## GameCam
-
-- [ ] `005a1fb0` 44 B `GameCam_NewShake(GAMECAMERA_s*, float, float, float)`
-- [ ] `005a2310` 186 B `GameCam_HitJudder()`
-- [ ] `005a27c0` 298 B `GameCam_Blend(GAMECAMERA_s*, float, float, int)`
-- [ ] `005a21e0` 301 B `GameCam_Judder(GAMECAMERA_s*, float, int, nuvec_s*)`
-- [ ] `005a1fe0` 498 B `GameCam_UpdateShake(GAMECAMERA_s*, float)`
-
-## GameMsg
-
-- [ ] `00635760` 841 B `GameMsg_Draw_MiniKitDetector(GAMEMESSAGE_s*, nuvec_s*, float)`
-
-## GamePad
-
-- [ ] `005a3940` 99 B `GamePad_InputAngle(GameObject_s*, GAMEPAD_s*)`
-
-## GizAction
-
-- [ ] `00482ed0` 329 B `GizAction_SetAIMessage(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
-- [ ] `00483070` 693 B `GizAction_SetAIState(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
-- [ ] `00482510` 763 B `GizAction_ActivateChar(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
-
-## GizActions
-
-- [ ] `00484c00` 336 B `GizActions_SetRailSpecial(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
-- [ ] `00484590` 366 B `GizActions_HitBlowup(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
-- [ ] `00483750` 391 B `GizActions_PlayObstacle(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
-- [ ] `00484f20` 419 B `GizActions_SetRTL(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
-- [ ] `004842b0` 582 B `GizActions_SetSuperCounter(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
-
-## GizBuildIts
-
-- [ ] `005cd170` 750 B `GizBuildIts_Load(void*, void*)`
-
 ## GizDigs
 
 - [ ] `0063b2a0` 535 B `GizDigs_Load(void*, void*)`
@@ -594,57 +1185,9 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 - [ ] `00665f80` 548 B `GizFlock_ConfigureExtras(WORLDINFO_s*, char const*, unsigned int)`
 - [ ] `0066b400` 823 B `GizFlock_UpdateBoids(sGizFlockSys*, sGizFlock*)`
 
-## GizForces
-
-- [ ] `00486610` 784 B `GizForces_Load(void*, void*)`
-
-## GizForceSFX
-
-- [ ] `00486350` 258 B `GizForceSFX_Configure(WORLDINFO_s*, char*)`
-
-## GizmoBlowUp
-
-- [ ] `005dda30` 83 B `GizmoBlowUp_FindByName(WORLDINFO_s*, char*)`
-
-## GizmoPickup
-
-- [ ] `006350d0` 84 B `GizmoPickup_FindByName(WORLDINFO_s*, char*)`
-- [ ] `0048c2e0` 1217 B `GizmoPickup_CollectCoin(WORLDINFO_s*, nuvec_s*, int, int, GameObject_s*, int)`
-
-## GizmoPickups
-
-- [ ] `00635620` 308 B `GizmoPickups_Collide(WORLDINFO_s*, GameObject_s*, int)`
-
-## GizObstacles
-
-- [ ] `005b6d60` 931 B `GizObstacles_Load(void*, void*)`
-
-## GizPanel
-
-- [ ] `0048f750` 993 B `GizPanel_Update(void*, void*, float)`
-- [ ] `00490b20` 1178 B `GizPanel_MoveCode(WORLDINFO_s*, GameObject_s*, int)`
-
-## GizTurret
-
-- [ ] `00661c30` 73 B `GizTurret_FindByName(GIZTURRETSYS_s*, char*)`
-
-## GizTurrets
-
-- [ ] `005d9e20` 1500 B `GizTurrets_Hit(void*, GIZTURRET_s*, nuvec_s*, int, int)`
-
 ## Grab
 
 - [ ] `00600d30` 334 B `Grab_sfx(nufpar_s*)`
-
-## Grabber
-
-- [ ] `00601280` 55 B `Grabber_IsActiveGrabber(GameObject_s*)`
-- [ ] `006013b0` 170 B `Grabber_GetGrabPos(GRABBER_s*, numtx_s*)`
-- [ ] `006012c0` 235 B `Grabber_Terrain(GRABBER_s*, nuvec_s*, int)`
-- [ ] `00601fe0` 649 B `Grabber_SetVictimPos(GRABBER_s*)`
-- [ ] `00602270` 710 B `Grabber_Reset(WORLDINFO_s*)`
-- [ ] `00602540` 740 B `Grabber_Drop(GRABBER_s*, nuvec_s*)`
-- [ ] `00600e90` 1004 B `Grabber_Configure(WORLDINFO_s*, char*)`
 
 ## GraphBuilder
 
@@ -656,22 +1199,9 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 - [ ] `005a9390` 399 B `Grapple_Reset(GRAPPLE_s*, nuvec_s*)`
 
-## Grapples
-
-- [ ] `005a9520` 269 B `Grapples_Reset(void*, void*, void*)`
-
 ## HLSLShaderBuilder
 
 - [ ] `0069c830` 87 B `HLSLShaderBuilder::buildHeader(ShaderMtlDescFilter const*, PreInterpretor&)`
-
-## Hub
-
-- [ ] `004931b0` 68 B `Hub_SignalSwitchHeroVillain(HubSwitchMode)`  **stub**
-- [ ] `0049e300` 644 B `Hub_UpdateKit()`
-- [ ] `004998e0` 706 B `Hub_MakeModelList(AREADATA_s*)`
-- [ ] `004974c0` 748 B `Hub_DrawMiniKitPanel(float, int)`
-- [ ] `00497f00` 1753 B `Hub_Reset(WORLDINFO_s*)`
-- [ ] `0049c700` 2138 B `Hub_UpdateMiniKits(WORLDINFO_s*)`
 
 ## HubAreaInfo
 
@@ -695,43 +1225,9 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 - [ ] `0043dc00` 519 B `KillParts_VEHICLE(ADDPART_s*, int, int, GameObject_s*, int, unsigned short, unsigned short, nuvec_s*)`
 
-## LC
-
-- [ ] `0060e510` 121 B `LC_AL_conveyor(nufpar_s*)`
-
 ## Legal
 
 - [ ] `004f5d90` 129 B `Legal_GetName(char*)`
-
-## Level
-
-- [ ] `0060d6c0` 107 B `Level_FindByName(char*, int*)`
-- [ ] `0060ee60` 164 B `Level_LoadConfigFile(WORLDINFO_s*)`
-
-## LevelConfig
-
-- [ ] `0060d920` 115 B `LevelConfig_BeforeLoad(LEVELDATA_s*, char*, nufpcomjmp_s*)`
-- [ ] `0060e5b0` 141 B `LevelConfig_AfterLoad(LEVELDATA_s*, char*, nufpcomjmp_s*)`
-
-## LevelObject
-
-- [ ] `0060ec80` 77 B `LevelObject_FindIndexFromName(char*)`
-- [ ] `0060e9c0` 156 B `LevelObject_AddExtra(char*, int)`
-
-## LevelObjects
-
-- [ ] `0060e8e0` 215 B `LevelObjects_InitForGame(LEVELOBJECT*, variptr_u*, variptr_u*, int, int)`
-- [ ] `0060ea60` 510 B `LevelObjects_InitForLevel(WORLDINFO_s*)`
-
-## Levels
-
-- [ ] `0060d7a0` 267 B `Levels_FixUp(LEVELFIXUP*)`
-- [ ] `0060d110` 1446 B `Levels_ConfigureList(char*, variptr_u*, variptr_u*, int, int*, void (*)(LEVELDATA_s*))`
-
-## LevelSplines
-
-- [ ] `0060e640` 135 B `LevelSplines_InitForGame(LEVELSPLINE*)`
-- [ ] `0060e6d0` 509 B `LevelSplines_InitForLevel(WORLDINFO_s*)`
 
 ## LevelStreaming
 
@@ -768,56 +1264,9 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 - [ ] `006163b0` 185 B `Minicam_AddSubtitle(MINICAM_ADDSUBTITLE_s const*)`
 
-## MiniKit
-
-- [ ] `00647150` 433 B `MiniKit_InitPieces(MINIKIT*, int, variptr_u*, variptr_u*)`
-- [ ] `0047a6c0` 1482 B `MiniKit_Update(STATUS_STAGE_s*, STATUSPACKET_s*, float)`
-
-## Mission
-
-- [ ] `0062dba0` 33 B `Mission_Active(MISSIONSYS_s*)`
-- [ ] `0062db70` 44 B `Mission_Clear(MISSIONSYS_s*)`
-
-## Missions
-
-- [ ] `0062d7e0` 905 B `Missions_Configure(char*, variptr_u*, variptr_u*, MISSIONSAVE_s*)`
-
-## Move
-
-- [ ] `004cb910` 438 B `Move_CHARACTER(GameObject_s*)`
-- [ ] `004ccf50` 1344 B `Move_BEAST(GameObject_s*)`
-
 ## MovePlayer
 
 - [ ] `00632a00` 2390 B `MovePlayer_Rails(GameObject_s*)`
-
-## near AIBugPit.cpp
-
-- [ ] `006bf550` 51 B `_MenuReset`
-- [ ] `006b4f70` 76 B `_AISysRegisterDefaultPathCnxTypes`
-- [ ] `006b3a60` 190 B `_AIScriptLoadAll`
-- [ ] `006b7110` 201 B `_AIMoveInstruction`
-- [ ] `006b9eb0` 274 B `_FollowAPIObject`
-- [ ] `006bf2a0` 360 B `_MenuInitialiseEx`
-- [ ] `006b97b0` 390 B `_AIScriptProcessorInit`
-- [ ] `006b2aa0` 595 B `_xConditions`
-- [ ] `006b37e0` 622 B `_AIScriptLoadAllPakFile`
-- [ ] `006b3370` 794 B `_xRefScript`
-- [ ] `006b2d00` 797 B `_xActions`
-- [ ] `006c1200` 912 B `_MenuLoadTechnicalStrings`
-- [ ] `006bc410` 1430 B `_AISysProcessCharacter`
-- [ ] `006b5000` 3215 B `_AISysLoadEx`
-
-## near apisave.c
-
-- [ ] `006c53b0` 93 B `_Text3D`
-- [ ] `006c1590` 96 B `_SaveSystemInitialiseEx`
-- [ ] `006c5f00` 116 B `_SmartTextEx`
-- [ ] `006c4020` 282 B `_getbutton`
-- [ ] `006c1ee0` 619 B `TextDecodeCodeword(char*, char*)`
-- [ ] `006c48f0` 876 B `_DrawMenuButtonPromptsEx`
-- [ ] `006c6480` 998 B `_DrawMenuEntryEx`
-- [ ] `006c5410` 2791 B `_SmartTextExLimit`
 
 ## near d3dCalls.cpp
 
@@ -832,15 +1281,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 - [ ] `0067e6d0` 1157 B `_SockSysFindInScene`
 
-## near nuanim_gen.cpp
-
-- [ ] `00732510` 25 B `_NuGScnRead`
-- [ ] `0072e150` 288 B `_NuQFntDuplicate`
-
-## near nufile_gen.cpp
-
-- [ ] `006e2e40` 162 B `_bgProcInit`
-
 ## near nugraph_gen.cpp
 
 - [ ] `0068e660` 77 B `_nugraphFreeTempCurveData`
@@ -854,51 +1294,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 - [ ] `006fcc80` 474 B `_Nu360MtlInit`
 
-## near nupad_gen.cpp
-
-- [ ] `006d7dc0` 43 B `_NuSPrintf`
-- [ ] `006d6910` 69 B `_ImplodeError`
-- [ ] `006daa40` 149 B `_NuFParGetFloat`
-- [ ] `006dfc60` 181 B `_NuFParCreateMem`
-- [ ] `006d7f60` 191 B `_NuAToF`
-- [ ] `006dd060` 226 B `_NuFParGetInt`
-- [ ] `006dd430` 318 B `_NuFParInterpretWordCTX`
-- [ ] `006dd2d0` 347 B `_NuFParInterpretWord`
-- [ ] `006da8d0` 358 B `_NuFParGetWord`
-- [ ] `006d6d00` 646 B `_ImplodeMakeTable`
-
-## near nutimebar_gen.cpp
-
-- [ ] `007173c0` 666 B `_CreateTimeBar`
-- [ ] `0071e2d0` 1458 B `_AddCurvePoint`
-
-## near nutrig_gen.cpp
-
-- [ ] `006a5fe0` 31 B `_AISysClearAllPathCnxTypes`
-- [ ] `006a9b90` 80 B `_AISysFindArea`
-- [ ] `006a62b0` 84 B `_AIStateFind`
-- [ ] `006a9bf0` 84 B `_AISysFindPath`
-- [ ] `006a9ac0` 96 B `_AIPathFindLocator`
-- [ ] `006a9b20` 98 B `_AIPathFindLocatorSet`
-- [ ] `006a34d0` 100 B `_AIParamToFloatEx`
-- [ ] `006a9c50` 114 B `_AIPathFindNode`
-- [ ] `006a3380` 125 B `_AIParamToFloat`
-- [ ] `006af110` 142 B `_AiSysIsCurrentPlatform`
-- [ ] `006a6000` 171 B `_AISysRegisterPathCnxType`
-- [ ] `006a19a0` 230 B `_AIScriptFind`
-- [ ] `006a2730` 401 B `_AIScriptCopyConditions`
-- [ ] `006a2cc0` 536 B `_AIScriptBuildDerivedScript`
-
-## near oggreader.cpp
-
-- [ ] `00561570` 10 B `_edbitsRegisterThingsScene`
-- [ ] `0055fd40` 21 B `_LookupDebrisEffectPage`
-- [ ] `00559480` 49 B `_PlaySfxAndSetVolume`
-- [ ] `00558d90` 137 B `_GetSfxId`
-- [ ] `0055fd60` 212 B `_LookupDebrisEffectPageOnly`
-- [ ] `0055fc00` 307 B `_LookupDebrisEffectPageIgnore`
-- [ ] `00558f10` 1377 B `_PlaySfxByIdEx`
-
 ## near pcapi.cpp
 
 - [ ] `005270a0` 126 B `RelaunchMediaCenterIfNecessary()`
@@ -906,223 +1301,11 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 - [ ] `00526b40` 747 B `NuPCProcessCommandLineArguments(char*)`
 - [ ] `005264c0` 1126 B `_NuPCDetermineLanguage`
 
-## near pcbatman.cpp
-
-- [ ] `00458c40` 111 B `OpponentShouldntBeAttacked(GameObject_s*)`
-- [ ] `00504680` 151 B `GetPlantLocator(char*)`
-- [ ] `004b8100` 205 B `_VuMtxRotateY`
-- [ ] `004c0cb0` 209 B `StartBallooning(GameObject_s*, int)`
-- [ ] `0044c960` 312 B `PartyMemberInWay(GameObject_s*, GameObject_s*)`
-- [ ] `00447560` 369 B `GetNamedAPIObject(AISYS_s*, char*)`
-- [ ] `004e34b0` 402 B `UpdateRadios()`
-- [ ] `0044bf50` 403 B `GameAISysReset(AISYS_s*)`
-- [ ] `00428a60` 422 B `ResetAICreatures(AISYS_s*)`
-- [ ] `004e8190` 477 B `BuyShopItem(LEGOSHOP_s*, shopitem_s*, int, int)`
-- [ ] `0043ebf0` 500 B `ObjHitShield(GameObject_s*, GameObject_s*, int, BOLT_s*)`
-- [ ] `00430ca0` 514 B `FreezePlayer(GameObject_s*, float, GameObject_s*)`
-- [ ] `004c70e0` 551 B `DrawLightningBolts(GameObject_s*, GameObject_s*, int)`
-- [ ] `004b2710` 594 B `MenuDrawOptions(MENU_s*)`
-- [ ] `004f5440` 604 B `LoadPermData(bgprocinfo_s*)`
-- [ ] `00432480` 609 B `InitPartyCharacterScript(GameObject_s*, int)`
-- [ ] `004ce720` 741 B `TractorBeamCode(GameObject_s*)`
-- [ ] `004f7560` 750 B `LoadPerm2()`
-- [ ] `004ab420` 791 B `FixUpLevels()`
-- [ ] `00436e50` 851 B `GizmoBlowupCreateStuff(GIZMOBLOWUP_s*)`
-- [ ] `0043c900` 865 B `PlayerTakeHit(GameObject_s*, GameObject_s*)`
-- [ ] `00431d80` 870 B `InitGameBeforeConfig()`
-- [ ] `00522fe0` 1027 B `DIEnumDevicesCallback(IndirectX::DIDEVICEINSTANCEA const*, void*)`
-- [ ] `00408900` 1093 B `InitOnce(int, char**)`
-- [ ] `004f6230` 1144 B `LoadPerm1()`
-- [ ] `004e8430` 1201 B `SelectSubItem(LEGOSHOP_s*)`
-- [ ] `004a40f0` 1258 B `ReleaseTakeOver(GameObject_s*, int)`
-- [ ] `0043cd40` 1280 B `StunGameObject(GameObject_s*, GameObject_s*, float, int)`
-- [ ] `00440960` 1312 B `Collide2Objects(APIOBJECT_s*, APIOBJECT_s*)`
-- [ ] `004b4dd0` 1398 B `MenuDrawMiniKit(MENU_s*)`
-- [ ] `0043a110` 1413 B `AddSurfaceRipples(GameObject_s*)`
-- [ ] `004a36c0` 1583 B `TagCode(GameObject_s*, GameObject_s*, int, int, int)`
-- [ ] `004a9310` 1641 B `LoadAreaData(bgprocinfo_s*)`
-- [ ] `004a4b70` 1900 B `TakeOverCode(GameObject_s*, int)`
-- [ ] `004c83e0` 1911 B `FindForcePushTarget(GameObject_s*, int, int)`
-- [ ] `004dc8e0` 2442 B `DrawPlayerIconPrompts(int, int, float, int, int, int, int, int, int, float, int, int, int, int)`
-- [ ] `00435140` 2739 B `CheckResetBits()`
-- [ ] `0043b970` 3180 B `KillGameObject(GameObject_s*, int, int)`
-- [ ] `004c7390` 3335 B `ForcePushCode(GameObject_s*, int, int)`
-- [ ] `004165a0` 3565 B `UpdateCables()`
-- [ ] `004e0d90` 4818 B `DrawPanel()`
-- [ ] `0043ee70` 5506 B `ObjHitObj(GameObject_s*, GameObject_s*, int, int, int, int)`
-- [ ] `004e38a0` 5799 B `SetLevelSfxBits(WORLDINFO_s*)`
-- [ ] `0042ad10` 6298 B `DrawGameObjectsDraw(int)`
-- [ ] `004375e0` 6466 B `InitGameAfterConfig()`
-- [ ] `00441740` 7415 B `UpdateGameObjects(WORLDINFO_s*)`
-
-## near rtleditor.cpp
-
-- [ ] `0059b480` 20 B `_CurrentAnim`
-- [ ] `00635c80` 23 B `ResetCoinPacket(COINPACKET_s*)`
-- [ ] `005ae160` 25 B `qrand()`
-- [ ] `005c0f70` 25 B `SetFlicker(GameObject_s*, float)`
-- [ ] `00595ff0` 35 B `_AnimFlags`
-- [ ] `0059b540` 35 B `_AnimSpeedZ`
-- [ ] `005bba90` 35 B `GizmoFileReadName(char*)`
-- [ ] `005ae740` 38 B `RotDiff(unsigned short, unsigned short)`
-- [ ] `005d9810` 38 B `GizmoBlowupAddDefaultExplosionDebris(nuvec_s*)`
-- [ ] `005a2d60` 40 B `NewBuzz(nupad_s*, float, int)`
-- [ ] `005a1060` 46 B `ResetTimer(TIMER_s*, float)`
-- [ ] `0060cee0` 48 B `GetMenuID()`
-- [ ] `005bdcd0` 49 B `InStory()`
-- [ ] `00639b10` 49 B `KeepWeaponOut(GameObject_s*)`
-- [ ] `005a2d90` 54 B `NewBuzzFrames(nupad_s*, int, int)`
-- [ ] `005fc350` 58 B `AreaFromMiniKitID(int)`
-- [ ] `0059a730` 59 B `_ResetAnimPacket`
-- [ ] `0059a0d0` 60 B `_FindAnimIX`
-- [ ] `0060cea0` 60 B `GameDrawMenuEntry(MENU_s*, char*)`
-- [ ] `005ae240` 64 B `SeekValF(float, float, float)`
-- [ ] `005a2d10` 66 B `NewRumble(nupad_s*, float, int)`
-- [ ] `0059b3c0` 68 B `_AnimPlaying`
-- [ ] `0061f190` 69 B `CharIDFromName(char*)`
-- [ ] `005b0f40` 71 B `GameBufferAlloc(variptr_u*, variptr_u*, int)`
-- [ ] `00635de0` 71 B `CoinsGoToMainTotal()`
-- [ ] `00597fc0` 72 B `_AddGameDebris`
-- [ ] `00639670` 76 B `SetWeaponOut(GameObject_s*)`
-- [ ] `00639b50` 76 B `SetWeaponIn(GameObject_s*)`
-- [ ] `00597e10` 79 B `_FindGameDebris`
-- [ ] `005bc370` 85 B `GizmoGetTypeIDByName(GIZMOSYS_s*, char*)`
-- [ ] `00597db0` 90 B `_ParticlesPerSecond`
-- [ ] `00635ab0` 93 B `MiniKitDetector(nuvec_s*)`
-- [ ] `0059c530` 97 B `_ParseAnimStance`
-- [ ] `006419d0` 99 B `InitSnakes(WORLDINFO_s*)`
-- [ ] `00675430` 103 B `LoadSpecialSfxFile(WORLDINFO_s*)`
-- [ ] `005ae1d0` 104 B `SeekLinearF(float, float, float)`
-- [ ] `005d3f60` 105 B `FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)`
-- [ ] `005a0830` 108 B `ConfigureMusic(char*, variptr_u*, variptr_u*)`
-- [ ] `005c8eb0` 113 B `LoadTerrainFile(WORLDINFO_s*)`
-- [ ] `005ae640` 119 B `FindAnglesXY(nuvec_s*, unsigned short*, unsigned short*)`
-- [ ] `005c16b0` 120 B `SetPlayerIDs(int, int)`
-- [ ] `005d3640` 123 B `AddGameMessage(char*, nuvec_s*, float, nuvec_s*, float, unsigned char, unsigned char, unsigned char, unsigned int, float)`
-- [ ] `005ae6c0` 124 B `GetRotationAngles(nuvec_s*, unsigned short*, unsigned short*)`
-- [ ] `005ae5c0` 126 B `FindAnglesZX(nuvec_s*, unsigned short*, unsigned short*)`
-- [ ] `0059c4b0` 127 B `_ActionFromName`
-- [ ] `0063e540` 131 B `FreeGameObjectLights()`
-- [ ] `006394f0` 133 B `FaceOpponent(GameObject_s*, nuvec_s*)`
-- [ ] `0065c320` 136 B `LoseHat(GameObject_s*)`
-- [ ] `005a2dd0` 146 B `NewRumbleAllPlayers(float, float, int, int)`
-- [ ] `005fc2b0` 150 B `DumpAreaData(int, int)`
-- [ ] `005b00d0` 153 B `LineIntersectCircle(nuvec_s*, nuvec_s*, nuvec_s*, float)`
-- [ ] `005c8f30` 155 B `LoadGrassFile(WORLDINFO_s*)`
-- [ ] `00620370` 158 B `DrawHose(GameObject_s*)`
-- [ ] `00623850` 166 B `ParseStreakCol(nufpar_s*)`
-- [ ] `005f6df0` 174 B `AddExplosion(nuvec_s*, float, float, GameObject_s*, int, int, int)`
-- [ ] `0059f8d0` 185 B `PlayJumpSfx(GameObject_s*, int)`
-- [ ] `0063e3b0` 185 B `LoadLights(WORLDINFO_s*, char*)`
-- [ ] `005aa1f0` 187 B `InitGrappleMtls(variptr_u*, variptr_u*)`
-- [ ] `0063e470` 187 B `InitGameObjectLights()`
-- [ ] `005d3fd0` 203 B `AddGameMsgCount(nuvec_s*, int, int, unsigned char, unsigned char, unsigned char, float)`
-- [ ] `00656130` 203 B `AddRipple(ripple_set_s*, numtx_s*, float, float, float, float, RGBA, RGBA, int, numtl_s*, nuvec_s*)`
-- [ ] `005f7a60` 204 B `LoadPartFile(WORLDINFO_s*)`
-- [ ] `005b0000` 205 B `LineIntersectSphere(nuvec_s*, nuvec_s*, nuvec_s*, float, float*)`
-- [ ] `0059fe80` 206 B `PlayGruntSfx(GameObject_s*)`
-- [ ] `005a0590` 209 B `PlayRepeatSfx(char*, int, float, char, float, nuvec_s*)`
-- [ ] `005a3020` 212 B `ConstantRumble(GameObject_s*, float, float)`
-- [ ] `005c19c0` 217 B `SetPlayer()`
-- [ ] `005b2a40` 229 B `LoadThingsScene()`
-- [ ] `00639580` 229 B `ObjOpponentStillThere(GameObject_s*, GameObject_s*, float)`
-- [ ] `006396c0` 233 B `FastWeaponOut(GameObject_s*, int)`
-- [ ] `00639ba0` 233 B `FastWeaponIn(GameObject_s*, int)`
-- [ ] `005bc570` 245 B `GizmoFindByName(GIZMOSYS_s*, int, char*)`
-- [ ] `00620b30` 249 B `RedirectTextFile(char*, char*, int, int*)`
-- [ ] `00615390` 251 B `StartDoorPositions()`
-- [ ] `005fb300` 291 B `AddToModelList(APICHARACTERMODELLIST_s*, int*, int, int, int, EXTRAMODEL*, unsigned char)`
-- [ ] `005c1730` 295 B `RememberPlayerIDs(int, int, int)`
-- [ ] `005aefd0` 305 B `GameShadow(GameObject_s*, nuvec_s*, float, int)`
-- [ ] `00635ca0` 307 B `UpdateCoinPacket(COINPACKET_s*, int, int)`
-- [ ] `005b0e00` 317 B `VecRotateAxis(nuvec_s*, unsigned short, nuvec_s*)`
-- [ ] `0064ce30` 321 B `NewStatusRumbleBuzz(int, float, float, int)`
-- [ ] `006633c0` 324 B `CheckGizAIMessage(GIZAIMESSAGESYS_s*, char const*, GIZAIMESSAGE_s*)`
-- [ ] `006397b0` 329 B `SlowWeaponOut(GameObject_s*)`
-- [ ] `00597e60` 336 B `_InitGameDebris`
-- [ ] `0059a110` 338 B `_AnimDuration`
-- [ ] `005b0510` 374 B `InitSplinePosition(SPLINEPOS_s*, nugspline_s*, float, int)`
-- [ ] `005af8c0` 380 B `LineIntersectXY(nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*)`
-- [ ] `005bd2d0` 423 B `LoadGizmoSys(GIZMOSYS_s*, void*, char*)`
-- [ ] `0059f9a0` 437 B `PlayLandSfx(GameObject_s*, int, int)`
-- [ ] `00632800` 499 B `DrawRailSparks(RAILSYS_s*, int, GameObject_s*)`
-- [ ] `005cfa30` 501 B `StartBigJump(GameObject_s*, nuvec_s*, int, float, float, int, int)`
-- [ ] `00639900` 516 B `WeaponOutCode(GameObject_s*)`
-- [ ] `00620160` 521 B `DrawHoseEx(GAMECHARACTERDATA_s*, numtx_s*, numtl_s*, float)`
-- [ ] `0067b270` 575 B `PCSaveSlot(int, void*, int, unsigned int)`
-- [ ] `005b0690` 619 B `GetNearestSplinePos(nuvec_s*, SPLINEPOS_s*, nugspline_s*, int, short, short)`
-- [ ] `005c3310` 670 B `LoseHitPoints(GameObject_s*, int)`
-- [ ] `00661d60` 695 B `GizmoBlowupBlowup(GIZMOBLOWUP_s*, int, int, int, GameObject_s*, int)`
-- [ ] `0059fb60` 796 B `PlayFootStepSfx(GameObject_s*)`
-- [ ] `0059c5a0` 876 B `_ConfigureCharacterList`
-- [ ] `005b0170` 915 B `MoveSplinePosition(SPLINEPOS_s*, float)`
-- [ ] `0063e5d0` 991 B `LightGameObject(GameObject_s*, void*)`
-- [ ] `005d3210` 1055 B `AddGameMsg(ADDGAMEMSG*)`
-- [ ] `005fc730` 1112 B `DrawGoToArea(MENU_s*, int)`
-- [ ] `0065e780` 1217 B `LoadEditorSplines(WORLDINFO_s*, char*, variptr_u*, variptr_u*)`
-- [ ] `005b0900` 1269 B `OutSideSplineArea(nuvec_s*, nugspline_s*, nuvec_s*, nuvec_s*, int)`
-- [ ] `005b1940` 1286 B `DrawObjectOnCharacter(WORLDINFO_s*, GameObject_s*, int, nuhspecial_s*, int, int, numtx_s*, int, unsigned int, numtx_s*, nuvec_s*, float, float, int, numtx_s*)`
-- [ ] `00633910` 1303 B `AddPickups(int, int, int, int, nuvec_s*, nuvec_s*, float, int, float, float, GameObject_s*, int, int)`
-
-## near terrain.c
-
-- [ ] `00572040` 10 B `_NewTerrPlatformsOff`
-- [ ] `00585040` 10 B `edpartSetParticlePage(int)`
-- [ ] `00571f70` 18 B `_ShadowInfo`
-- [ ] `00571fe0` 18 B `_EShadowInfo`
-- [ ] `005797f0` 31 B `_PlaySfxById`
-- [ ] `005834f0` 33 B `_AddFiniteShotDebrisEffect`
-- [ ] `005798a0` 45 B `_PlaySfx`
-- [ ] `0058b230` 57 B `_rtlDynamicFree`
-- [ ] `00583520` 61 B `_AddScaledFiniteShotDebrisEffect`
-- [ ] `00574220` 73 B `_PlatOnOff`
-- [ ] `00584ac0` 74 B `PARTLookupType(char*)`
-- [ ] `0057d660` 78 B `_AddVariableShotDebrisEffect`
-- [ ] `0057d5a0` 89 B `_AddVariableShotDebrisEffectTimed1`
-- [ ] `0056fef0` 145 B `_RayImpact`
-- [ ] `00584e60` 155 B `AddFiniteShotPART(int, nuvec_s*, int)`
-- [ ] `005672e0` 171 B `_DerotateMovementVector`
-- [ ] `00584780` 175 B `KillPart(PART_s*, int)`
-- [ ] `00584870` 182 B `FindPart(nuvec_s*, int, void*)`
-- [ ] `0056b0a0` 234 B `_NewShadowEx`
-- [ ] `0057be20` 321 B `_DebFreeInstantly`
-- [ ] `0056fd80` 325 B `_TerrainImpactNorm`
-- [ ] `00567180` 338 B `_TerrainSkinAllocate`
-- [ ] `00572be0` 389 B `_NewRayCast`
-- [ ] `00572d90` 473 B `_NewRayCastScaleYMask`
-- [ ] `00583200` 737 B `_AddFiniteShotDebrisEffect2`
-- [ ] `0056cbb0` 963 B `_HitTerrain`
-- [ ] `00566770` 1003 B `_TerrainSkin`
-- [ ] `0057d8b0` 1135 B `_AddDebrisEffect`
-- [ ] `00566b60` 1474 B `_SkinPlatform`
-- [ ] `0056c4a0` 1803 B `_HitWallSpline`
-- [ ] `0056d1b0` 1818 B `_ScanWallSplineTerrain`
-- [ ] `00585fa0` 1991 B `AddPart(ADDPART_s*)`
-- [ ] `0057c890` 3006 B `_AddVariableShotDebrisEffectTimed5`
-- [ ] `005632c0` 3491 B `_TerrainInitEx`
-- [ ] `0056d8d0` 7460 B `_ScanTerrain`
-
 ## near windows.cpp
 
 - [ ] `00528cd0` 127 B `_PCInitStrings`
 - [ ] `00527d60` 212 B `PCCreateMouseCursorMaterial()`
 - [ ] `00528460` 498 B `NuPCCreateWindow(MacDoze::HINSTANCE__*, int, int)`
-
-## NuAnim
-
-- [ ] `0070b950` 58 B `_NuAnimEndFrame`
-- [ ] `0070b290` 120 B `_NuAnimCurveSetCreate`
-- [ ] `0072c750` 153 B `_NuAnimDataChunkDestroy`
-- [ ] `0070b350` 176 B `_NuAnimCurveSetDestroy`
-
-## NuCamera
-
-- [ ] `007151e0` 28 B `_NuCameraDestroy`
-- [ ] `00715180` 90 B `_NuCameraCreate`
-
-## NuCommand
-
-- [ ] `006d5540` 24 B `_NuCommandLine`  **stub**
 
 ## NuDisplay
 
@@ -1132,19 +1315,9 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 - [ ] `00529440` 573 B `_NudxFw_DrawFrameStats`
 
-## NuDynamicLight
-
-- [ ] `0072b040` 43 B `NuDynamicLight::destroy(NuDynamicLight*)`
-
 ## NuExp10
 
 - [ ] `006900c0` 656 B `_NuExp10`
-
-## NuFile
-
-- [ ] `006e0dc0` 35 B `_NuFilePakLoad`
-- [ ] `006e0b60` 549 B `_NuFilePakLoadKeyPrePad`
-- [ ] `006da090` 1125 B `_NuFileExtInitEx`
 
 ## NuFmv
 
@@ -1153,10 +1326,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 ## NuFmvStreamPCBink
 
 - [ ] `00594420` 384 B `NuFmvStreamPCBink::BlitSM1Texture()`
-
-## NuInit
-
-- [ ] `00525100` 2623 B `_NuInitHardware`
 
 ## NuInstSurfGeom
 
@@ -1175,10 +1344,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 - [ ] `0068fed0` 483 B `_NuLog10`
 
-## NuLst
-
-- [ ] `0067dd00` 136 B `_NuLstCreate`
-
 ## NuMem
 
 - [ ] `006e2470` 84 B `_NuMemCpy`  **stub**
@@ -1195,21 +1360,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 - [ ] `006ea240` 91 B `NuMovieGrabAttachFrameBuffer(numoviegrabinfo_s*)`
 - [ ] `006ea2d0` 255 B `NuMovieGrabGetFrame(numoviegrabinfo_s*)`
 - [ ] `00709080` 1224 B `_NuMovieGrabBegin`
-
-## NuMtl
-
-- [ ] `00727b40` 24 B `_NuMtlUpdate`
-- [ ] `00727f20` 30 B `_NuMtlSetCurrentRenderPlane`
-- [ ] `006ef910` 300 B `_NuMtlUpdatePS`
-
-## NuMusic
-
-- [ ] `005375d0` 757 B `NuMusic::Debug(int, int)`
-
-## NuPad
-
-- [ ] `006d5700` 105 B `_NuPadOpen`
-- [ ] `006e0530` 158 B `_NuPadRecordLoad`
 
 ## NuRain
 
@@ -1257,40 +1407,15 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 - [ ] `0070f510` 185 B `_NuSpecialSetVisibility`
 - [ ] `00739910` 298 B `_NuSpecialClipTestShadowLights`
 
-## NuStr
-
-- [ ] `006d75c0` 75 B `_NuStrNCpy`  **stub**
-- [ ] `006dc300` 120 B `_NuStrIStr`  **stub**
-
 ## NuStreamProcessManager
 
 - [ ] `0058fe00` 172 B `NuStreamProcessManager::Initialize(unsigned int)`
 - [ ] `0058f8a0` 251 B `NuStreamProcessManager::DebugPrintJobStatuses()`
 - [ ] `00590320` 558 B `NuStreamProcessManager::DebugPrintCommandList()`
 
-## NuString
-
-- [ ] `006dc720` 123 B `_NuStringTableGetByName`
-
-## NuTex
-
-- [ ] `006e6340` 76 B `_NuTexGetUnresolvedTextureTIDPS`
-- [ ] `006e6290` 121 B `_NuTexInitExPS`
-- [ ] `00711580` 146 B `_NuTexAnimEnvCreate`  **stub**
-- [ ] `00712030` 360 B `_NuTexAnimProgParseFile`
-- [ ] `006e6490` 820 B `_NuTexReadBitmapMM2`
-
 ## NuTime
 
 - [ ] `006e3b30` 67 B `_NuTimeGetTime`
-
-## NuUnicode
-
-- [ ] `006d8440` 147 B `_NuUnicodeToAscii`  **stub**
-
-## NuVec
-
-- [ ] `006849f0` 100 B `_NuVecRotateX`  **stub**
 
 ## NuWater
 
@@ -1300,10 +1425,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 - [ ] `00526230` 39 B `_NuWin32SetDFS`
 
-## ObjHitObj
-
-- [ ] `005dfa60` 104 B `ObjHitObj_Flags(GameObject_s*)`
-
 ## OggReader
 
 - [ ] `0053afc0` 806 B `OggReader::Open(nudathdr_s*, char*, MacDoze::tWAVEFORMATEX*)`
@@ -1312,42 +1433,15 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 - [ ] `00532ee0` 966 B `OpenAutomate::SetOptions()`
 
-## Particles
-
-- [ ] `006423a0` 188 B `Particles_Load(WORLDINFO_s*, char**, int, int)`
-
-## PartImpact
-
-- [ ] `00504740` 218 B `PartImpact_Seed(PART_s*)`
-- [ ] `004f9d30` 457 B `PartImpact_ThermalDetonator(PART_s*)`
-- [ ] `00504a40` 542 B `PartImpact_BlackSeed(PART_s*)`
-
 ## PartKill
 
 - [ ] `00504850` 383 B `PartKill_BlackSeed(PART_s*, int)`
-
-## PartStop
-
-- [ ] `005f7cc0` 58 B `PartStop_Flickerer(PART_s*)`
-- [ ] `006014c0` 367 B `PartStop_Grabber(PART_s*)`
-
-## PartUpdate
-
-- [ ] `004f9f70` 341 B `PartUpdate_ThermalDetonator(PART_s*)`
 
 ## PcInput
 
 - [ ] `0051f540` 8 B `PcInput_GetCtrlStringPlayer()`
 - [ ] `005235c0` 51 B `_PcInput_GetInputName`
 - [ ] `00523600` 74 B `_PcInput_GetCtrlInputString`
-
-## Player
-
-- [ ] `005c18b0` 59 B `Player_StartPos(GameObject_s*)`
-- [ ] `005c1860` 67 B `Player_FindByID(int)`
-- [ ] `005c1b10` 99 B `Player_ClearContext(GameObject_s*, int)`
-- [ ] `005c1b80` 313 B `Player_ResetContexts(GameObject_s*)`
-- [ ] `005c2250` 2274 B `Player_ToggleCharacter(GameObject_s*, int, int)`
 
 ## PlayerItems
 
@@ -1364,22 +1458,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 - [ ] `005ee210` 909 B `PlayerItemTypeSys_ParseLocator(nufpar_s*, PLAYERITEMTYPE_s*, int)`
 - [ ] `005ee5a0` 7330 B `PlayerItemTypeSys_Load(char*, nugscn_s*, variptr_u*, variptr_u*)`
 
-## Players
-
-- [ ] `005c2bb0` 45 B `Players_BothActive()`
-- [ ] `005c18f0` 205 B `Players_AveragePos(nuvec_s*, SOCKPOSITION_s*)`
-- [ ] `005c12a0` 1028 B `Players_InitPositions(WORLDINFO_s*)`
-
-## PortalDoors
-
-- [ ] `005c8c50` 49 B `PortalDoors_Reset(WORLDINFO_s*)`
-- [ ] `005c8b60` 229 B `PortalDoors_Update(WORLDINFO_s*)`
-- [ ] `005c8a00` 338 B `PortalDoors_Configure(WORLDINFO_s*, char*)`
-
-## PowerUp
-
-- [ ] `0048d650` 163 B `PowerUp_ImpactPart(PART_s*)`  **stub**
-
 ## PreInterpretor
 
 - [ ] `00697cf0` 161 B `PreInterpretor::Variable::getSemanticString() const`
@@ -1389,10 +1467,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 - [ ] `00698c30` 798 B `PreInterpretor::printUniforms(StringBuffer&)`
 - [ ] `006990b0` 1616 B `PreInterpretor::printVaryings(StringBuffer&)`
 
-## Pulses
-
-- [ ] `006573e0` 1327 B `Pulses_Configure(WORLDINFO_s*, char*)`
-
 ## Puzzle
 
 - [ ] `006763f0` 218 B `Puzzle_PreLoad(void*, void*)`
@@ -1400,10 +1474,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 ## RailSys
 
 - [ ] `00632230` 357 B `RailSys_CreateRailCreature(RAILSYS_s*, GameObject_s*, int)`
-
-## RippleEffects
-
-- [ ] `00655ca0` 425 B `RippleEffects_Configure(WORLDINFO_s*, char*)`
 
 ## ScoreMultiplier
 
@@ -1448,20 +1518,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 - [ ] `00680d60` 254 B `_SockSys_Configure`
 
-## SpecialMiniKits
-
-- [ ] `00636200` 786 B `SpecialMiniKits_Configure(WORLDINFO_s*, char*)`
-
-## SpecialMove
-
-- [ ] `0062dee0` 75 B `SpecialMove_IsInMultiPhase(GameObject_s*)`
-- [ ] `0062df30` 83 B `SpecialMove_AdjustLayerBits(GameObject_s*, unsigned int&)`
-- [ ] `0062df90` 969 B `SpecialMove_ConfigParticipant(nufpar_s*, unsigned int*, short*, short*)`
-
-## SpecialMoves
-
-- [ ] `0062e360` 2922 B `SpecialMoves_Configure(char*, variptr_u*, variptr_u*, SPECIALMOVEFIXUP_s*)`
-
 ## Status
 
 - [ ] `00478330` 284 B `Status_SceneName(WORLDINFO_s*, char*)`
@@ -1469,12 +1525,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 ## StreetsChase
 
 - [ ] `00503610` 487 B `StreetsChase_Reset(WORLDINFO_s*)`
-
-## SuperCarry
-
-- [ ] `00645450` 53 B `SuperCarry_Carrying(GameObject_s*)`
-- [ ] `006445b0` 151 B `SuperCarry_PickUpBlowUp(GameObject_s*)`
-- [ ] `00644700` 930 B `SuperCarry_Start(GameObject_s*, GIZMOBLOWUP_s*, int)`
 
 ## SuperCounter
 
@@ -1494,63 +1544,13 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 - [ ] `005f95d0` 761 B `Surfaces_ConfigureOverrides(WORLDINFO_s*, char*)`
 
-## Tag
-
-- [ ] `004a54c0` 1219 B `Tag_UpdateHint(HINT_s*)`
-- [ ] `004a5ac0` 1541 B `Tag_Check(GameObject_s*)`
-
-## TakeOver
-
-- [ ] `004a3630` 115 B `TakeOver_SetAction(GameObject_s*, GameObject_s*)`
-
-## Techno
-
-- [ ] `005a7bd0` 167 B `Techno_FindOperator(void*, GAMEPAD_s**, GameObject_s**)`
-
-## Technos
-
-- [ ] `005a6550` 65 B `Technos_FindControllingTechno(GameObject_s*)`
-
-## Text
-
-- [ ] `0059d770` 62 B `Text_LoadFont(char*, variptr_u*, variptr_u*)`
-- [ ] `0059d7c0` 119 B `Text_InitStringTable(int, variptr_u*, variptr_u*)`
-- [ ] `0059dc80` 132 B `Text_MakeScore(unsigned int, char*)`
-- [ ] `0059dbd0` 161 B `Text_InsertCommasIntoNumber(char*, char*, int)`
-- [ ] `0059d850` 169 B `Text_PlatformSpecificIgnore(nufpar_s*)`
-- [ ] `0059db20` 173 B `Text_InitTable(TEXTENTRY*, int, int)`
-- [ ] `004f9ab0` 287 B `Text_LoadStrings(variptr_u*, variptr_u*)`
-- [ ] `0059dd10` 392 B `Text_MakeTime(float, int, int, int, char*)`
-- [ ] `00408e60` 462 B `Text_ExpandButtonString(char*, char*)`
-- [ ] `0059d900` 544 B `Text_LoadAndFixUpStrings(unsigned char*, unsigned char**, char**, int)`
-
-## ThermalDetonator
-
-- [ ] `004fafb0` 638 B `ThermalDetonator_ThrowMom(GameObject_s*, nuvec_s*)`
-
 ## Titles
 
 - [ ] `004a6dc0` 273 B `Titles_GetName(char*, char*)`
 
-## TrafficAnimSys
-
-- [ ] `00659110` 650 B `TrafficAnimSys_Configure(WORLDINFO_s*, char*)`
-
-## Transform
-
-- [ ] `004ffbf0` 618 B `Transform_DrawBeam(GameObject_s*, nuvec_s*)`
-- [ ] `004ff6d0` 700 B `Transform_FindFreezeObstacleTarget(WORLDINFO_s*, GameObject_s*, float*, float)`
-- [ ] `004fff70` 1030 B `Transform_DrawTarget(int, int, nuvec_s*, float, float)`
-
 ## TrueHero
 
 - [ ] `00478f40` 2059 B `TrueHero_Update(STATUS_STAGE_s*, STATUSPACKET_s*, float)`
-
-## WorldInfo
-
-- [ ] `005c8150` 6 B `WorldInfo_CurrentlyActive()`
-- [ ] `005c8130` 21 B `WorldInfo_InitOnce()`
-- [ ] `005c8240` 131 B `WorldInfo_LoadObjectAnimFile(WORLDINFO_s*)`
 
 ## WorldMap
 
