@@ -1039,3 +1039,8 @@
 006b3e20 Condition_OpponentInTriggerAreaInit  matched saga body, keyword table + Mac order
 006b3e40 Condition_OpponentToLocatorInit  matched saga body, keyword table + Mac order
 006b3e60 Condition_PlayerToLocatorInit  matched saga body, keyword table + Mac order
+006b48a0 Action_NotifyStateChange  matched, keyword table
+006b4910 Action_If  matched, keyword table
+006b4960 Action_OrIf  matched, keyword table
+006b49c0 Action_AndIf  matched, keyword table
+006b4a20 Action_ElseIf  matched, keyword table

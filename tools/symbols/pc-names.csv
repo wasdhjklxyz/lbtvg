@@ -1509,6 +1509,11 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006b3e40,0023709c,_Condition_OpponentToLocatorInit,_Condition_OpponentToLocatorInit,confirmed,0
 006b3e60,002371b8,_Condition_PlayerToLocatorInit,_Condition_PlayerToLocatorInit,confirmed,0
 006b4670,0024921c,_Action_SetInterrupt,_Action_SetInterrupt,strings,0
+006b48a0,00243bf2,_Action_NotifyStateChange,_Action_NotifyStateChange,confirmed,0
+006b4910,0024ae6e,_Action_If,_Action_If,confirmed,0
+006b4960,0024af96,_Action_OrIf,_Action_OrIf,confirmed,0
+006b49c0,0024af38,_Action_AndIf,_Action_AndIf,confirmed,0
+006b4a20,0024aec0,_Action_ElseIf,_Action_ElseIf,confirmed,0
 006b4f70,0023a378,_AISysRegisterDefaultPathCnxTypes,_AISysRegisterDefaultPathCnxTypes,confirmed,0
 006b5000,0023aa0a,_AISysLoadEx,_AISysLoadEx,strings,0
 006b7110,0023daee,_AIMoveInstruction,_AIMoveInstruction,gapfill,1

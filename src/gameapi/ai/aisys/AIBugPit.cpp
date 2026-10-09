@@ -357,3 +357,80 @@ void *Condition_PlayerToLocatorInit(AISYS_s *sys, char *arg,
                                     AISCRIPT_s *script) {
   return arg != NULL ? AIPathFindLocator(sys, arg) : NULL;
 }
+
+// GLOBAL: LEGOBATMAN 0x00ad68e0
+extern AISCRIPTPROCESS_s *g_unk00ad68e0;
+
+static void AiSysSetStateDebugee(AISCRIPTPROCESS_s *process) {
+  g_unk00ad68e0 = process;
+}
+
+// FUNCTION: LEGOBATMAN 0x006b48a0
+i32 Action_NotifyStateChange(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char **args, int argc,
+                             int flags, f32 time) {
+  i32 enabled = 1;
+  for (i32 i = 0; i < argc; i++) {
+    if (NuStrICmp(args[i], "false") == 0)
+      enabled = 0;
+  }
+  if (enabled)
+    AiSysSetStateDebugee(process);
+  else
+    AiSysSetStateDebugee(NULL);
+  return 1;
+}
+
+i32 ConditionsParseLineRunTime(AISYS_s *sys, AIPACKET_s *packet,
+                               AISCRIPTPROCESS_s *process, char **args, i32 a);
+
+// 0xb5 bits 0-1: if/else state of the process.
+struct AIIfStateB_s {
+  u8 state : 2;
+};
+
+#define IF_STATE(process) (((AIIfStateB_s *)((u8 *)(process) + 0xb5))->state)
+
+// FUNCTION: LEGOBATMAN 0x006b4910
+i32 Action_If(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
+              char **args, int argc, int flags, f32 time) {
+  if (ConditionsParseLineRunTime(sys, packet, process, args, 0) != 0)
+    IF_STATE(process) = 0;
+  else
+    IF_STATE(process) = 1;
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006b4960
+i32 Action_OrIf(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
+                char **args, int argc, int flags, f32 time) {
+  if (IF_STATE(process) == 1) {
+    if (ConditionsParseLineRunTime(sys, packet, process, args, 0) != 0) {
+      IF_STATE(process) = 0;
+      return 1;
+    }
+    IF_STATE(process) = 1;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006b49c0
+i32 Action_AndIf(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
+                 char **args, int argc, int flags, f32 time) {
+  if (IF_STATE(process) == 0) {
+    if (ConditionsParseLineRunTime(sys, packet, process, args, 0) != 0)
+      IF_STATE(process) = 0;
+    else
+      IF_STATE(process) = 1;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006b4a20
+i32 Action_ElseIf(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
+                  char **args, int argc, int flags, f32 time) {
+  if (IF_STATE(process) != 0 && IF_STATE(process) != 2)
+    return Action_If(sys, process, packet, args, argc, flags, time);
+  IF_STATE(process) = 2;
+  return 1;
+}
