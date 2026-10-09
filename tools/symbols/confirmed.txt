@@ -150,3 +150,8 @@
 0059c450 ActionInfoFlags  saga body plus capacity check
 0059c480 ActionInfoName  saga body plus capacity check ("?" default)
 0059c530 ParseAnimStance  Mac order after ActionFromName; left/right stance flag parser
+006a9ac0 AIPathFindLocator  saga body matches (locators stride 0x44)
+006a9b20 AIPathFindLocatorSet  saga body matches (locator sets stride 0x1c)
+006a9b90 AISysFindArea  saga body matches (areas stride 0x40)
+006a9bf0 AISysFindPath  saga body matches (path_sys->paths)
+006a9c50 AIPathFindNode  saga body matches (falls back to active path)

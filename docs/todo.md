@@ -30,7 +30,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizPanel](#gizpanel) | 2 | 2 |
 | [LevelObjects](#levelobjects) | 2 | 2 |
 | [Move](#move) | 2 | 2 |
-| [near nutrig_gen.cpp](#near-nutrig_gencpp) | 10 | 2 |
+| [near nutrig_gen.cpp](#near-nutrig_gencpp) | 5 | 2 |
 | [NuStr](#nustr) | 2 | 2 |
 | [Tag](#tag) | 2 | 2 |
 | [Text](#text) | 3 | 2 |
@@ -468,11 +468,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## near nutrig_gen.cpp
 
 - [ ] `006a5fe0` 31 B `_AISysClearAllPathCnxTypes`  **hint** name (gapfill)
-- [ ] `006a9b90` 80 B `_AISysFindArea`  **hint** name (gapfill)
-- [ ] `006a9bf0` 84 B `_AISysFindPath`  **hint** name (gapfill)
-- [ ] `006a9ac0` 96 B `_AIPathFindLocator`
-- [ ] `006a9b20` 98 B `_AIPathFindLocatorSet`  **hint** name (gapfill)
-- [ ] `006a9c50` 114 B `_AIPathFindNode`  **hint** name (gapfill)
 - [ ] `006af110` 142 B `_AiSysIsCurrentPlatform`
 - [ ] `006a6000` 171 B `_AISysRegisterPathCnxType`
 - [ ] `006a2730` 401 B `_AIScriptCopyConditions`  **stub** · **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
