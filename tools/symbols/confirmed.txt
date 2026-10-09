@@ -757,3 +757,14 @@
 00627440 CC_got_batarang  matched, Mac order
 00627490 CC_tightrope_tilt  matched, Mac order
 006270a0 CC_atatheadmovement  matched, Mac order
+006275b0 CC_only_animate_when_taken_over  matched, Mac order
+00627600 CC_has_scene_element  matched, Mac order
+00627650 CC_dont_turn  matched, Mac order
+006276a0 CC_wheelie  matched, Mac order
+006276f0 CC_no_jump  matched, Mac order
+00627740 CC_no_shoot  matched, Mac order
+006277d0 CC_blobshadow_alpha  matched saga body, Mac order
+00627870 CC_hover_height  matched saga body, Mac order
+006278d0 CC_maxheadturn  matched saga body, Mac order
+00627900 CC_maxheadtilt  matched saga body, Mac order
+00627930 CC_headrotrate  matched saga body, Mac order

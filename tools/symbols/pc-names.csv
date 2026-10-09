@@ -1045,6 +1045,17 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006273f0,0027e16a,__Z12CC_wall_jumpP8nufpar_s,CC_wall_jump(nufpar_s*),confirmed,0
 00627440,0027e17c,__Z15CC_got_batarangP8nufpar_s,CC_got_batarang(nufpar_s*),confirmed,0
 00627490,0027e18e,__Z17CC_tightrope_tiltP8nufpar_s,CC_tightrope_tilt(nufpar_s*),confirmed,0
+006275b0,0027e280,__Z31CC_only_animate_when_taken_overP8nufpar_s,CC_only_animate_when_taken_over(nufpar_s*),confirmed,0
+00627600,0027e2c4,__Z20CC_has_scene_elementP8nufpar_s,CC_has_scene_element(nufpar_s*),confirmed,0
+00627650,0027e306,__Z12CC_dont_turnP8nufpar_s,CC_dont_turn(nufpar_s*),confirmed,0
+006276a0,0027e348,__Z10CC_wheelieP8nufpar_s,CC_wheelie(nufpar_s*),confirmed,0
+006276f0,0027e38a,__Z10CC_no_jumpP8nufpar_s,CC_no_jump(nufpar_s*),confirmed,0
+00627740,0027e3cc,__Z11CC_no_shootP8nufpar_s,CC_no_shoot(nufpar_s*),confirmed,0
+006277d0,0027e40e,__Z19CC_blobshadow_alphaP8nufpar_s,CC_blobshadow_alpha(nufpar_s*),confirmed,0
+00627870,0027e440,__Z15CC_hover_heightP8nufpar_s,CC_hover_height(nufpar_s*),confirmed,0
+006278d0,0027e472,__Z14CC_maxheadturnP8nufpar_s,CC_maxheadturn(nufpar_s*),confirmed,0
+00627900,0027e4be,__Z14CC_maxheadtiltP8nufpar_s,CC_maxheadtilt(nufpar_s*),confirmed,0
+00627930,0027e50a,__Z14CC_headrotrateP8nufpar_s,CC_headrotrate(nufpar_s*),confirmed,0
 006285d0,00280c32,__Z16AnimInclude_InitPcP9variptr_uS1_,"AnimInclude_Init(char*, variptr_u*, variptr_u*)",strings,0
 00629270,002818fe,__Z23CharConfig_ConfigureAlliP12nufpcomjmp_s,"CharConfig_ConfigureAll(int, nufpcomjmp_s*)",strings,0
 0062d030,002833a2,__Z24CharShadows_InitMaterialP9variptr_uS_,"CharShadows_InitMaterial(variptr_u*, variptr_u)",strings,0
