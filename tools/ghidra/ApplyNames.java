@@ -1,7 +1,7 @@
 // Apply tools/symbols/pc-names.csv (PC <-> Mac 1.0.1 pairs) to the current
 // program. Renames functions that still have a default FUN_ name or a name an
-// earlier run gave them (so corrections propagate; your own names are left
-// alone). Weak pairings (order, gapfill) get a _hint suffix; puts
+// earlier run gave them (source IMPORTED, so corrections propagate). Names you
+// set yourself in the GUI (source USER_DEFINED) are never touched. Weak pairings (order, gapfill) get a _hint suffix; puts
 // C++ methods in their class namespace; adds the full Mac signature and the
 // pairing method as a plate comment. Arg 0 (headless) or a file prompt (GUI):
 // path to the csv. Re-runnable.
@@ -31,8 +31,9 @@ public class ApplyNames extends GhidraScript {
         Function fn = fm.getFunctionAt(a);
         if (fn == null) { missing++; continue; }
         // ours to (re)name: still FUN_, or named by an earlier run of this script
-        String old = fn.getComment();
-        boolean ours = fn.getName().startsWith("FUN_") || (old != null && old.startsWith("mac 1.0.1:"));
+        // (IMPORTED). Anything you renamed in the GUI is USER_DEFINED: left alone.
+        SourceType src = fn.getSymbol().getSource();
+        boolean ours = fn.getName().startsWith("FUN_") || src == SourceType.IMPORTED;
         if (!ours) { skipped++; continue; }
         String method = f.get(4);
         boolean hint = method.equals("order") || method.equals("gapfill");
