@@ -22,7 +22,15 @@ struct nuinstance_s {
   numtx_s mtx;        // 0x00
   short object_index; // 0x40
   unsigned char pad0[2];
-  unsigned int flags;      // 0x44, bit 0 = visible
+  union {
+    unsigned int flags; // 0x44, bit 0 = visible
+    struct {
+      unsigned int visible : 1;            // bit 0
+      unsigned int on_screen : 1;          // bit 1
+      unsigned int bit2 : 1;               // bit 2
+      unsigned int no_visibility_test : 1; // bit 3
+    };
+  };
   nuinstanim_s *animation; // 0x48
   unsigned char pad1[0x50 - 0x4c];
 };

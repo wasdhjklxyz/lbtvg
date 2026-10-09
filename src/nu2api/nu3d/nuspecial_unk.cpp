@@ -262,6 +262,56 @@ int NuSpecialGetVisibilityFn(nuhspecial_s *sp) {
   return 0;
 }
 
+// FUNCTION: LEGOBATMAN 0x0070f6a0
+void NuSpecialSetNoVisiTest(nuhspecial_s *special, int enabled) {
+  if (special->scene == 0)
+    return;
+  if (special->special != 0) {
+    special->special->instance->no_visibility_test = enabled;
+    return;
+  }
+  if (special->display_special == 0)
+    return;
+  if (enabled != 0)
+    special->display_special->flags |= 0x80;
+  else
+    special->display_special->flags &= ~0x80;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070f6f0
+int NuSpecialGetNoVisiTestFn(nuhspecial_s *special) {
+  if (special->scene == 0)
+    return 0;
+  if (special->special != 0)
+    return special->special->instance->no_visibility_test;
+  NUDISPLAYSPECIAL *display = special->display_special;
+  return display != 0 ? display->flags & 0x80 : 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x0070f730
+void NuSpecialSetOnScreen(nuhspecial_s *special, int enabled) {
+  if (special->scene == 0)
+    return;
+  if (special->special != 0) {
+    special->special->instance->on_screen = enabled;
+    return;
+  }
+  if (special->display_special == 0)
+    return;
+  if (enabled != 0)
+    special->display_special->flags |= 4;
+  else
+    special->display_special->flags &= ~4;
+}
+
+// STUB: LEGOBATMAN 0x0070f780
+// register pick only: orig keeps the handle in ecx, ours in eax.
+int NuSpecialGetOnScreenFn(nuhspecial_s *special) {
+  return special->scene != 0 && special->special != 0
+             ? special->special->instance->on_screen
+             : 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x0070f930
 extern "C" void *NuSpecialGetMtl(nuhspecial_s *special, int index) {
   nuspecial_s *legacy = special->special;
