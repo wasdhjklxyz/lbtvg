@@ -62,3 +62,4 @@
 005a7bd0 Techno_FindOperator  saga body matches (player in techno context controlling target)
 0059db20 Text_InitTable  saga body matches (assign text ids in range, mark string bits)
 005f6df0 AddExplosion  saga body matches (Explosion ring of 8, qrand, ObjHitObj_Flags)
+006dfc60 NuFParCreateMem  saga body matches (inlined NuMemFileOpen, NuFParOpen, copy name)

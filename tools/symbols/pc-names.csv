@@ -725,7 +725,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006dd060,0018ff0a,_NuFParGetInt,_NuFParGetInt,gapfill,1
 006dd2d0,0018c2d6,_NuFParInterpretWord,_NuFParInterpretWord,gapfill,1
 006dd430,0018c1a8,_NuFParInterpretWordCTX,_NuFParInterpretWordCTX,gapfill,1
-006dfc60,00193f7a,_NuFParCreateMem,_NuFParCreateMem,gapfill,2
+006dfc60,00193f7a,_NuFParCreateMem,_NuFParCreateMem,confirmed,0
 006e0530,00196e5e,_NuPadRecordLoad,_NuPadRecordLoad,strings,0
 006e0b60,00195ee8,_NuFilePakLoadKeyPrePad,_NuFilePakLoadKeyPrePad,gapfill,2
 006e0dc0,001961da,_NuFilePakLoad,_NuFilePakLoad,confirmed,0

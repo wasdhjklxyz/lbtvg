@@ -18,8 +18,8 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 34 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 14 | 8 |
-| [near nupad_gen.cpp](#near-nupad_gencpp) | 7 | 6 |
 | [Grabber](#grabber) | 7 | 5 |
+| [near nupad_gen.cpp](#near-nupad_gencpp) | 6 | 5 |
 | [Text](#text) | 6 | 5 |
 | [GameCam](#gamecam) | 4 | 4 |
 | [Hub](#hub) | 6 | 4 |
@@ -455,16 +455,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006bc410` 1430 B `_AISysProcessCharacter`
 - [ ] `006b5000` 3215 B `_AISysLoadEx`
 
-## near nupad_gen.cpp
-
-- [ ] `006d7dc0` 43 B `_NuSPrintf`  **hint** name (gapfill)
-- [ ] `006dfc60` 181 B `_NuFParCreateMem`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006dd060` 226 B `_NuFParGetInt`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006dd430` 318 B `_NuFParInterpretWordCTX`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006dd2d0` 347 B `_NuFParInterpretWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006da8d0` 358 B `_NuFParGetWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006d6d00` 646 B `_ImplodeMakeTable`  **saga** `nu2api/nucore/implode.cpp`
-
 ## Grabber
 
 - [ ] `00601280` 55 B `Grabber_IsActiveGrabber(GameObject_s*)`  **hint** name (order)
@@ -474,6 +464,15 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00602270` 710 B `Grabber_Reset(WORLDINFO_s*)`  **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
 - [ ] `00602540` 740 B `Grabber_Drop(GRABBER_s*, nuvec_s*)`  **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
 - [ ] `00600e90` 1004 B `Grabber_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/items/objects/grabber.cpp`
+
+## near nupad_gen.cpp
+
+- [ ] `006d7dc0` 43 B `_NuSPrintf`  **hint** name (gapfill)
+- [ ] `006dd060` 226 B `_NuFParGetInt`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006dd430` 318 B `_NuFParInterpretWordCTX`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006dd2d0` 347 B `_NuFParInterpretWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006da8d0` 358 B `_NuFParGetWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006d6d00` 646 B `_ImplodeMakeTable`  **saga** `nu2api/nucore/implode.cpp`
 
 ## Text
 
