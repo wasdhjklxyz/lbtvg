@@ -234,3 +234,5 @@
 00652260 SuperCounterConfig_Reset  same as Mac (memset 0x51c, bytes 0x518..0x51a = -1)
 00601280 Grabber_IsActiveGrabber  same as Mac (grabber sys at WORLDINFO+0x4800, flag 0x8000000, byte 0x692)
 005d5890 DetonatorSys_Init  same as Mac (aligned sys + detonator array from buffer, four i16 params)
+006ea240 NuMovieGrabAttachFrameBuffer  NuMovieGrab_PC.cpp __FILE__ line 0x2e; allocates width*height*bpp frame buffer
+006ea2a0 NuMovieGrabDetachFrameBuffer  NuMovieGrab_PC.cpp __FILE__ line 0x3f; frees the frame buffer
