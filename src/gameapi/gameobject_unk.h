@@ -345,6 +345,10 @@ struct GameObject_s {
       u32 : 27;
       u32 no_idle_speed : 1; // 0x1414 bit 27
     };
+    struct {
+      u32 : 8;
+      u32 no_time_based_update : 1; // 0x1414 bit 8
+    };
   };
   union {
     u32 flags1418; // 0x1418

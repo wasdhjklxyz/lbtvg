@@ -1514,6 +1514,34 @@ i32 Action_ResetGameCamera(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+extern u8 aicreature_sets_alive[16];
+
+// FUNCTION: LEGOBATMAN 0x0045bbf0
+i32 Action_AddToSet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                    AIPACKET_s *packet, char **args, int argc, int flags,
+                    f32 time) {
+  GameObject_s *obj;
+  i32 i;
+  if (flags == 0 || packet == NULL || packet->pd0 == NULL ||
+      packet->pd0->obj == NULL)
+    return 1;
+  obj = packet->pd0->obj;
+  if (obj != NULL) {
+    for (i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "Reset") == 0) {
+        obj->process290[0xb4] = 0;
+        continue;
+      }
+      i32 set = (i32)AIParamToFloat(process, args[i]);
+      if ((u32)(set - 1) <= 15) {
+        obj->process290[0xb4] = (u8)set;
+        aicreature_sets_alive[set - 1]++;
+      }
+    }
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x0045bf80
 i32 Action_BreakFormation(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                           AIPACKET_s *packet, char **args, int argc, int flags,
@@ -1891,6 +1919,27 @@ i32 Action_DontRaycastLOS(AISYS_s *sys, AISCRIPTPROCESS_s *process,
 }
 
 void Unk00448b80(f32 dist);
+
+// FUNCTION: LEGOBATMAN 0x0046e840
+i32 Action_UseTimeBasedUpdate(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char **args, int argc,
+                              int flags, f32 time) {
+  i32 enabled = 0;
+  if (packet != NULL && packet->pd0 != NULL) {
+    GameObject_s *obj = packet->pd0->obj;
+    if (flags) {
+      i32 i;
+      for (i = 0; i < argc; i++) {
+        if (NuStrICmp(args[i], "TRUE") == 0)
+          enabled = 1;
+        else if (NuStrICmp(args[i], "FALSE") == 0)
+          enabled = 0;
+      }
+    }
+    obj->no_time_based_update = enabled == 0;
+  }
+  return 1;
+}
 
 // FUNCTION: LEGOBATMAN 0x0046f470
 i32 Action_SetAO_InitRowDist(AISYS_s *sys, AISCRIPTPROCESS_s *process,
@@ -5163,4 +5212,75 @@ i32 Action_FaceLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     }
   }
   return 0;
+}
+
+struct DOOR_s {
+  u8 pad0[0xfb];
+  u8 locked; // 0xfb, Action_ActivateDoor: set from "FALSE"
+};
+
+DOOR_s *Door_FindByName(WORLDINFO_s *wi, char *name);
+void Unk006158f0(WORLDINFO_s *wi, DOOR_s *door, i32 a, i32 b);
+
+// FUNCTION: LEGOBATMAN 0x00475700
+i32 Action_MakeTargetableByTorps(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                 AIPACKET_s *packet, char **args, int argc,
+                                 int flags, f32 time) {
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL) {
+    if (flags) {
+      GameObject_s *target = NULL;
+      i32 on = 1;
+      i32 i;
+      for (i = 0; i < argc; i++) {
+        char *s = NuStrIStr(args[i], "name=");
+        if (s != NULL) {
+          s += NuStrLen("name=");
+          target = GetNamedGameObject(sys, s);
+        } else if (NuStrIStr(args[i], "FALSE") != NULL)
+          on = 0;
+      }
+    }
+    return 0;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x004757c0
+i32 Action_ActivateDoor(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char **args, int argc, int flags,
+                        f32 time) {
+  i32 i;
+  DOOR_s *door = NULL;
+  i32 activate = 1;
+  for (i = 0; i < argc; i++) {
+    char *s = NuStrIStr(args[i], "name=");
+    if (s != NULL) {
+      s += NuStrLen("name=");
+      door = Door_FindByName(g_unk00960894, s);
+    }
+    if (NuStrIStr(args[i], "FALSE") != NULL)
+      activate = 0;
+  }
+  if (door != NULL)
+    door->locked = (activate == 0);
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00475c50
+i32 Action_GoThroughDoor(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  char *name = NULL;
+  i32 i;
+  for (i = 0; i < argc; i++) {
+    char *s = NuStrIStr(args[i], "Name=");
+    if (s != NULL)
+      name = s + NuStrLen("Name=");
+  }
+  if (name != NULL) {
+    DOOR_s *door = Door_FindByName(g_unk00960894, name);
+    if (door != NULL)
+      Unk006158f0(g_unk00960894, door, 0, 1);
+  }
+  return 1;
 }
