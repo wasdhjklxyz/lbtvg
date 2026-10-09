@@ -21,3 +21,5 @@
 00447560 GetNamedAPIObject: epilogue merging differs, see STUB
 00468190 Action_FaceCamera: x87 heavy
 00461ff0 Action_SetPath: epilogue tail-merge differs, see STUB
+00465ab0 Action_PlaySfx: x87 init/compare sequences
+006633c0 CheckGizAIMessage: epilogue tail-merge differs, see STUB

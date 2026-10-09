@@ -347,7 +347,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00635ca0` 307 B `UpdateCoinPacket(COINPACKET_s*, int, int)`  **hint** name (order) · **saga** `legoapi/items/base/collection.cpp`
 - [ ] `005b0e00` 317 B `VecRotateAxis(nuvec_s*, unsigned short, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `0064ce30` 321 B `NewStatusRumbleBuzz(int, float, float, int)`  **hint** name (gapfill) · **saga** `legoapi/menus/screens/gamestatus_lsw.cpp`
-- [ ] `006633c0` 324 B `CheckGizAIMessage(GIZAIMESSAGESYS_s*, char const*, GIZAIMESSAGE_s*)`  **saga** `legoapi/gizmo/base/gizmessage.cpp`
+- [ ] `006633c0` 324 B `CheckGizAIMessage(GIZAIMESSAGESYS_s*, char const*, GIZAIMESSAGE_s*)`  **stub** · **saga** `legoapi/gizmo/base/gizmessage.cpp`
 - [ ] `006397b0` 329 B `SlowWeaponOut(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
 - [ ] `00597e60` 336 B `_InitGameDebris`  **hint** name (order)
 - [ ] `0059a110` 338 B `_AnimDuration`  **hint** name (gapfill)
