@@ -14,7 +14,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | group | todo | with saga body |
 |---|---|---|
 | [Action](#action) | 72 | 57 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 81 | 55 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 79 | 53 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
 | [Text](#text) | 10 | 9 |
@@ -311,8 +311,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005d3f60` 105 B `FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)`  **hint** name (gapfill)
 - [ ] `005a0830` 108 B `ConfigureMusic(char*, variptr_u*, variptr_u*)`  **saga** `nu2api/nusound/nusound3_include.cpp`
 - [ ] `005c16b0` 120 B `SetPlayerIDs(int, int)`  **hint** name (order)
-- [ ] `005ae6c0` 124 B `GetRotationAngles(nuvec_s*, unsigned short*, unsigned short*)`  **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
-- [ ] `005ae5c0` 126 B `FindAnglesZX(nuvec_s*, unsigned short*, unsigned short*)`  **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `0059c4b0` 127 B `_ActionFromName`  **hint** name (gapfill)
 - [ ] `0065c320` 136 B `LoseHat(GameObject_s*)`  **hint** name (gapfill)
 - [ ] `005b00d0` 153 B `LineIntersectCircle(nuvec_s*, nuvec_s*, nuvec_s*, float)`  **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`

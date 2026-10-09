@@ -355,9 +355,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005ae160,00354d0a,__Z5qrandv,qrand(),gapfill,2
 005ae1d0,00354daa,__Z11SeekLinearFfff,"SeekLinearF(float, float, float)",confirmed,0
 005ae240,00354de8,__Z8SeekValFfff,"SeekValF(float, float, float)",gapfill,1
-005ae5c0,00355164,__Z12FindAnglesZXP7nuvec_sPtS1_,"FindAnglesZX(nuvec_s*, unsigned short*, unsigned short*)",gapfill,1
+005ae5c0,00355164,__Z12FindAnglesZXP7nuvec_sPtS1_,"FindAnglesZX(nuvec_s*, unsigned short*, unsigned short*)",confirmed,0
 005ae640,003551f0,__Z12FindAnglesXYP7nuvec_sPtS1_,"FindAnglesXY(nuvec_s*, unsigned short*, unsigned short*)",order,4
-005ae6c0,00355280,__Z17GetRotationAnglesP7nuvec_sPtS1_,"GetRotationAngles(nuvec_s*, unsigned short*, unsigned short*)",order,4
+005ae6c0,00355280,__Z17GetRotationAnglesP7nuvec_sPtS1_,"GetRotationAngles(nuvec_s*, unsigned short*, unsigned short*)",confirmed,0
 005ae740,003552f2,__Z7RotDifftt,"RotDiff(unsigned short, unsigned short)",gapfill,3
 005aefd0,00355bdc,__Z10GameShadowP12GameObject_sP7nuvec_sfi,"GameShadow(GameObject_s*, nuvec_s*, float, int)",gapfill,1
 005af8c0,003561d0,__Z15LineIntersectXYP7nuvec_sS0_S0_S0_S0_S0_,"LineIntersectXY(nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*)",gapfill,5

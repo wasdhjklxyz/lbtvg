@@ -41,3 +41,5 @@
 0062db70 Mission_Clear  saga body matches (clear mission, ResetTimer)
 00635c80 ResetCoinPacket  saga body matches unchanged
 006486e0 Arcade_PlayerKilled  saga body matches (arcade kills + Arcade_AwardPoint)
+005ae6c0 GetRotationAngles  saga body matches (atan2 yaw, rotate, atan2 pitch)
+005ae5c0 FindAnglesZX  saga body matches (atan2 x, rotate X, atan2 z)
