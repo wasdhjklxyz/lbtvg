@@ -14,7 +14,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | group | todo | with saga body |
 |---|---|---|
 | [Action](#action) | 62 | 47 |
-| [near pcbatman.cpp](#near-pcbatmancpp) | 45 | 38 |
+| [near pcbatman.cpp](#near-pcbatmancpp) | 44 | 37 |
 | [near rtleditor.cpp](#near-rtleditorcpp) | 59 | 33 |
 | [near terrain.c](#near-terrainc) | 34 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 13 | 7 |
@@ -272,7 +272,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0044c960` 312 B `PartyMemberInWay(GameObject_s*, GameObject_s*)`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00447560` 369 B `GetNamedAPIObject(AISYS_s*, char*)`  **stub** · **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `004e34b0` 402 B `UpdateRadios()`  **saga** `legoapi/audio/radio.cpp`
-- [ ] `0044bf50` 403 B `GameAISysReset(AISYS_s*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `00428a60` 422 B `ResetAICreatures(AISYS_s*)`  **saga** `legoapi/ai/game/creature.cpp`
 - [ ] `004e8190` 477 B `BuyShopItem(LEGOSHOP_s*, shopitem_s*, int, int)`  **saga** `legoapi/menus/screens/shop.cpp`
 - [ ] `0043ebf0` 500 B `ObjHitShield(GameObject_s*, GameObject_s*, int, BOLT_s*)`  **saga** `legoapi/actions/combat/hits.cpp`

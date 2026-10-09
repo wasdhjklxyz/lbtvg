@@ -3,6 +3,7 @@
 
 #include "../gameapi/ai/aisys_unk.h"
 #include "../nu2api/nucore/nustring.h"
+#include "worldinfo_unk.h"
 #include <stddef.h>
 
 // FUNCTION: LEGOBATMAN 0x00447370
@@ -88,6 +89,76 @@ GameObject_s *GetNamedAPIObject(AISYS_s *sys, char *name) {
   }
 found:
   return obj != NULL ? (GameObject_s *)obj->pad0 : NULL;
+}
+
+struct LEVELSCRIPTPROCESS_s {
+  char name[0x10];           // 0x00
+  u8 processor[0xdc - 0x10]; // 0x10, AISCRIPTPROCESS
+};
+
+void AISysSetLevelPath(AISYS_s *sys, void *path);
+AISCRIPT *AIScriptFind(AISYS_s *sys, char *name, i32 can_use_default, i32 a,
+                       i32 b);
+void AIScriptProcessorInit(AISYS_s *sys, void *ai, void *process, void *a,
+                           char *name, void *c, i32 d, void *script,
+                           void *state);
+void LevelScriptReStoreProgress(WORLDINFO_s *world,
+                                LEVELSCRIPTPROCESS_s *process);
+void AISysResetPathCnxs(AISYS_s *sys);
+void AIPathCnxControlSysReset(void *sys);
+void AIPathCnxHelperSysReset(WORLDINFO_s *world, void *sys);
+void InitAICreatures(AISYS_s *sys);
+void ResetAICreatures(AISYS_s *sys);
+void GizmoSysUnk005bd480(GIZMOSYS_s *gizmo_sys, void *p, WORLDINFO_s *world);
+
+// GLOBAL: LEGOBATMAN 0x0093b104
+extern i32 g_unk0093b104;
+// GLOBAL: LEGOBATMAN 0x0093b108
+extern i32 g_unk0093b108;
+
+// from saga legoapi/items/objects/gameobjects.cpp
+// FUNCTION: LEGOBATMAN 0x0044bf50
+void GameAISysReset(AISYS_s *system) {
+  if (system == NULL)
+    return;
+
+  AISysSetLevelPath(system, NULL);
+
+  g_unk00960894->processor_count = 0;
+  for (i32 script_index = 0; script_index < 32; ++script_index) {
+    char script_name[32];
+    if (script_index != 0)
+      sprintf(script_name, "Level%d", script_index);
+    else
+      sprintf(script_name, "Level");
+
+    if (AIScriptFind(g_unk00960894->aiSys2bf8, script_name, 0, 1, 0) == NULL)
+      continue;
+
+    AIScriptProcessorInit(system, NULL,
+                          ((LEVELSCRIPTPROCESS_s *)g_unk00960894
+                               ->processors)[g_unk00960894->processor_count]
+                              .processor,
+                          NULL, script_name, NULL, 0, NULL, NULL);
+    NuStrCpy(((LEVELSCRIPTPROCESS_s *)
+                  g_unk00960894->processors)[g_unk00960894->processor_count]
+                 .name,
+             script_name);
+    LevelScriptReStoreProgress(
+        g_unk00960894, &((LEVELSCRIPTPROCESS_s *)g_unk00960894
+                             ->processors)[g_unk00960894->processor_count]);
+    ++g_unk00960894->processor_count;
+  }
+
+  AISysResetPathCnxs(system);
+  AIPathCnxControlSysReset(g_unk00960894->ai_path_cnx_control_sys);
+  AIPathCnxHelperSysReset(g_unk00960894, g_unk00960894->ai_path_cnx_helper_sys);
+  InitAICreatures(system);
+  ResetAICreatures(system);
+  if (g_unk00960894->processor_count != 0)
+    GizmoSysUnk005bd480(g_unk00960894->gizmoSys2b0c, g_unk00960894->p2b10,
+                        g_unk00960894);
+  g_unk0093b104 = g_unk0093b108 = -1;
 }
 
 // STUB: LEGOBATMAN 0x0044da30

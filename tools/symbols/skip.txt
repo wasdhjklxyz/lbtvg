@@ -23,3 +23,4 @@
 00461ff0 Action_SetPath: epilogue tail-merge differs, see STUB
 00465ab0 Action_PlaySfx: x87 init/compare sequences
 006633c0 CheckGizAIMessage: epilogue tail-merge differs, see STUB
+0060e6d0 LevelSplines_InitForLevel: Batman diverges a lot (mission/shop names, bounds)

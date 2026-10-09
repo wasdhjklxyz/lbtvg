@@ -68,11 +68,16 @@ struct WORLDINFO_s {
   Unk_WorldInfo2b04 *p2b04; // 0x2b04
   u8 pad6[0x2b0c - 0x2b08];
   GIZMOSYS_s *gizmoSys2b0c; // 0x2b0c
-  u8 pad7[0x2bec - 0x2b10];
+  void *p2b10;              // 0x2b10
+  u8 pad7[0x2bec - 0x2b14];
   struct CHARPLATFORMSYS_s *char_platform_sys; // 0x2bec
   u8 pad7b[0x2bf8 - 0x2bf0];
-  AISYS_s *aiSys2bf8; // 0x2bf8
-  u8 pad8[0x47bc - 0x2bfc];
+  AISYS_s *aiSys2bf8;             // 0x2bf8
+  i32 processor_count;            // 0x2bfc
+  u8 processors[0x4780 - 0x2c00]; // 0x2c00, 0xdc-byte LEVELSCRIPTPROCESS
+  void *ai_path_cnx_control_sys;  // 0x4780
+  void *ai_path_cnx_helper_sys;   // 0x4784
+  u8 pad8[0x47bc - 0x4788];
   struct GIZFORCESYS_s *giz_force_sys; // 0x47bc
   u8 pad8a[0x47c4 - 0x47c0];
   struct EQUIVALENTOBJECTGROUP_s *equivalent_groups; // 0x47c4
