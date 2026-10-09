@@ -13,7 +13,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [near rtleditor.cpp](#near-rtleditorcpp) | 90 | 64 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 89 | 63 |
 | [Action](#action) | 72 | 57 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
@@ -44,7 +44,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [LevelSplines](#levelsplines) | 2 | 2 |
 | [Move](#move) | 2 | 2 |
 | [NuStr](#nustr) | 2 | 2 |
-| [NuTex](#nutex) | 4 | 2 |
 | [Player](#player) | 2 | 2 |
 | [PortalDoors](#portaldoors) | 2 | 2 |
 | [SuperCarry](#supercarry) | 3 | 2 |
@@ -85,6 +84,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [NuInit](#nuinit) | 1 | 1 |
 | [NuMtl](#numtl) | 2 | 1 |
 | [NuMusic](#numusic) | 1 | 1 |
+| [NuTex](#nutex) | 3 | 1 |
 | [NuUnicode](#nuunicode) | 1 | 1 |
 | [NuVec](#nuvec) | 1 | 1 |
 | [ObjHitObj](#objhitobj) | 1 | 1 |
@@ -242,7 +242,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0059c530` 97 B `_ParseAnimStance`  **hint** name (order)
 - [ ] `006419d0` 99 B `InitSnakes(WORLDINFO_s*)`  **saga** `legoapi/actions/character/snake.cpp`
 - [ ] `00675430` 103 B `LoadSpecialSfxFile(WORLDINFO_s*)`  **saga** `legoapi/audio/sfx.cpp`
-- [ ] `005ae1d0` 104 B `SeekLinearF(float, float, float)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/move.cpp`
 - [ ] `005d3f60` 105 B `FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)`  **hint** name (gapfill)
 - [ ] `005a0830` 108 B `ConfigureMusic(char*, variptr_u*, variptr_u*)`  **saga** `nu2api/nusound/nusound3_include.cpp`
 - [ ] `005c16b0` 120 B `SetPlayerIDs(int, int)`  **hint** name (order)
@@ -661,13 +660,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006d75c0` 75 B `_NuStrNCpy`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nucore/nustring_c.cpp`
 - [ ] `006dc300` 120 B `_NuStrIStr`  **stub** · **saga** `nu2api/nucore/nustring_c.cpp`
 
-## NuTex
-
-- [ ] `006e6290` 121 B `_NuTexInitExPS`  **saga** `nu2api/nu3d/android/nutex_android.cpp`
-- [ ] `00711580` 146 B `_NuTexAnimEnvCreate`  **stub**
-- [ ] `00712030` 360 B `_NuTexAnimProgParseFile`  **saga** `nu2api/nucore/nutexanim.cpp`
-- [ ] `006e6490` 820 B `_NuTexReadBitmapMM2`
-
 ## Player
 
 - [ ] `005c1b80` 313 B `Player_ResetContexts(GameObject_s*)`  **saga** `legoapi/characters/core/players.cpp`
@@ -853,6 +845,12 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## NuMusic
 
 - [ ] `005375d0` 757 B `NuMusic::Debug(int, int)`  **saga** `nu2api/numusic/numusic.cpp`
+
+## NuTex
+
+- [ ] `00711580` 146 B `_NuTexAnimEnvCreate`  **stub**
+- [ ] `00712030` 360 B `_NuTexAnimProgParseFile`  **saga** `nu2api/nucore/nutexanim.cpp`
+- [ ] `006e6490` 820 B `_NuTexReadBitmapMM2`
 
 ## NuUnicode
 

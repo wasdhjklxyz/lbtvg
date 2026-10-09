@@ -66,6 +66,32 @@ int NuTexUnk006e6230() { return -1; }
 // FUNCTION: LEGOBATMAN 0x006e6240
 void NuTexUnk006e6240() {}
 
+extern "C" void D3DUnk00531410(const char *path, IDirect3DBaseTexture9 **out);
+extern "C" void D3DUnk00531230(const char *path, IDirect3DTexture9 **out);
+
+// GLOBAL: LEGOBATMAN 0x029dcbbc
+extern IDirect3DBaseTexture9 *g_LegoEnvTexture;
+// GLOBAL: LEGOBATMAN 0x029dcbc0
+extern IDirect3DBaseTexture9 *g_PhongEnvTexture;
+// GLOBAL: LEGOBATMAN 0x00b0988c
+extern IDirect3DTexture9 *g_permTexture2d;
+// GLOBAL: LEGOBATMAN 0x02996568
+extern IDirect3DTexture9 *g_permGradTexture;
+
+// FUNCTION: LEGOBATMAN 0x006e6290
+void NuTexInitExPS() {
+  D3DUnk00531410("pc\\stuff\\LegoCubeMap.dds", &g_LegoEnvTexture);
+  D3DUnk00531410("pc\\stuff\\PhongMap.dds", &g_PhongEnvTexture);
+  D3DUnk00531230("c:\\cutviewer\\permTexture2d.dds", &g_permTexture2d);
+  if (g_permTexture2d == 0) {
+    D3DUnk00531230("c:\\_PC GSCs\\permTexture2d.dds", &g_permTexture2d);
+  }
+  D3DUnk00531230("c:\\cutviewer\\permGradTexture.dds", &g_permGradTexture);
+  if (g_permGradTexture == 0) {
+    D3DUnk00531230("c:\\_PC GSCs\\permGradTexture.dds", &g_permGradTexture);
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x006e6310
 void NuTexUnk006e6310() {}
 
