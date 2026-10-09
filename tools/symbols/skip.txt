@@ -52,3 +52,5 @@
 0046eee0 Action_ForceLightning: x87 double temps + hand-hold loop, not attempted
 0060ea60 LevelObjects_InitForLevel: jump table
 0043ebf0 ObjHitShield: long x87 + flag juggling, not attempted
+0059d850 Text_PlatformSpecificIgnore: final branch if-converted, see STUB
+0059d900 Text_LoadAndFixUpStrings: register picks, see STUB
