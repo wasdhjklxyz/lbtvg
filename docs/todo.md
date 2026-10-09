@@ -50,7 +50,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Cheat](#cheat) | 2 | 1 |
 | [Collection](#collection) | 1 | 1 |
 | [Credits](#credits) | 1 | 1 |
-| [Door](#door) | 2 | 1 |
 | [Episodes](#episodes) | 1 | 1 |
 | [EquivalentObjects](#equivalentobjects) | 1 | 1 |
 | [Faders](#faders) | 1 | 1 |
@@ -112,6 +111,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Detonator](#detonator) | 3 | 0 |
 | [Detonators](#detonators) | 1 | 0 |
 | [DetonatorSys](#detonatorsys) | 4 | 0 |
+| [Door](#door) | 1 | 0 |
 | [DynamicMaterialManager](#dynamicmaterialmanager) | 1 | 0 |
 | [ElectricShock](#electricshock) | 1 | 0 |
 | [EvilArctic](#evilarctic) | 2 | 0 |
@@ -634,11 +634,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `004a6c60` 260 B `Credits_Init_Game(WORLDINFO_s*)`  **saga** `legoapi/world/level.cpp`
 
-## Door
-
-- [ ] `006152f0` 147 B `Door_DestinationLevel(DOOR_s*)`  **hint** name (order)
-- [ ] `006151e0` 222 B `Door_SetCutCam(DOOR_s*)`  **hint** name (order) · **saga** `legoapi/props/doors/doors.cpp`
-
 ## Episodes
 
 - [ ] `00648970` 912 B `Episodes_ConfigureList(char*, variptr_u*, variptr_u*, int, int*)`  **saga** `legoapi/world/levels/episode.cpp`
@@ -932,6 +927,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005d5930` 51 B `DetonatorSys_GetList(int*)`  **hint** name (order)
 - [ ] `005d5890` 149 B `DetonatorSys_Init(int, int, int, int, int, variptr_u*, variptr_u)`  **hint** name (order)
 - [ ] `005d5690` 502 B `DetonatorSys_RegisterType(DETONATORTYPE*)`  **hint** name (gapfill)
+
+## Door
+
+- [ ] `006152f0` 147 B `Door_DestinationLevel(DOOR_s*)`  **hint** name (order)
 
 ## DynamicMaterialManager
 

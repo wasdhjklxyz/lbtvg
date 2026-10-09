@@ -2,13 +2,30 @@
 
 #include "../nu2api/nucore/common.h"
 #include "../nu2api/nucore/nustring.h"
+#include "../nu2api/numath/nuvec.h"
+
+typedef struct DOORSPLINE_s {
+  u32 pad0[2];
+  nuvec_s *pts; // 0x08
+} DOORSPLINE_s;
 
 typedef struct DOOR_s {
-  char name[0x128]; // name first; rest unknown
+  char name[0x80];               // 0x00
+  char camera_spline_name[0x70]; // 0x80
+  i16 level;                     // 0xf0
+  u8 padf2[0xf9 - 0xf2];
+  u8 flags; // 0xf9
+  u8 padfa[2];
+  DOORSPLINE_s *camera_spline; // 0xfc
+  f32 camera_wait;             // 0x100
+  f32 camera_blend_time;       // 0x104
+  u32 pad108[(0x128 - 0x108) / 4];
 } DOOR_s;
 
 typedef struct WORLDINFO_s {
-  u8 pad0[0x47a8];
+  u8 pad0[0x120];
+  i32 level_idx; // 0x120
+  u8 pad124[0x47a8 - 0x124];
   DOOR_s *doors;  // 0x47a8
   i32 door_count; // 0x47ac
 } WORLDINFO_s;
@@ -42,4 +59,43 @@ DOOR_s *Door_FindByName(WORLDINFO_s *world, char *name) {
     }
   }
   return 0;
+}
+
+// GLOBAL: LEGOBATMAN 0x00acb068
+extern i32 Door_UseCutCam;
+// GLOBAL: LEGOBATMAN 0x00960894
+extern WORLDINFO_s *WORLD;
+// GLOBAL: LEGOBATMAN 0x00acb040
+extern char Door_ExitCameraSplineName[];
+// GLOBAL: LEGOBATMAN 0x00acafd4
+extern nuvec_s Door_CutCamPos0;
+// GLOBAL: LEGOBATMAN 0x00acafe8
+extern nuvec_s Door_CutCamPos1;
+// GLOBAL: LEGOBATMAN 0x00acafc8
+extern f32 Door_CutCamWaitTime;
+// GLOBAL: LEGOBATMAN 0x00acafe4
+extern f32 Door_CutCamWait;
+// GLOBAL: LEGOBATMAN 0x00acaff4
+extern f32 Door_CutCamBlendTime;
+// GLOBAL: LEGOBATMAN 0x00acb06c
+extern i32 Door_CutLookAtPlayers;
+
+// FUNCTION: LEGOBATMAN 0x006151e0
+void Door_SetCutCam(DOOR_s *door) {
+  Door_UseCutCam = 0;
+  if (door->camera_spline != 0) {
+    Door_UseCutCam = 1;
+    Door_CutCamPos0 = door->camera_spline->pts[0];
+    Door_CutCamPos1 = door->camera_spline->pts[1];
+  } else {
+    if (door->camera_spline_name[0] == '\0' ||
+        door->level == WORLD->level_idx) {
+      return;
+    }
+    Door_UseCutCam = 1;
+    NuStrCpy(Door_ExitCameraSplineName, door->camera_spline_name);
+  }
+  Door_CutCamWait = Door_CutCamWaitTime = door->camera_wait;
+  Door_CutCamBlendTime = door->camera_blend_time;
+  Door_CutLookAtPlayers = door->flags & 2;
 }
