@@ -787,3 +787,13 @@
 00627e00 CC_wall_shuffle_face_wall  matched, Mac order
 00627b90 CC_HoseLocators  matched, Mac order
 00627c00 CC_DieAir_PunchChance  matched, Mac order
+00628290 CC_swimmer  matched, Mac order
+006282e0 CC_diver  matched, Mac order
+00628330 CC_move_on_rails  matched, Mac order
+00628380 CC_deactivate_backtonormal  matched, Mac order
+006283d0 CC_ai_terrain_awkwardshape  matched, Mac order
+00628420 CC_batarang_target  matched, Mac order
+00628470 CC_can_scare  matched, Mac order
+006284c0 CC_cannot_freeze  matched, Mac order
+00628510 CC_sfx_glide_is_brolly  matched, Mac order
+00628270 CC_detonator_type  matched, Mac order

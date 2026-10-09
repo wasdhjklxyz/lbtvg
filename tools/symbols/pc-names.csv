@@ -1075,6 +1075,16 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00627d60,0027e982,__Z14CC_use_turnmulP8nufpar_s,CC_use_turnmul(nufpar_s*),confirmed,0
 00627db0,0027e9c0,__Z33CC_dont_trigger_vehicle_proximityP8nufpar_s,CC_dont_trigger_vehicle_proximity(nufpar_s*),confirmed,0
 00627e00,0027ea00,__Z25CC_wall_shuffle_face_wallP8nufpar_s,CC_wall_shuffle_face_wall(nufpar_s*),confirmed,0
+00628270,0027ea42,__Z17CC_detonator_typeP8nufpar_s,CC_detonator_type(nufpar_s*),confirmed,0
+00628290,0027ea74,__Z10CC_swimmerP8nufpar_s,CC_swimmer(nufpar_s*),confirmed,0
+006282e0,0027eab8,__Z8CC_diverP8nufpar_s,CC_diver(nufpar_s*),confirmed,0
+00628330,0027eafa,__Z16CC_move_on_railsP8nufpar_s,CC_move_on_rails(nufpar_s*),confirmed,0
+00628380,0027eb3e,__Z26CC_deactivate_backtonormalP8nufpar_s,CC_deactivate_backtonormal(nufpar_s*),confirmed,0
+006283d0,0027eb80,__Z26CC_ai_terrain_awkwardshapeP8nufpar_s,CC_ai_terrain_awkwardshape(nufpar_s*),confirmed,0
+00628420,0027ebc2,__Z18CC_batarang_targetP8nufpar_s,CC_batarang_target(nufpar_s*),confirmed,0
+00628470,0027ec06,__Z12CC_can_scareP8nufpar_s,CC_can_scare(nufpar_s*),confirmed,0
+006284c0,0027ec4a,__Z16CC_cannot_freezeP8nufpar_s,CC_cannot_freeze(nufpar_s*),confirmed,0
+00628510,0027ec8e,__Z22CC_sfx_glide_is_brollyP8nufpar_s,CC_sfx_glide_is_brolly(nufpar_s*),confirmed,0
 006285d0,00280c32,__Z16AnimInclude_InitPcP9variptr_uS1_,"AnimInclude_Init(char*, variptr_u*, variptr_u*)",strings,0
 00629270,002818fe,__Z23CharConfig_ConfigureAlliP12nufpcomjmp_s,"CharConfig_ConfigureAll(int, nufpcomjmp_s*)",strings,0
 0062d030,002833a2,__Z24CharShadows_InitMaterialP9variptr_uS_,"CharShadows_InitMaterial(variptr_u*, variptr_u)",strings,0
