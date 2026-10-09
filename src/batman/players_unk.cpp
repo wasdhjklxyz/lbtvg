@@ -234,7 +234,7 @@ void Player_ClearContext(GameObject_s *object, i32 mode) {
 }
 
 // GLOBAL: LEGOBATMAN 0x009604c0
-extern i32 LEGOCONTEXT_unk_009604c0;
+extern i32 g_unk009604c0;
 
 i32 qrand(void);
 void ReleaseTakeOver(GameObject_s *object, i32 unk);
@@ -274,7 +274,7 @@ void Player_ResetContexts(GameObject_s *object) {
   object->s9d2 = 0;
   object->b9d8 = 0;
   object->b131c = 0;
-  if (object->b9db == LEGOCONTEXT_unk_009604c0)
+  if (object->b9db == g_unk009604c0)
     ReleaseTakeOver(object, 1);
   object->f1250 = 0.0f;
   object->f1264 = 0.0f;
