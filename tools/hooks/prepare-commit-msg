@@ -43,7 +43,7 @@ body = [subject, ""]
 if len(subject) > 4 and subject.startswith("src: ") and "functions" in subject:
     body += ["Matched: " + ", ".join(names)] + (["Stubs: " + ", ".join(stubs)] if stubs else []) + [""]
 if sagas:
-    body += ["From saga: " + ", ".join(sagas), ""]
+    body += ["From saga " + ", ".join(sagas), ""]
 old = open(sys.argv[1]).read()
 open(sys.argv[1], "w").write("\n".join(body) + "\n" + old)
 PY
