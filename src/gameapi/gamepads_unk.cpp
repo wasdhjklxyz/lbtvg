@@ -85,6 +85,15 @@ typedef struct GAMECAMERA_s {
 // GLOBAL: LEGOBATMAN 0x0095f624
 extern GAMECAMERA_s *GameCam;
 
+// name is a Mac pairing hint (gapfill): verify
+// from saga legoapi/audio/sfx.cpp
+// FUNCTION: LEGOBATMAN 0x0059f260
+void GameAudio_PlaySfx(i32 sfx, nuvec_s *position, i32 flags, i32 volume) {
+  if ((u32)sfx <= 200) {
+    GameAudio_PlaySfxById(GameAudio->sfx_ids[sfx], position, flags, volume);
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x005a1fb0
 void GameCam_NewShake(GAMECAMERA_s *camera, float amount, float duration,
                       float speed) {

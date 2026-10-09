@@ -77,3 +77,32 @@ nuvec_s *Player_StartPos(GameObject_s *obj) {
   return PlayerStart[index].pos != 0 ? PlayerStart[index].pos
                                      : PlayerStart[0].pos;
 }
+
+void Unk005cc1a0(GameObject_s *object, i32 a);
+void Unk00659fb0(GameObject_s *object);
+void Unk00606d20(GameObject_s *object);
+void Unk00645490(GameObject_s *object);
+void Unk0062fc50(GameObject_s *object);
+void Unk0066d9c0(GameObject_s *object);
+void Unk005f1f50(GameObject_s *object);
+void Unk005ba400(GameObject_s *object);
+void Unk005fed80(GameObject_s *object);
+
+// GLOBAL: LEGOBATMAN 0x00ab39a8
+extern void (*Player_ClearContextFn)(GameObject_s *object, i32 mode);
+
+// FUNCTION: LEGOBATMAN 0x005c1b10
+void Player_ClearContext(GameObject_s *object, i32 mode) {
+  Unk005cc1a0(object, 0);
+  Unk00659fb0(object);
+  if (Player_ClearContextFn != 0)
+    Player_ClearContextFn(object, mode);
+  Unk00606d20(object);
+  Unk00645490(object);
+  Unk0062fc50(object);
+  object->flags1310 &= ~0x6000;
+  Unk0066d9c0(object);
+  Unk005f1f50(object);
+  Unk005ba400(object);
+  Unk005fed80(object);
+}

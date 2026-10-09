@@ -27,7 +27,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Arcade](#arcade) | 3 | 3 |
 | [Area](#area) | 4 | 3 |
 | [GizAction](#gizaction) | 3 | 3 |
-| [Player](#player) | 3 | 3 |
 | [Players](#players) | 3 | 3 |
 | [Areas](#areas) | 3 | 2 |
 | [Collection](#collection) | 2 | 2 |
@@ -36,7 +35,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [CutScenes](#cutscenes) | 3 | 2 |
 | [Door](#door) | 3 | 2 |
 | [Doors](#doors) | 2 | 2 |
-| [GameAudio](#gameaudio) | 2 | 2 |
 | [GizActions](#gizactions) | 5 | 2 |
 | [GizmoPickup](#gizmopickup) | 2 | 2 |
 | [GizPanel](#gizpanel) | 2 | 2 |
@@ -47,6 +45,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Move](#move) | 2 | 2 |
 | [NuStr](#nustr) | 2 | 2 |
 | [NuTex](#nutex) | 4 | 2 |
+| [Player](#player) | 2 | 2 |
 | [PortalDoors](#portaldoors) | 2 | 2 |
 | [SuperCarry](#supercarry) | 3 | 2 |
 | [Tag](#tag) | 2 | 2 |
@@ -63,6 +62,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [EquivalentObject](#equivalentobject) | 1 | 1 |
 | [EquivalentObjects](#equivalentobjects) | 1 | 1 |
 | [Faders](#faders) | 1 | 1 |
+| [GameAudio](#gameaudio) | 1 | 1 |
 | [GameMsg](#gamemsg) | 1 | 1 |
 | [GizBuildIts](#gizbuildits) | 1 | 1 |
 | [GizForces](#gizforces) | 1 | 1 |
@@ -568,12 +568,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00483070` 693 B `GizAction_SetAIState(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
 - [ ] `00482510` 763 B `GizAction_ActivateChar(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
 
-## Player
-
-- [ ] `005c1b10` 99 B `Player_ClearContext(GameObject_s*, int)`  **saga** `legoapi/characters/core/players.cpp`
-- [ ] `005c1b80` 313 B `Player_ResetContexts(GameObject_s*)`  **saga** `legoapi/characters/core/players.cpp`
-- [ ] `005c2250` 2274 B `Player_ToggleCharacter(GameObject_s*, int, int)`  **saga** `legoapi/characters/core/players.cpp`
-
 ## Players
 
 - [ ] `005c2bb0` 45 B `Players_BothActive()`  **hint** name (gapfill) · **saga** `legoapi/characters/core/players.cpp`
@@ -618,11 +612,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `00614d10` 528 B `Doors_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/props/doors/doors.cpp`
 - [ ] `00614f40` 590 B `Doors_Init(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/props/doors/doors.cpp`
-
-## GameAudio
-
-- [ ] `0059f260` 32 B `GameAudio_PlaySfx(int, nuvec_s*, int, int)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
-- [ ] `0059f160` 34 B `GameAudio_GetPlrSfxBits(void*)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
 
 ## GizActions
 
@@ -678,6 +667,11 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00711580` 146 B `_NuTexAnimEnvCreate`  **stub**
 - [ ] `00712030` 360 B `_NuTexAnimProgParseFile`  **saga** `nu2api/nucore/nutexanim.cpp`
 - [ ] `006e6490` 820 B `_NuTexReadBitmapMM2`
+
+## Player
+
+- [ ] `005c1b80` 313 B `Player_ResetContexts(GameObject_s*)`  **saga** `legoapi/characters/core/players.cpp`
+- [ ] `005c2250` 2274 B `Player_ToggleCharacter(GameObject_s*, int, int)`  **saga** `legoapi/characters/core/players.cpp`
 
 ## PortalDoors
 
@@ -750,6 +744,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## Faders
 
 - [ ] `00655790` 512 B `Faders_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/render/light/faders.cpp`
+
+## GameAudio
+
+- [ ] `0059f160` 34 B `GameAudio_GetPlrSfxBits(void*)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
 
 ## GameMsg
 

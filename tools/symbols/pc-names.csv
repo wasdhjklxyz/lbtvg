@@ -328,7 +328,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0059f160,0026748c,__Z23GameAudio_GetPlrSfxBitsPv,GameAudio_GetPlrSfxBits(void*),gapfill,1
 0059f190,002674b4,__Z15GameAudio_Resetv,GameAudio_Reset(),order,2
 0059f1d0,00267502,__Z21GameAudio_PlaySfxByIdiP7nuvec_sii,"GameAudio_PlaySfxById(int, nuvec_s*, int, int)",confirmed,0
-0059f260,002675aa,__Z17GameAudio_PlaySfxiP7nuvec_sii,"GameAudio_PlaySfx(int, nuvec_s*, int, int)",gapfill,1
+0059f260,002675aa,__Z17GameAudio_PlaySfxiP7nuvec_sii,"GameAudio_PlaySfx(int, nuvec_s*, int, int)",confirmed,0
 0059f8d0,00267b88,__Z11PlayJumpSfxP12GameObject_si,"PlayJumpSfx(GameObject_s*, int)",gapfill,3
 0059f9a0,00267c82,__Z11PlayLandSfxP12GameObject_sii,"PlayLandSfx(GameObject_s*, int, int)",gapfill,2
 0059fb60,00267e5a,__Z15PlayFootStepSfxP12GameObject_s,PlayFootStepSfx(GameObject_s*),order,3

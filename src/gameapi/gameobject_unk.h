@@ -115,7 +115,8 @@ struct GameObject_s {
   GameObjectLight_s lights[2]; // 0x129c
   u8 pad14a2[0x130c - 0x12f4];
   u32 flags130c; // 0x130c
-  u8 pad14b[0x131d - 0x1310];
+  u32 flags1310; // 0x1310
+  u8 pad14b[0x131d - 0x1314];
   u8 weapon_scale_state; // 0x131d
   u8 pad14c[0x135c - 0x131e];
   f32 f135c; // 0x135c
