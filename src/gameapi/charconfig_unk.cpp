@@ -54,31 +54,34 @@ typedef struct CHARCONFIG_RUNTIME_s {
   f32 lowres_swapdist;    // 0x170
   u32 shadow_locators;    // 0x174, bit per locator
   u32 thrust_locators;    // 0x178
-  unsigned char pad17c[0x194 - 0x17c];
-  i16 sfx_misc[6];         // 0x194
-  i16 sfx_die;             // 0x1a0
-  i16 sfx_hurt;            // 0x1a2
-  i16 sfx_doomed;          // 0x1a4
-  i16 sfx_grunt;           // 0x1a6
-  i16 sfx_engine;          // 0x1a8
-  i16 sfx_shoot;           // 0x1aa
-  i16 sfx_footstep;        // 0x1ac
-  i16 sfx_chatter;         // 0x1ae
-  i16 sfx_sabre;           // 0x1b0
-  i16 sfx_punch;           // 0x1b2
-  i16 sfx_punch_hit;       // 0x1b4
-  i16 sfx_beepbeep;        // 0x1b6
-  i16 sfx_phobia;          // 0x1b8
-  i16 sfx_land_normal;     // 0x1ba
-  i16 sfx_land_lunge;      // 0x1bc
-  i16 sfx_land_slam;       // 0x1be
-  i16 sfx_land_combatroll; // 0x1c0
-  i16 sfx_siren;           // 0x1c2
-  i16 bolt_type;           // 0x1c4
-  i16 bolt_type_2;         // 0x1c6
+  unsigned char pad17c[0x180 - 0x17c];
+  f32 ai_update_distance[4]; // 0x180
+  u8 ai_update_interval[4];  // 0x190
+  i16 sfx_misc[6];           // 0x194
+  i16 sfx_die;               // 0x1a0
+  i16 sfx_hurt;              // 0x1a2
+  i16 sfx_doomed;            // 0x1a4
+  i16 sfx_grunt;             // 0x1a6
+  i16 sfx_engine;            // 0x1a8
+  i16 sfx_shoot;             // 0x1aa
+  i16 sfx_footstep;          // 0x1ac
+  i16 sfx_chatter;           // 0x1ae
+  i16 sfx_sabre;             // 0x1b0
+  i16 sfx_punch;             // 0x1b2
+  i16 sfx_punch_hit;         // 0x1b4
+  i16 sfx_beepbeep;          // 0x1b6
+  i16 sfx_phobia;            // 0x1b8
+  i16 sfx_land_normal;       // 0x1ba
+  i16 sfx_land_lunge;        // 0x1bc
+  i16 sfx_land_slam;         // 0x1be
+  i16 sfx_land_combatroll;   // 0x1c0
+  i16 sfx_siren;             // 0x1c2
+  i16 bolt_type;             // 0x1c4
+  i16 bolt_type_2;           // 0x1c6
   unsigned char pad1c8[0x1cc - 0x1c8];
-  i16 default_items[5]; // 0x1cc
-  unsigned char pad1d6[0x1da - 0x1d6];
+  i16 default_items[5];       // 0x1cc
+  i16 rider_action;           // 0x1d6
+  i16 coin_value;             // 0x1d8
   u8 blobshadow_alpha;        // 0x1da
   i8 grapple_gun_locator;     // 0x1db
   i8 defined_locators[0x10];  // 0x1dc
@@ -113,8 +116,11 @@ typedef struct CHARCONFIG_RUNTIME_s {
   i8 attracto_suck_locator;   // 0x225
   u8 hit_points;              // 0x226
   u8 shield_hit_points;       // 0x227
-  unsigned char pad228[0x233 - 0x228];
+  unsigned char pad228[0x232 - 0x228];
+  u8 phobias;       // 0x232
   u8 chatter_delay; // 0x233
+  unsigned char pad234[0x238 - 0x234];
+  i16 dance_action; // 0x238
 } CHARCONFIG_RUNTIME_s;
 
 typedef struct CHARCONFIG_s {
@@ -1390,5 +1396,87 @@ void CC_no_jump(NUFPAR *parser) {
 // FUNCTION: LEGOBATMAN 0x00627740
 void CC_no_shoot(NUFPAR *parser) {
   ((CCBits *)&charconfig.runtime->flags144)->b14 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00627960
+void CC_coin_value(NUFPAR *parser) {
+  i32 value = NuFParGetInt(parser);
+  if (value > 10000)
+    value = 10000;
+  else if (value < 0)
+    value = 0;
+  charconfig.runtime->coin_value = (value / 10) * 10;
+}
+
+float NuAToF(const char *s);
+
+// FUNCTION: LEGOBATMAN 0x006279b0
+static void CC_set_timebaseupdatei(NUFPAR *parser, i32 index) {
+  if (NuFParGetWord(parser) != 0) {
+    f32 distance = NuAToF(parser->word_buf);
+    if (NuFParGetWord(parser) != 0) {
+      i32 frames = NuAToI(parser->word_buf);
+      charconfig.runtime->ai_update_distance[index] = distance;
+      charconfig.runtime->ai_update_interval[index] = frames;
+      charconfig.flags10 |= 0x20;
+    }
+  }
+}
+
+// All four pass slot 0 in the shipped code.
+// FUNCTION: LEGOBATMAN 0x00627a20
+void CC_set_timebaseupdate1(NUFPAR *parser) {
+  CC_set_timebaseupdatei(parser, 0);
+}
+
+// FUNCTION: LEGOBATMAN 0x00627a30
+void CC_set_timebaseupdate2(NUFPAR *parser) {
+  CC_set_timebaseupdatei(parser, 0);
+}
+
+// FUNCTION: LEGOBATMAN 0x00627a40
+void CC_set_timebaseupdate3(NUFPAR *parser) {
+  CC_set_timebaseupdatei(parser, 0);
+}
+
+// FUNCTION: LEGOBATMAN 0x00627a50
+void CC_set_timebaseupdate4(NUFPAR *parser) {
+  CC_set_timebaseupdatei(parser, 0);
+}
+
+i32 ActionFromName(char *name);
+
+// FUNCTION: LEGOBATMAN 0x00627a60
+void CC_rider_action(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0)
+    charconfig.runtime->rider_action = ActionFromName(parser->word_buf);
+}
+
+// FUNCTION: LEGOBATMAN 0x00627a90
+void CC_dance_action(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0)
+    charconfig.runtime->dance_action = ActionFromName(parser->word_buf);
+}
+
+// GLOBAL: LEGOBATMAN 0x00acd770
+extern u8 (*g_unk00acd770)(char *name);
+
+// FUNCTION: LEGOBATMAN 0x00627ac0
+void CC_phobia(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0 && g_unk00acd770 != 0) {
+    u8 phobia = g_unk00acd770(parser->word_buf);
+    if (phobia != 0) {
+      if (NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "off") == 0)
+        charconfig.runtime->phobias &= ~phobia;
+      else
+        charconfig.runtime->phobias |= phobia;
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00627b40
+void CC_DeflectBolts(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags148)->b24 =
       NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
 }

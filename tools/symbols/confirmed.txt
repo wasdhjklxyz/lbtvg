@@ -768,3 +768,13 @@
 006278d0 CC_maxheadturn  matched saga body, Mac order
 00627900 CC_maxheadtilt  matched saga body, Mac order
 00627930 CC_headrotrate  matched saga body, Mac order
+00627b40 CC_DeflectBolts  matched, Mac order
+00627960 CC_coin_value  matched, Mac order
+006279b0 CC_set_timebaseupdatei  matched, Mac order
+00627a20 CC_set_timebaseupdate1  matched, Mac order
+00627a30 CC_set_timebaseupdate2  matched, Mac order
+00627a40 CC_set_timebaseupdate3  matched, Mac order
+00627a50 CC_set_timebaseupdate4  matched, Mac order
+00627a60 CC_rider_action  matched, Mac order
+00627a90 CC_dance_action  matched, Mac order
+00627ac0 CC_phobia  matched, Mac order

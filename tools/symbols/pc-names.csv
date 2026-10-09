@@ -1056,6 +1056,16 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006278d0,0027e472,__Z14CC_maxheadturnP8nufpar_s,CC_maxheadturn(nufpar_s*),confirmed,0
 00627900,0027e4be,__Z14CC_maxheadtiltP8nufpar_s,CC_maxheadtilt(nufpar_s*),confirmed,0
 00627930,0027e50a,__Z14CC_headrotrateP8nufpar_s,CC_headrotrate(nufpar_s*),confirmed,0
+00627960,0027e556,__Z13CC_coin_valueP8nufpar_s,CC_coin_value(nufpar_s*),confirmed,0
+006279b0,,CC_set_timebaseupdatei,CC_set_timebaseupdatei,confirmed,0
+00627a20,0027e636,__Z22CC_set_timebaseupdate1P8nufpar_s,CC_set_timebaseupdate1(nufpar_s*),confirmed,0
+00627a30,0027e644,__Z22CC_set_timebaseupdate2P8nufpar_s,CC_set_timebaseupdate2(nufpar_s*),confirmed,0
+00627a40,0027e652,__Z22CC_set_timebaseupdate3P8nufpar_s,CC_set_timebaseupdate3(nufpar_s*),confirmed,0
+00627a50,0027e660,__Z22CC_set_timebaseupdate4P8nufpar_s,CC_set_timebaseupdate4(nufpar_s*),confirmed,0
+00627a60,0027e66e,__Z15CC_rider_actionP8nufpar_s,CC_rider_action(nufpar_s*),confirmed,0
+00627a90,0027e6b8,__Z15CC_dance_actionP8nufpar_s,CC_dance_action(nufpar_s*),confirmed,0
+00627ac0,0027e702,__Z9CC_phobiaP8nufpar_s,CC_phobia(nufpar_s*),confirmed,0
+00627b40,0027e794,__Z15CC_DeflectBoltsP8nufpar_s,CC_DeflectBolts(nufpar_s*),confirmed,0
 006285d0,00280c32,__Z16AnimInclude_InitPcP9variptr_uS1_,"AnimInclude_Init(char*, variptr_u*, variptr_u*)",strings,0
 00629270,002818fe,__Z23CharConfig_ConfigureAlliP12nufpcomjmp_s,"CharConfig_ConfigureAll(int, nufpcomjmp_s*)",strings,0
 0062d030,002833a2,__Z24CharShadows_InitMaterialP9variptr_uS_,"CharShadows_InitMaterial(variptr_u*, variptr_u)",strings,0
