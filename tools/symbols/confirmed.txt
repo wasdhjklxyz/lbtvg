@@ -87,3 +87,5 @@
 004f9ab0 Text_LoadStrings  saga shape matches (language path, trc.csv)
 005d9e20 GizmoBlowupBlowup  6-arg (blowup,1,-1,damage,NULL,1) call from GizActions_HitBlowup BLOWUP case; Mac gapfill had it swapped with GizTurrets_Hit
 00661d60 GizTurrets_Hit  (world,turret,NULL,-1,damage) call from GizActions_HitBlowup TURRET case; swapped gapfill
+005a27c0 GameCam_Blend  matches saga camera.cpp body byte-for-byte (blend fields, mode==-1 guard)
+005aefd0 GameShadow  saga body shape matches (platform disable list, NewShadowEx, PlatOnOff restore)

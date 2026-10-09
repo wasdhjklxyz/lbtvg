@@ -340,7 +340,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005a1fe0,00271c76,__Z19GameCam_UpdateShakeP12GAMECAMERA_sf,"GameCam_UpdateShake(GAMECAMERA_s*, float)",order,3
 005a21e0,00271eae,__Z14GameCam_JudderP12GAMECAMERA_sfiP7nuvec_s,"GameCam_Judder(GAMECAMERA_s*, float, int, nuvec_s*)",gapfill,2
 005a2310,00271f96,__Z17GameCam_HitJudderv,GameCam_HitJudder(),gapfill,1
-005a27c0,00272204,__Z13GameCam_BlendP12GAMECAMERA_sffi,"GameCam_Blend(GAMECAMERA_s*, float, float, int)",gapfill,2
+005a27c0,00272204,__Z13GameCam_BlendP12GAMECAMERA_sffi,"GameCam_Blend(GAMECAMERA_s*, float, float, int)",confirmed,0
 005a2d10,002b2902,__Z9NewRumbleP7nupad_sfi,"NewRumble(nupad_s*, float, int)",confirmed,0
 005a2d60,002b295a,__Z7NewBuzzP7nupad_sfi,"NewBuzz(nupad_s*, float, int)",confirmed,0
 005a2d90,002b2994,__Z13NewBuzzFramesP7nupad_sii,"NewBuzzFrames(nupad_s*, int, int)",calls,1
@@ -359,7 +359,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005ae640,003551f0,__Z12FindAnglesXYP7nuvec_sPtS1_,"FindAnglesXY(nuvec_s*, unsigned short*, unsigned short*)",order,4
 005ae6c0,00355280,__Z17GetRotationAnglesP7nuvec_sPtS1_,"GetRotationAngles(nuvec_s*, unsigned short*, unsigned short*)",confirmed,0
 005ae740,003552f2,__Z7RotDifftt,"RotDiff(unsigned short, unsigned short)",gapfill,3
-005aefd0,00355bdc,__Z10GameShadowP12GameObject_sP7nuvec_sfi,"GameShadow(GameObject_s*, nuvec_s*, float, int)",gapfill,1
+005aefd0,00355bdc,__Z10GameShadowP12GameObject_sP7nuvec_sfi,"GameShadow(GameObject_s*, nuvec_s*, float, int)",confirmed,0
 005af8c0,003561d0,__Z15LineIntersectXYP7nuvec_sS0_S0_S0_S0_S0_,"LineIntersectXY(nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*)",gapfill,5
 005b0000,0035632e,__Z19LineIntersectSphereP7nuvec_sS0_S0_fPf,"LineIntersectSphere(nuvec_s*, nuvec_s*, nuvec_s*, float, float*)",confirmed,0
 005b00d0,003563c6,__Z19LineIntersectCircleP7nuvec_sS0_S0_f,"LineIntersectCircle(nuvec_s*, nuvec_s*, nuvec_s*, float)",order,5

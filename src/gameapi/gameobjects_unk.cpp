@@ -5,6 +5,66 @@
 #include "../nu2api/nucore/common.h"
 #include <string.h>
 
+struct CHARPLATFORM_s {
+  nuhspecial_s special; // 0x00
+  i16 object_id;        // 0x0c
+  i16 platform_id;      // 0x0e
+  GameObject_s *object; // 0x10
+};
+
+struct CHARPLATFORMSYS_s {
+  i32 field_0x00;
+  i32 platform_count;          // 0x04
+  CHARPLATFORM_s platforms[1]; // 0x08
+};
+
+// GLOBAL: LEGOBATMAN 0x00aca574
+extern i32 VehicleArea;
+// GLOBAL: LEGOBATMAN 0x0095fd44
+extern u32 LAYER_HOVERIGNORE;
+
+void PlatOnOff(i32 index, i32 enabled);
+extern "C" f32 NewShadowEx(nuvec_s *position, f32 unk, f32 height_above,
+                           f32 height_below, i32 terrain_mask);
+
+// FUNCTION: LEGOBATMAN 0x005aefd0
+f32 GameShadow(GameObject_s *object, nuvec_s *position, f32 probe_height,
+               i32 terrain_mask) {
+  i32 disabled_platforms[16];
+  i32 disabled_platform_count = 0;
+
+  if (object != 0) {
+    WORLDINFO_s *world = WorldInfo_CurrentlyActive();
+    if (object->platform_id != -1)
+      disabled_platforms[disabled_platform_count++] = object->platform_id;
+
+    if (world != 0 && world->char_platform_sys != 0 && VehicleArea == 0 &&
+        (object->flags1fc & 0x80) == 0) {
+      CHARPLATFORMSYS_s *system = world->char_platform_sys;
+      for (i32 i = 0; i < system->platform_count; i++) {
+        if (system->platforms[i].object != 0)
+          disabled_platforms[disabled_platform_count++] =
+              system->platforms[i].object->platform_id;
+      }
+    }
+
+    for (i32 i = 0; i < disabled_platform_count; i++)
+      PlatOnOff(disabled_platforms[i], 0);
+
+    if (LAYER_HOVERIGNORE != 0xffffffff && object->p54->p24->fbc == 0.0f)
+      terrain_mask &= ~LAYER_HOVERIGNORE;
+  }
+
+  f32 shadow_height =
+      NewShadowEx(position, 0.0f, probe_height, probe_height, terrain_mask);
+
+  if (object != 0 && object->platform_id != -1)
+    PlatOnOff(object->platform_id, 1);
+  for (i32 i = 0; i < disabled_platform_count; i++)
+    PlatOnOff(disabled_platforms[i], 1);
+  return shadow_height;
+}
+
 // FUNCTION: LEGOBATMAN 0x005b0f40
 void *GameBufferAlloc(variptr_u *buf, variptr_u *buf_end, i32 size) {
   void *ptr = 0;

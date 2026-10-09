@@ -48,13 +48,35 @@ nusound_filename_info_s *ConfigureMusic(char *file, VARIPTR *bufferStart,
 
 struct GAMECAMERA_s {
   u8 pad0[0x11c];
-  NUVEC pos;
-  u8 pad128[0x1c8 - 0x128];
-  f32 judder_time;
-  f32 judder_duration;
-  u8 pad1d0[0x210 - 0x1d0];
-  u8 judder_reverse;
-  u8 judder_axis;
+  NUVEC pos;                // 0x11c
+  NUVEC desired_position;   // 0x128
+  NUVEC blend_start_target; // 0x134
+  NUVEC target;             // 0x140
+  NUVEC blend_end_target;   // 0x14c
+  u8 pad158[0x164 - 0x158];
+  NUVEC blend_start_position; // 0x164
+  u8 pad170[0x17c - 0x170];
+  NUVEC blend_end_position; // 0x17c
+  u8 pad188[0x1bc - 0x188];
+  f32 blend_time;      // 0x1bc
+  f32 blend_duration;  // 0x1c0
+  f32 blend_curve;     // 0x1c4
+  f32 judder_time;     // 0x1c8
+  f32 judder_duration; // 0x1cc
+  u8 pad1d0[0x204 - 0x1d0];
+  u16 blend_start_pitch;   // 0x204
+  u16 desired_pitch;       // 0x206
+  u16 blend_start_yaw;     // 0x208
+  u16 desired_yaw;         // 0x20a
+  u16 blend_start_roll;    // 0x20c
+  u16 desired_roll;        // 0x20e
+  u8 judder_reverse;       // 0x210
+  u8 judder_axis;          // 0x211
+  u8 reset_blend;          // 0x212
+  u8 blend_mode;           // 0x213
+  i8 mode;                 // 0x214
+  u8 previous_mode;        // 0x215
+  u8 previous_camera_mode; // 0x216
 };
 
 struct LEVELDATA_s {
@@ -123,4 +145,26 @@ void GameCam_HitJudder(void) {
     amount = -amount;
   }
   GameCam_Judder(GameCam, amount, qrand() / 0x5556, 0);
+}
+
+// FUNCTION: LEGOBATMAN 0x005a27c0
+void GameCam_Blend(GAMECAMERA_s *camera, f32 duration, f32 curve, i32 mode) {
+  if (camera == 0)
+    camera = GameCam;
+  if (!(duration > 0.0f) || camera->mode == -1)
+    return;
+
+  camera->blend_start_pitch = camera->desired_pitch;
+  camera->blend_start_yaw = camera->desired_yaw;
+  camera->blend_start_roll = camera->desired_roll;
+  camera->blend_mode = mode == 0 ? 1 : 2;
+  camera->previous_camera_mode = camera->previous_mode;
+  camera->reset_blend = 1;
+  camera->blend_curve = curve;
+  camera->blend_time = 0.0f;
+  camera->blend_duration = duration;
+  camera->blend_start_target = camera->target;
+  camera->blend_start_position = camera->desired_position;
+  camera->blend_end_target = camera->target;
+  camera->blend_end_position = camera->desired_position;
 }

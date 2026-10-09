@@ -15,7 +15,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 |---|---|---|
 | [Action](#action) | 59 | 44 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 44 | 37 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 58 | 32 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 57 | 31 |
 | [near terrain.c](#near-terrainc) | 34 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 13 | 7 |
 | [Grabber](#grabber) | 7 | 5 |
@@ -29,7 +29,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [CutScenePlayer](#cutsceneplayer) | 2 | 2 |
 | [CutScenes](#cutscenes) | 3 | 2 |
 | [Doors](#doors) | 2 | 2 |
-| [GameCam](#gamecam) | 2 | 2 |
 | [GizPanel](#gizpanel) | 2 | 2 |
 | [LevelObjects](#levelobjects) | 2 | 2 |
 | [Move](#move) | 2 | 2 |
@@ -47,6 +46,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Collection](#collection) | 1 | 1 |
 | [Episodes](#episodes) | 1 | 1 |
 | [Faders](#faders) | 1 | 1 |
+| [GameCam](#gamecam) | 1 | 1 |
 | [GameMsg](#gamemsg) | 1 | 1 |
 | [GizBuildIts](#gizbuildits) | 1 | 1 |
 | [GizForces](#gizforces) | 1 | 1 |
@@ -336,7 +336,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00639ba0` 233 B `FastWeaponIn(GameObject_s*, int)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/characters/core/playeritems.cpp`
 - [ ] `00620b30` 249 B `RedirectTextFile(char*, char*, int, int*)`  **saga** `legoapi/characters/core/charconfig.cpp`
 - [ ] `005fb300` 291 B `AddToModelList(APICHARACTERMODELLIST_s*, int*, int, int, int, EXTRAMODEL*, unsigned char)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
-- [ ] `005aefd0` 305 B `GameShadow(GameObject_s*, nuvec_s*, float, int)`  **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `00635ca0` 307 B `UpdateCoinPacket(COINPACKET_s*, int, int)`  **hint** name (order) · **saga** `legoapi/items/base/collection.cpp`
 - [ ] `005b0e00` 317 B `VecRotateAxis(nuvec_s*, unsigned short, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `0064ce30` 321 B `NewStatusRumbleBuzz(int, float, float, int)`  **hint** name (gapfill) · **saga** `legoapi/menus/screens/gamestatus_lsw.cpp`
@@ -494,11 +493,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00614d10` 528 B `Doors_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/props/doors/doors.cpp`
 - [ ] `00614f40` 590 B `Doors_Init(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/props/doors/doors.cpp`
 
-## GameCam
-
-- [ ] `005a27c0` 298 B `GameCam_Blend(GAMECAMERA_s*, float, float, int)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/camera.cpp`
-- [ ] `005a1fe0` 498 B `GameCam_UpdateShake(GAMECAMERA_s*, float)`  **hint** name (order) · **saga** `legoapi/characters/motion/camera.cpp`
-
 ## GizPanel
 
 - [ ] `0048f750` 993 B `GizPanel_Update(void*, void*, float)`  **saga** `legoapi/gizmos/object/gizpanel.cpp`
@@ -583,6 +577,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## Faders
 
 - [ ] `00655790` 512 B `Faders_Configure(WORLDINFO_s*, char*)`  **stub** · **saga** `legoapi/render/light/faders.cpp`
+
+## GameCam
+
+- [ ] `005a1fe0` 498 B `GameCam_UpdateShake(GAMECAMERA_s*, float)`  **hint** name (order) · **saga** `legoapi/characters/motion/camera.cpp`
 
 ## GameMsg
 
@@ -675,7 +673,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## NuMtl
 
 - [ ] `00727f20` 30 B `_NuMtlSetCurrentRenderPlane`
-- [ ] `006ef910` 300 B `_NuMtlUpdatePS`  **hint** name (gapfill) · **saga** `nu2api/nu3d/numtl.cpp`
+- [ ] `006ef910` 300 B `_NuMtlUpdatePS`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nu3d/numtl.cpp`
 
 ## NuMusic
 

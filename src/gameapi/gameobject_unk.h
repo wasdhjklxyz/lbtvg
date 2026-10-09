@@ -33,7 +33,9 @@ struct Unk_GameObject50 {
 };
 
 struct Unk_GameObject54_24 {
-  u8 pad0[0x148];
+  u8 pad0[0xbc];
+  f32 fbc; // 0xbc, GameShadow: 0 = ignore hover layer
+  u8 pad0c0[0x148 - 0xc0];
   u32 flags148; // 0x148
   u8 pad1[0x1d6 - 0x14c];
   i16 s1d6; // 0x1d6
@@ -158,7 +160,9 @@ struct GameObject_s {
   CABLE_s *cable157c; // 0x157c
   u8 pad18[0x15b0 - 0x1580];
   i16 type15b0; // 0x15b0
-  u8 pad19[0x162c - 0x15b2];
+  u8 pad15b2[0x15bc - 0x15b2];
+  i16 platform_id; // 0x15bc, -1 = none (PlatOnOff index)
+  u8 pad19[0x162c - 0x15be];
   i16 s162c; // 0x162c
   u8 pad20[0x1648 - 0x162e];
 };
