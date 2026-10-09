@@ -27,3 +27,4 @@
 00428a60 ResetAICreatures: tangled block layout + x87 tail
 00647150 MiniKit_InitPieces: esi push placement differs, see STUB
 00457460 Action_SetDoomedEscapeLocator: argc load diff, see STUB
+00656130 AddRipple: callee FUN_00656040 takes ecx (register-arg static)

@@ -250,6 +250,40 @@ void PortalDoors_Configure(WORLDINFO_s *world, char *config) {
     world->portal_doors = NULL;
 }
 
+nuinstanim_s *NuSpecialGetInstAnim(nuhspecial_s *special);
+f32 NuAnimEndFrameOld(void *animation);
+void NuPortalSetActive(nugscn_s *scene, i32 portal_id, i32 active);
+
+// FUNCTION: LEGOBATMAN 0x005c8b60
+void PortalDoors_Update(WORLDINFO_s *world) {
+  PORTALDOOR *door = world->portal_doors;
+  if (door == NULL)
+    return;
+
+  for (i32 i = 0; i < world->portal_door_count; i++, door++) {
+    nuinstanim_s *anim = NuSpecialGetInstAnim(&door->special);
+    if (anim == NULL)
+      continue;
+    f32 end_frame = NuAnimEndFrameOld(
+        door->special.scene->instance_animation_data[anim->anim_ix]);
+    u16 flags = door->flags;
+    bool closed;
+    if (flags & 1)
+      closed = !(anim->ltime >= end_frame);
+    else
+      closed = !(anim->ltime > 1.0f);
+    if (!closed) {
+      if (!(flags & 2)) {
+        NuPortalSetActive(world->scn140, door->portal_id, 1);
+        door->flags = (door->flags & ~4) | 2;
+      }
+    } else if ((flags & 2) || !(flags & 4)) {
+      NuPortalSetActive(world->scn140, door->portal_id, 0);
+      door->flags = (door->flags & ~2) | 4;
+    }
+  }
+}
+
 // from saga legoapi/items/objects/objectsall.cpp
 // FUNCTION: LEGOBATMAN 0x005c8c90
 void EquivalentObjects_Configure(WORLDINFO_s *world, char *config) {

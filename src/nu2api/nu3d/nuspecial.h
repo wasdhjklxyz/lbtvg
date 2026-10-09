@@ -11,6 +11,10 @@ struct NUGSPLINE;
 
 struct nuinstanim_s {
   numtx_s mtx; // 0x00, matrix-first record
+  unsigned char pad0[0x4c - 0x40];
+  float ltime; // 0x4c
+  unsigned char pad1[0x5c - 0x50];
+  unsigned short anim_ix; // 0x5c, index into nugscn_s::instance_animation_data
 };
 
 // Legacy scene instance, 0x50 bytes (saga NuLegacyInstanceLayout).
@@ -73,7 +77,9 @@ struct nugscn_s {
   unsigned char pad2[0x30 - 0x2c];
   int numsplines;       // 0x30
   nugspline_s *splines; // 0x34
-  unsigned char pad3[0x110 - 0x38];
+  unsigned char pad3[0x54 - 0x38];
+  void **instance_animation_data; // 0x54
+  unsigned char pad4[0x110 - 0x58];
   void *display_list; // 0x110, non-zero once specials became display specials
 };
 

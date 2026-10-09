@@ -19,7 +19,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near terrain.c](#near-terrainc) | 34 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 13 | 7 |
 | [Grabber](#grabber) | 7 | 5 |
-| [GameCam](#gamecam) | 4 | 4 |
 | [Hub](#hub) | 6 | 4 |
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 5 | 4 |
 | [Text](#text) | 5 | 4 |
@@ -30,6 +29,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [CutScenePlayer](#cutsceneplayer) | 2 | 2 |
 | [CutScenes](#cutscenes) | 3 | 2 |
 | [Doors](#doors) | 2 | 2 |
+| [GameCam](#gamecam) | 2 | 2 |
 | [GizPanel](#gizpanel) | 2 | 2 |
 | [LevelObjects](#levelobjects) | 2 | 2 |
 | [Move](#move) | 2 | 2 |
@@ -75,7 +75,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [PartImpact](#partimpact) | 3 | 1 |
 | [PartUpdate](#partupdate) | 1 | 1 |
 | [Players](#players) | 1 | 1 |
-| [PortalDoors](#portaldoors) | 1 | 1 |
 | [PowerUp](#powerup) | 1 | 1 |
 | [Pulses](#pulses) | 1 | 1 |
 | [RippleEffects](#rippleeffects) | 1 | 1 |
@@ -330,7 +329,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00623850` 166 B `ParseStreakCol(nufpar_s*)`
 - [ ] `0059f8d0` 185 B `PlayJumpSfx(GameObject_s*, int)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
 - [ ] `005aa1f0` 187 B `InitGrappleMtls(variptr_u*, variptr_u*)`
-- [ ] `00656130` 203 B `AddRipple(ripple_set_s*, numtx_s*, float, float, float, float, RGBA, RGBA, int, numtl_s*, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/items/fx/ripples.cpp`
+- [ ] `00656130` 203 B `AddRipple(ripple_set_s*, numtx_s*, float, float, float, float, RGBA, RGBA, int, numtl_s*, nuvec_s*)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/items/fx/ripples.cpp`
 - [ ] `005a3020` 212 B `ConstantRumble(GameObject_s*, float, float)`  **hint** name (gapfill) · **saga** `legoapi/misc/legoapi_misc.cpp`
 - [ ] `005b2a40` 229 B `LoadThingsScene()`
 - [ ] `00639580` 229 B `ObjOpponentStillThere(GameObject_s*, GameObject_s*, float)`  **hint** name (order) · **saga** `legoapi/actions/character/speederchase.cpp`
@@ -433,13 +432,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00602540` 740 B `Grabber_Drop(GRABBER_s*, nuvec_s*)`  **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
 - [ ] `00600e90` 1004 B `Grabber_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/items/objects/grabber.cpp`
 
-## GameCam
-
-- [ ] `005a2310` 186 B `GameCam_HitJudder()`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/camera.cpp`
-- [ ] `005a27c0` 298 B `GameCam_Blend(GAMECAMERA_s*, float, float, int)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/camera.cpp`
-- [ ] `005a21e0` 301 B `GameCam_Judder(GAMECAMERA_s*, float, int, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/camera.cpp`
-- [ ] `005a1fe0` 498 B `GameCam_UpdateShake(GAMECAMERA_s*, float)`  **hint** name (order) · **saga** `legoapi/characters/motion/camera.cpp`
-
 ## Hub
 
 - [ ] `004931b0` 68 B `Hub_SignalSwitchHeroVillain(HubSwitchMode)`  **stub**
@@ -503,6 +495,11 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `00614d10` 528 B `Doors_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/props/doors/doors.cpp`
 - [ ] `00614f40` 590 B `Doors_Init(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/props/doors/doors.cpp`
+
+## GameCam
+
+- [ ] `005a27c0` 298 B `GameCam_Blend(GAMECAMERA_s*, float, float, int)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/camera.cpp`
+- [ ] `005a1fe0` 498 B `GameCam_UpdateShake(GAMECAMERA_s*, float)`  **hint** name (order) · **saga** `legoapi/characters/motion/camera.cpp`
 
 ## GizPanel
 
@@ -721,10 +718,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## Players
 
 - [ ] `005c12a0` 1028 B `Players_InitPositions(WORLDINFO_s*)`  **saga** `legoapi/characters/core/players.cpp`
-
-## PortalDoors
-
-- [ ] `005c8b60` 229 B `PortalDoors_Update(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/gizmos/transport/gizportal.cpp`
 
 ## PowerUp
 
