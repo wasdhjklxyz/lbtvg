@@ -107,3 +107,5 @@
 005798a0 PlaySfx  saga PlaySfx body matches byte for byte
 00559480 PlaySfxAndSetVolume  saga PlaySfxAndSetVolume body matches byte for byte
 0055fd40 LookupDebrisEffectPage  saga body matches (calls LookupDebrisEffectPageIgnore with 0)
+005834f0 AddFiniteShotDebrisEffect  saga body matches (forwards to AddFiniteShotDebrisEffect2 with NULL momenta)
+00583520 AddScaledFiniteShotDebrisEffect  saga body matches (CreateScaledEffect then AddFiniteShotDebrisEffect2)

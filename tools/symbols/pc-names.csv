@@ -290,8 +290,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0057d660,00220a6a,_AddVariableShotDebrisEffect,_AddVariableShotDebrisEffect,gapfill,3
 0057d8b0,0021a160,_AddDebrisEffect,_AddDebrisEffect,gapfill,3
 00583200,0021ab7c,_AddFiniteShotDebrisEffect2,_AddFiniteShotDebrisEffect2,gapfill,2
-005834f0,0021af56,_AddFiniteShotDebrisEffect,_AddFiniteShotDebrisEffect,gapfill,1
-00583520,0021aeec,_AddScaledFiniteShotDebrisEffect,_AddScaledFiniteShotDebrisEffect,gapfill,4
+005834f0,0021af56,_AddFiniteShotDebrisEffect,_AddFiniteShotDebrisEffect,confirmed,0
+00583520,0021aeec,_AddScaledFiniteShotDebrisEffect,_AddScaledFiniteShotDebrisEffect,confirmed,0
 00584780,001ed63a,__Z8KillPartP6PART_si,"KillPart(PART_s*, int)",calls,2
 00584870,001ee044,__Z8FindPartP7nuvec_siPv,"FindPart(nuvec_s*, int, void*)",gapfill,1
 00584ac0,001ee112,__Z14PARTLookupTypePc,PARTLookupType(char*),calls,1

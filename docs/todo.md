@@ -16,7 +16,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Action](#action) | 57 | 42 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 44 | 37 |
 | [near rtleditor.cpp](#near-rtleditorcpp) | 49 | 29 |
-| [near terrain.c](#near-terrainc) | 30 | 9 |
+| [near terrain.c](#near-terrainc) | 27 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 12 | 6 |
 | [Grabber](#grabber) | 7 | 5 |
 | [Hub](#hub) | 6 | 4 |
@@ -353,11 +353,8 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## near terrain.c
 
-- [ ] `00572040` 10 B `_NewTerrPlatformsOff`
 - [ ] `00585040` 10 B `edpartSetParticlePage(int)`  **hint** name (gapfill)
-- [ ] `005834f0` 33 B `_AddFiniteShotDebrisEffect`  **hint** name (gapfill)
 - [ ] `0058b230` 57 B `_rtlDynamicFree`
-- [ ] `00583520` 61 B `_AddScaledFiniteShotDebrisEffect`  **hint** name (gapfill)
 - [ ] `00574220` 73 B `_PlatOnOff`  **hint** name (gapfill)
 - [ ] `00584ac0` 74 B `PARTLookupType(char*)`
 - [ ] `0057d660` 78 B `_AddVariableShotDebrisEffect`  **hint** name (gapfill)

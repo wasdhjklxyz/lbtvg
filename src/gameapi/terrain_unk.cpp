@@ -204,6 +204,12 @@ i32 ShadowInfo(void) { return ShadPoly != 0 ? ShadPoly->material[0] : -1; }
 // FUNCTION: LEGOBATMAN 0x00571fe0
 i32 EShadowInfo(void) { return EShadPoly != 0 ? EShadPoly->material[1] : -1; }
 
+static i16 NuTerrPlatsOff;
+
+// from saga legoapi/render/core/terrain.cpp
+// FUNCTION: LEGOBATMAN 0x00572040
+extern "C" void NewTerrPlatformsOff(void) { NuTerrPlatsOff = 1; }
+
 // FUNCTION: LEGOBATMAN 0x005c8130
 void WorldInfo_InitOnce(void) { memset(WorldInfo, 0, 0xa790); }
 
