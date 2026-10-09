@@ -39,7 +39,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [BoltTypes](#bolttypes) | 1 | 1 |
 | [CC](#cc) | 1 | 1 |
 | [CharConfig](#charconfig) | 1 | 1 |
-| [CharPivot](#charpivot) | 1 | 1 |
 | [Cheat](#cheat) | 2 | 1 |
 | [Collection](#collection) | 1 | 1 |
 | [Condition](#condition) | 2 | 1 |
@@ -535,10 +534,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## CharConfig
 
 - [ ] `00629270` 1222 B `CharConfig_ConfigureAll(int, nufpcomjmp_s*)`  **saga** `legoapi/characters/core/charconfig.cpp`
-
-## CharPivot
-
-- [ ] `006754c0` 518 B `CharPivot_Init(char*, variptr_u*, variptr_u)`  **saga** `legoapi/characters/motion/charpivot.cpp`
 
 ## Cheat
 

@@ -49,3 +49,4 @@
 004e8190 BuyShopItem: long, u64 shifts, many unknown fields
 006a4640 Action_Idle: x87 + ftol, several early returns, not attempted
 00464d10 Action_UseForce: epilogue tail-merge, see STUB
+0046eee0 Action_ForceLightning: x87 double temps + hand-hold loop, not attempted
