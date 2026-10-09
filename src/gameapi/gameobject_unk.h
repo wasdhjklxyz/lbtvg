@@ -124,7 +124,9 @@ struct GameObject_s {
   u32 flags480_hi : 4;
   u8 pad7a[0x488 - 0x484];
   f32 move_range; // 0x488
-  u8 pad7b[0x988 - 0x48c];
+  u8 pad7b[0x871 - 0x48c];
+  char sock_id; // 0x871, -1 = none
+  u8 pad872[0x988 - 0x872];
   f32 f988; // 0x988
   f32 f98c; // 0x98c
   u8 pad8[0x998 - 0x990];

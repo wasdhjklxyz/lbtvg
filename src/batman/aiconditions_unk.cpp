@@ -1475,6 +1475,95 @@ f32 Condition_RigidAnimFrame(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1.0f;
 }
 
+void *CutScene_Find(void *cutscene_sys, char *name);
+i32 instNuGCutSceneIsFinished(void *instance);
+
+struct CUTINFO_s {
+  u8 pad0[4];
+  u8 *instance; // 0x04, byte 0x88 bit 1: started
+};
+
+// FUNCTION: LEGOBATMAN 0x00450140
+void *Condition_CutSceneStartedInit(AISYS_s *sys, char *name,
+                                    AISCRIPT_s *script) {
+  return CutScene_Find(g_unk00960894->cutscene_sys, name);
+}
+
+// FUNCTION: LEGOBATMAN 0x00450170
+f32 Condition_CutSceneStarted(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char *str, void *argument) {
+  CUTINFO_s *cut = (CUTINFO_s *)argument;
+  if (cut != NULL && cut->instance != NULL && (cut->instance[0x88] & 2) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x004501a0
+void *Condition_CutSceneFinishedInit(AISYS_s *sys, char *name,
+                                     AISCRIPT_s *script) {
+  return CutScene_Find(g_unk00960894->cutscene_sys, name);
+}
+
+// FUNCTION: LEGOBATMAN 0x004501d0
+f32 Condition_CutSceneFinished(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                               AIPACKET_s *packet, char *str, void *argument) {
+  CUTINFO_s *cut = (CUTINFO_s *)argument;
+  if (cut != NULL && cut->instance != NULL &&
+      instNuGCutSceneIsFinished(cut->instance) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00450200
+void *Condition_CutSceneExistsInit(AISYS_s *sys, char *name,
+                                   AISCRIPT_s *script) {
+  return CutScene_Find(g_unk00960894->cutscene_sys, name);
+}
+
+// FUNCTION: LEGOBATMAN 0x00450230
+f32 Condition_CutSceneExists(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char *str, void *argument) {
+  if (argument != NULL)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00450240
+void *Condition_CutScenePlayingInit(AISYS_s *sys, char *name,
+                                    AISCRIPT_s *script) {
+  return CutScene_Find(g_unk00960894->cutscene_sys, name);
+}
+
+// FUNCTION: LEGOBATMAN 0x00450270
+f32 Condition_CutScenePlaying(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char *str, void *argument) {
+  return 0.0f;
+}
+
+struct SOCK184_s {
+  u8 pad0[0x184];
+};
+
+struct SOCKSYS_s {
+  SOCK184_s *sock; // 0x00
+};
+
+void *FindSock(SOCKSYS_s *sys, char *name);
+
+// FUNCTION: LEGOBATMAN 0x00450280
+void *Condition_PlayerInSockInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  return FindSock(g_unk00960894->sock_sys, name);
+}
+
+// FUNCTION: LEGOBATMAN 0x004502b0
+f32 Condition_PlayerInSock(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char *str, void *argument) {
+  if (argument != NULL && g_unk00960894->sock_sys != NULL &&
+      &g_unk00960894->sock_sys->sock[player->sock_id] == argument)
+    return 1.0f;
+  return 0.0f;
+}
+
 i32 Hub_GetRandomCharType(void);
 
 // FUNCTION: LEGOBATMAN 0x00451470

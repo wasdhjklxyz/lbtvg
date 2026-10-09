@@ -477,3 +477,13 @@
 00450050 Condition_AnimationFinished   matched saga gameobjects.cpp body, Mac order
 004500c0 Condition_RigidAnimFrameInit   matched saga gameobjects.cpp body, Mac order
 00450120 Condition_RigidAnimFrame   matched saga gameobjects.cpp body, Mac order
+00450140 Condition_CutSceneStartedInit   matched saga gameobjects.cpp body, Mac order
+00450170 Condition_CutSceneStarted   matched saga gameobjects.cpp body, Mac order
+004501a0 Condition_CutSceneFinishedInit   matched saga gameobjects.cpp body, Mac order
+004501d0 Condition_CutSceneFinished   matched saga gameobjects.cpp body, Mac order
+00450200 Condition_CutSceneExistsInit   matched saga gameobjects.cpp body, Mac order
+00450230 Condition_CutSceneExists   matched saga gameobjects.cpp body, Mac order
+00450240 Condition_CutScenePlayingInit   matched saga gameobjects.cpp body, Mac order
+00450270 Condition_CutScenePlaying   matched saga gameobjects.cpp body, Mac order
+00450280 Condition_PlayerInSockInit   matched saga gameobjects.cpp body, Mac order
+004502b0 Condition_PlayerInSock   matched saga gameobjects.cpp body, Mac order

@@ -84,6 +84,16 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00450050,0007755c,__Z27Condition_AnimationFinishedP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_AnimationFinished(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 004500c0,000775b2,__Z28Condition_RigidAnimFrameInitP7AISYS_sPcP10AISCRIPT_s,"Condition_RigidAnimFrameInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
 00450120,00077604,__Z24Condition_RigidAnimFrameP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_RigidAnimFrame(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+00450140,00077618,__Z29Condition_CutSceneStartedInitP7AISYS_sPcP10AISCRIPT_s,"Condition_CutSceneStartedInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+00450170,00077632,__Z25Condition_CutSceneStartedP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_CutSceneStarted(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+004501a0,00077654,__Z30Condition_CutSceneFinishedInitP7AISYS_sPcP10AISCRIPT_s,"Condition_CutSceneFinishedInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+004501d0,0007766e,__Z26Condition_CutSceneFinishedP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_CutSceneFinished(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+00450200,00077696,__Z28Condition_CutSceneExistsInitP7AISYS_sPcP10AISCRIPT_s,"Condition_CutSceneExistsInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+00450230,000776b0,__Z24Condition_CutSceneExistsP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_CutSceneExists(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+00450240,000776c2,__Z29Condition_CutScenePlayingInitP7AISYS_sPcP10AISCRIPT_s,"Condition_CutScenePlayingInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+00450270,000776dc,__Z25Condition_CutScenePlayingP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_CutScenePlaying(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+00450280,000776e4,__Z26Condition_PlayerInSockInitP7AISYS_sPcP10AISCRIPT_s,"Condition_PlayerInSockInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+004502b0,000776fe,__Z22Condition_PlayerInSockP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_PlayerInSock(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00451470,0007841e,__Z29Condition_CharacterTypeExistsP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_CharacterTypeExists(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",strings,0
 00451980,0007882a,__Z18Condition_SideInitP7AISYS_sPcP10AISCRIPT_s,"Condition_SideInit(AISYS_s*, char*, AISCRIPT_s*)",strings,0
 00451da0,00078b9e,__Z31Condition_OpponentToPlayerRangeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_OpponentToPlayerRange(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
