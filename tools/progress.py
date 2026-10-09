@@ -23,6 +23,8 @@ TEXT_LO, TEXT_HI = 0x00401000, 0x0073C8FB  # game region of .text (docs/recon.md
 ANNOT = re.compile(r"//\s*(FUNCTION|STUB):\s*LEGOBATMAN\s+0x([0-9a-fA-F]+)")
 
 MATCHED, STUB, NAMED, UNKNOWN = "matched", "stub", "named", "unknown"
+METHOD = {}                   # addr -> how its name was paired (tools/macnames.py)
+WEAK = ("order", "gapfill")
 
 
 def load():
@@ -33,9 +35,11 @@ def load():
         a, s, n = line.rstrip("\n").split("\t")
         funcs[int(a, 16)] = (int(s), n)
     lib = {a for a, (_, n) in funcs.items() if not n.startswith(("FUN_", "thunk_"))}
+
     names = {}
     for r in csv.DictReader(open(ROOT / "tools/symbols/pc-names.csv")):
         names[int(r["pc_addr"], 16)] = r["demangled"]
+        METHOD[int(r["pc_addr"], 16)] = r["method"]
     state = {}
     for f in list(ROOT.glob("src/**/*.c")) + list(ROOT.glob("src/**/*.cpp")) + list(ROOT.glob("src/**/*.h")):
         for kind, a in ANNOT.findall(f.read_text(errors="ignore")):
@@ -129,7 +133,9 @@ def write_todo(funcs, state, names, saga, by):
         "",
         "Smallest first inside each group. **saga** = opensagadev/saga has a body",
         "for it under `ref/saga/src/` (a starting point, not a guaranteed match).",
-        "**stub** = written but not byte-identical yet.",
+        "**stub** = written but not byte-identical yet. **hint** = the name comes",
+        "from a weak Mac pairing (order/gapfill): check the code agrees; fix it in",
+        "`tools/symbols/confirmed.txt` or `rejected.txt`.",
         "",
     ]
     order = sorted(groups.items(), key=lambda kv: (-sum(1 for x in kv[1] if x[4]), kv[0].lower()))
@@ -146,6 +152,8 @@ def write_todo(funcs, state, names, saga, by):
             tags = []
             if st == STUB:
                 tags.append("**stub**")
+            if METHOD.get(a) in WEAK:
+                tags.append(f"**hint** name ({METHOD[a]})")
             if sg:
                 tags.append(f"**saga** `{sg}`")
             lines.append(f"- [ ] `{a:08x}` {s} B `{n}`" + ("  " + " · ".join(tags) if tags else ""))
@@ -171,7 +179,8 @@ def write_site(funcs, lib, names, state, saga, total, by, pct):
         st = code[state[a]] if state[a] in (MATCHED, STUB) else "l" if a in lib else code[state[a]]
         name = src_name.get(a) or names.get(a) or (None if gname.startswith(("FUN_", "thunk_")) else gname)
         short = (name or "").split("(")[0].split(" ")[-1].lstrip("_")
-        rows.append([a, s, st, name, where.get(a), saga.get(short) if name else None])
+        rows.append([a, s, st, name, where.get(a), saga.get(short) if name else None,
+                     None if a in src_name else METHOD.get(a)])
     data = {
         "generated": datetime.date.today().isoformat(),
         "text": [TEXT_LO, TEXT_HI], "total": total, "pct": round(pct, 3),

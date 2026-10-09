@@ -12,7 +12,10 @@ same source. Compilers differ (MSVC vs GCC) so bytes never match, but:
   calls    paired functions call their callees in the same order; where the
            callee counts agree, pair callees 1:1.
 
-Writes tools/symbols/pc-names.csv: pc_addr,mac_addr,mac_name,method,round.
+Writes tools/symbols/pc-names.csv: pc_addr,mac_addr,mac_name,demangled,method,round.
+method: confirmed (tools/symbols/confirmed.txt, by hand) > strings > calls >
+order / gapfill (hints: verify against the code). tools/symbols/rejected.txt
+drops pairs proven wrong.
 Usage: tools/macnames.py [--pc orig/LEGOBatman.exe] [--mac "orig/donors/mac/LEGO Batman"]
 """
 import bisect, csv, re, subprocess, sys
@@ -262,12 +265,34 @@ def main():
     rejected = {int(l.split()[0], 16) for l in open(ROOT / "tools/symbols/rejected.txt") if l.strip() and not l.startswith("#")}
     for a in rejected:
         pairs.pop(a, None)
-    names = demangle([mac_by_addr[ma][1] for ma, _, _ in pairs.values()])
+    # hand-confirmed names win: tools/symbols/confirmed.txt
+    all_dem = demangle([n for _, _, n in mac.funcs])
+    by_short = {}
+    for a, _, n in mac.funcs:
+        d = all_dem.get(n, n)
+        by_short.setdefault(re.sub(r"\(.*", "", d).split(" ")[-1].lstrip("_"), a)
+    manual = {}
+    for line in open(ROOT / "tools/symbols/confirmed.txt"):
+        if line.strip() and not line.startswith("#"):
+            a, name = line.split()[:2]
+            manual[int(a, 16)] = name
+    for pa, name in manual.items():
+        ma = by_short.get(name)
+        if ma is not None:
+            for other in [k for k, v in pairs.items() if v[0] == ma and k != pa]:
+                pairs.pop(other)                   # the wrong address loses the name
+        pairs[pa] = (ma, "confirmed", 0)
+    names = demangle([mac_by_addr[ma][1] for ma, _, _ in pairs.values() if ma is not None])
     with open(OUT, "w", newline="") as f:
         w = csv.writer(f); w.writerow(["pc_addr", "mac_addr", "mac_name", "demangled", "method", "round"])
         for pa, (ma, how, rnd) in sorted(pairs.items()):
+            if ma is None:                         # confirmed name the Mac build lacks
+                w.writerow([f"{pa:08x}", "", manual[pa], manual[pa], how, rnd]); continue
             mn = mac_by_addr[ma][1]
-            w.writerow([f"{pa:08x}", f"{ma:08x}", mn, names.get(mn, mn), how, rnd])
+            dm = names.get(mn, mn)
+            if how == "confirmed" and manual.get(pa) and manual[pa] not in dm:
+                dm = manual[pa]
+            w.writerow([f"{pa:08x}", f"{ma:08x}", mn, dm, how, rnd])
     print(f"wrote {OUT} ({len(pairs)} rows)", file=sys.stderr)
 
 if __name__ == "__main__":

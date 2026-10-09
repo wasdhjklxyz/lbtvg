@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-# lbtvg pre-commit, for commits that touch src/:
+# lbtvg pre-commit, for commits that touch src/ or the name lists
+# (tools/symbols/confirmed.txt, rejected.txt):
+#   0. name lists changed: re-run tools/macnames.py (needs the Mac binary in
+#      orig/donors/) and stage tools/symbols/pc-names.csv
 #   1. clang-format the staged sources (re-staged; files with unstaged edits
 #      are only checked, so nothing you didn't stage sneaks in)
 #   2. re-run the match harness on them (whole tree if a header changed);
@@ -15,7 +18,19 @@ if ! python3 -c 'import lief, pefile, capstone' 2>/dev/null || ! command -v clan
 fi
 
 staged=$(git diff --cached --name-only --diff-filter=ACMR -- src/)
-[ -z "$staged" ] && exit 0
+names=$(git diff --cached --name-only --diff-filter=ACMR -- tools/symbols/confirmed.txt tools/symbols/rejected.txt)
+[ -z "$staged" ] && [ -z "$names" ] && exit 0
+
+# 0. names
+if [ -n "$names" ]; then
+  if [ -f "orig/donors/mac/LEGO Batman" ]; then
+    echo "pre-commit: name lists changed; re-pairing Mac names"
+    tools/macnames.py 2>&1 | tail -1
+    git add tools/symbols/pc-names.csv
+  else
+    echo "pre-commit: name lists changed but orig/donors/mac/LEGO Batman is missing; run make macnames elsewhere" >&2
+  fi
+fi
 
 # 1. format
 code=$(printf '%s\n' $staged | grep -E '\.(c|cpp|h)$' || true)

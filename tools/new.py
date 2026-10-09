@@ -314,7 +314,10 @@ def main(argv):
         print(f"{addr:08x} is already in {done[addr].relative_to(ROOT)}")
         print(f"  make match FUNC=0x{addr:08x}")
         return
-    names = {int(r["pc_addr"], 16): r["demangled"] for r in csv.DictReader(open(ROOT / "tools/symbols/pc-names.csv"))}
+    rows = {int(r["pc_addr"], 16): r for r in csv.DictReader(open(ROOT / "tools/symbols/pc-names.csv"))}
+    names = {a: r["demangled"] for a, r in rows.items()}
+    method = rows[addr]["method"] if addr in rows else None
+    weak = method in ("order", "gapfill")
     full = names.get(addr)
     name = short_name(full) if full else None
     hits = saga.find(name) if name else []
@@ -324,11 +327,16 @@ def main(argv):
     path, why = choose_file(addr, name or "", saga_path, done, anchors())
     rel = path.relative_to(ROOT)
     print(f"{addr:08x}  {full or 'FUN_%08x' % addr}")
+    if method:
+        trust = {"confirmed": "confirmed by hand", "strings": "strong (shared strings)",
+                 "calls": "good (call order)"}.get(method, f"HINT ({method}): check the code agrees before trusting it")
+        print(f"name:  {trust}")
     print(f"file:  {rel}  ({why})")
 
     if hits:
         body = hits[0][2].strip()
-        block = f"// from saga {saga_path}\n// FUNCTION: LEGOBATMAN 0x{addr:08x}\n{body}"
+        hint = f"// name is a Mac pairing hint ({method}): verify\n" if weak else ""
+        block = f"{hint}// from saga {saga_path}\n// FUNCTION: LEGOBATMAN 0x{addr:08x}\n{body}"
         insert(path, addr, block)
         ok, errs = compiles(path)
         dep_list, fetched, tried = [], [], set()

@@ -85,7 +85,7 @@
 <script>
 (async () => {
   const d = await (await fetch("data.json")).json();
-  const F = d.functions;                  // [addr, size, state, name, file, saga]
+  const F = d.functions;                  // [addr, size, state, name, file, saga, name method]
   const [LO, HI] = d.text, ROW = 16384;
   const rows = Math.ceil((HI - LO) / ROW);
   const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
@@ -179,7 +179,8 @@
       `<div class="name">${f[3] ? esc(f[3]) : "FUN_" + hex(f[0])}</div>` +
       `<div><span class="k">0x</span>${hex(f[0])} · ${fmt(f[1])} B · ${LABEL[f[2]]}</div>` +
       (f[4] ? `<div><span class="k">src</span> ${esc(f[4])}</div>` : "") +
-      (f[5] ? `<div><span class="k">saga</span> ${esc(f[5])}</div>` : "");
+      (f[5] ? `<div><span class="k">saga</span> ${esc(f[5])}</div>` : "") +
+      (f[6] ? `<div><span class="k">name</span> ${["order", "gapfill"].includes(f[6]) ? "hint (" + f[6] + "), verify" : f[6]}</div>` : "");
     tip.style.display = "block";
     const tw = tip.offsetWidth, th = tip.offsetHeight;
     tip.style.left = Math.min(ev.clientX + 14, innerWidth - tw - 8) + "px";

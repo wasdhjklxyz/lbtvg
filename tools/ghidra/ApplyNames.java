@@ -1,5 +1,7 @@
 // Apply tools/symbols/pc-names.csv (PC <-> Mac 1.0.1 pairs) to the current
-// program. Only renames functions that still have a default FUN_ name; puts
+// program. Renames functions that still have a default FUN_ name or a name an
+// earlier run gave them (so corrections propagate; your own names are left
+// alone). Weak pairings (order, gapfill) get a _hint suffix; puts
 // C++ methods in their class namespace; adds the full Mac signature and the
 // pairing method as a plate comment. Arg 0 (headless) or a file prompt (GUI):
 // path to the csv. Re-runnable.
@@ -28,7 +30,12 @@ public class ApplyNames extends GhidraScript {
         Address a = toAddr(Long.parseLong(f.get(0), 16));
         Function fn = fm.getFunctionAt(a);
         if (fn == null) { missing++; continue; }
-        if (!fn.getName().startsWith("FUN_")) { skipped++; continue; }
+        // ours to (re)name: still FUN_, or named by an earlier run of this script
+        String old = fn.getComment();
+        boolean ours = fn.getName().startsWith("FUN_") || (old != null && old.startsWith("mac 1.0.1:"));
+        if (!ours) { skipped++; continue; }
+        String method = f.get(4);
+        boolean hint = method.equals("order") || method.equals("gapfill");
         String dem = f.get(3);
         String name = dem.contains("(") ? dem.substring(0, dem.indexOf('(')) : dem;
         int sp = name.lastIndexOf(' ');           // drop return types if any
@@ -41,9 +48,10 @@ public class ApplyNames extends GhidraScript {
           ns = n != null ? n : st.createNameSpace(ns, parts[i], SourceType.IMPORTED);
         }
         try {
-          fn.setName(parts[parts.length - 1], SourceType.IMPORTED);
+          // weak pairings carry _hint so the listing says "check me"
+          fn.setName(parts[parts.length - 1] + (hint ? "_hint" : ""), SourceType.IMPORTED);
           fn.setParentNamespace(ns);
-          fn.setComment("mac 1.0.1: " + dem + "  [" + f.get(4) + "]");
+          fn.setComment("mac 1.0.1: " + dem + "  [" + method + (hint ? ": hint, verify against the code" : "") + "]");
           renamed++;
         } catch (Exception e) {
           println("skip " + f.get(0) + " " + name + ": " + e.getMessage());
