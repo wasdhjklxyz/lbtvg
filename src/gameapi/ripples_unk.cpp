@@ -306,6 +306,8 @@ int NuAToI(const char *s);
 class LightningManager {
 public:
   void Unk00656a10(i32 frame, nuhspecial_s *special);
+  void Init();
+  static void Lightning_Configure(WORLDINFO_s *world, char *buffer);
 
   u8 pad0[3];
   i8 strike_count; // 0x03
@@ -340,6 +342,35 @@ void LMC_AddCutSceneStrike(NUFPAR *parser) {
     if (lm->strike_count < 32) {
       lm->strikes[lm->strike_count].frame = frame;
       lm->strike_count++;
+    }
+  }
+}
+
+// GLOBAL: LEGOBATMAN 0x00967218
+extern u8 Lightning_ConfigKeywords[];
+
+void *GameBufferAlloc(variptr_u *buf, variptr_u *buf_end, i32 size);
+
+// FUNCTION: LEGOBATMAN 0x006572a0
+void LightningManager::Lightning_Configure(WORLDINFO_s *world, char *buffer) {
+  if (LM_OF(world) == NULL) {
+    NUFPAR *parser = NuFParCreateMem("lightning", buffer, 0xffff);
+    if (parser != NULL) {
+      NuFParPushCom(parser, Lightning_ConfigKeywords);
+      while (NuFParGetLine(parser)) {
+        if (NuFParGetWord(parser)) {
+          if (NuStrICmp(parser->word_buf, "lightning_start") == 0) {
+            LightningManager *lm = (LightningManager *)GameBufferAlloc(
+                &world->buf104, &world->bufEnd108, 0x3e4);
+            LM_OF(world) = lm != NULL ? (lm->Init(), lm) : NULL;
+          } else if (NuStrICmp(parser->word_buf, "lightning_end") == 0) {
+            break;
+          } else if (LM_OF(world) != NULL) {
+            NuFParInterpretWord(parser);
+          }
+        }
+      }
+      NuFParDestroy(parser);
     }
   }
 }
