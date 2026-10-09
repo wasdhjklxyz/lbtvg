@@ -183,14 +183,47 @@ void xConst(NUFPAR *parser) {
   aiscript_const_curr++;
 }
 
+i32 NuFParGetLine(NUFPAR *parser);
+
+// keyword "DERIVEFROMSCRIPT" in table 0x0099dce0
+// FUNCTION: LEGOBATMAN 0x006a25c0
+void xDeriveFromScript(NUFPAR *parser) {
+  i32 is_done;
+  if (load_aiscript == NULL || *(char **)((u8 *)load_aiscript + 0x10) != NULL)
+    return;
+  load_aiscript->is_derived_from_level_script = 0;
+  is_done = 0;
+  while (!is_done && NuFParGetLine(parser) != 0) {
+    while (!is_done && NuFParGetWord(parser) != 0) {
+      char *cursor;
+      if (NuStrICmp(parser->word_buf, "}") != 0) {
+        if ((cursor = NuStrIStr(parser->word_buf, "Script")) != NULL) {
+          cursor += 7;
+          *(char **)((u8 *)load_aiscript + 0x10) =
+              AIScriptCopyString(cursor, load_buff, load_endbuff);
+        } else if (NuStrIStr(parser->word_buf, "Source") != NULL) {
+          if (NuStrIStr(parser->word_buf, "Global") != NULL)
+            load_aiscript->is_derived_from_level_script = 0;
+          else if (NuStrIStr(parser->word_buf, "Level") != NULL)
+            load_aiscript->is_derived_from_level_script = 1;
+        }
+      } else {
+        is_done = 1;
+      }
+    }
+  }
+  if (*(char **)((u8 *)load_aiscript + 0x10) != NULL)
+    load_aiscript->is_derived = 1;
+}
+
 // STUB: LEGOBATMAN 0x006a2730
 // close: orig pushes ebx and loads buf before the NuListGetHead call; ours
 // does it after the empty-list check. Rest lines up.
 void AIScriptCopyConditions(NULISTHDR *src, NULISTHDR *dst, VARIPTR *buf,
                             VARIPTR *buf_end) {
   AICONDITION *src_cond;
-  for (src_cond = (AICONDITION *)NuListGetHead(src); src_cond != 0;
-       src_cond = (AICONDITION *)NuListGetNext(src, &src_cond->list_node)) {
+  src_cond = (AICONDITION *)NuListGetHead(src);
+  while (src_cond != 0) {
     AICONDITION *dst_cond =
         (AICONDITION *)AIScriptBufferAlloc(buf, buf_end, sizeof(AICONDITION));
     if (dst_cond != 0) {
@@ -203,6 +236,7 @@ void AIScriptCopyConditions(NULISTHDR *src, NULISTHDR *dst, VARIPTR *buf,
           AIScriptCopyString(src_cond->next_state_name, buf, buf_end);
       NuListAppendUnk006d40f0(dst, &dst_cond->list_node);
     }
+    src_cond = (AICONDITION *)NuListGetNext(src, &src_cond->list_node);
   }
 }
 
@@ -1110,6 +1144,51 @@ i32 Action_NoShadows(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   for (i32 i = 0; i < argc; i++) {
     if (NuStrICmp(args[i], "false") == 0)
       *(u32 *)((u8 *)packet->pd0 + 0x1f8) &= ~0x2000;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a5950
+i32 Action_SetParam(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                    AIPACKET_s *packet, char **params, i32 param_count,
+                    i32 first_time, f32 elapsed) {
+  i32 index;
+  i32 i;
+  char *value;
+  u8 *creature;
+
+  if (packet == NULL || processor == NULL || processor->script == NULL)
+    return 1;
+  if (packet->origin_index == 0xff)
+    creature = NULL;
+  else
+    creature = (u8 *)&sys->creatures[packet->origin_index];
+  for (i = 0; i < param_count - 1; i++) {
+    for (index = 0; index < 4; index++) {
+      if (NuStrICmp(params[i], processor->script->params[index].name) == 0) {
+        if (NuStrICmp(params[i + 1], "default") == 0) {
+          if (creature != NULL &&
+              (*(i32 *)(creature + 0x4c) & (2LL << index)) != 0)
+            processor->params[index] = ((f32 *)(creature + 0x64))[index];
+          else
+            processor->params[index] =
+                processor->script->params[index].default_val;
+        } else if ((value = NuStrIStr(params[i + 1], "inc=")) != NULL) {
+          value += NuStrLen("inc=");
+          processor->params[index] +=
+              AIParamToFloatEx(packet, (AISCRIPTPROCESS *)packet, value);
+        } else if ((value = NuStrIStr(params[i + 1], "dec=")) != NULL) {
+          value += NuStrLen("dec=");
+          processor->params[index] -=
+              AIParamToFloatEx(packet, (AISCRIPTPROCESS *)packet, value);
+        } else {
+          processor->params[index] = AIParamToFloatEx(
+              packet, (AISCRIPTPROCESS *)packet, params[i + 1]);
+        }
+        i++;
+        break;
+      }
+    }
   }
   return 1;
 }
