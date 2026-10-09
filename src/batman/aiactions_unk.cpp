@@ -324,6 +324,61 @@ i32 Action_SetPath(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
   return 1;
 }
 
+i32 NuRand(void *seed);
+int sprintf(char *buf, const char *fmt, ...);
+
+// STUB: LEGOBATMAN 0x00457460
+// one diff: orig loads argc into eax for the loop-entry test (mov eax, argc;
+// cmp eax, esi), ours compares memory directly. Same as Action_SetPath.
+i32 Action_SetDoomedEscapeLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                  AIPACKET_s *packet, char **args, int argc,
+                                  int flags, f32 time) {
+  char *name = 0;
+  GameObject_s *obj = 0;
+  i32 personal = 0;
+  i32 indexed = 0;
+  i32 random_count = 0;
+  i32 take_damage = 0;
+  char *s;
+  if (flags) {
+    if (packet && packet->pd0 && packet->pd0->obj)
+      obj = packet->pd0->obj;
+    for (i32 i = 0; i < argc; i++) {
+      if ((s = NuStrIStr(args[i], "character=")))
+        obj = GetNamedGameObject(sys, s + 10);
+      else if ((s = NuStrIStr(args[i], "name")))
+        name = s + 5;
+      else if (NuStrIStr(args[i], "personal"))
+        personal = 1;
+      else if (NuStrIStr(args[i], "indexed"))
+        indexed = 1;
+      else if (NuStrIStr(args[i], "take_damage"))
+        take_damage = 1;
+      else if ((s = NuStrIStr(args[i], "random")))
+        random_count = (i32)AIParamToFloat(process, s + 9);
+    }
+    if (obj) {
+      obj->doomed_take_damage = 0;
+      obj->doomed_escape_locator = 0;
+      if (name) {
+        char locator_name[64];
+        if (indexed && obj->b24c != -1)
+          sprintf(locator_name, "%s_%d", name, obj->b24c);
+        else if (personal && obj->p54 != 0)
+          sprintf(locator_name, "%s_%s", name, obj->p54->file);
+        else if (random_count != 0)
+          sprintf(locator_name, "%s_%d", name, NuRand(0) % random_count);
+        else
+          sprintf(locator_name, name);
+        obj->doomed_escape_locator = AIPathFindLocator(sys, locator_name);
+        if (obj->doomed_escape_locator)
+          obj->doomed_take_damage = take_damage;
+      }
+    }
+  }
+  return 1;
+}
+
 struct GIZOBSTACLE_s {
   u8 pad0[0xc8];
   u32 flags_c8_lo : 13;

@@ -139,12 +139,16 @@ struct GameObject_s {
   f32 f135c; // 0x135c
   u8 pad14d[0x140c - 0x1360];
   u32 flags140c; // 0x140c
-  u8 pad14e[0x1414 - 0x1410];
+  u32 flags1410_lo : 15;
+  u32 doomed_take_damage : 1; // 0x1410 bit 15
+  u32 flags1410_hi : 16;
   u32 flags1414; // 0x1414
   u32 flags1418; // 0x1418
   u8 pad15[0x1430 - 0x141c];
   u32 flags1430; // 0x1430
-  u8 pad16[0x1534 - 0x1434];
+  u8 pad15b[0x143c - 0x1434];
+  struct AILOCATOR_s *doomed_escape_locator; // 0x143c
+  u8 pad16[0x1534 - 0x1440];
   f32 f1534; // 0x1534
   u8 pad17[0x154c - 0x1538];
   f32 flicker_time; // 0x154c

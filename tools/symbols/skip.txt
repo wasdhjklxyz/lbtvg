@@ -26,3 +26,4 @@
 0060e6d0 LevelSplines_InitForLevel: Batman diverges a lot (mission/shop names, bounds)
 00428a60 ResetAICreatures: tangled block layout + x87 tail
 00647150 MiniKit_InitPieces: esi push placement differs, see STUB
+00457460 Action_SetDoomedEscapeLocator: argc load diff, see STUB

@@ -220,7 +220,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006a4b10` 565 B `_Action_FaceOpponent`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00470370` 575 B `Action_AddTorpedoPacket(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `006ba4b0` 597 B `_Action_CirclePlayer`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00457460` 602 B `Action_SetDoomedEscapeLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00457460` 602 B `Action_SetDoomedEscapeLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `006ba710` 603 B `_Action_CircleOpponent`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `0046cd90` 606 B `Action_AddGameMsgCount(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `004684e0` 627 B `Action_TurnToFaceOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
