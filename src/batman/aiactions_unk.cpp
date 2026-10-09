@@ -287,6 +287,8 @@ void AISysGetCharacterPathPos(AISYS_s *sys, GameObject_s *obj, void *ai, i32 a,
 // STUB: LEGOBATMAN 0x00461ff0
 // body right; orig keeps three separate early-return epilogues, ours
 // tail-merges them (and loads argc into eax before the loop).
+// Nesting the three checks (if (flags) { if (sys) { if (path_sys) {...}}})
+// gives three separate epilogues but in inner-first order.
 i32 Action_SetPath(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
                    char **args, int argc, int flags, f32 time) {
   SetPathAIPath_s *path = 0;
