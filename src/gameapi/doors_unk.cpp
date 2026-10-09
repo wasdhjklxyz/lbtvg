@@ -218,6 +218,44 @@ extern PLAYERSTARTENTRY PlayerStart[8];
 void NuVecSub(nuvec_s *out, nuvec_s *a, nuvec_s *b);
 i32 NuAtan2D(f32 dx, f32 dy);
 
+typedef struct LEVELDATA_s {
+  u8 pad00[0xab];
+  i8 area_index; // 0xab
+  u8 padac[0xd8 - 0xac];
+  i8 area_level_index; // 0xd8
+  u8 padd9[0x150 - 0xd9];
+} LEVELDATA;
+
+// GLOBAL: LEGOBATMAN 0x00aca894
+extern LEVELDATA *LDataList;
+
+// 0x2e90 bytes per entry; only the completion flag byte is evidenced.
+struct Unk009ca958 {
+  u8 pad0000[0x2800];
+  u8 flags2800; // 0x2800, bit 0 = completed
+  u8 pad2801[0x2e90 - 0x2801];
+};
+
+// GLOBAL: LEGOBATMAN 0x009ca958
+extern Unk009ca958 *g_unk009ca958;
+
+i32 InStory(void);
+
+// FUNCTION: LEGOBATMAN 0x006152f0
+i32 Door_DestinationLevel(DOOR_s *door) {
+  if (InStory() == 0 && door->freeplay_level != -1)
+    return door->freeplay_level;
+  if (door->level_f2 != -1) {
+    if (LDataList[door->level].area_index != -1 &&
+        LDataList[door->level_f2].area_index ==
+            LDataList[door->level].area_index &&
+        LDataList[door->level].area_level_index != -1 &&
+        (g_unk009ca958[LDataList[door->level].area_level_index].flags2800 & 1))
+      return door->level_f2;
+  }
+  return door->level;
+}
+
 // FUNCTION: LEGOBATMAN 0x00615390
 i32 StartDoorPositions(void) {
   Door_Start = 0;

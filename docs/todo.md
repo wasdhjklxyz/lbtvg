@@ -100,7 +100,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [CustomiserInternal](#customiserinternal) | 5 | 0 |
 | [Detonator](#detonator) | 3 | 0 |
 | [DetonatorSys](#detonatorsys) | 1 | 0 |
-| [Door](#door) | 1 | 0 |
 | [DynamicMaterialManager](#dynamicmaterialmanager) | 1 | 0 |
 | [ElectricShock](#electricshock) | 1 | 0 |
 | [EvilArctic](#evilarctic) | 2 | 0 |
@@ -780,10 +779,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## DetonatorSys
 
 - [ ] `005d5690` 502 B `DetonatorSys_RegisterType(DETONATORTYPE*)`  **hint** name (gapfill)
-
-## Door
-
-- [ ] `006152f0` 147 B `Door_DestinationLevel(DOOR_s*)`  **hint** name (order)
 
 ## DynamicMaterialManager
 

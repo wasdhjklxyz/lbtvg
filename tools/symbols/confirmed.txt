@@ -246,3 +246,4 @@
 005c16b0 SetPlayerIDs  stores PlayerID[0/1] and per-player hero/villain ids by char flags 0x100000/0x200000; Mac name
 00504680 GetPlantLocator  maps Plant1..3 to SEED1..3 AI locators; Mac name
 0065c320 LoseHat  same shape as Mac LoseHat (drops hat at hat locator or fallback, clears 0x1574)
+006152f0 Door_DestinationLevel  freeplay level outside story, else alternate level when same area and area completed; Mac name
