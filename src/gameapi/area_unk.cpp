@@ -6,8 +6,10 @@
 
 typedef struct AREADATA_s {
   u16 pad0[0x40 / 2];
-  char file[0x20];  // 0x40
-  i16 levels[0x12]; // 0x60
+  char file[0x20]; // 0x40
+  i16 levels[0xe]; // 0x60
+  u32 flags;       // 0x7c
+  u32 pad80;
   u8 pad84;
   u8 level_count; // 0x85
   u16 pad86[(0x92 - 0x86) / 2];
@@ -185,6 +187,32 @@ AREADATA *Area_FindByName(char *name, i32 *indexDest) {
   }
 
   return 0;
+}
+
+typedef struct AREAFIXUP {
+  char *name;
+  AREADATA **area;
+} AREAFIXUP;
+
+// FUNCTION: LEGOBATMAN 0x005fb0e0
+void Areas_FixUp(AREAFIXUP *fixup) {
+  if (fixup != 0) {
+    char *name = fixup->name;
+    while (name != 0) {
+      if (fixup->area != 0) {
+        *fixup->area = Area_FindByName(name, 0);
+      }
+      fixup++;
+      name = fixup->name;
+    }
+  }
+  for (i32 i = 0; i < AREACOUNT; i++) {
+    if (ADataList[i].flags & 0x40) {
+      for (i32 j = 0; j < ADataList[i].level_count; j++) {
+        LDataList[ADataList[i].levels[j]].flags |= 0x1000000;
+      }
+    }
+  }
 }
 
 // FUNCTION: LEGOBATMAN 0x005fb1e0

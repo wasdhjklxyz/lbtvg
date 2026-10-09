@@ -26,7 +26,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizAction](#gizaction) | 3 | 3 |
 | [Arcade](#arcade) | 2 | 2 |
 | [Area](#area) | 3 | 2 |
-| [Areas](#areas) | 3 | 2 |
 | [Condition](#condition) | 3 | 2 |
 | [CutScenePlayer](#cutsceneplayer) | 2 | 2 |
 | [CutScenes](#cutscenes) | 3 | 2 |
@@ -41,6 +40,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Player](#player) | 2 | 2 |
 | [PortalDoors](#portaldoors) | 2 | 2 |
 | [Tag](#tag) | 2 | 2 |
+| [Areas](#areas) | 2 | 1 |
 | [BoltSys](#boltsys) | 1 | 1 |
 | [BoltTypes](#bolttypes) | 1 | 1 |
 | [CC](#cc) | 1 | 1 |
@@ -506,12 +506,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005fb260` 140 B `Area_FindNextPlayLevel(int)`  **stub** · **hint** name (order) · **saga** `legoapi/world/areas.cpp`
 - [ ] `005fb430` 3692 B `Area_Configure(int, int, EXTRAMODEL*, short*)`  **saga** `legoapi/world/areas.cpp`
 
-## Areas
-
-- [ ] `005fb0e0` 240 B `Areas_FixUp(AREAFIXUP*)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
-- [ ] `005fad40` 787 B `Areas_ConfigurePlayersAndResidents(variptr_u*, variptr_u*)`
-- [ ] `005fa1c0` 2813 B `Areas_ConfigureList(char*, variptr_u*, variptr_u*, int, int*)`  **saga** `legoapi/world/areas.cpp`
-
 ## Condition
 
 - [ ] `00451980` 140 B `Condition_SideInit(AISYS_s*, char*, AISCRIPT_s*)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
@@ -594,6 +588,11 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `004a54c0` 1219 B `Tag_UpdateHint(HINT_s*)`  **saga** `legoapi/menus/core/panel.cpp`
 - [ ] `004a5ac0` 1541 B `Tag_Check(GameObject_s*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
+
+## Areas
+
+- [ ] `005fad40` 787 B `Areas_ConfigurePlayersAndResidents(variptr_u*, variptr_u*)`
+- [ ] `005fa1c0` 2813 B `Areas_ConfigureList(char*, variptr_u*, variptr_u*, int, int*)`  **saga** `legoapi/world/areas.cpp`
 
 ## BoltSys
 

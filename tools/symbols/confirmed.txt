@@ -77,3 +77,4 @@
 006151e0 Door_SetCutCam  saga body matches (exit cut camera from spline or name)
 006a19a0 AIScriptFind  saga body matches (level, global, default script lists)
 005bc570 GizmoFindByName  saga body matches (per-type get_name fn scan)
+005fb0e0 Areas_FixUp  saga body matches (+ Batman marks levels of flagged areas)

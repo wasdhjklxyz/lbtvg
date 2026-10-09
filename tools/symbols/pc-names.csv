@@ -449,7 +449,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005facd0,00264f62,__Z21Area_ShuffleModelListP23APICHARACTERMODELLIST_si,"Area_ShuffleModelList(APICHARACTERMODELLIST_s*, int)",order,1
 005fad40,00265006,__Z34Areas_ConfigurePlayersAndResidentsP9variptr_uS0_,"Areas_ConfigurePlayersAndResidents(variptr_u*, variptr_u*)",strings,0
 005fb060,002653ba,__Z15Area_FindByNamePcPi,"Area_FindByName(char*, int*)",confirmed,0
-005fb0e0,00265444,__Z11Areas_FixUpP9AREAFIXUP,Areas_FixUp(AREAFIXUP*),order,1
+005fb0e0,00265444,__Z11Areas_FixUpP9AREAFIXUP,Areas_FixUp(AREAFIXUP*),confirmed,0
 005fb1e0,002654de,__Z20Area_FindStatusLevelP10AREADATA_sPi,"Area_FindStatusLevel(AREADATA_s*, int*)",confirmed,0
 005fb260,00265576,__Z22Area_FindNextPlayLeveli,Area_FindNextPlayLevel(int),order,1
 005fb300,002655f6,__Z14AddToModelListP23APICHARACTERMODELLIST_sPiiiiP10EXTRAMODELh,"AddToModelList(APICHARACTERMODELLIST_s*, int*, int, int, int, EXTRAMODEL*, unsigned char)",order,1
