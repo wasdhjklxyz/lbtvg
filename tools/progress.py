@@ -62,6 +62,12 @@ def load():
             while n and body[n - 1] in (0xCC, 0x90):
                 n -= 1
             funcs[a] = (n, "FUN_%08x" % a)
+    # ghidra sometimes merged two functions into one entry: cut every function
+    # at the next known start (ghidra's or an annotation) so no byte counts twice
+    order = sorted(set(funcs) | {a for a in state if TEXT_LO <= a < TEXT_HI})
+    for i, a in enumerate(order[:-1]):
+        if a in funcs and a + funcs[a][0] > order[i + 1]:
+            funcs[a] = (order[i + 1] - a, funcs[a][1])
     for a in funcs:
         if a not in state:
             state[a] = NAMED if a in names else UNKNOWN

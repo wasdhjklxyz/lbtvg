@@ -200,3 +200,17 @@ enough matched code for the percentage to mean something.
   copy of the callee was scheduled differently: trust the inlined one.
 - `make match FUNC=0x...` on a STUB test-matches it (`STUB-MATCH` means flip it
   to `// FUNCTION:`); stubs never count otherwise.
+- **`return c ? 1.0f : 0.0f;`** goes through a stack temporary;
+  `if (c) return 1.0f; return 0.0f;` doesn't. A store/reload through the
+  parameter slot comes from a *double* ternary (`c ? 1.0 : 0.0`).
+- **xor/and/xor on a flag word** is a bitfield assignment: use a bitfield
+  struct.
+- **A function pointer tested then called** is copied to a local first.
+- **`if (a) return 1; if (b) return 1; return 0;`** lays out differently from
+  `if (a || b)`.
+- **`flags & 0x80000000`** gives `jns`; `(i32)flags < 0` gives `jge`.
+- **Copying a global table pointer into a local** keeps the loop's compare
+  value in a register.
+- **Ghidra misses many small table-reached functions**: scan for `int3`
+  padding between known functions to find their starts, then pair them with
+  the Mac order.
