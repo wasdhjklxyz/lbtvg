@@ -57,7 +57,6 @@ ARCADE_MODE_s Arcade_Mode[];
 
 ARCADEITEM_s ArcadeItem;
 
-// name is a Mac pairing hint (gapfill): verify
 // from saga legoapi/menus/screens/arcade.cpp
 // FUNCTION: LEGOBATMAN 0x006481b0
 i32 Arcade_GetMode(u32 *flags) {

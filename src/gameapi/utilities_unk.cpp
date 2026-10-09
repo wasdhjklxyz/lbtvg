@@ -75,7 +75,6 @@ i32 RotDiff(u16 current, u16 target) {
   return difference;
 }
 
-// name is a Mac pairing hint (gapfill): verify
 // from saga legoapi/misc/utilities.cpp
 // FUNCTION: LEGOBATMAN 0x005b0000
 i32 LineIntersectSphere(NUVEC *origin, NUVEC *direction, NUVEC *center,

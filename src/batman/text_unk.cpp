@@ -212,7 +212,6 @@ void Text_InsertCommasIntoNumber(char *number, char *text, i32 length) {
   text[output] = '\0';
 }
 
-// name is a Mac pairing hint (order): verify
 // from saga legoapi/menus/core/text.cpp
 // FUNCTION: LEGOBATMAN 0x0059dc80
 void Text_MakeScore(u32 score, char *text) {
@@ -279,7 +278,6 @@ void Text_MakeTime(float time, i32 show_hours, i32 show_minutes,
   }
 }
 
-// name is a Mac pairing hint (gapfill): verify
 // from saga legoapi/core/input/timer.cpp
 // FUNCTION: LEGOBATMAN 0x005a1060
 void ResetTimer(TIMER *timer, f32 reset_time) {

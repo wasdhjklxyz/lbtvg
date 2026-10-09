@@ -109,3 +109,12 @@
 0055fd40 LookupDebrisEffectPage  saga body matches (calls LookupDebrisEffectPageIgnore with 0)
 005834f0 AddFiniteShotDebrisEffect  saga body matches (forwards to AddFiniteShotDebrisEffect2 with NULL momenta)
 00583520 AddScaledFiniteShotDebrisEffect  saga body matches (CreateScaledEffect then AddFiniteShotDebrisEffect2)
+00597d60 ParticlesPerFrame  saga body matches; inlined into ParticlesPerSecond right after it
+00597db0 ParticlesPerSecond  saga body matches (ParticlesPerFrame(x / 60) inlined)
+00597e10 FindGameDebris  saga body matches (NuStrICmp over debris entries from named_count)
+00597fc0 AddGameDebris  saga body matches (calls AddFiniteShotDebrisEffect)
+00598010 AddGameDebrisMomentum  saga body matches; Mac order AddGameDebris, Momentum, XYZ, Rot, Mtx, Mom
+00598070 AddGameDebrisXYZ  saga body matches; Mac order
+005980e0 AddGameDebrisRot  saga body matches; Mac order
+005981c0 AddGameDebrisMom  saga body matches; Mac order
+00598230 SetAPIObjPlaySfxByIdFn  saga body matches (stores fn pointer), follows AddGameDebrisMom

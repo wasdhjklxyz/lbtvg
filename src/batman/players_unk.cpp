@@ -61,7 +61,6 @@ char EdFileReadChar();
 
 void EdFileRead(void *buf, i32 len);
 
-// name is a Mac pairing hint (gapfill): verify
 // from saga legoapi/gizmo/base/gizmo.cpp
 // FUNCTION: LEGOBATMAN 0x005bba90
 i32 GizmoFileReadName(char *name) {
