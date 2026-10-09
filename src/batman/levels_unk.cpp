@@ -122,6 +122,33 @@ void GameDrawMenuEntry(MENU_s *menu, char *text) {
   DrawMenuEntryEx(menu, text, MenuA);
 }
 
+struct Unk00ad69e4 {
+  i16 menu;
+  u16 pad2;
+  u32 pad4[(0xe0 - 4) / 4];
+};
+
+struct Unk0099e4e0 {
+  i32 id;
+  u32 pad4[(0x1c - 4) / 4];
+};
+
+// GLOBAL: LEGOBATMAN 0x0099e384
+extern i32 g_unk0099e384;
+// GLOBAL: LEGOBATMAN 0x00ad69e4
+extern Unk00ad69e4 g_unk00ad69e4[];
+// GLOBAL: LEGOBATMAN 0x0099e4e0
+extern Unk0099e4e0 g_unk0099e4e0[];
+
+// FUNCTION: LEGOBATMAN 0x0060cee0
+i32 GetMenuID() {
+  i16 menu = g_unk00ad69e4[g_unk0099e384].menu;
+  if (menu == -1) {
+    return -1;
+  }
+  return g_unk0099e4e0[menu].id;
+}
+
 // FUNCTION: LEGOBATMAN 0x0060d6c0
 LEVELDATA *Level_FindByName(char *name, i32 *idx_out) {
   for (i32 i = 0; i < LEVELCOUNT; i++) {

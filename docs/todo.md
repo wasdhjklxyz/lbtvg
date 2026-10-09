@@ -13,8 +13,8 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [near rtleditor.cpp](#near-rtleditorcpp) | 84 | 58 |
 | [Action](#action) | 72 | 57 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 82 | 56 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
 | [Text](#text) | 10 | 9 |
@@ -212,16 +212,89 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [WorldMap](#worldmap) | 6 | 0 |
 | [WorldMapBase](#worldmapbase) | 4 | 0 |
 
+## Action
+
+- [ ] `004717b0` 246 B `Action_StunOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub**
+- [ ] `00473510` 308 B `Action_UncoupleVehicles(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `006a5660` 310 B `_Action_OverrideAnimation`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0045b7e0` 334 B `Action_DontAvoidCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `006b4670` 353 B `_Action_SetInterrupt`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00462e90` 364 B `Action_PlayGizObstacle(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00463f00` 370 B `Action_SetAnimSpeedMul(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0046f500` 372 B `Action_SetTechnoComplete(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0046f880` 383 B `Action_CompleteLevel(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00472640` 385 B `Action_AttachNodeToPlatform(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `00461ff0` 388 B `Action_SetPath(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00463060` 398 B `Action_PlayGizSpecial(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0045f9e0` 404 B `Action_SetMaxMovementRange(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00470fd0` 412 B `Action_AddItem(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `00468190` 453 B `Action_FaceCamera(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00455750` 455 B `Action_SetScriptState(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00467f50` 455 B `Action_SetForceBack(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0045e500` 456 B `Action_SetScriptParam(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00473e40` 471 B `Action_ChangeSpecialRoute(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `0046d870` 472 B `Action_SetLayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `006a4640` 490 B `_Action_Idle`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00464d10` 493 B `Action_UseForce(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `004628c0` 506 B `Action_ContextSetAnimation(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `0046eee0` 507 B `Action_ForceLightning(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00465ab0` 539 B `Action_PlaySfx(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0046bb20` 544 B `Action_AssignLocatorInSet(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizactions.cpp`
+- [ ] `004688a0` 549 B `Action_SpinOnSpot(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `006a4b10` 565 B `_Action_FaceOpponent`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00470370` 575 B `Action_AddTorpedoPacket(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `006ba4b0` 597 B `_Action_CirclePlayer`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00457460` 602 B `Action_SetDoomedEscapeLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `006ba710` 603 B `_Action_CircleOpponent`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0046cd90` 606 B `Action_AddGameMsgCount(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `004684e0` 627 B `Action_TurnToFaceOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `00477ab0` 631 B `Action_CycleCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `004691f0` 634 B `Action_MoveForward(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/gameai_actions.cpp`
+- [ ] `00454950` 652 B `Action_SetStateArea(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0045eac0` 653 B `Action_AddPartDebris(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00468ea0` 662 B `Action_GameFollowPlayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizactions.cpp`
+- [ ] `0045e190` 670 B `Action_SetMessage(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0046e4e0` 680 B `Action_ThrowDetonator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0045c1d0` 686 B `Action_CreateRailCreature(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `00456a90` 704 B `Action_BigJumpToLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `004530b0` 719 B `Action_SetTakeOverTarget(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `004741c0` 720 B `Action_ZipDown(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `00456060` 745 B `Action_SetLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0045a990` 765 B `Action_FollowDirection(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00473140` 773 B `Action_CoupleVehicles(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `006ba190` 795 B `_Action_Circle`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00472a70` 800 B `Action_SetHeadlights(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `0045dc80` 819 B `Action_SetHitPoints(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0046dac0` 844 B `Action_CreateRider(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00461af0` 911 B `Action_CnxHelper(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00459fb0` 999 B `Action_ShootAtOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00456570` 1039 B `Action_SnapToLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `004646a0` 1070 B `Action_TakeDamage(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `004586e0` 1086 B `Action_SetOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0046bdd0` 1162 B `Action_GetLocatorFromSet(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizactions.cpp`
+- [ ] `0045d520` 1195 B `Action_SetRunSpeed(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0046dee0` 1226 B `Action_CreateCoupled(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `004678a0` 1236 B `Action_DynamicCameraCut_AddSubtitle(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `00457750` 1254 B `Action_SnapToPosition(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00458cd0` 1285 B `Action_AttackOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00456e00` 1294 B `Action_BigJump(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0046b400` 1295 B `Action_PickUpItem(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `0046ad50` 1364 B `Action_UseLedge(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
+- [ ] `00457ff0` 1413 B `Action_SnapToSockPosition(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `004541f0` 1469 B `Action_SetSide(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0045b070` 1517 B `Action_SetInvulnerable(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00454d10` 1961 B `Action_Kill(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00465d60` 2215 B `Action_CameraCut(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizactions.cpp`
+- [ ] `00459330` 2559 B `Action_EngageOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+
 ## near rtleditor.cpp
 
 - [ ] `0059b480` 20 B `_CurrentAnim`
-- [ ] `00635c80` 23 B `ResetCoinPacket(COINPACKET_s*)`  **hint** name (order) · **saga** `legoapi/items/base/collection.cpp`
 - [ ] `00595ff0` 35 B `_AnimFlags`  **hint** name (gapfill)
 - [ ] `0059b540` 35 B `_AnimSpeedZ`  **hint** name (gapfill)
 - [ ] `005bba90` 35 B `GizmoFileReadName(char*)`  **hint** name (gapfill) · **saga** `legoapi/gizmo/base/gizmo.cpp`
 - [ ] `005d9810` 38 B `GizmoBlowupAddDefaultExplosionDebris(nuvec_s*)`  **hint** name (gapfill)
 - [ ] `005a1060` 46 B `ResetTimer(TIMER_s*, float)`  **hint** name (gapfill) · **saga** `legoapi/core/input/timer.cpp`
-- [ ] `0060cee0` 48 B `GetMenuID()`  **hint** name (gapfill) · **saga** `legoapi/menus/core/text.cpp`
 - [ ] `00639b10` 49 B `KeepWeaponOut(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
 - [ ] `005a2d90` 54 B `NewBuzzFrames(nupad_s*, int, int)`  **saga** `legoapi/core/input/gamepads.cpp`
 - [ ] `0059a730` 59 B `_ResetAnimPacket`  **hint** name (gapfill)
@@ -298,81 +371,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005b0900` 1269 B `OutSideSplineArea(nuvec_s*, nugspline_s*, nuvec_s*, nuvec_s*, int)`  **hint** name (order) · **saga** `legoapi/render/fx/edsplines.cpp`
 - [ ] `005b1940` 1286 B `DrawObjectOnCharacter(WORLDINFO_s*, GameObject_s*, int, nuhspecial_s*, int, int, numtx_s*, int, unsigned int, numtx_s*, nuvec_s*, float, float, int, numtx_s*)`  **hint** name (gapfill) · **saga** `legoapi/render/core/render.cpp`
 - [ ] `00633910` 1303 B `AddPickups(int, int, int, int, nuvec_s*, nuvec_s*, float, int, float, float, GameObject_s*, int, int)`  **hint** name (gapfill) · **saga** `legoapi/gizmo/object/gizmopickups.cpp`
-
-## Action
-
-- [ ] `004717b0` 246 B `Action_StunOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub**
-- [ ] `00473510` 308 B `Action_UncoupleVehicles(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `006a5660` 310 B `_Action_OverrideAnimation`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `0045b7e0` 334 B `Action_DontAvoidCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `006b4670` 353 B `_Action_SetInterrupt`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00462e90` 364 B `Action_PlayGizObstacle(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00463f00` 370 B `Action_SetAnimSpeedMul(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `0046f500` 372 B `Action_SetTechnoComplete(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `0046f880` 383 B `Action_CompleteLevel(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00472640` 385 B `Action_AttachNodeToPlatform(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00461ff0` 388 B `Action_SetPath(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00463060` 398 B `Action_PlayGizSpecial(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `0045f9e0` 404 B `Action_SetMaxMovementRange(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00470fd0` 412 B `Action_AddItem(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00468190` 453 B `Action_FaceCamera(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00455750` 455 B `Action_SetScriptState(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00467f50` 455 B `Action_SetForceBack(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `0045e500` 456 B `Action_SetScriptParam(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00473e40` 471 B `Action_ChangeSpecialRoute(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `0046d870` 472 B `Action_SetLayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `006a4640` 490 B `_Action_Idle`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00464d10` 493 B `Action_UseForce(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `004628c0` 506 B `Action_ContextSetAnimation(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `0046eee0` 507 B `Action_ForceLightning(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00465ab0` 539 B `Action_PlaySfx(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `0046bb20` 544 B `Action_AssignLocatorInSet(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizactions.cpp`
-- [ ] `004688a0` 549 B `Action_SpinOnSpot(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `006a4b10` 565 B `_Action_FaceOpponent`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00470370` 575 B `Action_AddTorpedoPacket(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `006ba4b0` 597 B `_Action_CirclePlayer`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00457460` 602 B `Action_SetDoomedEscapeLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `006ba710` 603 B `_Action_CircleOpponent`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `0046cd90` 606 B `Action_AddGameMsgCount(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `004684e0` 627 B `Action_TurnToFaceOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00477ab0` 631 B `Action_CycleCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `004691f0` 634 B `Action_MoveForward(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/gameai_actions.cpp`
-- [ ] `00454950` 652 B `Action_SetStateArea(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `0045eac0` 653 B `Action_AddPartDebris(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00468ea0` 662 B `Action_GameFollowPlayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizactions.cpp`
-- [ ] `0045e190` 670 B `Action_SetMessage(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `0046e4e0` 680 B `Action_ThrowDetonator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `0045c1d0` 686 B `Action_CreateRailCreature(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00456a90` 704 B `Action_BigJumpToLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `004530b0` 719 B `Action_SetTakeOverTarget(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `004741c0` 720 B `Action_ZipDown(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00456060` 745 B `Action_SetLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `0045a990` 765 B `Action_FollowDirection(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00473140` 773 B `Action_CoupleVehicles(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `006ba190` 795 B `_Action_Circle`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00472a70` 800 B `Action_SetHeadlights(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `0045dc80` 819 B `Action_SetHitPoints(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `0046dac0` 844 B `Action_CreateRider(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00461af0` 911 B `Action_CnxHelper(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00459fb0` 999 B `Action_ShootAtOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00456570` 1039 B `Action_SnapToLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `004646a0` 1070 B `Action_TakeDamage(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `004586e0` 1086 B `Action_SetOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `0046bdd0` 1162 B `Action_GetLocatorFromSet(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizactions.cpp`
-- [ ] `0045d520` 1195 B `Action_SetRunSpeed(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `0046dee0` 1226 B `Action_CreateCoupled(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `004678a0` 1236 B `Action_DynamicCameraCut_AddSubtitle(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00457750` 1254 B `Action_SnapToPosition(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00458cd0` 1285 B `Action_AttackOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00456e00` 1294 B `Action_BigJump(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `0046b400` 1295 B `Action_PickUpItem(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `0046ad50` 1364 B `Action_UseLedge(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00457ff0` 1413 B `Action_SnapToSockPosition(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `004541f0` 1469 B `Action_SetSide(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `0045b070` 1517 B `Action_SetInvulnerable(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00454d10` 1961 B `Action_Kill(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00465d60` 2215 B `Action_CameraCut(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizactions.cpp`
-- [ ] `00459330` 2559 B `Action_EngageOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 
 ## near pcbatman.cpp
 

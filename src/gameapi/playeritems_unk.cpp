@@ -14,6 +14,24 @@ extern i32 LEGOCONTEXT_WEAPONOUT;
 
 i32 NuAtan2D(f32 dx, f32 dy);
 
+typedef struct COINPACKET_s {
+  u32 coins;              // 0x00
+  f32 scale;              // 0x04
+  u16 lastcoin;           // 0x08
+  u8 active;              // 0x0a
+  u8 field_0xb;           // 0x0b
+  f32 double_score_timer; // 0x0c
+} COINPACKET;
+
+// FUNCTION: LEGOBATMAN 0x00635c80
+void ResetCoinPacket(COINPACKET_s *packet) {
+  if (packet != 0) {
+    packet->scale = 1.0f;
+    packet->double_score_timer = 0.0f;
+    packet->active = 1;
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x006394f0
 i32 FaceOpponent(GameObject_s *object, nuvec_s *position) {
   if (position == 0) {
