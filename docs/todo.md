@@ -13,24 +13,23 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [near rtleditor.cpp](#near-rtleditorcpp) | 99 | 73 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 98 | 72 |
 | [Action](#action) | 72 | 57 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
 | [Text](#text) | 10 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 14 | 8 |
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 8 | 7 |
-| [Arcade](#arcade) | 5 | 5 |
 | [GameCam](#gamecam) | 5 | 5 |
 | [Grabber](#grabber) | 7 | 5 |
 | [Player](#player) | 5 | 5 |
+| [Arcade](#arcade) | 4 | 4 |
 | [Area](#area) | 5 | 4 |
 | [Hub](#hub) | 6 | 4 |
 | [near nutrig_gen.cpp](#near-nutrig_gencpp) | 12 | 4 |
 | [Door](#door) | 4 | 3 |
 | [GameAudio](#gameaudio) | 3 | 3 |
 | [GizAction](#gizaction) | 3 | 3 |
-| [NuTex](#nutex) | 5 | 3 |
 | [Players](#players) | 3 | 3 |
 | [PortalDoors](#portaldoors) | 3 | 3 |
 | [WorldInfo](#worldinfo) | 3 | 3 |
@@ -53,6 +52,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [NuCamera](#nucamera) | 2 | 2 |
 | [NuPad](#nupad) | 2 | 2 |
 | [NuStr](#nustr) | 2 | 2 |
+| [NuTex](#nutex) | 4 | 2 |
 | [SuperCarry](#supercarry) | 3 | 2 |
 | [Tag](#tag) | 2 | 2 |
 | [BoltSys](#boltsys) | 1 | 1 |
@@ -259,7 +259,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005d3f60` 105 B `FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)`  **hint** name (gapfill)
 - [ ] `005a0830` 108 B `ConfigureMusic(char*, variptr_u*, variptr_u*)`  **saga** `nu2api/nusound/nusound3_include.cpp`
 - [ ] `005c16b0` 120 B `SetPlayerIDs(int, int)`  **hint** name (order)
-- [ ] `005d3640` 123 B `AddGameMessage(char*, nuvec_s*, float, nuvec_s*, float, unsigned char, unsigned char, unsigned char, unsigned int, float)`  **hint** name (gapfill) · **saga** `legoapi/menus/core/gamemessages.cpp`
 - [ ] `005ae6c0` 124 B `GetRotationAngles(nuvec_s*, unsigned short*, unsigned short*)`  **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `005ae5c0` 126 B `FindAnglesZX(nuvec_s*, unsigned short*, unsigned short*)`  **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `0059c4b0` 127 B `_ActionFromName`  **hint** name (gapfill)
@@ -527,14 +526,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006da8d0` 358 B `_NuFParGetWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006d6d00` 646 B `_ImplodeMakeTable`  **saga** `nu2api/nucore/implode.cpp`
 
-## Arcade
-
-- [ ] `006481f0` 9 B `Arcade_ResetPanel()`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
-- [ ] `006481b0` 62 B `Arcade_GetMode(unsigned int*)`  **hint** name (gapfill) · **saga** `legoapi/menus/screens/arcade.cpp`
-- [ ] `006486e0` 84 B `Arcade_PlayerKilled(int, int)`  **hint** name (gapfill) · **saga** `legoapi/menus/screens/arcade.cpp`
-- [ ] `00648290` 254 B `Arcade_DrawPanel(int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
-- [ ] `00648390` 842 B `Arcade_AwardPoint(int, int, int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
-
 ## GameCam
 
 - [ ] `005a1fb0` 44 B `GameCam_NewShake(GAMECAMERA_s*, float, float, float)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/camera.cpp`
@@ -560,6 +551,13 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005c1b10` 99 B `Player_ClearContext(GameObject_s*, int)`  **saga** `legoapi/characters/core/players.cpp`
 - [ ] `005c1b80` 313 B `Player_ResetContexts(GameObject_s*)`  **saga** `legoapi/characters/core/players.cpp`
 - [ ] `005c2250` 2274 B `Player_ToggleCharacter(GameObject_s*, int, int)`  **saga** `legoapi/characters/core/players.cpp`
+
+## Arcade
+
+- [ ] `006481b0` 62 B `Arcade_GetMode(unsigned int*)`  **hint** name (gapfill) · **saga** `legoapi/menus/screens/arcade.cpp`
+- [ ] `006486e0` 84 B `Arcade_PlayerKilled(int, int)`  **hint** name (gapfill) · **saga** `legoapi/menus/screens/arcade.cpp`
+- [ ] `00648290` 254 B `Arcade_DrawPanel(int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
+- [ ] `00648390` 842 B `Arcade_AwardPoint(int, int, int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
 
 ## Area
 
@@ -611,14 +609,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00482ed0` 329 B `GizAction_SetAIMessage(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
 - [ ] `00483070` 693 B `GizAction_SetAIState(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
 - [ ] `00482510` 763 B `GizAction_ActivateChar(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
-
-## NuTex
-
-- [ ] `006e6340` 76 B `_NuTexGetUnresolvedTextureTIDPS`  **saga** `nu2api/nu3d/nutex.cpp`
-- [ ] `006e6290` 121 B `_NuTexInitExPS`  **saga** `nu2api/nu3d/android/nutex_android.cpp`
-- [ ] `00711580` 146 B `_NuTexAnimEnvCreate`  **stub**
-- [ ] `00712030` 360 B `_NuTexAnimProgParseFile`  **saga** `nu2api/nucore/nutexanim.cpp`
-- [ ] `006e6490` 820 B `_NuTexReadBitmapMM2`
 
 ## Players
 
@@ -738,6 +728,13 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `006d75c0` 75 B `_NuStrNCpy`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nucore/nustring_c.cpp`
 - [ ] `006dc300` 120 B `_NuStrIStr`  **stub** · **saga** `nu2api/nucore/nustring_c.cpp`
+
+## NuTex
+
+- [ ] `006e6290` 121 B `_NuTexInitExPS`  **saga** `nu2api/nu3d/android/nutex_android.cpp`
+- [ ] `00711580` 146 B `_NuTexAnimEnvCreate`  **stub**
+- [ ] `00712030` 360 B `_NuTexAnimProgParseFile`  **saga** `nu2api/nucore/nutexanim.cpp`
+- [ ] `006e6490` 820 B `_NuTexReadBitmapMM2`
 
 ## SuperCarry
 

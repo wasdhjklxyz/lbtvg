@@ -12,3 +12,4 @@
 0059f1d0 GameAudio_PlaySfxById  saga body shape matches (special_positions copy + PlaySfxById)
 00639670 SetWeaponOut  saga body matches (context reset, weapon_scale=1)
 005c8eb0 LoadTerrainFile  saga body matches (TerrainInitEx with level ter groups)
+005d3640 AddGameMessage  saga body matches (AddGameMsg_Default copy + AddGameMsg)

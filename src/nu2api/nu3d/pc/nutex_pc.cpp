@@ -1,6 +1,7 @@
 // nu2api/nu3d/pc/nutex_pc.cpp: certain range 0x006e6060..0x006e7bf0.
 
 #include <d3d9.h>
+#include <string.h>
 
 // d3dCalls.cpp / d3dApiCalls.cpp wrappers (batman/), not yet named.
 extern "C" void D3DUnk005290c0();
@@ -70,6 +71,26 @@ void NuTexUnk006e6310() {}
 
 // FUNCTION: LEGOBATMAN 0x006e6330
 void NuTexUnk006e6330() {}
+
+extern "C" void *NuMemAllocFn(int size, const char *file, int line);
+int NuTexCreate(NuTex *tex);
+
+// GLOBAL: LEGOBATMAN 0x009a2190
+extern int g_nutex_unresolved_tid; // initialised to -1
+// GLOBAL: LEGOBATMAN 0x0099f830
+extern unsigned char g_nutex_unresolved_bits[];
+
+// FUNCTION: LEGOBATMAN 0x006e6340
+int NuTexGetUnresolvedTextureTIDPS() {
+  if (g_nutex_unresolved_tid == -1) {
+    NuTex *tex = (NuTex *)NuMemAllocFn(0x80, __FILE__, 0x107);
+    memset(tex, 0, 0x80);
+    tex->unk74 = (int)g_nutex_unresolved_bits;
+    tex->unk78 = 0x2080;
+    g_nutex_unresolved_tid = NuTexCreate(tex);
+  }
+  return g_nutex_unresolved_tid;
+}
 
 // Bits per pixel by texture format; case bodies are in source order, the
 // jump table is by case value.

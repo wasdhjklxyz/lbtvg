@@ -32,6 +32,11 @@ TIMER GameTimer;
 
 void GameAudio_PlaySfx(i32, nuvec_s *, i32, i32);
 
+// name is a Mac pairing hint (order): verify
+// from saga legoapi/menus/screens/arcade.cpp
+// FUNCTION: LEGOBATMAN 0x006481f0
+void Arcade_ResetPanel() { Arcade_NeedTwoPlayers_Scale = 1.0f; }
+
 // from saga legoapi/menus/screens/arcade.cpp
 // FUNCTION: LEGOBATMAN 0x00648200
 void Arcade_UpdatePanel(i32 paused) {

@@ -412,7 +412,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005ce980,00283e3a,__Z10Cheat_IsOnP7CHEAT_s,Cheat_IsOn(CHEAT_s*),gapfill,1
 005cfa30,002f5e58,__Z12StartBigJumpP12GameObject_sP7nuvec_siffii,"StartBigJump(GameObject_s*, nuvec_s*, int, float, float, int, int)",gapfill,2
 005d3210,002adeaa,__Z10AddGameMsgP10ADDGAMEMSG,AddGameMsg(ADDGAMEMSG*),calls,3
-005d3640,002ae2fe,__Z14AddGameMessagePcP7nuvec_sfS1_fhhhjf,"AddGameMessage(char*, nuvec_s*, float, nuvec_s*, float, unsigned char, unsigned char, unsigned char, unsigned int, float)",gapfill,2
+005d3640,002ae2fe,__Z14AddGameMessagePcP7nuvec_sfS1_fhhhjf,"AddGameMessage(char*, nuvec_s*, float, nuvec_s*, float, unsigned char, unsigned char, unsigned char, unsigned int, float)",confirmed,0
 005d3f60,002aeab8,__Z12FindGameMsgsiiiiP13GAMEMESSAGE_sPS0_,"FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)",gapfill,4
 005d3fd0,002aeb64,__Z15AddGameMsgCountP7nuvec_siihhhf,"AddGameMsgCount(nuvec_s*, int, int, unsigned char, unsigned char, unsigned char, float)",gapfill,2
 005d5670,0029b69e,__Z30DetonatorSys_RegisterCallbacksPFvP11DETONATOR_sRfE,"DetonatorSys_RegisterCallbacks(void (*)(DETONATOR_s*, float&))",gapfill,3
