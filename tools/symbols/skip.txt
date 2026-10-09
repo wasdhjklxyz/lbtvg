@@ -146,3 +146,5 @@
 004dbbc0 NuSinApprox copy: only reachable through register-convention static callers in its TU
 004f9c20 NuSinApprox copy: only reachable through register-convention static callers in its TU
 005c8060 NuSinApprox copy: only reachable through register-convention static callers in its TU
+0061f2d0 CharScene_Load: CHARSCENE* arrives in ecx (register convention)
+00672790 CustomiserInternal::MenuGetItemName: jump table

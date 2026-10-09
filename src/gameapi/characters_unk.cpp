@@ -25,3 +25,74 @@ i32 CharIDFromName(char *name) {
 
   return -1;
 }
+
+struct GameObject_s;
+struct numtl_s;
+struct numtx_s;
+
+struct HOSEPART_s {
+  u8 pad0[0x9a];
+  u8 type; // 0x9a, 5 = hose texture
+  u8 pad9b[0xb8 - 0x9b];
+  u16 tid; // 0xb8
+};
+
+struct HOSEPARTS_s {
+  u8 pad0[0xc];
+  HOSEPART_s **parts; // 0x0c
+  i32 count;          // 0x10
+};
+
+struct HOSECHARDATA_s {
+  u8 pad0[0x204];
+  u8 hose_locator; // 0x204, 0xff = none
+};
+
+struct HOSEOBJ_s {
+  u8 pad0[0x50];
+  struct {
+    u8 pad0[4];
+    HOSEPARTS_s *parts; // 0x04
+  } *p50;               // 0x50
+  struct {
+    u8 pad0[0x24];
+    HOSECHARDATA_s *data; // 0x24
+  } *p54;                 // 0x54
+  u8 pad58[0xb98 - 0x58];
+  u8 locator_mtx[0x11d4 - 0xb98]; // 0xb98
+  f32 hose_width;                 // 0x11d4
+};
+
+struct HOSEMTL_s {
+  u8 pad0[0x74];
+  u16 tid; // 0x74
+};
+
+// GLOBAL: LEGOBATMAN 0x00acb814
+extern HOSEMTL_s *g_hoseMtl;
+// GLOBAL: LEGOBATMAN 0x00acb818
+extern HOSEMTL_s *g_hoseMtlTextured;
+// GLOBAL: LEGOBATMAN 0x00963fb4
+extern i32 g_hoseUseCharTexture;
+
+void NuMtlUpdate(HOSEMTL_s *mtl);
+void DrawHoseEx(HOSECHARDATA_s *data, numtx_s *mtx, HOSEMTL_s *mtl, f32 width);
+
+// FUNCTION: LEGOBATMAN 0x00620370
+void DrawHose(GameObject_s *object) {
+  HOSEOBJ_s *obj = (HOSEOBJ_s *)object;
+  HOSEMTL_s *mtl = g_hoseMtl;
+  if (obj != 0 && obj->p54->data->hose_locator != 0xff) {
+    for (i32 i = 0; g_hoseUseCharTexture != 0 && i < obj->p50->parts->count;
+         i++) {
+      HOSEPART_s *part = obj->p50->parts->parts[i];
+      if (part->type == 5) {
+        g_hoseMtlTextured->tid = part->tid;
+        NuMtlUpdate(g_hoseMtlTextured);
+        mtl = g_hoseMtlTextured;
+      }
+    }
+    DrawHoseEx(obj->p54->data, (numtx_s *)obj->locator_mtx, mtl,
+               obj->hose_width);
+  }
+}

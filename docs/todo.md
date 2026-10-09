@@ -15,7 +15,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 |---|---|---|
 | [Action](#action) | 49 | 37 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 43 | 37 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 38 | 27 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 37 | 27 |
 | [near terrain.c](#near-terrainc) | 20 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 9 | 6 |
 | [Condition](#condition) | 6 | 4 |
@@ -147,7 +147,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [NuMovie](#numovie) | 2 | 0 |
 | [NuRain](#nurain) | 1 | 0 |
 | [NuRndr](#nurndr) | 2 | 0 |
-| [NuScreen](#nuscreen) | 1 | 0 |
 | [NuScript](#nuscript) | 1 | 0 |
 | [NuSin](#nusin) | 4 | 0 |
 | [NuSound](#nusound) | 2 | 0 |
@@ -286,7 +285,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005d3f60` 105 B `FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)`  **stub** · **hint** name (gapfill)
 - [ ] `0059c4b0` 127 B `_ActionFromName`  **stub** · **hint** name (gapfill)
 - [ ] `005b00d0` 153 B `LineIntersectCircle(nuvec_s*, nuvec_s*, nuvec_s*, float)`  **stub** · **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
-- [ ] `00620370` 158 B `DrawHose(GameObject_s*)`  **hint** name (gapfill)
 - [ ] `0059f8d0` 185 B `PlayJumpSfx(GameObject_s*, int)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
 - [ ] `005aa1f0` 187 B `InitGrappleMtls(variptr_u*, variptr_u*)`
 - [ ] `00656130` 203 B `AddRipple(ripple_set_s*, numtx_s*, float, float, float, float, RGBA, RGBA, int, numtl_s*, nuvec_s*)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/items/fx/ripples.cpp`
@@ -962,10 +960,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `0071e890` 2124 B `_NuRndrCurve`  **hint** name (gapfill)
 - [ ] `006fa950` 2130 B `_NuRndrSwapScreen`
-
-## NuScreen
-
-- [ ] `006ea1a0` 158 B `_NuScreenDump`
 
 ## NuScript
 
