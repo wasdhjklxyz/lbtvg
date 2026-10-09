@@ -399,7 +399,6 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005a9390,002e4af0,__Z13Grapple_ResetP9GRAPPLE_sP7nuvec_s,"Grapple_Reset(GRAPPLE_s*, nuvec_s*)",gapfill,1
 005a9520,002e4c4e,__Z14Grapples_ResetPvS_S_,"Grapples_Reset(void*, void*, void*)",strings,0
 005aa1f0,002e58ac,__Z15InitGrappleMtlsP9variptr_uS0_,"InitGrappleMtls(variptr_u*, variptr_u*)",strings,0
-005ae160,00354d0a,__Z5qrandv,qrand(),gapfill,2
 005ae1d0,00354daa,__Z11SeekLinearFfff,"SeekLinearF(float, float, float)",confirmed,0
 005ae240,00354de8,__Z8SeekValFfff,"SeekValF(float, float, float)",confirmed,0
 005ae5c0,00355164,__Z12FindAnglesZXP7nuvec_sPtS1_,"FindAnglesZX(nuvec_s*, unsigned short*, unsigned short*)",confirmed,0
@@ -668,7 +667,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00685a50,0019dbc2,_NuMtxTranslate,_NuMtxTranslate,gapfill,3
 00689100,001a0196,_NuFmod,_NuFmod,gapfill,2
 0068a6a0,001a6f80,_NuPlnEqn,_NuPlnEqn,gapfill,3
+0068b4d0,001a1422,_NuRandSeed,_NuRandSeed,confirmed,0
+0068b4e0,001a1436,_NuRandGetSeed,_NuRandGetSeed,confirmed,0
+0068b4f0,001a1448,_NuRandFloatSeeded,_NuRandFloatSeeded,confirmed,0
 0068b530,001a9304,_NuRandFloat,_NuRandFloat,calls,1
+0068b590,001a91e2,_NuRandInt,_NuRandInt,confirmed,0
+0068b5b0,00354d0a,__Z5qrandv,qrand(),confirmed,0
+0068b5d0,001a14c4,_NuRandSetSeed,_NuRandSetSeed,confirmed,0
+0068b5f0,001a14e2,_NuRand,_NuRand,confirmed,0
 0068e660,001a2012,_nugraphFreeTempCurveData,_nugraphFreeTempCurveData,strings,0
 0068e6b0,001aa5c6,_nugraphCalcCurve,_nugraphCalcCurve,strings,0
 0068fa00,001a9ed6,_NuAtan2D,_NuAtan2D,gapfill,1

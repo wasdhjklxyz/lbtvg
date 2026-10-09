@@ -143,12 +143,71 @@ float NuFmod(float a, float b) { return a - b * (int)(a / b); }
 // GLOBAL: LEGOBATMAN 0x00ad3b6c
 unsigned int fseed;
 
+// FUNCTION: LEGOBATMAN 0x0068b4d0
+void NuRandSeed(unsigned int seed) { fseed = seed; }
+
+// FUNCTION: LEGOBATMAN 0x0068b4e0
+unsigned int NuRandGetSeed(void) { return fseed; }
+
+// FUNCTION: LEGOBATMAN 0x0068b4f0
+float NuRandFloatSeeded(unsigned int *seed) {
+  unsigned int bits;
+  *seed = *seed * 0x19660d + 0x3c6ef35f;
+  bits = (*seed & 0x7fffff) | 0x3f800000;
+  return *(float *)&bits - 1.0f;
+}
+
 // FUNCTION: LEGOBATMAN 0x0068b530
 float NuRandFloat(void) {
   unsigned int bits;
   fseed = fseed * 0x19660d + 0x3c6ef35f;
   bits = (fseed & 0x7fffff) | 0x3f800000;
   return *(float *)&bits - 1.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0068b590
+unsigned int NuRandInt(void) {
+  fseed = fseed * 0x19660d + 0x3c6ef35f;
+  return fseed;
+}
+
+// GLOBAL: LEGOBATMAN 0x0096962c
+extern int qseed;
+
+// FUNCTION: LEGOBATMAN 0x0068b5b0
+int qrand(void) {
+  qseed = qseed * 0x24cd + 1 & 0xffff;
+  return qseed;
+}
+
+typedef struct NURAND {
+  int value;
+} NURAND;
+
+// GLOBAL: LEGOBATMAN 0x00969730
+extern NURAND global_rand;
+
+// FUNCTION: LEGOBATMAN 0x0068b5d0
+void NuRandSetSeed(NURAND *rand, int seed) {
+  if (rand == 0)
+    rand = &global_rand;
+  rand->value = seed;
+}
+
+// FUNCTION: LEGOBATMAN 0x0068b5f0
+int NuRand(NURAND *rand) {
+  if (rand != 0) {
+    if (rand->value == 0)
+      rand->value = 1;
+  } else {
+    rand = &global_rand;
+  }
+  int x = rand->value ^ 0x075bd924;
+  rand->value = x * 0x41a7 - (x / 0x1f31d) * 0x7fffffff;
+  if (rand->value < 0)
+    rand->value += 0x7fffffff;
+  rand->value ^= 0x075bd924;
+  return rand->value;
 }
 
 // FUNCTION: LEGOBATMAN 0x00684190

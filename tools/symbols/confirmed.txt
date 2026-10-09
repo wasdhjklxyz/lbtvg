@@ -247,3 +247,10 @@
 00504680 GetPlantLocator  maps Plant1..3 to SEED1..3 AI locators; Mac name
 0065c320 LoseHat  same shape as Mac LoseHat (drops hat at hat locator or fallback, clears 0x1574)
 006152f0 Door_DestinationLevel  freeplay level outside story, else alternate level when same area and area completed; Mac name
+0068b4d0 NuRandSeed  saga nurand.cpp body (fseed = seed); Mac order
+0068b4e0 NuRandGetSeed  Mac order after NuRandSeed; returns fseed
+0068b4f0 NuRandFloatSeeded  saga nurand.cpp body
+0068b590 NuRandInt  saga body (NuRandIntSeeded on fseed inlined)
+0068b5b0 qrand  saga qrand.cpp body (qseed * 0x24cd + 1 & 0xffff)
+0068b5d0 NuRandSetSeed  saga nurand.cpp body
+0068b5f0 NuRand  saga nurand.cpp Park-Miller body
