@@ -2,6 +2,7 @@
 
 #include "../nu2api/nu3d/nuspecial.h"
 #include "gameobject_unk.h"
+#include <stdio.h>
 
 struct TECHNO_s {
   u8 pad0[0x83];
@@ -41,4 +42,61 @@ i32 Techno_FindOperator(void *target, Unk_GameObject112c **pad,
     }
   }
   return 0;
+}
+
+// Material view for the rope setup (bitfields as in menu_unk.cpp).
+struct GRAPPLEMTL_s {
+  u32 head; // 0x00
+  u8 pad4[0x40 - 4];
+  u32 filter_mode : 4; // 0x40
+  u32 alpha_mode : 2;
+  u32 attrib6 : 2;
+  u32 attrib8 : 2;
+  u32 attrib10 : 2;
+  u32 attrib12 : 2;
+  u32 z_mode : 2;
+  u32 attrib16 : 2;
+  u32 attrib18 : 1;
+  u32 attrib19 : 13;
+  u8 pad44[0x70 - 0x44];
+  f32 f70; // 0x70
+  u16 tid; // 0x74
+};
+
+// GLOBAL: LEGOBATMAN 0x00a984c0
+extern GRAPPLEMTL_s *GrappleMtls[4];
+
+GRAPPLEMTL_s *NuMtlCreate(i32 count);
+void NuMtlUpdate(GRAPPLEMTL_s *mtl);
+void Unk007280b0(GRAPPLEMTL_s *mtl);
+i32 Unk006e6060(char *name, variptr_u *buffer, variptr_u buffer_end);
+
+// FUNCTION: LEGOBATMAN 0x005aa1f0
+void InitGrappleMtls(variptr_u *buffer, variptr_u *buffer_end) {
+  char name[0x20];
+  if (GrappleMtls[0] != 0)
+    GrappleMtls[0]->head = 0x04040404;
+  for (i32 i = 0; i < 4; i++) {
+    GRAPPLEMTL_s *mtl = NuMtlCreate(1);
+    if (mtl != 0) {
+      mtl->f70 = 1.0f;
+      mtl->filter_mode = 1;
+      mtl->alpha_mode = 1;
+      mtl->attrib8 = 0;
+      mtl->attrib10 = 0;
+      mtl->attrib12 = 2;
+      mtl->z_mode = 0;
+      mtl->attrib16 = 2;
+      sprintf(name, "stuff\\Rope%i", i + 1);
+      buffer->addr = (buffer->addr + 0xf) & ~0xf;
+      i32 tid = Unk006e6060(name, buffer, *buffer_end);
+      if (tid == 0) {
+        Unk007280b0(mtl);
+      } else {
+        mtl->tid = tid;
+        GrappleMtls[i] = mtl;
+        NuMtlUpdate(mtl);
+      }
+    }
+  }
 }

@@ -15,7 +15,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 |---|---|---|
 | [Action](#action) | 49 | 37 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 43 | 37 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 37 | 27 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 36 | 27 |
 | [near terrain.c](#near-terrainc) | 20 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 9 | 6 |
 | [Condition](#condition) | 6 | 4 |
@@ -91,7 +91,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [BotanicGardens](#botanicgardens) | 1 | 0 |
 | [BotanicVillain](#botanicvillain) | 1 | 0 |
 | [bugThing](#bugthing) | 4 | 0 |
-| [CD3DCore](#cd3dcore) | 4 | 0 |
+| [CD3DCore](#cd3dcore) | 3 | 0 |
 | [CharScene](#charscene) | 1 | 0 |
 | [CharShadows](#charshadows) | 1 | 0 |
 | [Cheat](#cheat) | 1 | 0 |
@@ -284,7 +284,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0059c4b0` 127 B `_ActionFromName`  **stub** · **hint** name (gapfill)
 - [ ] `005b00d0` 153 B `LineIntersectCircle(nuvec_s*, nuvec_s*, nuvec_s*, float)`  **stub** · **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `0059f8d0` 185 B `PlayJumpSfx(GameObject_s*, int)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
-- [ ] `005aa1f0` 187 B `InitGrappleMtls(variptr_u*, variptr_u*)`
 - [ ] `00656130` 203 B `AddRipple(ripple_set_s*, numtx_s*, float, float, float, float, RGBA, RGBA, int, numtl_s*, nuvec_s*)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/items/fx/ripples.cpp`
 - [ ] `005a3020` 212 B `ConstantRumble(GameObject_s*, float, float)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/misc/legoapi_misc.cpp`
 - [ ] `005b2a40` 229 B `LoadThingsScene()`
@@ -703,7 +702,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## CD3DCore
 
-- [ ] `0052c0a0` 191 B `CD3DCore::PreInitialize()`
 - [ ] `0052a7a0` 206 B `CD3DCore::DetermineNominalAspectRatio(unsigned int, unsigned int) const`  **hint** name (gapfill)
 - [ ] `0052a610` 390 B `CD3DCore::FindNearestMode(unsigned int, unsigned int, unsigned int) const`  **hint** name (gapfill)
 - [ ] `0052d450` 2415 B `CD3DCore::BuildDeviceFromResolution(int, int)`

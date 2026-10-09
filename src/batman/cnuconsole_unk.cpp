@@ -51,30 +51,6 @@ void FUN_006d3520(void *output, char *msg);
 extern "C" const char *WINAPI DXGetErrorString9A(HRESULT hr);
 extern "C" const char *WINAPI DXGetErrorDescription9A(HRESULT hr);
 
-class CD3DCore {
-public:
-  i32 FindNearestMode(unsigned int width, unsigned int height,
-                      unsigned int depth) const;
-  void SetNextDisplayMode(unsigned int width, unsigned int height,
-                          unsigned int depth);
-
-  u8 pad0[0x618];
-  i32 mode_count; // 0x618
-  u8 pad61c[4];
-  i32 current_mode; // 0x620
-  u8 pad624[0x668 - 0x624];
-  i32 next_mode; // 0x668
-};
-
-// FUNCTION: LEGOBATMAN 0x0052c1f0
-void CD3DCore::SetNextDisplayMode(unsigned int width, unsigned int height,
-                                  unsigned int depth) {
-  i32 mode = FindNearestMode(width, height, depth);
-  if (mode >= mode_count)
-    mode = current_mode;
-  next_mode = mode;
-}
-
 // FUNCTION: LEGOBATMAN 0x0052e6f0
 void CNuConsole::SendError(char *fmt, ...) {
   if (fmt != NULL) {
