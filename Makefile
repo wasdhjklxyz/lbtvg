@@ -33,6 +33,10 @@ all: verify
 verify:
 	$(SHA1SUM) -c $(ORIG)/checksum.sha1
 
+# fetch + verify the August 2007 DirectX SDK (headers + x86 libs) into $(TOOLCHAIN)/dxsdk
+dxsdk:
+	LBTVG_TOOLCHAIN=$(abspath $(TOOLCHAIN)) tools/dxsdk.sh
+
 # compile every annotated function in src/ and diff it against orig/ (FUNC=0x... for one)
 match:
 	tools/match.py $(FUNC)
@@ -53,6 +57,13 @@ fmt-check:
 # saga's body (or a TODO), try to match
 new:
 	tools/new.py $(or $(FUNC),random)
+
+# run the game under wine + DXVK from play/ (outside Steam; DXVK=0 for wined3d)
+play:
+	tools/play.sh run
+
+play-setup: verify
+	tools/play.sh setup
 
 # regenerate docs/linkmap.md (which source file owns which address range)
 linkmap:
@@ -125,4 +136,4 @@ fid-apply: ghidra-check
 		-preScript ApplyFid.java $(FIDB) \
 		-postScript DumpStats.java $(STATS)
 
-.PHONY: all verify progress hooks new names macnames match match-v fmt fmt-check linkmap vc8 ghidra-import ghidra ghidra-check fid fid-import fid-build fid-apply
+.PHONY: all verify progress hooks new play play-setup dxsdk names macnames match match-v fmt fmt-check linkmap vc8 ghidra-import ghidra ghidra-check fid fid-import fid-build fid-apply

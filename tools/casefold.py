@@ -5,7 +5,7 @@ cl.exe under wibo does not care about case; clangd on Linux does (the SDK has
 `Windows.h`, code says `<windows.h>`). For each include dir: link every
 header's all-lowercase name, plus every spelling any header or src/ file
 actually #includes. Idempotent. Run by tools/vc8.sh; usage:
-    tools/casefold.py [DIR ...]      default: $LBTVG_TOOLCHAIN/{vc8/INCLUDE,winsdk6/Include}
+    tools/casefold.py [DIR ...]      default: $LBTVG_TOOLCHAIN/{vc8/INCLUDE,dxsdk/Include,winsdk6/Include}
 """
 import os, re, sys
 from pathlib import Path
@@ -16,7 +16,7 @@ INC = re.compile(rb'^\s*#\s*include\s*[<"]([^>"]+)[>"]', re.M)
 
 
 def main(argv):
-    dirs = [Path(d) for d in argv] or [TC / "vc8/INCLUDE", TC / "winsdk6/Include"]
+    dirs = [Path(d) for d in argv] or [TC / "vc8/INCLUDE", TC / "dxsdk/Include", TC / "winsdk6/Include"]
     dirs = [d for d in dirs if d.is_dir()]
     wanted = set()
     for d in dirs + [ROOT / "src"]:

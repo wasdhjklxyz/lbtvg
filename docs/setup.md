@@ -61,6 +61,8 @@ import reads it; nothing writes it.
 nix develop        # flake.nix + flake.lock pin every version in the table
 make verify
 make vc8           # 1.2 GB from microsoft.com -> toolchain/{dist,vc8,winsdk6} (gitignored)
+make dxsdk         # DirectX SDK Aug 2007, 469 MB, checked against Microsoft's SHA-1
+make play          # run the game under wine + DXVK from play/ (no Steam needed)
 make ghidra-import # headless import + analysis into ghidra/ (≈30–60 min)
 make fid           # VC8 CRT -> ghidra/vc8.fidb -> CRT named in the game
 make ghidra        # open the GUI

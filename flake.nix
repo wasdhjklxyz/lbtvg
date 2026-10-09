@@ -50,6 +50,16 @@
           );
         in
         {
+          # make play: wine is a big download, so it lives in its own shell
+          play = pkgs.mkShell {
+            name = "lbtvg-play";
+            packages = with pkgs; [
+              wineWow64Packages.stable # 32-bit games on 64-bit wine, no multilib
+              winetricks
+              cabextract # the game's own d3dx9_35 redist cab
+            ];
+          };
+
           default = pkgs.mkShell {
             name = "lbtvg";
 
@@ -69,7 +79,8 @@
               depotdownloader
               p7zip # tools/vc8.sh
               msitools # tools/vc8.sh
-              cabextract # tools/vc8.sh
+              cabextract # tools/vc8.sh, tools/dxsdk.sh
+              unzip # tools/dxsdk.sh
             ]);
 
             env = {
@@ -83,6 +94,7 @@
               export LBTVG_TOOLCHAIN="''${LBTVG_TOOLCHAIN:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)/toolchain}"
               export VC8="$LBTVG_TOOLCHAIN/vc8"
               export WINSDK6="$LBTVG_TOOLCHAIN/winsdk6"
+              export DXSDK="$LBTVG_TOOLCHAIN/dxsdk"
             '';
           };
         }

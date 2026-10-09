@@ -37,10 +37,13 @@ One non-Microsoft file: `Bin/msvcr80.dll` is Wine's reimplementation (from
 unless loaded through a side-by-side activation context, which wibo does not
 implement. The Microsoft copy is kept as `msvcr80.dll.ms` for real Wine.
 
-Still to source: the **DirectX SDK August 2007** (`d3dx9_35` headers/libs).
-Microsoft removed all pre-2008 DX SDKs; archive copies exist and can be
-checked against the SHA-1 Microsoft originally published for
-`dxsdk_aug2007.exe`: `c812c18e2972bdb1d9cbb544be9ced9370a4656f` (469 MB).
+**DirectX SDK, August 2007** (the exe imports `d3dx9_35.dll`, first shipped in
+that release): `make dxsdk` (`tools/dxsdk.sh`). Microsoft no longer hosts it;
+the script downloads the original installer from the Internet Archive and
+refuses it unless its SHA-1 is the one Microsoft published
+(`c812c18e2972bdb1d9cbb544be9ced9370a4656f`), i.e. byte-identical to
+Microsoft's file. Headers and x86 libs land in `toolchain/dxsdk/`; the harness,
+`make new` and clangd put them ahead of the Windows SDK.
 
 ### running it on Linux
 

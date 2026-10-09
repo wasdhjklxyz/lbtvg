@@ -25,6 +25,7 @@ SRC = ROOT / "src"
 BUILD = ROOT / "build"
 VC8 = Path(os.environ.get("VC8", ROOT / "toolchain/vc8"))
 WINSDK6 = Path(os.environ.get("WINSDK6", ROOT / "toolchain/winsdk6"))
+DXSDK = Path(os.environ.get("DXSDK", ROOT / "toolchain/dxsdk"))
 MODULE = "LEGOBATMAN"
 
 # The starting flag set (docs/toolchain.md). /Gy only changes packaging: one
@@ -60,7 +61,7 @@ def compile_tu(src):
     BUILD.mkdir(exist_ok=True)
     obj = BUILD / (src.relative_to(SRC).as_posix().replace("/", "__") + ".obj")
     cmd = ["wibo", str(VC8 / "Bin/cl.exe")] + [f for f in CFLAGS if not (src.suffix == ".c" and f == "/EHsc")] + [
-        f'/I"Z:{VC8 / "INCLUDE"}"', f'/I"Z:{WINSDK6 / "Include"}"',
+        f'/I"Z:{VC8 / "INCLUDE"}"', f'/I"Z:{DXSDK / "Include"}"', f'/I"Z:{WINSDK6 / "Include"}"',
         f'/Fo"Z:{obj}"', f'"Z:{src}"']
     # wibo wants a single guest command line; join and let it parse quotes.
     r = subprocess.run(" ".join(cmd), shell=True, capture_output=True, text=True)
