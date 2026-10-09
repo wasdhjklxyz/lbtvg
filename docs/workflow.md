@@ -186,3 +186,17 @@ enough matched code for the percentage to mean something.
   is added next to it, they were in different files.
 - **Empty varargs debug statics vanish** when called from an inline helper;
   declare them `extern` to keep the call.
+- **The same array access written twice** (`a->p->arr[i] != 0 &&
+  a->p->arr[i]->f`) gives "cmp [mem], 0 then reload"; a local gives one load.
+  Swapping a repeated expression for a local (or back) is a cheap first try
+  on a register-allocation diff.
+- **An empty static varargs stub** keeps its calls (and the compiler knows it
+  clobbers nothing) only if a call passing it a pointer appears earlier in the
+  file; an `extern` declaration keeps the call but loses that knowledge.
+- **`x = NULL; if ... else if ... x = f(); return x;`** gives a separate
+  epilogue per branch.
+- **A 3-byte `char` padding array** also triggers the /GS cookie.
+- **Inlined copies keep the source's store order** even when the standalone
+  copy of the callee was scheduled differently: trust the inlined one.
+- `make match FUNC=0x...` on a STUB test-matches it (`STUB-MATCH` means flip it
+  to `// FUNCTION:`); stubs never count otherwise.

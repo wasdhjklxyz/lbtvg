@@ -46,6 +46,22 @@ def load():
             a = int(a, 16)
             if state.get(a) != MATCHED:
                 state[a] = MATCHED if kind == "FUNCTION" else STUB
+    # functions annotated in src/ that ghidra never found: size them from the exe
+    # (up to the next known function start, minus int3/nop padding)
+    missing = [a for a in state if a not in funcs and TEXT_LO <= a < TEXT_HI]
+    if missing:
+        import bisect, pefile
+        pe = pefile.PE(str(ROOT / "orig/LEGOBatman.exe"), fast_load=True)
+        base = pe.OPTIONAL_HEADER.ImageBase
+        starts = sorted(set(funcs) | set(state))
+        for a in missing:
+            i = bisect.bisect_right(starts, a)
+            end = starts[i] if i < len(starts) else TEXT_HI
+            body = pe.get_data(a - base, min(end - a, 0x4000))
+            n = len(body)
+            while n and body[n - 1] in (0xCC, 0x90):
+                n -= 1
+            funcs[a] = (n, "FUN_%08x" % a)
     for a in funcs:
         if a not in state:
             state[a] = NAMED if a in names else UNKNOWN

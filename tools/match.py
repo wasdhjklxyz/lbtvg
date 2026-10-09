@@ -40,20 +40,24 @@ IDENT = re.compile(r"([A-Za-z_][\w:]*)\s*\(")
 def die(msg):
     print("match: " + msg, file=sys.stderr); sys.exit(2)
 
-def annotations(path):
-    """[(addr, 'Class::name' or 'name')] in file order."""
+STUB_ANNOT = re.compile(r"//\s*STUB:\s*" + MODULE + r"\s+0x([0-9a-fA-F]+)")
+
+def annotations(path, stubs=False):
+    """[(addr, 'Class::name' or 'name')] in file order (STUBs instead, if asked)."""
     lines = path.read_text().splitlines()
     out = []
     for i, line in enumerate(lines):
-        m = ANNOT.search(line)
+        m = (STUB_ANNOT if stubs else ANNOT).search(line)
         if not m:
             continue
         for nxt in lines[i + 1:]:
             s = nxt.strip()
-            if not s or s.startswith("//"):
+            if not s or s.startswith("//") or (stubs and (s.startswith("#") or "(" not in s)):
                 continue
             mm = IDENT.search(s)
             if not mm:
+                if stubs:
+                    break
                 die(f"{path}:{i+1}: cannot find a function name after the annotation")
             out.append((int(m.group(1), 16), mm.group(1)))
             break
@@ -279,13 +283,21 @@ def main(argv):
     for src in sorted(list(SRC.rglob("*.cpp")) + list(SRC.rglob("*.c"))):
         if files and src.resolve() not in files:
             continue
-        ann = [(a, n) for a, n in annotations(src)
-               if (not only and not only_names) or a in only or n in only_names or n.split("::")[-1] in only_names]
+        sel = lambda a, n: a in only or n in only_names or n.split("::")[-1] in only_names
+        ann = [(a, n, False) for a, n in annotations(src) if (not only and not only_names) or sel(a, n)]
+        # a STUB is only test-matched when named explicitly; it never counts
+        if only or only_names:
+            ann += [(a, n, True) for a, n in annotations(src, stubs=True) if sel(a, n)]
         if not ann:
             continue
         funcs = functions_in_obj(compile_tu(src))
-        for addr, name in ann:
+        for addr, name, is_stub in ann:
             seen += 1
+            if is_stub:
+                want = re.compile(r"(^|[\s:*&])" + re.escape(name) + r"\(|^[_@]" + re.escape(name.split("::")[-1]) + r"(@\d+)?$")
+                if not [k for k in funcs if want.search(k)]:
+                    print(f"STUB  {addr:08x}  {name}: not compiled (still in #if 0?)   [{src.relative_to(ROOT)}]")
+                    continue
             (code, relocs), sym = find(funcs, name)
             osize = sizes.get(addr)
             orig = pe.get_data(addr - base, max(len(code), osize or 0))
@@ -298,6 +310,13 @@ def main(argv):
             tail = orig[len(code):osize] if osize and osize > len(code) else b""
             short = any(x not in (0xCC, 0x90) for x in tail)
             ok = mask(code, relocs) == mask(orig[:len(code)], relocs) and not short
+            if is_stub:
+                tag = (f"{C['g']}{C['b']}STUB-MATCH{C['x']} (change // STUB: to // FUNCTION:)" if ok
+                       else f"{C['y']}{C['b']}STUB-DIFF{C['x']}")
+                print(f"{tag} {addr:08x} {len(code):5d} B  {sym}   {C['d']}[{src.relative_to(ROOT)}]{C['x']}")
+                if verbose or not ok:
+                    show(insns(orig, addr, len(orig), names=names), insns(code, addr, len(code), relocs=relocs))
+                continue
             total += len(code); matched += len(code) if ok else 0; bad += 0 if ok else 1
             tag = f"{C['g']}{C['b']}MATCH{C['x']}" if ok else f"{C['r']}{C['b']}DIFF {C['x']}"
             print(f"{tag} {addr:08x} {len(code):5d} B  {sym}   {C['d']}[{src.relative_to(ROOT)}]{C['x']}")
