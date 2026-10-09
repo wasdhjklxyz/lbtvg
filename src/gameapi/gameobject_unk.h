@@ -120,7 +120,9 @@ struct GameObject_s {
   u8 b9df; // 0x9df
   u8 pad12[0x112c - 0x9e0];
   Unk_GameObject112c *p112c; // 0x112c
-  u8 pad13[0x1158 - 0x1130];
+  u8 pad13[0x114c - 0x1130];
+  struct TORPEDOPACKET_s *torpedo; // 0x114c
+  u8 pad13a[0x1158 - 0x1150];
   GameObject_s *p1158; // 0x1158
   u8 pad13b[0x11cc - 0x115c];
   f32 f11cc; // 0x11cc

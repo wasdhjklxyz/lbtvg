@@ -796,6 +796,61 @@ i32 Action_CompleteLevel(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+struct TORPEDOPACKET_s {
+  u8 count;  // 0x00
+  u8 flags1; // 0x01
+  u8 pad2;
+  u8 field_03; // 0x03
+  u8 pad4[4];
+  f32 field_08; // 0x08
+  u8 padc[0x3c - 0xc];
+  nuvec_s pickup_positions[1]; // 0x3c
+};
+
+i32 getMaxTorpedos(void *a);
+void FreeTorpedoPacket(TORPEDOPACKET_s **packet);
+TORPEDOPACKET_s *GetTorpedoPacket(void);
+
+// FUNCTION: LEGOBATMAN 0x00470370
+i32 Action_AddTorpedoPacket(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char **args, int argc,
+                            int flags, f32 time) {
+  GameObject_s *obj = 0;
+  i32 torpedo_count = 0;
+  u8 packet_flags = 0;
+  char *s;
+  if (packet && packet->pd0 && packet->pd0->obj)
+    obj = packet->pd0->obj;
+  if (flags) {
+    for (i32 i = 0; i < argc; i++) {
+      if ((s = NuStrIStr(args[i], "torpedo"))) {
+        torpedo_count = (i32)AIParamToFloat((AISCRIPTPROCESS_s *)packet, s + 8);
+        if (torpedo_count < 0)
+          torpedo_count = 0;
+        else if (torpedo_count > getMaxTorpedos(0))
+          torpedo_count = getMaxTorpedos(0);
+      } else if (NuStrICmp(args[i], "CANBESTOLEN") == 0) {
+        packet_flags |= 0x20;
+      }
+    }
+  }
+  if (obj) {
+    if (obj->torpedo)
+      FreeTorpedoPacket(&obj->torpedo);
+    obj->torpedo = GetTorpedoPacket();
+    if (obj->torpedo && torpedo_count) {
+      obj->torpedo->count = torpedo_count;
+      obj->torpedo->flags1 |= packet_flags;
+      for (i32 i = 0; i < torpedo_count; i++) {
+        obj->torpedo->pickup_positions[i] = obj->v80;
+        obj->torpedo->field_08 = 0.4f;
+        obj->torpedo->field_03 = 0;
+      }
+    }
+  }
+  return 1;
+}
+
 // STUB: LEGOBATMAN 0x004717b0
 // original keeps `target` in the dead `packet` home slot and `stun_flags` in
 // a local; this form allocates them the other way round (edi/esi swapped too)

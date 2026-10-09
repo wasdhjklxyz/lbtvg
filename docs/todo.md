@@ -13,7 +13,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [Action](#action) | 61 | 46 |
+| [Action](#action) | 60 | 45 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 44 | 37 |
 | [near rtleditor.cpp](#near-rtleditorcpp) | 59 | 33 |
 | [near terrain.c](#near-terrainc) | 34 | 9 |
@@ -218,7 +218,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00465ab0` 539 B `Action_PlaySfx(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `004688a0` 549 B `Action_SpinOnSpot(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `006a4b10` 565 B `_Action_FaceOpponent`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00470370` 575 B `Action_AddTorpedoPacket(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `006ba4b0` 597 B `_Action_CirclePlayer`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00457460` 602 B `Action_SetDoomedEscapeLocator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `006ba710` 603 B `_Action_CircleOpponent`  **saga** `gameapi/ai/aisys/aisys.cpp`
