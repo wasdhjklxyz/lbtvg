@@ -58,6 +58,26 @@ typedef struct TIMER_s TIMER;
 
 f32 NuFmod(f32 a, f32 b);
 
+void Text_InsertCommasIntoNumber(char *number, char *text, i32 length);
+
+// name is a Mac pairing hint (order): verify
+// from saga legoapi/menus/core/text.cpp
+// FUNCTION: LEGOBATMAN 0x0059dc80
+void Text_MakeScore(u32 score, char *text) {
+  char digits[64];
+  char *end = &digits[63];
+  char *first = end - 1;
+  *end = '\0';
+  *first = static_cast<char>('0' + score % 10);
+  score /= 10;
+  while (score != 0) {
+    *--first = static_cast<char>('0' + score % 10);
+    score /= 10;
+  }
+
+  Text_InsertCommasIntoNumber(first, text, static_cast<i32>(end - first));
+}
+
 // name is a Mac pairing hint (gapfill): verify
 // from saga legoapi/core/input/timer.cpp
 // FUNCTION: LEGOBATMAN 0x005a1060

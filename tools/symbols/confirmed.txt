@@ -45,3 +45,4 @@
 005ae5c0 FindAnglesZX  saga body matches (atan2 x, rotate X, atan2 z)
 005a1060 ResetTimer  saga body matches unchanged
 0060ec80 LevelObject_FindIndexFromName  saga body matches (ObjTabList name scan)
+0059dc80 Text_MakeScore  saga body matches (digits then Text_InsertCommasIntoNumber)
