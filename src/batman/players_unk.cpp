@@ -46,6 +46,26 @@ i32 DeactivatePlayer(GameObject_s *obj, f32 time, GameObject_s *by) {
 // GLOBAL: LEGOBATMAN 0x00ab3960
 extern GameObject_s *Player[8];
 
+typedef struct MISSIONSYS_s MISSIONSYS;
+typedef struct MISSIONDATA_s MISSIONDATA;
+MISSIONDATA *Mission_Active(MISSIONSYS *ms);
+
+// GLOBAL: LEGOBATMAN 0x00ab0894
+extern i32 FreePlay;
+// GLOBAL: LEGOBATMAN 0x00ab084c
+extern i32 ChallengeMode;
+// GLOBAL: LEGOBATMAN 0x00ad1178
+extern i32 Arcade;
+
+// FUNCTION: LEGOBATMAN 0x005bdcd0
+i32 InStory() {
+  if (FreePlay != 0 || ChallengeMode != 0 || Mission_Active(0) != 0 ||
+      Arcade != 0) {
+    return 0;
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x005c0f70
 void SetFlicker(GameObject_s *object, float duration) {
   object->flicker_time = duration;
