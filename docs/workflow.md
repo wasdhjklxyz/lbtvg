@@ -244,3 +244,16 @@ enough matched code for the percentage to mean something.
   `u32` instead (`ADDPART_s`).
 - **Condition tables**: {keyword, condition, init} triples;
   `tools/scratch/condtab.py` lists them with their match state.
+- **`if (!a || !b || !c) return 1;` then the body wrapped in `if (obj)`** gives
+  the single shared epilogue, and can fix register choice further down
+  (EngageBlowup): another angle on the epilogue puzzle.
+- **Check-then-reload**: write the pointer chain out each time
+  (`packet->pe4->ai`, `WORLD->x`); caching it in a local doesn't match.
+- **Frame order of local structs** follows neither declaration order nor
+  names; try an array (`nuvec_s v[2]`, OpponentAngle).
+- **A float spill slot between two vectors** is a `nuvec_s` local with only x
+  and z used (MaulShouldRunAway).
+- **Action prologues**: initialise every local (`x = NULL; y = 1;`) before
+  the `flags` check.
+- **Table entries can be far apart**: a condition's init may live in another
+  file (GotCnxCapabilityInit at 0x475e20).
