@@ -472,7 +472,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005d5aa0,0029bb48,__Z21Detonator_FindNearestP7nuvec_sfP12GameObject_s,"Detonator_FindNearest(nuvec_s*, float, GameObject_s*)",confirmed,0
 005d5b60,0029bc04,__Z20Detonator_FindOldestP12GameObject_sf,"Detonator_FindOldest(GameObject_s*, float)",order,4
 005d5c20,0029bcd8,__Z32Detonator_FindCharacterDetonatorP12GameObject_s,Detonator_FindCharacterDetonator(GameObject_s*),gapfill,3
-005d9810,002c684e,__Z36GizmoBlowupAddDefaultExplosionDebrisP7nuvec_s,GizmoBlowupAddDefaultExplosionDebris(nuvec_s*),gapfill,1
+005d9810,002c684e,__Z36GizmoBlowupAddDefaultExplosionDebrisP7nuvec_s,GizmoBlowupAddDefaultExplosionDebris(nuvec_s*),confirmed,0
 005d9e20,002c6fce,__Z17GizmoBlowupBlowupP13GIZMOBLOWUP_siiiP12GameObject_si,"GizmoBlowupBlowup(GIZMOBLOWUP_s*, int, int, int, GameObject_s*, int)",confirmed,0
 005dda30,002cb9c0,__Z22GizmoBlowUp_FindByNameP11WORLDINFO_sPc,"GizmoBlowUp_FindByName(WORLDINFO_s*, char*)",calls,1
 005dfa60,002ec12c,__Z15ObjHitObj_FlagsP12GameObject_s,ObjHitObj_Flags(GameObject_s*),gapfill,1
@@ -506,7 +506,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005fc730,00266d2e,__Z12DrawGoToAreaP6MENU_si,"DrawGoToArea(MENU_s*, int)",strings,0
 00600d30,002df8fc,__Z8Grab_sfxP8nufpar_s,Grab_sfx(nufpar_s*),strings,0
 00600e90,002dfa9a,__Z17Grabber_ConfigureP11WORLDINFO_sPc,"Grabber_Configure(WORLDINFO_s*, char*)",strings,0
-00601280,002dff2c,__Z23Grabber_IsActiveGrabberP12GameObject_s,Grabber_IsActiveGrabber(GameObject_s*),order,1
+00601280,002dff2c,__Z23Grabber_IsActiveGrabberP12GameObject_s,Grabber_IsActiveGrabber(GameObject_s*),confirmed,0
 006012c0,002dff6e,__Z15Grabber_TerrainP9GRABBER_sP7nuvec_si,"Grabber_Terrain(GRABBER_s*, nuvec_s*, int)",order,1
 006013b0,002e006c,__Z18Grabber_GetGrabPosP9GRABBER_sP7numtx_s,"Grabber_GetGrabPos(GRABBER_s*, numtx_s*)",order,1
 006014c0,002e024c,__Z16PartStop_GrabberP6PART_s,PartStop_Grabber(PART_s*),strings,0
@@ -610,7 +610,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006486e0,00264012,__Z19Arcade_PlayerKilledii,"Arcade_PlayerKilled(int, int)",confirmed,0
 00648970,002a4b3a,__Z22Episodes_ConfigureListPcP9variptr_uS1_iPi,"Episodes_ConfigureList(char*, variptr_u*, variptr_u*, int, int*)",strings,0
 0064ce30,002fa184,__Z19NewStatusRumbleBuzziffi,"NewStatusRumbleBuzz(int, float, float, int)",gapfill,2
-00652260,00338224,__Z24SuperCounterConfig_ResetP12SUPERCOUNTER,SuperCounterConfig_Reset(SUPERCOUNTER*),gapfill,1
+00652260,00338224,__Z24SuperCounterConfig_ResetP12SUPERCOUNTER,SuperCounterConfig_Reset(SUPERCOUNTER*),confirmed,0
 00652290,00338262,__Z28SuperCounterConfig_ParseLineP12SUPERCOUNTERP8nufpar_s,"SuperCounterConfig_ParseLine(SUPERCOUNTER*, nufpar_s*)",strings,0
 00652e50,00338e60,__Z22SuperCounter_CharCheckiP7nuvec_siP12SUPERCOUNTERP16SUPERCOUNTERSAVEi,"SuperCounter_CharCheck(int, nuvec_s*, int, SUPERCOUNTER*, SUPERCOUNTERSAVE*, int)",gapfill,1
 00653250,003392c6,__Z29SuperCounter_CreateAIMessagesiiP12SUPERCOUNTERP16SUPERCOUNTERSAVEi,"SuperCounter_CreateAIMessages(int, int, SUPERCOUNTER*, SUPERCOUNTERSAVE*, int)",strings,0
@@ -771,7 +771,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d75c0,001886a4,_NuStrNCpy,_NuStrNCpy,gapfill,1
 006d7670,0018703e,_NuStrLen,_NuStrLen,gapfill,1
 006d7770,00187b7e,_NuStrCmp,_NuStrCmp,gapfill,2
-006d7dc0,0018b9d4,_NuSPrintf,_NuSPrintf,gapfill,1
+006d7dc0,0018b9d4,_NuSPrintf,_NuSPrintf,confirmed,0
 006d7f60,00187f1a,_NuAToF,_NuAToF,calls,1
 006d8020,00187ec6,_NuAToI,_NuAToI,confirmed,0
 006d8440,00187e42,_NuUnicodeToAscii,_NuUnicodeToAscii,gapfill,2

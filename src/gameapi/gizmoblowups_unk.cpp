@@ -8,6 +8,17 @@ struct GIZMOBLOWUP_s {
   char name[0x2e]; // 0xfe
 };
 
+// GLOBAL: LEGOBATMAN 0x00966624
+extern i32 g_unk00966624; // default explosion debris type, -1 = none
+
+i32 AddGameDebris(void *system, i32 type, nuvec_s *position);
+
+// FUNCTION: LEGOBATMAN 0x005d9810
+void GizmoBlowupAddDefaultExplosionDebris(nuvec_s *position) {
+  if (g_unk00966624 != -1)
+    AddGameDebris(g_unk00960894->p138, g_unk00966624, position);
+}
+
 // FUNCTION: LEGOBATMAN 0x005dda30
 GIZMOBLOWUP_s *GizmoBlowUp_FindByName(WORLDINFO_s *world, char *name) {
   GIZMOBLOWUP_s *blowup = world->gizmo_blowups;

@@ -3,6 +3,8 @@
 // neighbouring TU; see the report.
 
 #include "common.h"
+#include <stdarg.h>
+#include <stdio.h>
 #include <string.h>
 
 // Outside this file; names unknown.
@@ -750,6 +752,14 @@ void NuPadWStrCpyLower(unsigned short *dst, const unsigned short *src) {
     src++;
   }
   *dst = *src;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d7dc0
+extern "C" int NuSPrintf(char *buf, char *fmt, ...) {
+  va_list args;
+  va_start(args, fmt);
+  vsprintf(buf, fmt, args);
+  return NuStrLen(buf);
 }
 
 // FUNCTION: LEGOBATMAN 0x006d84e0

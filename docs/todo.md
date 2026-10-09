@@ -15,12 +15,12 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 |---|---|---|
 | [Action](#action) | 57 | 42 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 44 | 37 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 44 | 29 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 43 | 29 |
 | [near terrain.c](#near-terrainc) | 23 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 11 | 6 |
-| [Grabber](#grabber) | 7 | 5 |
+| [Grabber](#grabber) | 6 | 5 |
 | [Hub](#hub) | 6 | 4 |
-| [near nupad_gen.cpp](#near-nupad_gencpp) | 5 | 4 |
+| [near nupad_gen.cpp](#near-nupad_gencpp) | 4 | 4 |
 | [Arcade](#arcade) | 2 | 2 |
 | [Area](#area) | 3 | 2 |
 | [CutScenePlayer](#cutsceneplayer) | 2 | 2 |
@@ -183,7 +183,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Status](#status) | 1 | 0 |
 | [StreetsChase](#streetschase) | 1 | 0 |
 | [SuperCounter](#supercounter) | 2 | 0 |
-| [SuperCounterConfig](#supercounterconfig) | 2 | 0 |
+| [SuperCounterConfig](#supercounterconfig) | 1 | 0 |
 | [SurfaceBit](#surfacebit) | 1 | 0 |
 | [Surfaces](#surfaces) | 1 | 0 |
 | [Titles](#titles) | 1 | 0 |
@@ -300,7 +300,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## near rtleditor.cpp
 
-- [ ] `005d9810` 38 B `GizmoBlowupAddDefaultExplosionDebris(nuvec_s*)`  **hint** name (gapfill)
 - [ ] `005d3f60` 105 B `FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)`  **hint** name (gapfill)
 - [ ] `005c16b0` 120 B `SetPlayerIDs(int, int)`  **hint** name (order)
 - [ ] `0059c4b0` 127 B `_ActionFromName`  **stub** · **hint** name (gapfill)
@@ -387,7 +386,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## Grabber
 
-- [ ] `00601280` 55 B `Grabber_IsActiveGrabber(GameObject_s*)`  **hint** name (order)
 - [ ] `006013b0` 170 B `Grabber_GetGrabPos(GRABBER_s*, numtx_s*)`  **hint** name (order) · **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
 - [ ] `006012c0` 235 B `Grabber_Terrain(GRABBER_s*, nuvec_s*, int)`  **hint** name (order)
 - [ ] `00601fe0` 649 B `Grabber_SetVictimPos(GRABBER_s*)`  **hint** name (gapfill) · **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
@@ -406,7 +404,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## near nupad_gen.cpp
 
-- [ ] `006d7dc0` 43 B `_NuSPrintf`  **hint** name (gapfill)
 - [ ] `006dd430` 318 B `_NuFParInterpretWordCTX`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006dd2d0` 347 B `_NuFParInterpretWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006da8d0` 358 B `_NuFParGetWord`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
@@ -1192,7 +1189,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## SuperCounterConfig
 
-- [ ] `00652260` 43 B `SuperCounterConfig_Reset(SUPERCOUNTER*)`  **hint** name (gapfill)
 - [ ] `00652290` 901 B `SuperCounterConfig_ParseLine(SUPERCOUNTER*, nufpar_s*)`
 
 ## SurfaceBit

@@ -229,3 +229,7 @@
 006d4390 NuMemBlkCheckFreeList  Mac order; walks the free list
 006d43b0 NuMemBlkAlloc  saga body (memset -1)
 006d43e0 NuMemBlkFree  saga body (memset -2, push on free list)
+006d7dc0 NuSPrintf  vsprintf then inlined NuStrLen; Mac NuSPrintf
+005d9810 GizmoBlowupAddDefaultExplosionDebris  same as Mac (AddGameDebris with the default type when set)
+00652260 SuperCounterConfig_Reset  same as Mac (memset 0x51c, bytes 0x518..0x51a = -1)
+00601280 Grabber_IsActiveGrabber  same as Mac (grabber sys at WORLDINFO+0x4800, flag 0x8000000, byte 0x692)
