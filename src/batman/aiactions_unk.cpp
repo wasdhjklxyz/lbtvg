@@ -7,6 +7,12 @@
 #include "worldinfo_unk.h"
 #include <string.h>
 
+// GLOBAL: LEGOBATMAN 0x00ad6918
+extern i32 (*AIActionParseSpeedFn)(char *str, u8 *out);
+
+void AIMoveInstruction(AIPACKET_s *packet, nuvec_s *pos, f32 height,
+                       AIPATHINFO *path_info, i32 type, f32 param);
+
 void Detonate(nuvec_s *pos, i32 type, f32 scale);
 void AddMiscPickups(nuvec_s *pos, i32 player_id, i32 coins, i32 torpedoes,
                     i32 a);
@@ -750,6 +756,28 @@ i32 Action_AssignLocatorInSet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       }
       locator_set->assigned[i] = assignment;
     }
+  }
+  return 1;
+}
+
+void AlertSurroundingCreatures(GameObject_s *obj, nuvec_s *pos, i32 a);
+
+// FUNCTION: LEGOBATMAN 0x0046c630
+i32 Action_AlertCreatures(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **args, int argc, int flags,
+                          f32 time) {
+  GameObject_s *obj = NULL;
+  if (flags != 0) {
+    i32 i;
+    if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL)
+      obj = packet->pd0->obj;
+    for (i = 0; i < argc; i++) {
+      char *value = NuStrIStr(args[i], "character=");
+      if (value != NULL)
+        obj = GetNamedGameObject(sys, value + 10);
+    }
+    if (obj != NULL)
+      AlertSurroundingCreatures(obj, &obj->v80, 1);
   }
   return 1;
 }
@@ -1880,6 +1908,39 @@ i32 Action_PartyCanBeUnderCover(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+struct GIZMOBLOWUP_s {
+  u8 pad0[0xa0];
+  u8 output_flags; // 0xa0, bit 0: already blown up
+};
+
+// GLOBAL: LEGOBATMAN 0x00961104
+extern i32 blowup_gizmotype_id;
+
+void GizmoBlowupBlowup(GIZMOBLOWUP_s *blowup, i32 a, i32 b, i32 damage,
+                       GameObject_s *obj, i32 c);
+
+// FUNCTION: LEGOBATMAN 0x00464f80
+i32 Action_TriggerBlowUp(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  GIZMOBLOWUP_s *blowup = NULL;
+  if (flags != 0) {
+    i32 i;
+    for (i = 0; i < argc; i++) {
+      char *value = NuStrIStr(args[i], "name=");
+      if (value != NULL) {
+        GIZMO_s *gizmo = GizmoFindByName(g_unk00960894->gizmoSys2b0c,
+                                         blowup_gizmotype_id, value + 5);
+        if (gizmo != NULL)
+          blowup = (GIZMOBLOWUP_s *)gizmo->object;
+      }
+    }
+    if (blowup != NULL && (blowup->output_flags & 1) == 0)
+      GizmoBlowupBlowup(blowup, 1, -1, 1, NULL, 1);
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x00465730
 i32 Action_DeflectPlayersPart(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                               AIPACKET_s *packet, char **args, int argc,
@@ -1939,6 +2000,33 @@ i32 Action_UseTimeBasedUpdate(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     obj->no_time_based_update = enabled == 0;
   }
   return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0046e900
+i32 Action_WalkBackwards(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  if (packet == NULL)
+    return 1;
+  if (flags != 0) {
+    packet->movement_param = 1.0f;
+    for (i32 i = 0; i < argc; i++) {
+      if (AIActionParseSpeedFn == 0 ||
+          AIActionParseSpeedFn(args[i], &packet->goal_speed_mode) == 0)
+        packet->movement_param = AIParamToFloatEx(packet, process, args[i]);
+    }
+  }
+  if (packet->pe4 != NULL && packet->pe4->ai != NULL) {
+    GameObject_s *owner = packet->pd0->obj;
+#define OPPONENT ((u8 *)packet->pe4->ai) // the opponent's AIPACKET_s
+    AIMoveInstruction(
+        packet, (nuvec_s *)(OPPONENT + 0x174), *(f32 *)(OPPONENT + 0x120),
+        (AIPATHINFO *)(OPPONENT + 0x158), 2, packet->movement_param);
+#undef OPPONENT
+    *(u32 *)((u8 *)owner + 0x1410) |= 0x80000;
+    owner->process290[0x13f] = 1; // its packet's goal_speed_mode: WALK
+  }
+  return 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x0046f470
@@ -3059,12 +3147,6 @@ i32 Action_SetAO_RowDist(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
-// GLOBAL: LEGOBATMAN 0x00ad6918
-extern i32 (*AIActionParseSpeedFn)(char *str, u8 *out);
-
-void AIMoveInstruction(AIPACKET_s *packet, nuvec_s *pos, f32 height,
-                       AIPATHINFO *path_info, i32 type, f32 param);
-
 // FUNCTION: LEGOBATMAN 0x004623d0
 i32 Action_MoveAwayFromLastAttacker(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                                     AIPACKET_s *packet, char **args, int argc,
@@ -3576,6 +3658,38 @@ i32 Action_StartSpecialMove(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       if (move != -1)
         SpecialMove_Start(obj, opponent, move, 1);
     }
+  }
+  return 1;
+}
+
+// GLOBAL: LEGOBATMAN 0x00967a14
+extern i32 turret_gizmotype_id;
+
+struct GIZTURRET_s {
+  u8 pad0[0xe8];
+  GameObject_s *controller; // 0xe8
+};
+
+// FUNCTION: LEGOBATMAN 0x0046c880
+i32 Action_LinkTurretToController(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                  AIPACKET_s *packet, char **args, int argc,
+                                  int flags, f32 time) {
+  GIZTURRET_s *turret = NULL;
+  GameObject_s *controller = NULL;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *value = NuStrIStr(args[i], "turret=");
+      if (value != NULL) {
+        GIZMO_s *gizmo = GizmoFindByName(g_unk00960894->gizmoSys2b0c,
+                                         turret_gizmotype_id, value + 7);
+        if (gizmo != NULL && gizmo->object != NULL)
+          turret = (GIZTURRET_s *)gizmo->object;
+      } else if ((value = NuStrIStr(args[i], "controller=")) != NULL) {
+        controller = GetNamedGameObject(sys, value + 11);
+      }
+    }
+    if (turret != NULL)
+      turret->controller = controller;
   }
   return 1;
 }
