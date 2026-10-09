@@ -155,3 +155,4 @@
 0052a7a0 CD3DCore::DetermineNominalAspectRatio: one extra f32 round trip after each fabs, 3 tries
 005d59d0 Detonator_FindFreeSlot: obj/limit register allocation, 3 tries
 00679ca0 WorldMapBase::InitializePerm: prologue store scheduling, 3 tries
+00514bd0 ShopComputer::InitializeLevel: pop ebp scheduled one store early, 3 tries

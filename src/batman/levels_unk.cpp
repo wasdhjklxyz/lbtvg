@@ -144,22 +144,81 @@ i32 Unk006004d0(char *class_name);
 void *Unk00600530(char *class_name, i32 index);
 
 struct SHOPMENU_s {
-  u32 pad0[2];
+  void Unk00511aa0(WORLDINFO_s *world, i32 a2, i32 a3);
+
+  void **icons; // 0x00
+  u32 pad4;
   f32 f8; // 0x08
   u32 padc[(0x1c - 0xc) / 4];
   f32 f1c; // 0x1c
+  u32 pad20[(0x118 - 0x20) / 4];
 };
 
-class ShopComputer {
+class InteractiveDisplay {
+public:
+  void InitializeLevel(WORLDINFO_s *world);
+};
+
+class ShopComputer : public InteractiveDisplay {
 public:
   static i32 IsAnyMenuChanging();
+  void InitializeLevel(WORLDINFO_s *world);
 
   void **vtable;
-  u8 pad4[0x4a4 - 4];
-  SHOPMENU_s *menu; // 0x4a4
+  u8 pad4[0x10 - 4];
+  char level_name[0x388 - 0x10]; // 0x010
+  nugscn_s *icons_scene;         // 0x388
+  SHOPMENU_s menu_data;          // 0x38c
+  SHOPMENU_s *menu;              // 0x4a4
+  u8 pad4a8[0x4c8 - 0x4a8];
+  i32 i4c8; // 0x4c8
+  f32 f4cc; // 0x4cc
+  u8 pad4d0[4];
+  f32 f4d4; // 0x4d4
+  u8 pad4d8[4];
+  f32 f4dc[6]; // 0x4dc
 };
 
 typedef i32(__thiscall *ShopComputerVFn)(ShopComputer *);
+
+extern "C" i32 NuMtlSetCurrentRenderPlane(i32 render_plane);
+
+// GLOBAL: LEGOBATMAN 0x00945ce4
+extern char *g_shopIconNames[];
+
+struct InteractiveDisplayStatics {
+  static void *GetFirstSpecialMaterial(nugscn_s *scene, char *name);
+};
+
+// STUB: LEGOBATMAN 0x00514bd0
+// close: only "pop ebp" is scheduled one store earlier than the orig (3
+// store orders tried)
+void ShopComputer::InitializeLevel(WORLDINFO_s *world) {
+  InteractiveDisplay::InitializeLevel(world);
+  if (NuStrICmp((char *)world, level_name) == 0) {
+    menu_data.Unk00511aa0(world, 6, 0);
+    i32 plane = NuMtlSetCurrentRenderPlane(3);
+    icons_scene = NuGScnRead(
+        &world->buf104, world->bufEnd108,
+        "stuff\\interactivedisplay\\shopcomputer\\icons\\computer_icons.gsc");
+    NuMtlSetCurrentRenderPlane(plane);
+    if (icons_scene != NULL) {
+      for (i32 i = 0; g_shopIconNames[i] != NULL; i++)
+        menu_data.icons[i] = InteractiveDisplayStatics::GetFirstSpecialMaterial(
+            icons_scene, g_shopIconNames[i]);
+    }
+    f4d4 = 0.0f;
+    i4c8 = 0;
+    f4cc = 0.0f;
+    menu = &menu_data;
+    f4dc[0] = 1.0f;
+    f4dc[1] = 1.0f;
+    f4dc[2] = 1.0f;
+    f4dc[3] = 1.0f;
+    f4dc[4] = 1.0f;
+    f4dc[5] = 1.0f;
+  }
+}
 
 // FUNCTION: LEGOBATMAN 0x00515150
 i32 ShopComputer::IsAnyMenuChanging() {

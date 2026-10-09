@@ -1051,7 +1051,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## ShopComputer
 
-- [ ] `00514bd0` 245 B `ShopComputer::InitializeLevel(WORLDINFO_s*)`
+- [ ] `00514bd0` 245 B `ShopComputer::InitializeLevel(WORLDINFO_s*)`  **stub**
 - [ ] `005166a0` 309 B `ShopComputer::InitializePerm(char*, variptr_u*, variptr_u*)`
 
 ## SlumsB
