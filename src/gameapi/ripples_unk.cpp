@@ -1,7 +1,98 @@
 // gameapi/ripples_unk.cpp: placed by tools/new.py; file name unproven.
 
+#include "../batman/worldinfo_unk.h"
 #include "../nu2api/nucore/common.h"
 #include <stddef.h>
+
+struct RIPPLEEFFECT_s {
+  u8 start_color[4];       // 0x00
+  u8 end_color[4];         // 0x04
+  f32 lifetime;            // 0x08
+  f32 initial_size;        // 0x0c
+  f32 end_size;            // 0x10
+  char texture_name[0x10]; // 0x14
+  void *material;          // 0x24
+};
+
+typedef struct nufpar_s {
+  u32 pad0[0x910 / 4];
+  char *word_buf; // 0x910
+} NUFPAR;
+
+NUFPAR *NuFParCreateMem(char *name, char *buffer, i32 bufferSize);
+void NuFParPushCom(NUFPAR *parser, void *commands);
+i32 NuFParGetLine(NUFPAR *parser);
+i32 NuFParGetWord(NUFPAR *parser);
+i32 NuFParInterpretWord(NUFPAR *parser);
+void NuFParDestroy(NUFPAR *parser);
+i32 NuStrICmp(const char *a, const char *b);
+void InitRippleMtl(char *name, void **material, VARIPTR *buf, VARIPTR *end);
+
+// GLOBAL: LEGOBATMAN 0x00967130
+extern u8 RippleEffect_ConfigKeywords[];
+// GLOBAL: LEGOBATMAN 0x00ad1bec
+extern WORLDINFO_s *RE_worldinfo;
+// GLOBAL: LEGOBATMAN 0x00ad1bf0
+extern RIPPLEEFFECT_s *RE_rippleeffect;
+
+// FUNCTION: LEGOBATMAN 0x00655ca0
+void RippleEffects_Configure(WORLDINFO_s *world, char *config) {
+  world->ripple_effects = 0;
+  world->ripple_effect_count = 0;
+  NUFPAR *parser = NuFParCreateMem("rippleeffects", config, 0xffff);
+  if (parser == 0)
+    return;
+  world->buf104.addr = (world->buf104.addr + 3) & ~3;
+  world->ripple_effects = (RIPPLEEFFECT_s *)world->buf104.addr;
+  RIPPLEEFFECT_s *effect = world->ripple_effects;
+  NuFParPushCom(parser, RippleEffect_ConfigKeywords);
+  i32 active = 0;
+  while (NuFParGetLine(parser)) {
+    NuFParGetWord(parser);
+    if (parser->word_buf[0] == 0)
+      continue;
+    if (active) {
+      if (NuStrICmp(parser->word_buf, "rippleeffects_end") == 0) {
+        active = 0;
+        if (effect->texture_name[0] != 0) {
+          effect++;
+          world->ripple_effect_count++;
+        }
+      } else {
+        NuFParInterpretWord(parser);
+      }
+    } else if (world->ripple_effect_count < 2 &&
+               NuStrICmp(parser->word_buf, "rippleeffects_start") == 0) {
+      active = 1;
+      effect->lifetime = 2.0f;
+      RE_worldinfo = world;
+      RE_rippleeffect = effect;
+      effect->initial_size = 0.0f;
+      effect->texture_name[0] = 0;
+      effect->end_size = 1.0f;
+      effect->start_color[0] = 0x40;
+      effect->start_color[1] = 0x40;
+      effect->start_color[2] = 0x40;
+      effect->start_color[3] = 0xff;
+      effect->end_color[0] = 0;
+      effect->end_color[1] = 0;
+      effect->end_color[2] = 0;
+      effect->end_color[3] = 0;
+      effect->material = 0;
+    }
+  }
+  NuFParDestroy(parser);
+  if (world->ripple_effect_count > 0) {
+    world->buf104.addr =
+        ((u32)(world->ripple_effects + world->ripple_effect_count) + 15) & ~15;
+    for (i32 i = 0; i < world->ripple_effect_count; i++)
+      InitRippleMtl(world->ripple_effects[i].texture_name,
+                    &world->ripple_effects[i].material, &world->buf104,
+                    &world->bufEnd108);
+  } else {
+    world->ripple_effects = 0;
+  }
+}
 
 // STUB: LEGOBATMAN 0x00656130
 // callee FUN_00656040 (list-node alloc) takes the set in ecx: register-arg

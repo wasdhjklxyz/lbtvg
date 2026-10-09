@@ -75,7 +75,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Players](#players) | 1 | 1 |
 | [PowerUp](#powerup) | 1 | 1 |
 | [Pulses](#pulses) | 1 | 1 |
-| [RippleEffects](#rippleeffects) | 1 | 1 |
 | [SpecialMiniKits](#specialminikits) | 1 | 1 |
 | [SpecialMove](#specialmove) | 3 | 1 |
 | [SpecialMoves](#specialmoves) | 1 | 1 |
@@ -263,7 +262,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `004b8100` 205 B `_VuMtxRotateY`  **hint** name (gapfill)
 - [ ] `0044c960` 312 B `PartyMemberInWay(GameObject_s*, GameObject_s*)`  **stub** · **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00447560` 369 B `GetNamedAPIObject(AISYS_s*, char*)`  **stub** · **saga** `legoapi/items/objects/gameobjects.cpp`
-- [ ] `004e34b0` 402 B `UpdateRadios()`  **saga** `legoapi/audio/radio.cpp`
+- [ ] `004e34b0` 402 B `UpdateRadios()`  **stub** · **saga** `legoapi/audio/radio.cpp`
 - [ ] `00428a60` 422 B `ResetAICreatures(AISYS_s*)`  **saga** `legoapi/ai/game/creature.cpp`
 - [ ] `004e8190` 477 B `BuyShopItem(LEGOSHOP_s*, shopitem_s*, int, int)`  **saga** `legoapi/menus/screens/shop.cpp`
 - [ ] `0043ebf0` 500 B `ObjHitShield(GameObject_s*, GameObject_s*, int, BOLT_s*)`  **saga** `legoapi/actions/combat/hits.cpp`
@@ -341,7 +340,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0059a110` 338 B `_AnimDuration`  **hint** name (gapfill)
 - [ ] `005b0510` 374 B `InitSplinePosition(SPLINEPOS_s*, nugspline_s*, float, int)`  **stub** · **hint** name (order) · **saga** `legoapi/render/fx/edsplines.cpp`
 - [ ] `005af8c0` 380 B `LineIntersectXY(nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
-- [ ] `005bd2d0` 423 B `LoadGizmoSys(GIZMOSYS_s*, void*, char*)`  **saga** `legoapi/gizmo/base/gizmo_sys.cpp`
+- [ ] `005bd2d0` 423 B `LoadGizmoSys(GIZMOSYS_s*, void*, char*)`  **stub** · **saga** `legoapi/gizmo/base/gizmo_sys.cpp`
 - [ ] `0059f9a0` 437 B `PlayLandSfx(GameObject_s*, int, int)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
 - [ ] `00632800` 499 B `DrawRailSparks(RAILSYS_s*, int, GameObject_s*)`
 - [ ] `005cfa30` 501 B `StartBigJump(GameObject_s*, nuvec_s*, int, float, float, int, int)`  **hint** name (gapfill) · **saga** `legoapi/actions/movement/jumping.cpp`
@@ -706,10 +705,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## Pulses
 
 - [ ] `006573e0` 1327 B `Pulses_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/items/fx/pulses.cpp`
-
-## RippleEffects
-
-- [ ] `00655ca0` 425 B `RippleEffects_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/items/fx/ripples.cpp`
 
 ## SpecialMiniKits
 

@@ -41,3 +41,5 @@
 00712030 NuTexAnimProgParseFile: end param enregistered, see STUB
 005b0510 InitSplinePosition: x87 + idiv spline math, not attempted
 006a2730 AIScriptCopyConditions: ebx push placement, see STUB
+004e34b0 UpdateRadios: same-TU static FUN_004e3390 with custom clobbers
+005bd2d0 LoadGizmoSys: edx register-arg static callees
