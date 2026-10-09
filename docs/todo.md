@@ -465,7 +465,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## Text
 
 - [ ] `0059d770` 62 B `Text_LoadFont(char*, variptr_u*, variptr_u*)`  **saga** `legoapi/menus/core/text.cpp`
-- [ ] `0059d7c0` 119 B `Text_InitStringTable(int, variptr_u*, variptr_u*)`  **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
+- [ ] `0059d7c0` 119 B `Text_InitStringTable(int, variptr_u*, variptr_u*)`  **stub** · **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
 - [ ] `0059dc80` 132 B `Text_MakeScore(unsigned int, char*)`  **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
 - [ ] `0059dbd0` 161 B `Text_InsertCommasIntoNumber(char*, char*, int)`  **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
 - [ ] `0059d850` 169 B `Text_PlatformSpecificIgnore(nufpar_s*)`  **hint** name (order)
