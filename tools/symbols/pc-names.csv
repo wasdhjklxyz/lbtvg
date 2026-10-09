@@ -1652,6 +1652,25 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00652290,00338262,__Z28SuperCounterConfig_ParseLineP12SUPERCOUNTERP8nufpar_s,"SuperCounterConfig_ParseLine(SUPERCOUNTER*, nufpar_s*)",strings,0
 00652e50,00338e60,__Z22SuperCounter_CharCheckiP7nuvec_siP12SUPERCOUNTERP16SUPERCOUNTERSAVEi,"SuperCounter_CharCheck(int, nuvec_s*, int, SUPERCOUNTER*, SUPERCOUNTERSAVE*, int)",gapfill,1
 00653250,003392c6,__Z29SuperCounter_CreateAIMessagesiiP12SUPERCOUNTERP16SUPERCOUNTERSAVEi,"SuperCounter_CreateAIMessages(int, int, SUPERCOUNTER*, SUPERCOUNTERSAVE*, int)",strings,0
+006547d0,002c10a4,__Z10xGizmoTypeP8nufpar_s,xGizmoType(nufpar_s*),confirmed,0
+00654800,002c10ee,__Z10xGizmoNameP8nufpar_s,xGizmoName(nufpar_s*),confirmed,0
+00654830,002c1138,__Z11xStartInvisP8nufpar_s,xStartInvis(nufpar_s*),confirmed,0
+00654840,002c114c,__Z9xEndDeactP8nufpar_s,xEndDeact(nufpar_s*),confirmed,0
+00654850,002c1160,__Z9xEndInvisP8nufpar_s,xEndInvis(nufpar_s*),confirmed,0
+00654860,002c1174,__Z8xReverseP8nufpar_s,xReverse(nufpar_s*),confirmed,0
+00654870,002c1188,__Z13xReverseInvisP8nufpar_s,xReverseInvis(nufpar_s*),confirmed,0
+00654880,002c119c,__Z12xNotFreeplayP8nufpar_s,xNotFreeplay(nufpar_s*),confirmed,0
+00654890,002c11b0,__Z13xNotStoryModeP8nufpar_s,xNotStoryMode(nufpar_s*),confirmed,0
+006548a0,002c11c4,__Z11xOutputOnlyP8nufpar_s,xOutputOnly(nufpar_s*),confirmed,0
+006548b0,002c11d8,__Z9xGizTimerP8nufpar_s,xGizTimer(nufpar_s*),confirmed,0
+006548d0,002c11fc,__Z14xGizRandomTimeP8nufpar_s,xGizRandomTime(nufpar_s*),confirmed,0
+006548e0,002c120e,__Z16xRand_NumOutputsP8nufpar_s,xRand_NumOutputs(nufpar_s*),confirmed,0
+00654900,002c1232,__Z18xRand_OutputChanceP8nufpar_s,xRand_OutputChance(nufpar_s*),confirmed,0
+00654930,002c126e,__Z5xNameP8nufpar_s,xName(nufpar_s*),confirmed,0
+00654960,002c12b8,__Z10xNumGizmosP8nufpar_s,xNumGizmos(nufpar_s*),confirmed,0
+00654980,002c12dc,__Z11xAIAssistIDP8nufpar_s,xAIAssistID(nufpar_s*),confirmed,0
+00654ac0,002c1422,__Z14xConditionTypeP8nufpar_s,xConditionType(nufpar_s*),confirmed,0
+00654b30,002c1492,__Z14xMonitorInputsP8nufpar_s,xMonitorInputs(nufpar_s*),confirmed,0
 00655790,002a7a92,__Z16Faders_ConfigureP11WORLDINFO_sPc,"Faders_Configure(WORLDINFO_s*, char*)",strings,0
 00655b50,00329a8c,__Z15RE_texture_nameP8nufpar_s,RE_texture_name(nufpar_s*),confirmed,0
 00655ba0,00329b32,__Z15RE_start_colourP8nufpar_s,RE_start_colour(nufpar_s*),confirmed,0
