@@ -66,7 +66,11 @@ typedef struct DETONATORSYS_s {
   } bombs[3];    // 0x04, 0x40 each (GetBombLight shl 6, bound 0xc5)
   u8 count;      // 0xc4
   u8 bomb_count; // 0xc5
-  u8 padc6[0xd0 - 0xc6];
+  u8 padc6[2];
+  i16 param_c8;                             // 0xc8
+  i16 param_ca;                             // 0xca
+  i16 param_cc;                             // 0xcc
+  i16 param_ce;                             // 0xce
   void (*callback)(DETONATOR_s *, float &); // 0xd0
 } DETONATORSYS_s;
 
@@ -98,6 +102,23 @@ void AddGameMsgCount(nuvec_s *position, i32 count, i32 total, unsigned char red,
 void DetonatorSys_RegisterCallbacks(void (*callback)(DETONATOR_s *, float &)) {
   if (Detonator != 0)
     Detonator->callback = callback;
+}
+
+// FUNCTION: LEGOBATMAN 0x005d5890
+void DetonatorSys_Init(int count, int a, int b, int c, int d, variptr_u *buf,
+                       variptr_u end) {
+  if (count < 1)
+    return;
+  buf->addr = (buf->addr + 3) & ~3;
+  Detonator = (DETONATORSYS_s *)buf->addr;
+  buf->addr = (buf->addr + sizeof(DETONATORSYS_s) + 3) & ~3;
+  Detonator->detonators = (DETONATOR_s *)buf->addr;
+  Detonator->count = count;
+  Detonator->param_c8 = a;
+  Detonator->param_ca = b;
+  Detonator->param_cc = c;
+  Detonator->param_ce = d;
+  buf->addr += count * sizeof(DETONATOR_s);
 }
 
 // FUNCTION: LEGOBATMAN 0x005d5930
