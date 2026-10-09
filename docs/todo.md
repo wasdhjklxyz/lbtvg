@@ -13,7 +13,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [near rtleditor.cpp](#near-rtleditorcpp) | 89 | 63 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 88 | 62 |
 | [Action](#action) | 72 | 57 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
@@ -46,7 +46,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [NuStr](#nustr) | 2 | 2 |
 | [Player](#player) | 2 | 2 |
 | [PortalDoors](#portaldoors) | 2 | 2 |
-| [SuperCarry](#supercarry) | 3 | 2 |
 | [Tag](#tag) | 2 | 2 |
 | [BoltSys](#boltsys) | 1 | 1 |
 | [BoltTypes](#bolttypes) | 1 | 1 |
@@ -97,6 +96,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [SpecialMiniKits](#specialminikits) | 1 | 1 |
 | [SpecialMove](#specialmove) | 3 | 1 |
 | [SpecialMoves](#specialmoves) | 1 | 1 |
+| [SuperCarry](#supercarry) | 2 | 1 |
 | [TakeOver](#takeover) | 1 | 1 |
 | [Techno](#techno) | 1 | 1 |
 | [ThermalDetonator](#thermaldetonator) | 1 | 1 |
@@ -235,7 +235,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005b0f40` 71 B `GameBufferAlloc(variptr_u*, variptr_u*, int)`  **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `00635de0` 71 B `CoinsGoToMainTotal()`  **hint** name (gapfill) · **saga** `legoapi/menus/core/panel.cpp`
 - [ ] `00597fc0` 72 B `_AddGameDebris`
-- [ ] `00639b50` 76 B `SetWeaponIn(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
 - [ ] `00597e10` 79 B `_FindGameDebris`  **hint** name (gapfill)
 - [ ] `005bc370` 85 B `GizmoGetTypeIDByName(GIZMOSYS_s*, char*)`  **hint** name (gapfill) · **saga** `legoapi/gizmo/base/gizmo.cpp`
 - [ ] `00597db0` 90 B `_ParticlesPerSecond`  **hint** name (gapfill)
@@ -670,12 +669,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005c8b60` 229 B `PortalDoors_Update(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/gizmos/transport/gizportal.cpp`
 - [ ] `005c8a00` 338 B `PortalDoors_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/gizmos/transport/gizportal.cpp`
 
-## SuperCarry
-
-- [ ] `00645450` 53 B `SuperCarry_Carrying(GameObject_s*)`  **hint** name (gapfill) · **saga** `legoapi/actions/movement/carrying.cpp`
-- [ ] `006445b0` 151 B `SuperCarry_PickUpBlowUp(GameObject_s*)`  **hint** name (gapfill)
-- [ ] `00644700` 930 B `SuperCarry_Start(GameObject_s*, GIZMOBLOWUP_s*, int)`  **hint** name (gapfill) · **saga** `legoapi/actions/movement/carrying.cpp`
-
 ## Tag
 
 - [ ] `004a54c0` 1219 B `Tag_UpdateHint(HINT_s*)`  **saga** `legoapi/menus/core/panel.cpp`
@@ -903,6 +896,11 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## SpecialMoves
 
 - [ ] `0062e360` 2922 B `SpecialMoves_Configure(char*, variptr_u*, variptr_u*, SPECIALMOVEFIXUP_s*)`  **saga** `legoapi/actions/character/specialmoves.cpp`
+
+## SuperCarry
+
+- [ ] `006445b0` 151 B `SuperCarry_PickUpBlowUp(GameObject_s*)`  **hint** name (gapfill)
+- [ ] `00644700` 930 B `SuperCarry_Start(GameObject_s*, GIZMOBLOWUP_s*, int)`  **hint** name (gapfill) · **saga** `legoapi/actions/movement/carrying.cpp`
 
 ## TakeOver
 

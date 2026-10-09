@@ -33,3 +33,5 @@
 00615190 Door_FindByName  saga body matches (scan world doors by name)
 0059f260 GameAudio_PlaySfx  saga body matches (GameAudio sfx_ids lookup into GameAudio_PlaySfxById)
 005ae1d0 SeekLinearF  saga body matches unchanged
+00639b50 SetWeaponIn  saga body matches (mirror of SetWeaponOut, scale 0)
+00645450 SuperCarry_Carrying  saga body matches (supercarry context + carry state 2/3/6)

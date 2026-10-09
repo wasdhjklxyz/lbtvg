@@ -54,3 +54,17 @@ void SetWeaponOut(GameObject_s *object) {
     object->weapon_scale_state = 0;
   }
 }
+
+// FUNCTION: LEGOBATMAN 0x00639b50
+void SetWeaponIn(GameObject_s *object) {
+  if (g_unk00962144 == 0) {
+    char context = object->b9db;
+    if (context != -1 &&
+        (context == LEGOCONTEXT_WEAPONIN || context == LEGOCONTEXT_WEAPONOUT)) {
+      object->b9db = -1;
+    }
+    object->weapon_scale = 0.0f;
+    object->flags130c &= ~0x80000;
+    object->weapon_scale_state = 0;
+  }
+}

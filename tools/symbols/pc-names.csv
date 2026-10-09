@@ -540,7 +540,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006397b0,002a83a4,__Z13SlowWeaponOutP12GameObject_s,SlowWeaponOut(GameObject_s*),order,5
 00639900,002a84f6,__Z13WeaponOutCodeP12GameObject_s,WeaponOutCode(GameObject_s*),order,5
 00639b10,002a875c,__Z13KeepWeaponOutP12GameObject_s,KeepWeaponOut(GameObject_s*),order,5
-00639b50,002a879c,__Z11SetWeaponInP12GameObject_s,SetWeaponIn(GameObject_s*),order,5
+00639b50,002a879c,__Z11SetWeaponInP12GameObject_s,SetWeaponIn(GameObject_s*),confirmed,0
 00639ba0,002a87fc,__Z12FastWeaponInP12GameObject_si,"FastWeaponIn(GameObject_s*, int)",gapfill,4
 0063b2a0,0029df30,__Z12GizDigs_LoadPvS_,"GizDigs_Load(void*, void*)",strings,0
 0063e3b0,003049c2,__Z10LoadLightsP11WORLDINFO_sPc,"LoadLights(WORLDINFO_s*, char*)",strings,0
@@ -553,7 +553,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006423a0,0030b572,__Z14Particles_LoadP11WORLDINFO_sPPcii,"Particles_Load(WORLDINFO_s*, char**, int, int)",strings,0
 006445b0,00273f08,__Z23SuperCarry_PickUpBlowUpP12GameObject_s,SuperCarry_PickUpBlowUp(GameObject_s*),gapfill,3
 00644700,00274abe,__Z16SuperCarry_StartP12GameObject_sP13GIZMOBLOWUP_si,"SuperCarry_Start(GameObject_s*, GIZMOBLOWUP_s*, int)",gapfill,2
-00645450,002743aa,__Z19SuperCarry_CarryingP12GameObject_s,SuperCarry_Carrying(GameObject_s*),gapfill,2
+00645450,002743aa,__Z19SuperCarry_CarryingP12GameObject_s,SuperCarry_Carrying(GameObject_s*),confirmed,0
 00647150,00309ae8,__Z18MiniKit_InitPiecesP7MINIKITiP9variptr_uS2_,"MiniKit_InitPieces(MINIKIT*, int, variptr_u*, variptr_u*)",strings,0
 006481b0,0026391c,__Z14Arcade_GetModePj,Arcade_GetMode(unsigned int*),confirmed,0
 006481f0,00263972,__Z17Arcade_ResetPanelv,Arcade_ResetPanel(),order,4
