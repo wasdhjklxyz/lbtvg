@@ -16,7 +16,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Action](#action) | 57 | 42 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 44 | 37 |
 | [near rtleditor.cpp](#near-rtleditorcpp) | 49 | 29 |
-| [near terrain.c](#near-terrainc) | 32 | 9 |
+| [near terrain.c](#near-terrainc) | 30 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 12 | 6 |
 | [Grabber](#grabber) | 7 | 5 |
 | [Hub](#hub) | 6 | 4 |
@@ -60,7 +60,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near apisave.c](#near-apisavec) | 8 | 1 |
 | [near nuanim_gen.cpp](#near-nuanim_gencpp) | 2 | 1 |
 | [near nutimebar_gen.cpp](#near-nutimebar_gencpp) | 2 | 1 |
-| [near oggreader.cpp](#near-oggreadercpp) | 7 | 1 |
+| [near oggreader.cpp](#near-oggreadercpp) | 5 | 1 |
 | [NuCommand](#nucommand) | 1 | 1 |
 | [NuInit](#nuinit) | 1 | 1 |
 | [NuMtl](#numtl) | 2 | 1 |
@@ -167,7 +167,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [PartKill](#partkill) | 1 | 0 |
 | [PartStop](#partstop) | 1 | 0 |
 | [PcInput](#pcinput) | 3 | 0 |
-| [PlayerItems](#playeritems) | 6 | 0 |
+| [PlayerItems](#playeritems) | 5 | 0 |
 | [PlayerItemTypeSys](#playeritemtypesys) | 3 | 0 |
 | [PreInterpretor](#preinterpretor) | 6 | 0 |
 | [Puzzle](#puzzle) | 1 | 0 |
@@ -355,9 +355,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `00572040` 10 B `_NewTerrPlatformsOff`
 - [ ] `00585040` 10 B `edpartSetParticlePage(int)`  **hint** name (gapfill)
-- [ ] `005797f0` 31 B `_PlaySfxById`  **hint** name (gapfill)
 - [ ] `005834f0` 33 B `_AddFiniteShotDebrisEffect`  **hint** name (gapfill)
-- [ ] `005798a0` 45 B `_PlaySfx`  **hint** name (gapfill)
 - [ ] `0058b230` 57 B `_rtlDynamicFree`
 - [ ] `00583520` 61 B `_AddScaledFiniteShotDebrisEffect`  **hint** name (gapfill)
 - [ ] `00574220` 73 B `_PlatOnOff`  **hint** name (gapfill)
@@ -624,8 +622,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## near oggreader.cpp
 
 - [ ] `00561570` 10 B `_edbitsRegisterThingsScene`  **hint** name (gapfill)
-- [ ] `0055fd40` 21 B `_LookupDebrisEffectPage`  **hint** name (gapfill)
-- [ ] `00559480` 49 B `_PlaySfxAndSetVolume`  **hint** name (gapfill)
 - [ ] `00558d90` 137 B `_GetSfxId`  **stub** · **saga** `nu2api/numusic/sfx.cpp`
 - [ ] `0055fd60` 212 B `_LookupDebrisEffectPageOnly`  **hint** name (gapfill)
 - [ ] `0055fc00` 307 B `_LookupDebrisEffectPageIgnore`  **hint** name (gapfill)
@@ -641,7 +637,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## NuMtl
 
-- [ ] `00727f20` 30 B `_NuMtlSetCurrentRenderPlane`
+- [ ] `00727f20` 30 B `_NuMtlSetCurrentRenderPlane`  **stub**
 - [ ] `006ef910` 300 B `_NuMtlUpdatePS`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nu3d/numtl.cpp`
 
 ## NuMusic
@@ -1137,7 +1133,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## PlayerItems
 
-- [ ] `005f1120` 26 B `PlayerItems_GetAllCarriedItemFlags(GameObject_s*)`  **hint** name (gapfill)
 - [ ] `005f3630` 60 B `PlayerItems_RemoveItems(GameObject_s*, int, int, int, unsigned long long)`  **hint** name (order)
 - [ ] `005f1140` 143 B `PlayerItems_DontPickUpItemType(GameObject_s*, PLAYERITEMTYPE_s*)`  **hint** name (gapfill)
 - [ ] `005f3440` 212 B `PlayerItems_RemoveItem(GameObject_s*, PLAYERITEM_s*, int)`  **hint** name (gapfill)

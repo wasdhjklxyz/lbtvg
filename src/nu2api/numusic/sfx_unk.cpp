@@ -45,3 +45,17 @@ i32 GetSfxId(const char *name) {
 
   return -1;
 }
+
+#include "../numath/nuvec.h"
+
+void PlaySfxByIdEx(i32 sfx_id, nuvec_s *position, f32 volume, f32 pitch);
+
+// name is a Mac pairing hint (gapfill): verify
+// from saga legoapi/audio/sfx.cpp
+// FUNCTION: LEGOBATMAN 0x00559480
+void PlaySfxAndSetVolume(char *name, nuvec_s *position, f32 volume) {
+  i32 id = GetSfxId(name);
+  if (id != -1) {
+    PlaySfxByIdEx(id, position, volume, 1.0f);
+  }
+}

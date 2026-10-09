@@ -259,9 +259,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0053afc0,001b2cc4,__ZN9OggReader4OpenEP10nudathdr_sPcPN7MacDoze13tWAVEFORMATEXE,"OggReader::Open(nudathdr_s*, char*, MacDoze::tWAVEFORMATEX*)",strings,0
 00558d90,0020edaa,_GetSfxId,_GetSfxId,calls,1
 00558f10,001f3ac2,_PlaySfxByIdEx,_PlaySfxByIdEx,calls,2
-00559480,0020ef1a,_PlaySfxAndSetVolume,_PlaySfxAndSetVolume,gapfill,1
+00559480,0020ef1a,_PlaySfxAndSetVolume,_PlaySfxAndSetVolume,confirmed,0
 0055fc00,001f961a,_LookupDebrisEffectPageIgnore,_LookupDebrisEffectPageIgnore,gapfill,3
-0055fd40,001f9744,_LookupDebrisEffectPage,_LookupDebrisEffectPage,gapfill,2
+0055fd40,001f9744,_LookupDebrisEffectPage,_LookupDebrisEffectPage,confirmed,0
 0055fd60,001f9768,_LookupDebrisEffectPageOnly,_LookupDebrisEffectPageOnly,gapfill,2
 00561570,001fb1cc,_edbitsRegisterThingsScene,_edbitsRegisterThingsScene,gapfill,1
 005632c0,0020d0e0,_TerrainInitEx,_TerrainInitEx,strings,0
@@ -282,8 +282,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00572be0,002158ec,_NewRayCast,_NewRayCast,gapfill,1
 00572d90,002156a6,_NewRayCastScaleYMask,_NewRayCastScaleYMask,gapfill,1
 00574220,00200eae,_PlatOnOff,_PlatOnOff,gapfill,4
-005797f0,001f4188,_PlaySfxById,_PlaySfxById,gapfill,1
-005798a0,0020fa7a,_PlaySfx,_PlaySfx,gapfill,1
+005797f0,001f4188,_PlaySfxById,_PlaySfxById,confirmed,0
+005798a0,0020fa7a,_PlaySfx,_PlaySfx,confirmed,0
 0057be20,0021e3e6,_DebFreeInstantly,_DebFreeInstantly,gapfill,4
 0057c890,0021efe8,_AddVariableShotDebrisEffectTimed5,_AddVariableShotDebrisEffectTimed5,gapfill,4
 0057d5a0,002206f6,_AddVariableShotDebrisEffectTimed1,_AddVariableShotDebrisEffectTimed1,gapfill,5
@@ -437,7 +437,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005ee210,0030dc84,__Z30PlayerItemTypeSys_ParseLocatorP8nufpar_sP16PLAYERITEMTYPE_si,"PlayerItemTypeSys_ParseLocator(nufpar_s*, PLAYERITEMTYPE_s*, int)",strings,0
 005ee5a0,0031300c,__Z22PlayerItemTypeSys_LoadPcP8nugscn_sP9variptr_uS3_,"PlayerItemTypeSys_Load(char*, nugscn_s*, variptr_u*, variptr_u*)",strings,0
 005f0250,00315482,__Z28PlayerItemTypeSys_LoadGlobalPcP8nugscn_sP9variptr_uS3_,"PlayerItemTypeSys_LoadGlobal(char*, nugscn_s*, variptr_u*, variptr_u*)",gapfill,1
-005f1120,0030edd0,__Z34PlayerItems_GetAllCarriedItemFlagsP12GameObject_s,PlayerItems_GetAllCarriedItemFlags(GameObject_s*),gapfill,6
+005f1120,0030edd0,__Z34PlayerItems_GetAllCarriedItemFlagsP12GameObject_s,PlayerItems_GetAllCarriedItemFlags(GameObject_s*),confirmed,0
 005f1140,0030edec,__Z30PlayerItems_DontPickUpItemTypeP12GameObject_sP16PLAYERITEMTYPE_s,"PlayerItems_DontPickUpItemType(GameObject_s*, PLAYERITEMTYPE_s*)",gapfill,3
 005f3440,003101a8,__Z22PlayerItems_RemoveItemP12GameObject_sP12PLAYERITEM_si,"PlayerItems_RemoveItem(GameObject_s*, PLAYERITEM_s*, int)",gapfill,4
 005f3630,003102c4,__Z23PlayerItems_RemoveItemsP12GameObject_siiiy,"PlayerItems_RemoveItems(GameObject_s*, int, int, int, unsigned long long)",order,5

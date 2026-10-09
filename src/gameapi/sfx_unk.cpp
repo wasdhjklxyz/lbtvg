@@ -11,6 +11,29 @@ typedef struct WORLDINFO_s {
 i32 NuFileExists(char *name);
 void SpecialSfxLoad(char *path, WORLDINFO *world);
 
+#include "../nu2api/numath/nuvec.h"
+
+void PlaySfxByIdEx(i32 sfx_id, nuvec_s *position, f32 volume, f32 pitch);
+
+// name is a Mac pairing hint (gapfill): verify
+// from saga legoapi/audio/sfx.cpp
+// FUNCTION: LEGOBATMAN 0x005797f0
+void PlaySfxById(i32 sfx_id, nuvec_s *position) {
+  PlaySfxByIdEx(sfx_id, position, 1.0f, 1.0f);
+}
+
+i32 GetSfxId(const char *name);
+
+// name is a Mac pairing hint (gapfill): verify
+// from saga legoapi/audio/sfx.cpp
+// FUNCTION: LEGOBATMAN 0x005798a0
+void PlaySfx(char *name, struct nuvec_s *position) {
+  i32 sfx_id = GetSfxId(name);
+  if (sfx_id != -1) {
+    PlaySfxById(sfx_id, position);
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x00675430
 void LoadSpecialSfxFile(WORLDINFO *world) {
   char path[256];

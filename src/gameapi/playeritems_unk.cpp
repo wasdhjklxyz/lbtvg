@@ -3,6 +3,13 @@
 #include "../batman/worldinfo_unk.h"
 #include "../nu2api/nucore/common.h"
 
+// FUNCTION: LEGOBATMAN 0x005f1120
+unsigned __int64 PlayerItems_GetAllCarriedItemFlags(GameObject_s *object) {
+  if (object != 0)
+    return object->carried_item_flags;
+  return 0;
+}
+
 // GLOBAL: LEGOBATMAN 0x00962144
 extern i32 g_unk00962144;
 

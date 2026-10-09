@@ -102,3 +102,8 @@
 005d5670 DetonatorSys_RegisterCallbacks  same shape as Mac (stores fn into Detonator+0xd0)
 005d5930 DetonatorSys_GetList  returns Detonator->detonators, count byte 0xc4 out
 005d5970 Detonators_GetBombLight  same shape as Mac _Z23Detonators_GetBombLights (bound 0xc5, shl 6)
+005f1120 PlayerItems_GetAllCarriedItemFlags  same shape as Mac (null check, returns u64 field; 0xb2c on Mac)
+005797f0 PlaySfxById  saga PlaySfxById body matches byte for byte
+005798a0 PlaySfx  saga PlaySfx body matches byte for byte
+00559480 PlaySfxAndSetVolume  saga PlaySfxAndSetVolume body matches byte for byte
+0055fd40 LookupDebrisEffectPage  saga body matches (calls LookupDebrisEffectPageIgnore with 0)

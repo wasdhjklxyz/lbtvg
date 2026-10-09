@@ -273,6 +273,23 @@ extern NuDynamicLight g_dynamicLights[20];
 // GLOBAL: LEGOBATMAN 0x029df970
 extern unsigned char g_dynamicLightUsed[20];
 
+// GLOBAL: LEGOBATMAN 0x029f4640
+i32 numtl_renderplane;
+
+// An empty function (0x006fceb0 is a lone `ret`), see nutexanm_gen.cpp.
+static void NuErrorUnk006fceb0(...) {}
+
+// STUB: LEGOBATMAN 0x00727f20
+// the empty NuErrorUnk006fceb0 call is optimised away here (orig keeps it and
+// keeps render_plane in ecx across it); extern keeps the call but spills to esi
+extern "C" i32 NuMtlSetCurrentRenderPlane(i32 render_plane) {
+  if (render_plane >= 0x18 || render_plane < 0)
+    NuErrorUnk006fceb0();
+  i32 previous_render_plane = numtl_renderplane;
+  numtl_renderplane = render_plane;
+  return previous_render_plane;
+}
+
 // FUNCTION: LEGOBATMAN 0x0072b040
 void NuDynamicLight::destroy(NuDynamicLight *light) {
   for (int i = 0; i < 20; i++) {

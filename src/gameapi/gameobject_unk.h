@@ -129,7 +129,10 @@ struct GameObject_s {
   u8 pad9e1[0x9e8 - 0x9e1];
   f32 f9e8;  // 0x9e8
   char b9ec; // 0x9ec
-  u8 pad12[0x112c - 0x9ed];
+  u8 pad12[0xb38 - 0x9ed];
+  unsigned __int64
+      carried_item_flags; // 0xb38, PlayerItems_GetAllCarriedItemFlags
+  u8 pad12b[0x112c - 0xb40];
   Unk_GameObject112c *p112c; // 0x112c
   u8 pad13[0x114c - 0x1130];
   struct TORPEDOPACKET_s *torpedo; // 0x114c
