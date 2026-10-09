@@ -866,7 +866,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## TakeOver
 
-- [ ] `004a3630` 115 B `TakeOver_SetAction(GameObject_s*, GameObject_s*)`  **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
+- [ ] `004a3630` 115 B `TakeOver_SetAction(GameObject_s*, GameObject_s*)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
 
 ## Techno
 
