@@ -5108,3 +5108,27 @@ i32 Action_AwkwardShapeOverride(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 1;
 }
+
+// FUNCTION: LEGOBATMAN 0x0045e740
+i32 Action_CopyMessage(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                       AIPACKET_s *packet, char **args, int argc, int flags,
+                       f32 time) {
+  char *from = 0;
+  char *to = 0;
+  if (flags != 0 && gizaimessagesys != 0 && argc > 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "from=");
+      if (s != 0)
+        from = s + 5;
+      else if ((s = NuStrIStr(args[i], "to=")) != 0)
+        to = s + 3;
+    }
+    if (from != 0 && to != 0) {
+      GIZAIMESSAGE_s *src = CheckGizAIMessage(gizaimessagesys, from, 0);
+      GIZAIMESSAGE_s *dst = CheckGizAIMessage(gizaimessagesys, to, 0);
+      if (src != 0 && dst != 0)
+        dst->value = src->value;
+    }
+  }
+  return 1;
+}

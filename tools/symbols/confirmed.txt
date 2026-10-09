@@ -1218,3 +1218,5 @@
 004634e0 Action_KeepWeaponOut  keyword table 0x93bb98
 00464380 Action_CannotDropIn  keyword table 0x93bb98
 0046d3d0 Action_AwkwardShapeOverride  keyword table 0x93bb98
+0045e740 Action_CopyMessage  keyword table 0x93bb98
+0045e190 Action_SetMessage  keyword table 0x93bb98
