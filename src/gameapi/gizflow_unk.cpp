@@ -3,6 +3,7 @@
 
 #include "../nu2api/nucore/common.h"
 #include "../nu2api/nucore/nustring.h"
+#include <stddef.h>
 
 typedef struct nufpar_s {
   u8 pad0[0x910];
@@ -26,8 +27,11 @@ struct FLOWBOX_s {
   u8 type;       // 0x3
   u8 runtime_id; // 0x4
   u8 pad5[0xa - 0x5];
-  u16 state_flags;    // 0xa
-  u8 *condition_data; // 0xc
+  u16 state_flags; // 0xa
+  union {
+    u8 *condition_data;              // 0xc
+    struct FLOWBOXACTION_s *actions; // 0xc
+  };
 };
 
 struct FLOWCONDITIONTYPE {
@@ -287,3 +291,95 @@ void xConditionType(NUFPAR *parser) {
 
 // FUNCTION: LEGOBATMAN 0x00654b30
 void xMonitorInputs(NUFPAR *parser) { load_flowbox->state_flags |= 0x200; }
+
+struct FLOWBOXACTION_s;
+int NuStrCmp(const char *a, const char *b);
+
+struct GIZACTIONDEFN_s {
+  char *name; // 0x0
+  u8 pad4[4];
+  void (*load)(GIZFLOW_s *gizflow, FLOWBOX_s *flowbox, char **parameters,
+               i32 parameter_count); // 0x8
+};
+
+struct FLOWBOXACTION_s {
+  FLOWBOXACTION_s *next;       // 0x0
+  char **parameters;           // 0x4
+  i32 parameter_count;         // 0x8
+  GIZACTIONDEFN_s *definition; // 0xc
+};
+
+// GLOBAL: LEGOBATMAN 0x00ad1bcc
+static GIZACTIONDEFN_s *gizactiondefs;
+
+// keyword "Action" in table 0x00966ec8
+// STUB: LEGOBATMAN 0x00654bc0
+// close: logic and layout line up; orig keeps previous in esi and the word
+// pointer in ebx, ours keeps a zero in edi and previous on the stack.
+void xAction(NUFPAR *parser) {
+  FLOWBOXACTION_s *previous = NULL;
+  char parameters[16][64];
+  if (load_flowbox == NULL)
+    return;
+  load_flowbox->type = 2;
+  while (NuFParGetLine(parser)) {
+    NuFParGetWord(parser);
+    if (NuStrICmp(parser->word_buf, "}") == 0)
+      break;
+    GIZACTIONDEFN_s *definition = gizactiondefs;
+    char *word = parser->word_buf;
+    if (definition == NULL)
+      continue;
+    for (; definition->name != NULL; definition++) {
+      if (NuStrICmp(word, definition->name) != 0)
+        continue;
+      FLOWBOXACTION_s *action = (FLOWBOXACTION_s *)GizmoBufferAlloc(
+          load_buff, load_endbuff, sizeof(FLOWBOXACTION_s));
+      if (action == NULL)
+        break;
+      action->next = NULL;
+      action->parameters = NULL;
+      action->parameter_count = 0;
+      action->definition = NULL;
+      if (previous != NULL)
+        previous->next = action;
+      else
+        load_flowbox->actions = action;
+      action->definition = definition;
+      i32 count = 0;
+      while (NuFParGetWord(parser)) {
+        if (NuStrCmp(parser->word_buf, "\\") == 0)
+          NuFParGetLine(parser);
+        else
+          NuStrCpy(parameters[count++], parser->word_buf);
+      }
+      if (count != 0) {
+        action->parameters = (char **)GizmoBufferAlloc(load_buff, load_endbuff,
+                                                       count * sizeof(char *));
+        if (action->parameters != NULL) {
+          action->parameter_count = count;
+          for (i32 i = 0; i < count; ++i) {
+            char **destination = &action->parameters[i];
+            VARIPTR *end = load_endbuff;
+            VARIPTR *buffer = load_buff;
+            char *str = parameters[i];
+            char *parameter = NULL;
+            if (str != NULL) {
+              i32 length = NuStrLen(str);
+              if (length != 0) {
+                parameter = (char *)GizmoBufferAlloc(buffer, end, length + 1);
+                NuStrCpy(parameter, str);
+              }
+            }
+            *destination = parameter;
+          }
+        }
+        if (definition->load != NULL)
+          definition->load(load_gizflow, load_flowbox, action->parameters,
+                           action->parameter_count);
+      }
+      previous = action;
+      break;
+    }
+  }
+}

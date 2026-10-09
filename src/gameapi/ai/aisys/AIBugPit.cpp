@@ -279,6 +279,59 @@ struct AIPATHCNXOBS_s {
 AIPATHCNXOBS_s *AIPathFindPathCnx(AISYS_s *sys, void *path, char *from,
                                   char *to, i32 *direction);
 
+// active path +0x7c: nodes, radius at +0x10
+#define BPPATH_RADIUS0(sys)                                                    \
+  (*(f32 *)(*(u8 **)((u8 *)BP_PATHSYS(sys)->active_path + 0x7c) + 0x10))
+
+// AIPATHCNX_s: lengths
+struct AIPATHCNXLEN_s {
+  u32 traversal_flags[2]; // 0x00
+  u8 pad8[0x1c - 8];
+  f32 horizontal_distance;     // 0x1c
+  f32 max_horizontal_distance; // 0x20
+};
+
+// STUB: LEGOBATMAN 0x006b4470
+// close: orig puts the "set" arm out of line with its own epilogue and
+// falls through the "clear" arm; ours the reverse (3 branch shapes tried).
+i32 Action_PathConnectionMaxLength(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                                   AIPACKET_s *packet, char **params,
+                                   i32 param_count, i32 first_time,
+                                   f32 elapsed) {
+  f32 length = 0.0f;
+  char *to = NULL;
+  char *from = NULL;
+  if (sys != NULL && first_time != 0) {
+    for (i32 i = 0; i < param_count; i++) {
+      char *value = NuStrIStr(params[i], "from");
+      if (value != NULL)
+        from = value + 5;
+      else if ((value = NuStrIStr(params[i], "to")) != NULL)
+        to = value + 3;
+      else if ((value = NuStrIStr(params[i], "length")) != NULL)
+        length = AIParamToFloatEx(packet, processor, value + 7);
+    }
+    if (from != NULL && to != NULL) {
+      i32 direction;
+      AIPATHCNXLEN_s *connection = (AIPATHCNXLEN_s *)AIPathFindPathCnx(
+          sys, BP_PATHSYS(sys)->active_path, from, to, &direction);
+      if (connection != NULL) {
+        connection->max_horizontal_distance = length;
+        if (length != 0.0f &&
+            connection->horizontal_distance >
+                length + BPPATH_RADIUS0(sys) + BPPATH_RADIUS0(sys)) {
+          connection->traversal_flags[0] |= 0x08000000;
+          connection->traversal_flags[1] |= 0x08000000;
+        } else {
+          connection->traversal_flags[0] &= ~0x08000000;
+          connection->traversal_flags[1] &= ~0x08000000;
+        }
+      }
+    }
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x006b45a0
 i32 Action_PathConnectionObstacle(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
                                   AIPACKET_s *packet, char **params,

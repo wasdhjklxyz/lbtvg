@@ -129,3 +129,5 @@
 006bb2a0 Action_GoToOrigin: creature ebp/ebx register swap only, 4 tries
 006bbe00 Action_FollowPath: orig keeps 0.0f live on the x87 stack from entry, ours re-fldz, 3 tries
 006b71e0 AIFormationFollow: hoisted fldz reuse + fimul order (as FollowPath), 3 tries
+006b4470 Action_PathConnectionMaxLength: set/clear arm placement (epilogue puzzle), 3 tries
+00654bc0 xAction (gizflow): register allocation (previous/zero), 3 tries
