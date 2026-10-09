@@ -68,3 +68,4 @@
 0063e470 InitGameObjectLights  saga body matches (reset light ids, alloc rtl dynamic per live object)
 006423a0 Particles_Load  saga body matches (%s.ptl page + InitGameDebris)
 006b3a60 AIScriptLoadAll  saga body matches (ai.pak at buffer end, AIScriptLoadAllPakFile)
+005c8de0 EquivalentObject_Find  saga body matches unchanged (Batman offsets)

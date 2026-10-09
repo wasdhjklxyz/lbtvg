@@ -53,7 +53,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Credits](#credits) | 1 | 1 |
 | [Door](#door) | 2 | 1 |
 | [Episodes](#episodes) | 1 | 1 |
-| [EquivalentObject](#equivalentobject) | 1 | 1 |
 | [EquivalentObjects](#equivalentobjects) | 1 | 1 |
 | [Faders](#faders) | 1 | 1 |
 | [GameMsg](#gamemsg) | 1 | 1 |
@@ -652,10 +651,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## Episodes
 
 - [ ] `00648970` 912 B `Episodes_ConfigureList(char*, variptr_u*, variptr_u*, int, int*)`  **saga** `legoapi/world/levels/episode.cpp`
-
-## EquivalentObject
-
-- [ ] `005c8de0` 202 B `EquivalentObject_Find(WORLDINFO_s*, nuhspecial_s*)`  **hint** name (order) · **saga** `legoapi/items/objects/gameobjects.cpp`
 
 ## EquivalentObjects
 

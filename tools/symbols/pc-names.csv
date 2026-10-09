@@ -405,7 +405,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005c8b60,0034e97c,__Z18PortalDoors_UpdateP11WORLDINFO_s,PortalDoors_Update(WORLDINFO_s*),order,1
 005c8c50,0034ea8c,__Z17PortalDoors_ResetP11WORLDINFO_s,PortalDoors_Reset(WORLDINFO_s*),confirmed,0
 005c8c90,0034eab4,__Z27EquivalentObjects_ConfigureP11WORLDINFO_sPc,"EquivalentObjects_Configure(WORLDINFO_s*, char*)",strings,0
-005c8de0,0034ec08,__Z21EquivalentObject_FindP11WORLDINFO_sP12nuhspecial_s,"EquivalentObject_Find(WORLDINFO_s*, nuhspecial_s*)",order,1
+005c8de0,0034ec08,__Z21EquivalentObject_FindP11WORLDINFO_sP12nuhspecial_s,"EquivalentObject_Find(WORLDINFO_s*, nuhspecial_s*)",confirmed,0
 005c8eb0,0034ece0,__Z15LoadTerrainFileP11WORLDINFO_s,LoadTerrainFile(WORLDINFO_s*),confirmed,0
 005c8f30,0034ed7e,__Z13LoadGrassFileP11WORLDINFO_s,LoadGrassFile(WORLDINFO_s*),strings,0
 005cd170,002b7664,__Z16GizBuildIts_LoadPvS_,"GizBuildIts_Load(void*, void*)",strings,0

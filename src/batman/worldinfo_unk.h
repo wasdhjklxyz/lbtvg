@@ -68,7 +68,10 @@ struct WORLDINFO_s {
   GIZMOSYS_s *gizmoSys2b0c; // 0x2b0c
   u8 pad7[0x2bf8 - 0x2b10];
   AISYS_s *aiSys2bf8; // 0x2bf8
-  u8 pad8[0x5220 - 0x2bfc];
+  u8 pad8[0x47c4 - 0x2bfc];
+  struct EQUIVALENTOBJECTGROUP_s *equivalent_groups; // 0x47c4
+  i32 equivalent_group_count;                        // 0x47c8
+  u8 pad8b[0x5220 - 0x47cc];
   Unk_WorldInfo5220 *p5220; // 0x5220
   u8 pad9[0x5228 - 0x5224];
   i32 gizmo_blowup_count; // 0x5228
