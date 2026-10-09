@@ -748,3 +748,98 @@ void AnimListFrameArray(CHARACTERMODEL_s *model, i32 animation, f32 *frames) {
     frames[3] = info->event_frames[3];
   }
 }
+
+struct APICHARACTERMODELLIST_s {
+  i16 model_id; // 0x00
+  i16 pad02;
+};
+
+// FUNCTION: LEGOBATMAN 0x0059c3d0
+i32 InModelList(APICHARACTERMODELLIST_s *list, i32 id, i32 *out_index) {
+  if (list != 0) {
+    i32 i = 0;
+    for (; list->model_id != -1; list++, i++) {
+      if (list->model_id == id) {
+        if (out_index != 0)
+          *out_index = i;
+        return 1;
+      }
+    }
+  }
+  if (out_index != 0)
+    *out_index = -1;
+  return 0;
+}
+
+struct ACTIONINFO_s {
+  char *name; // 0x00
+  u32 flags;  // 0x04
+};
+
+struct EXTRAACTIONDATA_s {
+  char *name; // 0x00
+  i32 action; // 0x04
+};
+
+// GLOBAL: LEGOBATMAN 0x00a94780
+ACTIONINFO_s *APIActionInfo;
+
+// GLOBAL: LEGOBATMAN 0x00a94784
+EXTRAACTIONDATA_s *APIExtraActionData;
+
+// FUNCTION: LEGOBATMAN 0x0059c430
+void SetActionInfo(ACTIONINFO_s *action_info,
+                   EXTRAACTIONDATA_s *extra_action_data) {
+  APIActionInfo = action_info;
+  APIExtraActionData = extra_action_data;
+}
+
+// FUNCTION: LEGOBATMAN 0x0059c450
+u32 ActionInfoFlags(i32 action) {
+  if (APIActionInfo != 0 && action >= 0 &&
+      action < apicharsys->model_id_capacity)
+    return APIActionInfo[action].flags;
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x0059c480
+const char *ActionInfoName(i32 action) {
+  if (APIActionInfo != 0 && action >= 0 &&
+      action < apicharsys->model_id_capacity)
+    return APIActionInfo[action].name;
+  return "?";
+}
+
+// STUB: LEGOBATMAN 0x0059c4b0
+// close: orig tests extra->name with cmp [esi],0 and reloads it for the
+// NuStrICmp call (check-then-reload); ours carries it in eax.
+i32 ActionFromName(const char *name) {
+  if (apicharsys == 0)
+    return -1;
+
+  if (APIActionInfo != 0) {
+    for (i32 action = 0; action < apicharsys->model_id_capacity; ++action) {
+      if (NuStrICmp(APIActionInfo[action].name, name) == 0)
+        return action;
+    }
+  }
+
+  if (APIExtraActionData != 0) {
+    EXTRAACTIONDATA_s *extra = APIExtraActionData;
+    while (extra->name != 0) {
+      if (NuStrICmp(extra->name, name) == 0)
+        return extra->action;
+      extra++;
+    }
+  }
+  return -1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0059c530
+u32 ParseAnimStance(char *name, i32 alternate) {
+  if (NuStrICmp(name, "left") == 0)
+    return alternate != 0 ? 0x8000 : 0x40000;
+  if (NuStrICmp(name, "right") == 0)
+    return alternate != 0 ? 0x10000 : 0x80000;
+  return alternate != 0 ? 0x4000 : 0x20000;
+}

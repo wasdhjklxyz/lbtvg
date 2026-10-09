@@ -145,3 +145,8 @@
 0059b570 AnimListFrame  saga body matches (u8 event_frames[4] at 0x24)
 0059b5b0 AnimStopFrame  saga body matches (u8 stop frame at 0xb)
 0059b5e0 AnimListFrameArray  saga shape; Batman copies the 4 event frames out as floats
+0059c3d0 InModelList  saga body matches; Mac order before SetActionInfo
+0059c430 SetActionInfo  saga body matches (APIActionInfo/APIExtraActionData)
+0059c450 ActionInfoFlags  saga body plus capacity check
+0059c480 ActionInfoName  saga body plus capacity check ("?" default)
+0059c530 ParseAnimStance  Mac order after ActionFromName; left/right stance flag parser

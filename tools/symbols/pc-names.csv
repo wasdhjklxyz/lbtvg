@@ -349,8 +349,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0059b570,00255bd6,_AnimListFrame,_AnimListFrame,confirmed,0
 0059b5b0,00255c3c,_AnimStopFrame,_AnimStopFrame,confirmed,0
 0059b5e0,00255c80,_AnimListFrameArray,_AnimListFrameArray,confirmed,0
+0059c3d0,00256062,_InModelList,_InModelList,confirmed,0
+0059c430,002560a8,_SetActionInfo,_SetActionInfo,confirmed,0
+0059c450,002560c6,_ActionInfoFlags,_ActionInfoFlags,confirmed,0
+0059c480,0025610e,_ActionInfoName,_ActionInfoName,confirmed,0
 0059c4b0,0025615a,_ActionFromName,_ActionFromName,gapfill,1
-0059c530,002561e8,_ParseAnimStance,_ParseAnimStance,order,2
+0059c530,002561e8,_ParseAnimStance,_ParseAnimStance,confirmed,0
 0059c5a0,00256266,_ConfigureCharacterList,_ConfigureCharacterList,strings,0
 0059d770,00341818,__Z13Text_LoadFontPcP9variptr_uS1_,"Text_LoadFont(char*, variptr_u*, variptr_u*)",strings,0
 0059d7c0,003418a8,__Z20Text_InitStringTableiP9variptr_uS0_,"Text_InitStringTable(int, variptr_u*, variptr_u*)",order,1
