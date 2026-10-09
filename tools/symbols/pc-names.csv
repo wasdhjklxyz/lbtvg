@@ -892,6 +892,35 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00624640,0027c1a2,__Z28CC_smash_vehicle_proximitiesP8nufpar_s,CC_smash_vehicle_proximities(nufpar_s*),confirmed,0
 00624690,0027c1e6,__Z21CC_use_awkward_shapesP8nufpar_s,CC_use_awkward_shapes(nufpar_s*),confirmed,0
 006246e0,0027c22a,__Z22CC_throw_kill_parts_upP8nufpar_s,CC_throw_kill_parts_up(nufpar_s*),confirmed,0
+00624730,0027c26c,__Z17CC_cloak_up_angleP8nufpar_s,CC_cloak_up_angle(nufpar_s*),confirmed,0
+00624760,0027c2b8,__Z19CC_cloak_down_angleP8nufpar_s,CC_cloak_down_angle(nufpar_s*),confirmed,0
+00624790,0027c304,__Z12CC_viewrangeP8nufpar_s,CC_viewrange(nufpar_s*),confirmed,0
+006247b0,0027c336,__Z15CC_heardistanceP8nufpar_s,CC_heardistance(nufpar_s*),confirmed,0
+006247d0,0027c368,__Z17CC_max_viewheightP8nufpar_s,CC_max_viewheight(nufpar_s*),confirmed,0
+006247f0,0027c39a,__Z17CC_min_viewheightP8nufpar_s,CC_min_viewheight(nufpar_s*),confirmed,0
+00624810,0027c3cc,__Z21CC_mediumres_swapdistP8nufpar_s,CC_mediumres_swapdist(nufpar_s*),confirmed,0
+00624830,0027c3fe,__Z18CC_lowres_swapdistP8nufpar_s,CC_lowres_swapdist(nufpar_s*),confirmed,0
+00624850,0027c430,__Z14CC_turn_rate_1P8nufpar_s,CC_turn_rate_1(nufpar_s*),confirmed,0
+00624890,0027c474,__Z14CC_turn_rate_2P8nufpar_s,CC_turn_rate_2(nufpar_s*),confirmed,0
+006248d0,0027c4b8,__Z10CC_bankingP8nufpar_s,CC_banking(nufpar_s*),confirmed,0
+006248f0,0027c4ea,__Z11CC_banking2P8nufpar_s,CC_banking2(nufpar_s*),confirmed,0
+00624910,0027c51c,__Z20CC_thrust_draw_scaleP8nufpar_s,CC_thrust_draw_scale(nufpar_s*),confirmed,0
+00624930,0027c54e,__Z15CC_can_be_towedP8nufpar_s,CC_can_be_towed(nufpar_s*),confirmed,0
+00624980,0027c58c,__Z14CC_use_specialP8nufpar_s,CC_use_special(nufpar_s*),confirmed,0
+006249d0,0027c5cc,__Z15CC_get_torpedosP8nufpar_s,CC_get_torpedos(nufpar_s*),confirmed,0
+00624a20,0027c60e,__Z17CC_torpedo_targetP8nufpar_s,CC_torpedo_target(nufpar_s*),confirmed,0
+00624a70,0027c650,__Z12CC_zap_firstP8nufpar_s,CC_zap_first(nufpar_s*),confirmed,0
+00624ac0,0027c692,__Z20CC_vehicle_explosionP8nufpar_s,CC_vehicle_explosion(nufpar_s*),confirmed,0
+00624b10,0027c6d4,__Z11CC_dragbombP8nufpar_s,CC_dragbomb(nufpar_s*),confirmed,0
+00624b60,0027c716,__Z20CC_explode_on_impactP8nufpar_s,CC_explode_on_impact(nufpar_s*),confirmed,0
+00624bb0,0027c758,__Z22CC_immune_to_dragbombsP8nufpar_s,CC_immune_to_dragbombs(nufpar_s*),confirmed,0
+00624c00,0027c79a,__Z21CC_always_check_animsP8nufpar_s,CC_always_check_anims(nufpar_s*),confirmed,0
+00624c50,,CC_SetGCDataFlagsj,CC_SetGCDataFlagsj,confirmed,0
+00624ca0,0027c844,__Z8CC_chokeP8nufpar_s,CC_choke(nufpar_s*),confirmed,0
+00624cf0,0027c856,__Z12CC_lightningP8nufpar_s,CC_lightning(nufpar_s*),confirmed,0
+00624d40,0027c868,__Z13CC_resist_zapP8nufpar_s,CC_resist_zap(nufpar_s*),confirmed,0
+00624d90,0027c87a,__Z14CC_has_no_turnP8nufpar_s,CC_has_no_turn(nufpar_s*),confirmed,0
+00624de0,0027c88c,__Z8CC_ghostP8nufpar_s,CC_ghost(nufpar_s*),confirmed,0
 006285d0,00280c32,__Z16AnimInclude_InitPcP9variptr_uS1_,"AnimInclude_Init(char*, variptr_u*, variptr_u*)",strings,0
 00629270,002818fe,__Z23CharConfig_ConfigureAlliP12nufpcomjmp_s,"CharConfig_ConfigureAll(int, nufpcomjmp_s*)",strings,0
 0062d030,002833a2,__Z24CharShadows_InitMaterialP9variptr_uS_,"CharShadows_InitMaterial(variptr_u*, variptr_u)",strings,0

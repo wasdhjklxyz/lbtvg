@@ -604,3 +604,32 @@
 0044d950 Condition_OpponentIsA  matched saga body, Mac order
 0044d990 Condition_OpponentIsAThreat  matched saga body, Mac order
 0044d9f0 Condition_OpponentJustPickedUpWeapon  matched (asm body), Mac order
+00624730 CC_cloak_up_angle  matched, Mac order
+00624760 CC_cloak_down_angle  matched, Mac order
+00624790 CC_viewrange  matched, Mac order
+006247b0 CC_heardistance  matched, Mac order
+006247d0 CC_max_viewheight  matched, Mac order
+006247f0 CC_min_viewheight  matched, Mac order
+00624810 CC_mediumres_swapdist  matched, Mac order
+00624830 CC_lowres_swapdist  matched, Mac order
+00624850 CC_turn_rate_1  matched, Mac order
+00624890 CC_turn_rate_2  matched, Mac order
+006248d0 CC_banking  matched, Mac order
+006248f0 CC_banking2  matched, Mac order
+00624910 CC_thrust_draw_scale  matched, Mac order
+00624930 CC_can_be_towed  matched, Mac order
+00624980 CC_use_special  matched, Mac order
+006249d0 CC_get_torpedos  matched, Mac order
+00624a20 CC_torpedo_target  matched, Mac order
+00624a70 CC_zap_first  matched, Mac order
+00624ac0 CC_vehicle_explosion  matched, Mac order
+00624b10 CC_dragbomb  matched, Mac order
+00624b60 CC_explode_on_impact  matched, Mac order
+00624bb0 CC_immune_to_dragbombs  matched, Mac order
+00624c00 CC_always_check_anims  matched, Mac order
+00624c50 CC_SetGCDataFlagsj  matched, Mac order
+00624ca0 CC_choke  matched, Mac order
+00624cf0 CC_lightning  matched, Mac order
+00624d40 CC_resist_zap  matched, Mac order
+00624d90 CC_has_no_turn  matched, Mac order
+00624de0 CC_ghost  matched, Mac order
