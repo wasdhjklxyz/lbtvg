@@ -14,7 +14,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | group | todo | with saga body |
 |---|---|---|
 | [Action](#action) | 72 | 57 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 69 | 43 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 68 | 42 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 34 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 14 | 8 |
@@ -301,7 +301,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00620370` 158 B `DrawHose(GameObject_s*)`  **hint** name (gapfill)
 - [ ] `00623850` 166 B `ParseStreakCol(nufpar_s*)`
 - [ ] `0059f8d0` 185 B `PlayJumpSfx(GameObject_s*, int)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
-- [ ] `0063e3b0` 185 B `LoadLights(WORLDINFO_s*, char*)`  **saga** `legoapi/render/light/lighting.cpp`
 - [ ] `005aa1f0` 187 B `InitGrappleMtls(variptr_u*, variptr_u*)`
 - [ ] `0063e470` 187 B `InitGameObjectLights()`  **hint** name (order) · **saga** `legoapi/render/light/lighting.cpp`
 - [ ] `005d3fd0` 203 B `AddGameMsgCount(nuvec_s*, int, int, unsigned char, unsigned char, unsigned char, float)`  **hint** name (gapfill) · **saga** `legoapi/menus/core/gamemessages.cpp`

@@ -56,7 +56,11 @@ struct WORLDINFO_s {
   nugscn_s *scn148; // 0x148
   u8 pad4[0x2974 - 0x14c];
   i32 i2974; // 0x2974
-  u8 pad5[0x2b04 - 0x2978];
+  u8 pad5[0x2aec - 0x2978];
+  void *burnset; // 0x2aec
+  u8 pad5b[0x2af4 - 0x2af0];
+  void *rtl_set; // 0x2af4
+  u8 pad5c[0x2b04 - 0x2af8];
   Unk_WorldInfo2b04 *p2b04; // 0x2b04
   u8 pad6[0x2b0c - 0x2b08];
   GIZMOSYS_s *gizmoSys2b0c; // 0x2b0c

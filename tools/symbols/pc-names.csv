@@ -543,7 +543,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00639b50,002a879c,__Z11SetWeaponInP12GameObject_s,SetWeaponIn(GameObject_s*),confirmed,0
 00639ba0,002a87fc,__Z12FastWeaponInP12GameObject_si,"FastWeaponIn(GameObject_s*, int)",gapfill,4
 0063b2a0,0029df30,__Z12GizDigs_LoadPvS_,"GizDigs_Load(void*, void*)",strings,0
-0063e3b0,003049c2,__Z10LoadLightsP11WORLDINFO_sPc,"LoadLights(WORLDINFO_s*, char*)",strings,0
+0063e3b0,003049c2,__Z10LoadLightsP11WORLDINFO_sPc,"LoadLights(WORLDINFO_s*, char*)",confirmed,0
 0063e470,00304aa4,__Z20InitGameObjectLightsv,InitGameObjectLights(),order,4
 0063e540,00304b94,__Z20FreeGameObjectLightsv,FreeGameObjectLights(),confirmed,0
 0063e5d0,00304c34,__Z15LightGameObjectP12GameObject_sPv,"LightGameObject(GameObject_s*, void*)",gapfill,3

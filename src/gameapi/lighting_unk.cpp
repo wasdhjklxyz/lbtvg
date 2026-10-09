@@ -3,6 +3,7 @@
 #include "../batman/worldinfo_unk.h"
 #include "../nu2api/nu3d/nuspecial.h"
 #include "../nu2api/nucore/common.h"
+#include <stdio.h>
 #include <string.h>
 
 struct NuDynamicLight {
@@ -10,6 +11,24 @@ struct NuDynamicLight {
 };
 
 void rtlDynamicFree(i32 id);
+
+i32 NuFileExists(char *name);
+void *rtlLoadSet(char *file, variptr_u *buffer, variptr_u buffer_end);
+void *edrtlBurnoutLoad(char *file, variptr_u *buffer, variptr_u buffer_end);
+
+// FUNCTION: LEGOBATMAN 0x0063e3b0
+void LoadLights(WORLDINFO_s *world, char *path) {
+  char filename[256];
+  sprintf(filename, "%s.rtl", path);
+  if (NuFileExists(filename)) {
+    world->rtl_set = rtlLoadSet(filename, &world->buf104, world->bufEnd108);
+  } else {
+    world->rtl_set =
+        rtlLoadSet("levels\\default.rtl", &world->buf104, world->bufEnd108);
+  }
+  sprintf(filename, "%s.bur", path);
+  world->burnset = edrtlBurnoutLoad(filename, &world->buf104, world->bufEnd108);
+}
 
 // FUNCTION: LEGOBATMAN 0x0063e540
 void FreeGameObjectLights() {
