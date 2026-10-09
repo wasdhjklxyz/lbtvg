@@ -512,7 +512,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00629270,002818fe,__Z23CharConfig_ConfigureAlliP12nufpcomjmp_s,"CharConfig_ConfigureAll(int, nufpcomjmp_s*)",strings,0
 0062d030,002833a2,__Z24CharShadows_InitMaterialP9variptr_uS_,"CharShadows_InitMaterial(variptr_u*, variptr_u)",strings,0
 0062d7e0,0030ac0e,__Z18Missions_ConfigurePcP9variptr_uS1_P13MISSIONSAVE_s,"Missions_Configure(char*, variptr_u*, variptr_u*, MISSIONSAVE_s*)",strings,0
-0062db70,0030af92,__Z13Mission_ClearP12MISSIONSYS_s,Mission_Clear(MISSIONSYS_s*),order,5
+0062db70,0030af92,__Z13Mission_ClearP12MISSIONSYS_s,Mission_Clear(MISSIONSYS_s*),confirmed,0
 0062dba0,0030afd4,__Z14Mission_ActiveP12MISSIONSYS_s,Mission_Active(MISSIONSYS_s*),gapfill,4
 0062dee0,003327b6,__Z26SpecialMove_IsInMultiPhaseP12GameObject_s,SpecialMove_IsInMultiPhase(GameObject_s*),gapfill,3
 0062df30,00332812,__Z27SpecialMove_AdjustLayerBitsP12GameObject_sRj,"SpecialMove_AdjustLayerBits(GameObject_s*, unsigned int&)",order,4

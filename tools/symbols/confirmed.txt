@@ -38,3 +38,4 @@
 0060e9c0 LevelObject_AddExtra  saga body matches (extra level object name table append)
 005bdcd0 InStory  saga body matches (not freeplay/challenge/mission/arcade)
 005a2d60 NewBuzz  saga body matches (zero-strength rumble for duration)
+0062db70 Mission_Clear  saga body matches (clear mission, ResetTimer)

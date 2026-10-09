@@ -72,7 +72,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [LevelObject](#levelobject) | 1 | 1 |
 | [LevelSplines](#levelsplines) | 1 | 1 |
 | [MiniKit](#minikit) | 2 | 1 |
-| [Mission](#mission) | 1 | 1 |
 | [Missions](#missions) | 1 | 1 |
 | [near apisave.c](#near-apisavec) | 8 | 1 |
 | [near nuanim_gen.cpp](#near-nuanim_gencpp) | 2 | 1 |
@@ -772,10 +771,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `00647150` 433 B `MiniKit_InitPieces(MINIKIT*, int, variptr_u*, variptr_u*)`  **saga** `legoapi/gizmo/base/gizmo_sys.cpp`
 - [ ] `0047a6c0` 1482 B `MiniKit_Update(STATUS_STAGE_s*, STATUSPACKET_s*, float)`
-
-## Mission
-
-- [ ] `0062db70` 44 B `Mission_Clear(MISSIONSYS_s*)`  **hint** name (order) · **saga** `legoapi/world/missions.cpp`
 
 ## Missions
 
