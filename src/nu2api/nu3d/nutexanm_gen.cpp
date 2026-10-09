@@ -25,12 +25,17 @@ struct NuParse {
 struct NuTexAnmProg {
   int f0;
   int f4;
-  char name[0x130 - 8];
-  short labelName[0x20];
+  char name[0x20];       // 0x08
+  int onSignal[0x20];    // 0x28
+  int offSignal[0x20];   // 0xa8
+  unsigned int onMask;   // 0x128
+  unsigned int offMask;  // 0x12c
+  short labelName[0x20]; // 0x130
   short labelOp[0x20];
   int numLabels;
   short numOps;
-  short pad1[2];
+  short pad1;
+  unsigned short mask; // 0x1b8
   short ops[1];
 };
 
@@ -151,8 +156,41 @@ int NuTexAnmFindOrAddVar(char *name) {
   return g_texAnmNumVars - 1;
 }
 
+// FUNCTION: LEGOBATMAN 0x00711890
+void pftaScriptMask(NuParse *p) {
+  g_texAnmProg->mask = (unsigned short)NuParseIntUnk006dd060(p);
+}
+
+// FUNCTION: LEGOBATMAN 0x007118b0
+void pftaTex(NuParse *p) {
+  int a = NuParseIntUnk006dd060(p);
+  NuTexAnmProg *prog = g_texAnmProg;
+  prog->ops[prog->numOps++] = 0;
+  prog->ops[prog->numOps++] = (short)a;
+}
+
+// FUNCTION: LEGOBATMAN 0x00711900
+void pftaTexR(NuParse *p) {
+  int a = NuParseIntUnk006dd060(p);
+  NuTexAnmProg *prog = g_texAnmProg;
+  prog->ops[prog->numOps++] = 1;
+  prog->ops[prog->numOps++] = (short)a;
+}
+
+// FUNCTION: LEGOBATMAN 0x00711950
+void pftaTexAdj(NuParse *p) {
+  int a = NuParseIntUnk006dd060(p);
+  int b = NuParseIntUnk006dd060(p);
+  int c = NuParseIntUnk006dd060(p);
+  NuTexAnmProg *prog = g_texAnmProg;
+  prog->ops[prog->numOps++] = 2;
+  prog->ops[prog->numOps++] = (short)a;
+  prog->ops[prog->numOps++] = (short)b;
+  prog->ops[prog->numOps++] = (short)c;
+}
+
 // FUNCTION: LEGOBATMAN 0x007119f0
-void NuTexAnmUnk007119f0(NuParse *p) {
+void pftaTexAdjR(NuParse *p) {
   int a = NuParseIntUnk006dd060(p);
   int b = NuParseIntUnk006dd060(p);
   int c = NuParseIntUnk006dd060(p);
@@ -165,8 +203,44 @@ void NuTexAnmUnk007119f0(NuParse *p) {
   prog->ops[prog->numOps++] = (short)d;
 }
 
+// FUNCTION: LEGOBATMAN 0x00711ab0
+void pftaWait(NuParse *p) {
+  int a = NuParseIntUnk006dd060(p);
+  int b = NuParseIntUnk006dd060(p);
+  NuTexAnmProg *prog = g_texAnmProg;
+  prog->ops[prog->numOps++] = 4;
+  prog->ops[prog->numOps++] = (short)(int)(a * (1.0f / 60.0f) * 4096.0f);
+  prog->ops[prog->numOps++] = (short)(int)(b * (1.0f / 60.0f) * 4096.0f);
+}
+
+// FUNCTION: LEGOBATMAN 0x00711b50
+void pftaRate(NuParse *p) {
+  int a = NuParseIntUnk006dd060(p);
+  int b = NuParseIntUnk006dd060(p);
+  NuTexAnmProg *prog = g_texAnmProg;
+  prog->ops[prog->numOps++] = 7;
+  prog->ops[prog->numOps++] = (short)(int)(a * (1.0f / 60.0f) * 4096.0f);
+  prog->ops[prog->numOps++] = (short)(int)(b * (1.0f / 60.0f) * 4096.0f);
+}
+
+// FUNCTION: LEGOBATMAN 0x00711bf0
+void pftaOn(NuParse *p) {
+  int signal = NuParseIntUnk006dd060(p);
+  NuTexAnmProg *prog = g_texAnmProg;
+  prog->onSignal[signal] = prog->numOps;
+  prog->onMask |= 1 << signal;
+}
+
+// FUNCTION: LEGOBATMAN 0x00711c20
+void pftaOff(NuParse *p) {
+  int signal = NuParseIntUnk006dd060(p);
+  NuTexAnmProg *prog = g_texAnmProg;
+  prog->offSignal[signal] = prog->numOps;
+  prog->offMask |= 1 << signal;
+}
+
 // FUNCTION: LEGOBATMAN 0x00711c60
-void NuTexAnmUnk00711c60(NuParse *p) {
+void pftaLabel(NuParse *p) {
   int name;
   NuParseUnk006da8d0(p);
   name = NuTexAnmFindOrAddName(p->token);
@@ -174,7 +248,7 @@ void NuTexAnmUnk00711c60(NuParse *p) {
 }
 
 // FUNCTION: LEGOBATMAN 0x00711c90
-void NuTexAnmUnk00711c90(NuParse *p) {
+void pftaXDef(NuParse *p) {
   int var;
   NuTexAnmProg *prog;
   NuParseUnk006da8d0(p);
@@ -186,7 +260,7 @@ void NuTexAnmUnk00711c90(NuParse *p) {
 }
 
 // FUNCTION: LEGOBATMAN 0x00711ce0
-void NuTexAnmUnk00711ce0(NuParse *p) {
+void pftaGoto(NuParse *p) {
   int name;
   NuTexAnmProg *prog;
   NuParseUnk006da8d0(p);
@@ -197,7 +271,7 @@ void NuTexAnmUnk00711ce0(NuParse *p) {
 }
 
 // FUNCTION: LEGOBATMAN 0x00711d40
-void NuTexAnmUnk00711d40(NuParse *p) {
+void pftaXRef(NuParse *p) {
   int var;
   NuTexAnmProg *prog;
   NuParseUnk006da8d0(p);
@@ -207,8 +281,22 @@ void NuTexAnmUnk00711d40(NuParse *p) {
   prog->ops[prog->numOps++] = (short)var;
 }
 
+// FUNCTION: LEGOBATMAN 0x00711da0
+void pftaBtex(NuParse *p) {
+  int op = NuTexAnmParseCompareOp(p);
+  int value = NuParseIntUnk006dd060(p);
+  int name;
+  NuParseUnk006da8d0(p);
+  name = NuTexAnmFindOrAddName(p->token);
+  NuTexAnmProg *prog = g_texAnmProg;
+  prog->ops[prog->numOps++] = 0xb;
+  prog->ops[prog->numOps++] = (short)op;
+  prog->ops[prog->numOps++] = (short)value;
+  prog->ops[prog->numOps++] = (short)name;
+}
+
 // FUNCTION: LEGOBATMAN 0x00711e40
-void NuTexAnmUnk00711e40(NuParse *p) {
+void pftaGosub(NuParse *p) {
   int name;
   NuTexAnmProg *prog;
   NuParseUnk006da8d0(p);
@@ -218,8 +306,32 @@ void NuTexAnmUnk00711e40(NuParse *p) {
   prog->ops[prog->numOps++] = (short)name;
 }
 
+// FUNCTION: LEGOBATMAN 0x00711ea0
+void pftaRet(NuParse *p) {
+  NuTexAnmProg *prog = g_texAnmProg;
+  prog->ops[prog->numOps++] = 0xc;
+}
+
+// FUNCTION: LEGOBATMAN 0x00711ec0
+void pftaRepeat(NuParse *p) {
+  int count = NuParseIntUnk006dd060(p);
+  if (count == 0)
+    count = 0x7fffffff;
+  int b = NuParseIntUnk006dd060(p);
+  NuTexAnmProg *prog = g_texAnmProg;
+  prog->ops[prog->numOps++] = 0xd;
+  prog->ops[prog->numOps++] = (short)count;
+  prog->ops[prog->numOps++] = (short)b;
+}
+
+// FUNCTION: LEGOBATMAN 0x00711f40
+void pftaRepend(NuParse *p) {
+  NuTexAnmProg *prog = g_texAnmProg;
+  prog->ops[prog->numOps++] = 0xe;
+}
+
 // FUNCTION: LEGOBATMAN 0x00711f60
-void NuTexAnmUnk00711f60(NuParse *p) {
+void pftaUntiltex(NuParse *p) {
   int op = NuTexAnmParseCompareOp(p);
   int value = NuParseIntUnk006dd060(p);
   NuTexAnmProg *prog = g_texAnmProg;
@@ -228,8 +340,14 @@ void NuTexAnmUnk00711f60(NuParse *p) {
   prog->ops[prog->numOps++] = (short)value;
 }
 
+// FUNCTION: LEGOBATMAN 0x00711fd0
+void pftaEnd(NuParse *p) {
+  NuTexAnmProg *prog = g_texAnmProg;
+  prog->ops[prog->numOps++] = 0x10;
+}
+
 // FUNCTION: LEGOBATMAN 0x00711ff0
-void NuTexAnmUnk00711ff0(NuParse *p) {
+void pftaScriptname(NuParse *p) {
   char *dst;
   NuParseUnk006da8d0(p);
   dst = g_texAnmProg->name;
