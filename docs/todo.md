@@ -59,7 +59,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near apisave.c](#near-apisavec) | 5 | 1 |
 | [near nuanim_gen.cpp](#near-nuanim_gencpp) | 2 | 1 |
 | [near nutimebar_gen.cpp](#near-nutimebar_gencpp) | 2 | 1 |
-| [near oggreader.cpp](#near-oggreadercpp) | 4 | 1 |
+| [near oggreader.cpp](#near-oggreadercpp) | 3 | 1 |
 | [NuCommand](#nucommand) | 1 | 1 |
 | [NuInit](#nuinit) | 1 | 1 |
 | [NuMtl](#numtl) | 2 | 1 |
@@ -563,7 +563,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## near oggreader.cpp
 
 - [ ] `00558d90` 137 B `_GetSfxId`  **stub** · **saga** `nu2api/numusic/sfx.cpp`
-- [ ] `0055fd60` 212 B `_LookupDebrisEffectPageOnly`  **hint** name (gapfill)
 - [ ] `0055fc00` 307 B `_LookupDebrisEffectPageIgnore`  **hint** name (gapfill)
 - [ ] `00558f10` 1377 B `_PlaySfxByIdEx`
 
