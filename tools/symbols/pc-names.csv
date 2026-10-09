@@ -1080,7 +1080,6 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00600e90,002dfa9a,__Z17Grabber_ConfigureP11WORLDINFO_sPc,"Grabber_Configure(WORLDINFO_s*, char*)",strings,0
 00601280,002dff2c,__Z23Grabber_IsActiveGrabberP12GameObject_s,Grabber_IsActiveGrabber(GameObject_s*),confirmed,0
 006012c0,002dff6e,__Z15Grabber_TerrainP9GRABBER_sP7nuvec_si,"Grabber_Terrain(GRABBER_s*, nuvec_s*, int)",order,1
-006013b0,002e006c,__Z18Grabber_GetGrabPosP9GRABBER_sP7numtx_s,"Grabber_GetGrabPos(GRABBER_s*, numtx_s*)",order,1
 006014c0,002e024c,__Z16PartStop_GrabberP6PART_s,PartStop_Grabber(PART_s*),strings,0
 00601fe0,002e0b50,__Z20Grabber_SetVictimPosP9GRABBER_s,Grabber_SetVictimPos(GRABBER_s*),gapfill,3
 00602270,002e111c,__Z13Grabber_ResetP11WORLDINFO_s,Grabber_Reset(WORLDINFO_s*),strings,0

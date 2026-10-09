@@ -8,3 +8,4 @@
 00684430 SSE NuVec4 family
 004a6f40 162 B static building levels\titles\titles_<lang>, not WorldInfo_Load (3.8 KB on Mac)
 004aac20 112 B static building demo_<lang>, not ResetStatusScreen
+006013b0 170 B esi-argument static (Player_ClearContext, rumble), not Grabber_GetGrabPos
