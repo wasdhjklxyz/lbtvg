@@ -795,9 +795,13 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005389c0,001ae678,__ZN7NuMusic9xsLoopingEP8nufpar_sPv,"NuMusic::xsLooping(nufpar_s*, void*)",confirmed,0
 005389d0,001ae688,__ZN7NuMusic12xsNonLoopingEP8nufpar_sPv,"NuMusic::xsNonLooping(nufpar_s*, void*)",confirmed,0
 005389e0,001ad912,__ZN7NuMusic6xIdentEP8nufpar_s,NuMusic::xIdent(nufpar_s*),confirmed,0
+00538a40,001ada08,__ZN7NuMusic8xNoMusicEP8nufpar_s,NuMusic::xNoMusic(nufpar_s*),confirmed,0
+00538af0,001ad678,__ZN7NuMusic5xDuckEP8nufpar_s,NuMusic::xDuck(nufpar_s*),confirmed,0
+00538be0,001ad60e,__ZN7NuMusic12xAttenuationEP8nufpar_s,NuMusic::xAttenuation(nufpar_s*),confirmed,0
 00538ea0,001ad7c8,__ZN7NuMusic6xsPathEP8nufpar_sPv,"NuMusic::xsPath(nufpar_s*, void*)",confirmed,0
 00538ed0,001af144,__ZN7NuMusic8xsStrictEP8nufpar_sPv,"NuMusic::xsStrict(nufpar_s*, void*)",confirmed,0
 00538ef0,001ad89e,__ZN7NuMusic6xAlbumEP8nufpar_s,NuMusic::xAlbum(nufpar_s*),confirmed,0
+00538ff0,001ad728,__ZN7NuMusic18xGlobalAttenuationEP8nufpar_s,NuMusic::xGlobalAttenuation(nufpar_s*),confirmed,0
 005390d0,001ad950,__ZN7NuMusic7xsIdentEP8nufpar_sPv,"NuMusic::xsIdent(nufpar_s*, void*)",confirmed,0
 005390e0,001ada7e,__ZN7NuMusic9xsNoMusicEP8nufpar_sPv,"NuMusic::xsNoMusic(nufpar_s*, void*)",confirmed,0
 005390f0,001ad6de,__ZN7NuMusic6xsDuckEP8nufpar_sPv,"NuMusic::xsDuck(nufpar_s*, void*)",confirmed,0

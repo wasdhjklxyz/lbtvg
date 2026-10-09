@@ -23,12 +23,16 @@ void NuFParSetInterpreterErrorHandler(void (*handler)(NUFPAR *parser));
 static void Unk00536250(...) {}
 
 struct Track {
-  u8 pad0[8];
+  u8 pad0[4];
+  char *name;  // 0x04
   char *ident; // 0x08
   u8 padc[0x1c - 0xc];
   i32 entry_count; // 0x1c
-  u8 pad20[0x38 - 0x20];
-  u32 flags; // 0x38, 1 = no duck, 2 = looping
+  u8 pad20[0x2c - 0x20];
+  f32 duck_volume; // 0x2c
+  f32 duck_fade;   // 0x30
+  f32 attenuation; // 0x34
+  u32 flags;       // 0x38, 1 = no duck, 2 = looping
 };
 
 struct Album {
@@ -52,6 +56,12 @@ struct NuMusic {
   u8 strict;                // 0x124
   u8 pad125[0x12c - 0x125];
   char *string_pool_end; // 0x12c
+  u8 pad130[0x1cc - 0x130];
+  f32 global_attenuation; // 0x1cc
+  u8 pad1d0[0x1d4 - 0x1d0];
+  char *language; // 0x1d4
+
+  void SubstituteString(char *dst, char *src, char *find, char *replace);
 
   char *FindString(const char *str);
   char *AllocString(const char *str) {
@@ -217,6 +227,48 @@ void NuMusic::xsGlobalAttenuation(NUFPAR *parser, void *thisptr) {
 void NuMusic::xIdent(NUFPAR *parser) {
   NuFParGetWord(parser);
   current_track->ident = AllocString(parser->word_buf);
+}
+
+f32 NuExp10(f32 x);
+
+static inline f32 NuSoundSystem_dBToAmplitude(f32 db) {
+  if (db <= -100.0)
+    return 0.0f;
+  if (db >= 0.0f)
+    return 1.0f;
+  return NuExp10(db / 20.0f);
+}
+
+// FUNCTION: LEGOBATMAN 0x00538a40
+void NuMusic::xNoMusic(NUFPAR *parser) {
+  NuFParGetWord(parser);
+  char buf[256];
+  SubstituteString(buf, parser->word_buf, "$lang", language);
+  current_track->name = AllocString(buf);
+}
+
+// FUNCTION: LEGOBATMAN 0x00538af0
+void NuMusic::xDuck(NUFPAR *parser) {
+  current_track->duck_volume = NuFParGetFloatRDP(parser);
+  if (current_track->duck_volume < 0.0f)
+    current_track->duck_volume =
+        NuSoundSystem_dBToAmplitude(current_track->duck_volume);
+  current_track->duck_fade = NuFParGetFloatRDP(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x00538be0
+void NuMusic::xAttenuation(NUFPAR *parser) {
+  current_track->attenuation = NuFParGetFloatRDP(parser);
+  if (current_track->attenuation < 0.0f)
+    current_track->attenuation =
+        NuSoundSystem_dBToAmplitude(current_track->attenuation);
+}
+
+// FUNCTION: LEGOBATMAN 0x00538ff0
+void NuMusic::xGlobalAttenuation(NUFPAR *parser) {
+  global_attenuation = NuFParGetFloatRDP(parser);
+  if (global_attenuation < 0.0f)
+    global_attenuation = NuSoundSystem_dBToAmplitude(global_attenuation);
 }
 
 // FUNCTION: LEGOBATMAN 0x00538ef0
