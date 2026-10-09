@@ -4103,3 +4103,69 @@ i32 Action_IgnoreSlideTerrain(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 1;
 }
+
+// FUNCTION: LEGOBATMAN 0x00455e60
+i32 Action_DontTargetOthersOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                    AIPACKET_s *packet, char **args, int argc,
+                                    int flags, f32 time) {
+  i32 on = 1;
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "character");
+      if (s != 0)
+        obj = GetNamedGameObject(sys, s + 10);
+      else if (NuStrICmp("FALSE", args[i]) == 0)
+        on = 0;
+    }
+    if (obj != 0)
+      obj->dont_target_others_opponent = on;
+  }
+  return 1;
+}
+
+numtx_s *NuCameraGetMtx(void);
+void SetHeadTarget(GameObject_s *obj, nuvec_s *target, i32 a, f32 b, f32 c,
+                   f32 d);
+
+// FUNCTION: LEGOBATMAN 0x00468190
+i32 Action_FaceCamera(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                      AIPACKET_s *packet, char **args, int argc, int flags,
+                      f32 time) {
+  f32 min_time = 0.0f;
+  f32 max_time = 0.0f;
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s;
+      if (NuStrICmp("look_at_camera", args[i]) == 0)
+        process->hold_special_button = 1;
+      else if ((s = NuStrIStr(args[i], "mintime")) != 0)
+        min_time = AIParamToFloatEx(packet, process, s + 8);
+      else if ((s = NuStrIStr(args[i], "maxtime")) != 0)
+        max_time = AIParamToFloatEx(packet, process, s + 8);
+      else
+        process->face_timer = AIParamToFloat(process, args[i]);
+    }
+    if (process->face_timer == 0.0f && max_time > min_time)
+      process->face_timer = NuRandFloat() * (max_time - min_time) + min_time;
+  }
+  numtx_s *cam = NuCameraGetMtx();
+  if (cam != 0) {
+    packet->look_target = (nuvec_s *)&cam->m30;
+    if (process->hold_special_button != 0)
+      SetHeadTarget(obj, obj->look_target, 7, 1.0f, 0.0f, 0.0f);
+  }
+  if (process->face_timer > 0.0f) {
+    process->face_timer -= time;
+    if (process->face_timer <= 0.0f) {
+      process->face_timer = 0.0f;
+      return 1;
+    }
+  }
+  return 0;
+}

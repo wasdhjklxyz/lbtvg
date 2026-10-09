@@ -1191,3 +1191,5 @@
 0045b990 Action_DontPush  keyword table 0x93bb98
 00462cb0 Action_CanTriggerObstacle  keyword table 0x93bb98
 0046d4f0 Action_IgnoreSlideTerrain  keyword table 0x93bb98
+00455e60 Action_DontTargetOthersOpponent  keyword table 0x93bb98
+00468190 Action_FaceCamera  keyword table 0x93bb98

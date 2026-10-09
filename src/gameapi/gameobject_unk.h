@@ -131,7 +131,8 @@ struct GameObject_s {
   u8 b3c8;                      // 0x3c8
   u8 pad6[0x3ce - 0x3c9];
   u8 b3ce; // 0x3ce
-  u8 pad7[0x480 - 0x3cf];
+  u8 pad7[0x47c - 0x3cf];
+  nuvec_s *look_target; // 0x47c, AI look target (process290 + 0x1ec)
   union {
     struct {
       u32 flags480_lo : 26;
@@ -328,6 +329,10 @@ struct GameObject_s {
     struct {
       u32 : 8;
       u32 ignore_phobia : 1; // 0x1418 bit 8
+    };
+    struct {
+      u32 : 7;
+      u32 dont_target_others_opponent : 1; // 0x1418 bit 7
     };
     struct {
       u32 : 10;
