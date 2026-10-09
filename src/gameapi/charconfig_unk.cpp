@@ -12,7 +12,10 @@ typedef struct CHARCONFIG_RUNTIME_s {
   unsigned char pad0[0x148];
   u32 flags148; // 0x148
   u32 flags;    // 0x14c
-  unsigned char pad150[0x194 - 0x150];
+  unsigned char pad150[0x174 - 0x150];
+  u32 shadow_locators; // 0x174, bit per locator
+  u32 thrust_locators; // 0x178
+  unsigned char pad17c[0x194 - 0x17c];
   i16 sfx_misc[6];         // 0x194
   i16 sfx_die;             // 0x1a0
   i16 sfx_hurt;            // 0x1a2
@@ -37,11 +40,13 @@ typedef struct CHARCONFIG_RUNTIME_s {
   i8 defined_locators[0x10];  // 0x1dc
   i8 weapon_locator[4];       // 0x1ec
   i8 weapon_shoot_locator[4]; // 0x1f0
-  unsigned char pad1f4[0x20a - 0x1f4];
-  i8 grapple_locator[2]; // 0x20a
-  i8 pivot_locator_1;    // 0x20c
-  i8 pivot_locator_2;    // 0x20d
-  unsigned char pad20e[0x212 - 0x20e];
+  unsigned char pad1f4[0x208 - 0x1f4];
+  i8 hand_locators[2];        // 0x208
+  i8 grapple_locator[2];      // 0x20a
+  i8 pivot_locator_1;         // 0x20c
+  i8 pivot_locator_2;         // 0x20d
+  i8 backpack_locators[2];    // 0x20e
+  i8 debris_locators[2];      // 0x210
   i8 rocket_locator;          // 0x212
   i8 shield_locator;          // 0x213
   i8 head_locator;            // 0x214
@@ -226,6 +231,71 @@ void CC_helmet_locator(NUFPAR *parser) {
 // FUNCTION: LEGOBATMAN 0x00623650
 void CC_hat_locator(NUFPAR *parser) {
   CC_set_locator(parser, &charconfig.runtime->hat_locator);
+}
+
+// STUB: LEGOBATMAN 0x00623690
+// close: orig keeps the GetWord loop unrotated (single call at the top);
+// ours duplicates the call at the bottom whatever the loop spelling.
+void CC_shadow_locators(NUFPAR *parser) {
+  charconfig.runtime->shadow_locators = 0;
+  u32 locator;
+next:
+  if (NuFParGetWord(parser) == 0)
+    return;
+  locator = NuAToI(parser->word_buf);
+  if (locator <= 19)
+    charconfig.runtime->shadow_locators |= 1 << locator;
+  goto next;
+}
+
+// STUB: LEGOBATMAN 0x006236e0
+// close: same loop rotation difference as CC_shadow_locators.
+void CC_thrust_locators(NUFPAR *parser) {
+  charconfig.runtime->thrust_locators = 0;
+  u32 locator;
+next:
+  if (NuFParGetWord(parser) == 0)
+    return;
+  locator = NuAToI(parser->word_buf);
+  if (locator <= 19)
+    charconfig.runtime->thrust_locators |= 1 << locator;
+  goto next;
+}
+
+// FUNCTION: LEGOBATMAN 0x00623730
+void CC_hand_locators(NUFPAR *parser) {
+  for (i32 i = 0; i < 2; i++) {
+    charconfig.runtime->hand_locators[i] = -1;
+    if (NuFParGetWord(parser) != 0) {
+      u32 locator = NuAToI(parser->word_buf);
+      if (locator <= 19)
+        charconfig.runtime->hand_locators[i] = (i8)locator;
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00623790
+void CC_debris_locators(NUFPAR *parser) {
+  for (i32 i = 0; i < 2; i++) {
+    charconfig.runtime->debris_locators[i] = -1;
+    if (NuFParGetWord(parser) != 0) {
+      u32 locator = NuAToI(parser->word_buf);
+      if (locator <= 19)
+        charconfig.runtime->debris_locators[i] = (i8)locator;
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006237f0
+void CC_backpack_locators(NUFPAR *parser) {
+  for (i32 i = 0; i < 2; i++) {
+    charconfig.runtime->backpack_locators[i] = -1;
+    if (NuFParGetWord(parser) != 0) {
+      u32 locator = NuAToI(parser->word_buf);
+      if (locator <= 19)
+        charconfig.runtime->backpack_locators[i] = (i8)locator;
+    }
+  }
 }
 
 i16 DefinedLocators_FindIX(char *name);

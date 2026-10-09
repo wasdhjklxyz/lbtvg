@@ -378,3 +378,6 @@
 006235d0 CC_thingy_locator 0x216   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
 00623610 CC_helmet_locator 0x217   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
 00623650 CC_hat_locator 0x218   matched (inlined CC_set_locator on runtime ), Mac order of the CC_*_locator run
+00623730 CC_hand_locators  matched saga-shaped body (two locators at runtime 0x208), Mac order
+00623790 CC_debris_locators  matched (runtime 0x210), Mac order
+006237f0 CC_backpack_locators  matched (runtime 0x20e), Mac order

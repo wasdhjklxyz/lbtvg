@@ -74,3 +74,5 @@
 0059a110 AnimDuration: heavy x87 compare tree
 0059f4e0 AddLevSfx: loop-exit threading / register choice differs, 3 tries
 005c1d20 MovingBackwards: RotDiff argument load order (pad angle vs camera yaw), 5 tries
+00623690 CC_shadow_locators: GetWord loop rotation differs (4 spellings tried)
+006236e0 CC_thrust_locators: same loop rotation difference as CC_shadow_locators

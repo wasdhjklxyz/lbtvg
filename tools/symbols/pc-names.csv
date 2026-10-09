@@ -633,6 +633,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006235d0,0027b338,__Z17CC_thingy_locatorP8nufpar_s,CC_thingy_locator(nufpar_s*),confirmed,0
 00623610,0027b356,__Z17CC_helmet_locatorP8nufpar_s,CC_helmet_locator(nufpar_s*),confirmed,0
 00623650,0027b374,__Z14CC_hat_locatorP8nufpar_s,CC_hat_locator(nufpar_s*),confirmed,0
+00623730,0027b452,__Z16CC_hand_locatorsP8nufpar_s,CC_hand_locators(nufpar_s*),confirmed,0
+00623790,0027b4ba,__Z18CC_debris_locatorsP8nufpar_s,CC_debris_locators(nufpar_s*),confirmed,0
+006237f0,0027b522,__Z20CC_backpack_locatorsP8nufpar_s,CC_backpack_locators(nufpar_s*),confirmed,0
 00623850,0027b58a,__Z14ParseStreakColP8nufpar_s,ParseStreakCol(nufpar_s*),strings,0
 00623de0,0027bc0c,__Z17CC_define_locatorP8nufpar_s,CC_define_locator(nufpar_s*),confirmed,0
 00623e30,0027bc6c,__Z16CC_boost_locatorP8nufpar_s,CC_boost_locator(nufpar_s*),confirmed,0
