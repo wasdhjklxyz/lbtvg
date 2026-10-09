@@ -586,6 +586,84 @@ f32 Condition_OpponentInLayer(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 0.0f;
 }
 
+// FUNCTION: LEGOBATMAN 0x0044fa80
+f32 Condition_OnDynamicGrapple(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                               AIPACKET_s *packet, char *str, void *argument) {
+  GameObject_s *object = (GameObject_s *)argument;
+  if (object == NULL) {
+    if (packet == NULL || packet->pd0 == NULL ||
+        (object = packet->pd0->obj) == NULL)
+      return 0.0f;
+  }
+  if (object->b9db == 0x46 || object->b9db == 0x6b || object->b9db == 0x6c) {
+    u8 *grapple = (u8 *)object->techno;
+    if (grapple != NULL && grapple[0x1c] != 0)
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// GLOBAL: LEGOBATMAN 0x0095fc30
+extern i32 g_unk0095fc30;
+// GLOBAL: LEGOBATMAN 0x00961394
+extern i32 g_unk00961394;
+// GLOBAL: LEGOBATMAN 0x0096048c
+extern i32 g_unk0096048c;
+
+// FUNCTION: LEGOBATMAN 0x0044fae0
+void *Condition_OnGrappleInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  if (name != NULL && sys != NULL) {
+    GIZMO_s *gizmo =
+        GizmoFindByName(g_unk00960894->gizmoSys2b0c, g_unk0095fc30, name);
+    if (gizmo != NULL)
+      return *(void **)gizmo;
+  }
+  return NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044fb30
+f32 Condition_OnGrapple(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char *str, void *argument) {
+  if (packet != NULL && packet->pd0 != NULL) {
+    GameObject_s *object = packet->pd0->obj;
+    if (object->b9db == 0x46 || object->b9db == 0x6b || object->b9db == 0x6c) {
+      void *grapple = object->techno;
+      if (grapple != NULL && (argument == NULL || argument == grapple))
+        return 1.0f;
+    }
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044fb90
+void *Condition_EitherPlayerOnLedgeInit(AISYS_s *sys, char *name,
+                                        AISCRIPT_s *script) {
+  if (name != NULL && sys != NULL) {
+    GIZMO_s *gizmo =
+        GizmoFindByName(g_unk00960894->gizmoSys2b0c, g_unk00961394, name);
+    if (gizmo != NULL)
+      return *(void **)gizmo;
+  }
+  return NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044fbe0
+f32 Condition_EitherPlayerOnLedge(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                  AIPACKET_s *packet, char *str,
+                                  void *argument) {
+  if (packet != NULL && packet->pd0 != NULL) {
+    for (i32 i = 0; i < 8; i++) {
+      GameObject_s *object = Player[i];
+      if (object != NULL && (object->flags1fc & 0x1000) && object->b257 == 0 &&
+          object->b9db == g_unk0096048c) {
+        void *ledge = object->techno;
+        if (ledge != NULL && (argument == NULL || argument == ledge))
+          return 1.0f;
+      }
+    }
+  }
+  return 0.0f;
+}
 i32 GizmoGetOutput(GIZMOSYS_s *sys, GIZMO_s *gizmo, i32 output, i32 a);
 void *AIPathFindLocatorSet(AISYS_s *sys, char *name);
 

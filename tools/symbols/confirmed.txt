@@ -549,3 +549,8 @@
 0044d750 Condition_ForcePushing   matched (saga body shape), Mac order of the Condition_* run
 0044d7a0 Condition_TurretAliveInit   matched (saga body shape), Mac order of the Condition_* run
 0044d800 Condition_IAmAPartyCharacter   matched (saga body shape), Mac order of the Condition_* run
+0044fa80 Condition_OnDynamicGrapple  matched saga body, Mac order
+0044fae0 Condition_OnGrappleInit  matched (asm body), Mac order
+0044fb30 Condition_OnGrapple  matched (asm body), Mac order
+0044fb90 Condition_EitherPlayerOnLedgeInit  matched (asm body), Mac order
+0044fbe0 Condition_EitherPlayerOnLedge  matched (asm body), Mac order
