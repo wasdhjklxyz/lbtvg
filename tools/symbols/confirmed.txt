@@ -899,7 +899,6 @@
 0060e060 LC_AL_double_score  matched saga body, keyword table
 0060e0b0 LC_AL_flat_terrain  matched saga body, keyword table
 00 BT_typed  matched, keyword table
-00ac7598 extern BoltTypeKw_s *BT_bolttype;  matched, keyword table
 005e8790 BT_speed  matched, keyword table
 005e87b0 BT_duration  matched, keyword table
 005e87d0 BT_radius  matched, keyword table
