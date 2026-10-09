@@ -13,3 +13,5 @@
 00639670 SetWeaponOut  saga body matches (context reset, weapon_scale=1)
 005c8eb0 LoadTerrainFile  saga body matches (TerrainInitEx with level ter groups)
 005d3640 AddGameMessage  saga body matches (AddGameMsg_Default copy + AddGameMsg)
+0061f190 CharIDFromName  saga body matches (CDataList scan by file name)
+005c1860 Player_FindByID  saga body matches (Player[8] scan by id, flags 0x1001)

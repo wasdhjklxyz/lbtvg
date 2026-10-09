@@ -42,3 +42,17 @@ i32 DeactivatePlayer(GameObject_s *obj, f32 time, GameObject_s *by) {
   }
   return 0;
 }
+
+// GLOBAL: LEGOBATMAN 0x00ab3960
+extern GameObject_s *Player[8];
+
+// FUNCTION: LEGOBATMAN 0x005c1860
+GameObject_s *Player_FindByID(i32 id) {
+  for (i32 i = 0; i < 8; i++) {
+    GameObject_s *object = Player[i];
+    if (object != 0 && (object->flags1fc & 1) && (object->flags1fc & 0x1000) &&
+        object->type15b0 == id)
+      return object;
+  }
+  return 0;
+}

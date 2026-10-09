@@ -382,7 +382,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005c12a0,00318ec4,__Z21Players_InitPositionsP11WORLDINFO_s,Players_InitPositions(WORLDINFO_s*),strings,0
 005c16b0,003193b0,__Z12SetPlayerIDsii,"SetPlayerIDs(int, int)",order,3
 005c1730,00319446,__Z17RememberPlayerIDsiii,"RememberPlayerIDs(int, int, int)",order,3
-005c1860,003195b8,__Z15Player_FindByIDi,Player_FindByID(int),order,3
+005c1860,003195b8,__Z15Player_FindByIDi,Player_FindByID(int),confirmed,0
 005c18b0,00319604,__Z15Player_StartPosP12GameObject_s,Player_StartPos(GameObject_s*),order,3
 005c18f0,0031964c,__Z18Players_AveragePosP7nuvec_sP14SOCKPOSITION_s,"Players_AveragePos(nuvec_s*, SOCKPOSITION_s*)",order,3
 005c19c0,0031974a,__Z9SetPlayerv,SetPlayer(),gapfill,2
@@ -499,7 +499,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0061d1b0,0029b04a,__Z24CutScenePlayer_ConfigurePcP9variptr_uS1_PsS2_S2_S2_S2_S2_S2_,"CutScenePlayer_Configure(char*, variptr_u*, variptr_u*, short*, short*, short*, short*, short*, short*, short*)",strings,0
 0061d990,0029880c,__Z22CutScenePlayer_GetTextiPcS_i,"CutScenePlayer_GetText(int, char*, char*, int)",strings,0
 0061dd40,00298baa,__Z29CutScenes_LoadLevelCharactersP11WORLDINFO_sPcPi,"CutScenes_LoadLevelCharacters(WORLDINFO_s*, char*, int*)",strings,0
-0061f190,00278b52,__Z14CharIDFromNamePc,CharIDFromName(char*),gapfill,1
+0061f190,00278b52,__Z14CharIDFromNamePc,CharIDFromName(char*),confirmed,0
 0061f2d0,00278cbc,__Z14CharScene_LoadiP9CHARSCENEP9variptr_uS1_,"CharScene_Load(int, CHARSCENE*, variptr_u*, variptr_u)",strings,0
 00620160,0027a02a,__Z10DrawHoseExP19GAMECHARACTERDATA_sP7numtx_sP7numtl_sf,"DrawHoseEx(GAMECHARACTERDATA_s*, numtx_s*, numtl_s*, float)",gapfill,3
 00620370,0027a18c,__Z8DrawHoseP12GameObject_s,DrawHose(GameObject_s*),gapfill,2

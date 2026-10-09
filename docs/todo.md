@@ -13,7 +13,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [near rtleditor.cpp](#near-rtleditorcpp) | 98 | 72 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 96 | 70 |
 | [Action](#action) | 72 | 57 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
@@ -22,11 +22,11 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 8 | 7 |
 | [GameCam](#gamecam) | 5 | 5 |
 | [Grabber](#grabber) | 7 | 5 |
-| [Player](#player) | 5 | 5 |
 | [Arcade](#arcade) | 4 | 4 |
 | [Area](#area) | 5 | 4 |
 | [Hub](#hub) | 6 | 4 |
 | [near nutrig_gen.cpp](#near-nutrig_gencpp) | 12 | 4 |
+| [Player](#player) | 4 | 4 |
 | [Door](#door) | 4 | 3 |
 | [GameAudio](#gameaudio) | 3 | 3 |
 | [GizAction](#gizaction) | 3 | 3 |
@@ -237,14 +237,12 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005bdcd0` 49 B `InStory()`  **hint** name (gapfill) · **saga** `legoapi/menus/screens/gamestructure.cpp`
 - [ ] `00639b10` 49 B `KeepWeaponOut(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
 - [ ] `005a2d90` 54 B `NewBuzzFrames(nupad_s*, int, int)`  **saga** `legoapi/core/input/gamepads.cpp`
-- [ ] `005fc350` 58 B `AreaFromMiniKitID(int)`  **hint** name (gapfill) · **saga** `legoapi/world/area.cpp`
 - [ ] `0059a730` 59 B `_ResetAnimPacket`  **hint** name (gapfill)
 - [ ] `0059a0d0` 60 B `_FindAnimIX`  **hint** name (gapfill)
 - [ ] `0060cea0` 60 B `GameDrawMenuEntry(MENU_s*, char*)`  **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `005ae240` 64 B `SeekValF(float, float, float)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/move.cpp`
 - [ ] `005a2d10` 66 B `NewRumble(nupad_s*, float, int)`  **hint** name (gapfill) · **saga** `legoapi/core/input/gamepads.cpp`
 - [ ] `0059b3c0` 68 B `_AnimPlaying`  **hint** name (gapfill)
-- [ ] `0061f190` 69 B `CharIDFromName(char*)`  **hint** name (gapfill) · **saga** `legoapi/characters/core/characters.cpp`
 - [ ] `005b0f40` 71 B `GameBufferAlloc(variptr_u*, variptr_u*, int)`  **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `00635de0` 71 B `CoinsGoToMainTotal()`  **hint** name (gapfill) · **saga** `legoapi/menus/core/panel.cpp`
 - [ ] `00597fc0` 72 B `_AddGameDebris`
@@ -544,14 +542,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00602540` 740 B `Grabber_Drop(GRABBER_s*, nuvec_s*)`  **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
 - [ ] `00600e90` 1004 B `Grabber_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/items/objects/grabber.cpp`
 
-## Player
-
-- [ ] `005c18b0` 59 B `Player_StartPos(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/players.cpp`
-- [ ] `005c1860` 67 B `Player_FindByID(int)`  **hint** name (order) · **saga** `legoapi/characters/core/players.cpp`
-- [ ] `005c1b10` 99 B `Player_ClearContext(GameObject_s*, int)`  **saga** `legoapi/characters/core/players.cpp`
-- [ ] `005c1b80` 313 B `Player_ResetContexts(GameObject_s*)`  **saga** `legoapi/characters/core/players.cpp`
-- [ ] `005c2250` 2274 B `Player_ToggleCharacter(GameObject_s*, int, int)`  **saga** `legoapi/characters/core/players.cpp`
-
 ## Arcade
 
 - [ ] `006481b0` 62 B `Arcade_GetMode(unsigned int*)`  **hint** name (gapfill) · **saga** `legoapi/menus/screens/arcade.cpp`
@@ -590,6 +580,13 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006a19a0` 230 B `_AIScriptFind`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
 - [ ] `006a2730` 401 B `_AIScriptCopyConditions`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
 - [ ] `006a2cc0` 536 B `_AIScriptBuildDerivedScript`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
+
+## Player
+
+- [ ] `005c18b0` 59 B `Player_StartPos(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/players.cpp`
+- [ ] `005c1b10` 99 B `Player_ClearContext(GameObject_s*, int)`  **saga** `legoapi/characters/core/players.cpp`
+- [ ] `005c1b80` 313 B `Player_ResetContexts(GameObject_s*)`  **saga** `legoapi/characters/core/players.cpp`
+- [ ] `005c2250` 2274 B `Player_ToggleCharacter(GameObject_s*, int, int)`  **saga** `legoapi/characters/core/players.cpp`
 
 ## Door
 
