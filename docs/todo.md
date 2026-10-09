@@ -24,7 +24,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Hub](#hub) | 6 | 4 |
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 5 | 4 |
 | [GizAction](#gizaction) | 3 | 3 |
-| [near nutrig_gen.cpp](#near-nutrig_gencpp) | 11 | 3 |
 | [Arcade](#arcade) | 2 | 2 |
 | [Area](#area) | 3 | 2 |
 | [Areas](#areas) | 3 | 2 |
@@ -37,6 +36,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [LevelObjects](#levelobjects) | 2 | 2 |
 | [Levels](#levels) | 2 | 2 |
 | [Move](#move) | 2 | 2 |
+| [near nutrig_gen.cpp](#near-nutrig_gencpp) | 10 | 2 |
 | [NuStr](#nustr) | 2 | 2 |
 | [Player](#player) | 2 | 2 |
 | [PortalDoors](#portaldoors) | 2 | 2 |
@@ -496,20 +496,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00483070` 693 B `GizAction_SetAIState(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
 - [ ] `00482510` 763 B `GizAction_ActivateChar(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
 
-## near nutrig_gen.cpp
-
-- [ ] `006a5fe0` 31 B `_AISysClearAllPathCnxTypes`  **hint** name (gapfill)
-- [ ] `006a9b90` 80 B `_AISysFindArea`  **hint** name (gapfill)
-- [ ] `006a9bf0` 84 B `_AISysFindPath`  **hint** name (gapfill)
-- [ ] `006a9ac0` 96 B `_AIPathFindLocator`
-- [ ] `006a9b20` 98 B `_AIPathFindLocatorSet`  **hint** name (gapfill)
-- [ ] `006a9c50` 114 B `_AIPathFindNode`  **hint** name (gapfill)
-- [ ] `006af110` 142 B `_AiSysIsCurrentPlatform`
-- [ ] `006a6000` 171 B `_AISysRegisterPathCnxType`
-- [ ] `006a19a0` 230 B `_AIScriptFind`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
-- [ ] `006a2730` 401 B `_AIScriptCopyConditions`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
-- [ ] `006a2cc0` 536 B `_AIScriptBuildDerivedScript`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
-
 ## Arcade
 
 - [ ] `00648290` 254 B `Arcade_DrawPanel(int)`  **hint** name (order) · **saga** `legoapi/menus/screens/arcade.cpp`
@@ -576,6 +562,19 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `004cb910` 438 B `Move_CHARACTER(GameObject_s*)`  **saga** `legoapi/characters/motion/move.cpp`
 - [ ] `004ccf50` 1344 B `Move_BEAST(GameObject_s*)`  **saga** `legoapi/characters/motion/move.cpp`
+
+## near nutrig_gen.cpp
+
+- [ ] `006a5fe0` 31 B `_AISysClearAllPathCnxTypes`  **hint** name (gapfill)
+- [ ] `006a9b90` 80 B `_AISysFindArea`  **hint** name (gapfill)
+- [ ] `006a9bf0` 84 B `_AISysFindPath`  **hint** name (gapfill)
+- [ ] `006a9ac0` 96 B `_AIPathFindLocator`
+- [ ] `006a9b20` 98 B `_AIPathFindLocatorSet`  **hint** name (gapfill)
+- [ ] `006a9c50` 114 B `_AIPathFindNode`  **hint** name (gapfill)
+- [ ] `006af110` 142 B `_AiSysIsCurrentPlatform`
+- [ ] `006a6000` 171 B `_AISysRegisterPathCnxType`
+- [ ] `006a2730` 401 B `_AIScriptCopyConditions`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
+- [ ] `006a2cc0` 536 B `_AIScriptBuildDerivedScript`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
 
 ## NuStr
 

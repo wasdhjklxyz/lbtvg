@@ -7,6 +7,61 @@
 
 #include "aisys_unk.h"
 
+struct AISYS_s {
+  u8 pad0[0x228];
+  NULISTHDR scripts; // 0x228
+};
+
+// GLOBAL: LEGOBATMAN 0x00ad435c
+extern NULISTHDR global_aiscripts;
+
+// FUNCTION: LEGOBATMAN 0x006a19a0
+AISCRIPT *AIScriptFind(AISYS_s *sys, char *name, i32 can_use_default,
+                       i32 check_level_scripts, i32 check_global_scripts) {
+  AISCRIPT *script;
+
+  if (name != NULL) {
+    if (check_level_scripts && sys != NULL) {
+      script = (AISCRIPT *)NuListGetHead(&sys->scripts);
+
+      while (script != NULL) {
+        if (NuStrICmp(name, script->name) == 0) {
+          return script;
+        }
+
+        script = (AISCRIPT *)NuListGetNext(&sys->scripts, &script->list_node);
+      }
+    }
+
+    if (check_global_scripts) {
+      script = (AISCRIPT *)NuListGetHead(&global_aiscripts);
+
+      while (script != NULL) {
+        if (NuStrICmp(name, script->name) == 0) {
+          return script;
+        }
+
+        script =
+            (AISCRIPT *)NuListGetNext(&global_aiscripts, &script->list_node);
+      }
+    }
+  }
+
+  if (can_use_default) {
+    script = (AISCRIPT *)NuListGetHead(&global_aiscripts);
+
+    while (script != NULL) {
+      if (NuStrICmp("default", script->name) == 0) {
+        return script;
+      }
+
+      script = (AISCRIPT *)NuListGetNext(&global_aiscripts, &script->list_node);
+    }
+  }
+
+  return NULL;
+}
+
 // FUNCTION: LEGOBATMAN 0x006a3380
 f32 AIParamToFloat(AISCRIPTPROCESS *processor, char *param) {
   char *cursor;

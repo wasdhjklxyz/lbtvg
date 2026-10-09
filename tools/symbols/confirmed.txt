@@ -75,3 +75,4 @@
 006dd060 NuFParGetInt  saga body matches ($/0x hex or NuAToI)
 005c19c0 SetPlayer  saga body matches (player/player2 from active Player[0..1])
 006151e0 Door_SetCutCam  saga body matches (exit cut camera from spline or name)
+006a19a0 AIScriptFind  saga body matches (level, global, default script lists)
