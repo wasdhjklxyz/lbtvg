@@ -61,9 +61,9 @@ struct WORLDINFO_s {
   u8 pad5x[0x2adc - 0x29d0];
   i32 page_pp; // 0x2adc
   u8 pad5a[0x2aec - 0x2ae0];
-  void *burnset; // 0x2aec
-  u8 pad5b[0x2af4 - 0x2af0];
-  void *rtl_set; // 0x2af4
+  void *burnset;      // 0x2aec
+  void *cutscene_sys; // 0x2af0
+  void *rtl_set;      // 0x2af4
   u8 pad5c[0x2b04 - 0x2af8];
   Unk_WorldInfo2b04 *p2b04; // 0x2b04
   u8 pad6[0x2b0c - 0x2b08];

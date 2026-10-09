@@ -285,6 +285,106 @@ i32 Action_SetTechnoComplete(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+struct LEVELDATA_s {
+  u8 pad0[0x62];
+  i16 idx;  // 0x62
+  u8 flags; // 0x64
+};
+
+// GLOBAL: LEGOBATMAN 0x00ab0894
+extern i32 FreePlay;
+
+LEVELDATA_s *Level_FindByName(char *name, i32 *idx_out);
+void *NewCutScene(void *a, void *cutscene_sys, char *name, i32 b);
+LEVELDATA_s *Area_FindStatusLevel(AREADATA_s *area, i32 *index);
+void GoToNewLevel(i32 idx);
+void CompleteLevel(WORLDINFO_s *world);
+
+// FUNCTION: LEGOBATMAN 0x0046f880
+i32 Action_CompleteLevel(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  char *cutscene = 0;
+  LEVELDATA_s *level = 0;
+  LEVELDATA_s *freeplay_level = 0;
+  if (flags != 0) {
+    for (i32 index = 0; index < argc; ++index) {
+      char *value = NuStrIStr(args[index], "cutscene=");
+      if (value != 0) {
+        cutscene = value + NuStrLen("cutscene=");
+      } else if ((value = NuStrIStr(args[index], "newlevel=")) != 0) {
+        value += NuStrLen("newlevel=");
+        level = Level_FindByName(value, 0);
+      } else if ((value = NuStrIStr(args[index], "freeplay_level=")) != 0) {
+        value += NuStrLen("freeplay_level=");
+        freeplay_level = Level_FindByName(value, 0);
+      }
+    }
+    if (FreePlay == 0 && cutscene != 0 &&
+        NewCutScene(0, g_unk00960894->cutscene_sys, cutscene, 0) != 0)
+      return 1;
+    if (FreePlay != 0) {
+      if (freeplay_level != 0) {
+        GoToNewLevel(freeplay_level->idx);
+        return 1;
+      }
+      if (level != 0 && (level->flags & 0xe0) != 0)
+        level = Area_FindStatusLevel(g_unk00960894->area, 0);
+    }
+    if (level != 0)
+      GoToNewLevel(level->idx);
+    else
+      CompleteLevel(g_unk00960894);
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0046d870
+i32 Action_SetLayer(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                    AIPACKET_s *packet, char **args, int argc, int flags,
+                    f32 time) {
+  u32 set_layers = 0;
+  u32 clear_layers = 0;
+  u32 remove_layers = 0;
+  u32 clear_remove_layers = 0;
+  GameObject_s *obj = 0;
+  char *s;
+  i32 layer;
+  i32 i;
+  if (flags) {
+    if (packet && packet->pd0 && packet->pd0->obj)
+      obj = packet->pd0->obj;
+    for (i = 0; i < argc; i++) {
+      if ((s = NuStrIStr(args[i], "character="))) {
+        obj = GetNamedGameObject(sys, s + 10);
+      } else if ((s = NuStrIStr(args[i], "set_layer="))) {
+        layer = (i32)AIParamToFloat(process, s + 10);
+        if ((u32)(layer - 1) <= 31)
+          set_layers |= 1 << (layer - 1);
+      } else if ((s = NuStrIStr(args[i], "remove_layer="))) {
+        layer = (i32)AIParamToFloat(process, s + 13);
+        if ((u32)(layer - 1) <= 31)
+          remove_layers |= 1 << (layer - 1);
+      }
+      if ((s = NuStrIStr(args[i], "clear_remove_layer="))) {
+        layer = (i32)AIParamToFloat(process, s + 19);
+        if ((u32)(layer - 1) <= 31)
+          clear_remove_layers |= 1 << (layer - 1);
+      } else if ((s = NuStrIStr(args[i], "clear_layer="))) {
+        layer = (i32)AIParamToFloat(process, s + 12);
+        if ((u32)(layer - 1) <= 31)
+          clear_layers |= 1 << (layer - 1);
+      }
+    }
+    if (obj) {
+      u32 *layers = (u32 *)((u8 *)obj + 0x1588);
+      layers[0] = (layers[0] | set_layers) & ~clear_layers;
+      layers[1] = (layers[1] | remove_layers) & ~clear_remove_layers;
+    }
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x0046d6f0
 i32 Action_AddMiscPickups(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                           AIPACKET_s *packet, char **args, int argc, int flags,
