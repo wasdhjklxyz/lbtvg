@@ -1033,6 +1033,18 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00626fb0,0027e000,__Z11CC_dontmoveP8nufpar_s,CC_dontmove(nufpar_s*),confirmed,0
 00627000,0027e012,__Z10CC_jetpackP8nufpar_s,CC_jetpack(nufpar_s*),confirmed,0
 00627050,0027e024,__Z18CC_oldheadmovementP8nufpar_s,CC_oldheadmovement(nufpar_s*),confirmed,0
+006270a0,0027e036,__Z19CC_atatheadmovementP8nufpar_s,CC_atatheadmovement(nufpar_s*),confirmed,0
+006270b0,0027e052,__Z16CC_cannotbigjumpP8nufpar_s,CC_cannotbigjump(nufpar_s*),confirmed,0
+00627100,0027e064,__Z22CC_no_offpath_teleportP8nufpar_s,CC_no_offpath_teleport(nufpar_s*),confirmed,0
+00627150,0027e076,__Z16CC_no_kill_partsP8nufpar_s,CC_no_kill_parts(nufpar_s*),confirmed,0
+006271a0,0027e088,__Z12CC_high_jumpP8nufpar_s,CC_high_jump(nufpar_s*),confirmed,0
+006271f0,0027e09a,__Z17CC_super_strengthP8nufpar_s,CC_super_strength(nufpar_s*),confirmed,0
+00627300,0027e134,__Z18CC_bypass_securityP8nufpar_s,CC_bypass_security(nufpar_s*),confirmed,0
+00627350,0027e146,__Z9CC_technoP8nufpar_s,CC_techno(nufpar_s*),confirmed,0
+006273a0,0027e158,__Z20CC_hazard_protectionP8nufpar_s,CC_hazard_protection(nufpar_s*),confirmed,0
+006273f0,0027e16a,__Z12CC_wall_jumpP8nufpar_s,CC_wall_jump(nufpar_s*),confirmed,0
+00627440,0027e17c,__Z15CC_got_batarangP8nufpar_s,CC_got_batarang(nufpar_s*),confirmed,0
+00627490,0027e18e,__Z17CC_tightrope_tiltP8nufpar_s,CC_tightrope_tilt(nufpar_s*),confirmed,0
 006285d0,00280c32,__Z16AnimInclude_InitPcP9variptr_uS1_,"AnimInclude_Init(char*, variptr_u*, variptr_u*)",strings,0
 00629270,002818fe,__Z23CharConfig_ConfigureAlliP12nufpcomjmp_s,"CharConfig_ConfigureAll(int, nufpcomjmp_s*)",strings,0
 0062d030,002833a2,__Z24CharShadows_InitMaterialP9variptr_uS_,"CharShadows_InitMaterial(variptr_u*, variptr_u)",strings,0

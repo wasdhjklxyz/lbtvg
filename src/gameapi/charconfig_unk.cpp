@@ -1278,3 +1278,49 @@ void CC_jetpack(NUFPAR *parser) { CC_SetCDataFlagsj(parser, 0x8000); }
 
 // FUNCTION: LEGOBATMAN 0x00627050
 void CC_oldheadmovement(NUFPAR *parser) { CC_SetCDataFlagsj(parser, 0x20000); }
+
+// FUNCTION: LEGOBATMAN 0x006270a0
+void CC_atatheadmovement(NUFPAR *parser) {
+  charconfig.runtime->flags148 |= 0x400;
+}
+
+// FUNCTION: LEGOBATMAN 0x006270b0
+void CC_cannotbigjump(NUFPAR *parser) { CC_SetCDataFlagsj(parser, 0x200000); }
+
+// FUNCTION: LEGOBATMAN 0x00627100
+void CC_no_offpath_teleport(NUFPAR *parser) {
+  CC_SetCDataFlagsj(parser, 0x400000);
+}
+
+// FUNCTION: LEGOBATMAN 0x00627150
+void CC_no_kill_parts(NUFPAR *parser) { CC_SetCDataFlagsj(parser, 0x2000000); }
+
+// FUNCTION: LEGOBATMAN 0x006271a0
+void CC_high_jump(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x400000); }
+
+// FUNCTION: LEGOBATMAN 0x006271f0
+void CC_super_strength(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x800000); }
+
+// FUNCTION: LEGOBATMAN 0x00627300
+void CC_bypass_security(NUFPAR *parser) {
+  CC_SetGCDataFlagsj(parser, 0x2000000);
+}
+
+// FUNCTION: LEGOBATMAN 0x00627350
+void CC_techno(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x1); }
+
+// FUNCTION: LEGOBATMAN 0x006273a0
+void CC_hazard_protection(NUFPAR *parser) {
+  CC_SetGCDataFlagsj(parser, 0x4000000);
+}
+
+// FUNCTION: LEGOBATMAN 0x006273f0
+void CC_wall_jump(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x8000000); }
+
+// FUNCTION: LEGOBATMAN 0x00627440
+void CC_got_batarang(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x20000000); }
+
+// FUNCTION: LEGOBATMAN 0x00627490
+void CC_tightrope_tilt(NUFPAR *parser) {
+  CC_SetGCDataFlagsj(parser, 0x10000000);
+}

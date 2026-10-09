@@ -745,3 +745,15 @@
 00626ce0 CC_vehicle  matched, Mac order
 00626d40 CC_floating_vehicle  matched, Mac order
 00626db0 CC_flying_vehicle  matched, Mac order
+006270b0 CC_cannotbigjump  matched, Mac order
+00627100 CC_no_offpath_teleport  matched, Mac order
+00627150 CC_no_kill_parts  matched, Mac order
+006271a0 CC_high_jump  matched, Mac order
+006271f0 CC_super_strength  matched, Mac order
+00627300 CC_bypass_security  matched, Mac order
+00627350 CC_techno  matched, Mac order
+006273a0 CC_hazard_protection  matched, Mac order
+006273f0 CC_wall_jump  matched, Mac order
+00627440 CC_got_batarang  matched, Mac order
+00627490 CC_tightrope_tilt  matched, Mac order
+006270a0 CC_atatheadmovement  matched, Mac order
