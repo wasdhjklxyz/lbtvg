@@ -2955,3 +2955,54 @@ f32 Condition_OpponentJustPickedUpWeapon(AISYS_s *sys,
     return 1.0f;
   return 0.0f;
 }
+
+// FUNCTION: LEGOBATMAN 0x0044e2d0
+f32 Condition_EitherPlayerPullingLever(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                       AIPACKET_s *packet, char *str,
+                                       void *argument) {
+  if (player != NULL && player->b9db == 0x4a) {
+    char *techno = (char *)player->techno;
+    if (techno != NULL && (str == NULL || NuStrICmp(techno + 0x58, str) == 0))
+      return 1.0f;
+  }
+  if (player2 != NULL && player2->b9db == 0x4a) {
+    char *techno = (char *)player2->techno;
+    if (techno != NULL && (str == NULL || NuStrICmp(techno + 0x58, str) == 0))
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e360
+f32 Condition_EitherPlayerUsingPanel(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                     AIPACKET_s *packet, char *str,
+                                     void *argument) {
+  if (player != NULL && player->b9db == 0xb) {
+    char *techno = (char *)player->techno;
+    if (techno != NULL && (str == NULL || NuStrICmp(techno + 0x40, str) == 0))
+      return 1.0f;
+  }
+  if (player2 != NULL && player2->b9db == 0xb) {
+    char *techno = (char *)player2->techno;
+    if (techno != NULL && (str == NULL || NuStrICmp(techno + 0x40, str) == 0))
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e3f0
+f32 Condition_EitherPlayerUsingTechno(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                      AIPACKET_s *packet, char *str,
+                                      void *argument) {
+  if (player != NULL && player->b9db == 0x51) {
+    char *techno = (char *)player->techno;
+    if (techno != NULL && (str == NULL || NuStrICmp(techno + 0x40, str) == 0))
+      return 1.0f;
+  }
+  if (player2 != NULL && player2->b9db == 0x51) {
+    char *techno = (char *)player2->techno;
+    if (techno != NULL && (str == NULL || NuStrICmp(techno + 0x40, str) == 0))
+      return 1.0f;
+  }
+  return 0.0f;
+}

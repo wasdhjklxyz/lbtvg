@@ -988,3 +988,6 @@
 006277f0 CC_weight  matched, keyword table
 00627830 CC_stun_die_chance  matched, keyword table
 00627890 CC_hover_time  matched, keyword table
+0044e2d0 Condition_EitherPlayerPullingLever  matched, keyword table + Mac name
+0044e360 Condition_EitherPlayerUsingPanel  matched, keyword table + Mac name
+0044e3f0 Condition_EitherPlayerUsingTechno  matched, keyword table + Mac name
