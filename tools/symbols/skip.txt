@@ -50,3 +50,5 @@
 006a4640 Action_Idle: x87 + ftol, several early returns, not attempted
 00464d10 Action_UseForce: epilogue tail-merge, see STUB
 0046eee0 Action_ForceLightning: x87 double temps + hand-hold loop, not attempted
+0060ea60 LevelObjects_InitForLevel: jump table
+0043ebf0 ObjHitShield: long x87 + flag juggling, not attempted

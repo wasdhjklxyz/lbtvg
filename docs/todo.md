@@ -478,7 +478,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## LevelObjects
 
 - [ ] `0060e8e0` 215 B `LevelObjects_InitForGame(LEVELOBJECT*, variptr_u*, variptr_u*, int, int)`  **stub** · **hint** name (order) · **saga** `legoapi/world/levelobjects.cpp`
-- [ ] `0060ea60` 510 B `LevelObjects_InitForLevel(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/items/objects/objectsall.cpp`
+- [ ] `0060ea60` 510 B `LevelObjects_InitForLevel(WORLDINFO_s*)`  **stub** · **hint** name (order) · **saga** `legoapi/items/objects/objectsall.cpp`
 
 ## Move
 
