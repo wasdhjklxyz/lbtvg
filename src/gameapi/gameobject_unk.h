@@ -93,7 +93,13 @@ struct GameObject_s {
   u8 b3c8;                      // 0x3c8
   u8 pad6[0x3ce - 0x3c9];
   u8 b3ce; // 0x3ce
-  u8 pad7[0x988 - 0x3cf];
+  u8 pad7[0x480 - 0x3cf];
+  u32 flags480_lo : 26;
+  u32 move_range_type : 2; // 0x480 bits 26-27
+  u32 flags480_hi : 4;
+  u8 pad7a[0x488 - 0x484];
+  f32 move_range; // 0x488
+  u8 pad7b[0x988 - 0x48c];
   f32 f988; // 0x988
   f32 f98c; // 0x98c
   u8 pad8[0x998 - 0x990];

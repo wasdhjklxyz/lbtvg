@@ -212,6 +212,52 @@ i32 Action_SetScriptParam(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+// GLOBAL: LEGOBATMAN 0x009c596c
+extern f32 DEFAULT_MOVE_RANGE;
+
+// FUNCTION: LEGOBATMAN 0x0045f9e0
+i32 Action_SetMaxMovementRange(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                               AIPACKET_s *packet, char **args, int argc,
+                               int flags, f32 time) {
+  f32 range = 0.0f;
+  i32 all_non_party = 0;
+  i32 range_type = 1;
+  if (flags) {
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp("Default", args[i]) == 0) {
+        range = DEFAULT_MOVE_RANGE;
+      } else if (NuStrICmp("All_Non_Party", args[i]) == 0) {
+        all_non_party = 1;
+      } else if (NuStrICmp("Locator", args[i]) == 0) {
+        range_type = 2;
+      } else {
+        range = AIParamToFloat(process, args[i]);
+      }
+    }
+    if (all_non_party) {
+      GameObject_s *object = Obj;
+      for (i32 i = 0; i < HIGHGAMEOBJECT; i++, object++) {
+        if ((object->flags1fc & 1) && (object->flags1fc & 0x1000) &&
+            (object->flags1f8 & 0x400)) {
+          object->move_range = range;
+          if (range > 0.0f)
+            object->move_range_type = 1;
+          else
+            object->move_range_type = 0;
+        }
+      }
+    } else if (packet && packet->pd0 && packet->pd0->obj) {
+      GameObject_s *object = packet->pd0->obj;
+      object->move_range = range;
+      if (range > 0.0f)
+        object->move_range_type = range_type;
+      else
+        object->move_range_type = 0;
+    }
+  }
+  return 1;
+}
+
 struct GIZOBSTACLE_s {
   u8 pad0[0xc8];
   u32 flags_c8_lo : 13;
