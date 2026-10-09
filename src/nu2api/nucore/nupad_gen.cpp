@@ -3,6 +3,7 @@
 // neighbouring TU; see the report.
 
 #include "common.h"
+#include <string.h>
 
 // Outside this file; names unknown.
 void Unk006e2ac0(void);
@@ -61,6 +62,43 @@ int g_nuPadUnk0adf658;
 float g_nuPadUnk0adf6e0;
 // GLOBAL: LEGOBATMAN 0x00b03924
 unsigned short g_nuPadUnk0b03924;
+
+typedef struct nupad_s {
+  int port;  // 0x00
+  int slot;  // 0x04
+  int stage; // 0x08
+  unsigned char pad0c[0x90 - 0x0c];
+  unsigned char analog_right_x; // 0x90
+  unsigned char analog_right_y; // 0x91
+  unsigned char analog_left_x;  // 0x92
+  unsigned char analog_left_y;  // 0x93
+  unsigned char pad94[0xa4 - 0x94];
+} NUPAD;
+
+extern "C" void *NuMemAllocFn(int size, const char *file, int line);
+void NuPadOpenPS(NUPAD *pad);
+
+// FUNCTION: LEGOBATMAN 0x006d5700
+NUPAD *NuPadOpen(int port, int slot) {
+  NUPAD *pad;
+
+  pad = (NUPAD *)NuMemAllocFn(sizeof(NUPAD) + 0x800, __FILE__, 0xb4);
+
+  if (pad != 0) {
+    memset(pad, 0, sizeof(NUPAD));
+
+    pad->port = port;
+    pad->slot = slot;
+    pad->stage = 0;
+
+    pad->analog_right_x = pad->analog_right_y = pad->analog_left_x =
+        pad->analog_left_y = 0x80;
+  }
+
+  NuPadOpenPS(pad);
+
+  return pad;
+}
 
 // FUNCTION: LEGOBATMAN 0x006d5790
 float NuPadApplyCurve(float x) {

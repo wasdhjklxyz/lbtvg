@@ -88,7 +88,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [NuInit](#nuinit) | 1 | 1 |
 | [NuMtl](#numtl) | 2 | 1 |
 | [NuMusic](#numusic) | 1 | 1 |
-| [NuPad](#nupad) | 1 | 1 |
 | [NuUnicode](#nuunicode) | 1 | 1 |
 | [NuVec](#nuvec) | 1 | 1 |
 | [ObjHitObj](#objhitobj) | 1 | 1 |
@@ -873,10 +872,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## NuMusic
 
 - [ ] `005375d0` 757 B `NuMusic::Debug(int, int)`  **saga** `nu2api/numusic/numusic.cpp`
-
-## NuPad
-
-- [ ] `006d5700` 105 B `_NuPadOpen`  **saga** `nu2api/nucore/nupad.cpp`
 
 ## NuUnicode
 
