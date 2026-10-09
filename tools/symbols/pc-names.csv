@@ -1087,14 +1087,23 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00600a70,002df546,__Z12Grab_move_zyP8nufpar_s,Grab_move_zy(nufpar_s*),confirmed,0
 00600a80,002df55e,__Z11Grab_move_xP8nufpar_s,Grab_move_x(nufpar_s*),confirmed,0
 00600a90,002df576,__Z13Grab_invert_xP8nufpar_s,Grab_invert_x(nufpar_s*),confirmed,0
+00600aa0,002df58e,__Z14Grab_characterP8nufpar_s,Grab_character(nufpar_s*),confirmed,0
 00600ae0,002df5dc,__Z11Grab_shadowP8nufpar_s,Grab_shadow(nufpar_s*),confirmed,0
+00600b30,002df63c,__Z11Grab_minrotP8nufpar_s,Grab_minrot(nufpar_s*),confirmed,0
+00600b90,002df6b2,__Z11Grab_maxrotP8nufpar_s,Grab_maxrot(nufpar_s*),confirmed,0
+00600bf0,002df728,__Z14Grab_start_angP8nufpar_s,Grab_start_ang(nufpar_s*),confirmed,0
 00600c40,002df78a,__Z17Grab_hide_grabberP8nufpar_s,Grab_hide_grabber(nufpar_s*),confirmed,0
+00600c50,002df7a2,__Z15Grab_can_bounceP8nufpar_s,Grab_can_bounce(nufpar_s*),confirmed,0
 00600c60,002df7ba,__Z21Grab_can_bounce_heavyP8nufpar_s,Grab_can_bounce_heavy(nufpar_s*),confirmed,0
 00600c70,002df7d6,__Z17Grab_seek_to_plugP8nufpar_s,Grab_seek_to_plug(nufpar_s*),confirmed,0
 00600c80,002df7f2,__Z11Grab_magnetP8nufpar_s,Grab_magnet(nufpar_s*),confirmed,0
 00600c90,002df80e,__Z10Grab_craneP8nufpar_s,Grab_crane(nufpar_s*),confirmed,0
 00600ca0,002df82a,__Z15Grab_not_activeP8nufpar_s,Grab_not_active(nufpar_s*),confirmed,0
-00600d30,002df8fc,__Z8Grab_sfxP8nufpar_s,Grab_sfx(nufpar_s*),strings,0
+00600cb0,002df842,__Z15Grab_swapblowupP8nufpar_s,Grab_swapblowup(nufpar_s*),confirmed,0
+00600cc0,002df85e,__Z15Grab_grabeffectP8nufpar_s,Grab_grabeffect(nufpar_s*),confirmed,0
+00600d00,002df8b6,__Z20Grab_grabsoundeffectP8nufpar_s,Grab_grabsoundeffect(nufpar_s*),confirmed,0
+00600d30,002df8fc,__Z8Grab_sfxP8nufpar_s,Grab_sfx(nufpar_s*),confirmed,0
+00600e80,002dfa7e,__Z23Grab_drop_when_disabledP8nufpar_s,Grab_drop_when_disabled(nufpar_s*),confirmed,0
 00600e90,002dfa9a,__Z17Grabber_ConfigureP11WORLDINFO_sPc,"Grabber_Configure(WORLDINFO_s*, char*)",strings,0
 00601280,002dff2c,__Z23Grabber_IsActiveGrabberP12GameObject_s,Grabber_IsActiveGrabber(GameObject_s*),confirmed,0
 006012c0,002dff6e,__Z15Grabber_TerrainP9GRABBER_sP7nuvec_si,"Grabber_Terrain(GRABBER_s*, nuvec_s*, int)",order,1

@@ -1334,3 +1334,13 @@
 0060e3e0 LC_AL_music  keyword table 0x963278
 0060e460 LC_AL_music_other  keyword table 0x963278
 0060e4e0 LC_AL_sfx_ambient  keyword table 0x963278
+00600aa0 Grab_character  keyword table 0x962c48
+00600b30 Grab_minrot  keyword table 0x962c48
+00600b90 Grab_maxrot  keyword table 0x962c48
+00600bf0 Grab_start_ang  keyword table 0x962c48
+00600c50 Grab_can_bounce  keyword table 0x962c48
+00600cb0 Grab_swapblowup  keyword table 0x962c48
+00600cc0 Grab_grabeffect  keyword table 0x962c48
+00600d00 Grab_grabsoundeffect  keyword table 0x962c48
+00600d30 Grab_sfx  keyword table 0x962c48
+00600e80 Grab_drop_when_disabled  keyword table 0x962c48
