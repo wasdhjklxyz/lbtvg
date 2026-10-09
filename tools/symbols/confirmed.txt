@@ -1679,3 +1679,17 @@
 006e3040 bgProcClose            Mac order, empty; matched
 006e3050 NuFileInitEarly        Mac order after bgProcClose; one-shot InitializeCriticalSection; matched
 006e3070 NuFileExists           Mac order after NuFileInitEarly; tail call; matched
+006e31d0 DEVCDDVDROM_Interrogate Mac order after DEV_FormatName; the three Interrogate bodies 0x6e31d0/e0/f0 are byte-identical; matched
+006e31e0 DEVHOST_Interrogate    Mac order; byte-identical to 0x6e31d0; matched
+006e31f0 DEVMEMORYCARD_Interrogate Mac order; byte-identical to 0x6e31d0; matched
+006e3200 NuFileSetBadGameDisc   Mac order, empty; matched
+006e3210 NuFileCheckBadGameDiscStatus Mac order, return 0; matched
+006e3220 getpointer             Mac order; first free slot of the 64 PS file handles; matched
+006e3240 NuPSFileClose          Mac order; CloseHandle + slot reset; matched
+006e3270 NuPSFileRead           Mac order; ReadFile on the slot; matched
+006e32b0 NuPSFileWrite          Mac order; WriteFile on the slot; matched
+006e32f0 NuPSFileLSeek          Mac order; SetFilePointerEx with whence mapping; matched
+006e3360 NuPSFileInitDevices    Mac order (6-byte empty on Mac); empty, matched
+006e3370 NuFileSetAppDirectory  Mac order; strcpy into the app-directory buffer; matched
+006e3390 NuFileGetAppDirectory  Mac order; strcpy out of the same buffer; matched
+006e33b0 NuFileRename           Mac order; DeleteFileA(new) + MoveFileA(old, new); matched

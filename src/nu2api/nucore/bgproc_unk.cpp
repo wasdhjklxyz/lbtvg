@@ -53,7 +53,7 @@ void bgProcInit(void) {
 
 // Mac order after bgThreadMain: bgProcAbortAll, bgprocFreeze, bgprocUnFreeze,
 // bgprocIsFrozen, bgprocIsFreezing, bgProcIsBgThread, bgSuspendMain,
-// bgProcClose, NuFileInitEarly, NuFileExists.
+// bgProcClose (then NuFileInitEarly, in nufile_ps_unk.cpp).
 
 // GLOBAL: LEGOBATMAN 0x00b058cc
 volatile int g_bgFrozen;
@@ -99,21 +99,3 @@ void bgSuspendMain(void) {
 
 // FUNCTION: LEGOBATMAN 0x006e3040
 void bgProcClose(void) {}
-
-// GLOBAL: LEGOBATMAN 0x00b058d4
-static int g_nuFileEarlyInit;
-// GLOBAL: LEGOBATMAN 0x00b05478
-CRITICAL_SECTION g_nuFileCritSec;
-
-// FUNCTION: LEGOBATMAN 0x006e3050
-void NuFileInitEarly(void) {
-  if (!g_nuFileEarlyInit) {
-    InitializeCriticalSection(&g_nuFileCritSec);
-    g_nuFileEarlyInit = 1;
-  }
-}
-
-int NuFileUnk006dd990(char *name);
-
-// FUNCTION: LEGOBATMAN 0x006e3070
-int NuFileExists(char *name) { return NuFileUnk006dd990(name); }
