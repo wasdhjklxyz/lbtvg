@@ -13,7 +13,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [near rtleditor.cpp](#near-rtleditorcpp) | 95 | 69 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 93 | 67 |
 | [Action](#action) | 72 | 57 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
@@ -74,7 +74,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizBuildIts](#gizbuildits) | 1 | 1 |
 | [GizForces](#gizforces) | 1 | 1 |
 | [GizForceSFX](#gizforcesfx) | 1 | 1 |
-| [GizmoBlowUp](#gizmoblowup) | 1 | 1 |
 | [GizmoPickups](#gizmopickups) | 1 | 1 |
 | [GizObstacles](#gizobstacles) | 1 | 1 |
 | [GizTurret](#gizturret) | 1 | 1 |
@@ -241,7 +240,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0059a0d0` 60 B `_FindAnimIX`  **hint** name (gapfill)
 - [ ] `0060cea0` 60 B `GameDrawMenuEntry(MENU_s*, char*)`  **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `005ae240` 64 B `SeekValF(float, float, float)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/move.cpp`
-- [ ] `005a2d10` 66 B `NewRumble(nupad_s*, float, int)`  **hint** name (gapfill) · **saga** `legoapi/core/input/gamepads.cpp`
 - [ ] `0059b3c0` 68 B `_AnimPlaying`  **hint** name (gapfill)
 - [ ] `005b0f40` 71 B `GameBufferAlloc(variptr_u*, variptr_u*, int)`  **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `00635de0` 71 B `CoinsGoToMainTotal()`  **hint** name (gapfill) · **saga** `legoapi/menus/core/panel.cpp`
@@ -261,7 +259,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005ae5c0` 126 B `FindAnglesZX(nuvec_s*, unsigned short*, unsigned short*)`  **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `0059c4b0` 127 B `_ActionFromName`  **hint** name (gapfill)
 - [ ] `0063e540` 131 B `FreeGameObjectLights()`  **hint** name (order) · **saga** `legoapi/render/light/lighting.cpp`
-- [ ] `006394f0` 133 B `FaceOpponent(GameObject_s*, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/move.cpp`
 - [ ] `0065c320` 136 B `LoseHat(GameObject_s*)`  **hint** name (gapfill)
 - [ ] `005b00d0` 153 B `LineIntersectCircle(nuvec_s*, nuvec_s*, nuvec_s*, float)`  **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `005c8f30` 155 B `LoadGrassFile(WORLDINFO_s*)`  **saga** `legoapi/render/core/terrain.cpp`
@@ -822,10 +819,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## GizForceSFX
 
 - [ ] `00486350` 258 B `GizForceSFX_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/gizmos/traps/gizforce.cpp`
-
-## GizmoBlowUp
-
-- [ ] `005dda30` 83 B `GizmoBlowUp_FindByName(WORLDINFO_s*, char*)`  **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
 
 ## GizmoPickups
 

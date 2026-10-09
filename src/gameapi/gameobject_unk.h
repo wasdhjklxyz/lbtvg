@@ -50,11 +50,20 @@ struct Unk_GameObject112c {
   f32 f28; // 0x28
 };
 
+// FaceOpponent: aim point at +0x58.
+struct BlowupTarget_s {
+  u8 pad0[0x58];
+  nuvec_s mid_position; // 0x58
+};
+
 struct GameObject_s {
   u8 pad0[0x50];
   Unk_GameObject50 *p50; // 0x50
   Unk_GameObject54 *p54; // 0x54
-  u8 pad1[0x80 - 0x58];
+  u8 pad1[0x5a - 0x58];
+  i16 facing_angle; // 0x5a
+  nuvec_s position; // 0x5c
+  u8 pad1b[0x80 - 0x68];
   nuvec_s v80; // 0x80
   u8 pad2[0x1f8 - 0x8c];
   u32 flags1f8; // 0x1f8
@@ -73,7 +82,10 @@ struct GameObject_s {
   f32 f98c; // 0x98c
   u8 pad8[0x998 - 0x990];
   f32 f998; // 0x998
-  u8 pad9[0x9d0 - 0x99c];
+  u8 pad9[0x9a8 - 0x99c];
+  GameObject_s *force_target;    // 0x9a8
+  BlowupTarget_s *blowup_target; // 0x9ac
+  u8 pad9b[0x9d0 - 0x9b0];
   i16 s9d0; // 0x9d0
   i16 s9d2; // 0x9d2
   u8 pad10[0x9d9 - 0x9d4];

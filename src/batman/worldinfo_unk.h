@@ -59,6 +59,10 @@ struct WORLDINFO_s {
   AISYS_s *aiSys2bf8; // 0x2bf8
   u8 pad8[0x5220 - 0x2bfc];
   Unk_WorldInfo5220 *p5220; // 0x5220
+  u8 pad9[0x5228 - 0x5224];
+  i32 gizmo_blowup_count; // 0x5228
+  u8 pad10[0x5230 - 0x522c];
+  GIZMOBLOWUP_s *gizmo_blowups; // 0x5230
 };
 
 // GLOBAL: LEGOBATMAN 0x00960894

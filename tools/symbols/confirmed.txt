@@ -17,3 +17,5 @@
 005c1860 Player_FindByID  saga body matches (Player[8] scan by id, flags 0x1001)
 005fc2b0 DumpAreaData  saga body shape matches (3 scenes removed, mode passed on)
 005fb1e0 Area_FindStatusLevel  saga body matches (first area level with LEVEL_STATUS 0x400)
+006394f0 FaceOpponent  saga body matches (force/blowup target, NuAtan2D facing)
+005a2d10 NewRumble  saga body matches (clamped strength*255 rumble)

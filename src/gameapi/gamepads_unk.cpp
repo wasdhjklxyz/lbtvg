@@ -46,6 +46,16 @@ void GameAudio_PlaySfxById(i32 sfx_id, nuvec_s *position, i32 flags, i32) {
   }
 }
 
+// FUNCTION: LEGOBATMAN 0x005a2d10
+void NewRumble(nupad_s *pad, float strength, i32) {
+  if (pad != 0) {
+    i32 amount = (i32)(strength * 255.0f);
+    if (amount > 255)
+      amount = 255;
+    NuSoundAddRumble(pad, 0.0f, amount, 0.0f, strength);
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x005a2dd0
 void NewRumbleAllPlayers(float strength, float duration, i32 frames, i32) {
   if (frames > 0) {

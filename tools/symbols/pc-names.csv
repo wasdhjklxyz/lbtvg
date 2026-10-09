@@ -341,7 +341,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005a21e0,00271eae,__Z14GameCam_JudderP12GAMECAMERA_sfiP7nuvec_s,"GameCam_Judder(GAMECAMERA_s*, float, int, nuvec_s*)",gapfill,2
 005a2310,00271f96,__Z17GameCam_HitJudderv,GameCam_HitJudder(),gapfill,1
 005a27c0,00272204,__Z13GameCam_BlendP12GAMECAMERA_sffi,"GameCam_Blend(GAMECAMERA_s*, float, float, int)",gapfill,2
-005a2d10,002b2902,__Z9NewRumbleP7nupad_sfi,"NewRumble(nupad_s*, float, int)",gapfill,3
+005a2d10,002b2902,__Z9NewRumbleP7nupad_sfi,"NewRumble(nupad_s*, float, int)",confirmed,0
 005a2d60,002b295a,__Z7NewBuzzP7nupad_sfi,"NewBuzz(nupad_s*, float, int)",gapfill,2
 005a2d90,002b2994,__Z13NewBuzzFramesP7nupad_sii,"NewBuzzFrames(nupad_s*, int, int)",calls,1
 005a2dd0,002b29de,__Z19NewRumbleAllPlayersffii,"NewRumbleAllPlayers(float, float, int, int)",calls,1
@@ -533,7 +533,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00635de0,002ced68,__Z18CoinsGoToMainTotalv,CoinsGoToMainTotal(),gapfill,2
 00636200,002cf1e8,__Z25SpecialMiniKits_ConfigureP11WORLDINFO_sPc,"SpecialMiniKits_Configure(WORLDINFO_s*, char*)",strings,0
 00638f90,00282e9c,__Z23CharPlatforms_ConfigureP11WORLDINFO_sPc,"CharPlatforms_Configure(WORLDINFO_s*, char*)",strings,0
-006394f0,002a80d0,__Z12FaceOpponentP12GameObject_sP7nuvec_s,"FaceOpponent(GameObject_s*, nuvec_s*)",gapfill,3
+006394f0,002a80d0,__Z12FaceOpponentP12GameObject_sP7nuvec_s,"FaceOpponent(GameObject_s*, nuvec_s*)",confirmed,0
 00639580,002a8152,__Z21ObjOpponentStillThereP12GameObject_sS0_f,"ObjOpponentStillThere(GameObject_s*, GameObject_s*, float)",order,4
 00639670,002a821c,__Z12SetWeaponOutP12GameObject_s,SetWeaponOut(GameObject_s*),confirmed,0
 006396c0,002a827c,__Z13FastWeaponOutP12GameObject_si,"FastWeaponOut(GameObject_s*, int)",order,5
