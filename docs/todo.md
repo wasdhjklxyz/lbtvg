@@ -687,7 +687,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## PartImpact
 
 - [ ] `00504740` 218 B `PartImpact_Seed(PART_s*)`  **hint** name (order)
-- [ ] `004f9d30` 457 B `PartImpact_ThermalDetonator(PART_s*)`  **saga** `legoapi/items/collect/thermaldetonators.cpp`
+- [ ] `004f9d30` 457 B `PartImpact_ThermalDetonator(PART_s*)`  **stub** · **saga** `legoapi/items/collect/thermaldetonators.cpp`
 - [ ] `00504a40` 542 B `PartImpact_BlackSeed(PART_s*)`  **hint** name (order)
 
 ## Player

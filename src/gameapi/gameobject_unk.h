@@ -215,7 +215,10 @@ struct PART_s {
   nuvec_s pos; // 0x30
   u8 pad1[0x80 - 0x3c];
   nuvec_s v80; // 0x80
-  u8 pad2[0xd4 - 0x8c];
+  u8 pad2[0xa4 - 0x8c];
+  nuvec_s impact_position; // 0xa4
+  nuvec_s impact_normal;   // 0xb0
+  u8 pad2b[0xd4 - 0xbc];
   GameObject_s *objd4; // 0xd4
   u8 padd8[0xe0 - 0xd8];
   f32 radius; // 0xe0
@@ -223,7 +226,11 @@ struct PART_s {
   f32 f100; // 0x100, ThermalDetonator: beep while in (0, 1)
   u8 pad104[0x148 - 0x104];
   u32 flags148; // 0x148
-  u8 pad14c[0x22c - 0x14c];
+  u8 pad14c[0x1d0 - 0x14c];
+  void (*stop_callback)(struct PART_s *part); // 0x1d0
+  u8 pad1d4[0x219 - 0x1d4];
+  u8 surface219; // 0x219, terrain surface hit (0x1c = kill)
+  u8 pad21a[0x22c - 0x21a];
   f32 reflection_height; // 0x22c
 };
 
