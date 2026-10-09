@@ -956,3 +956,14 @@
 00600c80 Grab_magnet  matched, keyword table
 00600c90 Grab_crane  matched, keyword table
 00600ca0 Grab_not_active  matched, keyword table
+00614a70 D_cam_wait  matched saga body, keyword table
+00614a90 D_cam_blend_time  matched saga body, keyword table
+00614ab0 D_cam_lookatplayers  matched saga body, keyword table
+00614ac0 D_one_way  matched saga body, keyword table
+00614ad0 D_two_player_only  matched saga body, keyword table
+00614ae0 D_do_not_use  matched saga body, keyword table
+00614af0 D_next_sock  matched saga body, keyword table
+00614ba0 D_use_as_start  matched saga body, keyword table
+00655c40 RE_life  matched saga body, keyword table
+00655c60 RE_start_radius  matched saga body, keyword table
+00655c80 RE_end_radius  matched saga body, keyword table

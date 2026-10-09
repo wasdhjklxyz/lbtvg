@@ -268,3 +268,20 @@ void AddRipple(ripple_set_s *set, numtx_s *matrix, float size, float growth, flo
         node->velocity = v000;
 }
 #endif
+
+f32 NuFParGetFloat(NUFPAR *parser);
+
+// FUNCTION: LEGOBATMAN 0x00655c40
+void RE_life(NUFPAR *parser) {
+  RE_rippleeffect->lifetime = NuFParGetFloat(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x00655c60
+void RE_start_radius(NUFPAR *parser) {
+  RE_rippleeffect->initial_size = NuFParGetFloat(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x00655c80
+void RE_end_radius(NUFPAR *parser) {
+  RE_rippleeffect->end_size = NuFParGetFloat(parser);
+}

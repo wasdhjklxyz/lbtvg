@@ -939,6 +939,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006111a0,0028ca9e,__ZN10Customiser7LoadAllEP11WORLDINFO_s,Customiser::LoadAll(WORLDINFO_s*),strings,0
 006122e0,0028c2c4,__ZN10Customiser15MenuSaveAndExitEv,Customiser::MenuSaveAndExit(),strings,0
 006137e0,0028e3fc,__ZN10Customiser6Draw3DEv,Customiser::Draw3D(),strings,0
+00614a70,002a0e42,__Z10D_cam_waitP8nufpar_s,D_cam_wait(nufpar_s*),confirmed,0
+00614a90,002a0e74,__Z16D_cam_blend_timeP8nufpar_s,D_cam_blend_time(nufpar_s*),confirmed,0
+00614ab0,002a0ea6,__Z19D_cam_lookatplayersP8nufpar_s,D_cam_lookatplayers(nufpar_s*),confirmed,0
+00614ac0,002a0ebe,__Z9D_one_wayP8nufpar_s,D_one_way(nufpar_s*),confirmed,0
+00614ad0,002a0ed6,__Z17D_two_player_onlyP8nufpar_s,D_two_player_only(nufpar_s*),confirmed,0
+00614ae0,002a0eee,__Z12D_do_not_useP8nufpar_s,D_do_not_use(nufpar_s*),confirmed,0
+00614af0,002a0f06,__Z11D_next_sockP8nufpar_s,D_next_sock(nufpar_s*),confirmed,0
+00614ba0,002a0ff4,__Z14D_use_as_startP8nufpar_s,D_use_as_start(nufpar_s*),confirmed,0
 00614d10,002a1156,__Z15Doors_ConfigureP11WORLDINFO_sPc,"Doors_Configure(WORLDINFO_s*, char*)",strings,0
 00614f20,002a13b0,__Z10Door_Resetv,Door_Reset(),order,2
 00614f40,002a13d6,__Z10Doors_InitP11WORLDINFO_s,Doors_Init(WORLDINFO_s*),order,2
@@ -1312,6 +1320,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00655b50,00329a8c,__Z15RE_texture_nameP8nufpar_s,RE_texture_name(nufpar_s*),confirmed,0
 00655ba0,00329b32,__Z15RE_start_colourP8nufpar_s,RE_start_colour(nufpar_s*),confirmed,0
 00655bf0,00329b98,__Z13RE_end_colourP8nufpar_s,RE_end_colour(nufpar_s*),confirmed,0
+00655c40,00329c00,__Z7RE_lifeP8nufpar_s,RE_life(nufpar_s*),confirmed,0
+00655c60,00329c2e,__Z15RE_start_radiusP8nufpar_s,RE_start_radius(nufpar_s*),confirmed,0
+00655c80,00329c5c,__Z13RE_end_radiusP8nufpar_s,RE_end_radius(nufpar_s*),confirmed,0
 00655ca0,00329c8a,__Z23RippleEffects_ConfigureP11WORLDINFO_sPc,"RippleEffects_Configure(WORLDINFO_s*, char*)",strings,0
 00655e50,00329ae4,__Z23LookupRippleEffectIndexPc,LookupRippleEffectIndex(char*),confirmed,0
 00656130,0032a02a,__Z9AddRippleP12ripple_set_sP7numtx_sffff4RGBAS3_iP7numtl_sP7nuvec_s,"AddRipple(ripple_set_s*, numtx_s*, float, float, float, float, RGBA, RGBA, int, numtl_s*, nuvec_s*)",gapfill,3

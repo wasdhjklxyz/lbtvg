@@ -285,3 +285,38 @@ i32 StartDoorPositions(void) {
   }
   return 0;
 }
+
+i32 NuFParGetInt(NUFPAR *parser);
+f32 NuFParGetFloat(NUFPAR *parser);
+
+// FUNCTION: LEGOBATMAN 0x00614a70
+void D_cam_wait(NUFPAR *parser) {
+  D_door->camera_wait = NuFParGetFloat(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x00614a90
+void D_cam_blend_time(NUFPAR *parser) {
+  D_door->camera_blend_time = NuFParGetFloat(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x00614ab0
+void D_cam_lookatplayers(NUFPAR *parser) { D_door->flags |= 2; }
+
+// FUNCTION: LEGOBATMAN 0x00614ac0
+void D_one_way(NUFPAR *parser) { D_door->flags |= 1; }
+
+// FUNCTION: LEGOBATMAN 0x00614ad0
+void D_two_player_only(NUFPAR *parser) { D_door->flags |= 0x10; }
+
+// FUNCTION: LEGOBATMAN 0x00614ae0
+void D_do_not_use(NUFPAR *parser) { D_door->flags |= 4; }
+
+// FUNCTION: LEGOBATMAN 0x00614af0
+void D_next_sock(NUFPAR *parser) {
+  i32 next_sock = NuFParGetInt(parser);
+  if ((u32)next_sock <= 31)
+    D_door->next_sock = next_sock;
+}
+
+// FUNCTION: LEGOBATMAN 0x00614ba0
+void D_use_as_start(NUFPAR *parser) { D_door->flags |= 8; }
