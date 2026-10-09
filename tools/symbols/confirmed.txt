@@ -513,3 +513,7 @@
 00450b30 Condition_EitherPlayerPushingSpinnerInit   matched (saga body shape), Mac order of the Condition_* run
 00450b60 Condition_EitherPlayerPushingSpinner   matched (saga body shape), Mac order of the Condition_* run
 00450c00 Condition_CharacterRange   matched (saga body shape), Mac order of the Condition_* run
+00450c50 Condition_BeenSpawned  matched saga body, Mac order
+00450c90 Condition_TakeOverTargetInTriggerAreaInit   matched (AISysFindArea), Mac order
+00450e20 Condition_AnyPartyInTriggerAreaInit   matched (AISysFindArea), Mac order
+00450ed0 Condition_AllPartyInTriggerAreaInit   matched (AISysFindArea), Mac order

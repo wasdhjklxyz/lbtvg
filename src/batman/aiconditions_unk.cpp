@@ -1835,6 +1835,34 @@ f32 Condition_CharacterRange(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1.0e9f;
 }
 
+// FUNCTION: LEGOBATMAN 0x00450c50
+f32 Condition_BeenSpawned(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char *str, void *data) {
+  // 0x138: the packet's spawn slot, -1 when not spawned.
+  if (packet != NULL && packet->pd0 != NULL && OWNER(packet)->b24c == -1 &&
+      ((u8 *)packet)[0x138] == 0xff)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00450c90
+void *Condition_TakeOverTargetInTriggerAreaInit(AISYS_s *sys, char *name,
+                                                AISCRIPT_s *script) {
+  return name != NULL ? AISysFindArea(sys, name) : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x00450e20
+void *Condition_AnyPartyInTriggerAreaInit(AISYS_s *sys, char *name,
+                                          AISCRIPT_s *script) {
+  return name != NULL ? AISysFindArea(sys, name) : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x00450ed0
+void *Condition_AllPartyInTriggerAreaInit(AISYS_s *sys, char *name,
+                                          AISCRIPT_s *script) {
+  return name != NULL ? AISysFindArea(sys, name) : NULL;
+}
+
 i32 Hub_GetRandomCharType(void);
 
 // FUNCTION: LEGOBATMAN 0x00451470
