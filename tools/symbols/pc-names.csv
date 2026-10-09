@@ -1858,6 +1858,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006a0de0,001c831e,__ZN12GraphBuilder16processDirectiveERK12StringBufferRi,"GraphBuilder::processDirective(StringBuffer const&, int&)",strings,0
 006a1950,00233e0a,_AIStateFind,_AIStateFind,confirmed,0
 006a19a0,00233e5e,_AIScriptFind,_AIScriptFind,confirmed,0
+006a24d0,00234bb8,_xConst,_xConst,confirmed,0
 006a2730,00234308,_AIScriptCopyConditions,_AIScriptCopyConditions,gapfill,2
 006a2cc0,00234fea,_AIScriptBuildDerivedScript,_AIScriptBuildDerivedScript,gapfill,2
 006a3380,00235f80,_AIParamToFloat,_AIParamToFloat,calls,1

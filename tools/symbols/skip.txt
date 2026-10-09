@@ -108,3 +108,4 @@
 00621200 CC_layers helpers/callers: orig passes parser on stack, ours enregisters it (ebx)
 00621250 CC_layers helpers/callers: orig passes parser on stack, ours enregisters it (ebx)
 00621290 CC_layers helpers/callers: orig passes parser on stack, ours enregisters it (ebx)
+006a2460 xParam: blocked on AIScriptCopyString (0x6a1a90) custom convention/inlined BufferAlloc

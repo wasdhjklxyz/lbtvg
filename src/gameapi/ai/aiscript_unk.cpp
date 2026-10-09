@@ -108,6 +108,7 @@ static void *AIScriptBufferAlloc(VARIPTR *buf, VARIPTR *buf_end, u32 size) {
   return ret;
 }
 
+// orig 0x006a1a90 takes buf in edi and inlines AIScriptBufferAlloc.
 static char *AIScriptCopyString(char *str, VARIPTR *buf, VARIPTR *buf_end) {
   char *dst = 0;
   if (str != 0) {
@@ -118,6 +119,63 @@ static char *AIScriptCopyString(char *str, VARIPTR *buf, VARIPTR *buf_end) {
     }
   }
   return dst;
+}
+
+typedef struct nufpar_s {
+  u8 pad0[0x910];
+  char *word_buf; // 0x910
+} NUFPAR;
+
+i32 NuFParGetWord(NUFPAR *parser);
+f32 NuFParGetFloat(NUFPAR *parser);
+void NuStrNCpy(char *dst, const char *src, i32 n);
+void AIDebugUnk006a10a0(...);
+
+struct AISCRIPTCONST_s {
+  char name[0x20]; // 0x00
+  f32 default_val; // 0x20
+};
+
+// GLOBAL: LEGOBATMAN 0x00ad43c0
+extern AISCRIPTCONST_s aiscript_const[];
+// GLOBAL: LEGOBATMAN 0x00ad4520
+extern i32 aiscript_const_curr;
+
+i32 NuFParGetInt(NUFPAR *parser);
+
+// GLOBAL: LEGOBATMAN 0x00ad44f0
+extern VARIPTR *load_buff;
+// GLOBAL: LEGOBATMAN 0x00ad44f4
+extern VARIPTR *load_endbuff;
+// GLOBAL: LEGOBATMAN 0x00ad44f8
+extern AISCRIPT *load_aiscript;
+
+// keyword "PARAM" in table 0x0099dce0
+// STUB: LEGOBATMAN 0x006a2460
+// close: only the AIScriptCopyString register convention differs (orig buf
+// in edi, ours str); needs CopyString matched first.
+void xParam(NUFPAR *parser) {
+  if (load_aiscript == NULL)
+    return;
+  u32 param_idx = NuFParGetInt(parser);
+  if (param_idx > 3)
+    return;
+  if (NuFParGetWord(parser) == 0)
+    return;
+  load_aiscript->params[param_idx].name =
+      AIScriptCopyString(parser->word_buf, load_buff, load_endbuff);
+  load_aiscript->params[param_idx].default_val = NuFParGetFloat(parser);
+}
+
+// keyword "CONST" in table 0x0099dce0
+// FUNCTION: LEGOBATMAN 0x006a24d0
+void xConst(NUFPAR *parser) {
+  if (NuStrLen(parser->word_buf) >= 31)
+    AIDebugUnk006a10a0(parser->word_buf);
+  NuFParGetWord(parser);
+  NuStrNCpy(aiscript_const[aiscript_const_curr].name, parser->word_buf, 0x20);
+  aiscript_const[aiscript_const_curr].default_val = NuFParGetFloat(parser);
+  aiscript_const_curr++;
 }
 
 // STUB: LEGOBATMAN 0x006a2730
