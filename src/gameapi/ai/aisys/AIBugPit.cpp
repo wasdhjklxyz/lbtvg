@@ -190,6 +190,40 @@ void AIScriptLoadAll(char *path, VARIPTR *buf, VARIPTR *buf_end, AISYS_s *sys) {
 i32 AIScriptSetInterrupt(AISCRIPTPROCESS_s *processor, u8 priority, u8 id,
                          char *state_name, f32 time);
 
+struct AILOCATOR_s *AIPathFindLocator(AISYS_s *aisys, char *name);
+i32 NuRand(void *rand);
+
+#define RESPAWN_LOCATOR(packet) (*(void **)((u8 *)(packet) + 0x1b4))
+
+// FUNCTION: LEGOBATMAN 0x006b4170
+i32 Action_SetRespawnLocator(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                             AIPACKET_s *packet, char **params, i32 param_count,
+                             i32 first_time, f32 elapsed) {
+  struct AILOCATOR_s *locators[32];
+  if (packet == NULL || packet->pd0 == NULL || packet->pd0->obj == NULL)
+    return 1;
+  if (first_time != 0) {
+    RESPAWN_LOCATOR(packet) = processor->locator_set;
+    i32 count = 0;
+    for (i32 i = 0; i < param_count; i++) {
+      char *value = NuStrIStr(params[i], "locator");
+      if (value != NULL) {
+        if (count < 32) {
+          locators[count] = AIPathFindLocator(sys, value + 8);
+          if (locators[count] != NULL)
+            count++;
+        }
+      } else if (NuStrICmp(params[i], "clear") == 0) {
+        RESPAWN_LOCATOR(packet) = NULL;
+        return 1;
+      }
+    }
+    if (count != 0)
+      RESPAWN_LOCATOR(packet) = locators[NuRand(NULL) % count];
+  }
+  return 1;
+}
+
 // AISYS_s +0x21c
 struct AIBLOCKPATHSYS_s {
   u8 path_count; // 0x00

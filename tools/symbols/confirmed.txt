@@ -1527,3 +1527,4 @@
 006a4840 Action_SetCircleDirection  keyword table 0x99df98
 006b45a0 Action_PathConnectionObstacle  keyword table 0x99df98
 006b4350 Action_BlockPath  keyword table 0x99df98
+006b4170 Action_SetRespawnLocator  keyword table 0x99df98

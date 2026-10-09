@@ -1,6 +1,6 @@
 # lbtvg
 
-[![match progress](https://img.shields.io/badge/match%20progress-6.11%25-red)](https://wasdhjklxyz.github.io/lbtvg/)
+[![match progress](https://img.shields.io/badge/match%20progress-6.12%25-red)](https://wasdhjklxyz.github.io/lbtvg/)
 
 A [work-in-progress](https://wasdhjklxyz.github.io/lbtvg) decompilation of LEGO®
 Batman™: The Videogame (2008, PC).
