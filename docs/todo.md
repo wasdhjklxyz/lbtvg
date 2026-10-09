@@ -13,7 +13,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [Action](#action) | 54 | 42 |
+| [Action](#action) | 55 | 43 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 43 | 37 |
 | [near rtleditor.cpp](#near-rtleditorcpp) | 39 | 27 |
 | [near terrain.c](#near-terrainc) | 23 | 9 |
@@ -191,6 +191,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## Action
 
 - [ ] `004701d0` 216 B `Action_IgnoreTriggerSet(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub**
+- [ ] `0045bd40` 236 B `Action_SetSpline(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `004717b0` 246 B `Action_StunOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub**
 - [ ] `0045fc50` 331 B `Action_SetGravityHeight(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00461ff0` 388 B `Action_SetPath(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`

@@ -1202,3 +1202,4 @@
 004752b0 Action_FireSeed  keyword table 0x93bb98
 004628c0 Action_ContextSetAnimation  keyword table 0x93bb98
 0045e830 Action_AddPart  keyword table 0x93bb98
+0045bd40 Action_SetSpline  keyword table 0x93bb98

@@ -321,6 +321,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0045b7e0,00092c5e,__Z25Action_DontAvoidCharacterP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_DontAvoidCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 0045b990,00092aa2,__Z15Action_DontPushP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_DontPush(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 0045bbb0,0007c90e,__Z22Action_PressJumpButtonP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_PressJumpButton(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
+0045bd40,0007ca46,__Z16Action_SetSplineP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetSpline(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 0045be70,0007cb32,__Z26Action_SetZeroAccelerationP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetZeroAcceleration(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 0045bf80,0007cc1c,__Z21Action_BreakFormationP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_BreakFormation(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 0045bfb0,0007cc3c,__Z20Action_FormationMoveP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_FormationMove(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0

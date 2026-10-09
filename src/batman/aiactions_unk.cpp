@@ -4593,3 +4593,32 @@ i32 Action_AddPart(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
   }
   return 1;
 }
+
+struct nugspline_s *NuSplineFind(nugscn_s *scene, char *name);
+void InitSplinePosition(void *pos, struct nugspline_s *spline, f32 t,
+                        i32 looping);
+
+// STUB: LEGOBATMAN 0x0045bd40
+// spline/argc swap ebx and ebp (decl order, locals, pos temp all tried)
+i32 Action_SetSpline(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                     AIPACKET_s *packet, char **args, int argc, int flags,
+                     f32 time) {
+  struct nugspline_s *spline = 0;
+  i32 looping = 0;
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags == 0)
+    return 1;
+  for (i32 i = 0; i < argc; i++) {
+    char *s = NuStrIStr(args[i], "spline=");
+    if (s != 0)
+      spline = NuSplineFind(g_unk00960894->scn140, s + 7);
+    else if (NuStrICmp(args[i], "looping") == 0)
+      looping = 1;
+  }
+  memset(&obj->movement_spline, 0, 0x20);
+  if (spline != 0)
+    InitSplinePosition(&obj->movement_spline, spline, 0.0f, looping);
+  return 1;
+}
