@@ -61,6 +61,99 @@ static FLOWBOX_s *load_flowbox;
 // GLOBAL: LEGOBATMAN 0x00966e48
 extern FLOWCONDITIONTYPE ConditionTypes[];
 
+struct FLOWREMAP {
+  i16 parents[16];       // 0x00
+  i16 children[32];      // 0x20
+  u8 parent_outputs[16]; // 0x60
+};
+
+// GLOBAL: LEGOBATMAN 0x00ad1ab0
+static FLOWREMAP *remap;
+// GLOBAL: LEGOBATMAN 0x00ad1b04
+static i32 numRemaps;
+// GLOBAL: LEGOBATMAN 0x00ad1be4
+static i32 load_nparents;
+// GLOBAL: LEGOBATMAN 0x00ad1be8
+static i32 load_nchildren;
+
+// FUNCTION: LEGOBATMAN 0x00654020
+void xParent_Col(NUFPAR *parser) {
+  if (load_nparents < 16) {
+    remap[numRemaps].parents[load_nparents] = NuFParGetInt(parser);
+    remap[numRemaps].parent_outputs[load_nparents++] = NuFParGetInt(parser);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00654090
+void xChild_Col(NUFPAR *parser) {
+  if (load_nchildren < 32)
+    remap[numRemaps].children[load_nchildren++] = NuFParGetInt(parser);
+}
+
+// GLOBAL: LEGOBATMAN 0x00ad1b88
+static i32 load_parents[16];
+// GLOBAL: LEGOBATMAN 0x00ad1aa0
+static u8 load_parent_output_ix[16];
+// GLOBAL: LEGOBATMAN 0x00ad1b08
+static i32 load_children[32];
+
+// FUNCTION: LEGOBATMAN 0x006540e0
+static void remapParent(i32 id) {
+  i32 slot = -1 - id;
+  for (i32 i = 0; load_nparents < 16; ++i) {
+    i16 parent = remap[slot].parents[i];
+    if (parent == id)
+      break;
+    if (parent < 0) {
+      remapParent(parent);
+    } else {
+      load_parents[load_nparents] = parent;
+      load_parent_output_ix[load_nparents] = remap[slot].parent_outputs[i];
+      ++load_nparents;
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00654160
+static void remapChildren(i32 id) {
+  i32 slot = -1 - id;
+  for (i32 i = 0; load_nchildren < 32; ++i) {
+    i16 child = remap[slot].children[i];
+    if (child == id)
+      break;
+    if (child < 0)
+      remapChildren(child);
+    else
+      load_children[load_nchildren++] = child;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006543d0
+void xParent(NUFPAR *parser) {
+  if (load_nparents < 16) {
+    i32 parent = NuFParGetInt(parser);
+    if (parent < 0) {
+      NuFParGetInt(parser);
+      remapParent(parent);
+    } else {
+      load_parents[load_nparents] = parent;
+      load_parent_output_ix[load_nparents] = NuFParGetInt(parser);
+      ++load_nparents;
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00654430
+void xChild(NUFPAR *parser) {
+  if (load_nchildren < 32) {
+    i32 child = NuFParGetInt(parser);
+    if (child < 0)
+      remapChildren(child);
+    else
+      load_children[load_nchildren++] = child;
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x006547d0
 void xGizmoType(NUFPAR *parser) {
   NuFParGetWord(parser);

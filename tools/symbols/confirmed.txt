@@ -1397,3 +1397,9 @@
 00654980 xAIAssistID  keyword table 0x966ec8
 00654ac0 xConditionType  keyword table 0x966ec8
 00654b30 xMonitorInputs  keyword table 0x966ec8
+00654020 xParent_Col  keyword table 0x966ec8
+00654090 xChild_Col  keyword table 0x966ec8
+006543d0 xParent  keyword table 0x966ec8
+00654430 xChild  keyword table 0x966ec8
+006540e0 remapParent  Mac remapParent(int), recursive callee of xParent
+00654160 remapChildren  Mac remapChildren(int), recursive callee of xChild

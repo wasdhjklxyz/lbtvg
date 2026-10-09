@@ -1652,6 +1652,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00652290,00338262,__Z28SuperCounterConfig_ParseLineP12SUPERCOUNTERP8nufpar_s,"SuperCounterConfig_ParseLine(SUPERCOUNTER*, nufpar_s*)",strings,0
 00652e50,00338e60,__Z22SuperCounter_CharCheckiP7nuvec_siP12SUPERCOUNTERP16SUPERCOUNTERSAVEi,"SuperCounter_CharCheck(int, nuvec_s*, int, SUPERCOUNTER*, SUPERCOUNTERSAVE*, int)",gapfill,1
 00653250,003392c6,__Z29SuperCounter_CreateAIMessagesiiP12SUPERCOUNTERP16SUPERCOUNTERSAVEi,"SuperCounter_CreateAIMessages(int, int, SUPERCOUNTER*, SUPERCOUNTERSAVE*, int)",strings,0
+00654020,002c081e,__Z11xParent_ColP8nufpar_s,xParent_Col(nufpar_s*),confirmed,0
+00654090,002c088e,__Z10xChild_ColP8nufpar_s,xChild_Col(nufpar_s*),confirmed,0
+006540e0,002c08dc,__Z11remapParenti,remapParent(int),confirmed,0
+00654160,002c0954,__Z13remapChildreni,remapChildren(int),confirmed,0
+006543d0,002c0bea,__Z7xParentP8nufpar_s,xParent(nufpar_s*),confirmed,0
+00654430,002c0c68,__Z6xChildP8nufpar_s,xChild(nufpar_s*),confirmed,0
 006547d0,002c10a4,__Z10xGizmoTypeP8nufpar_s,xGizmoType(nufpar_s*),confirmed,0
 00654800,002c10ee,__Z10xGizmoNameP8nufpar_s,xGizmoName(nufpar_s*),confirmed,0
 00654830,002c1138,__Z11xStartInvisP8nufpar_s,xStartInvis(nufpar_s*),confirmed,0
