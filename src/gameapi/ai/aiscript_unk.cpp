@@ -459,3 +459,129 @@ f32 Condition_Param(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                     AIPACKET_s *packet, char *str, void *argument) {
   return AIParamToFloatEx(packet, process, str);
 }
+
+// FUNCTION: LEGOBATMAN 0x006a4d50
+i32 Action_IgnoreWallSplines(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char **args, int argc,
+                             int flags, f32 time) {
+  if (packet == NULL || flags == 0)
+    return 1;
+  *(u32 *)((u8 *)packet + 0x1f0) |= 0x80;
+  for (i32 i = 0; i < argc; i++) {
+    if (NuStrICmp(args[i], "false") == 0)
+      *(u32 *)((u8 *)packet + 0x1f0) &= ~0x80;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a4e40
+i32 Action_NoTerrain(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                     AIPACKET_s *packet, char **args, int argc, int flags,
+                     f32 time) {
+  if (packet == NULL || packet->pd0 == NULL || flags == 0)
+    return 1;
+  *(u32 *)((u8 *)packet->pd0 + 0x1fc) |= 0x20;
+  for (i32 i = 0; i < argc; i++) {
+    if (NuStrICmp(args[i], "false") == 0)
+      *(u32 *)((u8 *)packet->pd0 + 0x1fc) &= ~0x20;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a4ec0
+i32 Action_NoLosCheck(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                      AIPACKET_s *packet, char **args, int argc, int flags,
+                      f32 time) {
+  if (packet == NULL || packet->pd0 == NULL || flags == 0)
+    return 1;
+  *(u32 *)((u8 *)packet->pd0 + 0x1fc) |= 0x400;
+  for (i32 i = 0; i < argc; i++) {
+    if (NuStrICmp(args[i], "false") == 0)
+      *(u32 *)((u8 *)packet->pd0 + 0x1fc) &= ~0x400;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a4f40
+i32 Action_FlatTerrain(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                       AIPACKET_s *packet, char **args, int argc, int flags,
+                       f32 time) {
+  if (packet == NULL || packet->pd0 == NULL || flags == 0)
+    return 1;
+  *(u32 *)((u8 *)packet->pd0 + 0x1fc) |= 0x10;
+  for (i32 i = 0; i < argc; i++) {
+    if (NuStrICmp(args[i], "false") == 0)
+      *(u32 *)((u8 *)packet->pd0 + 0x1fc) &= ~0x10;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a4fc0
+i32 Action_ShadowTerrain(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **args, int argc, int flags,
+                         f32 time) {
+  if (packet == NULL || packet->pd0 == NULL || flags == 0)
+    return 1;
+  *(u32 *)((u8 *)packet->pd0 + 0x1fc) |= 0x8;
+  for (i32 i = 0; i < argc; i++) {
+    if (NuStrICmp(args[i], "false") == 0)
+      *(u32 *)((u8 *)packet->pd0 + 0x1fc) &= ~0x8;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a5040
+i32 Action_DontUseShadowTerrain(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                AIPACKET_s *packet, char **args, int argc,
+                                int flags, f32 time) {
+  if (packet == NULL || packet->pd0 == NULL || flags == 0)
+    return 1;
+  *(u32 *)((u8 *)packet->pd0 + 0x1fc) |= 0x40;
+  for (i32 i = 0; i < argc; i++) {
+    if (NuStrICmp(args[i], "false") == 0)
+      *(u32 *)((u8 *)packet->pd0 + 0x1fc) &= ~0x40;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a50c0
+i32 Action_DontPush(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                    AIPACKET_s *packet, char **args, int argc, int flags,
+                    f32 time) {
+  if (packet == NULL || packet->pd0 == NULL || flags == 0)
+    return 1;
+  *(u32 *)((u8 *)packet->pd0 + 0x1fc) |= 0x2;
+  for (i32 i = 0; i < argc; i++) {
+    if (NuStrICmp(args[i], "false") == 0)
+      *(u32 *)((u8 *)packet->pd0 + 0x1fc) &= ~0x2;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a5140
+i32 Action_CanSeeBehind(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char **args, int argc, int flags,
+                        f32 time) {
+  if (packet == NULL || packet->pd0 == NULL || flags == 0)
+    return 1;
+  *(u32 *)((u8 *)packet->pd0 + 0x1fc) |= 0x800;
+  for (i32 i = 0; i < argc; i++) {
+    if (NuStrICmp(args[i], "false") == 0)
+      *(u32 *)((u8 *)packet->pd0 + 0x1fc) &= ~0x800;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006a51c0
+i32 Action_RequiresLOS(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                       AIPACKET_s *packet, char **args, int argc, int flags,
+                       f32 time) {
+  if (packet == NULL || flags == 0)
+    return 1;
+  *(u32 *)((u8 *)packet + 0x1f0) |= 0x20000;
+  for (i32 i = 0; i < argc; i++) {
+    if (NuStrICmp(args[i], "false") == 0)
+      *(u32 *)((u8 *)packet + 0x1f0) &= ~0x20000;
+  }
+  return 1;
+}

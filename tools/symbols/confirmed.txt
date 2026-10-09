@@ -1012,3 +1012,12 @@
 006a43f0 Condition_IAm  matched saga body, keyword table
 006a4430 Condition_StuckTime  matched saga body, keyword table
 006a4450 Condition_Param  matched saga body, keyword table
+006a4d50 Action_IgnoreWallSplines  matched saga body, keyword table
+006a4e40 Action_NoTerrain  matched saga body, keyword table
+006a4ec0 Action_NoLosCheck  matched saga body, keyword table
+006a4f40 Action_FlatTerrain  matched saga body, keyword table
+006a4fc0 Action_ShadowTerrain  matched saga body, keyword table
+006a5040 Action_DontUseShadowTerrain  matched saga body, keyword table
+006a50c0 Action_DontPush  matched saga body, keyword table
+006a5140 Action_CanSeeBehind  matched saga body, keyword table
+006a51c0 Action_RequiresLOS  matched saga body, keyword table
