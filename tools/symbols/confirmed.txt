@@ -1643,3 +1643,27 @@
 006d6af0 ImplodeInitGetBits     saga body; matched
 006d6b10 ExplodeExit            saga body (gExplodeInitialised), Mac order; matched
 006d6cd0 ImplodeHufDecodeStart  saga body (InitGetBits inlined, blocksize = 0); matched
+006e24d0 numeminit              Mac numem order right after NuMemCpy (8-byte return 0 on Mac); matched
+006e24e0 NuMemGetExternal       saga numem body (returns memexternal 0xb0395c), Mac order; matched
+006e24f0 NuMemSet128            Mac order, memset(p, v, n << 4); matched
+006e2510 NuMemCopy128           saga body shape (count << 4) through NuMemCpy; matched
+006e2520 NuMemCheck             Mac order (empty, between Set128 and AllocFn); matched
+006e2580 NuMemDestroyDiscardable saga body (free with numem_gen.cpp line), Mac order; matched
+006e2620 NuErrorPrint           CNuConsole::SendError("%s"), inlined into NuErrorFunction 0x6e2740; Mac order; matched
+006e2640 NuSevereWarningPrint   Mac order; same body as 0x6e2620 (byte-identical but for the call target, which is also identical); matched
+006e2660 NuWarningPrint         Mac order, SendWarning; inlined into NuWarningFunction; matched
+006e2680 NuDebugMsgPrint        Mac order, SendDebugText; inlined into NuDebugMsgFunction; matched
+006e2700 NuSetErrorMsgHandler   saga nuerror body; handler NuErrorFunction calls; matched
+006e2710 NuSetWarningMsgHandler saga body; handler NuWarningFunction calls; matched
+006e2720 NuSetSevereWarningMsgHandler Mac order; handler NuSevereWarningFunction calls; matched
+006e2730 NuSetDebugMsgHandler   saga body; handler NuDebugMsgFunction calls; matched
+006e2740 NuErrorFunction        saga static ("NuError - %s(%d) : "), returned by 0x6e27c0; matched
+006e27c0 NuErrorProlog          saga body, returns 0x6e2740; matched
+006e27e0 NuSevereWarningFunction "NuSevereWarning - %s(%d) : " string; matched
+006e2860 NuSevereWarningProlog  returns 0x6e27e0, Mac order; matched
+006e2880 NuWarningFunction      "NuWarning - %s(%d) : " string; matched
+006e2910 NuWarningProlog        saga body, returns 0x6e2880; matched
+006e2930 NuDebugMsgFunction     "NuDebugMsg - %s(%d) :" with a stack buffer; matched
+006e29f0 NuDebugMsgFunctionTTY  saga static name, returned by 0x6e2a90; matched
+006e2a70 NuDebugMsgProlog       saga body, returns 0x6e2930; matched
+006e2a90 NuDebugMsgPrologTTY    saga body, returns 0x6e29f0; matched

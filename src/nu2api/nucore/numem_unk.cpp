@@ -106,3 +106,53 @@ void NuMemFree(void *ptr) {
   else
     free(ptr);
 }
+
+// Mac order after NuMemCpy: numeminit, NuMemGetExternal, NuMemSet128,
+// NuMemCheck, NuMemAllocFn, NuMemCreateDiscardable, NuMemCopy128.
+
+extern "C" void *NuMemAllocFn(int size, const char *file, int line);
+extern "C" void NuMemFreeFn(void *ptr, const char *file, int line);
+extern "C" void *memset(void *dst, int c, unsigned int n);
+
+// FUNCTION: LEGOBATMAN 0x006e24d0
+int numeminit(void) { return 0; }
+
+// FUNCTION: LEGOBATMAN 0x006e24e0
+NUMEMEXTERNAL *NuMemGetExternal(void) { return memexternal; }
+
+// FUNCTION: LEGOBATMAN 0x006e24f0
+void NuMemSet128(void *dst, u8 value, i32 count) {
+  memset(dst, value, count << 4);
+}
+
+// FUNCTION: LEGOBATMAN 0x006e2510
+void NuMemCopy128(void *dst, void *src, i32 count) {
+  NuMemCpy((unsigned char *)dst, (unsigned char *)src, count << 4);
+}
+
+// FUNCTION: LEGOBATMAN 0x006e2520
+void NuMemCheck(void) {}
+
+// esi/edi swapped (size vs previous) whichever order the locals take.
+// STUB: LEGOBATMAN 0x006e2530
+NUMEMDISCARDABLE *NuMemCreateDiscardable(i32 size) {
+  NUMEMDISCARDABLE *previous;
+  NUMEMDISCARDABLE *pool;
+
+  previous = discardbuff;
+  discardbuff = 0;
+  pool = (NUMEMDISCARDABLE *)NuMemAllocFn(size + sizeof(NUMEMDISCARDABLE),
+                                          __FILE__, 0x7b);
+  discardbuff = previous;
+  if (pool != 0) {
+    pool->capacity = size;
+    pool->remaining = size;
+    pool->cursor = (u8 *)(pool + 1);
+  }
+  return pool;
+}
+
+// FUNCTION: LEGOBATMAN 0x006e2580
+void NuMemDestroyDiscardable(NUMEMDISCARDABLE *buffer) {
+  NuMemFreeFn(buffer, __FILE__, 0x8a);
+}
