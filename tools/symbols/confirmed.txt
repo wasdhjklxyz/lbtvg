@@ -1703,3 +1703,7 @@
 006e3ad0 NuThreadSignalSend     Mac order; ReleaseSemaphore(thread signal); matched
 006e3af0 NuThreadSignalRecieve  Mac order; WaitForSingleObject(INFINITE); matched
 006e3b10 NuThreadSignalRecieveTimeout Mac order; WaitForSingleObject(timeout); right before NuTimeGetTime as on the Mac; matched
+006e3c80 NuLanguageInitPS       Mac order after NuTimeInitPS; called by NuLanguageInit 0x6d6810; NuPCDetermineLanguage(default); matched
+006e3c90 NuLanguageSetPS        Mac order; called by NuLanguageSet 0x6d6840; empty; matched
+006e3ca0 NuRegionSetPS          Mac order; called by NuRegionSet 0x6d6860; empty; matched
+006e3cb0 NuLanguageConsoleSelectable Mac order, return 1; matched

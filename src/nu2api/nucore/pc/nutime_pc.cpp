@@ -60,3 +60,23 @@ void NuTimeInitPS(void) {
   QueryPerformanceFrequency(&g_nuTimeFrequency);
   SetProcessAffinityMask(GetCurrentProcess(), process_mask);
 }
+
+// Mac order after NuTimeInitPS: NuLanguageInitPS, NuLanguageSetPS,
+// NuRegionSetPS, NuLanguageConsoleSelectable.
+
+// GLOBAL: LEGOBATMAN 0x0094c044
+extern i32 g_nuPCLanguageDefault;
+
+i32 NuPCDetermineLanguage(i32 language);
+
+// FUNCTION: LEGOBATMAN 0x006e3c80
+void NuLanguageInitPS(void) { NuPCDetermineLanguage(g_nuPCLanguageDefault); }
+
+// FUNCTION: LEGOBATMAN 0x006e3c90
+void NuLanguageSetPS(void) {}
+
+// FUNCTION: LEGOBATMAN 0x006e3ca0
+void NuRegionSetPS(void) {}
+
+// FUNCTION: LEGOBATMAN 0x006e3cb0
+i32 NuLanguageConsoleSelectable(void) { return 1; }

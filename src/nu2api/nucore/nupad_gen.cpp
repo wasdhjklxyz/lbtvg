@@ -9,8 +9,8 @@
 
 // Outside this file; names unknown.
 void NuVideoSetBrightnessPS(void);
-void Unk006e3c90(void);
-void Unk006e3ca0(void);
+void NuLanguageSetPS(void);
+void NuRegionSetPS(void);
 void Unk006dcb00(int);
 
 // 16 pads, 0x84 bytes each (memset(g_nuPads, 0, 0x840) at 0x006d5e60).
@@ -156,7 +156,7 @@ int NuLanguageGet(void) { return g_nuPadUnk0adf648; }
 // FUNCTION: LEGOBATMAN 0x006d6840
 void NuLanguageSet(int value) {
   g_nuPadUnk0adf648 = value;
-  Unk006e3c90();
+  NuLanguageSetPS();
 }
 
 // FUNCTION: LEGOBATMAN 0x006d6850
@@ -165,7 +165,7 @@ int NuRegionGet(void) { return g_nuPadUnk0adf64c; }
 // FUNCTION: LEGOBATMAN 0x006d6860
 void NuRegionSet(int value) {
   g_nuPadUnk0adf64c = value;
-  Unk006e3ca0();
+  NuRegionSetPS();
 }
 
 struct NuPadUnk006d7400 {
