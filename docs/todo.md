@@ -19,10 +19,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near terrain.c](#near-terrainc) | 34 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 13 | 7 |
 | [Grabber](#grabber) | 7 | 5 |
-| [near nupad_gen.cpp](#near-nupad_gencpp) | 6 | 5 |
 | [Text](#text) | 6 | 5 |
 | [GameCam](#gamecam) | 4 | 4 |
 | [Hub](#hub) | 6 | 4 |
+| [near nupad_gen.cpp](#near-nupad_gencpp) | 5 | 4 |
 | [GizAction](#gizaction) | 3 | 3 |
 | [near nutrig_gen.cpp](#near-nutrig_gencpp) | 11 | 3 |
 | [Arcade](#arcade) | 2 | 2 |
@@ -458,15 +458,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00602540` 740 B `Grabber_Drop(GRABBER_s*, nuvec_s*)`  **saga** `legoapi/gizmo/gizmos/gizmos_grabber.cpp`
 - [ ] `00600e90` 1004 B `Grabber_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/items/objects/grabber.cpp`
 
-## near nupad_gen.cpp
-
-- [ ] `006d7dc0` 43 B `_NuSPrintf`  **hint** name (gapfill)
-- [ ] `006dd060` 226 B `_NuFParGetInt`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006dd430` 318 B `_NuFParInterpretWordCTX`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006dd2d0` 347 B `_NuFParInterpretWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006da8d0` 358 B `_NuFParGetWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006d6d00` 646 B `_ImplodeMakeTable`  **saga** `nu2api/nucore/implode.cpp`
-
 ## Text
 
 - [ ] `0059d7c0` 119 B `Text_InitStringTable(int, variptr_u*, variptr_u*)`  **stub** · **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
@@ -491,6 +482,14 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `004974c0` 748 B `Hub_DrawMiniKitPanel(float, int)`
 - [ ] `00497f00` 1753 B `Hub_Reset(WORLDINFO_s*)`  **saga** `legoapi/world/levels/hub.cpp`
 - [ ] `0049c700` 2138 B `Hub_UpdateMiniKits(WORLDINFO_s*)`  **saga** `legoapi/world/levels/hub.cpp`
+
+## near nupad_gen.cpp
+
+- [ ] `006d7dc0` 43 B `_NuSPrintf`  **hint** name (gapfill)
+- [ ] `006dd430` 318 B `_NuFParInterpretWordCTX`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006dd2d0` 347 B `_NuFParInterpretWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006da8d0` 358 B `_NuFParGetWord`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006d6d00` 646 B `_ImplodeMakeTable`  **saga** `nu2api/nucore/implode.cpp`
 
 ## GizAction
 

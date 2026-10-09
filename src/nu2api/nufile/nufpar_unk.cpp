@@ -77,6 +77,39 @@ static inline NUFILE NuMemFileOpen(void *buf, i32 buf_size, i32 mode) {
   return 0;
 }
 
+i32 NuHexStringToI(char *string);
+
+// FUNCTION: LEGOBATMAN 0x006dd060
+i32 NuFParGetInt(NUFPAR *parser) {
+  char buf[64];
+
+  NuFParGetWord(parser);
+  if (parser->is_utf16) {
+    NuUnicodeToAscii(buf, (NUWCHAR16 *)parser->word_buf);
+  } else {
+    char *dst = buf;
+    char *src = parser->word_buf;
+    if (src != 0) {
+      while (*src != '\0') {
+        *dst++ = *src++;
+      }
+    }
+    *dst = '\0';
+  }
+
+  if (buf[0] != '\0') {
+    if (buf[0] == '$') {
+      return NuHexStringToI(buf + 1);
+    } else if (buf[0] == '0' && (buf[1] == 'x' || buf[1] == 'X')) {
+      return NuHexStringToI(buf + 2);
+    } else {
+      return NuAToI(buf);
+    }
+  } else {
+    return 0;
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x006dfc60
 NUFPAR *NuFParCreateMem(char *name, char *buffer, i32 bufferSize) {
   if (bufferSize != 0 && buffer != 0) {
