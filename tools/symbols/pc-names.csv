@@ -422,7 +422,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005d5970,0029b9b8,__Z23Detonators_GetBombLights,Detonators_GetBombLight(short),gapfill,2
 005d59a0,0029ba0a,__Z16Detonators_Resetv,Detonators_Reset(),order,4
 005d59d0,0029ba4a,__Z22Detonator_FindFreeSlotP12GameObject_s,Detonator_FindFreeSlot(GameObject_s*),order,4
-005d5aa0,0029bb48,__Z21Detonator_FindNearestP7nuvec_sfP12GameObject_s,"Detonator_FindNearest(nuvec_s*, float, GameObject_s*)",order,4
+005d5aa0,0029bb48,__Z21Detonator_FindNearestP7nuvec_sfP12GameObject_s,"Detonator_FindNearest(nuvec_s*, float, GameObject_s*)",confirmed,0
 005d5b60,0029bc04,__Z20Detonator_FindOldestP12GameObject_sf,"Detonator_FindOldest(GameObject_s*, float)",order,4
 005d5c20,0029bcd8,__Z32Detonator_FindCharacterDetonatorP12GameObject_s,Detonator_FindCharacterDetonator(GameObject_s*),gapfill,3
 005d9810,002c684e,__Z36GizmoBlowupAddDefaultExplosionDebrisP7nuvec_s,GizmoBlowupAddDefaultExplosionDebris(nuvec_s*),gapfill,1

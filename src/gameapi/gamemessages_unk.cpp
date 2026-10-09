@@ -43,8 +43,15 @@ void *AddGameMessage(char *text, nuvec_s *position, float scale,
   return AddGameMsg(&message);
 }
 
+struct GameObject_s;
+
 typedef struct DETONATOR_s {
-  u32 data[0x60 / 4];
+  nuvec_s pos; // 0x00
+  u32 padc[(0x24 - 0xc) / 4];
+  GameObject_s *owner; // 0x24
+  u8 pad28;
+  u8 flags; // 0x29
+  u8 pad2a[0x60 - 0x2a];
 } DETONATOR_s;
 
 typedef struct DETONATORSYS_s {
@@ -61,4 +68,26 @@ void Detonators_Reset() {
   if (Detonator != 0) {
     memset(Detonator->detonators, 0, Detonator->count * sizeof(DETONATOR_s));
   }
+}
+
+f32 NuVecDistSqr(nuvec_s *a, nuvec_s *b, nuvec_s *d);
+
+// FUNCTION: LEGOBATMAN 0x005d5aa0
+DETONATOR_s *Detonator_FindNearest(nuvec_s *pos, float range,
+                                   GameObject_s *owner) {
+  DETONATOR_s *best = 0;
+  if (Detonator != 0) {
+    DETONATOR_s *d = Detonator->detonators;
+    f32 best_dist = range != 0.0f ? range * range : 1.0e9f;
+    for (i32 i = 0; i < Detonator->count; i++, d++) {
+      if ((d->flags & 1) && (owner == 0 || d->owner == owner)) {
+        f32 dist = NuVecDistSqr(pos, &d->pos, 0);
+        if (dist < best_dist) {
+          best_dist = dist;
+          best = d;
+        }
+      }
+    }
+  }
+  return best;
 }

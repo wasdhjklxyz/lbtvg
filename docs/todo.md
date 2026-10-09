@@ -51,7 +51,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Cheat](#cheat) | 2 | 1 |
 | [Collection](#collection) | 1 | 1 |
 | [Credits](#credits) | 1 | 1 |
-| [Detonator](#detonator) | 4 | 1 |
 | [Door](#door) | 2 | 1 |
 | [Episodes](#episodes) | 1 | 1 |
 | [EquivalentObject](#equivalentobject) | 1 | 1 |
@@ -112,6 +111,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Customiser](#customiser) | 4 | 0 |
 | [CustomiserInternal](#customiserinternal) | 5 | 0 |
 | [DefinedLocators](#definedlocators) | 1 | 0 |
+| [Detonator](#detonator) | 3 | 0 |
 | [Detonators](#detonators) | 1 | 0 |
 | [DetonatorSys](#detonatorsys) | 4 | 0 |
 | [DynamicMaterialManager](#dynamicmaterialmanager) | 1 | 0 |
@@ -648,13 +648,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `004a6c60` 260 B `Credits_Init_Game(WORLDINFO_s*)`  **saga** `legoapi/world/level.cpp`
 
-## Detonator
-
-- [ ] `005d5c20` 78 B `Detonator_FindCharacterDetonator(GameObject_s*)`  **hint** name (gapfill)
-- [ ] `005d5aa0` 183 B `Detonator_FindNearest(nuvec_s*, float, GameObject_s*)`  **hint** name (order) · **saga** `legoapi/items/collect/detonator.cpp`
-- [ ] `005d5b60` 192 B `Detonator_FindOldest(GameObject_s*, float)`  **hint** name (order)
-- [ ] `005d59d0` 204 B `Detonator_FindFreeSlot(GameObject_s*)`  **hint** name (order)
-
 ## Door
 
 - [ ] `006152f0` 147 B `Door_DestinationLevel(DOOR_s*)`  **hint** name (order)
@@ -940,6 +933,12 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## DefinedLocators
 
 - [ ] `00620aa0` 82 B `DefinedLocators_FindIX(char*)`  **hint** name (gapfill)
+
+## Detonator
+
+- [ ] `005d5c20` 78 B `Detonator_FindCharacterDetonator(GameObject_s*)`  **hint** name (gapfill)
+- [ ] `005d5b60` 192 B `Detonator_FindOldest(GameObject_s*, float)`  **hint** name (order)
+- [ ] `005d59d0` 204 B `Detonator_FindFreeSlot(GameObject_s*)`  **hint** name (order)
 
 ## Detonators
 
