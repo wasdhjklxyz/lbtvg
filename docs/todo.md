@@ -11,7 +11,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 | group | todo | with saga body |
 |---|---|---|
-| [near rtleditor.cpp](#near-rtleditorcpp) | 104 | 78 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 103 | 77 |
 | [Action](#action) | 72 | 57 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
@@ -253,7 +253,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 - [ ] `00597e10` 79 B `_FindGameDebris`
 - [ ] `005bc370` 85 B `GizmoGetTypeIDByName(GIZMOSYS_s*, char*)`  **saga** `legoapi/gizmo/base/gizmo.cpp`
 - [ ] `00597db0` 90 B `_ParticlesPerSecond`
-- [ ] `00635ab0` 93 B `MiniKitDetector(nuvec_s*)`  **saga** `legoapi/items/collect/minikits.cpp`
 - [ ] `0059c530` 97 B `_ParseAnimStance`
 - [ ] `006419d0` 99 B `InitSnakes(WORLDINFO_s*)`  **saga** `legoapi/actions/character/snake.cpp`
 - [ ] `00675430` 103 B `LoadSpecialSfxFile(WORLDINFO_s*)`  **saga** `legoapi/audio/sfx.cpp`
