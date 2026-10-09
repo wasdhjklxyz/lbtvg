@@ -381,7 +381,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005c0f70,002b15ea,__Z10SetFlickerP12GameObject_sf,"SetFlicker(GameObject_s*, float)",gapfill,4
 005c12a0,00318ec4,__Z21Players_InitPositionsP11WORLDINFO_s,Players_InitPositions(WORLDINFO_s*),strings,0
 005c16b0,003193b0,__Z12SetPlayerIDsii,"SetPlayerIDs(int, int)",order,3
-005c1730,00319446,__Z17RememberPlayerIDsiii,"RememberPlayerIDs(int, int, int)",order,3
+005c1730,00319446,__Z17RememberPlayerIDsiii,"RememberPlayerIDs(int, int, int)",confirmed,0
 005c1860,003195b8,__Z15Player_FindByIDi,Player_FindByID(int),confirmed,0
 005c18b0,00319604,__Z15Player_StartPosP12GameObject_s,Player_StartPos(GameObject_s*),confirmed,0
 005c18f0,0031964c,__Z18Players_AveragePosP7nuvec_sP14SOCKPOSITION_s,"Players_AveragePos(nuvec_s*, SOCKPOSITION_s*)",confirmed,0
@@ -470,7 +470,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0060cee0,003076f6,__Z9GetMenuIDv,GetMenuID(),gapfill,2
 0060d110,002ff8ae,__Z20Levels_ConfigureListPcP9variptr_uS1_iPiPFvP11LEVELDATA_sE,"Levels_ConfigureList(char*, variptr_u*, variptr_u*, int, int*, void (*)(LEVELDATA_s*))",strings,0
 0060d6c0,002ffed8,__Z16Level_FindByNamePcPi,"Level_FindByName(char*, int*)",confirmed,0
-0060d7a0,002fffd8,__Z12Levels_FixUpP10LEVELFIXUP,Levels_FixUp(LEVELFIXUP*),gapfill,2
+0060d7a0,002fffd8,__Z12Levels_FixUpP10LEVELFIXUP,Levels_FixUp(LEVELFIXUP*),confirmed,0
 0060d920,00300150,__Z22LevelConfig_BeforeLoadP11LEVELDATA_sPcP12nufpcomjmp_s,"LevelConfig_BeforeLoad(LEVELDATA_s*, char*, nufpcomjmp_s*)",strings,0
 0060e510,00300d9e,__Z14LC_AL_conveyorP8nufpar_s,LC_AL_conveyor(nufpar_s*),strings,0
 0060e5b0,00300e5a,__Z21LevelConfig_AfterLoadP11LEVELDATA_sPcP12nufpcomjmp_s,"LevelConfig_AfterLoad(LEVELDATA_s*, char*, nufpcomjmp_s*)",strings,0

@@ -15,7 +15,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 |---|---|---|
 | [Action](#action) | 72 | 57 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 45 | 38 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 60 | 34 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 59 | 33 |
 | [near terrain.c](#near-terrainc) | 34 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 13 | 7 |
 | [Grabber](#grabber) | 7 | 5 |
@@ -33,7 +33,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizActions](#gizactions) | 5 | 2 |
 | [GizPanel](#gizpanel) | 2 | 2 |
 | [LevelObjects](#levelobjects) | 2 | 2 |
-| [Levels](#levels) | 2 | 2 |
 | [Move](#move) | 2 | 2 |
 | [near nutrig_gen.cpp](#near-nutrig_gencpp) | 10 | 2 |
 | [NuStr](#nustr) | 2 | 2 |
@@ -62,6 +61,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizObstacles](#gizobstacles) | 1 | 1 |
 | [GizTurrets](#gizturrets) | 1 | 1 |
 | [Grapples](#grapples) | 1 | 1 |
+| [Levels](#levels) | 1 | 1 |
 | [LevelSplines](#levelsplines) | 1 | 1 |
 | [MiniKit](#minikit) | 2 | 1 |
 | [Missions](#missions) | 1 | 1 |
@@ -356,7 +356,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00620b30` 249 B `RedirectTextFile(char*, char*, int, int*)`  **saga** `legoapi/characters/core/charconfig.cpp`
 - [ ] `00615390` 251 B `StartDoorPositions()`  **hint** name (gapfill) · **saga** `legoapi/props/doors/doors.cpp`
 - [ ] `005fb300` 291 B `AddToModelList(APICHARACTERMODELLIST_s*, int*, int, int, int, EXTRAMODEL*, unsigned char)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
-- [ ] `005c1730` 295 B `RememberPlayerIDs(int, int, int)`  **hint** name (order) · **saga** `legoapi/characters/core/players.cpp`
 - [ ] `005aefd0` 305 B `GameShadow(GameObject_s*, nuvec_s*, float, int)`  **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `00635ca0` 307 B `UpdateCoinPacket(COINPACKET_s*, int, int)`  **hint** name (order) · **saga** `legoapi/items/base/collection.cpp`
 - [ ] `005b0e00` 317 B `VecRotateAxis(nuvec_s*, unsigned short, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
@@ -541,11 +540,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0060e8e0` 215 B `LevelObjects_InitForGame(LEVELOBJECT*, variptr_u*, variptr_u*, int, int)`  **stub** · **hint** name (order) · **saga** `legoapi/world/levelobjects.cpp`
 - [ ] `0060ea60` 510 B `LevelObjects_InitForLevel(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/items/objects/objectsall.cpp`
 
-## Levels
-
-- [ ] `0060d7a0` 267 B `Levels_FixUp(LEVELFIXUP*)`  **hint** name (gapfill) · **saga** `legoapi/world/level.cpp`
-- [ ] `0060d110` 1446 B `Levels_ConfigureList(char*, variptr_u*, variptr_u*, int, int*, void (*)(LEVELDATA_s*))`  **saga** `legoapi/world/level.cpp`
-
 ## Move
 
 - [ ] `004cb910` 438 B `Move_CHARACTER(GameObject_s*)`  **saga** `legoapi/characters/motion/move.cpp`
@@ -673,6 +667,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## Grapples
 
 - [ ] `005a9520` 269 B `Grapples_Reset(void*, void*, void*)`  **saga** `legoapi/gizmos/transport/grapples.cpp`
+
+## Levels
+
+- [ ] `0060d110` 1446 B `Levels_ConfigureList(char*, variptr_u*, variptr_u*, int, int*, void (*)(LEVELDATA_s*))`  **saga** `legoapi/world/level.cpp`
 
 ## LevelSplines
 

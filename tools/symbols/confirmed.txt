@@ -82,3 +82,5 @@
 005b0000 LineIntersectSphere  saga body matches (ray/sphere distance test)
 0059fe80 PlayGruntSfx  saga shape matches (game_character grunt sfx, GameAudio fallback ids)
 005a0590 PlayRepeatSfx  saga body matches (repsfxtab ring of 32)
+0060d7a0 Levels_FixUp  saga body matches (fixup table -> Level_FindByName, callbacks; Batman has 10)
+005c1730 RememberPlayerIDs  saga shape matches (PlayerID[2] update from collected chars)

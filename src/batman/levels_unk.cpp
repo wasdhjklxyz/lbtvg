@@ -2,6 +2,7 @@
 
 #include "../nu2api/nucore/nustring.h"
 #include "worldinfo_unk.h"
+#include <stddef.h>
 
 // GLOBAL: LEGOBATMAN 0x009ca23c
 GIZMOBLOWUP_s *g_unk009ca23c;
@@ -79,8 +80,9 @@ typedef struct LEVELDATA_s {
   unsigned char pad0[0x40];
   char name[0x20]; // 0x40
   unsigned char pad60[0x64 - 0x60];
-  u32 flags; // 0x64
-  unsigned char pad68[0xd9 - 0x68];
+  u32 flags;             // 0x64
+  void (*fns[10])(void); // 0x68; per-level callbacks set by Levels_FixUp
+  unsigned char pad90[0xd9 - 0x90];
   u8 blob_shadow_fade_near; // 0xd9
   u8 blob_shadow_fade_far;  // 0xda
   unsigned char paddb[0xe0 - 0xdb];
@@ -188,6 +190,64 @@ void NuFParDestroy(NUFPAR *parser);
 extern LEVELDATA *levelconfig_ldata;
 // GLOBAL: LEGOBATMAN 0x0096324c
 extern nufpcomjmp_s LevelConfig_BeforeLoad_GenericKeywords[];
+
+typedef void (*LEVELFIXUPFN)(void);
+
+// Batman's table carries ten callbacks (saga has seven), copied to
+// LEVELDATA +0x68..+0x8c.
+typedef struct LEVELFIXUP {
+  char *name;
+  LEVELDATA **level;
+  LEVELFIXUPFN fns[10]; // 0x08
+} LEVELFIXUP;
+
+// from saga legoapi/world/level.cpp
+// FUNCTION: LEGOBATMAN 0x0060d7a0
+void Levels_FixUp(LEVELFIXUP *fixup) {
+  if (fixup == NULL) {
+    return;
+  }
+  for (; fixup->name != NULL; fixup++) {
+    if (fixup->level == NULL || *fixup->level != NULL) {
+      continue;
+    }
+    LEVELDATA *level = Level_FindByName(fixup->name, NULL);
+    *fixup->level = level;
+    if (level == NULL) {
+      continue;
+    }
+    if (fixup->fns[0] != NULL) {
+      level->fns[0] = fixup->fns[0];
+    }
+    if (fixup->fns[1] != NULL) {
+      level->fns[1] = fixup->fns[1];
+    }
+    if (fixup->fns[2] != NULL) {
+      level->fns[2] = fixup->fns[2];
+    }
+    if (fixup->fns[3] != NULL) {
+      level->fns[3] = fixup->fns[3];
+    }
+    if (fixup->fns[4] != NULL) {
+      level->fns[4] = fixup->fns[4];
+    }
+    if (fixup->fns[5] != NULL) {
+      level->fns[5] = fixup->fns[5];
+    }
+    if (fixup->fns[6] != NULL) {
+      level->fns[6] = fixup->fns[6];
+    }
+    if (fixup->fns[7] != NULL) {
+      level->fns[7] = fixup->fns[7];
+    }
+    if (fixup->fns[8] != NULL) {
+      level->fns[8] = fixup->fns[8];
+    }
+    if (fixup->fns[9] != NULL) {
+      level->fns[9] = fixup->fns[9];
+    }
+  }
+}
 
 // FUNCTION: LEGOBATMAN 0x0060d920
 void LevelConfig_BeforeLoad(LEVELDATA *level, char *buffer,

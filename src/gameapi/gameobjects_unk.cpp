@@ -45,6 +45,82 @@ void NuVecScale(nuvec_s *out, nuvec_s *v, float s);
 void ComplexSockPosition(SOCKSYS_s *sys, nuvec_s *pos, i32 a, i32 b,
                          SOCKPOSITION_s *out);
 
+struct RememberLevelData_s {
+  u8 pad0[0x64];
+  u32 flags; // 0x64
+};
+
+struct RememberCharData_s {
+  u8 pad0[4];
+  u32 model_flags; // 0x04
+  u8 pad8[0x48 - 8];
+};
+
+struct RememberGameCharData_s {
+  u8 pad0[0x148];
+  u32 flags148; // 0x148
+  u8 pad14c[0x22b - 0x14c];
+  u8 b22b; // 0x22b
+  u8 pad22c[0x240 - 0x22c];
+};
+
+// GLOBAL: LEGOBATMAN 0x00acb6c0
+extern i32 g_unk00acb6c0;
+// GLOBAL: LEGOBATMAN 0x00aca574
+extern i32 VehicleArea;
+// GLOBAL: LEGOBATMAN 0x00ab0950
+extern i32 g_unk00ab0950;
+// GLOBAL: LEGOBATMAN 0x00acb81c
+extern RememberCharData_s *CDataList;
+// GLOBAL: LEGOBATMAN 0x00acb82c
+extern RememberGameCharData_s *g_unk00acb82c;
+// GLOBAL: LEGOBATMAN 0x0096067c
+extern i32 PlayerID[2];
+// GLOBAL: LEGOBATMAN 0x00960684
+extern i32 g_unk00960684[2];
+// GLOBAL: LEGOBATMAN 0x0096068c
+extern i32 g_unk0096068c[2];
+
+i32 Collection_Got(i32 id);
+
+// FUNCTION: LEGOBATMAN 0x005c1730
+void RememberPlayerIDs(i32 a, i32 b, i32 c) {
+  if (g_unk00acb6c0 != 0 || VehicleArea != 0 || g_unk00ab0950 != 0) {
+    return;
+  }
+  if (a == 0) {
+    u32 flags = ((RememberLevelData_s *)g_unk00960894->current_level)->flags;
+    if (!(flags & 2) || (flags & 0x4e0)) {
+      return;
+    }
+  }
+  i32 ids[2];
+  ids[0] = b;
+  ids[1] = c;
+  for (i32 i = 0; i < 2; i++) {
+    i32 id = ids[i];
+    if (id != -1 && !(CDataList[id].model_flags & 0x2000) &&
+        id != PlayerID[i]) {
+      i32 got = Collection_Got(id);
+      if (got != 0 && got == 1) {
+        if (g_unk00acb82c[id].b22b != 0 && id != PlayerID[(i - 1) & 1]) {
+          PlayerID[i] = id;
+          if (g_unk00acb82c[id].flags148 & 0x100000) {
+            g_unk00960684[i] = id;
+          } else if (g_unk00acb82c[id].flags148 & 0x200000) {
+            g_unk0096068c[i] = id;
+          }
+        }
+      }
+    }
+  }
+  if (b != c && b == PlayerID[1] && c == PlayerID[0]) {
+    i32 tmp = PlayerID[0];
+    PlayerID[0] = PlayerID[1];
+    PlayerID[1] = tmp;
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x005c18f0
 i32 Players_AveragePos(nuvec_s *position, SOCKPOSITION_s *socket_position) {
   nuvec_s total = {0.0f, 0.0f, 0.0f};
