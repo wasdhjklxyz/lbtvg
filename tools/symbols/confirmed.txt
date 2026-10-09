@@ -1087,3 +1087,10 @@
 0045ae80 Action_PressActionButton  matched, keyword table + Mac callee
 0045bbb0 Action_PressJumpButton  matched, keyword table + Mac callee
 004539c0 Action_ClearTakeOverTarget  matched, keyword table + Mac callee
+00471c50 Action_ResetContextAIAnimation  matched, keyword table + Mac name
+004611d0 Action_DisableNarrowSocks  matched, keyword table + Mac name
+00471c00 Action_ForceDropSuperCarryItems  matched, keyword table + Mac name
+00472ff0 Action_GetOutRideObject  matched, keyword table + Mac name
+0046f820 Action_AlwaysDrawBossHitPoints  matched, keyword table + Mac name
+004728d0 Action_NoFightingZone  matched, keyword table + Mac name
+00472940 Action_AllowFightingInMiniCut  matched, keyword table + Mac name

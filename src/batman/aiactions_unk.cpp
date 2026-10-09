@@ -1655,3 +1655,118 @@ i32 Action_ClearTakeOverTarget(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 1;
 }
+
+// FUNCTION: LEGOBATMAN 0x00471c50
+i32 Action_ResetContextAIAnimation(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                   AIPACKET_s *packet, char **args, int argc,
+                                   int flags, f32 time) {
+  if (flags != 0 && packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0) {
+    GameObject_s *object = packet->pd0->obj;
+    if (object != 0 && object->b9db == 0x73)
+      object->b9db = -1;
+  }
+  return 1;
+}
+
+// GLOBAL: LEGOBATMAN 0x00a9637c
+extern i32 g_unk00a9637c;
+
+// FUNCTION: LEGOBATMAN 0x004611d0
+i32 Action_DisableNarrowSocks(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char **args, int argc,
+                              int flags, f32 time) {
+  if (args != 0 && argc != 0 && args[0] != 0 &&
+      NuStrICmp("FALSE", args[0]) == 0) {
+    g_unk00a9637c = 0;
+    return 1;
+  }
+  g_unk00a9637c = 1;
+  return 1;
+}
+
+extern GameObject_s *Player[8];
+i32 SuperCarry_Carrying(GameObject_s *object);
+void SuperCarry_Release(GameObject_s *object);
+
+// FUNCTION: LEGOBATMAN 0x00471c00
+i32 Action_ForceDropSuperCarryItems(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                    AIPACKET_s *packet, char **args, int argc,
+                                    int flags, f32 time) {
+  for (i32 i = 0; i < 2; i++) {
+    if (Player[i] != 0 && (((u8 *)Player[i])[0x1fc] & 0x80) &&
+        SuperCarry_Carrying(Player[i]) != 0)
+      SuperCarry_Release(Player[i]);
+  }
+  return 1;
+}
+
+// GLOBAL: LEGOBATMAN 0x00960594
+extern char g_unk00960594;
+
+// FUNCTION: LEGOBATMAN 0x00472ff0
+i32 Action_GetOutRideObject(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char **args, int argc,
+                            int flags, f32 time) {
+  GameObject_s *object = 0;
+  if (packet != 0 && packet->pd0 != 0 && packet->pd0->obj != 0)
+    object = packet->pd0->obj;
+  if (object == 0)
+    return 0;
+  char context = g_unk00960594;
+  *(f32 *)((u8 *)object + 0x98c) = 0.0f;
+  object->b9db = context;
+  object->b9d9 = 3;
+  object->s9d0 = -1;
+  return 1;
+}
+
+// GLOBAL: LEGOBATMAN 0x009ccae0
+extern i32 g_unk009ccae0;
+
+// FUNCTION: LEGOBATMAN 0x0046f820
+i32 Action_AlwaysDrawBossHitPoints(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                   AIPACKET_s *packet, char **args, int argc,
+                                   int flags, f32 time) {
+  g_unk009ccae0 = 1;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "FALSE") == 0)
+        g_unk009ccae0 = 0;
+    }
+  }
+  return 1;
+}
+
+// GLOBAL: LEGOBATMAN 0x00aca8f8
+extern i32 g_unk00aca8f8;
+
+// FUNCTION: LEGOBATMAN 0x004728d0
+i32 Action_NoFightingZone(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **args, int argc, int flags,
+                          f32 time) {
+  if (flags != 0) {
+    g_unk00aca8f8 = 1;
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrIStr(args[i], "FALSE") != 0)
+        g_unk00aca8f8 = 0;
+    }
+  }
+  return 1;
+}
+
+// GLOBAL: LEGOBATMAN 0x009c61c4
+extern i32 g_unk009c61c4;
+
+// FUNCTION: LEGOBATMAN 0x00472940
+i32 Action_AllowFightingInMiniCut(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                  AIPACKET_s *packet, char **args, int argc,
+                                  int flags, f32 time) {
+  if (flags != 0) {
+    g_unk009c61c4 = 1;
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrIStr(args[i], "FALSE") != 0)
+        g_unk009c61c4 = 0;
+    }
+  }
+  return 1;
+}
