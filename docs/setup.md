@@ -113,22 +113,45 @@ clang is stricter than 2005 MSVC, so an occasional red squiggle in code that
 ## playing the game: `make play`
 
 Runs the game under wine from `play/` (a test copy: data symlinked from
-`game/`, the verified exe copied, its own wine prefix), no Steam needed.
-`make play-setup` builds it; `make play` does so on first use. It handles:
+`game/`, your verified `orig/LEGOBatman.exe` copied, its own wine prefix), no
+Steam needed. Nothing from the game is in this repo; it only works with your
+own copy. `make play-setup` builds it; `make play` does so on first use.
 
-- **DXVK** (Direct3D 9 over Vulkan) by default. Wine's own OpenGL-based
-  Direct3D could not reach the NVIDIA driver from a nix wine on NixOS
-  ("failed to create d3d device"). `DXVK=0` turns it off.
-- **Microsoft's `d3dx9_35.dll`** from the game's own `DirectX/` redist cab:
-  wine's builtin cannot compile the game's HLSL shaders (mostly black screen).
-- **A wine virtual desktop** of `RES` (default `1920x1080`), and that
-  resolution written into the game's `pcconfig.txt`: otherwise the game sees
-  no display modes (resolution 0x0) and falls back to a blurry 640x480.
-  `RES=2560x1440 make play` to change it, `WINDOWED=1` to skip the desktop.
-- The registry keys Steam's install script sets.
+```
+make play                          # windowed 1280x720: maximize / fullscreen from the title bar
+WINDOW=1600x900 make play          # another window size
+FULLSCREEN=1 make play             # fullscreen, RES=1920x1080 by default
+FULLSCREEN=1 RES=2560x1440 make play
+```
+
+Bring your own pieces instead of the defaults:
+
+| setting | default | use it for |
+|---|---|---|
+| `WINE=/path/to/wine` | `wine` on `PATH`, else the nix `.#play` shell | a wine/Proton build you already have (`PATH=... make play` works too) |
+| `WINETRICKS=...` | `winetricks` on `PATH` | only used once, to install DXVK |
+| `DXVK=0` | DXVK installed into the prefix | you handle Direct3D yourself (or want wine's wined3d) |
+| `D3DX9_DLL=/path/d3dx9_35.dll` | extracted from the game's `DirectX/*d3dx9_35_x86.cab` | your own copy of Microsoft's DLL |
+| `PLAY_PREFIX=/path` | `play/prefix` | an existing wine prefix |
+| `GAME_DIR=/path` | `./game` | where the installed game data is |
+
+Why each default exists:
+
+- **DXVK** (Direct3D 9 over Vulkan): wine's OpenGL-based Direct3D could not
+  reach the NVIDIA driver from a nix wine on NixOS ("failed to create d3d
+  device").
+- **Microsoft's `d3dx9_35.dll`**: wine's builtin cannot compile the game's
+  HLSL shaders (mostly black screen). Steam installs the same DLL through its
+  DirectX installer.
+- **Windowed by default** uses the game's own `-Windowed` switch and writes
+  `WINDOW` into its `pcconfig.txt`. **Fullscreen** runs `-Fullscreen` inside a
+  wine virtual desktop of `RES`: without it the game sees no display modes
+  (resolution 0x0) and falls back to a blurry 640x480.
+- The registry keys Steam's install script sets are added to the prefix.
 
 The Steam install is never written; anything you put next to
-`play/game/LEGOBatman.exe` (e.g. a test DLL) stays in `play/`.
+`play/game/LEGOBatman.exe` (e.g. a test DLL) stays in `play/`. All settings:
+`tools/play.sh help`.
 
 ## one-time ghidra GUI setup
 
