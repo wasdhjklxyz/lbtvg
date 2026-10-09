@@ -28,7 +28,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Arcade](#arcade) | 2 | 2 |
 | [Area](#area) | 3 | 2 |
 | [Areas](#areas) | 3 | 2 |
-| [Collection](#collection) | 2 | 2 |
 | [Condition](#condition) | 3 | 2 |
 | [CutScenePlayer](#cutsceneplayer) | 2 | 2 |
 | [CutScenes](#cutscenes) | 3 | 2 |
@@ -50,6 +49,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [CharPivot](#charpivot) | 1 | 1 |
 | [CharPlatforms](#charplatforms) | 1 | 1 |
 | [Cheat](#cheat) | 2 | 1 |
+| [Collection](#collection) | 1 | 1 |
 | [Credits](#credits) | 1 | 1 |
 | [Detonator](#detonator) | 4 | 1 |
 | [Door](#door) | 2 | 1 |
@@ -545,11 +545,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005fad40` 787 B `Areas_ConfigurePlayersAndResidents(variptr_u*, variptr_u*)`
 - [ ] `005fa1c0` 2813 B `Areas_ConfigureList(char*, variptr_u*, variptr_u*, int, int*)`  **saga** `legoapi/world/areas.cpp`
 
-## Collection
-
-- [ ] `006408d0` 128 B `Collection_Got(int)`  **hint** name (gapfill) · **saga** `legoapi/items/base/collection.cpp`
-- [ ] `0063ffe0` 1074 B `Collection_Configure(char*, variptr_u*, variptr_u*)`  **saga** `legoapi/items/base/collection.cpp`
-
 ## Condition
 
 - [ ] `00451980` 140 B `Condition_SideInit(AISYS_s*, char*, AISCRIPT_s*)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
@@ -653,6 +648,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `005ce980` 125 B `Cheat_IsOn(CHEAT_s*)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/core/config/cheats.cpp`
 - [ ] `004cfe50` 235 B `Cheat_SpecialHits(float, nuvec_s*)`
+
+## Collection
+
+- [ ] `0063ffe0` 1074 B `Collection_Configure(char*, variptr_u*, variptr_u*)`  **saga** `legoapi/items/base/collection.cpp`
 
 ## Credits
 

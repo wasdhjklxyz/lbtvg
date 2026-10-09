@@ -36,6 +36,62 @@ extern nuhspecial_s snake_hspecials[3];
 // GLOBAL: LEGOBATMAN 0x00ad0c40
 extern u32 snakebodies[0x440 / 4];
 
+struct CHARACTERDATA_s {
+  u32 pad0;
+  u32 flags; // 0x04
+  u32 pad8[(0x48 - 8) / 4];
+};
+
+struct AREASAVE_s {
+  u8 pad0[6];
+  u8 minikit_complete; // 0x06
+  u8 pad7[0xc - 7];
+};
+
+struct Unk00acb82c {
+  u8 pad0[0x1c8];
+  i16 s1c8; // 0x1c8
+  u8 pad1ca[0x240 - 0x1ca];
+};
+
+i32 AreaFromMiniKitID(i32 minikitId);
+
+// GLOBAL: LEGOBATMAN 0x00acb81c
+extern CHARACTERDATA_s *CDataList;
+// GLOBAL: LEGOBATMAN 0x00aca594
+extern AREASAVE_s *Game_AreaSave;
+// GLOBAL: LEGOBATMAN 0x00acb830
+extern u8 *Game_CharacterSave;
+// GLOBAL: LEGOBATMAN 0x00ad0bf4
+extern i32 g_unk00ad0bf4;
+// GLOBAL: LEGOBATMAN 0x00acb82c
+extern Unk00acb82c *g_unk00acb82c;
+
+static inline i32 Unk_InList(i32 id) {
+  if (id == -1 || g_unk00ad0bf4 == 0)
+    return -1;
+  return g_unk00acb82c[id].s1c8;
+}
+
+// FUNCTION: LEGOBATMAN 0x006408d0
+i32 Collection_Got(i32 id) {
+  i32 result;
+  i32 area;
+  if ((CDataList[id].flags & 0x4000000) &&
+      (area = AreaFromMiniKitID(id)) != -1) {
+    if (Game_AreaSave == 0 || Game_AreaSave[area].minikit_complete == 0)
+      return 0;
+    result = 2;
+  } else {
+    if (Game_CharacterSave != 0 && (Game_CharacterSave[id] & 1) == 0)
+      return 0;
+    result = 1;
+  }
+  if (Unk_InList(id) == -1)
+    return 0;
+  return result;
+}
+
 // FUNCTION: LEGOBATMAN 0x006419d0
 void InitSnakes(WORLDINFO_s *world) {
   memset(snakebodies, 0, sizeof(snakebodies));
