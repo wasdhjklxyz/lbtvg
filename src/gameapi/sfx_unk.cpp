@@ -133,19 +133,81 @@ extern "C" void *NuSpecialGetMtl(nuhspecial_s *special, int index);
 class InteractiveDisplay {
 public:
   void InitializeLevel(WORLDINFO_s *world);
+  void InitializePerm(char *name, variptr_u *buffer, variptr_u *buffer_end);
 
   void **vtable;
   u8 pad4[0x10 - 4];
-  char level_name[0x958 - 0x10]; // 0x10
+  char level_name[0x224 - 0x10]; // 0x10
+  u8 pad224[0x340 - 0x224];
+  i32 i340; // 0x340
+  u8 pad344[4];
+  i32 i348; // 0x348
+  f32 f34c; // 0x34c
+  f32 f350; // 0x350
+  u8 pad354[0x8b0 - 0x354];
+  i32 i8b0; // 0x8b0
+  u8 pad8b4[0x8bc - 0x8b4];
+  f32 f8bc; // 0x8bc
+  f32 f8c0; // 0x8c0
+  u8 pad8c4[0x8f4 - 0x8c4];
+  f32 f8f4; // 0x8f4
+  u8 pad8f8[0x930 - 0x8f8];
+  f32 f930; // 0x930
+  f32 f934; // 0x934
+  f32 f938; // 0x938
+  u8 pad93c[0x958 - 0x93c];
 };
 
 class WorldMapBase : public InteractiveDisplay {
 public:
   void InitializeLevel(WORLDINFO_s *world);
+  void InitializePerm(char *name, variptr_u *buffer, variptr_u *buffer_end);
 
   nugscn_s *pointer_scene; // 0x958
   void *pointer_mtls[3];   // 0x95c
+  void *p968[3];           // 0x968
+  void *material;          // 0x974
 };
+
+class DynamicMaterialManager {
+public:
+  void *GetMaterial(char const *a, char const *b, int c);
+};
+
+// GLOBAL: LEGOBATMAN 0x00ad2af8
+extern DynamicMaterialManager g_dynamicMaterialManager;
+// GLOBAL: LEGOBATMAN 0x009c5a00
+extern i32 g_unk009c5a00;
+// GLOBAL: LEGOBATMAN 0x00968c74
+extern f32 g_unk00968c74;
+
+typedef void(__thiscall *WorldMapPermFn)(WorldMapBase *, char *);
+
+// STUB: LEGOBATMAN 0x00679ca0
+// close: only the scheduling of the leading int/float member stores and the
+// name load differs (3 store orders tried)
+void WorldMapBase::InitializePerm(char *name, variptr_u *buffer,
+                                  variptr_u *buffer_end) {
+  f8c0 = 1.0f;
+  f8bc = 1.0f;
+  f8f4 = 2.0f;
+  f934 = 0.5f;
+  f930 = 0.5f;
+  f938 = 0.0f;
+  i348 = 0;
+  i8b0 = 0;
+  ((WorldMapPermFn)vtable[18])(this, name);
+  InteractiveDisplay::InitializePerm(name, buffer, buffer_end);
+  material = g_dynamicMaterialManager.GetMaterial(NULL, NULL, 2);
+  f34c = 0.005f;
+  if (g_unk009c5a00)
+    f350 = g_unk00968c74;
+  else
+    f350 = g_unk00968c74 * 0.5;
+  pointer_scene = NULL;
+  memset(pointer_mtls, 0, sizeof(pointer_mtls) + sizeof(p968));
+  i340 = 1;
+}
 
 // vtable slot 22: name of the i-th pointer special
 typedef char *(__thiscall *WorldMapSpecialNameFn)(WorldMapBase *, WORLDINFO_s *,

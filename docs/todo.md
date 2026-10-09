@@ -116,7 +116,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [HLSLShaderBuilder](#hlslshaderbuilder) | 1 | 0 |
 | [HubAreaInfo](#hubareainfo) | 1 | 0 |
 | [InputRemapClass](#inputremapclass) | 4 | 0 |
-| [InteractiveDisplay](#interactivedisplay) | 2 | 0 |
+| [InteractiveDisplay](#interactivedisplay) | 1 | 0 |
 | [KillParts](#killparts) | 1 | 0 |
 | [Legal](#legal) | 1 | 0 |
 | [LevelStreaming](#levelstreaming) | 2 | 0 |
@@ -823,7 +823,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## InteractiveDisplay
 
-- [ ] `005c7300` 255 B `InteractiveDisplay::InitializeLevel(WORLDINFO_s*)`  **hint** name (gapfill)
 - [ ] `005c71d0` 297 B `InteractiveDisplay::InitializePerm(char*, variptr_u*, variptr_u*)`  **hint** name (gapfill)
 
 ## KillParts
@@ -1110,5 +1109,5 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## WorldMapBase
 
-- [ ] `00679ca0` 238 B `WorldMapBase::InitializePerm(char*, variptr_u*, variptr_u*)`  **hint** name (gapfill)
+- [ ] `00679ca0` 238 B `WorldMapBase::InitializePerm(char*, variptr_u*, variptr_u*)`  **stub** · **hint** name (gapfill)
 - [ ] `0067a590` 588 B `WorldMapBase::parse_location(nufpar_s*)`

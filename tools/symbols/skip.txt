@@ -154,3 +154,4 @@
 0070f510 NuSpecialSetVisibility: eax/ecx swapped throughout, 3 tries
 0052a7a0 CD3DCore::DetermineNominalAspectRatio: one extra f32 round trip after each fabs, 3 tries
 005d59d0 Detonator_FindFreeSlot: obj/limit register allocation, 3 tries
+00679ca0 WorldMapBase::InitializePerm: prologue store scheduling, 3 tries

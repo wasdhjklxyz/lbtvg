@@ -566,8 +566,31 @@ void LoseHP_EndDelay(GAMEMESSAGE_s *message) {
 
 extern "C" void *NuSpecialGetMtl(nuhspecial_s *special, int index);
 
+struct IDMTL_s {
+  u8 pad0[0x74];
+  u16 tid; // 0x74
+};
+
 struct InteractiveDisplay {
   static void *GetFirstSpecialMaterial(nugscn_s *scene, char *name);
+  void InitializeLevel(WORLDINFO_s *world);
+  i32 Unk005c3ed0(WORLDINFO_s *world);
+
+  void **vtable;
+  u8 pad4[0x10 - 4];
+  char level_name[0x224 - 0x10]; // 0x010
+  i32 i224;                      // 0x224
+  i32 i228;                      // 0x228
+  u8 pad22c[0x23c - 0x22c];
+  char texture_name_a[0x40]; // 0x23c
+  char texture_name_b[0x40]; // 0x27c
+  IDMTL_s *mtl_a;            // 0x2bc
+  IDMTL_s *mtl_b;            // 0x2c0
+  IDMTL_s *interlace_mtl;    // 0x2c4
+  u8 pad2c8[0x334 - 0x2c8];
+  f32 f334; // 0x334
+  f32 f338; // 0x338
+  i32 i33c; // 0x33c
 };
 
 // FUNCTION: LEGOBATMAN 0x005c4080
@@ -575,4 +598,40 @@ void *InteractiveDisplay::GetFirstSpecialMaterial(nugscn_s *scene, char *name) {
   nuhspecial_s special;
   NuSpecialFind(scene, &special, name, 0);
   return NuSpecialGetMtl(&special, 0);
+}
+
+class DynamicTextureManager {
+public:
+  u16 Unk0067aae0(char *name, WORLDINFO_s *world);
+};
+
+// GLOBAL: LEGOBATMAN 0x00ad2d78
+extern DynamicTextureManager g_unk00ad2d78;
+
+void NuMtlUpdate(IDMTL_s *mtl);
+
+typedef i32(__thiscall *InteractiveDisplayBoolFn)(InteractiveDisplay *);
+
+// FUNCTION: LEGOBATMAN 0x005c7300
+void InteractiveDisplay::InitializeLevel(WORLDINFO_s *world) {
+  if (NuStrICmp((char *)world, level_name) == 0) {
+    if (((InteractiveDisplayBoolFn)vtable[8])(this) && interlace_mtl != 0) {
+      interlace_mtl->tid = g_unk00ad2d78.Unk0067aae0(
+          "stuff/interactivedisplay/common/interlacepattern", world);
+      NuMtlUpdate(interlace_mtl);
+    }
+    if (mtl_a != 0) {
+      mtl_a->tid = g_unk00ad2d78.Unk0067aae0(texture_name_a, world);
+      NuMtlUpdate(mtl_a);
+    }
+    if (mtl_b != 0) {
+      mtl_b->tid = g_unk00ad2d78.Unk0067aae0(texture_name_b, world);
+      NuMtlUpdate(mtl_b);
+    }
+    i224 = 0;
+    i228 = Unk005c3ed0(world);
+    f338 = 1000.0f;
+    i33c = 0;
+    f334 = 1.0f;
+  }
 }
