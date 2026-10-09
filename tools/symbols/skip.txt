@@ -54,3 +54,4 @@
 0043ebf0 ObjHitShield: long x87 + flag juggling, not attempted
 0059d850 Text_PlatformSpecificIgnore: final branch if-converted, see STUB
 0059d900 Text_LoadAndFixUpStrings: register picks, see STUB
+005e9790 BoltSys_Init: two-pass parser, same-TU static fn pointers, not attempted

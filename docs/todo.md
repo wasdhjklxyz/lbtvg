@@ -521,7 +521,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## BoltSys
 
-- [ ] `005e9790` 552 B `BoltSys_Init(char*, BOLTSYS*, variptr_u*, variptr_u*)`  **saga** `legoapi/items/collect/bolts.cpp`
+- [ ] `005e9790` 552 B `BoltSys_Init(char*, BOLTSYS*, variptr_u*, variptr_u*)`  **stub** · **saga** `legoapi/items/collect/bolts.cpp`
 
 ## BoltTypes
 
