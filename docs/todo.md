@@ -143,7 +143,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [NuLog10](#nulog10) | 1 | 0 |
 | [NuMem](#numem) | 3 | 0 |
 | [NuMotionFilterGen](#numotionfiltergen) | 1 | 0 |
-| [NuMovie](#numovie) | 2 | 0 |
+| [NuMovie](#numovie) | 1 | 0 |
 | [NuRain](#nurain) | 1 | 0 |
 | [NuRndr](#nurndr) | 2 | 0 |
 | [NuScript](#nuscript) | 1 | 0 |
@@ -937,7 +937,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## NuMovie
 
-- [ ] `006ea2d0` 255 B `NuMovieGrabGetFrame(numoviegrabinfo_s*)`
 - [ ] `00709080` 1224 B `_NuMovieGrabBegin`
 
 ## NuRain

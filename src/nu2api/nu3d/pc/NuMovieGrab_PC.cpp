@@ -97,3 +97,45 @@ void NuMovieGrabDetachFrameBuffer(NUMOVIEGRABINFO *info) {
     info->buffer = 0;
   }
 }
+
+class CD3DCoreGrab {
+public:
+  i32 Unk0052bbf0(i32 width, i32 height, u8 **bitmap);
+};
+
+// GLOBAL: LEGOBATMAN 0x009d08d0
+extern CD3DCoreGrab g_d3dCoreGrab;
+
+extern "C" void *memcpy(void *dst, const void *src, unsigned int size);
+
+// Grabs the back buffer as a .bmp image and copies its pixels out.
+// FUNCTION: LEGOBATMAN 0x006ea2d0
+i32 NuMovieGrabGetFrame(NUMOVIEGRABINFO *info) {
+  if (info->buffer == 0)
+    return 0;
+  i32 width = info->width;
+  i32 height = info->height;
+  u8 *bitmap = 0;
+  i32 size = g_d3dCoreGrab.Unk0052bbf0(width, height, &bitmap);
+  if (size == *(i32 *)(bitmap + 2)) {
+    u8 *pixels = bitmap + 0x36;
+    if (info->bpp == 4) {
+      memcpy(info->buffer, pixels, width * height * 4);
+    } else if (info->bpp == 3) {
+      for (i32 y = 0; y < info->height; y++) {
+        for (i32 x = 0; x < info->width; x++) {
+          ((u8 *)info->buffer)[(info->width * y + x) * 3] =
+              pixels[(info->width * y + x) * 4];
+          ((u8 *)info->buffer)[(info->width * y + x) * 3 + 1] =
+              pixels[(info->width * y + x) * 4 + 1];
+          ((u8 *)info->buffer)[(info->width * y + x) * 3 + 2] =
+              pixels[(info->width * y + x) * 4 + 2];
+        }
+      }
+    }
+    NuMemFreeFn(bitmap, __FILE__, 0x87);
+    return 1;
+  }
+  NuMemFreeFn(bitmap, __FILE__, 0x8c);
+  return 0;
+}
