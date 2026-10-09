@@ -2,6 +2,7 @@
 // nuanim_gen.cpp (0x0070b350) and nutexanm_gen.cpp (0x00711580) anchors.
 
 #include "nuspecial.h"
+#include <stddef.h>
 
 int NuStrICmp(const char *a, const char *b);
 float NuVecMag(nuvec_s *v);
@@ -221,6 +222,40 @@ void NuSpecialConstTint(int enabled, nuvec_s *tint) {
   NuRndrSetConstColourUnk006eb920(nuspecial_const_alpha_enabled,
                                   nuspecial_const_tint_enabled,
                                   nuspecial_const_alpha, &nuspecial_const_tint);
+}
+
+// from saga nu2api/nu3d/nuspecial.cpp
+// STUB: LEGOBATMAN 0x0070f510
+// close: logic matches; orig keeps the handle in eax and the legacy/display
+// pointers in ecx, ours swaps them (3 tries)
+extern "C" void NuSpecialSetVisibility(void *special_ptr, int visible) {
+  nuhspecial_s *special = (nuhspecial_s *)special_ptr;
+  if (special == NULL || special->scene == NULL)
+    return;
+  if (special->special != NULL) {
+    if (special->special->instance != NULL)
+      special->special->instance->visible = visible;
+    if (visible != 0)
+      special->special->flags |= 0x200;
+    else
+      special->special->flags &= ~0x200;
+  } else {
+    NUDISPLAYSPECIAL *display = special->display_special;
+    if (display != NULL) {
+      if (visible != 0) {
+        display->flags |= 0x202;
+        if (special->scene->display_list->instance_visibility_enabled & 1)
+          special->scene->display_list
+              ->visibility_flags[display->instance_ix] |= 1;
+      } else {
+        display->flags &= ~2;
+        special->display_special->flags &= ~0x200;
+        if (special->scene->display_list->instance_visibility_enabled & 1)
+          special->scene->display_list
+              ->visibility_flags[display->instance_ix] &= ~1;
+      }
+    }
+  }
 }
 
 // FUNCTION: LEGOBATMAN 0x0070f5d0

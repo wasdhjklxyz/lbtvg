@@ -124,7 +124,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [LMC](#lmc) | 1 | 0 |
 | [LoadAreaData](#loadareadata) | 1 | 0 |
 | [MemoryManager](#memorymanager) | 2 | 0 |
-| [Minicam](#minicam) | 1 | 0 |
 | [MovePlayer](#moveplayer) | 1 | 0 |
 | [near d3dCalls.cpp](#near-d3dcallscpp) | 1 | 0 |
 | [near gcutscn.cpp](#near-gcutscncpp) | 1 | 0 |
@@ -860,10 +859,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00591040` 585 B `MemoryManager::RenderTypes()`
 - [ ] `00592080` 788 B `MemoryManager::RenderMemory()`
 
-## Minicam
-
-- [ ] `006163b0` 185 B `Minicam_AddSubtitle(MINICAM_ADDSUBTITLE_s const*)`  **hint** name (gapfill)
-
 ## MovePlayer
 
 - [ ] `00632a00` 2390 B `MovePlayer_Rails(GameObject_s*)`
@@ -976,7 +971,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `0070f0a0` 144 B `_NuSpecialFindMulti`  **hint** name (order)
 - [ ] `0070eee0` 183 B `_NuSpecialFindMultiWC`  **hint** name (order)
-- [ ] `0070f510` 185 B `_NuSpecialSetVisibility`  **hint** name (gapfill)
+- [ ] `0070f510` 185 B `_NuSpecialSetVisibility`  **stub** · **hint** name (gapfill)
 - [ ] `00739910` 298 B `_NuSpecialClipTestShadowLights`  **hint** name (gapfill)
 
 ## NuStreamProcessManager

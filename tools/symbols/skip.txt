@@ -150,3 +150,5 @@
 00672790 CustomiserInternal::MenuGetItemName: jump table
 006c9ca0 instNuGCutSceneCreate: args in edi/ecx (register convention)
 00697cf0 PreInterpretor::Variable::getSemanticString: jump table
+0058fe00 NuStreamProcessManager::Initialize: compiled without optimisation (ebp frame, /Od TU)
+0070f510 NuSpecialSetVisibility: eax/ecx swapped throughout, 3 tries

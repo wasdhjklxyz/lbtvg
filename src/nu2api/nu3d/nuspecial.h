@@ -119,11 +119,15 @@ struct nugscn_s {
 };
 
 struct nudisplaylist_s {
-  unsigned char pad0[0x50];
+  unsigned char pad0[0x48];
+  unsigned char *visibility_flags; // 0x48, per instance, bit 0 = visible
+  unsigned char pad4c[0x50 - 0x4c];
   void **mtls; // 0x50
   unsigned char pad54[0x6c - 0x54];
   int nspecials;              // 0x6c
   NUDISPLAYSPECIAL *specials; // 0x70
+  unsigned char pad74[0x76 - 0x74];
+  unsigned char instance_visibility_enabled; // 0x76, bit 0
 };
 
 struct nuhspecial_s {

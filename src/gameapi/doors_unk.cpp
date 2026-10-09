@@ -444,3 +444,69 @@ void D_next_sock(NUFPAR *parser) {
 
 // FUNCTION: LEGOBATMAN 0x00614ba0
 void D_use_as_start(NUFPAR *parser) { D_door->flags |= 8; }
+
+struct MINICAM_ADDSUBTITLE_s {
+  i16 id;     // 0x00
+  u8 b2;      // 0x02
+  u8 b3;      // 0x03
+  u8 b4;      // 0x04
+  u8 b5;      // 0x05
+  u8 b6;      // 0x06
+  u8 flags;   // 0x07, 1/2: start/end times are relative
+  f32 start;  // 0x08
+  f32 end;    // 0x0c
+  f32 f10[6]; // 0x10
+};
+
+struct MINICAM_SUBTITLE_s {
+  i16 id; // 0x00
+  u8 b2;  // 0x02
+  u8 b3;  // 0x03
+  u8 b4;  // 0x04
+  u8 b5;  // 0x05
+  u8 b6;  // 0x06
+  u8 pad7;
+  f32 start;  // 0x08
+  f32 end;    // 0x0c
+  f32 f10[6]; // 0x10
+};
+
+// One block: writing a subtitle may alias the count and the clock.
+struct MINICAM_s {
+  MINICAM_SUBTITLE_s subtitles[8]; // 0x000
+  i8 subtitle_count;               // 0x140
+  u8 pad141[0x1b4 - 0x141];
+  f32 time; // 0x1b4
+};
+
+// GLOBAL: LEGOBATMAN 0x00acb4b8
+extern MINICAM_s Minicam;
+
+// FUNCTION: LEGOBATMAN 0x006163b0
+void Minicam_AddSubtitle(const MINICAM_ADDSUBTITLE_s *add) {
+  if (add != 0 && add->id != -1 && Minicam.subtitle_count < 8) {
+    MINICAM_SUBTITLE_s *sub = &Minicam.subtitles[Minicam.subtitle_count];
+    sub->id = add->id;
+    sub->b2 = add->b2;
+    sub->b3 = add->b3;
+    sub->b4 = add->b4;
+    sub->b5 = add->b5;
+    sub->b6 = add->b6;
+    sub->id = add->id;
+    if (add->flags & 1)
+      sub->start = add->start + Minicam.time;
+    else
+      sub->start = add->start;
+    if (add->flags & 2)
+      sub->end = add->end + Minicam.time;
+    else
+      sub->end = add->end;
+    sub->f10[0] = add->f10[0];
+    sub->f10[1] = add->f10[1];
+    sub->f10[2] = add->f10[2];
+    sub->f10[3] = add->f10[3];
+    sub->f10[4] = add->f10[4];
+    sub->f10[5] = add->f10[5];
+    Minicam.subtitle_count++;
+  }
+}
