@@ -391,6 +391,48 @@ void *Condition_PlayerToLocatorInit(AISYS_s *sys, char *arg,
   return arg != NULL ? AIPathFindLocator(sys, arg) : NULL;
 }
 
+struct AILOCATOR_s {
+  char name[0x10];  // 0x00
+  nuvec_s position; // 0x10
+};
+
+// annotated in batman/aiactions_unk.cpp (0x00ad6918)
+extern i32 (*AIActionParseSpeedFn)(char *str, u8 *out);
+
+// STUB: LEGOBATMAN 0x006b3e80
+// close: orig keeps a separate epilogue for the guard return 1 and holds the
+// locator in ebx (epilogue puzzle); arg registers differ too.
+i32 Action_FaceLocator(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                       AIPACKET_s *packet, char **params, i32 param_count,
+                       i32 first_time, f32 elapsed) {
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL &&
+      packet->path_set != NULL && packet->path_node != NULL) {
+    if (first_time != 0) {
+      processor->action_data_3 = processor->locator_set;
+      for (i32 index = 0; index < param_count; ++index) {
+        if (AIActionParseSpeedFn != NULL &&
+            AIActionParseSpeedFn(params[index], &packet->goal_speed_mode) !=
+                0) {
+          continue;
+        }
+        char *value = NuStrIStr(params[index], "name");
+        if (value != NULL) {
+          ++index;
+          processor->action_data_3 =
+              AIPathFindLocator(sys, value + NuStrLen("name") + 1);
+        }
+      }
+    }
+    AILOCATOR_s *locator = (AILOCATOR_s *)processor->action_data_3;
+    if (locator != NULL) {
+      packet->look_target = &locator->position;
+      return 1;
+    }
+    return 0;
+  }
+  return 1;
+}
+
 // GLOBAL: LEGOBATMAN 0x00ad68e0
 extern AISCRIPTPROCESS_s *g_unk00ad68e0;
 

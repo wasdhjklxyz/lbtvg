@@ -1490,3 +1490,8 @@
 0055a200 fnIfPlatform  keyword table 0x95da20
 0055a270 fnBasePath  keyword table 0x95da20
 006d3fc0 NuFParPopCom  keyword table 0x95da20 (EndIfPlatform; folded)
+004aa680 LC_BL_max_minicutParts  keyword table 0x93faa8
+004aaba0 LC_BL_wind_speed  keyword table 0x93faa8
+004aabc0 LC_BL_wind_size  keyword table 0x93faa8
+00656660 RE_effect_type  keyword table 0x967130
+00665f60 GizFlock_Config_anim_speed  keyword table 0x967db8

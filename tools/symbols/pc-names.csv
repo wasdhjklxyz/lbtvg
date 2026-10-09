@@ -603,6 +603,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004aa600,000c419e,__Z16LC_BL_max_shardsP8nufpar_s,LC_BL_max_shards(nufpar_s*),confirmed,0
 004aa620,000c41c4,__Z18LC_BL_max_spinnersP8nufpar_s,LC_BL_max_spinners(nufpar_s*),confirmed,0
 004aa660,000c4204,__Z18LC_BL_max_minicutsP8nufpar_s,LC_BL_max_minicuts(nufpar_s*),confirmed,0
+004aa680,000c422a,__Z22LC_BL_max_minicutPartsP8nufpar_s,LC_BL_max_minicutParts(nufpar_s*),confirmed,0
 004aa6a0,000c4250,__Z26LC_BL_max_gizmoblowuptypesP8nufpar_s,LC_BL_max_gizmoblowuptypes(nufpar_s*),confirmed,0
 004aa6f0,000c4294,__Z22LC_BL_max_gizmoblowupsP8nufpar_s,LC_BL_max_gizmoblowups(nufpar_s*),confirmed,0
 004aa740,000c42d8,__Z20LC_BL_max_pushblocksP8nufpar_s,LC_BL_max_pushblocks(nufpar_s*),confirmed,0
@@ -635,6 +636,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004aab30,000c470e,__Z33LC_BL_max_dynamic_flock_creaturesP8nufpar_s,LC_BL_max_dynamic_flock_creatures(nufpar_s*),confirmed,0
 004aab60,000c4734,__Z33LC_BL_max_dynamic_flock_antinodesP8nufpar_s,LC_BL_max_dynamic_flock_antinodes(nufpar_s*),confirmed,0
 004aab80,000c475a,__Z18LC_BL_flock_extrasP8nufpar_s,LC_BL_flock_extras(nufpar_s*),confirmed,0
+004aaba0,000c4780,__Z16LC_BL_wind_speedP8nufpar_s,LC_BL_wind_speed(nufpar_s*),confirmed,0
+004aabc0,000c47a6,__Z15LC_BL_wind_sizeP8nufpar_s,LC_BL_wind_size(nufpar_s*),confirmed,0
 004aabe0,000c47cc,__Z17LC_BL_slide_speedP8nufpar_s,LC_BL_slide_speed(nufpar_s*),confirmed,0
 004aac00,000c47f2,__Z25LC_BL_lateral_slide_speedP8nufpar_s,LC_BL_lateral_slide_speed(nufpar_s*),confirmed,0
 004aacb0,000c4818,__Z18Credits_LoadImagesP11WORLDINFO_s,Credits_LoadImages(WORLDINFO_s*),strings,0
@@ -1732,6 +1735,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00655ca0,00329c8a,__Z23RippleEffects_ConfigureP11WORLDINFO_sPc,"RippleEffects_Configure(WORLDINFO_s*, char*)",strings,0
 00655e50,00329ae4,__Z23LookupRippleEffectIndexPc,LookupRippleEffectIndex(char*),confirmed,0
 00656130,0032a02a,__Z9AddRippleP12ripple_set_sP7numtx_sffff4RGBAS3_iP7numtl_sP7nuvec_s,"AddRipple(ripple_set_s*, numtx_s*, float, float, float, float, RGBA, RGBA, int, numtl_s*, nuvec_s*)",gapfill,3
+00656660,0032a680,__Z14RE_effect_typeP8nufpar_s,RE_effect_type(nufpar_s*),confirmed,0
 006567d0,003069ce,__ZN16LightningManager4InitEv,LightningManager::Init(),gapfill,2
 00657160,0030753a,__Z21LMC_AddCutSceneStrikeP8nufpar_s,LMC_AddCutSceneStrike(nufpar_s*),strings,0
 006572a0,00307212,__ZN16LightningManager19Lightning_ConfigureEP11WORLDINFO_sPc,"LightningManager::Lightning_Configure(WORLDINFO_s*, char*)",strings,0
@@ -1763,6 +1767,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00661c30,002dba26,__Z20GizTurret_FindByNameP14GIZTURRETSYS_sPc,"GizTurret_FindByName(GIZTURRETSYS_s*, char*)",confirmed,0
 00661d60,002dbb98,__Z14GizTurrets_HitPvP11GIZTURRET_sP7nuvec_sii,"GizTurrets_Hit(void*, GIZTURRET_s*, nuvec_s*, int, int)",confirmed,0
 006633c0,002c259e,__Z17CheckGizAIMessageP17GIZAIMESSAGESYS_sPKcP14GIZAIMESSAGE_s,"CheckGizAIMessage(GIZAIMESSAGESYS_s*, char const*, GIZAIMESSAGE_s*)",calls,1
+00665f60,002b9214,__Z26GizFlock_Config_anim_speedP8nufpar_s,GizFlock_Config_anim_speed(nufpar_s*),confirmed,0
 00665f80,002b9242,__Z24GizFlock_ConfigureExtrasP11WORLDINFO_sPKcj,"GizFlock_ConfigureExtras(WORLDINFO_s*, char const*, unsigned int)",strings,0
 0066b400,002bc674,__Z20GizFlock_UpdateBoidsP12sGizFlockSysP9sGizFlock,"GizFlock_UpdateBoids(sGizFlockSys*, sGizFlock*)",strings,0
 00672790,00290cb2,__ZN18CustomiserInternal15MenuGetItemNameE12MenuItemType,CustomiserInternal::MenuGetItemName(MenuItemType),strings,0

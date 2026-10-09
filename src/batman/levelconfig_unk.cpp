@@ -95,6 +95,12 @@ void LC_BL_max_minicuts(NUFPAR *parser) {
   levelconfig_ldata->max_minicuts = NuFParGetInt(parser);
 }
 
+// keyword "max_minicut_stages"
+// FUNCTION: LEGOBATMAN 0x004aa680
+void LC_BL_max_minicutParts(NUFPAR *parser) {
+  levelconfig_ldata->max_minicutParts = NuFParGetInt(parser);
+}
+
 // FUNCTION: LEGOBATMAN 0x004aa7c0
 void LC_BL_max_attractos(NUFPAR *parser) {
   levelconfig_ldata->max_attractos = NuFParGetInt(parser);
@@ -228,6 +234,18 @@ void LC_BL_max_dynamic_flock_creatures(NUFPAR *parser) {
 // FUNCTION: LEGOBATMAN 0x004aab60
 void LC_BL_max_dynamic_flock_antinodes(NUFPAR *parser) {
   levelconfig_ldata->max_dynamic_flock_antinodes = NuFParGetInt(parser);
+}
+
+// keyword "windspeed"
+// FUNCTION: LEGOBATMAN 0x004aaba0
+void LC_BL_wind_speed(NUFPAR *parser) {
+  levelconfig_ldata->wind_speed = NuFParGetFloat(parser);
+}
+
+// keyword "windsize"
+// FUNCTION: LEGOBATMAN 0x004aabc0
+void LC_BL_wind_size(NUFPAR *parser) {
+  levelconfig_ldata->wind_size = NuFParGetFloat(parser);
 }
 
 // FUNCTION: LEGOBATMAN 0x004aabe0

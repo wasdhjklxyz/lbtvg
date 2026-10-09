@@ -42,37 +42,37 @@ typedef struct LEVELDATA_s {
   f32 reflect_y;             // 0xd0
   i32 shadowtype;            // 0xd4
   unsigned char padd8[0xd9 - 0xd8];
-  u8 blob_shadow_fade_near; // 0xd9
-  u8 blob_shadow_fade_far;  // 0xda
-  u8 campos_seek;           // 0xdb
-  u8 camang_seek;           // 0xdc
-  u8 reflect_range;         // 0xdd
-  u8 raycaststep;           // 0xde
-  u8 plat_scan_dist;        // 0xdf
-  f32 conveyor_x_speed;     // 0xe0
-  f32 conveyor_z_speed;     // 0xe4
-  f32 char_clip_dist;       // 0xe8
-  i16 max_gameantinodes;    // 0xec
-  u16 max_gizmoblowups;     // 0xee
-  u16 max_gizmoblowuptypes; // 0xf0
-  i16 max_pickups;          // 0xf2
-  i16 max_obstacle_objects; // 0xf4
-  i16 max_buildit_objects;  // 0xf6
-  i16 max_force_objects;    // 0xf8
-  i16 max_bombgen_objects;  // 0xfa
-  u8 max_tightropes;        // 0xfc
-  u8 max_timers;            // 0xfd
-  u8 max_signals;           // 0xfe
-  u8 max_levers;            // 0xff
-  u8 max_technos;           // 0x100
-  u8 max_zipups;            // 0x101
-  u8 max_grapples;          // 0x102
-  u8 max_obstacles;         // 0x103
-  u8 max_buildits;          // 0x104
-  u8 max_shards;            // 0x105
-  u8 max_spinners;          // 0x106
-  u8 max_minicuts;          // 0x107
-  u8 pad108[0x109 - 0x108];
+  u8 blob_shadow_fade_near;        // 0xd9
+  u8 blob_shadow_fade_far;         // 0xda
+  u8 campos_seek;                  // 0xdb
+  u8 camang_seek;                  // 0xdc
+  u8 reflect_range;                // 0xdd
+  u8 raycaststep;                  // 0xde
+  u8 plat_scan_dist;               // 0xdf
+  f32 conveyor_x_speed;            // 0xe0
+  f32 conveyor_z_speed;            // 0xe4
+  f32 char_clip_dist;              // 0xe8
+  i16 max_gameantinodes;           // 0xec
+  u16 max_gizmoblowups;            // 0xee
+  u16 max_gizmoblowuptypes;        // 0xf0
+  i16 max_pickups;                 // 0xf2
+  i16 max_obstacle_objects;        // 0xf4
+  i16 max_buildit_objects;         // 0xf6
+  i16 max_force_objects;           // 0xf8
+  i16 max_bombgen_objects;         // 0xfa
+  u8 max_tightropes;               // 0xfc
+  u8 max_timers;                   // 0xfd
+  u8 max_signals;                  // 0xfe
+  u8 max_levers;                   // 0xff
+  u8 max_technos;                  // 0x100
+  u8 max_zipups;                   // 0x101
+  u8 max_grapples;                 // 0x102
+  u8 max_obstacles;                // 0x103
+  u8 max_buildits;                 // 0x104
+  u8 max_shards;                   // 0x105
+  u8 max_spinners;                 // 0x106
+  u8 max_minicuts;                 // 0x107
+  u8 max_minicutParts;             // 0x108
   u8 max_gizspecials;              // 0x109
   u8 max_attractos;                // 0x10a
   u8 max_climb_objects;            // 0x10b
@@ -102,8 +102,9 @@ typedef struct LEVELDATA_s {
   u8 maxdig_objects;               // 0x125
   u8 maxdig;                       // 0x126
   u8 max_puzzles;                  // 0x127
-  u8 pad128[0x130 - 0x128];
-  i32 music_tracks[3][2];  // 0x130
-  f32 slide_speed;         // 0x148
-  f32 lateral_slide_speed; // 0x14c
+  f32 wind_speed;                  // 0x128
+  f32 wind_size;                   // 0x12c
+  i32 music_tracks[3][2];          // 0x130
+  f32 slide_speed;                 // 0x148
+  f32 lateral_slide_speed;         // 0x14c
 } LEVELDATA;

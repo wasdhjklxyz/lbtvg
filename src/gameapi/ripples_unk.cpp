@@ -132,6 +132,16 @@ i32 LookupRippleEffectIndex(char *name) {
   return -1;
 }
 
+// FUNCTION: LEGOBATMAN 0x00656660
+void RE_effect_type(NUFPAR *parser) {
+  if (NuFParGetWord(parser)) {
+    i32 index = LookupRippleEffectIndex(parser->word_buf);
+    if (index != -1)
+      RE_worldinfo->ripple_effect_indices[index] =
+          RE_worldinfo->ripple_effect_count;
+  }
+}
+
 // STUB: LEGOBATMAN 0x00656130
 // callee FUN_00656040 (list-node alloc) takes the set in ecx: register-arg
 // static
