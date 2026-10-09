@@ -45,6 +45,8 @@ for arg in sys.argv[1:]:
         size = len(body.rstrip(b"\xcc\x90")) or len(body)
     print(f"=== {addr:08x}  {size} B  {names.get(addr, '')}")
     for i in md.disasm(pe.get_data(addr - base, size), addr):
+        if i.mnemonic == "int3":   # padding: the function ended
+            break
         extra = ""
         for m in re.finditer(r"0x([0-9a-f]{6,8})", i.op_str):
             v = int(m.group(1), 16)
