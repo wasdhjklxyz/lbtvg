@@ -51,6 +51,32 @@ i32 edanimLoadPage(char *path, void *scene, i32 unk);
 // GLOBAL: LEGOBATMAN 0x00ab39e8
 extern WORLDINFO WorldInfo[]; // 0xa790 bytes in all
 
+struct TerrainQuery_s {
+  u32 pad0[0x28 / 4];
+  f32 mx; // 0x28 movement
+  f32 my; // 0x2c
+  f32 mz; // 0x30
+  u32 pad34[(0x44 - 0x34) / 4];
+  f32 movement_pitch;  // 0x44
+  f32 movement_yaw;    // 0x48
+  f32 movement_length; // 0x4c
+};
+
+// GLOBAL: LEGOBATMAN 0x009e9564
+static TerrainQuery_s *TerI;
+
+i32 NuAtan2DA(f32 dx, f32 dy);
+f32 NuFsqrt(f32 f);
+
+// FUNCTION: LEGOBATMAN 0x005672e0
+void DerotateMovementVector() {
+  TerI->movement_yaw = (f32)NuAtan2DA(TerI->mx, TerI->mz);
+  TerI->movement_pitch = (f32)NuAtan2DA(
+      -TerI->my, NuFsqrt(TerI->mx * TerI->mx + TerI->mz * TerI->mz));
+  TerI->movement_length =
+      NuFsqrt(TerI->mx * TerI->mx + TerI->my * TerI->my + TerI->mz * TerI->mz);
+}
+
 // STUB: LEGOBATMAN 0x0056fef0
 // skipped: switch on hit_type compiles to a byte-indexed jump table; not
 // attempted.

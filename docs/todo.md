@@ -16,7 +16,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Action](#action) | 72 | 57 |
 | [near rtleditor.cpp](#near-rtleditorcpp) | 70 | 44 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
-| [near terrain.c](#near-terrainc) | 35 | 10 |
+| [near terrain.c](#near-terrainc) | 34 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 14 | 8 |
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 7 | 6 |
 | [Text](#text) | 7 | 6 |
@@ -419,7 +419,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0057d5a0` 89 B `_AddVariableShotDebrisEffectTimed1`  **hint** name (gapfill)
 - [ ] `0056fef0` 145 B `_RayImpact`  **stub** · **saga** `legoapi/render/core/terrain.cpp`
 - [ ] `00584e60` 155 B `AddFiniteShotPART(int, nuvec_s*, int)`
-- [ ] `005672e0` 171 B `_DerotateMovementVector`  **saga** `legoapi/render/core/terrain.cpp`
 - [ ] `00584780` 175 B `KillPart(PART_s*, int)`
 - [ ] `00584870` 182 B `FindPart(nuvec_s*, int, void*)`  **hint** name (gapfill)
 - [ ] `0056b0a0` 234 B `_NewShadowEx`  **hint** name (gapfill)
