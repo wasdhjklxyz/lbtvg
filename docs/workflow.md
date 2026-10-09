@@ -5,6 +5,14 @@ inside `nix develop` (or the manual environment from `docs/setup.md`) with
 the compiler fetched (`make vc8`) and the ghidra project built
 (`make ghidra-import`, `make fid`).
 
+## 0. the short way
+
+`make new FUNC=0x...` does steps 2–4 for you: picks the file (written
+neighbours, then subsystem, then saga's file name), inserts saga's body in
+address order (pulling missing globals from saga), compiles it and runs the
+match. No saga body: it leaves a TODO with the Mac signature. Then fix the
+DIFF if there is one, `make fmt`, commit.
+
 ## 1. pick a function
 
 Small first. `ghidra/LEGOBatman.exe.stats.tsv` lists every function with its

@@ -49,6 +49,10 @@ fmt:
 fmt-check:
 	clang-format --dry-run -Werror $(shell find src -name "*.c" -o -name "*.cpp" -o -name "*.h")
 
+# start a function: pick its file, insert saga's body (or a TODO), try to match
+new:
+	tools/new.py $(FUNC)
+
 # regenerate docs/linkmap.md (which source file owns which address range)
 linkmap:
 	tools/linkmap.py > docs/linkmap.md
@@ -120,4 +124,4 @@ fid-apply: ghidra-check
 		-preScript ApplyFid.java $(FIDB) \
 		-postScript DumpStats.java $(STATS)
 
-.PHONY: all verify progress hooks names macnames match match-v fmt fmt-check linkmap vc8 ghidra-import ghidra ghidra-check fid fid-import fid-build fid-apply
+.PHONY: all verify progress hooks new names macnames match match-v fmt fmt-check linkmap vc8 ghidra-import ghidra ghidra-check fid fid-import fid-build fid-apply
