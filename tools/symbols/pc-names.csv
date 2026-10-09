@@ -1206,6 +1206,16 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00620ca0,0027a61a,__Z7CC_minyP8nufpar_s,CC_miny(nufpar_s*),confirmed,0
 00620cc0,0027a648,__Z7CC_maxyP8nufpar_s,CC_maxy(nufpar_s*),confirmed,0
 00620ce0,0027a676,__Z8CC_scaleP8nufpar_s,CC_scale(nufpar_s*),confirmed,0
+00620e40,0027a81e,__Z15CC_fixed_layersP8nufpar_s,CC_fixed_layers(nufpar_s*),confirmed,0
+00620e90,0027a860,__Z18CC_crowd_characterP8nufpar_s,CC_crowd_character(nufpar_s*),confirmed,0
+00620ee0,0027a8a4,__Z19CC_hair_layer_indexP8nufpar_s,CC_hair_layer_index(nufpar_s*),confirmed,0
+00620f10,0027a8ee,__Z18CC_hat_layer_indexP8nufpar_s,CC_hat_layer_index(nufpar_s*),confirmed,0
+00620f40,0027a938,__Z19CC_cape_layer_indexP8nufpar_s,CC_cape_layer_index(nufpar_s*),confirmed,0
+00620f70,,CC_hair_layer,CC_hair_layer,confirmed,0
+00620fb0,,CC_cape_layer,CC_cape_layer,confirmed,0
+00620ff0,,CC_hat_layer,CC_hat_layer,confirmed,0
+00621310,0027ac44,__Z14CC_bsa_defaultP8nufpar_s,CC_bsa_default(nufpar_s*),confirmed,0
+00621370,0027acb6,__Z13CC_bsa_alwaysP8nufpar_s,CC_bsa_always(nufpar_s*),confirmed,0
 006213c0,0027f374,__Z13CC_anim_startP8nufpar_s,CC_anim_start(nufpar_s*),strings,0
 00622f30,0027afe6,__Z14CC_set_locatorP8nufpar_sPa,"CC_set_locator(nufpar_s*, signed char*)",confirmed,0
 00622f60,0027b024,__Z20CC_collision_locatorP8nufpar_s,CC_collision_locator(nufpar_s*),confirmed,0
@@ -1240,6 +1250,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00623790,0027b4ba,__Z18CC_debris_locatorsP8nufpar_s,CC_debris_locators(nufpar_s*),confirmed,0
 006237f0,0027b522,__Z20CC_backpack_locatorsP8nufpar_s,CC_backpack_locators(nufpar_s*),confirmed,0
 00623850,0027b58a,__Z14ParseStreakColP8nufpar_s,ParseStreakCol(nufpar_s*),strings,0
+00623ab0,0027b850,__Z20CC_headlight_locatorP8nufpar_s,CC_headlight_locator(nufpar_s*),confirmed,0
+00623b00,0027b87a,__Z19CC_headlight_colourP8nufpar_s,CC_headlight_colour(nufpar_s*),confirmed,0
+00623b60,0027b900,__Z18CC_headlight_angleP8nufpar_s,CC_headlight_angle(nufpar_s*),confirmed,0
+00623bb0,0027b9e4,__Z17CC_headlight_xangP8nufpar_s,CC_headlight_xang(nufpar_s*),confirmed,0
+00623c10,0027ba28,__Z23CC_headlight_yrot_speedP8nufpar_s,CC_headlight_yrot_speed(nufpar_s*),confirmed,0
+00623c50,0027ba72,__Z27CC_headlight_flash_off_timeP8nufpar_s,CC_headlight_flash_off_time(nufpar_s*),confirmed,0
+00623c90,0027bab4,__Z26CC_headlight_flash_on_timeP8nufpar_s,CC_headlight_flash_on_time(nufpar_s*),confirmed,0
+00623cd0,0027baf6,__Z18CC_headlight_startP8nufpar_s,CC_headlight_start(nufpar_s*),confirmed,0
 00623de0,0027bc0c,__Z17CC_define_locatorP8nufpar_s,CC_define_locator(nufpar_s*),confirmed,0
 00623e30,0027bc6c,__Z16CC_boost_locatorP8nufpar_s,CC_boost_locator(nufpar_s*),confirmed,0
 00623ea0,0027bcc2,__Z13CC_head_jointP8nufpar_s,CC_head_joint(nufpar_s*),confirmed,0

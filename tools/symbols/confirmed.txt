@@ -1265,3 +1265,21 @@
 00450850 Condition_MaulShouldRunAway  condition table
 00452190 Condition_AngleAboutMyLocatorToPlayer  condition table
 0044f1e0 Condition_CollidingWithObject  condition table
+00620e40 CC_fixed_layers  keyword table 0x963ff0
+00620e90 CC_crowd_character  keyword table 0x963ff0
+00620ee0 CC_hair_layer_index  keyword table 0x963ff0
+00620f10 CC_hat_layer_index  keyword table 0x963ff0
+00620f40 CC_cape_layer_index  keyword table 0x963ff0
+00620f70 CC_hair_layer  keyword table 0x963ff0
+00620fb0 CC_cape_layer  keyword table 0x963ff0
+00620ff0 CC_hat_layer  keyword table 0x963ff0
+00621310 CC_bsa_default  keyword table 0x963ff0
+00621370 CC_bsa_always  keyword table 0x963ff0
+00623ab0 CC_headlight_locator  keyword table 0x963ff0
+00623b00 CC_headlight_colour  keyword table 0x963ff0
+00623b60 CC_headlight_angle  keyword table 0x963ff0
+00623bb0 CC_headlight_xang  keyword table 0x963ff0
+00623c10 CC_headlight_yrot_speed  keyword table 0x963ff0
+00623c50 CC_headlight_flash_off_time  keyword table 0x963ff0
+00623c90 CC_headlight_flash_on_time  keyword table 0x963ff0
+00623cd0 CC_headlight_start  keyword table 0x963ff0

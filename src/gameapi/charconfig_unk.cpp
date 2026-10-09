@@ -8,8 +8,23 @@ typedef struct nufpar_s {
   char *word_buf; // 0x910
 } NUFPAR;
 
+typedef struct HEADLIGHT_s {
+  unsigned char pad0[8];
+  f32 colour[3];      // 0x08
+  f32 angle;          // 0x14
+  f32 flash_on_time;  // 0x18
+  f32 flash_off_time; // 0x1c
+  unsigned char pad20[4];
+  i32 yrot_speed; // 0x24
+  i16 xang;       // 0x28
+  i8 locator;     // 0x2a
+  unsigned char pad2b[1];
+} HEADLIGHT_s;
+
 typedef struct CHARCONFIG_RUNTIME_s {
-  unsigned char pad0[0xa0];
+  unsigned char pad0[0x44];
+  HEADLIGHT_s headlights[2]; // 0x44
+  unsigned char pad9c[0xa0 - 0x9c];
   f32 stop_speed;       // 0xa0
   f32 idle_speed;       // 0xa4
   f32 tiptoe_speed;     // 0xa8
@@ -121,7 +136,10 @@ typedef struct CHARCONFIG_RUNTIME_s {
   i8 attracto_suck_locator;   // 0x225
   u8 hit_points;              // 0x226
   u8 shield_hit_points;       // 0x227
-  unsigned char pad228[0x22c - 0x228];
+  i8 hair_layer;              // 0x228
+  i8 hat_layer;               // 0x229
+  i8 cape_layer;              // 0x22a
+  unsigned char pad22b[0x22c - 0x22b];
   i8 backpack_layers[4]; // 0x22c
   unsigned char pad230[0x232 - 0x230];
   u8 phobias;       // 0x232
@@ -364,6 +382,89 @@ void CC_backpack_locators(NUFPAR *parser) {
 }
 
 i16 DefinedLocators_FindIX(char *name);
+
+f32 NuFParGetFloat(NUFPAR *parser);
+f32 Unk00620800(i32 angle);
+typedef struct nufpcomjmp_s NUFPCOMJMP;
+i32 NuFParPushCom(NUFPAR *parser, NUFPCOMJMP *commands);
+i32 NuFParGetLine(NUFPAR *parser);
+i32 NuFParInterpretWord(NUFPAR *parser);
+void NuFParPopCom(NUFPAR *parser);
+
+// GLOBAL: LEGOBATMAN 0x00963fec
+extern i32 g_unk00963fec;
+// GLOBAL: LEGOBATMAN 0x00963ff0
+extern NUFPCOMJMP g_unk00963ff0[];
+
+// FUNCTION: LEGOBATMAN 0x00623ab0
+void CC_headlight_locator(NUFPAR *parser) {
+  CC_set_locator(parser,
+                 &charconfig.runtime->headlights[g_unk00963fec].locator);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623b00
+void CC_headlight_colour(NUFPAR *parser) {
+  charconfig.runtime->headlights[g_unk00963fec].colour[0] =
+      NuFParGetFloat(parser);
+  charconfig.runtime->headlights[g_unk00963fec].colour[1] =
+      NuFParGetFloat(parser);
+  charconfig.runtime->headlights[g_unk00963fec].colour[2] =
+      NuFParGetFloat(parser);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623b60
+void CC_headlight_angle(NUFPAR *parser) {
+  f32 angle =
+      Unk00620800(0x4000 - (i32)(NuFParGetFloat(parser) * 65536.0f / -360.0f));
+  charconfig.runtime->headlights[g_unk00963fec].angle = angle;
+}
+
+// STUB: LEGOBATMAN 0x00623bb0
+// original inlines the (i16) conversion (fnstcw/fistp), ours calls _ftol2
+void CC_headlight_xang(NUFPAR *parser) {
+  charconfig.runtime->headlights[g_unk00963fec].xang =
+      (i16)(NuFParGetFloat(parser) * 182.04445f);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623c10
+void CC_headlight_yrot_speed(NUFPAR *parser) {
+  f32 f = NuFParGetFloat(parser);
+  charconfig.runtime->headlights[g_unk00963fec].yrot_speed =
+      (i32)(f * 65536.0f / 360.0f);
+}
+
+// FUNCTION: LEGOBATMAN 0x00623c50
+void CC_headlight_flash_off_time(NUFPAR *parser) {
+  f32 f = NuFParGetFloat(parser);
+  if (f > 0.0f)
+    charconfig.runtime->headlights[g_unk00963fec].flash_off_time = f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00623c90
+void CC_headlight_flash_on_time(NUFPAR *parser) {
+  f32 f = NuFParGetFloat(parser);
+  if (f > 0.0f)
+    charconfig.runtime->headlights[g_unk00963fec].flash_on_time = f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00623cd0
+void CC_headlight_start(NUFPAR *parser) {
+  if (parser != 0 && NuFParGetWord(parser) != 0) {
+    g_unk00963fec = NuAToI(parser->word_buf) - 1;
+    if (g_unk00963fec >= 0 && g_unk00963fec < 2) {
+      NuFParPushCom(parser, g_unk00963ff0);
+      while (NuFParGetLine(parser)) {
+        if (NuFParGetWord(parser)) {
+          if (NuStrICmp(parser->word_buf, "}") == 0)
+            break;
+          NuFParInterpretWord(parser);
+        }
+      }
+      NuFParPopCom(parser);
+    }
+    g_unk00963fec = -1;
+  }
+}
 
 // FUNCTION: LEGOBATMAN 0x00623de0
 void CC_define_locator(NUFPAR *parser) {
@@ -1671,6 +1772,72 @@ void CC_maxy(NUFPAR *parser) { g_unk00acb860->maxy = NuFParGetFloat(parser); }
 
 // FUNCTION: LEGOBATMAN 0x00620ce0
 void CC_scale(NUFPAR *parser) { g_unk00acb860->scale = NuFParGetFloat(parser); }
+
+i32 LayerFromName(CHARCONFIG_RUNTIME_s *character, char *name);
+
+// FUNCTION: LEGOBATMAN 0x00620e40
+void CC_fixed_layers(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags144)->b15 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00620e90
+void CC_crowd_character(NUFPAR *parser) {
+  ((CCBits *)&charconfig.runtime->flags144)->b16 =
+      NuFParGetWord(parser) == 0 || NuStrICmp(parser->word_buf, "off") != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00620ee0
+void CC_hair_layer_index(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0)
+    charconfig.runtime->hair_layer = NuAToI(parser->word_buf);
+}
+
+// FUNCTION: LEGOBATMAN 0x00620f10
+void CC_hat_layer_index(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0)
+    charconfig.runtime->hat_layer = NuAToI(parser->word_buf);
+}
+
+// FUNCTION: LEGOBATMAN 0x00620f40
+void CC_cape_layer_index(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0)
+    charconfig.runtime->cape_layer = NuAToI(parser->word_buf);
+}
+
+// FUNCTION: LEGOBATMAN 0x00620f70
+void CC_hair_layer(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0)
+    charconfig.runtime->hair_layer =
+        (i8)LayerFromName(charconfig.runtime, parser->word_buf);
+}
+
+// FUNCTION: LEGOBATMAN 0x00620fb0
+void CC_cape_layer(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0)
+    charconfig.runtime->cape_layer =
+        (i8)LayerFromName(charconfig.runtime, parser->word_buf);
+}
+
+// FUNCTION: LEGOBATMAN 0x00620ff0
+void CC_hat_layer(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0)
+    charconfig.runtime->hat_layer =
+        (i8)LayerFromName(charconfig.runtime, parser->word_buf);
+}
+
+// FUNCTION: LEGOBATMAN 0x00621310
+void CC_bsa_default(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0) {
+    if (NuStrICmp(parser->word_buf, "on") == 0)
+      charconfig.flags10 |= 1;
+    else if (NuStrICmp(parser->word_buf, "off") == 0)
+      charconfig.flags10 &= ~1;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00621370
+void CC_bsa_always(NUFPAR *parser) { charconfig.flags10 |= 2; }
 
 // FUNCTION: LEGOBATMAN 0x006243b0
 void CC_clear_sfx_misc(NUFPAR *parser) { charconfig.runtime->sfx_misc[0] = -1; }
