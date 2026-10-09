@@ -2018,6 +2018,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d4390,001883e4,_NuMemBlkCheckFreeList,_NuMemBlkCheckFreeList,confirmed,0
 006d43b0,001883f2,_NuMemBlkAlloc,_NuMemBlkAlloc,confirmed,0
 006d43e0,0018842a,_NuMemBlkFree,_NuMemBlkFree,confirmed,0
+006d5010,00188d3c,_NuTimeGetFrameTime,_NuTimeGetFrameTime,confirmed,0
+006d5030,00188d62,_NuTimeGet,_NuTimeGet,confirmed,0
+006d5050,00188d7c,_NuTimeSub,_NuTimeSub,confirmed,0
+006d5090,00188dbe,_NuTimeSeconds,_NuTimeSeconds,confirmed,0
+006d5100,00188f2e,_NuTimeMilliSeconds,_NuTimeMilliSeconds,confirmed,0
+006d5170,00188e72,_NuTimeMicroSeconds,_NuTimeMicroSeconds,confirmed,0
 006d5540,00189208,_NuCommandLine,_NuCommandLine,gapfill,4
 006d5700,001893c0,_NuPadOpen,_NuPadOpen,strings,0
 006d5df0,001897ba,_NuPadGetPort,_NuPadGetPort,calls,2

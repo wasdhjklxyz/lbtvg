@@ -1546,3 +1546,9 @@
 00533a80 oaInit  "oaInit() called more than once." / "Couldn't parse initialization string."
 006e3b30 NuTimeGetTime  NuTimeGet + NuTimeSeconds * 1000 as u32 (milliseconds)
 006c53b0 Text3D  wrapper passing alpha 128 to Text3DEx (0x6c24b0), saga's body
+006d5010 NuTimeGetFrameTime  saga nutime.cpp body (returns nuapi.frametime)
+006d5030 NuTimeGet  saga nutime.cpp body (NuTimeGetTicksPS(&low, &high))
+006d5050 NuTimeSub  saga nutime.cpp body
+006d5090 NuTimeSeconds  saga nutime.cpp body
+006d5100 NuTimeMilliSeconds  saga nutime.cpp body
+006d5170 NuTimeMicroSeconds  saga nutime.cpp body
