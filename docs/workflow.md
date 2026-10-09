@@ -265,3 +265,21 @@ enough matched code for the percentage to mean something.
 - **Half of all keyword-table callbacks are missing from ghidra**: don't
   filter tables by `functions.tsv` sizes (`tools/scratch/kwsumm.py` ranks
   tables by unannotated callbacks; run `kwall.py` first).
+- **A static with a register convention called from "another file" means our
+  file boundary is wrong**, not LTCG (the Rich header rules `/GL` out; see
+  recon). VC8 picks custom conventions for statics when it sees every caller
+  in the TU. Find the callers (scan `.text` for `e8`/`e9` rel32 to the
+  address) and put them in the static's file. Example: AIScriptCopyString
+  0x6a1a90 is called from 0x6a1cd4..0x6a2ddd and 0x6b2f82..0x6b32a3, so
+  those are one TU.
+- **`or eax, -1` stored as a dword and `al` as a byte** comes from an i32 -1
+  and an i8 -1; a u8 0xff is not CSE'd with them.
+- **`mov eax, 1; mov [x], al` plus a tail-duplicated store** is an inlined
+  static helper returning int.
+- **An address-taken local in an inner scope** reuses a dead parameter's
+  home slot.
+- **fabs via a second local** (`f32 r; *(u32*)&r = *(u32*)&f & 0x7fffffff`)
+  differs from the one-slot form.
+- **Inlined struct-copy helpers** (AIMoveInstruction) need `__forceinline`.
+- **`make new` can paste a huge saga body into a far-off file**: check where
+  it landed before matching.
