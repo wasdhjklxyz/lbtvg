@@ -16,7 +16,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Action](#action) | 49 | 37 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 43 | 37 |
 | [near rtleditor.cpp](#near-rtleditorcpp) | 38 | 27 |
-| [near terrain.c](#near-terrainc) | 21 | 9 |
+| [near terrain.c](#near-terrainc) | 20 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 9 | 6 |
 | [Condition](#condition) | 6 | 4 |
 | [Grabber](#grabber) | 5 | 4 |
@@ -76,7 +76,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [SpecialMiniKits](#specialminikits) | 1 | 1 |
 | [SpecialMove](#specialmove) | 1 | 1 |
 | [SpecialMoves](#specialmoves) | 1 | 1 |
-| [SuperCarry](#supercarry) | 2 | 1 |
+| [SuperCarry](#supercarry) | 1 | 1 |
 | [TakeOver](#takeover) | 1 | 1 |
 | [ThermalDetonator](#thermaldetonator) | 1 | 1 |
 | [TrafficAnimSys](#trafficanimsys) | 1 | 1 |
@@ -327,7 +327,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0057d660` 78 B `_AddVariableShotDebrisEffect`  **hint** name (gapfill)
 - [ ] `0057d5a0` 89 B `_AddVariableShotDebrisEffectTimed1`  **hint** name (gapfill)
 - [ ] `0056fef0` 145 B `_RayImpact`  **stub** · **saga** `legoapi/render/core/terrain.cpp`
-- [ ] `00584e60` 155 B `AddFiniteShotPART(int, nuvec_s*, int)`
 - [ ] `0056b0a0` 234 B `_NewShadowEx`  **hint** name (gapfill)
 - [ ] `0057be20` 321 B `_DebFreeInstantly`  **hint** name (gapfill)
 - [ ] `0056fd80` 325 B `_TerrainImpactNorm`  **stub** · **saga** `legoapi/render/core/terrain.cpp`
@@ -642,7 +641,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## SuperCarry
 
-- [ ] `006445b0` 151 B `SuperCarry_PickUpBlowUp(GameObject_s*)`  **hint** name (gapfill)
 - [ ] `00644700` 930 B `SuperCarry_Start(GameObject_s*, GIZMOBLOWUP_s*, int)`  **hint** name (gapfill) · **saga** `legoapi/actions/movement/carrying.cpp`
 
 ## TakeOver

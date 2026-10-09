@@ -164,3 +164,37 @@ void Particles_Load(WORLDINFO_s *world, char **debris_name, i32 count,
   world->p138 = InitGameDebris(&world->buf104, &world->bufEnd108, count, flags,
                                debris_name, world->page_pp);
 }
+
+extern "C" void PlatOnOff(i32 index, i32 enabled);
+void NewBuzzFrames(nupad_s *pad, i32 frames, i32 flags);
+void GameAudio_PlaySfx(i32 sfx, nuvec_s *position, i32 flags, i32 volume);
+void PlayGruntSfx(GameObject_s *object);
+
+// The carried object's view of the +0x9bc pointer.
+struct SUPERCARRYOBJ_s {
+  u32 pad0[0x58 / 4];
+  nuvec_s pos; // 0x58
+  u32 pad64[(0xa0 - 0x64) / 4];
+  u32 flags; // 0xa0
+  u32 pada4[(0x10c - 0xa4) / 4];
+  u16 pad10c;
+  i16 platform; // 0x10e
+  u32 pad110[(0x120 - 0x110) / 4];
+  u16 pad120;
+  u16 flags122; // 0x122
+};
+
+#define SUPERCARRY_OBJ(o) ((SUPERCARRYOBJ_s *)(o)->techno)
+
+// FUNCTION: LEGOBATMAN 0x006445b0
+void SuperCarry_PickUpBlowUp(GameObject_s *obj) {
+  SUPERCARRY_OBJ(obj)->flags122 |= 1;
+  SUPERCARRY_OBJ(obj)->flags |= 0x20000000;
+  *(u32 *)((u8 *)obj + 0x9e4) &= ~0x20000000;
+  SUPERCARRY_OBJ(obj)->flags &= ~0x800000;
+  SUPERCARRY_OBJ(obj)->flags &= ~0x4000;
+  PlatOnOff(SUPERCARRY_OBJ(obj)->platform, 0);
+  NewBuzzFrames(obj->p112c->pad0, 1, 0);
+  GameAudio_PlaySfx(0x92, &SUPERCARRY_OBJ(obj)->pos, 0, 0);
+  PlayGruntSfx(obj);
+}

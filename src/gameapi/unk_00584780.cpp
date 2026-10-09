@@ -36,9 +36,13 @@ void KillPart(PART_s *part, i32 reason) {
 
 struct PARTTYPE_s {
   char name[0x10]; // 0x00
-  u8 pad10[0xb2 - 0x10];
+  u8 pad10[0x90 - 0x10];
+  i16 effect_ids[8]; // 0x90
+  u8 pada0[0xb2 - 0xa0];
   i8 page; // 0xb2
-  u8 padb3[0xec - 0xb3];
+  u8 padb3[0xcc - 0xb3];
+  f32 emission_rate; // 0xcc
+  u8 padd0[0xec - 0xd0];
   f32 emission_period;        // 0xec
   f32 emission_period_random; // 0xf0
   f32 emission_pause;         // 0xf4
@@ -112,7 +116,13 @@ i32 PARTLookupType(char *name) {
 
 struct PARTEMIT_s {
   i32 effect_id; // 0x00
-  u8 pad04[0x6c - 0x04];
+  u8 pad04[0x14 - 0x04];
+  f32 time_20; // 0x14
+  f32 time_24; // 0x18
+  f32 time_28; // 0x1c
+  u8 pad20[0x28 - 0x20];
+  i32 shots_remaining; // 0x28
+  u8 pad2c[0x6c - 0x2c];
 };
 
 // GLOBAL: LEGOBATMAN 0x00a3628c
@@ -172,6 +182,35 @@ f32 PARTGetTotalOffTime(i32 index) {
     return part_types[index].emission_pause +
            part_types[index].emission_pause_random;
   return 0.0f;
+}
+
+// GLOBAL: LEGOBATMAN 0x00a3740c
+extern f32 partglobaltime;
+// GLOBAL: LEGOBATMAN 0x0095e15c
+extern u32 partseed;
+
+i32 AddPARTEffect(i32 effect, nuvec_s *position);
+f32 NuRandFloatSeeded(u32 *seed);
+
+// from saga legoapi/render/fx/parts.cpp
+// FUNCTION: LEGOBATMAN 0x00584e60
+i32 AddFiniteShotPART(i32 effect, nuvec_s *position, i32 count) {
+  if (effect == -1)
+    return effect;
+  if (part_types[effect].effect_ids[0] == -1)
+    return -1;
+  i32 index = AddPARTEffect(effect, position);
+  if (index != -1) {
+    part_emits[index].shots_remaining = count;
+    part_emits[index].time_24 = partglobaltime;
+    part_emits[index].time_28 = partglobaltime +
+                                part_types[effect].emission_period +
+                                NuRandFloatSeeded(&partseed) *
+                                    part_types[effect].emission_period_random;
+    part_emits[index].time_20 =
+        partglobaltime - 1.0f / part_types[effect].emission_rate;
+  }
+  return index;
 }
 
 // STUB: LEGOBATMAN 0x00584f00

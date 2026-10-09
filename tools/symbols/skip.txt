@@ -141,3 +141,8 @@
 005f3630 PlayerItems_RemoveItems: Mac signature doesn't fit the code (arg1 used as an item list, calls 0x5f2a00 with a float); check the pairing
 0057d5a0 AddVariableShotDebrisEffectTimed1: callees take eax/ecx/esi (register convention)
 00528cd0 PCInitStrings: jump table (switch on NuPadUnk006d6830)
+0070f0a0 NuSpecialFindMulti: output array arrives in eax (register convention)
+004b7d20 NuSinApprox copy: only reachable through register-convention static callers in its TU
+004dbbc0 NuSinApprox copy: only reachable through register-convention static callers in its TU
+004f9c20 NuSinApprox copy: only reachable through register-convention static callers in its TU
+005c8060 NuSinApprox copy: only reachable through register-convention static callers in its TU
