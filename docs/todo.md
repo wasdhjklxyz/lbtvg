@@ -11,7 +11,7 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 | group | todo | with saga body |
 |---|---|---|
-| [near rtleditor.cpp](#near-rtleditorcpp) | 106 | 80 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 105 | 79 |
 | [Action](#action) | 72 | 57 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
@@ -226,7 +226,6 @@ for it under `ref/saga/src/` (a starting point, not a guaranteed match).
 
 - [ ] `0059b480` 20 B `_CurrentAnim`
 - [ ] `00635c80` 23 B `ResetCoinPacket(COINPACKET_s*)`  **saga** `legoapi/items/base/collection.cpp`
-- [ ] `005ae160` 25 B `qrand()`  **saga** `legoapi/core/input/qrand.cpp`
 - [ ] `005c0f70` 25 B `SetFlicker(GameObject_s*, float)`  **saga** `legoapi/characters/core/players.cpp`
 - [ ] `00595ff0` 35 B `_AnimFlags`
 - [ ] `0059b540` 35 B `_AnimSpeedZ`
