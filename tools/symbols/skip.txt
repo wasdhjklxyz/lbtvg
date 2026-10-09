@@ -116,3 +116,5 @@
 00623a50 CC_set_streak_locators/callers: orig passes only parser in a register (LTCG?), ours two
 00623a80 CC_set_streak_locators/callers: orig passes only parser in a register (LTCG?), ours two
 006a5820 Action_SetIgnoreAntinodes: object/args swap edi/ebx, 3 tries
+006baab0 Action_MoveAwayFromPlayer: processor in ebx vs count, 2 tries
+006babf0 Action_MoveAwayFromPlayer2: same as MoveAwayFromPlayer

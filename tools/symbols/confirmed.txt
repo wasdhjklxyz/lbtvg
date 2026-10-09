@@ -1519,3 +1519,8 @@
 00620d00 CC_layer  keyword table 0x963ff0
 00627e50 CC_awkward_shape  keyword table 0x963ff0
 006b32f0 xInclude  keyword table 0x99dce0
+006b9fd0 Action_FollowOpponent  keyword table 0x99df98
+006ba0b0 Action_FollowPlayer  keyword table 0x99df98
+006ba970 Action_MoveAwayFromOpponent  keyword table 0x99df98
+006bad30 Action_RetreatFromOpponent  keyword table 0x99df98
+006bae30 Action_RetreatFromNearestOpponent  keyword table 0x99df98

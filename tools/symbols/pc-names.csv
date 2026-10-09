@@ -1959,9 +1959,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006b7110,0023daee,_AIMoveInstruction,_AIMoveInstruction,gapfill,1
 006b97b0,00235bc4,_AIScriptProcessorInit,_AIScriptProcessorInit,gapfill,4
 006b9eb0,00245bda,_FollowAPIObject,_FollowAPIObject,gapfill,1
+006b9fd0,00245d1e,_Action_FollowOpponent,_Action_FollowOpponent,confirmed,0
+006ba0b0,00245e2c,_Action_FollowPlayer,_Action_FollowPlayer,confirmed,0
 006ba190,0023f9e6,_Action_Circle,_Action_Circle,strings,0
 006ba4b0,0023f79c,_Action_CirclePlayer,_Action_CirclePlayer,strings,0
 006ba710,0023f53c,_Action_CircleOpponent,_Action_CircleOpponent,strings,0
+006ba970,0023f06c,_Action_MoveAwayFromOpponent,_Action_MoveAwayFromOpponent,confirmed,0
+006bad30,0023f392,_Action_RetreatFromOpponent,_Action_RetreatFromOpponent,confirmed,0
+006bae30,0023f468,_Action_RetreatFromNearestOpponent,_Action_RetreatFromNearestOpponent,confirmed,0
 006bc410,0024fefc,_AISysProcessCharacter,_AISysProcessCharacter,strings,0
 006be180,00251e6c,__ZN8bugThing10BugPitData4InitEP11biospline_sffPciffffffiPP8nugscn_sii,"bugThing::BugPitData::Init(biospline_s*, float, float, char*, int, float, float, float, float, float, float, int, nugscn_s**, int, int)",strings,0
 006be490,002521e8,__ZN8bugThing22BugPitSpecialParseFuncEP11biospline_sPviPPcRS2_P5VuMtxPP8nugscn_si,"bugThing::BugPitSpecialParseFunc(biospline_s*, void*, int, char**, void*&, VuMtx*, nugscn_s**, int)",strings,0

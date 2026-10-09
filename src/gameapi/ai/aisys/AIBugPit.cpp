@@ -312,6 +312,224 @@ void AIBugPitBufferB::Release() {
   }
 }
 
+void FollowAPIObject(Unk_AIPacketObj *api, void *target, i32 flags, f32 param);
+// annotated in batman/aiactions_unk.cpp (0x00ad6918)
+extern i32 (*AIActionParseSpeedFn)(char *str, u8 *out);
+
+// FUNCTION: LEGOBATMAN 0x006b9fd0
+i32 Action_FollowOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                          AIPACKET_s *packet, char **params, i32 param_count,
+                          i32 first_time, f32 elapsed) {
+  if (packet == NULL)
+    return 1;
+  if (first_time != 0) {
+    for (i32 index = 0; index < param_count; ++index) {
+      if (AIActionParseSpeedFn != NULL &&
+          AIActionParseSpeedFn(params[index], &packet->goal_speed_mode) != 0)
+        continue;
+      if (NuStrICmp(params[index], "ignore_radius") == 0)
+        processor->action_data_1 |= 2;
+      else if (NuStrICmp(params[index], "can_go_off_path") == 0)
+        processor->action_data_1 |= 1;
+      else
+        packet->movement_param =
+            AIParamToFloatEx(packet, processor, params[index]);
+    }
+  }
+  Unk_AIPacketObj *target = packet->pe4;
+  if (target != NULL && target->ai != NULL)
+    FollowAPIObject(packet->pd0, target, processor->action_data_1,
+                    packet->movement_param);
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006ba0b0
+i32 Action_FollowPlayer(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                        AIPACKET_s *packet, char **params, i32 param_count,
+                        i32 first_time, f32 elapsed) {
+  if (packet == NULL)
+    return 1;
+  if (first_time != 0) {
+    for (i32 index = 0; index < param_count; ++index) {
+      if (AIActionParseSpeedFn != NULL &&
+          AIActionParseSpeedFn(params[index], &packet->goal_speed_mode) != 0)
+        continue;
+      if (NuStrICmp(params[index], "ignore_radius") == 0)
+        processor->action_data_1 |= 2;
+      else if (NuStrICmp(params[index], "can_go_off_path") == 0)
+        processor->action_data_1 |= 1;
+      else
+        packet->movement_param =
+            AIParamToFloatEx(packet, processor, params[index]);
+    }
+  }
+  // 0x1698: sys->player_1
+  Unk_AIPacketObj *player = *(Unk_AIPacketObj **)((u8 *)sys + 0x1698);
+  if (player != NULL && player->ai != NULL)
+    FollowAPIObject(packet->pd0, player, processor->action_data_1,
+                    packet->movement_param);
+  return 0;
+}
+
+// Batman's path cursor is 7 dwords.
+struct AIPATHINFO7_s {
+  u32 w[7];
+};
+
+// Inlined into its callers in this file; Batman drops saga's formation case.
+static __forceinline void AIMoveInstruction(AIPACKET_s *packet,
+                                            nuvec_s *destination,
+                                            f32 stopping_distance,
+                                            AIPATHINFO7_s *path_info, i32 mode,
+                                            f32 movement_parameter) {
+  if (destination != NULL)
+    *(nuvec_s *)((u8 *)packet + 0x1b8) = *destination;
+  if (path_info != NULL)
+    *(AIPATHINFO7_s *)((u8 *)packet + 0x1d0) = *path_info;
+  *(f32 *)((u8 *)packet + 0x1c4) = stopping_distance;
+  packet->movement_event_flags =
+      (packet->movement_event_flags & ~7) | (mode & 7);
+  *(f32 *)((u8 *)packet + 0x1c8) = movement_parameter;
+}
+
+// FUNCTION: LEGOBATMAN 0x006bad30
+i32 Action_RetreatFromOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                               AIPACKET_s *packet, char **params,
+                               i32 param_count, i32 first_time, f32 elapsed) {
+  if (packet == NULL)
+    return 1;
+  if (first_time != 0) {
+    packet->movement_param = 1.0f;
+    for (i32 i = 0; i < param_count; i++) {
+      if (AIActionParseSpeedFn == NULL ||
+          AIActionParseSpeedFn(params[i], &packet->goal_speed_mode) == 0)
+        packet->movement_param = AIParamToFloatEx(packet, processor, params[i]);
+    }
+  }
+  if (packet->pe4 != NULL && packet->pe4->ai != NULL) {
+    AIMoveInstruction(packet, (nuvec_s *)((u8 *)packet->pe4->ai + 0x174),
+                      *(f32 *)((u8 *)packet->pe4->ai + 0x120),
+                      (AIPATHINFO7_s *)((u8 *)packet->pe4->ai + 0x158), 2,
+                      packet->movement_param);
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006ba970
+i32 Action_MoveAwayFromOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                                AIPACKET_s *packet, char **params,
+                                i32 param_count, i32 first_time, f32 elapsed) {
+  if (packet == NULL)
+    return 1;
+  if (first_time != 0) {
+    for (i32 i = 0; i < param_count; i++) {
+      if (AIActionParseSpeedFn != NULL &&
+          AIActionParseSpeedFn(params[i], &packet->goal_speed_mode) != 0)
+        continue;
+      if (NuStrICmp(params[i], "face") == 0)
+        processor->action_data_1 = 1;
+      else
+        packet->movement_param = AIParamToFloatEx(packet, processor, params[i]);
+    }
+  }
+  Unk_AIPacketObj *target = packet->pe4;
+  if (target != NULL && target->ai != NULL) {
+    AIMoveInstruction(packet, (nuvec_s *)((u8 *)target->ai + 0x174),
+                      *(f32 *)((u8 *)target->ai + 0x120),
+                      (AIPATHINFO7_s *)((u8 *)target->ai + 0x158), 2,
+                      packet->movement_param);
+    if (processor->action_data_1 != 0)
+      packet->look_target = &target->pos5c;
+  }
+  return 0;
+}
+
+// 0x1698/0x169c: sys->player_1/player_2
+#define PLAYER(sys, n) (((Unk_AIPacketObj **)((u8 *)(sys) + 0x1698))[n])
+
+// STUB: LEGOBATMAN 0x006baab0
+// close: orig keeps processor in ebx (count from memory); ours keeps count.
+i32 Action_MoveAwayFromPlayer(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                              AIPACKET_s *packet, char **params,
+                              i32 param_count, i32 first_time, f32 elapsed) {
+  if (packet == NULL)
+    return 1;
+  if (first_time != 0) {
+    for (i32 i = 0; i < param_count; i++) {
+      if (AIActionParseSpeedFn != NULL &&
+          AIActionParseSpeedFn(params[i], &packet->goal_speed_mode) != 0)
+        continue;
+      if (NuStrICmp(params[i], "face") == 0)
+        processor->action_data_1 = 1;
+      else
+        packet->movement_param = AIParamToFloatEx(packet, processor, params[i]);
+    }
+  }
+  if (PLAYER(sys, 0) == NULL)
+    return 0;
+  u8 *target = (u8 *)PLAYER(sys, 0)->ai;
+  AIMoveInstruction(packet, (nuvec_s *)(target + 0x174),
+                    *(f32 *)(target + 0x120), (AIPATHINFO7_s *)(target + 0x158),
+                    2, packet->movement_param);
+  if (processor->action_data_1 != 0)
+    packet->look_target = &PLAYER(sys, 0)->pos5c;
+  return 0;
+}
+
+// STUB: LEGOBATMAN 0x006babf0
+// close: same register choice as MoveAwayFromPlayer.
+i32 Action_MoveAwayFromPlayer2(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                               AIPACKET_s *packet, char **params,
+                               i32 param_count, i32 first_time, f32 elapsed) {
+  if (packet == NULL)
+    return 1;
+  if (first_time != 0) {
+    for (i32 i = 0; i < param_count; i++) {
+      if (AIActionParseSpeedFn != NULL &&
+          AIActionParseSpeedFn(params[i], &packet->goal_speed_mode) != 0)
+        continue;
+      if (NuStrICmp(params[i], "face") == 0)
+        processor->action_data_1 = 1;
+      else
+        packet->movement_param = AIParamToFloatEx(packet, processor, params[i]);
+    }
+  }
+  if (PLAYER(sys, 1) == NULL)
+    return 0;
+  u8 *target = (u8 *)PLAYER(sys, 1)->ai;
+  AIMoveInstruction(packet, (nuvec_s *)(target + 0x174),
+                    *(f32 *)(target + 0x120), (AIPATHINFO7_s *)(target + 0x158),
+                    2, packet->movement_param);
+  if (processor->action_data_1 != 0)
+    packet->look_target = &PLAYER(sys, 1)->pos5c;
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006bae30
+i32 Action_RetreatFromNearestOpponent(AISYS_s *sys,
+                                      AISCRIPTPROCESS_s *processor,
+                                      AIPACKET_s *packet, char **params,
+                                      i32 param_count, i32 first_time,
+                                      f32 elapsed) {
+  if (packet == NULL)
+    return 1;
+  if (first_time != 0) {
+    packet->movement_param = 1.0f;
+    for (i32 i = 0; i < param_count; i++) {
+      if (AIActionParseSpeedFn == NULL ||
+          AIActionParseSpeedFn(params[i], &packet->goal_speed_mode) == 0)
+        packet->movement_param = AIParamToFloatEx(packet, processor, params[i]);
+    }
+  }
+  if (packet->pd4 != NULL) {
+    u8 *target = (u8 *)packet->pd4->ai;
+    AIMoveInstruction(
+        packet, (nuvec_s *)(target + 0x174), *(f32 *)(target + 0x120),
+        (AIPATHINFO7_s *)(target + 0x158), 2, packet->movement_param);
+  }
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x006bde60
 void AIBugPitOwnerA::Release() {
   if (owned) {
@@ -432,9 +650,6 @@ struct AILOCATOR_s {
   char name[0x10];  // 0x00
   nuvec_s position; // 0x10
 };
-
-// annotated in batman/aiactions_unk.cpp (0x00ad6918)
-extern i32 (*AIActionParseSpeedFn)(char *str, u8 *out);
 
 // STUB: LEGOBATMAN 0x006b3e80
 // close: orig keeps a separate epilogue for the guard return 1 and holds the
