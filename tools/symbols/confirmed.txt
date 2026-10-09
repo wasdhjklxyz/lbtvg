@@ -1544,3 +1544,4 @@
 005336a0 Cleanup  Mac static __Z7Cleanupv after oaEndBenchmark: frees init strings, clears table, FreeLibrary
 005339b0 oaGetNextCommand  table +0x04, calls Cleanup on OA_CMD_EXIT
 00533a80 oaInit  "oaInit() called more than once." / "Couldn't parse initialization string."
+006e3b30 NuTimeGetTime  NuTimeGet + NuTimeSeconds * 1000 as u32 (milliseconds)

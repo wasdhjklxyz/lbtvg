@@ -35,6 +35,21 @@ void *g_nutex_029dcbf0;
 // GLOBAL: LEGOBATMAN 0x00b0ba90
 D3DVIEWPORT9 g_nutex_viewport;
 
+struct NUTIME {
+  unsigned int low;
+  unsigned int high;
+};
+
+void NuTimeGet(NUTIME *t);
+float NuTimeSeconds(NUTIME *t);
+
+// FUNCTION: LEGOBATMAN 0x006e3b30
+extern "C" unsigned int NuTimeGetTime(void) {
+  NUTIME t;
+  NuTimeGet(&t);
+  return (unsigned int)(NuTimeSeconds(&t) * 1000.0f);
+}
+
 // FUNCTION: LEGOBATMAN 0x006e6170
 void NuTexUpdateSize(NuTex *tex) {
   D3DSURFACE_DESC desc;

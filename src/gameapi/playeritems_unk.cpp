@@ -3,6 +3,25 @@
 #include "../batman/worldinfo_unk.h"
 #include "../nu2api/nucore/common.h"
 
+struct PLAYERITEMTYPESYS_s;
+
+// GLOBAL: LEGOBATMAN 0x00ac9ff0
+extern PLAYERITEMTYPESYS_s *PlayerItemTypeSys;
+
+// FUNCTION: LEGOBATMAN 0x005ed990
+static void Unk005ed990(...) {}
+PLAYERITEMTYPESYS_s *PlayerItemTypeSys_Load(char *file, nugscn_s *scene,
+                                            variptr_u *buffer,
+                                            variptr_u *buffer_end);
+
+// FUNCTION: LEGOBATMAN 0x005f0250
+void PlayerItemTypeSys_LoadGlobal(char *file, nugscn_s *scene,
+                                  variptr_u *buffer, variptr_u *buffer_end) {
+  if (PlayerItemTypeSys != 0)
+    Unk005ed990(file);
+  PlayerItemTypeSys = PlayerItemTypeSys_Load(file, scene, buffer, buffer_end);
+}
+
 // FUNCTION: LEGOBATMAN 0x005f1120
 unsigned __int64 PlayerItems_GetAllCarriedItemFlags(GameObject_s *object) {
   if (object != 0)

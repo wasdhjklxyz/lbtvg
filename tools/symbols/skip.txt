@@ -138,3 +138,4 @@
 00533710 OA ReplaceAll static: register convention (str in eax), ours cdecl
 00533a00 OA ParseInitString static: register convention (eax + ebx args in orig!), ours cdecl
 00533a80 oaInit: follows from 0x533a00's ebx argument
+005f3630 PlayerItems_RemoveItems: Mac signature doesn't fit the code (arg1 used as an item list, calls 0x5f2a00 with a float); check the pairing

@@ -2052,7 +2052,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006e2470,001978b2,_NuMemCpy,_NuMemCpy,gapfill,1
 006e2af0,00197e0e,_bgGetProcActive,_bgGetProcActive,gapfill,1
 006e2e40,001992ce,_bgProcInit,_bgProcInit,strings,0
-006e3b30,001990ee,_NuTimeGetTime,_NuTimeGetTime,gapfill,1
+006e3b30,001990ee,_NuTimeGetTime,_NuTimeGetTime,confirmed,0
 006e6290,0016c488,_NuTexInitExPS,_NuTexInitExPS,strings,0
 006e6340,0016c548,_NuTexGetUnresolvedTextureTIDPS,_NuTexGetUnresolvedTextureTIDPS,strings,0
 006e6490,0018268a,_NuTexReadBitmapMM2,_NuTexReadBitmapMM2,strings,0
