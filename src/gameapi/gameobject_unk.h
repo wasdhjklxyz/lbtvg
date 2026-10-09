@@ -72,7 +72,9 @@ struct GameObject_s {
   char b24c; // 0x24c
   u8 pad4[0x257 - 0x24d];
   char b257; // 0x257
-  u8 pad5[0x290 - 0x258];
+  u8 pad5[0x259 - 0x258];
+  u8 b259; // 0x259
+  u8 pad5b[0x290 - 0x25a];
   u8 process290[0x3c8 - 0x290]; // 0x290  AISCRIPTPROCESS_s
   u8 b3c8;                      // 0x3c8
   u8 pad6[0x3ce - 0x3c9];

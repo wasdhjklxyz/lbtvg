@@ -39,7 +39,11 @@ extern NUGSCN *vehicle_scene;
 typedef struct LEVELDATA_s {
   u32 pad0[0x64 / 4];
   u32 flags; // 0x64
-  u32 pad68[(0x150 - 0x68) / 4];
+  u8 pad68[0xab - 0x68];
+  i8 area_index; // 0xab
+  u8 padac[0xd8 - 0xac];
+  i8 area_level_index; // 0xd8
+  u8 padd9[0x150 - 0xd9];
 } LEVELDATA;
 
 // GLOBAL: LEGOBATMAN 0x00aca894
@@ -63,6 +67,25 @@ LEVELDATA *Area_FindStatusLevel(AREADATA *area, i32 *indexDest) {
   }
 
   return 0;
+}
+
+// STUB: LEGOBATMAN 0x005fb260
+// close: orig keeps `level` in ebx (spilled) and the 0xe0 mask in bl;
+// this recomputes level from levelIdx*0x150 and tests with an immediate.
+LEVELDATA *Area_FindNextPlayLevel(i32 levelIdx) {
+  LEVELDATA *level = &LDataList[levelIdx];
+  i32 areaIdx = level->area_index;
+  i32 i = level->area_level_index;
+
+  if (areaIdx != -1) {
+    for (; i < ADataList[areaIdx].level_count - 1; i++) {
+      i32 idx = ADataList[areaIdx].levels[i];
+      if ((LDataList[idx].flags & 0xe0) == 0) {
+        return &LDataList[idx];
+      }
+    }
+  }
+  return level;
 }
 
 // FUNCTION: LEGOBATMAN 0x005fc2b0

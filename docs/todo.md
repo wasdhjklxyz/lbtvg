@@ -25,11 +25,11 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Arcade](#arcade) | 4 | 4 |
 | [Hub](#hub) | 6 | 4 |
 | [near nutrig_gen.cpp](#near-nutrig_gencpp) | 12 | 4 |
-| [Player](#player) | 4 | 4 |
 | [Area](#area) | 4 | 3 |
 | [Door](#door) | 4 | 3 |
 | [GameAudio](#gameaudio) | 3 | 3 |
 | [GizAction](#gizaction) | 3 | 3 |
+| [Player](#player) | 3 | 3 |
 | [Players](#players) | 3 | 3 |
 | [PortalDoors](#portaldoors) | 3 | 3 |
 | [WorldInfo](#worldinfo) | 3 | 3 |
@@ -567,18 +567,11 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006a2730` 401 B `_AIScriptCopyConditions`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
 - [ ] `006a2cc0` 536 B `_AIScriptBuildDerivedScript`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
 
-## Player
-
-- [ ] `005c18b0` 59 B `Player_StartPos(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/players.cpp`
-- [ ] `005c1b10` 99 B `Player_ClearContext(GameObject_s*, int)`  **saga** `legoapi/characters/core/players.cpp`
-- [ ] `005c1b80` 313 B `Player_ResetContexts(GameObject_s*)`  **saga** `legoapi/characters/core/players.cpp`
-- [ ] `005c2250` 2274 B `Player_ToggleCharacter(GameObject_s*, int, int)`  **saga** `legoapi/characters/core/players.cpp`
-
 ## Area
 
 - [ ] `005facd0` 111 B `Area_ShuffleModelList(APICHARACTERMODELLIST_s*, int)`  **hint** name (order)
 - [ ] `005fb060` 113 B `Area_FindByName(char*, int*)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
-- [ ] `005fb260` 140 B `Area_FindNextPlayLevel(int)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
+- [ ] `005fb260` 140 B `Area_FindNextPlayLevel(int)`  **stub** · **hint** name (order) · **saga** `legoapi/world/areas.cpp`
 - [ ] `005fb430` 3692 B `Area_Configure(int, int, EXTRAMODEL*, short*)`  **saga** `legoapi/world/areas.cpp`
 
 ## Door
@@ -599,6 +592,12 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00482ed0` 329 B `GizAction_SetAIMessage(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
 - [ ] `00483070` 693 B `GizAction_SetAIState(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
 - [ ] `00482510` 763 B `GizAction_ActivateChar(GIZFLOW_s*, FLOWBOX_s*, char**, int)`  **saga** `legoapi/gizmo/base/gizactions.cpp`
+
+## Player
+
+- [ ] `005c1b10` 99 B `Player_ClearContext(GameObject_s*, int)`  **saga** `legoapi/characters/core/players.cpp`
+- [ ] `005c1b80` 313 B `Player_ResetContexts(GameObject_s*)`  **saga** `legoapi/characters/core/players.cpp`
+- [ ] `005c2250` 2274 B `Player_ToggleCharacter(GameObject_s*, int, int)`  **saga** `legoapi/characters/core/players.cpp`
 
 ## Players
 

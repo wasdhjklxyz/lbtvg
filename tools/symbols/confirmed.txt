@@ -22,3 +22,4 @@
 006e0dc0 NuFilePakLoad  thin wrapper of NuFilePakLoadKeyPrePad with no key, as saga
 0060cea0 GameDrawMenuEntry  saga body matches (pause align/X then DrawMenuEntryEx)
 006daa40 NuFParGetFloat  saga body matches (GetWord, utf16/ascii copy, NuAToF)
+005c18b0 Player_StartPos  saga body matches (PlayerStart[idx&7].pos with [0] fallback)

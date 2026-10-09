@@ -56,3 +56,24 @@ GameObject_s *Player_FindByID(i32 id) {
   }
   return 0;
 }
+
+typedef struct PLAYERSTARTENTRY_s {
+  nuvec_s *pos;
+  u32 pad4[3];
+} PLAYERSTARTENTRY;
+
+// GLOBAL: LEGOBATMAN 0x00ab3710
+extern PLAYERSTARTENTRY PlayerStart[8];
+
+// FUNCTION: LEGOBATMAN 0x005c18b0
+nuvec_s *Player_StartPos(GameObject_s *obj) {
+  i32 index;
+  if (obj->b24c >= 0 && obj->b24c < 8) {
+    index = obj->b24c;
+  } else {
+    index = obj->b259;
+  }
+  index %= 8;
+  return PlayerStart[index].pos != 0 ? PlayerStart[index].pos
+                                     : PlayerStart[0].pos;
+}

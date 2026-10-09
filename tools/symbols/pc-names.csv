@@ -383,7 +383,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005c16b0,003193b0,__Z12SetPlayerIDsii,"SetPlayerIDs(int, int)",order,3
 005c1730,00319446,__Z17RememberPlayerIDsiii,"RememberPlayerIDs(int, int, int)",order,3
 005c1860,003195b8,__Z15Player_FindByIDi,Player_FindByID(int),confirmed,0
-005c18b0,00319604,__Z15Player_StartPosP12GameObject_s,Player_StartPos(GameObject_s*),order,3
+005c18b0,00319604,__Z15Player_StartPosP12GameObject_s,Player_StartPos(GameObject_s*),confirmed,0
 005c18f0,0031964c,__Z18Players_AveragePosP7nuvec_sP14SOCKPOSITION_s,"Players_AveragePos(nuvec_s*, SOCKPOSITION_s*)",order,3
 005c19c0,0031974a,__Z9SetPlayerv,SetPlayer(),gapfill,2
 005c1b10,003198f0,__Z19Player_ClearContextP12GameObject_si,"Player_ClearContext(GameObject_s*, int)",calls,3
