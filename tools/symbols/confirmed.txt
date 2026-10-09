@@ -304,3 +304,6 @@
 005a0550 ResetRepeatSfx  matched saga-shaped body (memset repsfxtab, sfx_id -1 written 32 times to entry 0), Mac order before PlayRepeatSfx
 005a0670 UpdateRepeatSfx  matched saga body (3-state repeat table), Mac order after PlayRepeatSfx
 005a0770 NewAreaMusicChanges  matched saga body (BeenAttacked = 0), Mac order
+005c8160 WorldInfo_CurrentlyLoading  matched saga body (returns LWORLD), Mac order
+005c8170 WorldInfo_OtherLevel  matched saga body (WorldInfo stride 0x53c8), Mac order
+005c81d0 WorldInfo_UpdateRoomVisibility  matched saga body, Mac order

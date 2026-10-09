@@ -23,23 +23,37 @@ typedef struct WORLDINFO_s {
   char config_file[0x84]; // 0x80
   u32 giz_buffer;         // 0x104
   void *giz_buffer_end;   // 0x108
-  unsigned char pad10c[0x120 - 0x10c];
+  unsigned char pad10c[0x114 - 0x10c];
+  i32 loaded; // 0x114
+  unsigned char pad118[0x120 - 0x118];
   i32 level_idx; // 0x120
   unsigned char pad124[0x12c - 0x124];
   LEVELDATA *current_level; // 0x12c
   unsigned char pad130[0x140 - 0x130];
-  void *current_gscn; // 0x140
+  struct WorldScene_s *current_gscn; // 0x140
   unsigned char pad144[0x2964 - 0x144];
   void *terrain; // 0x2964
-  unsigned char pad2968[0x2adc - 0x2968];
-  i32 unk2adc; // 0x2adc
+  unsigned char pad2968[0x29d4 - 0x2968];
+  u8 room_visibility_flag; // 0x29d4
+  u8 rooms_visible[0x100]; // 0x29d5
+  unsigned char pad2ad5[3];
+  u8 *rooms_visible_ptr; // 0x2ad8
+  i32 unk2adc;           // 0x2adc
   unsigned char pad2ae0[0x2ae4 - 0x2ae0];
   i32 page_anim;  // 0x2ae4
   i32 page_grass; // 0x2ae8
   unsigned char pad2aec[0x51bc - 0x2aec];
   PORTALDOOR *portal_doors; // 0x51bc
   i32 portal_door_count;    // 0x51c0
+  unsigned char pad51c4[0x53c8 - 0x51c4];
 } WORLDINFO;
+
+// Only the room table is evidenced (WorldInfo_UpdateRoomVisibility).
+struct WorldScene_s {
+  unsigned char pad0[0x74];
+  i32 num_rooms; // 0x74
+  u8 *rooms;     // 0x78, 0x18 bytes per room, byte 0x10 bit 2 = visible
+};
 
 void *TerrainInitEx(i32 level_idx, u32 *buffer, void *buffer_end, i32 a,
                     char *path, void *gscn, i32 b, u32 groups, u32 groups2,
@@ -219,6 +233,42 @@ WORLDINFO *WORLD = &WorldInfo[0];
 // from saga legoapi/world/world.cpp
 // FUNCTION: LEGOBATMAN 0x005c8150
 WORLDINFO *WorldInfo_CurrentlyActive(void) { return WORLD; }
+
+// GLOBAL: LEGOBATMAN 0x00960898
+extern WORLDINFO *LWORLD;
+
+// FUNCTION: LEGOBATMAN 0x005c8160
+WORLDINFO *WorldInfo_CurrentlyLoading(void) { return LWORLD; }
+
+// FUNCTION: LEGOBATMAN 0x005c8170
+i32 WorldInfo_OtherLevel(WORLDINFO *world) {
+  WORLDINFO *other = &WorldInfo[0];
+  if (world == &WorldInfo[0])
+    other = &WorldInfo[1];
+  if (other->loaded != 0)
+    return other->level_idx;
+  return -1;
+}
+
+// FUNCTION: LEGOBATMAN 0x005c81d0
+void WorldInfo_UpdateRoomVisibility(WORLDINFO *world, i32 param) {
+  u8 *vis = world->rooms_visible;
+  world->room_visibility_flag = 1;
+  world->rooms_visible_ptr = vis;
+  memset(vis, 0, 0x100);
+  WorldScene_s *gscn;
+  i32 count;
+  if (param == 0 && (gscn = world->current_gscn) != 0 &&
+      (count = gscn->num_rooms) > 0) {
+    u8 *room = gscn->rooms;
+    u8 *out = world->rooms_visible_ptr;
+    for (i32 i = 0; i < count; i++) {
+      *out = (room[0x10] >> 2) & 1;
+      room += 0x18;
+      out++;
+    }
+  }
+}
 
 // FUNCTION: LEGOBATMAN 0x005c8240
 void WorldInfo_LoadObjectAnimFile(WORLDINFO *world) {
