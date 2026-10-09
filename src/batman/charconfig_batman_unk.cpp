@@ -17,7 +17,8 @@ i32 Unk00629850(char *name);
 struct CHARCONFIG_RUNTIME_s {
   u8 pad0[0x22b];
   i8 variant; // 0x22b
-  u8 pad22c[0x235 - 0x22c];
+  u8 pad22c[0x234 - 0x22c];
+  u8 security_guard;  // 0x234
   u8 security_access; // 0x235
 };
 
@@ -34,6 +35,16 @@ void CC_variant(NUFPAR *parser) {
       charconfig.runtime->variant = -1;
     else
       charconfig.runtime->variant = Unk0061ff40(parser->word_buf);
+  }
+}
+
+// keywords "security_guard" and "security_type"
+// FUNCTION: LEGOBATMAN 0x0041d090
+void CC_security_guard(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0) {
+    charconfig.runtime->security_guard = Unk00629850(parser->word_buf);
+    if (NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "off") == 0)
+      charconfig.runtime->security_guard = 0xff;
   }
 }
 

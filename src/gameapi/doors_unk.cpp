@@ -16,13 +16,14 @@ typedef struct DOOR_s {
   char camera_spline_name[0x20]; // 0x80
   DOORSPLINE_s *spline;          // 0xa0
   u32 pada4[(0xd4 - 0xa4) / 4];
-  nuvec_s pos;        // 0xd4
-  f32 radius;         // 0xe0
-  nuvec_s normal;     // 0xe4
-  i16 level;          // 0xf0
-  i16 level_f2;       // 0xf2
-  i16 freeplay_level; // 0xf4
-  u16 padf6;
+  nuvec_s pos;                 // 0xd4
+  f32 radius;                  // 0xe0
+  nuvec_s normal;              // 0xe4
+  i16 level;                   // 0xf0
+  i16 level_f2;                // 0xf2
+  i16 freeplay_level;          // 0xf4
+  u8 teleport_in;              // 0xf6, 0 = "air"
+  u8 teleport_out;             // 0xf7, 0 = "air"
   u8 next_sock;                // 0xf8
   u8 flags;                    // 0xf9
   u8 vehicle;                  // 0xfa
@@ -30,8 +31,7 @@ typedef struct DOOR_s {
   DOORSPLINE_s *camera_spline; // 0xfc
   f32 camera_wait;             // 0x100
   f32 camera_blend_time;       // 0x104
-  u32 vehicle_mask;            // 0x108
-  u32 vehicle_mode;            // 0x10c
+  u64 takeover_character_mask; // 0x108
   u32 pad110[(0x120 - 0x110) / 4];
   void *cutscene; // 0x120
   u32 pad124;
@@ -77,7 +77,7 @@ extern u8 Door_ConfigKeywords[];
 // GLOBAL: LEGOBATMAN 0x00acaffc
 extern WORLDINFO_s *D_worldinfo;
 // GLOBAL: LEGOBATMAN 0x00acafe0
-extern DOOR_s *D_door;
+static DOOR_s *D_door;
 // GLOBAL: LEGOBATMAN 0x00ab056c
 extern nuvec_s v000;
 // GLOBAL: LEGOBATMAN 0x0095fd2c
@@ -136,8 +136,7 @@ void Doors_Configure(WORLDINFO_s *world, char *config) {
       door->vehicle = 0xff;
       door->active = 0;
       door->camera_spline = 0;
-      door->vehicle_mask = 0;
-      door->vehicle_mode = 0;
+      door->takeover_character_mask = 0;
     }
   }
 
@@ -329,6 +328,46 @@ void D_level_freeplay(NUFPAR *parser) {
 
 WORLDINFO_s *WorldInfo_CurrentlyLoading(void);
 void *CutScene_Find(void *cutscene_sys, char *name);
+
+i32 NuStrICmp(const char *a, const char *b);
+
+// annotated in batman/aiactions_unk.cpp (0x00ad68ec)
+extern u8 (*g_unk00ad68ec)(char *name);
+// GLOBAL: LEGOBATMAN 0x0095fd48
+extern u64 g_unk0095fd48;
+
+// FUNCTION: LEGOBATMAN 0x00614b10
+void D_vehicle(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0) {
+    if (NuStrICmp(parser->word_buf, "all") == 0) {
+      D_door->takeover_character_mask = g_unk0095fd48;
+    } else {
+      i32 type = g_unk00ad68ec(parser->word_buf);
+      if (type < 64)
+        D_door->takeover_character_mask |= (u64)1 << type;
+    }
+  }
+}
+
+static i32 D_ParseGround(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "air") == 0)
+    return 0;
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00614c20
+void D_teleport_player(NUFPAR *parser) {
+  D_door->flags |= 0x20;
+  D_door->teleport_in = 1;
+  D_door->teleport_out = 1;
+  while (NuFParGetWord(parser) != 0) {
+    if (NuStrICmp(parser->word_buf, "in") == 0) {
+      D_door->teleport_in = D_ParseGround(parser);
+    } else if (NuStrICmp(parser->word_buf, "out") == 0) {
+      D_door->teleport_out = D_ParseGround(parser);
+    }
+  }
+}
 
 // FUNCTION: LEGOBATMAN 0x00614bb0
 void D_cut_scene(NUFPAR *parser) {

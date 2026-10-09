@@ -1495,3 +1495,6 @@
 004aabc0 LC_BL_wind_size  keyword table 0x93faa8
 00656660 RE_effect_type  keyword table 0x967130
 00665f60 GizFlock_Config_anim_speed  keyword table 0x967db8
+00614b10 D_vehicle  keyword table 0x9636b8
+00614c20 D_teleport_player  keyword table 0x9636b8
+0041d090 CC_security_guard  keyword table 0x936288

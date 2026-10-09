@@ -8,6 +8,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00416460,0003480e,__Z12ReleaseCableP7CABLE_si,"ReleaseCable(CABLE_s*, int)",strings,0
 004165a0,00035bb8,__Z12UpdateCablesv,UpdateCables(),strings,0
 0041d020,000497e4,__Z10CC_variantP8nufpar_s,CC_variant(nufpar_s*),confirmed,0
+0041d090,0004984e,__Z17CC_security_guardP8nufpar_s,CC_security_guard(nufpar_s*),confirmed,0
 0041d110,000498c4,__Z18CC_security_accessP8nufpar_s,CC_security_access(nufpar_s*),confirmed,0
 00428a60,00057a20,__Z16ResetAICreaturesP7AISYS_s,ResetAICreatures(AISYS_s*),strings,0
 0042ad10,00053cd6,__Z19DrawGameObjectsDrawi,DrawGameObjectsDraw(int),strings,0
@@ -1271,8 +1272,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00614ad0,002a0ed6,__Z17D_two_player_onlyP8nufpar_s,D_two_player_only(nufpar_s*),confirmed,0
 00614ae0,002a0eee,__Z12D_do_not_useP8nufpar_s,D_do_not_use(nufpar_s*),confirmed,0
 00614af0,002a0f06,__Z11D_next_sockP8nufpar_s,D_next_sock(nufpar_s*),confirmed,0
+00614b10,002a0f38,__Z9D_vehicleP8nufpar_s,D_vehicle(nufpar_s*),confirmed,0
 00614ba0,002a0ff4,__Z14D_use_as_startP8nufpar_s,D_use_as_start(nufpar_s*),confirmed,0
 00614bb0,002a100c,__Z11D_cut_sceneP8nufpar_s,D_cut_scene(nufpar_s*),confirmed,0
+00614c20,002a10b2,__Z17D_teleport_playerP8nufpar_s,D_teleport_player(nufpar_s*),confirmed,0
 00614d10,002a1156,__Z15Doors_ConfigureP11WORLDINFO_sPc,"Doors_Configure(WORLDINFO_s*, char*)",strings,0
 00614f20,002a13b0,__Z10Door_Resetv,Door_Reset(),order,2
 00614f40,002a13d6,__Z10Doors_InitP11WORLDINFO_s,Doors_Init(WORLDINFO_s*),order,2
