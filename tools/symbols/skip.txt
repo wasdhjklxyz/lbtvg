@@ -4,3 +4,7 @@
 # FUNC= still works.
 004a3630 TakeOver_SetAction: esi/edi register args
 006013b0 register-arg function calling Player_ClearContext; Mac pairing wrong
+005a1fe0 camera shake update: heavy x87, big struct
+006b97b0 AIScriptProcessorInit: needs AISYS/AIPACKET type pull-in that doesn't compile; 390 B
+004a6dc0 Titles_GetName: eax/esi register args + jump table
+0043b970 KillGameObject: 3180 B, saga types don't compile

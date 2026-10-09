@@ -12,15 +12,27 @@ typedef struct GAMEPAD_s {
   u16 input_angle; // 0x26
 } GAMEPAD_s;
 
+struct GruntCharacterData_s;
+
 typedef struct GameObject_s {
-  unsigned char pad0[0x1fc];
+  unsigned char pad0[0x54];
+  GruntCharacterData_s *character; // 0x54
+  unsigned char pad58[0x80 - 0x58];
+  nuvec_s pos80; // 0x80
+  unsigned char pad8c[0x1fc - 0x8c];
   u8 flags_low; // 0x1fc
-  unsigned char pad1fd[0x871 - 0x1fd];
+  unsigned char pad1fd[0x254 - 0x1fd];
+  u8 b254; // 0x254
+  unsigned char pad255[0x871 - 0x255];
   char sock_id; // 0x871
   unsigned char pad872[0x896 - 0x872];
   u16 yrot; // 0x896
   unsigned char pad898[0x112c - 0x898];
   GAMEPAD_s *pad_gamepad; // 0x112c
+  unsigned char pad1130[0x140c - 0x1130];
+  u32 flags140c; // 0x140c
+  unsigned char pad1410[0x1414 - 0x1410];
+  u32 flags1414; // 0x1414
 } GameObject_s;
 
 void NuSoundAddRumble(nupad_s *pad, f32 duration, i32 amount, f32 unk,
@@ -153,6 +165,55 @@ void PlayJumpSfx(GameObject_s *object, i32 type) {
     }
 }
 #endif
+
+struct GruntGameCharacter_s {
+  u8 pad0[0x13c];
+  u32 flags13c; // 0x13c
+  u8 pad140[0x14c - 0x140];
+  u32 flags14c; // 0x14c
+  u8 pad150[0x1a6 - 0x150];
+  i16 sfx_grunt; // 0x1a6
+};
+
+struct GruntCharacterData_s {
+  u8 pad0[4];
+  u32 model_flags; // 0x04
+  u8 pad8[0x24 - 8];
+  GruntGameCharacter_s *game_character; // 0x24
+};
+
+// FUNCTION: LEGOBATMAN 0x0059fe80
+void PlayGruntSfx(GameObject_s *object) {
+  if ((object->flags_low & 0x80) || (object->flags140c & 0x80000000) ||
+      object->b254) {
+    GruntCharacterData_s *character = object->character;
+    GruntGameCharacter_s *game_character = character->game_character;
+    i16 configured_sfx = game_character->sfx_grunt;
+    i32 sfx;
+    if (configured_sfx != -1 &&
+        ((game_character->flags13c & 0x20000) ||
+         !(object->flags1414 & 0x4000)) &&
+        (!(game_character->flags13c & 0x20000) ||
+         (object->flags1414 & 0x4000))) {
+      sfx = configured_sfx;
+    } else if (character->model_flags & 0x40000000) {
+      sfx = GameAudio->sfx_ids[0x1f];
+    } else {
+      if ((character->model_flags & 0x4002010) ||
+          (game_character->flags14c & 0x400)) {
+        return;
+      }
+      if (object->flags1414 & 0x4000) {
+        sfx = GameAudio->sfx_ids[0x20];
+      } else {
+        sfx = GameAudio->sfx_ids[0x21];
+      }
+    }
+    if (sfx != -1) {
+      PlaySfxById(sfx, &object->pos80);
+    }
+  }
+}
 
 // FUNCTION: LEGOBATMAN 0x005a1fb0
 void GameCam_NewShake(GAMECAMERA_s *camera, float amount, float duration,

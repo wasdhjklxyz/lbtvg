@@ -78,3 +78,6 @@
 006a19a0 AIScriptFind  saga body matches (level, global, default script lists)
 005bc570 GizmoFindByName  saga body matches (per-type get_name fn scan)
 005fb0e0 Areas_FixUp  saga body matches (+ Batman marks levels of flagged areas)
+006ebae0 RndrStateSetReflection  saga body matches; sets reflection + bumps state ids
+005b0000 LineIntersectSphere  saga body matches (ray/sphere distance test)
+0059fe80 PlayGruntSfx  saga shape matches (game_character grunt sfx, GameAudio fallback ids)

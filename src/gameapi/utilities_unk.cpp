@@ -75,6 +75,29 @@ i32 RotDiff(u16 current, u16 target) {
   return difference;
 }
 
+// name is a Mac pairing hint (gapfill): verify
+// from saga legoapi/misc/utilities.cpp
+// FUNCTION: LEGOBATMAN 0x005b0000
+i32 LineIntersectSphere(NUVEC *origin, NUVEC *direction, NUVEC *center,
+                        f32 radius_squared, f32 *distance_squared) {
+  NUVEC v;
+  v.x = center->x - origin->x;
+  v.y = center->y - origin->y;
+  v.z = center->z - origin->z;
+  f32 projection = direction->x * v.x + direction->y * v.y + direction->z * v.z;
+  if (projection < 0.0f)
+    return 0;
+  f32 distance = v.x * v.x + v.y * v.y + v.z * v.z;
+  projection *= projection;
+  distance -= projection;
+  if (distance <= radius_squared) {
+    if (distance_squared != NULL)
+      *distance_squared = distance;
+    return 1;
+  }
+  return 0;
+}
+
 // name is a Mac pairing hint (order): verify
 // from saga legoapi/misc/utilities.cpp
 // STUB: LEGOBATMAN 0x005b00d0

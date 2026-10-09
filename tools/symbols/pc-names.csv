@@ -332,7 +332,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0059f8d0,00267b88,__Z11PlayJumpSfxP12GameObject_si,"PlayJumpSfx(GameObject_s*, int)",gapfill,3
 0059f9a0,00267c82,__Z11PlayLandSfxP12GameObject_sii,"PlayLandSfx(GameObject_s*, int, int)",gapfill,2
 0059fb60,00267e5a,__Z15PlayFootStepSfxP12GameObject_s,PlayFootStepSfx(GameObject_s*),order,3
-0059fe80,002681c4,__Z12PlayGruntSfxP12GameObject_s,PlayGruntSfx(GameObject_s*),gapfill,2
+0059fe80,002681c4,__Z12PlayGruntSfxP12GameObject_s,PlayGruntSfx(GameObject_s*),confirmed,0
 005a0590,0026870a,__Z13PlayRepeatSfxPcifcfP7nuvec_s,"PlayRepeatSfx(char*, int, float, char, float, nuvec_s*)",gapfill,1
 005a0830,002689e2,__Z14ConfigureMusicPcP9variptr_uS1_,"ConfigureMusic(char*, variptr_u*, variptr_u*)",strings,0
 005a1060,003462e4,__Z10ResetTimerP7TIMER_sf,"ResetTimer(TIMER_s*, float)",confirmed,0
@@ -361,7 +361,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005ae740,003552f2,__Z7RotDifftt,"RotDiff(unsigned short, unsigned short)",gapfill,3
 005aefd0,00355bdc,__Z10GameShadowP12GameObject_sP7nuvec_sfi,"GameShadow(GameObject_s*, nuvec_s*, float, int)",gapfill,1
 005af8c0,003561d0,__Z15LineIntersectXYP7nuvec_sS0_S0_S0_S0_S0_,"LineIntersectXY(nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*)",gapfill,5
-005b0000,0035632e,__Z19LineIntersectSphereP7nuvec_sS0_S0_fPf,"LineIntersectSphere(nuvec_s*, nuvec_s*, nuvec_s*, float, float*)",gapfill,2
+005b0000,0035632e,__Z19LineIntersectSphereP7nuvec_sS0_S0_fPf,"LineIntersectSphere(nuvec_s*, nuvec_s*, nuvec_s*, float, float*)",confirmed,0
 005b00d0,003563c6,__Z19LineIntersectCircleP7nuvec_sS0_S0_f,"LineIntersectCircle(nuvec_s*, nuvec_s*, nuvec_s*, float)",order,5
 005b0170,00356432,__Z18MoveSplinePositionP11SPLINEPOS_sf,"MoveSplinePosition(SPLINEPOS_s*, float)",order,5
 005b0510,00356840,__Z18InitSplinePositionP11SPLINEPOS_sP11nugspline_sfi,"InitSplinePosition(SPLINEPOS_s*, nugspline_s*, float, int)",order,5
@@ -744,7 +744,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006ea240,0016e52c,__Z28NuMovieGrabAttachFrameBufferP17numoviegrabinfo_s,NuMovieGrabAttachFrameBuffer(numoviegrabinfo_s*),strings,0
 006ea2a0,0016e592,__Z28NuMovieGrabDetachFrameBufferP17numoviegrabinfo_s,NuMovieGrabDetachFrameBuffer(numoviegrabinfo_s*),strings,0
 006ea2d0,001840d6,__Z19NuMovieGrabGetFrameP17numoviegrabinfo_s,NuMovieGrabGetFrame(numoviegrabinfo_s*),strings,0
-006ebae0,0016f5d8,_RndrStateSetReflection,_RndrStateSetReflection,gapfill,5
+006ebae0,0016f5d8,_RndrStateSetReflection,_RndrStateSetReflection,confirmed,0
 006ef910,0017a7d8,_NuMtlUpdatePS,_NuMtlUpdatePS,gapfill,3
 006fa950,0018152c,_NuRndrSwapScreen,_NuRndrSwapScreen,strings,0
 006fcc80,0017aea2,_Nu360MtlInit,_Nu360MtlInit,strings,0

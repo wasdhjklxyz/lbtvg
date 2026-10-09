@@ -15,7 +15,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 |---|---|---|
 | [Action](#action) | 72 | 57 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 63 | 37 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 61 | 35 |
 | [near terrain.c](#near-terrainc) | 34 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 13 | 7 |
 | [Grabber](#grabber) | 7 | 5 |
@@ -103,7 +103,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [CD3DCore](#cd3dcore) | 5 | 0 |
 | [CharScene](#charscene) | 1 | 0 |
 | [CharShadows](#charshadows) | 1 | 0 |
-| [CNuConsole](#cnuconsole) | 6 | 0 |
+| [CNuConsole](#cnuconsole) | 5 | 0 |
 | [Create](#create) | 1 | 0 |
 | [Customiser](#customiser) | 4 | 0 |
 | [CustomiserInternal](#customiserinternal) | 5 | 0 |
@@ -144,7 +144,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near gcutscn.cpp](#near-gcutscncpp) | 1 | 0 |
 | [near listman_gen.cpp](#near-listman_gencpp) | 1 | 0 |
 | [near nugraph_gen.cpp](#near-nugraph_gencpp) | 2 | 0 |
-| [near NuMovieGrab_PC.cpp](#near-numoviegrab_pccpp) | 1 | 0 |
 | [near numtl_dlist.cpp](#near-numtl_dlistcpp) | 1 | 0 |
 | [near pcapi.cpp](#near-pcapicpp) | 4 | 0 |
 | [near windows.cpp](#near-windowscpp) | 3 | 0 |
@@ -350,8 +349,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0059f8d0` 185 B `PlayJumpSfx(GameObject_s*, int)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
 - [ ] `005aa1f0` 187 B `InitGrappleMtls(variptr_u*, variptr_u*)`
 - [ ] `00656130` 203 B `AddRipple(ripple_set_s*, numtx_s*, float, float, float, float, RGBA, RGBA, int, numtl_s*, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/items/fx/ripples.cpp`
-- [ ] `005b0000` 205 B `LineIntersectSphere(nuvec_s*, nuvec_s*, nuvec_s*, float, float*)`  **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
-- [ ] `0059fe80` 206 B `PlayGruntSfx(GameObject_s*)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
 - [ ] `005a0590` 209 B `PlayRepeatSfx(char*, int, float, char, float, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
 - [ ] `005a3020` 212 B `ConstantRumble(GameObject_s*, float, float)`  **hint** name (gapfill) · **saga** `legoapi/misc/legoapi_misc.cpp`
 - [ ] `005b2a40` 229 B `LoadThingsScene()`
@@ -883,7 +880,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0052e7b0` 99 B `CNuConsole::SendWarning(char*, ...)`
 - [ ] `0052e860` 119 B `CNuConsole::SendD3DWarning(long, char*, ...)`  **hint** name (gapfill)
 - [ ] `0052fd10` 172 B `CNuConsole::Initialize()`
-- [ ] `0052e6f0` 190 B `CNuConsole::SendError(char*, ...)`
 
 ## Create
 
@@ -1072,10 +1068,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `0068e660` 77 B `_nugraphFreeTempCurveData`
 - [ ] `0068e6b0` 301 B `_nugraphCalcCurve`
-
-## near NuMovieGrab_PC.cpp
-
-- [ ] `006ebae0` 38 B `_RndrStateSetReflection`  **hint** name (gapfill)
 
 ## near numtl_dlist.cpp
 
