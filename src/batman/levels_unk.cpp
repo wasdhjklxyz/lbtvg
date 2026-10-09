@@ -74,3 +74,33 @@ void BotanicGardens_B_Reset(WORLDINFO_s *wi) {
   g_unk009ca180 = GizmoFindByName(wi->gizmoSys2b0c, g_unk0095fb5c, "techno1");
   g_unk009ca23c = GizmoBlowUp_FindByName(wi, "bomb_dropb1");
 }
+
+typedef struct LEVELDATA_s {
+  unsigned char pad0[0x40];
+  char name[0x110];
+} LEVELDATA;
+
+// GLOBAL: LEGOBATMAN 0x00aca8a4
+i32 LEVELCOUNT;
+
+// GLOBAL: LEGOBATMAN 0x00aca894
+LEVELDATA *LDataList = 0;
+
+// FUNCTION: LEGOBATMAN 0x0060d6c0
+LEVELDATA *Level_FindByName(char *name, i32 *idx_out) {
+  for (i32 i = 0; i < LEVELCOUNT; i++) {
+    if (NuStrICmp(LDataList[i].name, name) == 0) {
+      if (idx_out != 0) {
+        *idx_out = i;
+      }
+
+      return &LDataList[i];
+    }
+  }
+
+  if (idx_out != 0) {
+    *idx_out = -1;
+  }
+
+  return 0;
+}

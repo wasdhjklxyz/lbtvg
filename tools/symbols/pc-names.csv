@@ -469,7 +469,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0060cea0,0030769e,__Z17GameDrawMenuEntryP6MENU_sPc,"GameDrawMenuEntry(MENU_s*, char*)",gapfill,2
 0060cee0,003076f6,__Z9GetMenuIDv,GetMenuID(),gapfill,2
 0060d110,002ff8ae,__Z20Levels_ConfigureListPcP9variptr_uS1_iPiPFvP11LEVELDATA_sE,"Levels_ConfigureList(char*, variptr_u*, variptr_u*, int, int*, void (*)(LEVELDATA_s*))",strings,0
-0060d6c0,002ffed8,__Z16Level_FindByNamePcPi,"Level_FindByName(char*, int*)",gapfill,1
+0060d6c0,002ffed8,__Z16Level_FindByNamePcPi,"Level_FindByName(char*, int*)",confirmed,0
 0060d7a0,002fffd8,__Z12Levels_FixUpP10LEVELFIXUP,Levels_FixUp(LEVELFIXUP*),gapfill,2
 0060d920,00300150,__Z22LevelConfig_BeforeLoadP11LEVELDATA_sPcP12nufpcomjmp_s,"LevelConfig_BeforeLoad(LEVELDATA_s*, char*, nufpcomjmp_s*)",strings,0
 0060e510,00300d9e,__Z14LC_AL_conveyorP8nufpar_s,LC_AL_conveyor(nufpar_s*),strings,0

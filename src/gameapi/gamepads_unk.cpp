@@ -1,0 +1,43 @@
+// gameapi/gamepads_unk.cpp: placed by tools/new.py; file name unproven.
+
+#include "../nu2api/nucore/common.h"
+
+typedef struct nupad_s nupad_s;
+
+typedef struct GAMEPAD_s {
+  nupad_s *pad;
+} GAMEPAD_s;
+
+typedef struct GameObject_s {
+  unsigned char pad0[0x1fc];
+  u8 flags_low; // 0x1fc
+  unsigned char pad1fd[0x112c - 0x1fd];
+  GAMEPAD_s *pad_gamepad; // 0x112c
+} GameObject_s;
+
+void NuSoundAddRumble(nupad_s *pad, f32 duration, i32 amount, f32 unk,
+                      f32 strength);
+
+// GLOBAL: LEGOBATMAN 0x00a95fec
+extern f32 DEFAULTFPS;
+
+// GLOBAL: LEGOBATMAN 0x00ab3960
+extern GameObject_s *Player[8];
+
+// FUNCTION: LEGOBATMAN 0x005a2dd0
+void NewRumbleAllPlayers(float strength, float duration, i32 frames, i32) {
+  if (frames > 0) {
+    f32 frame_duration = (f32)frames / DEFAULTFPS;
+    if (frame_duration > duration)
+      duration = frame_duration;
+  }
+  for (i32 i = 0; i < 8; i++) {
+    GameObject_s *object = Player[i];
+    if (object != 0 && (object->flags_low & 0x80)) {
+      if (object->pad_gamepad->pad != 0) {
+        NuSoundAddRumble(object->pad_gamepad->pad, duration,
+                         (i32)(strength * 255.0f), 0.0f, strength);
+      }
+    }
+  }
+}

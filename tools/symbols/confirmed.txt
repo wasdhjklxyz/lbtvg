@@ -7,3 +7,4 @@
 006d4240 NuListGetNext lgtm
 006dc3a0 NuStrICmp lgtm
 006d8020 NuAToI lgtm
+0060d6c0 Level_FindByName  saga body matches 107B

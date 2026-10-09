@@ -13,7 +13,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [near rtleditor.cpp](#near-rtleditorcpp) | 103 | 77 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 101 | 75 |
 | [Action](#action) | 72 | 57 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
@@ -44,7 +44,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizActions](#gizactions) | 5 | 2 |
 | [GizmoPickup](#gizmopickup) | 2 | 2 |
 | [GizPanel](#gizpanel) | 2 | 2 |
-| [Level](#level) | 2 | 2 |
 | [LevelConfig](#levelconfig) | 2 | 2 |
 | [LevelObject](#levelobject) | 2 | 2 |
 | [LevelObjects](#levelobjects) | 2 | 2 |
@@ -53,7 +52,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Mission](#mission) | 2 | 2 |
 | [Move](#move) | 2 | 2 |
 | [NuCamera](#nucamera) | 2 | 2 |
-| [NuMtl](#numtl) | 3 | 2 |
 | [NuPad](#nupad) | 2 | 2 |
 | [NuStr](#nustr) | 2 | 2 |
 | [SuperCarry](#supercarry) | 3 | 2 |
@@ -83,6 +81,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizTurrets](#gizturrets) | 1 | 1 |
 | [Grapples](#grapples) | 1 | 1 |
 | [LC](#lc) | 1 | 1 |
+| [Level](#level) | 1 | 1 |
 | [MiniKit](#minikit) | 2 | 1 |
 | [Missions](#missions) | 1 | 1 |
 | [near apisave.c](#near-apisavec) | 8 | 1 |
@@ -96,6 +95,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [NuFile](#nufile) | 3 | 1 |
 | [NuInit](#nuinit) | 1 | 1 |
 | [NuLst](#nulst) | 1 | 1 |
+| [NuMtl](#numtl) | 2 | 1 |
 | [NuMusic](#numusic) | 1 | 1 |
 | [NuString](#nustring) | 1 | 1 |
 | [NuUnicode](#nuunicode) | 1 | 1 |
@@ -261,7 +261,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005d3f60` 105 B `FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)`  **hint** name (gapfill)
 - [ ] `005a0830` 108 B `ConfigureMusic(char*, variptr_u*, variptr_u*)`  **saga** `nu2api/nusound/nusound3_include.cpp`
 - [ ] `005c8eb0` 113 B `LoadTerrainFile(WORLDINFO_s*)`  **hint** name (order) · **saga** `legoapi/render/core/terrain.cpp`
-- [ ] `005ae640` 119 B `FindAnglesXY(nuvec_s*, unsigned short*, unsigned short*)`  **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `005c16b0` 120 B `SetPlayerIDs(int, int)`  **hint** name (order)
 - [ ] `005d3640` 123 B `AddGameMessage(char*, nuvec_s*, float, nuvec_s*, float, unsigned char, unsigned char, unsigned char, unsigned int, float)`  **hint** name (gapfill) · **saga** `legoapi/menus/core/gamemessages.cpp`
 - [ ] `005ae6c0` 124 B `GetRotationAngles(nuvec_s*, unsigned short*, unsigned short*)`  **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
@@ -270,7 +269,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0063e540` 131 B `FreeGameObjectLights()`  **hint** name (order) · **saga** `legoapi/render/light/lighting.cpp`
 - [ ] `006394f0` 133 B `FaceOpponent(GameObject_s*, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/move.cpp`
 - [ ] `0065c320` 136 B `LoseHat(GameObject_s*)`  **hint** name (gapfill)
-- [ ] `005a2dd0` 146 B `NewRumbleAllPlayers(float, float, int, int)`  **saga** `legoapi/core/input/gamepads.cpp`
 - [ ] `005fc2b0` 150 B `DumpAreaData(int, int)`  **hint** name (order) · **saga** `editor/edlevelall.cpp`
 - [ ] `005b00d0` 153 B `LineIntersectCircle(nuvec_s*, nuvec_s*, nuvec_s*, float)`  **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `005c8f30` 155 B `LoadGrassFile(WORLDINFO_s*)`  **saga** `legoapi/render/core/terrain.cpp`
@@ -701,11 +699,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0048f750` 993 B `GizPanel_Update(void*, void*, float)`  **saga** `legoapi/gizmos/object/gizpanel.cpp`
 - [ ] `00490b20` 1178 B `GizPanel_MoveCode(WORLDINFO_s*, GameObject_s*, int)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizpanel.cpp`
 
-## Level
-
-- [ ] `0060d6c0` 107 B `Level_FindByName(char*, int*)`  **hint** name (gapfill) · **saga** `legoapi/world/level.cpp`
-- [ ] `0060ee60` 164 B `Level_LoadConfigFile(WORLDINFO_s*)`  **saga** `legoapi/world/level.cpp`
-
 ## LevelConfig
 
 - [ ] `0060d920` 115 B `LevelConfig_BeforeLoad(LEVELDATA_s*, char*, nufpcomjmp_s*)`  **saga** `legoapi/world/levelconfig.cpp`
@@ -745,12 +738,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `007151e0` 28 B `_NuCameraDestroy`  **saga** `nu2api/nu3d/generic/nucamera_gen.cpp`
 - [ ] `00715180` 90 B `_NuCameraCreate`  **saga** `nu2api/nu3d/generic/nucamera_gen.cpp`
-
-## NuMtl
-
-- [ ] `00727b40` 24 B `_NuMtlUpdate`  **saga** `nu2api/nu3d/numtl.cpp`
-- [ ] `00727f20` 30 B `_NuMtlSetCurrentRenderPlane`
-- [ ] `006ef910` 300 B `_NuMtlUpdatePS`  **hint** name (gapfill) · **saga** `nu2api/nu3d/numtl.cpp`
 
 ## NuPad
 
@@ -878,6 +865,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `0060e510` 121 B `LC_AL_conveyor(nufpar_s*)`  **saga** `legoapi/world/levelconfig.cpp`
 
+## Level
+
+- [ ] `0060ee60` 164 B `Level_LoadConfigFile(WORLDINFO_s*)`  **saga** `legoapi/world/level.cpp`
+
 ## MiniKit
 
 - [ ] `00647150` 433 B `MiniKit_InitPieces(MINIKIT*, int, variptr_u*, variptr_u*)`  **saga** `legoapi/gizmo/base/gizmo_sys.cpp`
@@ -950,6 +941,11 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## NuLst
 
 - [ ] `0067dd00` 136 B `_NuLstCreate`  **saga** `nu2api/nucore/nulst.cpp`
+
+## NuMtl
+
+- [ ] `00727f20` 30 B `_NuMtlSetCurrentRenderPlane`
+- [ ] `006ef910` 300 B `_NuMtlUpdatePS`  **hint** name (gapfill) · **saga** `nu2api/nu3d/numtl.cpp`
 
 ## NuMusic
 
