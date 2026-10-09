@@ -1510,3 +1510,7 @@
 00538ff0 NuMusic::xGlobalAttenuation  called by NuMusic::xsGlobalAttenuation 0x5391e0
 006a24d0 xConst  keyword table 0x99dce0
 00625650 CC_streak_col  keyword table 0x963ff0
+00623d80 CC_splat_locators  keyword table 0x963ff0
+00625430 CC_default_item  keyword table 0x963ff0
+00627240 CC_transformatron  keyword table 0x963ff0
+006274e0 CC_combat_roll  keyword table 0x963ff0

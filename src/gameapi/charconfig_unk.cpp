@@ -74,11 +74,11 @@ typedef struct CHARCONFIG_RUNTIME_s {
   u32 layer_mask_low;     // 0x160
   u32 layer_mask_dead;    // 0x164
   unsigned char pad168[0x16c - 0x168];
-  f32 mediumres_swapdist; // 0x16c
-  f32 lowres_swapdist;    // 0x170
-  u32 shadow_locators;    // 0x174, bit per locator
-  u32 thrust_locators;    // 0x178
-  unsigned char pad17c[0x180 - 0x17c];
+  f32 mediumres_swapdist;    // 0x16c
+  f32 lowres_swapdist;       // 0x170
+  u32 shadow_locators;       // 0x174, bit per locator
+  u32 thrust_locators;       // 0x178
+  u32 splat_locators;        // 0x17c
   f32 ai_update_distance[4]; // 0x180
   u8 ai_update_interval[4];  // 0x190
   i16 sfx_misc[6];           // 0x194
@@ -152,9 +152,9 @@ typedef struct CHARCONFIG_RUNTIME_s {
   u8 phobias;       // 0x232
   u8 chatter_delay; // 0x233
   unsigned char pad234[0x236 - 0x234];
-  u8 detonator_type; // 0x236
-  unsigned char pad237[0x238 - 0x237];
-  i16 dance_action; // 0x238
+  u8 detonator_type;      // 0x236
+  u8 transformatron_type; // 0x237, 1-based index into 0x00ac73b8
+  i16 dance_action;       // 0x238
   unsigned char pad23a[0x240 - 0x23a];
 } CHARCONFIG_RUNTIME_s;
 
@@ -550,6 +550,16 @@ void CC_headlight_start(NUFPAR *parser) {
       NuFParPopCom(parser);
     }
     g_unk00963fec = -1;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00623d80
+void CC_splat_locators(NUFPAR *parser) {
+  charconfig.runtime->splat_locators = 0;
+  while (NuFParGetWord(parser) != 0) {
+    u32 locator = NuAToI(parser->word_buf);
+    if (locator <= 19)
+      charconfig.runtime->splat_locators |= 1 << locator;
   }
 }
 
@@ -981,6 +991,26 @@ void CC_tightrope_walk(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x80000); }
 
 // FUNCTION: LEGOBATMAN 0x006251e0
 void CC_car_wheels(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x100000); }
+
+i16 Unk005ee0f0(char *name);
+
+// FUNCTION: LEGOBATMAN 0x00625430
+void CC_default_item(NUFPAR *parser) {
+  if ((charconfig.flags10 & 0x100) == 0) {
+    charconfig.flags10 |= 0x100;
+    for (i32 i = 0; i < 5; i++)
+      charconfig.runtime->default_items[i] = -1;
+  }
+  if (NuFParGetWord(parser) != 0) {
+    i32 i;
+    for (i = 0; i < 5; i++) {
+      if (charconfig.runtime->default_items[i] == -1)
+        break;
+    }
+    if (i < 5)
+      charconfig.runtime->default_items[i] = Unk005ee0f0(parser->word_buf);
+  }
+}
 
 // FUNCTION: LEGOBATMAN 0x006254c0
 void CC_clear_default_items(NUFPAR *parser) {
@@ -1525,6 +1555,30 @@ void CC_high_jump(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x400000); }
 // FUNCTION: LEGOBATMAN 0x006271f0
 void CC_super_strength(NUFPAR *parser) { CC_SetGCDataFlagsj(parser, 0x800000); }
 
+struct TRANSFORMATRONTYPE_s {
+  char *name;
+  u32 pad4;
+};
+
+// GLOBAL: LEGOBATMAN 0x00ac73b8
+extern TRANSFORMATRONTYPE_s *g_unk00ac73b8;
+
+// FUNCTION: LEGOBATMAN 0x00627240
+void CC_transformatron(NUFPAR *parser) {
+  charconfig.runtime->gcdata_flags |= 0x1000000;
+  if (NuFParGetWord(parser) != 0 && NuStrICmp(parser->word_buf, "off") == 0)
+    charconfig.runtime->gcdata_flags &= ~0x1000000;
+  charconfig.runtime->transformatron_type = 0;
+  if (g_unk00ac73b8 != 0 && parser->word_buf[0] != '\0') {
+    for (i32 i = 0; g_unk00ac73b8[i].name != 0; i++) {
+      if (NuStrICmp(parser->word_buf, g_unk00ac73b8[i].name) == 0) {
+        charconfig.runtime->transformatron_type = i + 1;
+        return;
+      }
+    }
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x00627300
 void CC_bypass_security(NUFPAR *parser) {
   CC_SetGCDataFlagsj(parser, 0x2000000);
@@ -1575,6 +1629,21 @@ void CC_maxheadtilt(NUFPAR *parser) {
 void CC_headrotrate(NUFPAR *parser) {
   charconfig.runtime->headrotrate =
       NuFParGetFloat(parser) * 3.1415927f / 180.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x006274e0
+void CC_combat_roll(NUFPAR *parser) {
+  charconfig.runtime->gcdata_flags |= 0x40000000;
+  charconfig.runtime->flags144 &= ~0x80000000;
+  charconfig.runtime->flags148 &= ~1;
+  while (NuFParGetWord(parser) != 0) {
+    if (NuStrICmp(parser->word_buf, "off") == 0)
+      charconfig.runtime->gcdata_flags &= ~0x40000000;
+    else if (NuStrICmp(parser->word_buf, "can_get_up") == 0)
+      charconfig.runtime->flags144 |= 0x80000000;
+    else if (NuStrICmp(parser->word_buf, "can_direct_land") == 0)
+      charconfig.runtime->flags148 |= 1;
+  }
 }
 
 // FUNCTION: LEGOBATMAN 0x006275b0

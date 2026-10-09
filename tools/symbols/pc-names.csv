@@ -1407,6 +1407,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00623c50,0027ba72,__Z27CC_headlight_flash_off_timeP8nufpar_s,CC_headlight_flash_off_time(nufpar_s*),confirmed,0
 00623c90,0027bab4,__Z26CC_headlight_flash_on_timeP8nufpar_s,CC_headlight_flash_on_time(nufpar_s*),confirmed,0
 00623cd0,0027baf6,__Z18CC_headlight_startP8nufpar_s,CC_headlight_start(nufpar_s*),confirmed,0
+00623d80,0027bbaa,__Z17CC_splat_locatorsP8nufpar_s,CC_splat_locators(nufpar_s*),confirmed,0
 00623de0,0027bc0c,__Z17CC_define_locatorP8nufpar_s,CC_define_locator(nufpar_s*),confirmed,0
 00623e30,0027bc6c,__Z16CC_boost_locatorP8nufpar_s,CC_boost_locator(nufpar_s*),confirmed,0
 00623ea0,0027bcc2,__Z13CC_head_jointP8nufpar_s,CC_head_joint(nufpar_s*),confirmed,0
@@ -1487,6 +1488,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006251e0,0027ca32,__Z13CC_car_wheelsP8nufpar_s,CC_car_wheels(nufpar_s*),confirmed,0
 00625230,0027ca44,__Z12CC_is_a_girlP8nufpar_s,CC_is_a_girl(nufpar_s*),confirmed,0
 00625240,0027ca60,__Z11CC_is_a_boyP8nufpar_s,CC_is_a_boy(nufpar_s*),confirmed,0
+00625430,0027cc96,__Z15CC_default_itemP8nufpar_s,CC_default_item(nufpar_s*),confirmed,0
 006254c0,0027cd20,__Z22CC_clear_default_itemsP8nufpar_s,CC_clear_default_items(nufpar_s*),confirmed,0
 006254f0,0027cd4e,__Z20CC_shield_hit_pointsP8nufpar_s,CC_shield_hit_points(nufpar_s*),confirmed,0
 00625510,0027cd80,__Z13CC_stop_speedP8nufpar_s,CC_stop_speed(nufpar_s*),confirmed,0
@@ -1590,12 +1592,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00627150,0027e076,__Z16CC_no_kill_partsP8nufpar_s,CC_no_kill_parts(nufpar_s*),confirmed,0
 006271a0,0027e088,__Z12CC_high_jumpP8nufpar_s,CC_high_jump(nufpar_s*),confirmed,0
 006271f0,0027e09a,__Z17CC_super_strengthP8nufpar_s,CC_super_strength(nufpar_s*),confirmed,0
+00627240,0027e0ac,__Z17CC_transformatronP8nufpar_s,CC_transformatron(nufpar_s*),confirmed,0
 00627300,0027e134,__Z18CC_bypass_securityP8nufpar_s,CC_bypass_security(nufpar_s*),confirmed,0
 00627350,0027e146,__Z9CC_technoP8nufpar_s,CC_techno(nufpar_s*),confirmed,0
 006273a0,0027e158,__Z20CC_hazard_protectionP8nufpar_s,CC_hazard_protection(nufpar_s*),confirmed,0
 006273f0,0027e16a,__Z12CC_wall_jumpP8nufpar_s,CC_wall_jump(nufpar_s*),confirmed,0
 00627440,0027e17c,__Z15CC_got_batarangP8nufpar_s,CC_got_batarang(nufpar_s*),confirmed,0
 00627490,0027e18e,__Z17CC_tightrope_tiltP8nufpar_s,CC_tightrope_tilt(nufpar_s*),confirmed,0
+006274e0,0027e1a0,__Z14CC_combat_rollP8nufpar_s,CC_combat_roll(nufpar_s*),confirmed,0
 006275b0,0027e280,__Z31CC_only_animate_when_taken_overP8nufpar_s,CC_only_animate_when_taken_over(nufpar_s*),confirmed,0
 00627600,0027e2c4,__Z20CC_has_scene_elementP8nufpar_s,CC_has_scene_element(nufpar_s*),confirmed,0
 00627650,0027e306,__Z12CC_dont_turnP8nufpar_s,CC_dont_turn(nufpar_s*),confirmed,0
