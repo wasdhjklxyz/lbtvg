@@ -190,6 +190,52 @@ void AIScriptLoadAll(char *path, VARIPTR *buf, VARIPTR *buf_end, AISYS_s *sys) {
 i32 AIScriptSetInterrupt(AISCRIPTPROCESS_s *processor, u8 priority, u8 id,
                          char *state_name, f32 time);
 
+// AISYS_s +0x21c
+struct AIBLOCKPATHSYS_s {
+  u8 path_count; // 0x00
+  u8 pad1[8 - 1];
+  void *active_path; // 0x08
+};
+
+#define BP_PATHSYS(sys) (*(AIBLOCKPATHSYS_s **)((u8 *)(sys) + 0x21c))
+
+void AIPathCnxSetTemporaryBlock(void *path, char *from, char *to, i32 blocked);
+
+// FUNCTION: LEGOBATMAN 0x006b4350
+i32 Action_BlockPath(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                     AIPACKET_s *packet, char **params, i32 param_count,
+                     i32 first_time, f32 elapsed) {
+  char *from = NULL;
+  char *to = NULL;
+  i32 blocked = 1;
+  i32 both_ways = 0;
+  if (sys != NULL && BP_PATHSYS(sys) != NULL &&
+      BP_PATHSYS(sys)->path_count != 0 && first_time != 0) {
+    for (i32 index = 0; index < param_count; ++index) {
+      char *value = NuStrIStr(params[index], "from");
+      if (value != NULL) {
+        from = value + 5;
+        continue;
+      }
+      value = NuStrIStr(params[index], "to");
+      if (value != NULL)
+        to = value + 3;
+      else if (NuStrICmp(params[index], "bothways") == 0)
+        both_ways = 1;
+      else if (NuStrICmp(params[index], "FALSE") == 0)
+        blocked = 0;
+    }
+    if (from != NULL && to != NULL) {
+      AIPathCnxSetTemporaryBlock(BP_PATHSYS(sys)->active_path, from, to,
+                                 blocked);
+      if (both_ways)
+        AIPathCnxSetTemporaryBlock(BP_PATHSYS(sys)->active_path, to, from,
+                                   blocked);
+    }
+  }
+  return 1;
+}
+
 struct AIPATHCNXOBS_s {
   u32 traversal_flags; // 0x00
   u8 pad4[0x16 - 4];
