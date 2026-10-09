@@ -578,7 +578,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00659110,00346fb6,__Z24TrafficAnimSys_ConfigureP11WORLDINFO_sPc,"TrafficAnimSys_Configure(WORLDINFO_s*, char*)",strings,0
 0065c320,002ea63c,__Z7LoseHatP12GameObject_s,LoseHat(GameObject_s*),gapfill,3
 0065e780,002a38f0,__Z17LoadEditorSplinesP11WORLDINFO_sPcP9variptr_uS3_,"LoadEditorSplines(WORLDINFO_s*, char*, variptr_u*, variptr_u*)",strings,0
-00661c30,002dba26,__Z20GizTurret_FindByNameP14GIZTURRETSYS_sPc,"GizTurret_FindByName(GIZTURRETSYS_s*, char*)",gapfill,1
+00661c30,002dba26,__Z20GizTurret_FindByNameP14GIZTURRETSYS_sPc,"GizTurret_FindByName(GIZTURRETSYS_s*, char*)",confirmed,0
 00661d60,002c6fce,__Z17GizmoBlowupBlowupP13GIZMOBLOWUP_siiiP12GameObject_si,"GizmoBlowupBlowup(GIZMOBLOWUP_s*, int, int, int, GameObject_s*, int)",gapfill,1
 006633c0,002c259e,__Z17CheckGizAIMessageP17GIZAIMESSAGESYS_sPKcP14GIZAIMESSAGE_s,"CheckGizAIMessage(GIZAIMESSAGESYS_s*, char const*, GIZAIMESSAGE_s*)",calls,1
 00665f80,002b9242,__Z24GizFlock_ConfigureExtrasP11WORLDINFO_sPKcj,"GizFlock_ConfigureExtras(WORLDINFO_s*, char const*, unsigned int)",strings,0

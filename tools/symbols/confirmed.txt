@@ -52,3 +52,4 @@
 005ae240 SeekValF  saga body matches (rate*FRAMETIME clamped to 1, lerp)
 0059f160 GameAudio_GetPlrSfxBits  saga body matches (1 << player index)
 005bc370 GizmoGetTypeIDByName  saga body matches (gizmotypes name scan)
+00661c30 GizTurret_FindByName  saga body matches (turret name scan)

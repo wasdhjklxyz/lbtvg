@@ -64,7 +64,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizForceSFX](#gizforcesfx) | 1 | 1 |
 | [GizmoPickups](#gizmopickups) | 1 | 1 |
 | [GizObstacles](#gizobstacles) | 1 | 1 |
-| [GizTurret](#gizturret) | 1 | 1 |
 | [GizTurrets](#gizturrets) | 1 | 1 |
 | [Grapples](#grapples) | 1 | 1 |
 | [Level](#level) | 1 | 1 |
@@ -718,10 +717,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## GizObstacles
 
 - [ ] `005b6d60` 931 B `GizObstacles_Load(void*, void*)`  **saga** `legoapi/gizmos/object/gizobstacle.cpp`
-
-## GizTurret
-
-- [ ] `00661c30` 73 B `GizTurret_FindByName(GIZTURRETSYS_s*, char*)`  **hint** name (gapfill) · **saga** `legoapi/gizmos/traps/gizturret.cpp`
 
 ## GizTurrets
 
