@@ -942,3 +942,17 @@
 00619120 CS_looping  matched, keyword table
 00619130 CS_start_cam  matched, keyword table
 00619140 CS_super_widescreen  matched, keyword table
+006009e0 Grab_radius  matched, keyword table
+00600a00 Grab_speed  matched, keyword table
+00600a20 Grab_rotate  matched, keyword table
+00600a50 Grab_scale  matched, keyword table
+00600a70 Grab_move_zy  matched, keyword table
+00600a80 Grab_move_x  matched, keyword table
+00600a90 Grab_invert_x  matched, keyword table
+00600ae0 Grab_shadow  matched, keyword table
+00600c40 Grab_hide_grabber  matched, keyword table
+00600c60 Grab_can_bounce_heavy  matched, keyword table
+00600c70 Grab_seek_to_plug  matched, keyword table
+00600c80 Grab_magnet  matched, keyword table
+00600c90 Grab_crane  matched, keyword table
+00600ca0 Grab_not_active  matched, keyword table
