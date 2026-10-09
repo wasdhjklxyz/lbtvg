@@ -83,7 +83,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near nufile_gen.cpp](#near-nufile_gencpp) | 1 | 1 |
 | [near nutimebar_gen.cpp](#near-nutimebar_gencpp) | 2 | 1 |
 | [near oggreader.cpp](#near-oggreadercpp) | 7 | 1 |
-| [NuCamera](#nucamera) | 1 | 1 |
 | [NuCommand](#nucommand) | 1 | 1 |
 | [NuInit](#nuinit) | 1 | 1 |
 | [NuMtl](#numtl) | 2 | 1 |
@@ -851,10 +850,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0055fd60` 212 B `_LookupDebrisEffectPageOnly`  **hint** name (gapfill)
 - [ ] `0055fc00` 307 B `_LookupDebrisEffectPageIgnore`  **hint** name (gapfill)
 - [ ] `00558f10` 1377 B `_PlaySfxByIdEx`
-
-## NuCamera
-
-- [ ] `00715180` 90 B `_NuCameraCreate`  **saga** `nu2api/nu3d/generic/nucamera_gen.cpp`
 
 ## NuCommand
 
