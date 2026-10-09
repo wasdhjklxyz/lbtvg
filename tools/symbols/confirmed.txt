@@ -49,3 +49,5 @@
 005bba90 GizmoFileReadName  saga body matches (length char then EdFileRead)
 00639b10 KeepWeaponOut  saga body matches (scale 1, weapon anim + keep-out flags)
 005c8150 WorldInfo_CurrentlyActive  returns WORLD (0x960894), as saga
+005ae240 SeekValF  saga body matches (rate*FRAMETIME clamped to 1, lerp)
+0059f160 GameAudio_GetPlrSfxBits  saga body matches (1 << player index)

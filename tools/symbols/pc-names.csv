@@ -325,7 +325,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0059dbd0,00341d2c,__Z27Text_InsertCommasIntoNumberPcS_i,"Text_InsertCommasIntoNumber(char*, char*, int)",order,1
 0059dc80,00341dd6,__Z14Text_MakeScorejPc,"Text_MakeScore(unsigned int, char*)",confirmed,0
 0059dd10,00341e28,__Z13Text_MakeTimefiiiPc,"Text_MakeTime(float, int, int, int, char*)",strings,0
-0059f160,0026748c,__Z23GameAudio_GetPlrSfxBitsPv,GameAudio_GetPlrSfxBits(void*),gapfill,1
+0059f160,0026748c,__Z23GameAudio_GetPlrSfxBitsPv,GameAudio_GetPlrSfxBits(void*),confirmed,0
 0059f190,002674b4,__Z15GameAudio_Resetv,GameAudio_Reset(),order,2
 0059f1d0,00267502,__Z21GameAudio_PlaySfxByIdiP7nuvec_sii,"GameAudio_PlaySfxById(int, nuvec_s*, int, int)",confirmed,0
 0059f260,002675aa,__Z17GameAudio_PlaySfxiP7nuvec_sii,"GameAudio_PlaySfx(int, nuvec_s*, int, int)",confirmed,0
@@ -354,7 +354,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005aa1f0,002e58ac,__Z15InitGrappleMtlsP9variptr_uS0_,"InitGrappleMtls(variptr_u*, variptr_u*)",strings,0
 005ae160,00354d0a,__Z5qrandv,qrand(),gapfill,2
 005ae1d0,00354daa,__Z11SeekLinearFfff,"SeekLinearF(float, float, float)",confirmed,0
-005ae240,00354de8,__Z8SeekValFfff,"SeekValF(float, float, float)",gapfill,1
+005ae240,00354de8,__Z8SeekValFfff,"SeekValF(float, float, float)",confirmed,0
 005ae5c0,00355164,__Z12FindAnglesZXP7nuvec_sPtS1_,"FindAnglesZX(nuvec_s*, unsigned short*, unsigned short*)",confirmed,0
 005ae640,003551f0,__Z12FindAnglesXYP7nuvec_sPtS1_,"FindAnglesXY(nuvec_s*, unsigned short*, unsigned short*)",order,4
 005ae6c0,00355280,__Z17GetRotationAnglesP7nuvec_sPtS1_,"GetRotationAngles(nuvec_s*, unsigned short*, unsigned short*)",confirmed,0

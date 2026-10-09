@@ -14,7 +14,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | group | todo | with saga body |
 |---|---|---|
 | [Action](#action) | 72 | 57 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 75 | 49 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 74 | 48 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 14 | 8 |
@@ -58,7 +58,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [EquivalentObject](#equivalentobject) | 1 | 1 |
 | [EquivalentObjects](#equivalentobjects) | 1 | 1 |
 | [Faders](#faders) | 1 | 1 |
-| [GameAudio](#gameaudio) | 1 | 1 |
 | [GameMsg](#gamemsg) | 1 | 1 |
 | [GizBuildIts](#gizbuildits) | 1 | 1 |
 | [GizForces](#gizforces) | 1 | 1 |
@@ -294,7 +293,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005a2d90` 54 B `NewBuzzFrames(nupad_s*, int, int)`  **saga** `legoapi/core/input/gamepads.cpp`
 - [ ] `0059a730` 59 B `_ResetAnimPacket`  **hint** name (gapfill)
 - [ ] `0059a0d0` 60 B `_FindAnimIX`  **hint** name (gapfill)
-- [ ] `005ae240` 64 B `SeekValF(float, float, float)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/move.cpp`
 - [ ] `0059b3c0` 68 B `_AnimPlaying`  **hint** name (gapfill)
 - [ ] `005b0f40` 71 B `GameBufferAlloc(variptr_u*, variptr_u*, int)`  **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `00597fc0` 72 B `_AddGameDebris`
@@ -699,10 +697,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## Faders
 
 - [ ] `00655790` 512 B `Faders_Configure(WORLDINFO_s*, char*)`  **saga** `legoapi/render/light/faders.cpp`
-
-## GameAudio
-
-- [ ] `0059f160` 34 B `GameAudio_GetPlrSfxBits(void*)`  **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
 
 ## GameMsg
 

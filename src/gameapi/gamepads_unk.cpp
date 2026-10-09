@@ -48,6 +48,22 @@ extern GAMEAUDIO GameAudio_Default;
 // GLOBAL: LEGOBATMAN 0x0095ed94
 extern GAMEAUDIO *GameAudio;
 
+typedef struct APIOBJECT_s {
+  u8 pad0[0x1fc];
+  u8 flags_low; // 0x1fc
+  u8 pad1fd[0x24c - 0x1fd];
+  i8 player_index; // 0x24c
+} APIOBJECT;
+
+// FUNCTION: LEGOBATMAN 0x0059f160
+i32 GameAudio_GetPlrSfxBits(void *object_ptr) {
+  APIOBJECT *object = (APIOBJECT *)object_ptr;
+  if (object != 0 && (object->flags_low & 0x80)) {
+    return 1 << object->player_index;
+  }
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x0059f190
 void GameAudio_Reset() {
   GameAudio = &GameAudio_Default;

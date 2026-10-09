@@ -20,3 +20,15 @@ float SeekLinearF(float current, float target, float step) {
   }
   return current;
 }
+
+// GLOBAL: LEGOBATMAN 0x00a95fe0
+extern f32 FRAMETIME;
+
+// FUNCTION: LEGOBATMAN 0x005ae240
+f32 SeekValF(f32 current, f32 target, f32 rate) {
+  rate = FRAMETIME * rate;
+  if (rate > 1.0f)
+    rate = 1.0f;
+  rate = current + (target - current) * rate;
+  return rate;
+}
