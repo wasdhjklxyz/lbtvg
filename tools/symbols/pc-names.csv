@@ -266,6 +266,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00452af0,00079710,__Z22Condition_CanGetToNodeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_CanGetToNode(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00452b60,00079778,__Z28Condition_PlayerCanGetToNodeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_PlayerCanGetToNode(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00452bd0,00079840,__Z26Condition_GotCnxCapabilityP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_GotCnxCapability(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+00452c00,0009a0ce,__Z22Condition_CheckCoupledP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_CheckCoupled(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00452c70,0007986a,__Z20Condition_HasAbilityP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_HasAbility(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00452d70,00079932,__Z20Condition_AlertRangeP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_AlertRange(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 00452de0,0007998c,__Z26Condition_LocatorSetIsInitP7AISYS_sPcP10AISCRIPT_s,"Condition_LocatorSetIsInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0

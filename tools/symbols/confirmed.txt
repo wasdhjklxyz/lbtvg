@@ -1108,3 +1108,4 @@
 00451870 Condition_TakeOverRange  matched, keyword table + Mac name
 00451640 Condition_LocatorIsFirstInSet  matched, keyword table + Mac name
 004515d0 Condition_GotLocatorInSet  matched, keyword table + Mac name
+00452c00 Condition_CheckCoupled  matched, keyword table + Mac name

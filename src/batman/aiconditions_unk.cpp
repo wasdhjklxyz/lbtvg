@@ -3161,3 +3161,22 @@ f32 Condition_GotLocatorInSet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 0.0f;
 }
+
+// FUNCTION: LEGOBATMAN 0x00452c00
+f32 Condition_CheckCoupled(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char *str, void *argument) {
+  GameObject_s *object = NULL;
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL)
+    object = packet->pd0->obj;
+  if (str != NULL) {
+    Unk_AIPacketObj *api;
+    if (GetNamedAPIObjectFn == NULL ||
+        (api = GetNamedAPIObjectFn(sys, str)) == NULL)
+      return 0.0f;
+    object = api->obj;
+  }
+  // 0x1160: coupled partner.
+  if (object != NULL && *(void **)((u8 *)object + 0x1160) != NULL)
+    return 1.0f;
+  return 0.0f;
+}
