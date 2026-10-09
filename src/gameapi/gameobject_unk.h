@@ -81,7 +81,9 @@ struct GameObject_s {
   nuvec_s position; // 0x5c
   u8 pad1b[0x80 - 0x68];
   nuvec_s v80; // 0x80
-  u8 pad2[0x1f8 - 0x8c];
+  u8 pad2[0x1dc - 0x8c];
+  f32 radius; // 0x1dc, PartyMemberInWay: sphere radius - 0.125
+  u8 pad1e0[0x1f8 - 0x1e0];
   u32 flags1f8; // 0x1f8
   u32 flags1fc; // 0x1fc
   u8 pad3[0x24c - 0x200];

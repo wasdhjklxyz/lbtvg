@@ -529,7 +529,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00635b10,002cead0,__Z35ScoreMultiplier_IncrementMultiplierP12GameObject_siif,"ScoreMultiplier_IncrementMultiplier(GameObject_s*, int, int, float)",gapfill,3
 00635b70,002ceb2a,__Z31ScoreMultiplier_DrawGameMessageP12GameObject_sS0_,"ScoreMultiplier_DrawGameMessage(GameObject_s*, GameObject_s*)",order,4
 00635c80,002cec38,__Z15ResetCoinPacketP12COINPACKET_s,ResetCoinPacket(COINPACKET_s*),confirmed,0
-00635ca0,002cec56,__Z16UpdateCoinPacketP12COINPACKET_sii,"UpdateCoinPacket(COINPACKET_s*, int, int)",order,4
+00635ca0,002cec56,__Z16UpdateCoinPacketP12COINPACKET_sii,"UpdateCoinPacket(COINPACKET_s*, int, int)",confirmed,0
 00635de0,002ced68,__Z18CoinsGoToMainTotalv,CoinsGoToMainTotal(),gapfill,2
 00636200,002cf1e8,__Z25SpecialMiniKits_ConfigureP11WORLDINFO_sPc,"SpecialMiniKits_Configure(WORLDINFO_s*, char*)",strings,0
 00638f90,00282e9c,__Z23CharPlatforms_ConfigureP11WORLDINFO_sPc,"CharPlatforms_Configure(WORLDINFO_s*, char*)",strings,0

@@ -31,3 +31,4 @@
 00639ba0 FastWeaponIn: anim-slot re-read diff, same as FastWeaponOut
 00648290 Arcade_DrawPanel: heavy x87, diverges from saga
 006ef910 NuMtlUpdatePS: PC DX9 body diverges from saga, many unknown fields
+0044c960 PartyMemberInWay: stack-slot/hoist diff, see STUB

@@ -89,3 +89,4 @@
 00661d60 GizTurrets_Hit  (world,turret,NULL,-1,damage) call from GizActions_HitBlowup TURRET case; swapped gapfill
 005a27c0 GameCam_Blend  matches saga camera.cpp body byte-for-byte (blend fields, mode==-1 guard)
 005aefd0 GameShadow  saga body shape matches (platform disable list, NewShadowEx, PlatOnOff restore)
+00635ca0 UpdateCoinPacket  saga collection.cpp shape (scale seek, double-score timer, BonusArea coin decrement)

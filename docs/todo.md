@@ -15,7 +15,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 |---|---|---|
 | [Action](#action) | 59 | 44 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 44 | 37 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 57 | 31 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 56 | 30 |
 | [near terrain.c](#near-terrainc) | 34 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 13 | 7 |
 | [Grabber](#grabber) | 7 | 5 |
@@ -264,7 +264,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00458c40` 111 B `OpponentShouldntBeAttacked(GameObject_s*)`  **hint** name (gapfill)
 - [ ] `00504680` 151 B `GetPlantLocator(char*)`
 - [ ] `004b8100` 205 B `_VuMtxRotateY`  **hint** name (gapfill)
-- [ ] `0044c960` 312 B `PartyMemberInWay(GameObject_s*, GameObject_s*)`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0044c960` 312 B `PartyMemberInWay(GameObject_s*, GameObject_s*)`  **stub** · **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00447560` 369 B `GetNamedAPIObject(AISYS_s*, char*)`  **stub** · **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `004e34b0` 402 B `UpdateRadios()`  **saga** `legoapi/audio/radio.cpp`
 - [ ] `00428a60` 422 B `ResetAICreatures(AISYS_s*)`  **saga** `legoapi/ai/game/creature.cpp`
@@ -336,7 +336,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00639ba0` 233 B `FastWeaponIn(GameObject_s*, int)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/characters/core/playeritems.cpp`
 - [ ] `00620b30` 249 B `RedirectTextFile(char*, char*, int, int*)`  **saga** `legoapi/characters/core/charconfig.cpp`
 - [ ] `005fb300` 291 B `AddToModelList(APICHARACTERMODELLIST_s*, int*, int, int, int, EXTRAMODEL*, unsigned char)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
-- [ ] `00635ca0` 307 B `UpdateCoinPacket(COINPACKET_s*, int, int)`  **hint** name (order) · **saga** `legoapi/items/base/collection.cpp`
 - [ ] `005b0e00` 317 B `VecRotateAxis(nuvec_s*, unsigned short, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
 - [ ] `0064ce30` 321 B `NewStatusRumbleBuzz(int, float, float, int)`  **hint** name (gapfill) · **saga** `legoapi/menus/screens/gamestatus_lsw.cpp`
 - [ ] `006633c0` 324 B `CheckGizAIMessage(GIZAIMESSAGESYS_s*, char const*, GIZAIMESSAGE_s*)`  **stub** · **saga** `legoapi/gizmo/base/gizmessage.cpp`

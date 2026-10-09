@@ -161,6 +161,41 @@ void GameAISysReset(AISYS_s *system) {
   g_unk0093b104 = g_unk0093b108 = -1;
 }
 
+f32 NuVecDistSqr(nuvec_s *v0, nuvec_s *v1, nuvec_s *d);
+f32 NuFsqrt(f32 f);
+void NuVecScale(nuvec_s *v, nuvec_s *v0, f32 k);
+i32 LineIntersectSphere(nuvec_s *origin, nuvec_s *direction, nuvec_s *center,
+                        f32 radius_squared, f32 *distance_squared);
+
+// STUB: LEGOBATMAN 0x0044c960
+// close: opponent load is hoisted above the flags early-out in orig, and the
+// target-distance/length locals land in swapped stack slots
+i32 PartyMemberInWay(GameObject_s *object, GameObject_s *opponent) {
+  nuvec_s difference, direction;
+  f32 length;
+  f32 target_distance;
+  if (object->flags1f8 & 5)
+    return 0;
+  target_distance = NuVecDistSqr(&opponent->v80, &object->v80, &difference);
+  length = NuFsqrt(target_distance);
+  NuVecScale(&direction, &difference, length != 0.0f ? 1.0f / length : 0.0f);
+  for (i32 index = 0; index < 8; index++) {
+    GameObject_s *member = Player[index];
+    if (member == 0 || !(member->flags1fc & 1) ||
+        !(member->flags1fc & 0x1000) || member == object || member == opponent)
+      continue;
+    if (NuVecDistSqr(&object->v80, &member->v80, &difference) <
+        target_distance) {
+      member = Player[index];
+      f32 radius = 0.125f + member->radius;
+      if (LineIntersectSphere(&object->v80, &direction, &member->v80,
+                              radius * radius, 0))
+        return 1;
+    }
+  }
+  return 0;
+}
+
 // STUB: LEGOBATMAN 0x0044da30
 // original tests str/sys before zeroing the result register; this form hoists
 // the zero
