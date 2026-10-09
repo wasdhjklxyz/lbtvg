@@ -159,3 +159,10 @@
 006b4f70 AISysRegisterDefaultPathCnxTypes  registers Permanent/Temporary Block and Link Obstacle like saga's editor version
 00584870 FindPart  saga body shape (nearest active part by NuVecDistSqr, player/owner filters)
 00584830 KillAllParts  saga body matches; Mac order KillPart, AddPart, KillAllParts, FindPart
+00584930 SetPartRTLSet  saga body; Mac order right after FindPart
+00584b10 PARTLookupTypePageOnly  saga body matches (page 1..7 then page 0 with NuStrNCmp)
+00584bc0 GetPartCount  saga body matches (40 part emitters, effect_id != -1)
+00584c10 GetMaxPartTypes  saga body (returns 0x80); Mac order
+00584c20 GetPartName  saga body matches
+00584c50 PARTGetTotalOnTime  saga body (emission period + random); Mac order
+00584c80 PARTGetTotalOffTime  saga body (emission pause + random); Mac order

@@ -295,7 +295,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00584780,001ed63a,__Z8KillPartP6PART_si,"KillPart(PART_s*, int)",calls,2
 00584830,001edff6,__Z12KillAllPartsv,KillAllParts(),confirmed,0
 00584870,001ee044,__Z8FindPartP7nuvec_siPv,"FindPart(nuvec_s*, int, void*)",confirmed,0
+00584930,001ee0fe,__Z13SetPartRTLSetPv,SetPartRTLSet(void*),confirmed,0
 00584ac0,001ee112,__Z14PARTLookupTypePc,PARTLookupType(char*),calls,1
+00584b10,001ee17a,__Z22PARTLookupTypePageOnlyPci,"PARTLookupTypePageOnly(char*, int)",confirmed,0
+00584bc0,001ee250,__Z12GetPartCountv,GetPartCount(),confirmed,0
+00584c10,001ee282,__Z15GetMaxPartTypesv,GetMaxPartTypes(),confirmed,0
+00584c20,001ee28c,__Z11GetPartNamei,GetPartName(int),confirmed,0
+00584c50,001ee2ae,__Z18PARTGetTotalOnTimei,PARTGetTotalOnTime(int),confirmed,0
+00584c80,001ee2e6,__Z19PARTGetTotalOffTimei,PARTGetTotalOffTime(int),confirmed,0
 00584e60,001ee92c,__Z17AddFiniteShotPARTiP7nuvec_si,"AddFiniteShotPART(int, nuvec_s*, int)",calls,1
 00585040,001ee63c,__Z21edpartSetParticlePagei,edpartSetParticlePage(int),gapfill,2
 00585fa0,001ed706,__Z7AddPartP9ADDPART_s,AddPart(ADDPART_s*),calls,1

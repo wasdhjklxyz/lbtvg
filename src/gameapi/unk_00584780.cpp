@@ -33,6 +33,21 @@ void KillPart(PART_s *part, i32 reason) {
   }
 }
 
+struct PARTTYPE_s {
+  char name[0x10]; // 0x00
+  u8 pad10[0xb2 - 0x10];
+  i8 page; // 0xb2
+  u8 padb3[0xec - 0xb3];
+  f32 emission_period;        // 0xec
+  f32 emission_period_random; // 0xf0
+  f32 emission_pause;         // 0xf4
+  f32 emission_pause_random;  // 0xf8
+  u8 padfc[0x198 - 0xfc];
+};
+
+// GLOBAL: LEGOBATMAN 0x00a295b0
+extern PARTTYPE_s part_types[128];
+
 // GLOBAL: LEGOBATMAN 0x00a361b0
 extern PART_s *Part;
 
@@ -77,13 +92,11 @@ PART_s *FindPart(nuvec_s *position, i32 player, void *owner) {
 
 i32 NuStrNICmp(const char *a, const char *b, i32 n);
 
-struct PARTTYPE_s {
-  char name[0x10]; // 0x00
-  u8 pad10[0x198 - 0x10];
-};
+// GLOBAL: LEGOBATMAN 0x00a37408
+void *PartRTL;
 
-// GLOBAL: LEGOBATMAN 0x00a295b0
-extern PARTTYPE_s part_types[128];
+// FUNCTION: LEGOBATMAN 0x00584930
+void SetPartRTLSet(u32 rtl_set) { PartRTL = (void *)rtl_set; }
 
 // FUNCTION: LEGOBATMAN 0x00584ac0
 i32 PARTLookupType(char *name) {
@@ -94,4 +107,68 @@ i32 PARTLookupType(char *name) {
       return i;
   }
   return -1;
+}
+
+struct PARTEMIT_s {
+  i32 effect_id; // 0x00
+  u8 pad04[0x6c - 0x04];
+};
+
+// GLOBAL: LEGOBATMAN 0x00a3628c
+extern PARTEMIT_s part_emits[40];
+
+i32 NuStrNCmp(const char *a, const char *b, i32 n);
+
+// FUNCTION: LEGOBATMAN 0x00584b10
+i32 PARTLookupTypePageOnly(char *name, i32 page) {
+  if (name == NULL || name[0] == 0)
+    return -1;
+  if ((u32)(page - 1) <= 6) {
+    for (i32 i = 0; i < 128; ++i) {
+      if (part_types[i].page == page &&
+          NuStrNICmp(name, part_types[i].name, 16) == 0)
+        return i;
+    }
+  }
+  for (i32 i = 0; i < 128; ++i) {
+    if (part_types[i].page == 0 && NuStrNCmp(name, part_types[i].name, 16) == 0)
+      return i;
+  }
+  return -1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00584bc0
+i32 GetPartCount(void) {
+  i32 count = 0;
+  for (i32 i = 0; i < 40; ++i) {
+    if (part_emits[i].effect_id != -1)
+      ++count;
+  }
+  return count;
+}
+
+// FUNCTION: LEGOBATMAN 0x00584c10
+i32 GetMaxPartTypes(void) { return 0x80; }
+
+// FUNCTION: LEGOBATMAN 0x00584c20
+char *GetPartName(i32 index) {
+  if (part_types[index].name[0] == 0)
+    return NULL;
+  return part_types[index].name;
+}
+
+// FUNCTION: LEGOBATMAN 0x00584c50
+f32 PARTGetTotalOnTime(i32 index) {
+  if (index >= 0)
+    return part_types[index].emission_period +
+           part_types[index].emission_period_random;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00584c80
+f32 PARTGetTotalOffTime(i32 index) {
+  if (index >= 0)
+    return part_types[index].emission_pause +
+           part_types[index].emission_pause_random;
+  return 0.0f;
 }
