@@ -158,7 +158,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [PreInterpretor](#preinterpretor) | 6 | 0 |
 | [RailSys](#railsys) | 1 | 0 |
 | [ScoreMultiplier](#scoremultiplier) | 2 | 0 |
-| [SecurityCamera](#securitycamera) | 1 | 0 |
 | [ShaderBuilderGen](#shaderbuildergen) | 3 | 0 |
 | [ShaderManagerHLSL](#shadermanagerhlsl) | 1 | 0 |
 | [Shop](#shop) | 1 | 0 |
@@ -1009,10 +1008,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `00635b10` 83 B `ScoreMultiplier_IncrementMultiplier(GameObject_s*, int, int, float)`  **stub** · **hint** name (gapfill)
 - [ ] `00635b70` 259 B `ScoreMultiplier_DrawGameMessage(GameObject_s*, GameObject_s*)`  **hint** name (order)
-
-## SecurityCamera
-
-- [ ] `00513430` 269 B `SecurityCamera::InitializePerm(SecurityCamera::SecurityCameraType, variptr_u*, variptr_u*)`
 
 ## ShaderBuilderGen
 

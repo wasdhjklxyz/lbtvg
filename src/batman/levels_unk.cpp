@@ -214,16 +214,73 @@ void DrawMenuEntryEx(MENU *menu, char *text, i32 alpha);
 // GLOBAL: LEGOBATMAN 0x00960048
 extern i32 g_unk00960048; // gizmo type id of levers
 
-class SecurityCamera {
+class InteractiveDisplayBase {
 public:
+  void InitializePerm(char *name, variptr_u *buffer, variptr_u *buffer_end);
+};
+
+class DynamicMaterialManager {
+public:
+  void *GetMaterial(char const *a, char const *b, int c);
+};
+
+// GLOBAL: LEGOBATMAN 0x00ad2af8
+extern DynamicMaterialManager g_dynamicMaterialManager;
+// GLOBAL: LEGOBATMAN 0x00960684
+extern u8 g_unk00960684[];
+// GLOBAL: LEGOBATMAN 0x0096068c
+extern u8 g_unk0096068c[];
+
+class SecurityCamera : public InteractiveDisplayBase {
+public:
+  enum SecurityCameraType {};
   void ActivateLevel(WORLDINFO_s *world);
+  void InitializePerm(SecurityCameraType type, variptr_u *buffer,
+                      variptr_u *buffer_end);
 
   u8 pad0[0x10];
-  char level_name[0x3ec - 0x10]; // 0x10
-  i32 kind;                      // 0x3ec, 1 = hologram
-  u8 pad3f0[0x3fc - 0x3f0];
+  char level_name[0x40];              // 0x010
+  char transition_name[0x23c - 0x50]; // 0x050
+  char background_name[0x40];         // 0x23c
+  char frame_name[0x40];              // 0x27c
+  u8 pad2bc[0x3d0 - 0x2bc];
+  u8 *p3d0; // 0x3d0
+  u8 pad3d4[0x3ec - 0x3d4];
+  i32 kind;     // 0x3ec, 1 = hologram
+  void *mtl3f0; // 0x3f0
+  void *mtl3f4; // 0x3f4
+  u8 b3f8;      // 0x3f8
+  u8 pad3f9[3];
   GIZMO_s *lever; // 0x3fc
 };
+
+// FUNCTION: LEGOBATMAN 0x00513430
+void SecurityCamera::InitializePerm(SecurityCameraType type, variptr_u *buffer,
+                                    variptr_u *buffer_end) {
+  kind = type;
+  NuStrCpy(level_name, "levels\\batcave\\batcave_a");
+  if (kind == 1) {
+    NuStrCpy(background_name,
+             "Stuff\\interactivedisplay\\securitycamera\\bg_seevillains");
+    NuStrCpy(frame_name, "Stuff\\interactivedisplay\\frames\\frame_hero");
+    if (transition_name[0] == 0)
+      NuStrCpy(transition_name, "transition_monitor1");
+    p3d0 = g_unk0096068c;
+  } else {
+    NuStrCpy(background_name,
+             "Stuff\\interactivedisplay\\securitycamera\\bg_seeheroes");
+    NuStrCpy(frame_name, "Stuff\\interactivedisplay\\frames\\frame_villain");
+    if (transition_name[0] == 0)
+      NuStrCpy(transition_name, "transition_monitor2");
+    p3d0 = g_unk00960684;
+  }
+  mtl3f4 = g_dynamicMaterialManager.GetMaterial(
+      "Stuff\\interactivedisplay\\securitycamera\\icon_play", level_name, 4);
+  mtl3f0 = g_dynamicMaterialManager.GetMaterial(NULL, level_name, 3);
+  InteractiveDisplayBase::InitializePerm("", buffer, buffer_end);
+  b3f8 = 0;
+  lever = NULL;
+}
 
 // FUNCTION: LEGOBATMAN 0x00512fe0
 void SecurityCamera::ActivateLevel(WORLDINFO_s *world) {
