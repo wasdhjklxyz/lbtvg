@@ -274,3 +274,11 @@
 005ce930 Cheat_SetOn  matched (find entry by CHEAT_s*, set enabled, Cheats_SetFlags), Mac order
 005ceac0 Cheat_MultiplyScore  matched saga body (flags 4..0x40 multipliers)
 005ceb30 Cheats_TurnOff  matched (flag 0x2200000 or all), Mac order
+005cecc0 Cheat_PowerUpActive  matched saga-shaped body (per-player power-up timer when ONEPLAYERPOWERUPS), Mac order
+005cedc0 Cheats_Reset  matched saga body, Mac order
+005cedd0 Cheats_Update  calls 0x005ced30 (saga Cheats_Update power-up tick, not inlined on PC) then Cheats_SetFlags; Mac order
+005cede0 Cheat_SetArea  matched saga-shaped body (area byte 0x0f, sequence byte 0x19), Mac order
+005cea00 Cheat_GetOnOffBitfield  matched saga body (ghidra missed the function), Mac order after Cheat_IsOn
+005cea70 Cheat_SetOnOffBitfield  matched saga body (ghidra missed the function), Mac order
+005ce780 Cheats_CountUpgrades  matched (cheat flag 0x2000000 indices; ghidra missed it), Mac order after CheatSys_Init
+005ceb80 Cheat_StartPowerUp  matched saga body (sfx 0x73, two power-up messages), Mac order after Cheats_TurnOff

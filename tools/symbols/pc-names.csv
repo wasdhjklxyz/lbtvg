@@ -467,13 +467,21 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005c8f30,0034ed7e,__Z13LoadGrassFileP11WORLDINFO_s,LoadGrassFile(WORLDINFO_s*),strings,0
 005cd170,002b7664,__Z16GizBuildIts_LoadPvS_,"GizBuildIts_Load(void*, void*)",strings,0
 005ce730,00283b88,__Z13CheatSys_InitP9CHEATLIST,CheatSys_Init(CHEATLIST*),confirmed,0
+005ce780,00283bdc,__Z20Cheats_CountUpgradesPi,Cheats_CountUpgrades(int*),confirmed,0
 005ce7e0,00283c4a,__Z16Cheat_FindByNamePc,Cheat_FindByName(char*),confirmed,0
 005ce830,00283c98,__Z15Cheats_SetFlagsv,Cheats_SetFlags(),confirmed,0
 005ce8d0,00283d62,__Z17Cheats_CheckFlagsy,Cheats_CheckFlags(unsigned long long),confirmed,0
 005ce930,00283dda,__Z11Cheat_SetOnP7CHEAT_sii,"Cheat_SetOn(CHEAT_s*, int, int)",confirmed,0
 005ce980,00283e3a,__Z10Cheat_IsOnP7CHEAT_s,Cheat_IsOn(CHEAT_s*),gapfill,1
+005cea00,00283eee,__Z22Cheat_GetOnOffBitfieldPii,"Cheat_GetOnOffBitfield(int*, int)",confirmed,0
+005cea70,00283f7a,__Z22Cheat_SetOnOffBitfieldPii,"Cheat_SetOnOffBitfield(int*, int)",confirmed,0
 005ceac0,002844e0,__Z19Cheat_MultiplyScorej,Cheat_MultiplyScore(unsigned int),confirmed,0
 005ceb30,00283ff0,__Z14Cheats_TurnOffi,Cheats_TurnOff(int),confirmed,0
+005ceb80,00284068,__Z18Cheat_StartPowerUpP7nuvec_sP12GameObject_s,"Cheat_StartPowerUp(nuvec_s*, GameObject_s*)",confirmed,0
+005cecc0,002841e8,__Z19Cheat_PowerUpActivei,Cheat_PowerUpActive(int),confirmed,0
+005cedc0,00284258,__Z12Cheats_Resetv,Cheats_Reset(),confirmed,0
+005cedd0,00284272,__Z13Cheats_Updatev,Cheats_Update(),confirmed,0
+005cede0,00284340,__Z13Cheat_SetAreaii,"Cheat_SetArea(int, int)",confirmed,0
 005cfa30,002f5e58,__Z12StartBigJumpP12GameObject_sP7nuvec_siffii,"StartBigJump(GameObject_s*, nuvec_s*, int, float, float, int, int)",gapfill,2
 005d3210,002adeaa,__Z10AddGameMsgP10ADDGAMEMSG,AddGameMsg(ADDGAMEMSG*),calls,3
 005d3640,002ae2fe,__Z14AddGameMessagePcP7nuvec_sfS1_fhhhjf,"AddGameMessage(char*, nuvec_s*, float, nuvec_s*, float, unsigned char, unsigned char, unsigned char, unsigned int, float)",confirmed,0
