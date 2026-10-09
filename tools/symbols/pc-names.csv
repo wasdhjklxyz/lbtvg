@@ -427,7 +427,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005be3a0,002b4490,__Z14Game_ConfigurePcP9variptr_uS0_i,"Game_Configure(char*, variptr_u*, variptr_u, int)",strings,0
 005c0f70,002b15ea,__Z10SetFlickerP12GameObject_sf,"SetFlicker(GameObject_s*, float)",gapfill,4
 005c12a0,00318ec4,__Z21Players_InitPositionsP11WORLDINFO_s,Players_InitPositions(WORLDINFO_s*),strings,0
-005c16b0,003193b0,__Z12SetPlayerIDsii,"SetPlayerIDs(int, int)",order,3
+005c16b0,003193b0,__Z12SetPlayerIDsii,"SetPlayerIDs(int, int)",confirmed,0
 005c1730,00319446,__Z17RememberPlayerIDsiii,"RememberPlayerIDs(int, int, int)",confirmed,0
 005c1860,003195b8,__Z15Player_FindByIDi,Player_FindByID(int),confirmed,0
 005c18b0,00319604,__Z15Player_StartPosP12GameObject_s,Player_StartPos(GameObject_s*),confirmed,0

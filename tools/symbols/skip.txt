@@ -69,3 +69,5 @@
 00635b10 ScoreMultiplier_IncrementMultiplier: final-store register pick (stub)
 005d3f60 FindGameMsgs: IV base field differs (stub)
 00458c40 OpponentShouldntBeAttacked: object passed in esi (register-arg static)
+005facd0 Area_ShuffleModelList: list in eax/count in esi (register-arg static)
+004f5d90 Legal_GetName: buffer passed in esi (register-arg static)

@@ -143,6 +143,26 @@ extern i32 g_unk0096068c[2];
 
 i32 Collection_Got(i32 id);
 
+// FUNCTION: LEGOBATMAN 0x005c16b0
+void SetPlayerIDs(i32 id0, i32 id1) {
+  PlayerID[0] = id0;
+  PlayerID[1] = id1;
+  if (id0 != -1) {
+    u32 flags = g_unk00acb82c[id0].flags148;
+    if (flags & 0x100000)
+      g_unk00960684[0] = id0;
+    else if (flags & 0x200000)
+      g_unk0096068c[0] = id0;
+  }
+  if (id1 != -1) {
+    u32 flags = g_unk00acb82c[id1].flags148;
+    if (flags & 0x100000)
+      g_unk00960684[1] = id1;
+    else if (flags & 0x200000)
+      g_unk0096068c[1] = id1;
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x005c1730
 void RememberPlayerIDs(i32 a, i32 b, i32 c) {
   if (g_unk00acb6c0 != 0 || VehicleArea != 0 || g_unk00ab0950 != 0) {
