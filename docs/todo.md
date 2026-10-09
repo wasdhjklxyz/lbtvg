@@ -178,7 +178,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Titles](#titles) | 1 | 0 |
 | [TrueHero](#truehero) | 1 | 0 |
 | [WorldMap](#worldmap) | 5 | 0 |
-| [WorldMapBase](#worldmapbase) | 3 | 0 |
+| [WorldMapBase](#worldmapbase) | 2 | 0 |
 
 ## Action
 
@@ -1110,6 +1110,5 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## WorldMapBase
 
-- [ ] `00678ef0` 198 B `WorldMapBase::InitializeLevel(WORLDINFO_s*)`
 - [ ] `00679ca0` 238 B `WorldMapBase::InitializePerm(char*, variptr_u*, variptr_u*)`  **hint** name (gapfill)
 - [ ] `0067a590` 588 B `WorldMapBase::parse_location(nufpar_s*)`

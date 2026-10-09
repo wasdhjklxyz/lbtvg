@@ -2,10 +2,13 @@
 
 #include "../nu2api/nucore/common.h"
 #include <stdio.h>
+#include <string.h>
 
 typedef struct WORLDINFO_s {
   unsigned char pad0[0x80];
   char config_file[0x84]; // 0x80
+  variptr_u buf104;       // 0x104
+  variptr_u bufEnd108;    // 0x108
 } WORLDINFO;
 
 i32 NuFileExists(char *name);
@@ -111,5 +114,60 @@ void CharPivot_Init(char *file, VARIPTR *buf) {
     buf->addr += (count + 1) * sizeof(CHARPIVOT);
   } else {
     CharPivot = 0;
+  }
+}
+
+struct nugscn_s;
+struct nuhspecial_s {
+  nugscn_s *scene;
+  void *special;
+  void *display_special;
+};
+
+extern "C" i32 NuMtlSetCurrentRenderPlane(i32 render_plane);
+nugscn_s *NuGScnRead(variptr_u *buf, variptr_u buf_end, char *path);
+i32 NuSpecialFind(nugscn_s *scene, nuhspecial_s *dest, char *name, i32 flags);
+int NuSpecialExistsFn(nuhspecial_s *sp);
+extern "C" void *NuSpecialGetMtl(nuhspecial_s *special, int index);
+
+class InteractiveDisplay {
+public:
+  void InitializeLevel(WORLDINFO_s *world);
+
+  void **vtable;
+  u8 pad4[0x10 - 4];
+  char level_name[0x958 - 0x10]; // 0x10
+};
+
+class WorldMapBase : public InteractiveDisplay {
+public:
+  void InitializeLevel(WORLDINFO_s *world);
+
+  nugscn_s *pointer_scene; // 0x958
+  void *pointer_mtls[3];   // 0x95c
+};
+
+// vtable slot 22: name of the i-th pointer special
+typedef char *(__thiscall *WorldMapSpecialNameFn)(WorldMapBase *, WORLDINFO_s *,
+                                                  i32);
+
+// FUNCTION: LEGOBATMAN 0x00678ef0
+void WorldMapBase::InitializeLevel(WORLDINFO_s *world) {
+  nuhspecial_s special;
+  InteractiveDisplay::InitializeLevel(world);
+  if (NuStrICmp((char *)world, level_name) == 0) {
+    pointer_scene = NULL;
+    memset(pointer_mtls, 0, sizeof(pointer_mtls));
+    i32 plane = NuMtlSetCurrentRenderPlane(3);
+    pointer_scene = NuGScnRead(
+        &world->buf104, world->bufEnd108,
+        "stuff/interactivedisplay/worldmap/map_pointers/map_pointers.gsc");
+    NuMtlSetCurrentRenderPlane(plane);
+    for (i32 i = 0; i < 3; i++) {
+      NuSpecialFind(pointer_scene, &special,
+                    ((WorldMapSpecialNameFn)vtable[22])(this, world, i), 0);
+      if (NuSpecialExistsFn(&special))
+        pointer_mtls[i] = NuSpecialGetMtl(&special, 0);
+    }
   }
 }
