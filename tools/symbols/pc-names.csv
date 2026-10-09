@@ -1253,6 +1253,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006111a0,0028ca9e,__ZN10Customiser7LoadAllEP11WORLDINFO_s,Customiser::LoadAll(WORLDINFO_s*),strings,0
 006122e0,0028c2c4,__ZN10Customiser15MenuSaveAndExitEv,Customiser::MenuSaveAndExit(),strings,0
 006137e0,0028e3fc,__ZN10Customiser6Draw3DEv,Customiser::Draw3D(),strings,0
+00614900,002a0c8a,__Z7D_levelP8nufpar_s,D_level(nufpar_s*),confirmed,0
+00614940,002a0cde,__Z13D_level_againP8nufpar_s,D_level_again(nufpar_s*),confirmed,0
+00614980,002a0d32,__Z16D_level_freeplayP8nufpar_s,D_level_freeplay(nufpar_s*),confirmed,0
 00614a70,002a0e42,__Z10D_cam_waitP8nufpar_s,D_cam_wait(nufpar_s*),confirmed,0
 00614a90,002a0e74,__Z16D_cam_blend_timeP8nufpar_s,D_cam_blend_time(nufpar_s*),confirmed,0
 00614ab0,002a0ea6,__Z19D_cam_lookatplayersP8nufpar_s,D_cam_lookatplayers(nufpar_s*),confirmed,0
@@ -1261,6 +1264,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00614ae0,002a0eee,__Z12D_do_not_useP8nufpar_s,D_do_not_use(nufpar_s*),confirmed,0
 00614af0,002a0f06,__Z11D_next_sockP8nufpar_s,D_next_sock(nufpar_s*),confirmed,0
 00614ba0,002a0ff4,__Z14D_use_as_startP8nufpar_s,D_use_as_start(nufpar_s*),confirmed,0
+00614bb0,002a100c,__Z11D_cut_sceneP8nufpar_s,D_cut_scene(nufpar_s*),confirmed,0
 00614d10,002a1156,__Z15Doors_ConfigureP11WORLDINFO_sPc,"Doors_Configure(WORLDINFO_s*, char*)",strings,0
 00614f20,002a13b0,__Z10Door_Resetv,Door_Reset(),order,2
 00614f40,002a13d6,__Z10Doors_InitP11WORLDINFO_s,Doors_Init(WORLDINFO_s*),order,2

@@ -1480,3 +1480,7 @@
 00415990 SockParBATMAN_two_player_only  keyword table 0x935b14
 0041d020 CC_variant  keyword table 0x936288
 0041d110 CC_security_access  keyword table 0x936288
+00614900 D_level  keyword table 0x963658
+00614940 D_level_again  keyword table 0x963658
+00614980 D_level_freeplay  keyword table 0x963658
+00614bb0 D_cut_scene  keyword table 0x9636b8

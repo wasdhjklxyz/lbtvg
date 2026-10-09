@@ -32,7 +32,9 @@ typedef struct DOOR_s {
   f32 camera_blend_time;       // 0x104
   u32 vehicle_mask;            // 0x108
   u32 vehicle_mode;            // 0x10c
-  u32 pad110[(0x128 - 0x110) / 4];
+  u32 pad110[(0x120 - 0x110) / 4];
+  void *cutscene; // 0x120
+  u32 pad124;
 } DOOR_s;
 
 typedef struct WORLDINFO_s {
@@ -42,7 +44,9 @@ typedef struct WORLDINFO_s {
   i32 level_idx; // 0x120
   u8 pad124[0x140 - 0x124];
   struct nugscn_s *scn140; // 0x140
-  u8 pad144[0x47a8 - 0x144];
+  u8 pad144[0x2af0 - 0x144];
+  void *cutscene_sys; // 0x2af0
+  u8 pad2af4[0x47a8 - 0x2af4];
   DOOR_s *doors;  // 0x47a8
   i32 door_count; // 0x47ac
 } WORLDINFO_s;
@@ -219,7 +223,9 @@ void NuVecSub(nuvec_s *out, nuvec_s *a, nuvec_s *b);
 i32 NuAtan2D(f32 dx, f32 dy);
 
 typedef struct LEVELDATA_s {
-  u8 pad00[0xab];
+  u8 pad00[0x64];
+  u32 flags; // 0x64
+  u8 pad68[0xab - 0x68];
   i8 area_index; // 0xab
   u8 padac[0xd8 - 0xac];
   i8 area_level_index; // 0xd8
@@ -288,6 +294,49 @@ i32 StartDoorPositions(void) {
 
 i32 NuFParGetInt(NUFPAR *parser);
 f32 NuFParGetFloat(NUFPAR *parser);
+
+LEVELDATA *Level_FindByName(char *name, i32 *idx_out);
+
+// FUNCTION: LEGOBATMAN 0x00614900
+void D_level(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0) {
+    i32 index;
+    Level_FindByName(parser->word_buf, &index);
+    if (index != -1)
+      D_door->level = (i16)index;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00614940
+void D_level_again(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0) {
+    i32 index;
+    Level_FindByName(parser->word_buf, &index);
+    if (index != -1)
+      D_door->level_f2 = (i16)index;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00614980
+void D_level_freeplay(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0) {
+    i32 index;
+    Level_FindByName(parser->word_buf, &index);
+    if (index != -1 && (LDataList[index].flags & 0xe0) == 0)
+      D_door->freeplay_level = (i16)index;
+  }
+}
+
+WORLDINFO_s *WorldInfo_CurrentlyLoading(void);
+void *CutScene_Find(void *cutscene_sys, char *name);
+
+// FUNCTION: LEGOBATMAN 0x00614bb0
+void D_cut_scene(NUFPAR *parser) {
+  if (NuFParGetWord(parser) != 0) {
+    D_door->cutscene = CutScene_Find(WorldInfo_CurrentlyLoading()->cutscene_sys,
+                                     parser->word_buf);
+  }
+}
 
 // FUNCTION: LEGOBATMAN 0x00614a70
 void D_cam_wait(NUFPAR *parser) {
