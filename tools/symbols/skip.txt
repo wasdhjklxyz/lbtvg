@@ -140,3 +140,4 @@
 00533a80 oaInit: follows from 0x533a00's ebx argument
 005f3630 PlayerItems_RemoveItems: Mac signature doesn't fit the code (arg1 used as an item list, calls 0x5f2a00 with a float); check the pairing
 0057d5a0 AddVariableShotDebrisEffectTimed1: callees take eax/ecx/esi (register convention)
+00528cd0 PCInitStrings: jump table (switch on NuPadUnk006d6830)

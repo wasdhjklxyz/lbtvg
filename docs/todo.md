@@ -132,7 +132,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near listman_gen.cpp](#near-listman_gencpp) | 1 | 0 |
 | [near nugraph_gen.cpp](#near-nugraph_gencpp) | 1 | 0 |
 | [near numtl_dlist.cpp](#near-numtl_dlistcpp) | 1 | 0 |
-| [near pcapi.cpp](#near-pcapicpp) | 4 | 0 |
+| [near pcapi.cpp](#near-pcapicpp) | 3 | 0 |
 | [near windows.cpp](#near-windowscpp) | 3 | 0 |
 | [NuDisplay](#nudisplay) | 1 | 0 |
 | [NudxFw](#nudxfw) | 1 | 0 |
@@ -168,7 +168,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [ShaderBuilderGen](#shaderbuildergen) | 3 | 0 |
 | [ShaderManagerHLSL](#shadermanagerhlsl) | 1 | 0 |
 | [Shop](#shop) | 1 | 0 |
-| [ShopComputer](#shopcomputer) | 3 | 0 |
+| [ShopComputer](#shopcomputer) | 2 | 0 |
 | [SlumsB](#slumsb) | 1 | 0 |
 | [SlumsD](#slumsd) | 1 | 0 |
 | [SockSys](#socksys) | 1 | 0 |
@@ -900,7 +900,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## near pcapi.cpp
 
-- [ ] `005270a0` 126 B `RelaunchMediaCenterIfNecessary()`
 - [ ] `00527010` 139 B `NuPCCreateWindowFromHWnd(MacDoze::HWND__*, int)`
 - [ ] `00526b40` 747 B `NuPCProcessCommandLineArguments(char*)`
 - [ ] `005264c0` 1126 B `_NuPCDetermineLanguage`
@@ -1076,7 +1075,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## ShopComputer
 
-- [ ] `00515150` 123 B `ShopComputer::IsAnyMenuChanging()`
 - [ ] `00514bd0` 245 B `ShopComputer::InitializeLevel(WORLDINFO_s*)`
 - [ ] `005166a0` 309 B `ShopComputer::InitializePerm(char*, variptr_u*, variptr_u*)`
 

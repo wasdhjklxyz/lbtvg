@@ -140,6 +140,41 @@ void SecurityCamera::ActivateLevel(WORLDINFO_s *world) {
   }
 }
 
+i32 Unk006004d0(char *class_name);
+void *Unk00600530(char *class_name, i32 index);
+
+struct SHOPMENU_s {
+  u32 pad0[2];
+  f32 f8; // 0x08
+  u32 padc[(0x1c - 0xc) / 4];
+  f32 f1c; // 0x1c
+};
+
+class ShopComputer {
+public:
+  static i32 IsAnyMenuChanging();
+
+  void **vtable;
+  u8 pad4[0x4a4 - 4];
+  SHOPMENU_s *menu; // 0x4a4
+};
+
+typedef i32(__thiscall *ShopComputerVFn)(ShopComputer *);
+
+// FUNCTION: LEGOBATMAN 0x00515150
+i32 ShopComputer::IsAnyMenuChanging() {
+  i32 count = Unk006004d0("ShopComputer");
+  for (i32 i = 0; i < count; i++) {
+    ShopComputer *shop = (ShopComputer *)Unk00600530("ShopComputer", i);
+    if (shop != NULL && ((ShopComputerVFn)shop->vtable[16])(shop)) {
+      SHOPMENU_s *menu = shop->menu;
+      if (menu != NULL && (!(menu->f1c < 0.001f) || !(menu->f8 > (f64)0.999f)))
+        return 1;
+    }
+  }
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x0060cea0
 void GameDrawMenuEntry(MENU_s *menu, char *text) {
   if (Paused != 0) {
