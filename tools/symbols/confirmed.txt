@@ -19,3 +19,6 @@
 005fb1e0 Area_FindStatusLevel  saga body matches (first area level with LEVEL_STATUS 0x400)
 006394f0 FaceOpponent  saga body matches (force/blowup target, NuAtan2D facing)
 005a2d10 NewRumble  saga body matches (clamped strength*255 rumble)
+006e0dc0 NuFilePakLoad  thin wrapper of NuFilePakLoadKeyPrePad with no key, as saga
+0060cea0 GameDrawMenuEntry  saga body matches (pause align/X then DrawMenuEntryEx)
+006daa40 NuFParGetFloat  saga body matches (GetWord, utf16/ascii copy, NuAToF)

@@ -86,6 +86,33 @@ i32 LEVELCOUNT;
 // GLOBAL: LEGOBATMAN 0x00aca894
 LEVELDATA *LDataList = 0;
 
+typedef struct MENU_s {
+  u32 pad0[0x94 / 4];
+  f32 draw_x; // 0x94
+} MENU;
+
+// GLOBAL: LEGOBATMAN 0x00ab093c
+extern i32 Paused;
+// GLOBAL: LEGOBATMAN 0x00aca81c
+extern i32 PauseMenus_Align;
+// GLOBAL: LEGOBATMAN 0x00aca820
+extern f32 PauseMenus_X;
+// GLOBAL: LEGOBATMAN 0x00ad735c
+extern i32 dme_align;
+// GLOBAL: LEGOBATMAN 0x00ad7304
+extern u8 MenuA;
+
+void DrawMenuEntryEx(MENU *menu, char *text, i32 alpha);
+
+// FUNCTION: LEGOBATMAN 0x0060cea0
+void GameDrawMenuEntry(MENU_s *menu, char *text) {
+  if (Paused != 0) {
+    dme_align = PauseMenus_Align;
+    menu->draw_x = PauseMenus_X;
+  }
+  DrawMenuEntryEx(menu, text, MenuA);
+}
+
 // FUNCTION: LEGOBATMAN 0x0060d6c0
 LEVELDATA *Level_FindByName(char *name, i32 *idx_out) {
   for (i32 i = 0; i < LEVELCOUNT; i++) {

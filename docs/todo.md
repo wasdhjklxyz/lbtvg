@@ -13,13 +13,13 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [near rtleditor.cpp](#near-rtleditorcpp) | 93 | 67 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 92 | 66 |
 | [Action](#action) | 72 | 57 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 46 | 39 |
 | [near terrain.c](#near-terrainc) | 35 | 10 |
 | [Text](#text) | 10 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 14 | 8 |
-| [near nupad_gen.cpp](#near-nupad_gencpp) | 8 | 7 |
+| [near nupad_gen.cpp](#near-nupad_gencpp) | 7 | 6 |
 | [GameCam](#gamecam) | 5 | 5 |
 | [Grabber](#grabber) | 7 | 5 |
 | [Arcade](#arcade) | 4 | 4 |
@@ -91,7 +91,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [NuAnim](#nuanim) | 4 | 1 |
 | [NuCommand](#nucommand) | 1 | 1 |
 | [NuDynamicLight](#nudynamiclight) | 1 | 1 |
-| [NuFile](#nufile) | 3 | 1 |
 | [NuInit](#nuinit) | 1 | 1 |
 | [NuMtl](#numtl) | 2 | 1 |
 | [NuMusic](#numusic) | 1 | 1 |
@@ -172,6 +171,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [NuDisplay](#nudisplay) | 1 | 0 |
 | [NudxFw](#nudxfw) | 1 | 0 |
 | [NuExp10](#nuexp10) | 1 | 0 |
+| [NuFile](#nufile) | 2 | 0 |
 | [NuFmv](#nufmv) | 1 | 0 |
 | [NuFmvStreamPCBink](#nufmvstreampcbink) | 1 | 0 |
 | [NuInstSurfGeom](#nuinstsurfgeom) | 2 | 0 |
@@ -238,7 +238,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005a2d90` 54 B `NewBuzzFrames(nupad_s*, int, int)`  **saga** `legoapi/core/input/gamepads.cpp`
 - [ ] `0059a730` 59 B `_ResetAnimPacket`  **hint** name (gapfill)
 - [ ] `0059a0d0` 60 B `_FindAnimIX`  **hint** name (gapfill)
-- [ ] `0060cea0` 60 B `GameDrawMenuEntry(MENU_s*, char*)`  **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `005ae240` 64 B `SeekValF(float, float, float)`  **hint** name (gapfill) · **saga** `legoapi/characters/motion/move.cpp`
 - [ ] `0059b3c0` 68 B `_AnimPlaying`  **hint** name (gapfill)
 - [ ] `005b0f40` 71 B `GameBufferAlloc(variptr_u*, variptr_u*, int)`  **hint** name (gapfill) · **saga** `legoapi/items/objects/gameobjects.cpp`
@@ -512,7 +511,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## near nupad_gen.cpp
 
 - [ ] `006d7dc0` 43 B `_NuSPrintf`  **hint** name (gapfill)
-- [ ] `006daa40` 149 B `_NuFParGetFloat`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006dfc60` 181 B `_NuFParCreateMem`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006dd060` 226 B `_NuFParGetInt`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006dd430` 318 B `_NuFParInterpretWordCTX`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
@@ -907,12 +905,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `0072b040` 43 B `NuDynamicLight::destroy(NuDynamicLight*)`  **saga** `nu2api/nu3d/nu3d_includes.cpp`
 
-## NuFile
-
-- [ ] `006e0dc0` 35 B `_NuFilePakLoad`  **hint** name (gapfill) · **saga** `nu2api/nufile/nufilepak.cpp`
-- [ ] `006e0b60` 549 B `_NuFilePakLoadKeyPrePad`  **hint** name (gapfill)
-- [ ] `006da090` 1125 B `_NuFileExtInitEx`
-
 ## NuInit
 
 - [ ] `00525100` 2623 B `_NuInitHardware`  **saga** `nu2api/nucore/nuapi.cpp`
@@ -1283,6 +1275,11 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## NuExp10
 
 - [ ] `006900c0` 656 B `_NuExp10`
+
+## NuFile
+
+- [ ] `006e0b60` 549 B `_NuFilePakLoadKeyPrePad`  **hint** name (gapfill)
+- [ ] `006da090` 1125 B `_NuFileExtInitEx`
 
 ## NuFmv
 

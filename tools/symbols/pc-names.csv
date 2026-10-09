@@ -466,7 +466,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00601fe0,002e0b50,__Z20Grabber_SetVictimPosP9GRABBER_s,Grabber_SetVictimPos(GRABBER_s*),gapfill,3
 00602270,002e111c,__Z13Grabber_ResetP11WORLDINFO_s,Grabber_Reset(WORLDINFO_s*),strings,0
 00602540,002e0da8,__Z12Grabber_DropP9GRABBER_sP7nuvec_s,"Grabber_Drop(GRABBER_s*, nuvec_s*)",strings,0
-0060cea0,0030769e,__Z17GameDrawMenuEntryP6MENU_sPc,"GameDrawMenuEntry(MENU_s*, char*)",gapfill,2
+0060cea0,0030769e,__Z17GameDrawMenuEntryP6MENU_sPc,"GameDrawMenuEntry(MENU_s*, char*)",confirmed,0
 0060cee0,003076f6,__Z9GetMenuIDv,GetMenuID(),gapfill,2
 0060d110,002ff8ae,__Z20Levels_ConfigureListPcP9variptr_uS1_iPiPFvP11LEVELDATA_sE,"Levels_ConfigureList(char*, variptr_u*, variptr_u*, int, int*, void (*)(LEVELDATA_s*))",strings,0
 0060d6c0,002ffed8,__Z16Level_FindByNamePcPi,"Level_FindByName(char*, int*)",confirmed,0
@@ -716,7 +716,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d8440,00187e42,_NuUnicodeToAscii,_NuUnicodeToAscii,gapfill,2
 006da090,0018b224,_NuFileExtInitEx,_NuFileExtInitEx,strings,0
 006da8d0,0018d4c2,_NuFParGetWord,_NuFParGetWord,gapfill,1
-006daa40,0018d694,_NuFParGetFloat,_NuFParGetFloat,gapfill,1
+006daa40,0018d694,_NuFParGetFloat,_NuFParGetFloat,confirmed,0
 006dc300,0018bea6,_NuStrIStr,_NuStrIStr,calls,1
 006dc3a0,0018bf1a,_NuStrICmp,_NuStrICmp,confirmed,0
 006dc410,0018c3fe,_NuStrNICmp,_NuStrNICmp,gapfill,1
@@ -728,7 +728,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006dfc60,00193f7a,_NuFParCreateMem,_NuFParCreateMem,gapfill,2
 006e0530,00196e5e,_NuPadRecordLoad,_NuPadRecordLoad,strings,0
 006e0b60,00195ee8,_NuFilePakLoadKeyPrePad,_NuFilePakLoadKeyPrePad,gapfill,2
-006e0dc0,001961da,_NuFilePakLoad,_NuFilePakLoad,gapfill,1
+006e0dc0,001961da,_NuFilePakLoad,_NuFilePakLoad,confirmed,0
 006e1d50,00197926,_NuMemAllocFn,_NuMemAllocFn,calls,1
 006e2090,00197564,_NuMemFreeFn,_NuMemFreeFn,calls,1
 006e2470,001978b2,_NuMemCpy,_NuMemCpy,gapfill,1
