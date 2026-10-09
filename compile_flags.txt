@@ -16,3 +16,4 @@ toolchain/winsdk6/Include
 -Wno-microsoft
 -Wno-unused-value
 /D_Complex=_Complex_
+-Wno-writable-strings
