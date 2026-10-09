@@ -118,3 +118,4 @@
 006a5820 Action_SetIgnoreAntinodes: object/args swap edi/ebx, 3 tries
 006baab0 Action_MoveAwayFromPlayer: processor in ebx vs count, 2 tries
 006babf0 Action_MoveAwayFromPlayer2: same as MoveAwayFromPlayer
+006baf30 Action_GoToNode: epilogue sharing puzzle only, 3+ tries

@@ -377,11 +377,10 @@ struct AIPATHINFO7_s {
 };
 
 // Inlined into its callers in this file; Batman drops saga's formation case.
-static __forceinline void AIMoveInstruction(AIPACKET_s *packet,
-                                            nuvec_s *destination,
-                                            f32 stopping_distance,
-                                            AIPATHINFO7_s *path_info, i32 mode,
-                                            f32 movement_parameter) {
+static __forceinline void
+AIMoveInstructionInline(AIPACKET_s *packet, nuvec_s *destination,
+                        f32 stopping_distance, AIPATHINFO7_s *path_info,
+                        i32 mode, f32 movement_parameter) {
   if (destination != NULL)
     *(nuvec_s *)((u8 *)packet + 0x1b8) = *destination;
   if (path_info != NULL)
@@ -407,10 +406,10 @@ i32 Action_RetreatFromOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
     }
   }
   if (packet->pe4 != NULL && packet->pe4->ai != NULL) {
-    AIMoveInstruction(packet, (nuvec_s *)((u8 *)packet->pe4->ai + 0x174),
-                      *(f32 *)((u8 *)packet->pe4->ai + 0x120),
-                      (AIPATHINFO7_s *)((u8 *)packet->pe4->ai + 0x158), 2,
-                      packet->movement_param);
+    AIMoveInstructionInline(packet, (nuvec_s *)((u8 *)packet->pe4->ai + 0x174),
+                            *(f32 *)((u8 *)packet->pe4->ai + 0x120),
+                            (AIPATHINFO7_s *)((u8 *)packet->pe4->ai + 0x158), 2,
+                            packet->movement_param);
   }
   return 0;
 }
@@ -434,10 +433,10 @@ i32 Action_MoveAwayFromOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
   }
   Unk_AIPacketObj *target = packet->pe4;
   if (target != NULL && target->ai != NULL) {
-    AIMoveInstruction(packet, (nuvec_s *)((u8 *)target->ai + 0x174),
-                      *(f32 *)((u8 *)target->ai + 0x120),
-                      (AIPATHINFO7_s *)((u8 *)target->ai + 0x158), 2,
-                      packet->movement_param);
+    AIMoveInstructionInline(packet, (nuvec_s *)((u8 *)target->ai + 0x174),
+                            *(f32 *)((u8 *)target->ai + 0x120),
+                            (AIPATHINFO7_s *)((u8 *)target->ai + 0x158), 2,
+                            packet->movement_param);
     if (processor->action_data_1 != 0)
       packet->look_target = &target->pos5c;
   }
@@ -468,9 +467,9 @@ i32 Action_MoveAwayFromPlayer(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
   if (PLAYER(sys, 0) == NULL)
     return 0;
   u8 *target = (u8 *)PLAYER(sys, 0)->ai;
-  AIMoveInstruction(packet, (nuvec_s *)(target + 0x174),
-                    *(f32 *)(target + 0x120), (AIPATHINFO7_s *)(target + 0x158),
-                    2, packet->movement_param);
+  AIMoveInstructionInline(
+      packet, (nuvec_s *)(target + 0x174), *(f32 *)(target + 0x120),
+      (AIPATHINFO7_s *)(target + 0x158), 2, packet->movement_param);
   if (processor->action_data_1 != 0)
     packet->look_target = &PLAYER(sys, 0)->pos5c;
   return 0;
@@ -497,11 +496,110 @@ i32 Action_MoveAwayFromPlayer2(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
   if (PLAYER(sys, 1) == NULL)
     return 0;
   u8 *target = (u8 *)PLAYER(sys, 1)->ai;
-  AIMoveInstruction(packet, (nuvec_s *)(target + 0x174),
-                    *(f32 *)(target + 0x120), (AIPATHINFO7_s *)(target + 0x158),
-                    2, packet->movement_param);
+  AIMoveInstructionInline(
+      packet, (nuvec_s *)(target + 0x174), *(f32 *)(target + 0x120),
+      (AIPATHINFO7_s *)(target + 0x158), 2, packet->movement_param);
   if (processor->action_data_1 != 0)
     packet->look_target = &PLAYER(sys, 1)->pos5c;
+  return 0;
+}
+
+// the out-of-line copy (0x006b7110)
+extern "C" void AIMoveInstruction(AIPACKET_s *packet, nuvec_s *destination,
+                                  f32 stopping_distance,
+                                  AIPATHINFO7_s *path_info, i32 mode,
+                                  f32 movement_parameter);
+f32 NuVecXZDistSqr(nuvec_s *a, nuvec_s *b, nuvec_s *d);
+struct AIPATHNODE_s *AIPathFindNode(AISYS_s *system, struct AIPATH_s *path,
+                                    char *name);
+
+struct GTNPATHCNX_s {
+  u8 pad0[0x10];
+  u8 node_indices[2]; // 0x10
+};
+
+struct GTNPATHNODE_s {
+  char *name;       // 0x00
+  nuvec_s position; // 0x04
+  u8 pad10[4];
+  f32 radius_squared; // 0x14
+  u8 pad18[0x28 - 0x18];
+  u8 connection_count; // 0x28
+  u8 pad29[0x34 - 0x29];
+  GTNPATHCNX_s **connections; // 0x34
+  u8 pad38[0x5c - 0x38];
+};
+
+struct GTNPATH_s {
+  u8 pad0[0x7c];
+  GTNPATHNODE_s *nodes; // 0x7c
+};
+
+// processor +0x84
+struct GTNPATHINFO_s {
+  GTNPATH_s *path;          // 0x00
+  GTNPATHCNX_s *connection; // 0x04
+  u8 direction;             // 0x08
+  u8 pad9[0xe - 9];
+  u16 flags; // 0x0e
+  f32 dist;  // 0x10
+  f32 width; // 0x14
+};
+
+#define GTN_PATHINFO(p) ((GTNPATHINFO_s *)((u8 *)(p) + 0x84))
+
+// STUB: LEGOBATMAN 0x006baf30
+// close: only the epilogue sharing differs (orig keeps the first_time
+// return 0 separate and merges param_count==0 with the final one).
+i32 Action_GoToNode(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
+                    AIPACKET_s *packet, char **params, i32 param_count,
+                    i32 first_time, f32 elapsed) {
+  nuvec_s difference;
+  if (packet == NULL || packet->pd0 == NULL || packet->path_set == NULL ||
+      packet->path_node == NULL)
+    return 1;
+  if (first_time != 0) {
+    if (param_count == 0)
+      return 0;
+    for (i32 index = 1; index < param_count; ++index) {
+      if (AIActionParseSpeedFn == NULL ||
+          AIActionParseSpeedFn(params[index], &packet->goal_speed_mode) == 0)
+        packet->movement_param =
+            AIParamToFloatEx(packet, processor, params[index]);
+    }
+    processor->action_data_3 =
+        AIPathFindNode(sys, (struct AIPATH_s *)packet->path_set, params[0]);
+    GTNPATHNODE_s *node = (GTNPATHNODE_s *)processor->action_data_3;
+    if (node == NULL || node->connection_count == 0)
+      return 1;
+    {
+      GTNPATH_s *path = (GTNPATH_s *)packet->path_set;
+      i32 node_index = node - path->nodes;
+      GTN_PATHINFO(processor)->path = path;
+      GTN_PATHINFO(processor)->connection = node->connections[0];
+      if (GTN_PATHINFO(processor)->connection->node_indices[0] == node_index)
+        GTN_PATHINFO(processor)->dist = 0.0f;
+      else
+        GTN_PATHINFO(processor)->dist = 1.0f;
+      GTN_PATHINFO(processor)->flags |= 1;
+      GTN_PATHINFO(processor)->width = 0.0f;
+      GTN_PATHINFO(processor)->direction = 0;
+      AIMoveInstruction(packet, &node->position, 0.0f,
+                        (AIPATHINFO7_s *)GTN_PATHINFO(processor), 1,
+                        packet->movement_param);
+    }
+    return 0;
+  }
+  GTNPATHNODE_s *node = (GTNPATHNODE_s *)processor->action_data_3;
+  if (node == NULL)
+    return 1;
+  f32 distance_squared = NuVecXZDistSqr((nuvec_s *)((u8 *)packet + 0x14c),
+                                        &node->position, &difference);
+  AIMoveInstruction(packet, &node->position, 0.0f,
+                    (AIPATHINFO7_s *)GTN_PATHINFO(processor), 1,
+                    packet->movement_param);
+  if (distance_squared < node->radius_squared)
+    return 1;
   return 0;
 }
 
@@ -523,7 +621,7 @@ i32 Action_RetreatFromNearestOpponent(AISYS_s *sys,
   }
   if (packet->pd4 != NULL) {
     u8 *target = (u8 *)packet->pd4->ai;
-    AIMoveInstruction(
+    AIMoveInstructionInline(
         packet, (nuvec_s *)(target + 0x174), *(f32 *)(target + 0x120),
         (AIPATHINFO7_s *)(target + 0x158), 2, packet->movement_param);
   }
