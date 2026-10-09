@@ -421,7 +421,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00584ac0` 74 B `PARTLookupType(char*)`
 - [ ] `0057d660` 78 B `_AddVariableShotDebrisEffect`  **hint** name (gapfill)
 - [ ] `0057d5a0` 89 B `_AddVariableShotDebrisEffectTimed1`  **hint** name (gapfill)
-- [ ] `0056fef0` 145 B `_RayImpact`  **saga** `legoapi/render/core/terrain.cpp`
+- [ ] `0056fef0` 145 B `_RayImpact`  **stub** · **saga** `legoapi/render/core/terrain.cpp`
 - [ ] `00584e60` 155 B `AddFiniteShotPART(int, nuvec_s*, int)`
 - [ ] `005672e0` 171 B `_DerotateMovementVector`  **saga** `legoapi/render/core/terrain.cpp`
 - [ ] `00584780` 175 B `KillPart(PART_s*, int)`

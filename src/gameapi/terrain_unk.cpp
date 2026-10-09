@@ -51,6 +51,45 @@ i32 edanimLoadPage(char *path, void *scene, i32 unk);
 // GLOBAL: LEGOBATMAN 0x00ab39e8
 extern WORLDINFO WorldInfo[]; // 0xa790 bytes in all
 
+// STUB: LEGOBATMAN 0x0056fef0
+// skipped: switch on hit_type compiles to a byte-indexed jump table; not
+// attempted.
+#if 0
+#include "../nu2api/numath/nuvec.h"
+
+void TerrainMoveImpactData();
+
+static TerrainQuery_s *TerI;
+
+// from saga legoapi/render/core/terrain.cpp
+void RayImpact(NUVEC *movement) {
+    TerrainMoveImpactData();
+    switch (TerI->hit_type) {
+        case 1:
+        case 2:
+        case 3:
+        case 4: {
+            TerI->hit_time -= TerI->separation_epsilon;
+            if (TerI->hit_time < 0.0f)
+                TerI->hit_time = 0.0f;
+            f32 time = TerI->hit_time;
+            movement->x = TerI->movement.x * time;
+            movement->y = TerI->movement.y * time;
+            movement->z = TerI->movement.z * time;
+            break;
+        }
+        case 0x11:
+        case 0x12:
+        case 0x13:
+        case 0x14:
+            movement->x = 0.0f;
+            movement->y = 0.0f;
+            movement->z = 0.0f;
+            break;
+    }
+}
+#endif
+
 // FUNCTION: LEGOBATMAN 0x005c8130
 void WorldInfo_InitOnce(void) { memset(WorldInfo, 0, 0xa790); }
 
