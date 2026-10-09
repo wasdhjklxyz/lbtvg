@@ -215,3 +215,10 @@
 0070ffb0 NuSplineList  Mac order before NuSplineFind; walks splines calling the compiled-out debug print
 00710090 NuSplineFindAllBeg  saga nuspline.c body matches
 007100f0 NuSplineFindNextBeg  saga nuspline.c body matches
+006d40d0 NuListCheck  Mac order (NuListCheck, Append, Insert, ...); counts nodes
+006d40f0 NuListAppend  saga NuLinkedListAppend body; Mac order
+006d4120 NuListInsert  saga NuLinkedListInsert body; Mac order
+006d4150 NuListInsertBefore  saga body; falls back to inlined NuListInsert
+006d41a0 NuListInsertAfter  saga body; falls back to inlined NuListAppend
+006d41f0 NuListRemove  saga body; Mac order before GetHead
+006d4250 NuListGetPrev  Mac order after GetNext (node->prev or tail)

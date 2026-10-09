@@ -744,9 +744,16 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006c6480,00221f50,_DrawMenuEntryEx,_DrawMenuEntryEx,gapfill,3
 006c9ca0,001e7734,_instNuGCutSceneCreate,_instNuGCutSceneCreate,strings,0
 006cd280,001e56a2,_NuScriptLoadCommands,_NuScriptLoadCommands,strings,0
+006d40d0,00188194,_NuListCheck,_NuListCheck,confirmed,0
+006d40f0,001881ac,_NuListAppend,_NuListAppend,confirmed,0
+006d4120,001881d8,_NuListInsert,_NuListInsert,confirmed,0
+006d4150,0018f84a,_NuListInsertBefore,_NuListInsertBefore,confirmed,0
+006d41a0,0018f7fe,_NuListInsertAfter,_NuListInsertAfter,confirmed,0
+006d41f0,00188204,_NuListRemove,_NuListRemove,confirmed,0
 006d4220,00188232,_NuListGetHead,_NuListGetHead,confirmed,0
 006d4230,0018823c,_NuListGetTail,_NuListGetTail,order,2
 006d4240,00188248,_NuListGetNext,_NuListGetNext,confirmed,0
+006d4250,0018825e,_NuListGetPrev,_NuListGetPrev,confirmed,0
 006d5540,00189208,_NuCommandLine,_NuCommandLine,gapfill,4
 006d5700,001893c0,_NuPadOpen,_NuPadOpen,strings,0
 006d5df0,001897ba,_NuPadGetPort,_NuPadGetPort,calls,2
