@@ -227,7 +227,13 @@ struct GameObject_s {
   u32 flags1410_lo : 15;
   u32 doomed_take_damage : 1; // 0x1410 bit 15
   u32 flags1410_hi : 16;
-  u32 flags1414; // 0x1414
+  union {
+    u32 flags1414; // 0x1414
+    struct {
+      u32 flags1414_lo : 25;
+      u32 item_ignore_los : 1; // 0x1414 bit 25
+    };
+  };
   u32 flags1418; // 0x1418
   u8 pad15[0x1430 - 0x141c];
   u32 flags1430; // 0x1430

@@ -1109,3 +1109,11 @@
 00451640 Condition_LocatorIsFirstInSet  matched, keyword table + Mac name
 004515d0 Condition_GotLocatorInSet  matched, keyword table + Mac name
 00452c00 Condition_CheckCoupled  matched, keyword table + Mac name
+0045c050 Action_RemoveThrownForceObjects  keyword table 0x93bb98
+0045fbe0 Action_SetDefaultMovementRange  keyword table 0x93bb98
+00461140 Action_SetHintComplete  keyword table 0x93bb98
+004707c0 Action_PartyCanBeUnderCover  keyword table 0x93bb98
+00465730 Action_DeflectPlayersPart  keyword table 0x93bb98
+00467eb0 Action_DontRaycastLOS  keyword table 0x93bb98
+0046f470 Action_SetAO_InitRowDist  keyword table 0x93bb98
+00472830 Action_PlayerItemIgnoreLOS  keyword table 0x93bb98

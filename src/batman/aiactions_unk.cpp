@@ -1770,3 +1770,138 @@ i32 Action_AllowFightingInMiniCut(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 1;
 }
+
+extern PART_s *Part;
+extern i32 MAXPARTS;
+void KillPart(PART_s *part, i32 reason);
+void PartKill_ForceThrow(PART_s *part, i32 reason);
+
+// FUNCTION: LEGOBATMAN 0x0045c050
+i32 Action_RemoveThrownForceObjects(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                    AIPACKET_s *packet, char **args, int argc,
+                                    int flags, f32 time) {
+  PART_s *part = Part;
+  for (i32 i = 0; i < MAXPARTS; i++, part++) {
+    if ((part->flags148 & 1) != 0 && part->kill_callback == PartKill_ForceThrow)
+      KillPart(part, 0);
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x0045fbe0
+i32 Action_SetDefaultMovementRange(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                   AIPACKET_s *packet, char **args, int argc,
+                                   int flags, f32 time) {
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++)
+      DEFAULT_MOVE_RANGE = AIParamToFloat(process, args[i]);
+  }
+  return 1;
+}
+
+void Unk005d52f0(i32 id);
+
+// FUNCTION: LEGOBATMAN 0x00461140
+i32 Action_SetHintComplete(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char **args, int argc, int flags,
+                           f32 time) {
+  i32 id = -1;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "id");
+      if (s != 0)
+        id = (i32)AIParamToFloat(process, s + 3);
+    }
+    Unk005d52f0(id);
+  }
+  return 1;
+}
+
+// GLOBAL: LEGOBATMAN 0x009c5fe8
+extern i32 party_cant_be_under_cover;
+
+// FUNCTION: LEGOBATMAN 0x004707c0
+i32 Action_PartyCanBeUnderCover(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                AIPACKET_s *packet, char **args, int argc,
+                                int flags, f32 time) {
+  if (flags != 0) {
+    party_cant_be_under_cover = 0;
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "FALSE") == 0)
+        party_cant_be_under_cover = 1;
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00465730
+i32 Action_DeflectPlayersPart(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                              AIPACKET_s *packet, char **args, int argc,
+                              int flags, f32 time) {
+  if (packet == 0 || packet->pd0 == 0 || packet->pd0->obj == 0)
+    return 1;
+  if (flags != 0) {
+    GameObject_s *obj = packet->pd0->obj;
+    obj->flags1410_lo |= 0x1000;
+    if (argc != 0) {
+      for (i32 i = 0; i < argc; i++) {
+        if (NuStrICmp(args[i], "FALSE") == 0)
+          obj->flags1410_lo &= ~0x1000;
+      }
+    }
+  }
+  return 1;
+}
+
+struct Unk_WorldApiObjSys {
+  u8 pad0[0x210];
+  u32 flags210; // 0x210
+};
+
+// FUNCTION: LEGOBATMAN 0x00467eb0
+i32 Action_DontRaycastLOS(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **args, int argc, int flags,
+                          f32 time) {
+  if (flags != 0 && g_unk00960894->api_object_sys != 0) {
+    g_unk00960894->api_object_sys->flags210 |= 1;
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrICmp(args[i], "false") == 0)
+        g_unk00960894->api_object_sys->flags210 &= ~1;
+    }
+  }
+  return 1;
+}
+
+void Unk00448b80(f32 dist);
+
+// FUNCTION: LEGOBATMAN 0x0046f470
+i32 Action_SetAO_InitRowDist(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char **args, int argc,
+                             int flags, f32 time) {
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *s = NuStrIStr(args[i], "Dist");
+      if (s != 0)
+        Unk00448b80(AIParamToFloat(process, s + 5));
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00472830
+i32 Action_PlayerItemIgnoreLOS(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                               AIPACKET_s *packet, char **args, int argc,
+                               int flags, f32 time) {
+  i32 on = 1;
+  if (packet == 0 || packet->pd0 == 0)
+    return on;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      if (NuStrIStr(args[i], "FALSE") != 0)
+        on = 0;
+    }
+  }
+  obj->item_ignore_los = on;
+  return 1;
+}

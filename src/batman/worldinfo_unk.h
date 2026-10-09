@@ -65,8 +65,9 @@ struct WORLDINFO_s {
   u8 pad4[0x2974 - 0x14c];
   i32 i2974; // 0x2974
   u8 pad5[0x29cc - 0x2978];
-  struct SOCKSYS_s *sock_sys; // 0x29cc
-  u8 pad5x[0x2adc - 0x29d0];
+  struct SOCKSYS_s *sock_sys;                // 0x29cc
+  struct Unk_WorldApiObjSys *api_object_sys; // 0x29d0, APIOBJECTSYS_s
+  u8 pad5x[0x2adc - 0x29d4];
   i32 page_pp; // 0x2adc
   u8 pad5a[0x2aec - 0x2ae0];
   void *burnset;      // 0x2aec
