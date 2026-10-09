@@ -3,8 +3,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00408e60,000f8e4a,__Z23Text_ExpandButtonStringPcS_,"Text_ExpandButtonString(char*, char*)",strings,0
 0040f6a0,0002c842,__Z19Batarang_UpdateHintP6HINT_s,Batarang_UpdateHint(HINT_s*),strings,0
 004154e0,00032d60,__Z20Batman_GameAISysInitv,Batman_GameAISysInit(),strings,0
+00415970,0003378e,__Z29SockParBATMAN_one_player_onlyP8nufpar_sPv,"SockParBATMAN_one_player_only(nufpar_s*, void*)",confirmed,0
+00415990,000337a0,__Z29SockParBATMAN_two_player_onlyP8nufpar_sPv,"SockParBATMAN_two_player_only(nufpar_s*, void*)",confirmed,0
 00416460,0003480e,__Z12ReleaseCableP7CABLE_si,"ReleaseCable(CABLE_s*, int)",strings,0
 004165a0,00035bb8,__Z12UpdateCablesv,UpdateCables(),strings,0
+0041d020,000497e4,__Z10CC_variantP8nufpar_s,CC_variant(nufpar_s*),confirmed,0
+0041d110,000498c4,__Z18CC_security_accessP8nufpar_s,CC_security_access(nufpar_s*),confirmed,0
 00428a60,00057a20,__Z16ResetAICreaturesP7AISYS_s,ResetAICreatures(AISYS_s*),strings,0
 0042ad10,00053cd6,__Z19DrawGameObjectsDrawi,DrawGameObjectsDraw(int),strings,0
 0042ffd0,0005b598,__Z22ElectricShock_MoveCodeP12GameObject_sii,"ElectricShock_MoveCode(GameObject_s*, int, int)",strings,0
@@ -599,6 +603,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004aa600,000c419e,__Z16LC_BL_max_shardsP8nufpar_s,LC_BL_max_shards(nufpar_s*),confirmed,0
 004aa620,000c41c4,__Z18LC_BL_max_spinnersP8nufpar_s,LC_BL_max_spinners(nufpar_s*),confirmed,0
 004aa660,000c4204,__Z18LC_BL_max_minicutsP8nufpar_s,LC_BL_max_minicuts(nufpar_s*),confirmed,0
+004aa6a0,000c4250,__Z26LC_BL_max_gizmoblowuptypesP8nufpar_s,LC_BL_max_gizmoblowuptypes(nufpar_s*),confirmed,0
+004aa6f0,000c4294,__Z22LC_BL_max_gizmoblowupsP8nufpar_s,LC_BL_max_gizmoblowups(nufpar_s*),confirmed,0
 004aa740,000c42d8,__Z20LC_BL_max_pushblocksP8nufpar_s,LC_BL_max_pushblocks(nufpar_s*),confirmed,0
 004aa780,000c4318,__Z26LC_BL_max_pushblock_endposP8nufpar_s,LC_BL_max_pushblock_endpos(nufpar_s*),confirmed,0
 004aa7c0,000c4358,__Z19LC_BL_max_attractosP8nufpar_s,LC_BL_max_attractos(nufpar_s*),confirmed,0

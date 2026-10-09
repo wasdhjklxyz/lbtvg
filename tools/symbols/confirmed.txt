@@ -1474,3 +1474,9 @@
 00658100 Backdrop_posx  keyword table 0x9673a8
 00658120 Backdrop_posy  keyword table 0x9673a8
 00658140 Backdrop_posz  keyword table 0x9673a8
+004aa6a0 LC_BL_max_gizmoblowuptypes  keyword table 0x93faa8
+004aa6f0 LC_BL_max_gizmoblowups  keyword table 0x93faa8
+00415970 SockParBATMAN_one_player_only  keyword table 0x935b14
+00415990 SockParBATMAN_two_player_only  keyword table 0x935b14
+0041d020 CC_variant  keyword table 0x936288
+0041d110 CC_security_access  keyword table 0x936288

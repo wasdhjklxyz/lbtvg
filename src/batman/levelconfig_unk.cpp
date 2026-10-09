@@ -266,3 +266,17 @@ void LC_BL_max_pushblock_endpos(NUFPAR *parser) {
 void LC_BL_flock_extras(NUFPAR *parser) {
   levelconfig_ldata->max_dynamic_flock_antinodes = NuFParGetInt(parser);
 }
+
+// FUNCTION: LEGOBATMAN 0x004aa6a0
+void LC_BL_max_gizmoblowuptypes(NUFPAR *parser) {
+  levelconfig_ldata->max_gizmoblowuptypes = NuFParGetInt(parser);
+  if (levelconfig_ldata->max_gizmoblowuptypes > 0xff)
+    levelconfig_ldata->max_gizmoblowuptypes = 0xff;
+}
+
+// FUNCTION: LEGOBATMAN 0x004aa6f0
+void LC_BL_max_gizmoblowups(NUFPAR *parser) {
+  levelconfig_ldata->max_gizmoblowups = NuFParGetInt(parser);
+  if (levelconfig_ldata->max_gizmoblowups > 0x200)
+    levelconfig_ldata->max_gizmoblowups = 0x200;
+}

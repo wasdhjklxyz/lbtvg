@@ -53,7 +53,8 @@ typedef struct LEVELDATA_s {
   f32 conveyor_z_speed;     // 0xe4
   f32 char_clip_dist;       // 0xe8
   i16 max_gameantinodes;    // 0xec
-  u8 padee[0xf2 - 0xee];
+  u16 max_gizmoblowups;     // 0xee
+  u16 max_gizmoblowuptypes; // 0xf0
   i16 max_pickups;          // 0xf2
   i16 max_obstacle_objects; // 0xf4
   i16 max_buildit_objects;  // 0xf6
