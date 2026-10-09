@@ -13,3 +13,6 @@ are not lost. Run inside `nix develop` from the repo root.
   named `Condition_<keyword>[Init]`.
 - `kwsumm.py`: rank keyword tables by unannotated callbacks, counting the
   ones ghidra missed (run `kwall.py` first).
+- `callers.py ADDR...`: every `e8`/`e9` rel32 caller of ADDR with the
+  containing function's bounds (from int3 padding). A register-convention
+  static and all its callers are one TU.

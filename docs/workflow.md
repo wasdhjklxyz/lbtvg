@@ -283,3 +283,14 @@ enough matched code for the percentage to mean something.
 - **Inlined struct-copy helpers** (AIMoveInstruction) need `__forceinline`.
 - **`make new` can paste a huge saga body into a far-off file**: check where
   it landed before matching.
+- **Our cl passes custom-convention args in `ebx`; the original never does**
+  (no `ebx`/`ebp` register args anywhere in `.text`; `esi`, `edi`, `eax`,
+  `ecx`, `edx` are common). Nothing in the source moves it. Open question:
+  RTM (`.42`) vs SP1 (`.762`), see recon. Stub these for now.
+- **Empty static debug functions** (0x6a10a0) vanish from callers compiled
+  before the first call that passes it a pointer; declare them
+  `static void F(...) {}` in the same TU.
+- **A `__forceinline` wrapper lays out differently** from the same body
+  written in place (AIMoveInstruction).
+- **Known TUs**: 0x6a19a0..0x6b3370 (aiscript + aistate + start of AIBugPit),
+  0x6ac0d0..0x6bbf62 (formation). `tools/scratch/callers.py ADDR` finds them.
