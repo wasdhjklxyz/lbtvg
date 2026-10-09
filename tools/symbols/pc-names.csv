@@ -44,6 +44,13 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0044dd00,00075cd6,__Z19Condition_Player1IsP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_Player1Is(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044dd30,00075d00,__Z19Condition_Player2IsP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_Player2Is(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044dd60,00075d2a,__Z20Condition_IAmPlayer2P7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_IAmPlayer2(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044ddc0,00075d6c,__Z24Condition_UsingForceInitP7AISYS_sPcP10AISCRIPT_s,"Condition_UsingForceInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+0044de00,00075da6,__Z20Condition_UsingForceP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_UsingForce(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044de30,00075dd2,__Z26Condition_PlayerUsingForceP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_PlayerUsingForce(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044de60,00075dfa,__Z32Condition_EitherPlayerUsingForceP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_EitherPlayerUsingForce(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044deb0,00075e3e,__Z29Condition_OnForcePlatformInitP7AISYS_sPcP10AISCRIPT_s,"Condition_OnForcePlatformInit(AISYS_s*, char*, AISCRIPT_s*)",confirmed,0
+0044e190,00076080,__Z24Condition_ForceBeingUsedP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_ForceBeingUsed(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
+0044e1c0,000760a2,__Z30Condition_PlayerDeflectingPartP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_PlayerDeflectingPart(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044f620,00076cb4,__Z23Condition_InContextInitP7AISYS_sPcP10AISCRIPT_s,"Condition_InContextInit(AISYS_s*, char*, AISCRIPT_s*)",strings,0
 0044f980,00076fb0,__Z21Condition_InLayerInitP7AISYS_sPcP10AISCRIPT_s,"Condition_InLayerInit(AISYS_s*, char*, AISCRIPT_s*)",strings,0
 00451470,0007841e,__Z29Condition_CharacterTypeExistsP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_CharacterTypeExists(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",strings,0

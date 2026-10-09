@@ -439,3 +439,10 @@
 0044dd00 Condition_Player1Is   matched, Mac order of the Condition_* run after Condition_BeenHitByInit
 0044dd30 Condition_Player2Is   matched, Mac order of the Condition_* run after Condition_BeenHitByInit
 0044dd60 Condition_IAmPlayer2   matched, Mac order of the Condition_* run after Condition_BeenHitByInit
+0044ddc0 Condition_UsingForceInit   matched saga gameobjects.cpp body, Mac order after Condition_IAmPlayer2
+0044de00 Condition_UsingForce   matched saga gameobjects.cpp body, Mac order after Condition_IAmPlayer2
+0044de30 Condition_PlayerUsingForce   matched saga gameobjects.cpp body, Mac order after Condition_IAmPlayer2
+0044de60 Condition_EitherPlayerUsingForce   matched saga gameobjects.cpp body, Mac order after Condition_IAmPlayer2
+0044deb0 Condition_OnForcePlatformInit   matched saga gameobjects.cpp body, Mac order after Condition_IAmPlayer2
+0044e190 Condition_ForceBeingUsed   matched saga gameobjects.cpp body, Mac order after Condition_IAmPlayer2
+0044e1c0 Condition_PlayerDeflectingPart   matched saga gameobjects.cpp body, Mac order after Condition_IAmPlayer2

@@ -345,6 +345,86 @@ f32 Condition_IAmPlayer2(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 0.0f;
 }
 
+// GLOBAL: LEGOBATMAN 0x0093e144
+extern i32 force_gizmotype_id;
+// GLOBAL: LEGOBATMAN 0x00ab3984
+extern GameObject_s *player2;
+
+struct GIZFORCE_s {
+  u8 pad0[0xa0];
+  u32 runtime_flags; // 0xa0
+};
+
+i32 GizForce_GameObjUsingForce(GameObject_s *object, GIZFORCE_s *force);
+
+// FUNCTION: LEGOBATMAN 0x0044ddc0
+void *Condition_UsingForceInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  GIZMO_s *gizmo =
+      GizmoFindByName(g_unk00960894->gizmoSys2b0c, force_gizmotype_id, name);
+  return gizmo != NULL ? *(void **)gizmo : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044de00
+f32 Condition_UsingForce(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char *str, void *argument) {
+  if (GizForce_GameObjUsingForce(packet->pd0->obj, (GIZFORCE_s *)argument) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044de30
+f32 Condition_PlayerUsingForce(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                               AIPACKET_s *packet, char *str, void *argument) {
+  if (GizForce_GameObjUsingForce(player, (GIZFORCE_s *)argument) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044de60
+f32 Condition_EitherPlayerUsingForce(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                     AIPACKET_s *packet, char *str,
+                                     void *argument) {
+  GIZFORCE_s *force = (GIZFORCE_s *)argument;
+  if (GizForce_GameObjUsingForce(player, force) != 0)
+    return 1.0f;
+  if (GizForce_GameObjUsingForce(player2, force) != 0)
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044deb0
+void *Condition_OnForcePlatformInit(AISYS_s *sys, char *name,
+                                    AISCRIPT_s *script) {
+  GIZMO_s *gizmo =
+      GizmoFindByName(g_unk00960894->gizmoSys2b0c, force_gizmotype_id, name);
+  if (gizmo != NULL) {
+    GIZFORCE_s *force = *(GIZFORCE_s **)gizmo;
+    if (force != NULL && (force->runtime_flags & 0x100) != 0)
+      return force;
+  }
+  return NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e190
+f32 Condition_ForceBeingUsed(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char *str, void *argument) {
+  GIZFORCE_s *force = (GIZFORCE_s *)argument;
+  // 0x3c: current user.
+  if (force != NULL && ((force->runtime_flags & 0x200000) != 0 ||
+                        ((void **)force)[0x3c / 4] != 0))
+    return 1.0f;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0044e1c0
+f32 Condition_PlayerDeflectingPart(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                   AIPACKET_s *packet, char *str, void *data) {
+  // 0x1140: the part being deflected.
+  if (player != NULL && ((void **)player)[0x1140 / 4] != NULL)
+    return 1.0f;
+  return 0.0f;
+}
+
 // GLOBAL: LEGOBATMAN 0x0096052c
 extern i32 g_unk0096052c;
 // GLOBAL: LEGOBATMAN 0x00960528
