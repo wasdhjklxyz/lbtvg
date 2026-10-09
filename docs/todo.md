@@ -17,7 +17,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near pcbatman.cpp](#near-pcbatmancpp) | 44 | 37 |
 | [near rtleditor.cpp](#near-rtleditorcpp) | 44 | 29 |
 | [near terrain.c](#near-terrainc) | 27 | 9 |
-| [near AIBugPit.cpp](#near-aibugpitcpp) | 12 | 6 |
+| [near AIBugPit.cpp](#near-aibugpitcpp) | 11 | 6 |
 | [Grabber](#grabber) | 7 | 5 |
 | [Hub](#hub) | 6 | 4 |
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 5 | 4 |
@@ -30,7 +30,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizPanel](#gizpanel) | 2 | 2 |
 | [LevelObjects](#levelobjects) | 2 | 2 |
 | [Move](#move) | 2 | 2 |
-| [near nutrig_gen.cpp](#near-nutrig_gencpp) | 5 | 2 |
+| [near nutrig_gen.cpp](#near-nutrig_gencpp) | 4 | 2 |
 | [NuStr](#nustr) | 2 | 2 |
 | [Tag](#tag) | 2 | 2 |
 | [Text](#text) | 3 | 2 |
@@ -379,7 +379,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## near AIBugPit.cpp
 
 - [ ] `006bf550` 51 B `_MenuReset`  **hint** name (gapfill)
-- [ ] `006b4f70` 76 B `_AISysRegisterDefaultPathCnxTypes`
 - [ ] `006b7110` 201 B `_AIMoveInstruction`  **hint** name (gapfill)
 - [ ] `006b9eb0` 274 B `_FollowAPIObject`  **hint** name (gapfill)
 - [ ] `006b97b0` 390 B `_AIScriptProcessorInit`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
@@ -467,9 +466,8 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## near nutrig_gen.cpp
 
-- [ ] `006a5fe0` 31 B `_AISysClearAllPathCnxTypes`  **hint** name (gapfill)
 - [ ] `006af110` 142 B `_AiSysIsCurrentPlatform`
-- [ ] `006a6000` 171 B `_AISysRegisterPathCnxType`
+- [ ] `006a6000` 171 B `_AISysRegisterPathCnxType`  **stub**
 - [ ] `006a2730` 401 B `_AIScriptCopyConditions`  **stub** · **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
 - [ ] `006a2cc0` 536 B `_AIScriptBuildDerivedScript`  **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aiscript.cpp`
 

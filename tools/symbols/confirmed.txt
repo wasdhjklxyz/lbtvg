@@ -155,3 +155,5 @@
 006a9b90 AISysFindArea  saga body matches (areas stride 0x40)
 006a9bf0 AISysFindPath  saga body matches (path_sys->paths)
 006a9c50 AIPathFindNode  saga body matches (falls back to active path)
+006a5fe0 AISysClearAllPathCnxTypes  saga edpath ClearAllPathCnxTypes shape (count = 0, memset 32 types of 0x6c)
+006b4f70 AISysRegisterDefaultPathCnxTypes  registers Permanent/Temporary Block and Link Obstacle like saga's editor version

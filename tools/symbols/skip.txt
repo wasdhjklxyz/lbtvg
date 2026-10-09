@@ -57,5 +57,6 @@
 005e9790 BoltSys_Init: two-pass parser, same-TU static fn pointers, not attempted
 005d5c20 Detonator_FindCharacterDetonator: two loop IVs in orig vs one in ours (stub)
 00732510 NuGScnRead: passes arg in ecx to static FUN_00731b70 (register-arg static)
-00727f20 NuMtlSetCurrentRenderPlane: empty NuError call vanishes (static) or clobbers ecx (extern)
+00727f20 NuMtlSetCurrentRenderPlane: needs a pointer-arg NuError call elsewhere in the TU (stub)
 0059c4b0 ActionFromName: check-then-reload on extra->name (stub)
+006a6000 AISysRegisterPathCnxType: empty static debug call dropped, same as 00727f20 (stub)

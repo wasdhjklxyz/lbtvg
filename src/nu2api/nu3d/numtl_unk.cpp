@@ -280,8 +280,8 @@ i32 numtl_renderplane;
 static void NuErrorUnk006fceb0(...) {}
 
 // STUB: LEGOBATMAN 0x00727f20
-// the empty NuErrorUnk006fceb0 call is optimised away here (orig keeps it and
-// keeps render_plane in ecx across it); extern keeps the call but spills to esi
+// matches (tested) once some other function in this TU calls the empty static
+// NuErrorUnk006fceb0 with a pointer argument; until then VC8 drops the call.
 extern "C" i32 NuMtlSetCurrentRenderPlane(i32 render_plane) {
   if (render_plane >= 0x18 || render_plane < 0)
     NuErrorUnk006fceb0();

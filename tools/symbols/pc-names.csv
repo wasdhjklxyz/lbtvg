@@ -695,7 +695,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006a4640,002375dc,_Action_Idle,_Action_Idle,strings,0
 006a4b10,00237b34,_Action_FaceOpponent,_Action_FaceOpponent,strings,0
 006a5660,00238c46,_Action_OverrideAnimation,_Action_OverrideAnimation,strings,0
-006a5fe0,0023a2a2,_AISysClearAllPathCnxTypes,_AISysClearAllPathCnxTypes,gapfill,1
+006a5fe0,0023a2a2,_AISysClearAllPathCnxTypes,_AISysClearAllPathCnxTypes,confirmed,0
 006a6000,0023a2de,_AISysRegisterPathCnxType,_AISysRegisterPathCnxType,calls,1
 006a62b0,002393fa,_AIScriptSetInterrupt,_AIScriptSetInterrupt,confirmed,0
 006a9ac0,00236198,_AIPathFindLocator,_AIPathFindLocator,confirmed,0
@@ -712,7 +712,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006b37e0,002352c0,_AIScriptLoadAllPakFile,_AIScriptLoadAllPakFile,strings,0
 006b3a60,00235516,_AIScriptLoadAll,_AIScriptLoadAll,confirmed,0
 006b4670,0024921c,_Action_SetInterrupt,_Action_SetInterrupt,strings,0
-006b4f70,0023a378,_AISysRegisterDefaultPathCnxTypes,_AISysRegisterDefaultPathCnxTypes,strings,0
+006b4f70,0023a378,_AISysRegisterDefaultPathCnxTypes,_AISysRegisterDefaultPathCnxTypes,confirmed,0
 006b5000,0023aa0a,_AISysLoadEx,_AISysLoadEx,strings,0
 006b7110,0023daee,_AIMoveInstruction,_AIMoveInstruction,gapfill,1
 006b97b0,00235bc4,_AIScriptProcessorInit,_AIScriptProcessorInit,gapfill,4

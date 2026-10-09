@@ -5,6 +5,7 @@
 #include "../../nu2api/nucore/nustring.h"
 #include "aisys_unk.h"
 #include <stddef.h>
+#include <string.h>
 
 // FUNCTION: LEGOBATMAN 0x006a1950
 AISTATE *AIStateFind(char *name, AISCRIPT *script) {
@@ -149,4 +150,49 @@ AIPATHNODE_s *AIPathFindNode(AISYS_s *system, AIPATH_s *path, char *name) {
     }
   }
   return NULL;
+}
+
+// 0x006a10a0 is a lone `ret` (debug report compiled out).
+static void AIDebugUnk006a10a0(...) {}
+
+struct AIPATHCNXTYPE_s {
+  u32 connection_flag;   // 0x00
+  void *context;         // 0x04
+  char name[0x40];       // 0x08
+  char short_name[0x20]; // 0x48
+  u32 flags;             // 0x68
+};
+
+// GLOBAL: LEGOBATMAN 0x00ad4548
+static AIPATHCNXTYPE_s aipathcnxtypes[32];
+
+// GLOBAL: LEGOBATMAN 0x00ad52c8
+static i32 naipathcnxtypes;
+
+// FUNCTION: LEGOBATMAN 0x006a5fe0
+void AISysClearAllPathCnxTypes(void) {
+  naipathcnxtypes = 0;
+  memset(aipathcnxtypes, 0, sizeof(aipathcnxtypes));
+}
+
+// STUB: LEGOBATMAN 0x006a6000
+// VC8 drops calls to an empty static unless some call in the TU passes it a
+// pointer argument (see NuMtlSetCurrentRenderPlane); needs that caller first.
+void AISysRegisterPathCnxType(char *name, char *short_name, u32 connection_flag,
+                              void *context, u32 flags) {
+  if (name == NULL || strlen(name) >= 0x40 || connection_flag == 0 ||
+      naipathcnxtypes >= 32) {
+    AIDebugUnk006a10a0();
+    return;
+  }
+  for (i32 i = 0; i < naipathcnxtypes; i++) {
+    if (aipathcnxtypes[i].connection_flag & connection_flag)
+      AIDebugUnk006a10a0();
+  }
+  AIPATHCNXTYPE_s *type = &aipathcnxtypes[naipathcnxtypes++];
+  strcpy(type->name, name);
+  strcpy(type->short_name, short_name);
+  type->connection_flag = connection_flag;
+  type->context = context;
+  type->flags = flags;
 }

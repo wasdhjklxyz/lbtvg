@@ -180,6 +180,16 @@ i32 Action_SetInterrupt(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
   return 1;
 }
 
+void AISysRegisterPathCnxType(char *name, char *short_name, u32 connection_flag,
+                              void *context, u32 flags);
+
+// FUNCTION: LEGOBATMAN 0x006b4f70
+void AISysRegisterDefaultPathCnxTypes(void) {
+  AISysRegisterPathCnxType("Permanent Block", "PermBlock", 0x40000000, 0, 0);
+  AISysRegisterPathCnxType("Temporary Block", "Block", 0x80000000, 0, 0);
+  AISysRegisterPathCnxType("Link Obstacle", "Obstacle", 0x20000000, 0, 1);
+}
+
 // FUNCTION: LEGOBATMAN 0x006b9430
 AIVec AIBugPitGrid48::CellCenterOf(const AIBugPitCell48 *cell) {
   int index = cell - cells;
