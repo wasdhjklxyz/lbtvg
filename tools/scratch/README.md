@@ -16,3 +16,6 @@ are not lost. Run inside `nix develop` from the repo root.
 - `callers.py ADDR...`: every `e8`/`e9` rel32 caller of ADDR with the
   containing function's bounds (from int3 padding). A register-convention
   static and all its callers are one TU.
+- `scan.py LO HI [MAXSZ]`: unannotated, unskipped small functions in an
+  address range, including ones ghidra missed; good for sweeping a file's
+  neighbourhood.

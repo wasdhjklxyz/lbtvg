@@ -283,10 +283,12 @@ enough matched code for the percentage to mean something.
 - **Inlined struct-copy helpers** (AIMoveInstruction) need `__forceinline`.
 - **`make new` can paste a huge saga body into a far-off file**: check where
   it landed before matching.
-- **Our cl passes custom-convention args in `ebx`; the original never does**
-  (no `ebx`/`ebp` register args anywhere in `.text`; `esi`, `edi`, `eax`,
-  `ecx`, `edx` are common). Nothing in the source moves it, and it is not
-  the compiler version (RTM does the same; SP1 is confirmed, see recon).
+- **Custom-convention register args differ from ours** (AIScriptCopyString:
+  our cl passes buf_end in `ebx` too). `ebx` args are rare in the original
+  but exist (the OA static 0x533a00 gets one from oaInit 0x533aca), and
+  some OA statics where the original uses a register get plain cdecl from
+  our cl. It is not the compiler version (RTM does the same; SP1 is
+  confirmed, see recon).
   The original reads such args from the stack into `ebx` itself
   (AIScriptCopyString: `mov ebx, [esp+0xc]`), so look for a different
   parameter split. Stub these for now.
@@ -297,3 +299,16 @@ enough matched code for the percentage to mean something.
   written in place (AIMoveInstruction).
 - **Known TUs**: 0x6a19a0..0x6b3370 (aiscript + aistate + start of AIBugPit),
   0x6ac0d0..0x6bbf62 (formation). `tools/scratch/callers.py ADDR` finds them.
+- **Earlier functions in the TU change codegen**: VC8 reuses what it knows
+  about them (callee-preserved registers, "never returns"). CD3DCore::
+  PreInitialize only matched in its own file, where ExitNow isn't visibly
+  noreturn.
+- **`x = p ? (p->Init(), p) : NULL`** gives the `xor esi, esi; mov [x], esi`
+  null arm of an inlined constructor.
+- **Neighbouring globals reloaded after pointer stores** are one struct.
+- **`!(a < k)`** gives `fld k; fcomp a; test ah, 0x41`.
+- **`memset(p, 0, n)`** gives the runs of stores from one zeroed register.
+- **Delete leftover `// TODO LEGOBATMAN` lines** from `make new` when a body
+  goes elsewhere; one broke a commit.
+- **clang-format sorts `<shellapi.h>` above `<windows.h>`**: keep a comment
+  line between them.
