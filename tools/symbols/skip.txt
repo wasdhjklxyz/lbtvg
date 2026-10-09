@@ -91,3 +91,4 @@
 004510d0 Condition_HelpWithCoupledTakeOver: extra mov eax,ecx copy of trailer, 3 tries
 00450fd0 Condition_TakenOver: block layout of the string branches, 2 tries
 0044d210 Condition_GotGun: ecx/edx vs eax/ecx for second call argument, 2 tries
+00451690 Condition_GotOpponentLOS: esi push hoisted + else arm out of line, 4 tries

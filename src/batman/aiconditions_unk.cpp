@@ -2665,6 +2665,31 @@ f32 Condition_SpawnCount(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 0.0f;
 }
 
+void NuVecSub(nuvec_s *out, nuvec_s *a, nuvec_s *b);
+
+struct GAMECAMERA_s {
+  u8 pad0[0x110];
+  nuvec_s dir; // 0x110
+  nuvec_s pos; // 0x11c
+};
+
+// FUNCTION: LEGOBATMAN 0x0044ee30
+f32 Condition_BehindCamera(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL) {
+    GameObject_s *obj = packet->pd0->obj;
+    if (obj != NULL) {
+      nuvec_s delta;
+      NuVecSub(&delta, &obj->v80, &g_unk0095f624->pos);
+      if (delta.x * g_unk0095f624->dir.x + delta.y * g_unk0095f624->dir.y +
+              delta.z * g_unk0095f624->dir.z <
+          0.0f)
+        return 1.0f;
+    }
+  }
+  return 0.0f;
+}
+
 // FUNCTION: LEGOBATMAN 0x0044eed0
 void *Condition_LocatorOnScreenInit(AISYS_s *sys, char *name,
                                     AISCRIPT_s *script) {
@@ -3145,6 +3170,31 @@ f32 Condition_LocatorIsFirstInSet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 0.0f;
 }
 
+struct Unk_WorldApiObjSys {
+  u8 pad0[8];
+  unsigned __int64 line_of_sight[64]; // 0x8, bit per object index
+};
+
+// STUB: LEGOBATMAN 0x00451690
+// original pushes esi before the first test and moves the packet->pe4 arm
+// out of line; ternary, if/else and index locals all shrink-wrap (4 tries)
+f32 Condition_GotOpponentLOS(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char *str, void *data) {
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL) {
+    GameObject_s *obj = packet->pd0->obj;
+    GameObject_s *opponent =
+        obj->b9db == 0x1b ? obj->force_target : (GameObject_s *)packet->pe4;
+    if (opponent != NULL) {
+      u32 me = OWNER(packet)->b259;
+      u32 them = opponent->b259;
+      if ((g_unk00960894->api_object_sys->line_of_sight[me] &
+           ((unsigned __int64)1 << them)) != 0)
+        return 1.0f;
+    }
+  }
+  return 0.0f;
+}
+
 // FUNCTION: LEGOBATMAN 0x004515d0
 f32 Condition_GotLocatorInSet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                               AIPACKET_s *packet, char *str, void *argument) {
@@ -3350,6 +3400,33 @@ f32 Condition_LastAttackerRange(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1000000000.0f;
 }
 
+// 0x254-byte trigger sets, then per-object set indices.
+struct AITRIGGERSETSYS_s {
+  struct {
+    u8 pad[0x24e];
+    i16 active; // 0x24e
+    u8 pad250[0x254 - 0x250];
+  } sets[32];          // 0x0
+  i8 set_index[0x40];  // 0x4a80
+  i8 area_index[0x40]; // 0x4ac0
+};
+
+// FUNCTION: LEGOBATMAN 0x004509e0
+f32 Condition_HelpWithTriggers(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                               AIPACKET_s *packet, char *str, void *data) {
+  if (g_unk00960894->ai_trigger_set_sys == NULL)
+    return 0.0f;
+  if (packet != NULL && packet->pd0 != NULL) {
+    u8 index = OWNER(packet)->b259;
+    if (g_unk00960894->ai_trigger_set_sys->area_index[index] != -1 &&
+        g_unk00960894->ai_trigger_set_sys
+                ->sets[g_unk00960894->ai_trigger_set_sys->set_index[index]]
+                .active != 0)
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
 extern GameObject_s *Player[8];
 i32 Unk00642b00(GameObject_s *obj);
 
@@ -3390,6 +3467,48 @@ f32 Condition_Side(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
   return 0.0f;
 }
 
+// FUNCTION: LEGOBATMAN 0x00450cb0
+f32 Condition_TakeOverTargetInTriggerArea(AISYS_s *sys,
+                                          AISCRIPTPROCESS_s *process,
+                                          AIPACKET_s *packet, char *str,
+                                          void *data) {
+  if (packet != NULL && packet->pd0 != NULL) {
+    AIAREA_s *area = (AIAREA_s *)data;
+    GameObject_s *target = NULL;
+    i32 index;
+    if (area == NULL)
+      area = ((AIAREA_s **)process)[0xa4 / 4];
+    index = area - ((AIAreaOwner_s *)g_unk00960894->aiSys2bf8)->areas;
+    if (packet->pd0->obj != NULL)
+      target = packet->pd0->obj->takeover_target;
+    if (((AISysPlayer1_s *)sys)->player_1 != NULL && target != NULL &&
+        (target->area_mask & ((unsigned __int64)1 << index)) != 0)
+      return 1.0f;
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00450d50
+f32 Condition_EitherPlayerInMyTriggerArea(AISYS_s *sys,
+                                          AISCRIPTPROCESS_s *process,
+                                          AIPACKET_s *packet, char *str,
+                                          void *data) {
+#define AREA (((AIAREA_s **)process)[0xa4 / 4])
+  AISysPlayer1_s *system = (AISysPlayer1_s *)sys;
+  if (system != NULL && AREA != NULL) {
+    if (system->player_1 != NULL && AREA->owner != NULL &&
+        (system->player_1->area_mask &
+         ((unsigned __int64)1 << (AREA - AREA->owner->areas))) != 0)
+      return 1.0f;
+    if (system->player_2 != NULL && AREA->owner != NULL &&
+        (system->player_2->area_mask &
+         ((unsigned __int64)1 << (AREA - AREA->owner->areas))) != 0)
+      return 1.0f;
+  }
+  return 0.0f;
+#undef AREA
+}
+
 // FUNCTION: LEGOBATMAN 0x00450e40
 f32 Condition_AnyPartyInTriggerArea(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                                     AIPACKET_s *packet, char *str, void *data) {
@@ -3408,6 +3527,35 @@ f32 Condition_AnyPartyInTriggerArea(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     }
   }
   return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00450ef0
+f32 Condition_AllPartyInTriggerArea(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                                    AIPACKET_s *packet, char *str, void *data) {
+  if (sys != NULL) {
+    AIAREA_s *area = (AIAREA_s *)data;
+    if (area == NULL)
+      area = ((AIAREA_s **)process)[0xa4 / 4];
+    if (area != NULL && area->owner != NULL) {
+      for (i32 i = 0; i < 8; i++) {
+        GameObject_s *obj = Player[i];
+        if (obj != NULL &&
+            (obj->area_mask &
+             ((unsigned __int64)1 << (area - area->owner->areas))) == 0)
+          return 0.0f;
+      }
+      return 1.0f;
+    }
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00450f90
+void *Condition_TakenOverInit(AISYS_s *sys, char *name, AISCRIPT_s *script) {
+  GameObject_s *obj = NULL;
+  if (name != NULL && sys != NULL)
+    obj = GetNamedGameObject(sys, name);
+  return obj;
 }
 
 // STUB: LEGOBATMAN 0x00450fd0
@@ -3469,4 +3617,14 @@ f32 Condition_GotGun(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     }
   }
   return 0.0f;
+}
+
+i32 Unk00461220(char *name);
+
+// FUNCTION: LEGOBATMAN 0x00475e20
+void *Condition_GotCnxCapabilityInit(AISYS_s *sys, char *name,
+                                     AISCRIPT_s *script) {
+  if (name != NULL)
+    return (void *)Unk00461220(name);
+  return NULL;
 }

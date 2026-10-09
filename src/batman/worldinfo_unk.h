@@ -88,7 +88,8 @@ struct WORLDINFO_s {
   u8 processors[0x4780 - 0x2c00]; // 0x2c00, 0xdc-byte LEVELSCRIPTPROCESS
   void *ai_path_cnx_control_sys;  // 0x4780
   void *ai_path_cnx_helper_sys;   // 0x4784
-  u8 pad8[0x47b4 - 0x4788];
+  struct AITRIGGERSETSYS_s *ai_trigger_set_sys; // 0x4788
+  u8 pad8[0x47b4 - 0x478c];
   struct GIZOBSTACLESYS_s *giz_obstacle_sys; // 0x47b4
   u8 pad47b8[0x47bc - 0x47b8];
   struct GIZFORCESYS_s *giz_force_sys; // 0x47bc

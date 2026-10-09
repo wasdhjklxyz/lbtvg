@@ -1245,3 +1245,10 @@
 00450e40 Condition_AnyPartyInTriggerArea  condition table condition slot
 00450fd0 Condition_TakenOver  condition table condition slot
 0044d210 Condition_GotGun  condition table condition slot
+00475e20 Condition_GotCnxCapabilityInit  condition table
+004509e0 Condition_HelpWithTriggers  condition table
+00450f90 Condition_TakenOverInit  condition table
+0044ee30 Condition_BehindCamera  condition table
+00450cb0 Condition_TakeOverTargetInTriggerArea  condition table
+00450d50 Condition_EitherPlayerInMyTriggerArea  condition table
+00450ef0 Condition_AllPartyInTriggerArea  condition table
