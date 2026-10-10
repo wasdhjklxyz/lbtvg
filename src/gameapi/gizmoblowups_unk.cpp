@@ -21,11 +21,11 @@ struct GIZMOBLOWUP_s {
   nuvec_s position; // 0x30
   u8 pad3c[0x40 - 0x3c];
   nuvec_s initial_position; // 0x40
-  u8 pad4c[0x58 - 0x4c];
-  nuvec_s f58;          // 0x58
-  nuvec_s bounds_min;   // 0x64
-  nuvec_s bounds_max;   // 0x70
-  nuvec_s decal_offset; // 0x7c
+  nuvec_s screen_pos;       // 0x4c
+  nuvec_s f58;              // 0x58
+  nuvec_s bounds_min;       // 0x64
+  nuvec_s bounds_max;       // 0x70
+  nuvec_s decal_offset;     // 0x7c
   u8 pad88[0x94 - 0x88];
   nuvec_s shadow_offset; // 0x94
   union {
@@ -63,9 +63,11 @@ struct GIZMOBLOWUP_s {
   u8 padc4[0xc8 - 0xc4];
   f32 fc8;         // 0xc8
   f32 decal_scale; // 0xcc
-  u8 padd0[0xd8 - 0xd0];
+  u8 padd0[0xd4 - 0xd0];
+  f32 fd4;           // 0xd4
   f32 respawn_timer; // 0xd8
-  u8 paddc[0xe4 - 0xdc];
+  u8 paddc[0xe0 - 0xdc];
+  f32 reflect_y;    // 0xe0
   void *antinode;   // 0xe4
   u16 decal_rot_x;  // 0xe8
   u16 decal_rot_y;  // 0xea
@@ -308,8 +310,8 @@ struct GIZMOBLOWUPTYPE_s {
   u8 pad0[0x30];
   nuhspecial_s animated_special; // 0x30
   nuhspecial_s decal_special;    // 0x3c
-  u8 pad48[0x54 - 0x48];
-  nuhspecial_s burst_special; // 0x54
+  nuhspecial_s shadow_special;   // 0x48
+  nuhspecial_s burst_special;    // 0x54
   u8 pad60[0x7c - 0x60];
   u32 animation_flags;       // 0x7c
   i32 effect_flags;          // 0x80
@@ -320,8 +322,8 @@ struct GIZMOBLOWUPTYPE_s {
   u8 pad94[0x9c - 0x94];
   f32 f9c; // 0x9c
   u8 pada0[0xa4 - 0xa0];
-  i16 particle_types[9]; // 0xa4
-  u8 padb6[0xb8 - 0xb6];
+  i16 particle_types[9];          // 0xa4
+  u16 count;                      // 0xb6
   u8 anti_node_data[0xdc - 0xb8]; // 0xb8
   char name[0x20];                // 0xdc
   u8 padfc[0xff - 0xfc];
@@ -337,7 +339,8 @@ struct GIZMOBLOWUPTYPE_s {
 typedef struct NUINSTANIM_UNK_s {
   u8 pad0[0x40];
   f32 tfactor; // 0x40
-  u8 pad44[0x50 - 0x44];
+  f32 tfirst;  // 0x44
+  u8 pad48[0x50 - 0x48];
   u32 playing : 1;   // 0x50
   u32 bits1 : 2;     // 0x50 bits 1-2
   u32 repeating : 1; // 0x50 bit 3
@@ -642,9 +645,9 @@ typedef struct BLOWUPPLUGSYS_s {
 void PushAway(nuvec_s *pos, f32 radius, nuvec_s *min, nuvec_s *max, void *a,
               void *b, void *c, f32 strength, u32 flags);
 void UpdateMidPos(GIZMOBLOWUP_s *blowup);
-void GizmoBlowupEvalAnim(GIZMOBLOWUP_s *blowup, GIZMOBLOWUPTYPE_s *type,
-                         f32 base_frame, numtx_s *m, NUINSTANIM_UNK *anim,
-                         f32 end_frame);
+void EvaluateBlowupAnimToMtx(GIZMOBLOWUP_s *blowup, GIZMOBLOWUPTYPE_s *type,
+                             f32 base_frame, numtx_s *m, NUINSTANIM_UNK *anim,
+                             f32 end_frame);
 numtx_s *NuSpecialGetInstanceMtx(nuhspecial_s *special);
 i32 GizmoBlowupBlowup(GIZMOBLOWUP_s *blowup, i32 effects, i32 hit_type,
                       i32 damage, GameObject_s *object, i32 hit_context);
@@ -657,6 +660,40 @@ void *GameAntiNode_Add(void *sys, nuvec_s *pos, u16 rot, void *data, f32 f,
 void GameAntiNode_Update(void *sys, void *node, nuvec_s *pos, u16 rot,
                          void *data, f32 f, i32 flag);
 void GameAntiNode_Remove(void *sys, void *node);
+
+// GLOBAL: LEGOBATMAN 0x00ab056c
+extern nuvec_s v000;
+
+void EvalAnim(nuhspecial_s *special, f32 frame, numtx_s *m, i32 flag);
+void NuMtxMulVU0(numtx_s *m, numtx_s *m0, numtx_s *m1);
+void NuMtxTranslate(numtx_s *m, nuvec_s *v);
+
+// FUNCTION: LEGOBATMAN 0x005da760
+void EvaluateBlowupAnimToMtx(GIZMOBLOWUP_s *blowup, GIZMOBLOWUPTYPE_s *type,
+                             f32 base_frame, numtx_s *m, NUINSTANIM_UNK *anim,
+                             f32 end_frame) {
+  if (blowup->fd4 + base_frame > end_frame) {
+    base_frame = blowup->fd4 + base_frame - end_frame;
+    base_frame += anim->tfirst;
+  } else {
+    base_frame = blowup->fd4 + base_frame;
+  }
+  if (blowup->type->animation_flags & 0x2000) {
+    EvalAnim(&blowup->type->animated_special, base_frame, m, 1);
+    return;
+  }
+  if (blowup->b22) {
+    EvalAnim(&blowup->type->animated_special, base_frame, m, 0);
+    NuMtxMulVU0(m, m, (numtx_s *)blowup);
+    return;
+  }
+  EvalAnim(&blowup->type->animated_special, blowup->fc8, m, 0);
+  nuvec_s saved = blowup->position;
+  blowup->position = v000;
+  NuMtxMulVU0(m, (numtx_s *)blowup, m);
+  blowup->position = saved;
+  NuMtxTranslate(m, &blowup->position);
+}
 
 // FUNCTION: LEGOBATMAN 0x005da880
 void GizmoBlowupEarlyUpdate(void *world_ptr, void *unused, f32 dt) {
@@ -744,8 +781,8 @@ void GizmoBlowupEarlyUpdate(void *world_ptr, void *unused, f32 dt) {
           }
           blowup->fc8 += FRAMETIME * 60.0f * anim->tfactor;
           numtx_s m;
-          GizmoBlowupEvalAnim(blowup, blowup->type, base_frame, &m, anim,
-                              end_frame);
+          EvaluateBlowupAnimToMtx(blowup, blowup->type, base_frame, &m, anim,
+                                  end_frame);
           blowup->f58.x = m.m30;
           blowup->f58.y = m.m31;
           blowup->f58.z = m.m32;
@@ -1170,8 +1207,6 @@ void NuMtxTranslate(numtx_s *m, nuvec_s *v);
 void NuMtxSetIdentity(numtx_s *m);
 void NuMtxSetScale(numtx_s *m, nuvec_s *s);
 
-// GLOBAL: LEGOBATMAN 0x00ab056c
-extern nuvec_s v000;
 // GLOBAL: LEGOBATMAN 0x0095fd38
 extern nuvec_s g_unk0095fd38;
 
@@ -1496,6 +1531,209 @@ void GizmoBlowupEarlyUpdate(void *world_ptr, void *unused, f32 dt);
 void GizmoBlowupLateUpdate(void *world_ptr, void *unused, f32 dt);
 void GizmoBlowupBurstDraw(void *world_ptr, void *unused, f32 dt);
 i32 gizmoblowup_Load(void *world_ptr, void *unused);
+
+// GLOBAL: LEGOBATMAN 0x00ac73a4
+extern i32 g_unk00ac73a4;
+// GLOBAL: LEGOBATMAN 0x00ac73a8
+extern i32 g_unk00ac73a8;
+// GLOBAL: LEGOBATMAN 0x00ac73ac
+extern void (*g_unk00ac73ac)(GIZMOBLOWUP_s *blowup);
+// GLOBAL: LEGOBATMAN 0x00ac9ffc
+extern void (*g_unk00ac9ffc)(i32, numtx_s *, UNK005EE1A0 *, f32);
+// GLOBAL: LEGOBATMAN 0x009631cc
+extern i32 g_unk009631cc;
+// GLOBAL: LEGOBATMAN 0x00966734
+extern f32 g_unk00966734[];
+// GLOBAL: LEGOBATMAN 0x00a96020
+extern f32 g_unk00a96020;
+// GLOBAL: LEGOBATMAN 0x00a958ac
+extern nugscn_s *things_scene;
+
+typedef struct BLOWUPICON_s {
+  nuhspecial_s special; // 0x00
+  u8 pad0c[2];
+  u8 enabled; // 0x0e
+  u8 pad0f;
+} BLOWUPICON;
+
+i32 AvailableToPlayer(u32 a, u32 b, u32 c, i32 d, void *fn, i32 e);
+void SetLevelLights(void *rtl_set, f32 scale);
+void NuCameraTransformScreenClip(nuvec_s *out, nuvec_s *in, i32 n, void *clip);
+void ResetShadowMapRendering(void);
+void EnableShadowMapRendering(i32 enable);
+f32 NuFmod(f32 a, f32 b);
+void NuMtxSetRotationZ(numtx_s *m, i32 a);
+void NuMtxMulR(numtx_s *m, numtx_s *m0, numtx_s *m1);
+void NuMtxPreScale(numtx_s *m, nuvec_s *s);
+i32 NuSpecialDrawAt(nuhspecial_s *sp, numtx_s *mtx);
+i32 MatrixReflection(numtx_s *m, i32 axis, f32 a, f32 b, numtx_s *out);
+extern "C" void NuRndrStartReflectionRender(i32 a);
+extern "C" void NuRndrEndReflectionRender(void);
+
+#define CAM_F(o) (*(f32 *)((u8 *)g_unk0095f624 + (o)))
+
+// STUB: LEGOBATMAN 0x005df0d0
+// x87 operand order only: orig `fld draw_m.m31; fadd reflect_y` for the
+// MatrixReflection height, ours loads reflect_y first (15+ spellings tried).
+void GizmoBlowupBurstDraw(void *world_ptr, void *unused, f32 dt) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  GIZMOBLOWUP_s *blowup;
+  nuvec_s scale;
+  numtx_s m;
+  numtx_s draw_m;
+  i32 tint = -1;
+  i32 available = AvailableToPlayer(0, 0, 8, -1, NULL, 0);
+  f32 maxdist2 = world->f525c * world->f525c;
+  blowup = world->gizmo_blowups;
+  SetLevelLights(world->rtl_set, 1.0f);
+  for (i32 i = 0; i < world->gizmo_blowup_count;) {
+    GIZMOBLOWUPTYPE_s *type = blowup->type;
+    UNK005EE1A0 *info = Unk005ee1a0(type->b106);
+    GIZMOBLOWUP_s *decal = blowup;
+    GIZMOBLOWUP_s *shadow = blowup;
+    GIZMOBLOWUP_s *burst = blowup;
+    for (i32 j = 0; j < type->count; j++, i++, blowup++) {
+      if (blowup->draw_flags & 0x800000) {
+        blowup->b15 = 1;
+        NuCameraTransformScreenClip(&blowup->screen_pos, &blowup->position, 1,
+                                    NULL);
+        continue;
+      }
+      scale.x = scale.y = scale.z = blowup->scale;
+      f32 dx = blowup->f58.x - CAM_F(0x11c);
+      f32 dz = blowup->f58.z - CAM_F(0x124);
+      if (dx * dx + dz * dz > maxdist2 || !blowup->visible || blowup->b29)
+        continue;
+      i32 prev = tint;
+      if (!blowup->activated) {
+        tint = -1;
+      } else if (blowup->b122_7) {
+        tint = 1;
+      } else {
+        if (blowup->b15 && g_unk00ac73a8 && (blowup->draw_flags & 0x41)) {
+          if (blowup->draw_flags & 0x40)
+            tint = available ? 2 : -1;
+          else
+            tint = (blowup->draw_flags >> 13) & 1;
+        } else if (blowup->sa8 != 0 && g_unk00ac73a4 &&
+                   (info == NULL || (info->flags & 0x800000000ULL))) {
+          tint = i & 3;
+          if (blowup->b15 && info != NULL && (info->flags & 0x1000000000ULL) &&
+              blowup->respawn_timer <= 1.0f && g_unk009631cc != -1 &&
+              ((BLOWUPICON *)world->p2b04)[g_unk009631cc].enabled) {
+            f32 sign = (i & 1) ? 1.0f : -1.0f;
+            NuMtxSetRotationZ(&m, (i32)((((i & 3) << 14) -
+                                         (u16)(NuFmod(g_unk00a96020, 15.0f) /
+                                               15.0f * 65536.0f)) *
+                                        sign));
+            NuMtxMulR(&m, &m, (numtx_s *)((u8 *)g_unk0095f624 + 0xb8));
+            NuMtxTranslate(&m, &blowup->f58);
+            NuSpecialDrawAt(
+                &((BLOWUPICON *)world->p2b04)[g_unk009631cc].special, &m);
+          }
+        } else {
+          tint = -1;
+        }
+      }
+      if (tint != prev || blowup->b122_7)
+        SetLevelLights(world->rtl_set, tint != -1 ? g_unk00966734[tint] : 1.0f);
+      if (blowup->draw_flags & 0x20000)
+        ResetShadowMapRendering();
+      else
+        EnableShadowMapRendering(0);
+      NUINSTANIM_UNK *anim = NuSpecialGetInstAnim(&type->animated_special);
+      if (anim != NULL) {
+        if (blowup->b19) {
+          f32 end_frame = NuAnimEndFrameOld(
+              (*(void ***)((u8 *)blowup->type->animated_special.scene +
+                           0x54))[anim->anim_ix]);
+          EvaluateBlowupAnimToMtx(blowup, type,
+                                  blowup->type->animation_base_frame, &m, anim,
+                                  end_frame);
+          if (NuSpecialDrawAt(&type->animated_special, &m))
+            blowup->b15 = 1;
+          else
+            blowup->b15 = 0;
+          draw_m = m;
+          if (blowup->b15)
+            NuCameraTransformScreenClip(&blowup->screen_pos, (nuvec_s *)&m.m30,
+                                        1, NULL);
+        } else {
+          m = *(numtx_s *)blowup;
+          if (type->animated_special.scene != things_scene) {
+            EvalAnim(&type->animated_special, 0.0f, &m, 0);
+            nuvec_s saved = blowup->position;
+            blowup->position = v000;
+            NuMtxMulVU0(&m, (numtx_s *)blowup, &m);
+            blowup->position = saved;
+            NuMtxTranslate(&m, &blowup->position);
+          }
+          if (NuSpecialDrawAt(&type->animated_special, &m))
+            blowup->b15 = 1;
+          else
+            blowup->b15 = 0;
+          draw_m = m;
+          if (blowup->b15)
+            NuCameraTransformScreenClip(&blowup->screen_pos, (nuvec_s *)&m.m30,
+                                        1, NULL);
+        }
+      } else {
+        m = *(numtx_s *)blowup;
+        NuMtxPreScale(&m, &scale);
+        if (NuSpecialDrawAt(&type->animated_special, &m))
+          blowup->b15 = 1;
+        else
+          blowup->b15 = 0;
+        draw_m = m;
+        if (blowup->b15)
+          NuCameraTransformScreenClip(&blowup->screen_pos, &blowup->position, 1,
+                                      NULL);
+      }
+      if (g_unk00ac9ffc != NULL && blowup->b15 && blowup->type->b106 != -1) {
+        UNK005EE1A0 *item = Unk005ee1a0(blowup->type->b106);
+        if (item != NULL)
+          g_unk00ac9ffc(0, &m, item, 1000000000.0f);
+      }
+      ResetShadowMapRendering();
+      if (blowup->activated && blowup->b15 && (blowup->draw_flags & 0x10) &&
+          g_unk00ac73ac != NULL)
+        g_unk00ac73ac(blowup);
+      if (blowup->draw_flags & 0x40000000) {
+        f32 y = draw_m.m31 + blowup->reflect_y;
+        if (MatrixReflection(&draw_m, 2, y, blowup->reflect_y, &draw_m)) {
+          NuRndrStartReflectionRender(0);
+          NuSpecialDrawAt(&type->animated_special, &draw_m);
+          NuRndrEndReflectionRender();
+        }
+      }
+    }
+    if (NuSpecialExistsFn(&type->decal_special)) {
+      for (i32 j = 0; j < type->count; j++, decal++) {
+        if (!(decal->draw_flags & 0x400) && decal->blown_up) {
+          GizmoBlowupGenDecalMatrix(decal, &m, 0);
+          NuSpecialDrawAt(&type->decal_special, &m);
+        }
+      }
+    }
+    if (NuSpecialExistsFn(&type->shadow_special)) {
+      for (i32 j = 0; j < type->count; j++, shadow++) {
+        if (shadow->activated && !(shadow->draw_flags & 0x20000)) {
+          GizmoBlowupGenShadowMatrix(shadow, &m);
+          NuSpecialDrawAt(&type->decal_special, &m);
+        }
+      }
+    }
+    if (NuSpecialExistsFn(&type->burst_special)) {
+      for (i32 j = 0; j < type->count; j++, burst++) {
+        if (burst->blown_up)
+          NuSpecialDrawAt(&type->burst_special, (numtx_s *)burst);
+      }
+    }
+  }
+  if (tint != -1)
+    SetLevelLights(world->rtl_set, 1.0f);
+  ResetShadowMapRendering();
+}
 
 // FUNCTION: LEGOBATMAN 0x005df900
 ADDGIZMOTYPE *NewBlowup_RegisterGizmo(i32 type_id) {

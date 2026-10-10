@@ -232,3 +232,4 @@
 005d93c0 GizmoBlowupTypeRemove: moved/last register vs spill choice swapped (4 forms)
 005d9210 GizmoBlowupTypeAdd: register allocation (special reload, -1 in ebx) and shared return tail
 006210f0 CC_ParseLayers: dispatcher every CC_layers_* inlines; its own ecx/eax convention matches, blocked by the helpers' parser-in-ebx
+005df0d0 GizmoBlowupBurstDraw: x87 commutative operand order in the MatrixReflection height sum (2 instructions); rest matches

@@ -3229,3 +3229,15 @@
 005d4770 Hint_FindHint Mac GizmoBlowupLateUpdate calls Hint_FindHint(int) at the same point (global hint id, result cached, byte +0x16 tested)
 005004f0 Transform_TargettedByObj Mac GizmoBlowupLateUpdate calls it (via thunk 0x401a23 on PC) in the draw_flags & 0x10 branch before SeekLinearF
 00572050 NewShadowOnPlatform Mac GizmoBlowupLateUpdate calls it right after GameShadow, result compared with the blowup's platform id
+005da760 EvaluateBlowupAnimToMtx Mac GizmoBlowupBurstDraw/EarlyUpdate call it with the same 6 args (blowup, type, base frame, mtx, anim, end frame); Mac neighbour order after GizmoBlowup_SetAutoSetReflectY
+005da440 UpdateMidPos Mac order puts UpdateMidPos right after GizmoBlowupBlowup (0x5d9e20); EarlyUpdate calls it where saga calls UpdateMidPos
+005ee1a0 PlayerItemType_FindFromIx Mac GizmoBlowupBurstDraw calls PlayerItemType_FindFromIx(int) with type->b106 at the same two points
+0063e030 SetLevelLights Mac GizmoBlowupBurstDraw calls SetLevelLights(void*, float) with world+0x2af4 and 1.0f / tint table value
+0063fb70 ResetShadowMapRendering Mac GizmoBlowupBurstDraw: no-arg call at the same three points
+0063fb40 EnableShadowMapRendering Mac GizmoBlowupBurstDraw: else arm of the draw_flags & 0x20000 test, argument 0
+005c2ed0 AvailableToPlayer Mac GizmoBlowupBurstDraw first call, same six arguments (0,0,8,-1,0,0)
+00716660 NuCameraTransformScreenClip Mac GizmoBlowupBurstDraw: (screen pos 0x4c, position, 1, NULL) at the same points
+005b0f90 EvalAnim Mac GizmoBlowupBurstDraw calls EvalAnim(nuhspecial_s*, float, numtx_s*, int) with (special, 0.0f, mtx, 0)
+00691ed0 NuMtxMulVU0 Mac GizmoBlowupBurstDraw calls _NuMtxMulVU0 between EvalAnim and NuMtxTranslate
+005aed70 MatrixReflection Mac GizmoBlowupBurstDraw calls MatrixReflection(numtx_s*, int, float, float, numtx_s*) with (mtx, 2, ...)
+00713e40 NuRndrStartReflectionRender Mac GizmoBlowupBurstDraw: argument 0, paired with NuRndrEndReflectionRender
