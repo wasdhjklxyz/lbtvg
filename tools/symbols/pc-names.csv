@@ -1901,7 +1901,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00678ef0,0034fab6,__ZN12WorldMapBase15InitializeLevelEP11WORLDINFO_s,WorldMapBase::InitializeLevel(WORLDINFO_s*),strings,0
 00679ca0,0034f0e4,__ZN12WorldMapBase14InitializePermEPcP9variptr_uS2_,"WorldMapBase::InitializePerm(char*, variptr_u*, variptr_u*)",gapfill,1
 0067a590,0035009c,__ZN12WorldMapBase14parse_locationEP8nufpar_s,WorldMapBase::parse_location(nufpar_s*),strings,0
+0067a810,002a29e6,__ZN22DynamicMaterialManager12StringToHashEPKc,DynamicMaterialManager::StringToHash(char const*),confirmed,0
+0067a840,002a2a0a,__ZN22DynamicMaterialManager17IsDynamicMaterialEP7numtl_s,DynamicMaterialManager::IsDynamicMaterial(numtl_s*),confirmed,0
 0067a870,000fc1da,__ZN22DynamicMaterialManager11GetMaterialEPKcS1_i,"DynamicMaterialManager::GetMaterial(char const*, char const*, int)",calls,1
+0067aa40,002ebf70,__ZN19HiresTextureManager8IsLoadedEPcP11WORLDINFO_s,"HiresTextureManager::IsLoaded(char*, WORLDINFO_s*)",confirmed,0
+0067aaa0,002ec0e2,__ZN19HiresTextureManager9DumpLevelEP11WORLDINFO_s,HiresTextureManager::DumpLevel(WORLDINFO_s*),confirmed,0
+0067aae0,002ebfc2,__ZN19HiresTextureManager19GetTexture_InternalEPcP11WORLDINFO_s,"HiresTextureManager::GetTexture_Internal(char*, WORLDINFO_s*)",confirmed,0
 0067b270,0012308a,__Z10PCSaveSlotiPvij,"PCSaveSlot(int, void*, int, unsigned int)",strings,0
 0067d3c0,00121250,_NuRainProcess,_NuRainProcess,strings,0
 0067dd00,00120208,_NuLstCreate,_NuLstCreate,strings,0

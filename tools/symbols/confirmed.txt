@@ -1864,3 +1864,8 @@
 006006d0 DynamicMaterialManager::InitializePerm Mac body (memsets 0x80/0x100/0x100 of m_oSingleton at 0xad2af8); matched
 00600710 HiresTextureManager::InitializePerm Mac body (zeroes 0x40 bytes of m_oSingleton at 0xad2d78); matched
 00600730 InteractiveDisplayManager::InitializePerm Mac body (inlined Hires/DynamicMaterialManager::InitializePerm); matched
+0067a810 DynamicMaterialManager::StringToHash Mac body (FNV-style 0x811c9dc5 / 0x199933); matched
+0067a840 DynamicMaterialManager::IsDynamicMaterial Mac body (scan of the 32 materials in m_oSingleton); matched
+0067aa40 HiresTextureManager::IsLoaded Mac body (world, tid > 0, name), thiscall; matched
+0067aaa0 HiresTextureManager::DumpLevel Mac body, called first from InteractiveDisplayManager::DumpLevel; matched
+0067aae0 HiresTextureManager::GetTexture_Internal Mac body (IsLoaded, aligned placement entry, NuTexRead); stub
