@@ -1482,6 +1482,16 @@ char *NuStrIStr(char *str, const char *sub) {
   return 0;
 }
 
+// GLOBAL: LEGOBATMAN 0x00b038fc
+int g_nuStrUnk0b038fc;
+
+// Debug counter of exact string matches (name unknown, no callers).
+// FUNCTION: LEGOBATMAN 0x006dc380
+void NuStrUnk006dc380(const char *a, const char *b) {
+  if (NuStrCmp(a, b) == 0)
+    g_nuStrUnk0b038fc++;
+}
+
 // FUNCTION: LEGOBATMAN 0x006dc3a0
 int NuStrICmp(const char *a, const char *b) {
   if (!a)
