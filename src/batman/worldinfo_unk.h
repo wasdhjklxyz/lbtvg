@@ -121,7 +121,10 @@ struct WORLDINFO_s {
   i32 gizmo_blowup_count; // 0x5228
   u8 pad10[0x5230 - 0x522c];
   GIZMOBLOWUP_s *gizmo_blowups; // 0x5230
-  u8 pad5234[0x5288 - 0x5234];
+  u8 pad5234[0x526c - 0x5234];
+  struct GIZTIMER_s *giz_timers; // 0x526c
+  i32 giz_timer_count;           // 0x5270
+  u8 pad5274[0x5288 - 0x5274];
   struct GIZBOMBGENSYS_s *giz_bombgen_sys; // 0x5288
 };
 

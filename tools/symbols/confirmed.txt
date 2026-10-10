@@ -2659,3 +2659,15 @@
 00485d90 GizBombGen_FindByName Mac order between ClearProgress and StoreProgress, saga body
 00485df0 GizBombGens_StoreProgress store_progress slot of the "BombGenerator" ADDGIZMOTYPE
 00485e90 GizBombGen_RegisterGizmo copies Default_ADDGIZMOTYPE, name "BombGenerator"
+0066fe50 GizTimer_GetMaxGizmos get_max_gizmos slot of the "GizTimer" ADDGIZMOTYPE
+0066fe70 GizTimer_AddGizmos add_gizmos slot of the "GizTimer" ADDGIZMOTYPE
+0066fee0 GizTimer_Update early_update slot of the "GizTimer" ADDGIZMOTYPE
+0066ff30 GizTimer_GetGizmoName get_gizmo_name slot of the "GizTimer" ADDGIZMOTYPE
+0066ff50 GizTimer_GetOutput get_output slot of the "GizTimer" ADDGIZMOTYPE
+0066ff70 GizTimer_GetOutputName get_output_name slot of the "GizTimer" ADDGIZMOTYPE
+0066ff80 GizTimer_GetNumOutputs get_num_outputs slot of the "GizTimer" ADDGIZMOTYPE
+0066ff90 GizTimer_Activate activate slot of the "GizTimer" ADDGIZMOTYPE
+0066ffd0 GizTimer_ReserveBufferSpace reserve_buffer_space slot of the "GizTimer" ADDGIZMOTYPE
+006700c0 GizTimer_Load load slot of the "GizTimer" ADDGIZMOTYPE
+00670030 createGizTimer saga body (WorldInfo_CurrentlyLoading, NuStrNCpy 0x10, AddGizmo with giztimer_gizmotype_id), Mac order before GizTimer_Load
+00670150 GizTimer_RegisterGizmo copies Default_ADDGIZMOTYPE, name "GizTimer"

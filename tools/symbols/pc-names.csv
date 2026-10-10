@@ -2500,6 +2500,18 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00665f60,002b9214,__Z26GizFlock_Config_anim_speedP8nufpar_s,GizFlock_Config_anim_speed(nufpar_s*),confirmed,0
 00665f80,002b9242,__Z24GizFlock_ConfigureExtrasP11WORLDINFO_sPKcj,"GizFlock_ConfigureExtras(WORLDINFO_s*, char const*, unsigned int)",strings,0
 0066b400,002bc674,__Z20GizFlock_UpdateBoidsP12sGizFlockSysP9sGizFlock,"GizFlock_UpdateBoids(sGizFlockSys*, sGizFlock*)",strings,0
+0066fe50,002da0d4,__Z21GizTimer_GetMaxGizmosPv,GizTimer_GetMaxGizmos(void*),confirmed,0
+0066fe70,002da0f6,__Z18GizTimer_AddGizmosP10GIZMOSYS_siPvS1_,"GizTimer_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+0066fee0,002da15e,__Z15GizTimer_UpdatePvS_f,"GizTimer_Update(void*, void*, float)",confirmed,0
+0066ff30,002da19e,__Z21GizTimer_GetGizmoNameP7GIZMO_s,GizTimer_GetGizmoName(GIZMO_s*),confirmed,0
+0066ff50,002da1b2,__Z18GizTimer_GetOutputP7GIZMO_sii,"GizTimer_GetOutput(GIZMO_s*, int, int)",confirmed,0
+0066ff70,002da1d4,__Z22GizTimer_GetOutputNameP7GIZMO_si,"GizTimer_GetOutputName(GIZMO_s*, int)",confirmed,0
+0066ff80,002da1e6,__Z22GizTimer_GetNumOutputsP7GIZMO_s,GizTimer_GetNumOutputs(GIZMO_s*),confirmed,0
+0066ff90,002da1f0,__Z17GizTimer_ActivateP7GIZMO_si,"GizTimer_Activate(GIZMO_s*, int)",confirmed,0
+0066ffd0,002da258,__Z27GizTimer_ReserveBufferSpacePv,GizTimer_ReserveBufferSpace(void*),confirmed,0
+00670030,002da2b4,__Z14createGizTimerPvfiPc,"createGizTimer(void*, float, int, char*)",confirmed,0
+006700c0,002da392,__Z13GizTimer_LoadPvS_,"GizTimer_Load(void*, void*)",confirmed,0
+00670150,002da404,__Z22GizTimer_RegisterGizmoi,GizTimer_RegisterGizmo(int),confirmed,0
 00670d20,002a6904,__Z15SetFramesToWaitj,SetFramesToWait(unsigned int),confirmed,0
 00670d30,002a6918,__Z22FadeSystem_PlayWipeSfxv,FadeSystem_PlayWipeSfx(),confirmed,0
 00670d80,002a6996,__Z24DrawStillScreenWithAlphaif,"DrawStillScreenWithAlpha(int, float)",confirmed,0
