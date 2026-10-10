@@ -22,6 +22,7 @@ void Unk_InlineUser_0040a860(f32 *v, f32 a, i32 i) {
   NuVec4Set(v, a, a, a, a);
 }
 
+#include "../nu2api/numath/numtx.h"
 #include "../nu2api/numath/nuvec.h"
 #include "leveldata_unk.h"
 #include "worldinfo_unk.h"
@@ -33,16 +34,22 @@ void Unk_InlineUser_0040a860(f32 *v, f32 a, i32 i) {
 // 0x40bf60); callbacks named by their RegisterGizmo slot.
 
 typedef struct ATTRACTO_s {
-  u8 pad0[0x40];
-  char name[0x10]; // 0x40
-  nuvec_s pos;     // 0x50
-  u8 pad5c[0x5f - 0x5c];
-  u8 collected_count; // 0x5f
-  u8 pad60[0x63 - 0x60];
-  u8 active : 1;  // 0x63
-  u8 visible : 1; // 0x63 bit 1
-  u8 filled : 1;  // 0x63 bit 2
-  u8 pad64[0x7c - 0x64];
+  numtx_s transform;       // 0x00
+  char name[0x10];         // 0x40
+  nuvec_s pos;             // 0x50
+  u16 angle;               // 0x5c
+  u8 capacity;             // 0x5e
+  u8 collected_count;      // 0x5f
+  i16 platform_id;         // 0x60
+  u8 f62;                  // 0x62
+  u8 active : 1;           // 0x63
+  u8 visible : 1;          // 0x63 bit 1
+  u8 filled : 1;           // 0x63 bit 2
+  u8 drawn : 1;            // 0x63 bit 3
+  nuvec_s active_position; // 0x64
+  u8 pad70[0x78 - 0x70];
+  u16 ground_angle_z; // 0x78
+  u16 ground_angle_x; // 0x7a
 } ATTRACTO;
 
 typedef struct ATTRACTOPROGRESS_s {
@@ -76,6 +83,49 @@ extern ADDGIZMOTYPE Default_ADDGIZMOTYPE;
 // GLOBAL: LEGOBATMAN 0x0093578c
 static char *Attracto_OutputName = "Filled";
 
+i32 EdFileReadInt();
+i16 EdFileReadShort();
+u8 EdFileReadUnsignedChar();
+char EdFileReadChar();
+void EdFileRead(void *buf, i32 len);
+void EdFileReadNuVec(nuvec_s *v);
+
+// FUNCTION: LEGOBATMAN 0x0040a9a0
+i32 Attractos_Load(void *context, void *unused) {
+  WORLDINFO_s *world = (WORLDINFO_s *)context;
+  if (world->attracto_count == 0) {
+    i32 version = EdFileReadInt();
+    world->attracto_count = EdFileReadInt();
+    ATTRACTO *attracto = world->attractos;
+    for (i32 i = 0; i < world->attracto_count; i++, attracto++) {
+      EdFileRead(attracto->name, 0x10);
+      EdFileReadNuVec(&attracto->pos);
+      attracto->angle = EdFileReadShort();
+      attracto->capacity = EdFileReadUnsignedChar();
+      if (attracto->capacity < 1)
+        attracto->capacity = 1;
+      else if (attracto->capacity >= 255)
+        attracto->capacity = 255;
+      if (version == 2) {
+        char legacy_name[0x10];
+        i32 length = (i8)EdFileReadChar();
+        EdFileRead(legacy_name, length);
+      }
+    }
+    return 1;
+  }
+  return 0;
+}
+
+i16 NewPlatPickupInst(numtx_s *m, i32 type);
+
+// FUNCTION: LEGOBATMAN 0x0040aab0
+void Attractos_InitTerrain(WORLDINFO_s *world) {
+  for (i32 i = 0; i < world->attracto_count; i++)
+    world->attractos[i].platform_id =
+        NewPlatPickupInst(&world->attractos[i].transform, 4);
+}
+
 // FUNCTION: LEGOBATMAN 0x0040ab10
 void *Attractos_ReserveBufferSpace(void *context) {
   WORLDINFO_s *world = (WORLDINFO_s *)context;
@@ -95,6 +145,108 @@ void Attracto_Activate(GIZMO *gizmo, i32 active) {
   if (gizmo != NULL) {
     ATTRACTO *attracto = (ATTRACTO *)gizmo->object;
     attracto->active = active != 0;
+  }
+}
+
+struct nuhspecial_s;
+i32 NuSpecialGetInstanceix(nuhspecial_s *special);
+i32 FindPlatInst(i32 instance);
+void DeletePlatinst(i32 id);
+void NuMtxSetIdentity(numtx_s *m);
+void NuMtxSetRotationY(numtx_s *m, i32 a);
+void NuMtxRotateY(numtx_s *m, i32 a);
+void NuMtxTranslate(numtx_s *m, nuvec_s *v);
+
+// FUNCTION: LEGOBATMAN 0x0040aba0
+void Attracto_SetVisibility(GIZMO *gizmo, i32 visible) {
+  if (gizmo == NULL || gizmo->object == NULL)
+    return;
+  ATTRACTO *attracto = (ATTRACTO *)gizmo->object;
+  attracto->visible = visible != 0;
+  if (attracto->visible && attracto->platform_id == -1) {
+    FindPlatInst(NuSpecialGetInstanceix(
+        (nuhspecial_s *)((u8 *)g_unk00960894->p2b04 + 0x370)));
+    numtx_s matrix;
+    NuMtxSetIdentity(&matrix);
+    NuMtxSetRotationY(&matrix, 0);
+    NuMtxRotateY(&matrix, attracto->angle);
+    NuMtxTranslate(&matrix, &attracto->pos);
+    attracto->transform = matrix;
+    attracto->platform_id = NewPlatPickupInst(&attracto->transform, 4);
+  } else if (!attracto->visible && attracto->platform_id != -1) {
+    DeletePlatinst(attracto->platform_id);
+    attracto->platform_id = -1;
+  }
+}
+
+void NuVecRotateY(nuvec_s *v, nuvec_s *v0, i32 a);
+void NuVecAdd(nuvec_s *out, nuvec_s *a, nuvec_s *b);
+extern "C" void NewTerrPlatformsOff(void);
+struct GameObject_s;
+f32 GameShadow(GameObject_s *object, nuvec_s *position, f32 probe_height,
+               i32 flags);
+void FindAnglesZX(nuvec_s *normal, u16 *x_rotation, u16 *z_rotation);
+i32 qrand(void);
+
+// GLOBAL: LEGOBATMAN 0x009ca98c
+extern f32 g_unk009ca98c;
+// GLOBAL: LEGOBATMAN 0x009f7a44
+extern nuvec_s ShadNorm;
+
+typedef struct SHARDSYS_s {
+  i16 *list; // 0x00
+  u8 pad4[4];
+  i32 count; // 0x08
+} SHARDSYS;
+
+// GLOBAL: LEGOBATMAN 0x00960964
+extern SHARDSYS *ShardSys;
+
+// FUNCTION: LEGOBATMAN 0x0040acb0
+static void ResetAttractoUnk0040acb0(ATTRACTO *attracto) {
+  attracto->active_position.y = 0.0f;
+  attracto->active_position.x = 0.0f;
+  attracto->active_position.z = 0.5549f;
+  NuVecRotateY(&attracto->active_position, &attracto->active_position,
+               attracto->angle);
+  NuVecAdd(&attracto->active_position, &attracto->active_position,
+           &attracto->pos);
+  NewTerrPlatformsOff();
+  f32 ground = GameShadow(NULL, &attracto->active_position, g_unk009ca98c, -1);
+  attracto->active_position.y = ground;
+  if (ground != 2000000.0) {
+    attracto->active_position.y = ground + 0.005f;
+    FindAnglesZX(&ShadNorm, &attracto->ground_angle_z,
+                 &attracto->ground_angle_x);
+  }
+  attracto->active = 1;
+  attracto->visible = 1;
+  attracto->filled = 0;
+  attracto->drawn = 0;
+  attracto->f62 = qrand() / (0xffff / ShardSys->count + 1);
+  NuMtxSetRotationY(&attracto->transform, attracto->angle);
+  NuMtxTranslate(&attracto->transform, &attracto->pos);
+}
+
+// FUNCTION: LEGOBATMAN 0x0040adb0
+void Attractos_Reset(void *context, void *unused, void *data) {
+  WORLDINFO_s *world = (WORLDINFO_s *)context;
+  ATTRACTOPROGRESS *progress = (ATTRACTOPROGRESS *)data;
+  if (world == NULL)
+    return;
+  ATTRACTO *attracto = world->attractos;
+  if (attracto == NULL)
+    return;
+  for (i32 i = 0; i < world->attracto_count; i++, attracto++) {
+    ResetAttractoUnk0040acb0(attracto);
+    if (progress != NULL && i < 32) {
+      attracto->collected_count = progress->counts[i];
+      i32 word = i / 32;
+      u32 mask = 1 << (i & 31);
+      attracto->visible = (progress->visible[word] & mask) != 0;
+      attracto->active = (progress->active[word] & mask) != 0;
+      attracto->filled = (progress->filled[word] & mask) != 0;
+    }
   }
 }
 
@@ -183,9 +335,6 @@ nuvec_s *Attracto_GetPos(GIZMO *gizmo) {
   return &((ATTRACTO *)gizmo->object)->pos;
 }
 
-void Attracto_SetVisibility(GIZMO *gizmo, i32 visible);
-void Attractos_Reset(void *context, void *a, void *b);
-i32 Attractos_Load(void *context, void *unused);
 void Attractos_Update(void *context, void *unused, f32 dt);
 void Attractos_Draw(void *context, void *unused, f32 dt);
 
