@@ -1493,6 +1493,97 @@ void FastWeaponOut(GameObject_s *obj, i32 force_sound);
 extern "C" f32 AnimDuration(i32 character_id, i32 animation, f32 start_frame,
                             f32 end_frame, i32 subtract_frame_time);
 
+GameObject_s *AddDynamicCreature(i32 type, nuvec_s *pos, i32 angle,
+                                 char *script, AIPATHINFO *path_info,
+                                 void *group, i32 set_on_surface, void *spline,
+                                 nuvec_s *spline_offset, i32 spline_mode,
+                                 i32 creature_set, void *item);
+void TakeOverGameObject(GameObject_s *rider, GameObject_s *vehicle,
+                        i32 blend_camera, i32 immediate);
+
+// FUNCTION: LEGOBATMAN 0x0046dac0
+i32 Action_CreateRider(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                       AIPACKET_s *packet, char **params, i32 param_count,
+                       i32 first_time, f32 dt) {
+  nuvec_s pos;
+  i32 type = -1;
+  i32 takeover_type = -1;
+  GameObject_s *obj = NULL;
+  char *script = "default";
+  char *takeover_script = "default";
+  i32 set = 0;
+  i32 keep = 0;
+  AILOCATOR_s *locator = NULL;
+  AILOCATOR_s *locator_after = NULL;
+  u16 angle = 0;
+  pos.x = 0.0f;
+  pos.y = 0.0f;
+  pos.z = 0.0f;
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL)
+    obj = packet->pd0->obj;
+  if (first_time) {
+    for (i32 i = 0; i < param_count; i++) {
+      char *value;
+      if ((value = NuStrIStr(params[i], "setlocator_afterspawn")) != NULL) {
+        locator_after = AIPathFindLocator(sys, value + 22);
+      } else if ((value = NuStrIStr(params[i], "locator")) != NULL) {
+        locator = AIPathFindLocator(sys, value + 8);
+      } else if (NuStrIStr(params[i], "keepLastTakeOver") != NULL) {
+        keep = 1;
+      } else if ((value = NuStrIStr(params[i], "TakeOverType")) != NULL) {
+        if (g_unk00ad68ec != NULL && g_unk00ad68fc != NULL) {
+          takeover_type = g_unk00ad68ec(value + 13);
+          if (takeover_type != 0xff)
+            takeover_type = g_unk00ad68fc(takeover_type);
+        }
+      } else if ((value = NuStrIStr(params[i], "TakeOverScript")) != NULL) {
+        takeover_script = value + 15;
+      } else if ((value = NuStrIStr(params[i], "type")) != NULL) {
+        if (g_unk00ad68ec != NULL && g_unk00ad68fc != NULL) {
+          type = g_unk00ad68ec(value + 5);
+          if (type != 0xff)
+            type = g_unk00ad68fc(type);
+        }
+      } else if ((value = NuStrIStr(params[i], "script")) != NULL) {
+        script = value + 7;
+      } else if ((value = NuStrIStr(params[i], "addtoset")) != NULL) {
+        set = (i32)AIParamToFloat(process, value + 9);
+      }
+    }
+  }
+  if (locator != NULL) {
+    pos = *(nuvec_s *)((u8 *)locator + 0x10);
+    angle = *(u16 *)((u8 *)locator + 0x1c);
+  } else {
+    if (packet != NULL && packet->pd0 != NULL)
+      pos = packet->pd0->pos5c;
+  }
+  if (takeover_type != -1) {
+    obj = AddDynamicCreature(takeover_type, &pos, angle, takeover_script, NULL,
+                             NULL, 0, NULL, NULL, 0, 0, NULL);
+    if (obj != NULL) {
+      if (locator_after != NULL)
+        ((AIPACKET_s *)obj->process290)->locator = locator_after;
+      else if (locator != NULL)
+        ((AIPACKET_s *)obj->process290)->locator = locator;
+    }
+  }
+  if (type != 0xff && obj != NULL && obj->p1158 == NULL) {
+    GameObject_s *rider = AddDynamicCreature(type, &obj->v80, 0, script, NULL,
+                                             NULL, 0, NULL, NULL, 0, set, NULL);
+    if (rider != NULL) {
+      if (locator_after != NULL)
+        ((AIPACKET_s *)rider->process290)->locator = locator_after;
+      else if (locator != NULL)
+        ((AIPACKET_s *)rider->process290)->locator = locator;
+      if (keep == 1)
+        rider->flags1580 |= 8;
+      TakeOverGameObject(rider, obj, 0, 1);
+    }
+  }
+  return 1;
+}
+
 // STUB: LEGOBATMAN 0x0046e4e0
 // Only diff: explode/targettable land in swapped stack slots (any
 // declaration order).
