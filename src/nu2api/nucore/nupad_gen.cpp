@@ -1195,6 +1195,56 @@ void NuPadWideToUtf8(unsigned char *dst, const unsigned short *src) {
   *dst = 0;
 }
 
+// FUNCTION: LEGOBATMAN 0x006d85a0
+void NuUTF8ToUnicode(unsigned short *dst, unsigned char *src) {
+  if (src == NULL)
+    return;
+  if (dst == NULL)
+    return;
+  *dst = 0;
+  while (*src != 0) {
+    if (*src < 0x80) {
+      *dst = *src;
+      ++src;
+    } else if (*src < 0xe0) {
+      *dst = (*src & 0x1f) << 6;
+      ++src;
+      *dst |= *src & 0x3f;
+      ++src;
+    } else if (*src < 0xf0) {
+      *dst = (*src & 0x0f) << 12;
+      ++src;
+      *dst |= (*src & 0x3f) << 6;
+      ++src;
+      *dst |= *src & 0x3f;
+      ++src;
+    } else {
+      *dst = '?';
+      ++src;
+    }
+    ++dst;
+  }
+  *dst = 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d8650
+unsigned char *NuUnicodeCharFromUTF8(unsigned short *dst, unsigned char *src) {
+  unsigned short c[3];
+
+  c[0] = *src++;
+  if (c[0] < 0x80) {
+    *dst = c[0];
+  } else if ((c[0] & 0xe0) == 0xc0) {
+    c[1] = *src++;
+    *dst = ((c[0] & 0x1f) << 6) | (c[1] & 0x3f);
+  } else if ((c[0] & 0xf0) == 0xe0) {
+    c[1] = *src++;
+    c[2] = *src++;
+    *dst = (c[0] << 12) | ((c[1] & 0x3f) << 6) | (c[2] & 0x3f);
+  }
+  return src;
+}
+
 // STUB: LEGOBATMAN 0x006d8440
 int NuPadWideToAnsi(char *dst, const unsigned short *src) {
   int n = 0;
@@ -3615,6 +3665,68 @@ int NuStrCmpW(const NUWCHAR *a, const NUWCHAR *b) {
   return 0;
 }
 
+// FUNCTION: LEGOBATMAN 0x006d7e70
+int NuIsAl(char c) {
+  switch (c) {
+  case 'A':
+  case 'B':
+  case 'C':
+  case 'D':
+  case 'E':
+  case 'F':
+  case 'G':
+  case 'H':
+  case 'I':
+  case 'J':
+  case 'K':
+  case 'L':
+  case 'M':
+  case 'N':
+  case 'O':
+  case 'P':
+  case 'Q':
+  case 'R':
+  case 'S':
+  case 'T':
+  case 'U':
+  case 'V':
+  case 'W':
+  case 'X':
+  case 'Y':
+  case 'Z':
+  case '_':
+  case 'a':
+  case 'b':
+  case 'c':
+  case 'd':
+  case 'e':
+  case 'f':
+  case 'g':
+  case 'h':
+  case 'i':
+  case 'j':
+  case 'k':
+  case 'l':
+  case 'm':
+  case 'n':
+  case 'o':
+  case 'p':
+  case 'q':
+  case 'r':
+  case 's':
+  case 't':
+  case 'u':
+  case 'v':
+  case 'w':
+  case 'x':
+  case 'y':
+  case 'z':
+    return 1;
+  default:
+    return 0;
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x006d7ee0
 char *NuIToA(i32 value, char *buffer, i32 radix) {
   char reversed[33];
@@ -3674,6 +3786,68 @@ i32 NuStrToL(char *str, char **end, i32 radix) {
   if (sign)
     return sign * value;
   return value;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d8130
+int NuIsAlW(NUWCHAR c) {
+  switch (c) {
+  case 'A':
+  case 'B':
+  case 'C':
+  case 'D':
+  case 'E':
+  case 'F':
+  case 'G':
+  case 'H':
+  case 'I':
+  case 'J':
+  case 'K':
+  case 'L':
+  case 'M':
+  case 'N':
+  case 'O':
+  case 'P':
+  case 'Q':
+  case 'R':
+  case 'S':
+  case 'T':
+  case 'U':
+  case 'V':
+  case 'W':
+  case 'X':
+  case 'Y':
+  case 'Z':
+  case '_':
+  case 'a':
+  case 'b':
+  case 'c':
+  case 'd':
+  case 'e':
+  case 'f':
+  case 'g':
+  case 'h':
+  case 'i':
+  case 'j':
+  case 'k':
+  case 'l':
+  case 'm':
+  case 'n':
+  case 'o':
+  case 'p':
+  case 'q':
+  case 'r':
+  case 's':
+  case 't':
+  case 'u':
+  case 'v':
+  case 'w':
+  case 'x':
+  case 'y':
+  case 'z':
+    return 1;
+  default:
+    return 0;
+  }
 }
 
 // FUNCTION: LEGOBATMAN 0x006d81a0
@@ -3900,6 +4074,129 @@ NUWCHAR *NuStringTableGetById(int id) {
     return 0;
   }
   return StringBank[bank].strings[id].str_utf16;
+}
+
+// --- bad word filter (saga nustring_c.cpp) ----------------------------------
+
+// GLOBAL: LEGOBATMAN 0x0099f310
+static unsigned short bad_equiv[][2] = {{'a', '@'}, {'a', '4'}, {'e', '3'},
+                                        {'i', '1'}, {'l', '1'}, {'o', '0'},
+                                        {'t', '7'}, {0, 0}};
+// GLOBAL: LEGOBATMAN 0x0099f330
+unsigned short *bad_fluff = (unsigned short *)L"!$%^&*()_+-={}[]@~#?<>,. ";
+// GLOBAL: LEGOBATMAN 0x00b03928
+static NUWCHAR **BadWords;
+
+// FUNCTION: LEGOBATMAN 0x006d8b10
+static int NuStringCharEquiv(unsigned short a, unsigned short b) {
+  int i = 0;
+  if (a == b) {
+    return 1;
+  } else {
+    while (bad_equiv[i][0] != 0) {
+      if (bad_equiv[i][1] == a && bad_equiv[i][0] == b)
+        return 1;
+      if (bad_equiv[i][1] == b && bad_equiv[i][0] == a)
+        return 1;
+      i++;
+    }
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d8b70
+static int NuStringIsFluff(unsigned short character) {
+  int i = 0;
+  while (bad_fluff[i] != 0) {
+    if (bad_fluff[i] == character)
+      return 1;
+    i++;
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d8ba0
+static unsigned short *NuStringBadSubString(const unsigned short *text,
+                                            const unsigned short *word,
+                                            int *length, int whole_word) {
+  const unsigned short *cursor;
+  const unsigned short *match;
+  int boundary = 1;
+  while (*text != 0) {
+    cursor = text;
+    match = word;
+    if (boundary || !whole_word) {
+      while (*match != 0) {
+        if (*cursor == 0)
+          break;
+        if (NuStringCharEquiv(*cursor, *match) == 0)
+          break;
+        cursor++;
+        while (*cursor != 0) {
+          if (!NuStringIsFluff(*cursor) && *cursor != *match)
+            break;
+          cursor++;
+        }
+        match++;
+      }
+      if (*match == 0) {
+        if (!whole_word || cursor[1] == 0 || NuStringIsFluff(cursor[1])) {
+          *length = cursor - text;
+          return (unsigned short *)text;
+        }
+      }
+    }
+    if (NuStringIsFluff(*text))
+      boundary = 1;
+    else
+      boundary = 0;
+    text++;
+  }
+  return NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d8d00
+int NuStringFilterBadWordsW(NUWCHAR *dest, NUWCHAR *source,
+                            NUWCHAR *replacement) {
+  int i = 0;
+  int changed = 0;
+  int whole_word;
+  NUWCHAR *word;
+  NUWCHAR *match;
+  int length;
+  NUWCHAR lower[256];
+  if (source != dest)
+    NuStrCpyW(dest, source);
+  NuPadWStrCpyLower(lower, dest);
+  while (BadWords[i] != NULL) {
+    if (BadWords[i][0] == '!') {
+      word = BadWords[i] + 1;
+      whole_word = 1;
+    } else {
+      word = BadWords[i];
+      whole_word = 0;
+    }
+    match = NuStringBadSubString(lower, word, &length, whole_word);
+    if (match != NULL) {
+      NuStrCpyW(dest, replacement);
+      changed = 1;
+    }
+    i++;
+  }
+  return changed;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d8de0
+int NuStringFilterBadWords(unsigned char *dest, unsigned char *source,
+                           unsigned char *replacement) {
+  int changed;
+  NUWCHAR text[128];
+  NUWCHAR substitute[128];
+  NuUTF8ToUnicode(text, source);
+  NuUTF8ToUnicode(substitute, replacement);
+  changed = NuStringFilterBadWordsW(text, text, substitute);
+  NuPadWideToUtf8(dest, text);
+  return changed;
 }
 
 // FUNCTION: LEGOBATMAN 0x006d7a70

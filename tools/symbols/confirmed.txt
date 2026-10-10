@@ -3572,3 +3572,12 @@
 006d2a60 NuHeapGetTotalFree saga nuheap.cpp body inside a critical section
 006e0a40 NuFileCopyEx Mac order after NuFileLoadBufferVP/NuFilePakLoad*, open src read + dst write, copy loop
 006e0b10 NuFileCopy Mac order, only caller-wrapper of NuFileCopyEx with 0x400 stack buffer
+006d7e70 NuIsAl saga nustring_c.cpp body (case table), Mac order before NuIToA
+006d8130 NuIsAlW saga nustring_c.cpp body, Mac order before NuIToAW
+006d85a0 NuUTF8ToUnicode saga nustring_c.cpp body, Mac order after NuUnicodeToUTF8
+006d8650 NuUnicodeCharFromUTF8 saga nustring_c.cpp body, Mac order
+006d8b10 NuStringCharEquiv saga static, bad_equiv table at 0x99f310
+006d8b70 NuStringIsFluff saga static, bad_fluff string pointer
+006d8ba0 NuStringBadSubString saga static, calls NuStringCharEquiv
+006d8d00 NuStringFilterBadWordsW saga body, BadWords loop
+006d8de0 NuStringFilterBadWords saga body, two NuUTF8ToUnicode + FilterBadWordsW
