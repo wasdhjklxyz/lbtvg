@@ -1869,3 +1869,10 @@
 0067aa40 HiresTextureManager::IsLoaded Mac body (world, tid > 0, name), thiscall; matched
 0067aaa0 HiresTextureManager::DumpLevel Mac body, called first from InteractiveDisplayManager::DumpLevel; matched
 0067aae0 HiresTextureManager::GetTexture_Internal Mac body (IsLoaded, aligned placement entry, NuTexRead); stub
+00516420 ShopComputer::parse_reversedirection Mac order of the parse_ callbacks (sets 0x230, Mac 0x220); matched
+00516440 ShopComputer::parse_levelpath Mac body (word < 0x40 into level name); matched
+005164a0 ShopComputer::parse_bgimagefilename Mac order (word into 0x23c); matched
+00516500 ShopComputer::parse_overlayimagefilename Mac order (word into 0x27c); matched
+00516560 ShopComputer::parse_specialobjectname Mac order (word into empty 0x50); matched
+005165c0 ShopComputer::parse_villainmode Mac order (sets 0x340 = villain mode, read by IsVillainMode); matched
+005165e0 ShopComputer::LoadSettings vtable 0x85d8f4 slot 18; Mac body (NuFParCreate, keyword table 0x945d00); matched

@@ -764,6 +764,13 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00513430,000fb63a,__ZN14SecurityCamera14InitializePermENS_18SecurityCameraTypeEP9variptr_uS2_,"SecurityCamera::InitializePerm(SecurityCamera::SecurityCameraType, variptr_u*, variptr_u*)",strings,0
 00514bd0,001066a8,__ZN12ShopComputer15InitializeLevelEP11WORLDINFO_s,ShopComputer::InitializeLevel(WORLDINFO_s*),strings,0
 00515150,001067fe,__ZN12ShopComputer17IsAnyMenuChangingEv,ShopComputer::IsAnyMenuChanging(),strings,0
+00516420,00106088,__ZN12ShopComputer22parse_reversedirectionEP8nufpar_s,ShopComputer::parse_reversedirection(nufpar_s*),confirmed,0
+00516440,0010609c,__ZN12ShopComputer15parse_levelpathEP8nufpar_s,ShopComputer::parse_levelpath(nufpar_s*),confirmed,0
+005164a0,001060e6,__ZN12ShopComputer21parse_bgimagefilenameEP8nufpar_s,ShopComputer::parse_bgimagefilename(nufpar_s*),confirmed,0
+00516500,00106132,__ZN12ShopComputer26parse_overlayimagefilenameEP8nufpar_s,ShopComputer::parse_overlayimagefilename(nufpar_s*),confirmed,0
+00516560,0010617e,__ZN12ShopComputer23parse_specialobjectnameEP8nufpar_s,ShopComputer::parse_specialobjectname(nufpar_s*),confirmed,0
+005165c0,001061ce,__ZN12ShopComputer17parse_villainmodeEP8nufpar_s,ShopComputer::parse_villainmode(nufpar_s*),confirmed,0
+005165e0,001061e2,__ZN12ShopComputer12LoadSettingsEPc,ShopComputer::LoadSettings(char*),confirmed,0
 005166a0,0010624c,__ZN12ShopComputer14InitializePermEPcP9variptr_uS2_,"ShopComputer::InitializePerm(char*, variptr_u*, variptr_u*)",strings,0
 00519370,00117740,__ZNK8WorldMap21GetPointerSpecialNameEP11WORLDINFO_si,"WorldMap::GetPointerSpecialName(WORLDINFO_s*, int) const",confirmed,0
 00519f60,0011785e,__ZN8WorldMap18RenderTrueHeroInfoERK5VuVeciif,"WorldMap::RenderTrueHeroInfo(VuVec const&, int, int, float)",order,1

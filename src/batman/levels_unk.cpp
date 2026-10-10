@@ -373,13 +373,29 @@ class ShopComputer : public InteractiveDisplay {
 public:
   static i32 IsAnyMenuChanging();
   void InitializeLevel(WORLDINFO_s *world);
+  static void parse_reversedirection(struct nufpar_s *fp);
+  static void parse_levelpath(struct nufpar_s *fp);
+  static void parse_bgimagefilename(struct nufpar_s *fp);
+  static void parse_overlayimagefilename(struct nufpar_s *fp);
+  static void parse_specialobjectname(struct nufpar_s *fp);
+  static void parse_villainmode(struct nufpar_s *fp);
+  void LoadSettings(char *name);
 
   void **vtable;
   u8 pad4[0x10 - 4];
-  char level_name[0x388 - 0x10]; // 0x010
-  nugscn_s *icons_scene;         // 0x388
-  SHOPMENU_s menu_data;          // 0x38c
-  SHOPMENU_s *menu;              // 0x4a4
+  char level_name[0x40];      // 0x010
+  char transition_name[0x40]; // 0x050
+  u8 pad090[0x230 - 0x90];
+  i32 reverse_direction; // 0x230
+  u8 pad234[0x23c - 0x234];
+  char bg_name[0x40];      // 0x23c
+  char overlay_name[0x40]; // 0x27c
+  u8 pad2bc[0x340 - 0x2bc];
+  i32 villain_mode; // 0x340
+  u8 pad344[0x388 - 0x344];
+  nugscn_s *icons_scene; // 0x388
+  SHOPMENU_s menu_data;  // 0x38c
+  SHOPMENU_s *menu;      // 0x4a4
   u8 pad4a8[0x4c8 - 0x4a8];
   i32 i4c8; // 0x4c8
   f32 f4cc; // 0x4cc
@@ -399,6 +415,76 @@ extern char *g_shopIconNames[];
 struct InteractiveDisplayStatics {
   static void *GetFirstSpecialMaterial(nugscn_s *scene, char *name);
 };
+
+typedef struct nufpar_s {
+  unsigned char pad0[0x910];
+  char *word_buf; // 0x910
+} NUFPAR;
+
+i32 NuFParGetWord(NUFPAR *parser);
+NUFPAR *NuFParCreate(char *filename);
+i32 NuFParPushCom(NUFPAR *parser, void *commands);
+i32 NuFParGetLine(NUFPAR *parser);
+i32 NuFParInterpretWord(NUFPAR *parser);
+void NuFParDestroy(NUFPAR *parser);
+void Unk00514330(char *name); // empty in the release build
+
+// GLOBAL: LEGOBATMAN 0x009cf618
+extern ShopComputer *g_unk009cf618; // the shop computer being parsed
+// GLOBAL: LEGOBATMAN 0x00945d00
+extern u8 g_unk00945d00[]; // ShopComputer keyword table
+
+// FUNCTION: LEGOBATMAN 0x00516420
+void ShopComputer::parse_reversedirection(NUFPAR *fp) {
+  g_unk009cf618->reverse_direction = 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00516440
+void ShopComputer::parse_levelpath(NUFPAR *fp) {
+  if (NuFParGetWord(fp) && NuStrLen(fp->word_buf) < 0x40)
+    NuStrCpy(g_unk009cf618->level_name, fp->word_buf);
+}
+
+// FUNCTION: LEGOBATMAN 0x005164a0
+void ShopComputer::parse_bgimagefilename(NUFPAR *fp) {
+  if (NuFParGetWord(fp) && NuStrLen(fp->word_buf) < 0x40)
+    NuStrCpy(g_unk009cf618->bg_name, fp->word_buf);
+}
+
+// FUNCTION: LEGOBATMAN 0x00516500
+void ShopComputer::parse_overlayimagefilename(NUFPAR *fp) {
+  if (NuFParGetWord(fp) && NuStrLen(fp->word_buf) < 0x40)
+    NuStrCpy(g_unk009cf618->overlay_name, fp->word_buf);
+}
+
+// FUNCTION: LEGOBATMAN 0x00516560
+void ShopComputer::parse_specialobjectname(NUFPAR *fp) {
+  if (NuFParGetWord(fp) && NuStrLen(fp->word_buf) < 0x40 &&
+      g_unk009cf618->transition_name[0] == 0)
+    NuStrCpy(g_unk009cf618->transition_name, fp->word_buf);
+}
+
+// FUNCTION: LEGOBATMAN 0x005165c0
+void ShopComputer::parse_villainmode(NUFPAR *fp) {
+  g_unk009cf618->villain_mode = 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x005165e0
+void ShopComputer::LoadSettings(char *name) {
+  NUFPAR *fp = NuFParCreate(name);
+  if (fp == NULL) {
+    Unk00514330(name);
+    return;
+  }
+  g_unk009cf618 = this;
+  NuFParPushCom(fp, g_unk00945d00);
+  while (NuFParGetLine(fp)) {
+    if (NuFParGetWord(fp))
+      NuFParInterpretWord(fp);
+  }
+  NuFParDestroy(fp);
+  g_unk009cf618 = NULL;
+}
 
 // STUB: LEGOBATMAN 0x00514bd0
 // close: only "pop ebp" is scheduled one store earlier than the orig (3
@@ -499,10 +585,6 @@ LEVELDATA *Level_FindByName(char *name, i32 *idx_out) {
   return 0;
 }
 
-typedef struct nufpar_s {
-  unsigned char pad0[0x910];
-  char *word_buf; // 0x910
-} NUFPAR;
 typedef struct nufpcomjmp_s {
   char *name;
   void (*fn)(NUFPAR *parser);
