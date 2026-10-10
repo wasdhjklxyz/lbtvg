@@ -3903,12 +3903,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006e1820,00195dc0,_NuStringTableLoad,_NuStringTableLoad,confirmed,0
 006e18a0,001950f0,_NuStringFilterLoad,_NuStringFilterLoad,confirmed,0
 006e1b40,,NuFileSmallFileManagerInit,NuFileSmallFileManagerInit,confirmed,0
+006e1b90,,NuMemDebugUnk006e1b90,NuMemDebugUnk006e1b90,confirmed,0
+006e1bb0,,NuMemDebugUnk006e1bb0,NuMemDebugUnk006e1bb0,confirmed,0
 006e1be0,001973d4,_NuMemSetHeap,_NuMemSetHeap,confirmed,0
 006e1bf0,001973ee,_NuMemSetDiscardable,_NuMemSetDiscardable,confirmed,0
 006e1c00,00197408,_NuMemFlushDiscardable,_NuMemFlushDiscardable,confirmed,0
 006e1c20,00197420,_NuMemSetExternal,_NuMemSetExternal,confirmed,0
 006e1d30,00197606,_NuMemFree,_NuMemFree,confirmed,0
-006e1d50,00197926,_NuMemAllocFn,_NuMemAllocFn,calls,1
+006e1d50,00197926,_NuMemAllocFn,_NuMemAllocFn,confirmed,0
 006e2090,00197564,_NuMemFreeFn,_NuMemFreeFn,calls,1
 006e2470,001978b2,_NuMemCpy,_NuMemCpy,gapfill,1
 006e24d0,001978f2,_numeminit,_numeminit,confirmed,0

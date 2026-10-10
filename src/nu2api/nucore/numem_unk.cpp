@@ -4,6 +4,15 @@
 #include "../numath/nuinline_unk.h"
 #include "common.h"
 
+// Empty debug hooks (allocation failure / bad size reports).
+// FUNCTION: LEGOBATMAN 0x006e1b90
+static void NuMemDebugUnk006e1b90(...) {}
+
+static void NuMemDebugUnk006e1ba0(...) {}
+
+// FUNCTION: LEGOBATMAN 0x006e1bb0
+static void NuMemDebugUnk006e1bb0(...) {}
+
 // Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
 // FUNCTION: LEGOBATMAN 0x006e1bc0
 static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
@@ -66,18 +75,122 @@ struct NUMEMEXTERNAL {
 };
 
 // GLOBAL: LEGOBATMAN 0x00b03960
-extern void *NuMem_Heap;
+void *NuMem_Heap;
 // GLOBAL: LEGOBATMAN 0x00b03954
-extern NUMEMDISCARDABLE *discardbuff;
+static NUMEMDISCARDABLE *discardbuff;
 // GLOBAL: LEGOBATMAN 0x00b03944
-extern NUMEMEXTERNAL memext;
+static NUMEMEXTERNAL memext;
 // GLOBAL: LEGOBATMAN 0x00b0395c
-extern NUMEMEXTERNAL *memexternal;
+static NUMEMEXTERNAL *memexternal;
 // GLOBAL: LEGOBATMAN 0x00b03968
-extern i32 g_nuMemUnk00b03968;
+static i32 g_nuMemUnk00b03968;
 
 void NuHeapFree(void *heap, void *ptr);
 extern "C" void free(void *ptr);
+
+// --- NuMemAllocFn (matohero numem.c shape plus LB debug hooks) --------------
+
+struct MEMBLK_HEAD {
+  MEMBLK_HEAD *succ; // 0x00
+  MEMBLK_HEAD *prev; // 0x04
+  i32 line;          // 0x08
+  i32 cnt;           // 0x0c
+  i32 size;          // 0x10
+  char mark[12];     // 0x14
+};
+
+struct MEMBLK_TAIL {
+  char mark[12];
+};
+
+// GLOBAL: LEGOBATMAN 0x0099f3e0
+static char blk_hdr[13] = "MEMBLKHEADER";
+// GLOBAL: LEGOBATMAN 0x0099f3f0
+static char blk_end[13] = "MEMBLKTAIL01";
+// GLOBAL: LEGOBATMAN 0x00b0394c
+static MEMBLK_HEAD *alloc_list;
+// GLOBAL: LEGOBATMAN 0x00b03950
+static i32 totalloc;
+// GLOBAL: LEGOBATMAN 0x00b03958
+static i32 alloccnt;
+// GLOBAL: LEGOBATMAN 0x00b03964
+i32 highallocaddr;
+
+extern "C" void *NuHeapAllocAligned(void *heap, u32 size, u32 alignment);
+extern "C" void *malloc(unsigned int size);
+extern "C" void *memset(void *dst, int c, unsigned int n);
+extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
+extern "C" unsigned int strlen(const char *s);
+extern "C" char *strcpy(char *dst, const char *src);
+
+// FUNCTION: LEGOBATMAN 0x006e1d50
+extern "C" void *NuMemAllocFn(int size, const char *file, int line) {
+  char *rv;
+  int endaddr;
+  void *ptr;
+  MEMBLK_TAIL *tail;
+
+  if (size <= 0)
+    NuMemDebugUnk006e1b90(size, file, line);
+
+  if (memexternal != 0) {
+    memexternal->cursor->addr = (memexternal->cursor->addr + 0xf) & ~0xf;
+    if (memexternal->end.addr - memexternal->cursor->addr >= (u32)size) {
+      ptr = memexternal->cursor->void_ptr;
+      memexternal->cursor->addr += size;
+      return ptr;
+    }
+    NuMemDebugUnk006e1b90(size, file, line);
+    return 0;
+  }
+
+  if (discardbuff != 0) {
+    size = (size + 0xf) & ~0xf;
+    if (size < discardbuff->remaining) {
+      ptr = discardbuff->cursor;
+      discardbuff->cursor += size;
+      discardbuff->remaining -= size;
+      return ptr;
+    }
+    return 0;
+  }
+
+  if (NuMem_Heap != 0) {
+    rv = (char *)NuHeapAllocAligned(NuMem_Heap, size + strlen(file) + 0x2d, 4);
+  } else {
+    rv = (char *)malloc(size + strlen(file) + 0x2d);
+    if (rv != 0)
+      memset(rv, 0, size + strlen(file) + 0x2d);
+  }
+
+  if (rv == 0) {
+    NuMemDebugUnk006e1bb0(size, file, line);
+    NuMemDebugUnk006e1b90(size, file, line);
+  } else {
+    memset(rv, 0, size + strlen(file) + 0x2d);
+    totalloc += size;
+    ((MEMBLK_HEAD *)rv)->size = size;
+    tail = (MEMBLK_TAIL *)(rv + sizeof(MEMBLK_HEAD) + size);
+    memcpy(((MEMBLK_HEAD *)rv)->mark, blk_hdr, 12);
+    memcpy(tail->mark, blk_end, 12);
+    strcpy((char *)(tail + 1), file);
+    ((MEMBLK_HEAD *)rv)->cnt = alloccnt++;
+    ((MEMBLK_HEAD *)rv)->line = line;
+    ((MEMBLK_HEAD *)rv)->succ = alloc_list;
+    if (alloc_list != 0)
+      alloc_list->prev = (MEMBLK_HEAD *)rv;
+    ((MEMBLK_HEAD *)rv)->prev = 0;
+    alloc_list = (MEMBLK_HEAD *)rv;
+    rv += sizeof(MEMBLK_HEAD);
+  }
+
+  endaddr = (int)rv + size;
+  if (endaddr > highallocaddr)
+    highallocaddr = endaddr;
+  if (endaddr > g_nuMemUnk00b03968)
+    g_nuMemUnk00b03968 = endaddr;
+  return rv;
+}
 
 // Batman's version returns the previous heap.
 // FUNCTION: LEGOBATMAN 0x006e1be0
@@ -131,7 +244,6 @@ void NuMemFree(void *ptr) {
 
 extern "C" void *NuMemAllocFn(int size, const char *file, int line);
 extern "C" void NuMemFreeFn(void *ptr, const char *file, int line);
-extern "C" void *memset(void *dst, int c, unsigned int n);
 
 // FUNCTION: LEGOBATMAN 0x006e24d0
 int numeminit(void) { return 0; }

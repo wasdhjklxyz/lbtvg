@@ -3629,3 +3629,6 @@
 006e0e90 NuStringTableLoadCSV saga nustring_c.cpp body (stub)
 006e18a0 NuStringFilterLoad saga nustring_c.cpp body (LB size check)
 006e1b40 NuFileSmallFileManagerInit Mac NuFileSmallFileManager::Init (load key pak, reset 256 slots); last function of the nucore TU
+006e1d50 NuMemAllocFn matohero numem.c body plus LB debug hooks
+006e1b90 NuMemDebugUnk006e1b90 empty static debug hook (bad size / external overflow)
+006e1bb0 NuMemDebugUnk006e1bb0 empty static debug hook (allocation failure)
