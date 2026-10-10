@@ -2075,3 +2075,9 @@
 007021c0 NuEdgeAAFilterGen::destroyTextureResources vtable 0x897d7c slot 4 (RTTI)
 006fe600 NuMainFilterGen::initTextureResources vtable 0x8982bc slot 3 (RTTI)
 006fe6f0 NuMainFilterGen::destroyTextureResources vtable 0x8982bc slot 4 (RTTI)
+005941c0 NuFmvStreamPCBink::Start vtable 0x86873c slot 3 (RTTI) + Mac order (Start, Stop, SetVolume, TrackExists); matched
+005941d0 NuFmvStreamPCBink::Stop vtable 0x86873c slot 4 (RTTI) + Mac order; matched
+005941e0 NuFmvStreamPCBink::SetVolume vtable 0x86873c slot 5 (RTTI) + Mac body (volume * 0.75 * 32768 per track); matched
+00594230 NuFmvStreamPCBink::TrackExists Mac order after SetVolume + body; matched
+00594270 NuFmvStreamPCBink::ReleaseTextures called (false) from Close as on the Mac
+00594690 NuFmvStreamPCBink::Close vtable 0x86873c slot 2 (RTTI) + Mac body; matched
