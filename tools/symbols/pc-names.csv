@@ -1100,7 +1100,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005c4080,002ecc00,__ZN18InteractiveDisplay23GetFirstSpecialMaterialEP8nugscn_sPc,"InteractiveDisplay::GetFirstSpecialMaterial(nugscn_s*, char*)",gapfill,1
 005c4c30,002f0934,__ZNK18InteractiveDisplay12RenderSquareERK5VuVecfRKjP7numtl_sf,"InteractiveDisplay::RenderSquare(VuVec const&, float, unsigned int const&, numtl_s*, float) const",confirmed,0
 005c64e0,002ecf4c,__ZNK18InteractiveDisplay9IsVisibleEv,InteractiveDisplay::IsVisible() const,confirmed,0
-005c71d0,002ed046,__ZN18InteractiveDisplay14InitializePermEPcP9variptr_uS2_,"InteractiveDisplay::InitializePerm(char*, variptr_u*, variptr_u*)",gapfill,1
+005c65f0,002ecd10,__ZN18InteractiveDisplay16UpdateWhiteNoiseEf,InteractiveDisplay::UpdateWhiteNoise(float),confirmed,0
+005c6de0,002ecd8a,__ZN18InteractiveDisplay21UpdateBackgroundAlphaEf,InteractiveDisplay::UpdateBackgroundAlpha(float),confirmed,0
+005c71d0,002ed046,__ZN18InteractiveDisplay14InitializePermEPcP9variptr_uS2_,"InteractiveDisplay::InitializePerm(char*, variptr_u*, variptr_u*)",confirmed,0
 005c7300,002ecd9c,__ZN18InteractiveDisplay15InitializeLevelEP11WORLDINFO_s,InteractiveDisplay::InitializeLevel(WORLDINFO_s*),gapfill,1
 005c7480,002f0590,__ZN18InteractiveDisplay6RenderEv,InteractiveDisplay::Render(),confirmed,0
 005c7fa0,002f227c,__ZN18InteractiveDisplay6UpdateEf,InteractiveDisplay::Update(float),confirmed,0

@@ -607,14 +607,32 @@ struct InteractiveDisplay {
   virtual i32 RenderWhenPaused() const;                                    // 14
   virtual i32 IsCameraTarget() const;                                      // 15
   virtual i32 IsInteractiveMode() const;                                   // 16
+  virtual f32 GetDisplayAspectRatio() const;                               // 17
+  virtual void LoadSettings(char *name);                                   // 18
+  virtual f32 GetTextScaleMultiplier() const;                              // 19
+  virtual void Vfn20();                                                    // 20
+  virtual i32 IsCameraTransitioning() const;                               // 21
+
+  void UpdateBackgroundAlpha(f32 dt);
+  void Unk005c3f20(const IDVEC_s &v);
+  static const char *Unk005c3f50();
+  char *Unk005c3f60();
+  IDMTL_s *Unk005c3f70() const;
+  char *Unk005c3f80();
+  u8 Unk005c3f90() const;
+  void Unk005c3fd0(void *a, void *b);
 
   u8 pad4[0x10 - 4];
-  char level_name[0x200 - 0x10]; // 0x010
-  IDVEC_s v200;                  // 0x200
-  IDVEC_s v210;                  // 0x210
-  u8 pad220[0x224 - 0x220];
-  i32 i224; // 0x224
-  i32 i228; // 0x228
+  char level_name[0x40];      // 0x010
+  char transition_name[0x40]; // 0x050
+  u8 pad090[0x100 - 0x90];
+  IDVEC_s v100; // 0x100
+  u8 pad110[0x200 - 0x110];
+  IDVEC_s v200; // 0x200
+  IDVEC_s v210; // 0x210
+  f32 f220;     // 0x220
+  i32 i224;     // 0x224
+  i32 i228;     // 0x228
   u8 pad22c[0x234 - 0x22c];
   f32 f234;                  // 0x234
   f32 f238;                  // 0x238, strobe phase
@@ -623,10 +641,12 @@ struct InteractiveDisplay {
   IDMTL_s *mtl_a;            // 0x2bc
   IDMTL_s *mtl_b;            // 0x2c0
   IDMTL_s *interlace_mtl;    // 0x2c4
-  u8 pad2c8[0x334 - 0x2c8];
-  f32 f334; // 0x334
-  f32 f338; // 0x338
-  i32 i33c; // 0x33c
+  IDMTL_s *strobe_mtl;       // 0x2c8
+  IDMTL_s *white_noise_mtl;  // 0x2cc
+  u16 noise[50];             // 0x2d0
+  f32 f334;                  // 0x334
+  f32 f338;                  // 0x338
+  i32 i33c;                  // 0x33c
 };
 
 // FUNCTION: LEGOBATMAN 0x005c4080
@@ -645,6 +665,38 @@ public:
 extern DynamicTextureManager g_unk00ad2d78;
 
 void NuMtlUpdate(IDMTL_s *mtl);
+
+// FUNCTION: LEGOBATMAN 0x005c3f20
+void InteractiveDisplay::Unk005c3f20(const IDVEC_s &v) {
+  v100.x = v.x;
+  v100.y = v.y;
+  v100.z = v.z;
+  v100.w = v.w;
+}
+
+// FUNCTION: LEGOBATMAN 0x005c3f50
+const char *InteractiveDisplay::Unk005c3f50() {
+  return "stuff/interactivedisplay/common/interlacepattern";
+}
+
+// FUNCTION: LEGOBATMAN 0x005c3f60
+char *InteractiveDisplay::Unk005c3f60() { return texture_name_a; }
+
+// FUNCTION: LEGOBATMAN 0x005c3f70
+IDMTL_s *InteractiveDisplay::Unk005c3f70() const { return mtl_a; }
+
+// FUNCTION: LEGOBATMAN 0x005c3f80
+char *InteractiveDisplay::Unk005c3f80() { return texture_name_b; }
+
+// FUNCTION: LEGOBATMAN 0x005c3f90
+u8 InteractiveDisplay::Unk005c3f90() const { return (u8)(f234 * 128.0f); }
+
+void Unk00716660(void *a, void *b, i32 c, i32 d);
+
+// FUNCTION: LEGOBATMAN 0x005c3fd0
+void InteractiveDisplay::Unk005c3fd0(void *a, void *b) {
+  Unk00716660(a, b, 1, 0);
+}
 
 // FUNCTION: LEGOBATMAN 0x005c3ff0
 void InteractiveDisplay::DumpLevel(WORLDINFO_s *world) {
@@ -667,6 +719,23 @@ void InteractiveDisplay::DumpLevel(WORLDINFO_s *world) {
 
 extern WORLDINFO_s *WORLD;
 
+float NuRandFloat(void);
+unsigned int NuRandInt(void);
+
+// FUNCTION: LEGOBATMAN 0x005c65f0
+void InteractiveDisplay::UpdateWhiteNoise(f32 dt) {
+  if (GetUsesWhiteNoise()) {
+    for (i32 i = 0; i < 50; i++) {
+      noise[i] = 0;
+      if (!(f334 < 1.0f && NuRandFloat() > f334))
+        noise[i] = (i32)(NuRandInt() >> 25) * 64 / 128 + 64;
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x005c6de0
+void InteractiveDisplay::UpdateBackgroundAlpha(f32 dt) { f234 = 1.0f; }
+
 // FUNCTION: LEGOBATMAN 0x005c64e0
 i32 InteractiveDisplay::IsVisible() const {
   if (WORLD == 0)
@@ -682,6 +751,50 @@ i32 InteractiveDisplay::IsVisible() const {
       (v200.z < 0.0f && v210.z < 0.0f) || (v200.z > 1.0f && v210.z > 1.0f))
     return 0;
   return 1;
+}
+
+struct VUFNT;
+VUFNT *NuQFntDuplicate(VUFNT *font, i32 flags, i32 render_plane, variptr_u *buf,
+                       variptr_u *buf_end);
+
+// GLOBAL: LEGOBATMAN 0x00ab39cc
+extern VUFNT *InteractiveDisplayQFont3DZ;
+// GLOBAL: LEGOBATMAN 0x00ad7434
+extern VUFNT *g_unk00ad7434;
+
+class DynamicMaterialManager {
+public:
+  void *GetMaterial(char const *a, char const *b, int c);
+};
+
+// GLOBAL: LEGOBATMAN 0x00ad2af8
+extern DynamicMaterialManager g_dynamicMaterialManager;
+
+// FUNCTION: LEGOBATMAN 0x005c71d0
+void InteractiveDisplay::InitializePerm(char *name, variptr_u *buf,
+                                        variptr_u *end) {
+  if (InteractiveDisplayQFont3DZ == 0 && g_unk00ad7434 != 0)
+    InteractiveDisplayQFont3DZ =
+        NuQFntDuplicate(g_unk00ad7434, 0x4c, 2, buf, end);
+  if (GetUsesWhiteNoise())
+    white_noise_mtl = (IDMTL_s *)g_dynamicMaterialManager.GetMaterial(0, 0, 4);
+  if (GetUsesStrobePattern())
+    strobe_mtl = (IDMTL_s *)g_dynamicMaterialManager.GetMaterial(0, 0, 6);
+  if (GetUsesInterlacePattern())
+    interlace_mtl = (IDMTL_s *)g_dynamicMaterialManager.GetMaterial(
+        "stuff/interactivedisplay/common/interlacepattern", level_name, 5);
+  mtl_a = (IDMTL_s *)g_dynamicMaterialManager.GetMaterial(texture_name_a,
+                                                          level_name, 1);
+  if (GetUsesOverlayTexture())
+    mtl_b = (IDMTL_s *)g_dynamicMaterialManager.GetMaterial(texture_name_b,
+                                                            level_name, 7);
+  f238 = 0.0f;
+  i224 = 0;
+  i228 = 0;
+  f338 = 1000.0f;
+  i33c = 0;
+  f220 = 1.0f;
+  f334 = 1.0f;
 }
 
 // FUNCTION: LEGOBATMAN 0x005c7300

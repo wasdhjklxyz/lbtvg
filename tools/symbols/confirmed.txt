@@ -1832,3 +1832,6 @@
 005c3ff0 InteractiveDisplay::DumpLevel vtable 0x85d75c slot 3; Mac body (mirror of InitializeLevel, clears tids); matched
 005c7fa0 InteractiveDisplay::Update vtable 0x85d75c slot 10; Mac body (UpdateInGameSurfaceData, UpdateWhiteNoise, strobe, interactive timer); matched
 005c7480 InteractiveDisplay::Render vtable 0x85d75c slot 11; Mac body (RenderWhiteNoise(1.0f)); matched
+005c65f0 InteractiveDisplay::UpdateWhiteNoise called from Update (slot 10) like the Mac; Mac body (50 noise words, NuRandFloat/NuRandInt); matched
+005c6de0 InteractiveDisplay::UpdateBackgroundAlpha Mac body (field 0x224 on Mac = 0x234 on PC set to 1.0f, one float arg); matched
+005c71d0 InteractiveDisplay::InitializePerm vtable 0x85d75c slot 0; Mac body (InteractiveDisplayQFont3DZ, GetMaterial 4/6/5/1/7); matched
