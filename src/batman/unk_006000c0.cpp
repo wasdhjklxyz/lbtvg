@@ -3,6 +3,7 @@
 
 #include "../nu2api/nucore/common.h"
 #include "../nu2api/nucore/nustring.h"
+#include <string.h>
 
 struct WORLDINFO_s;
 struct nuvec_s;
@@ -57,6 +58,8 @@ public:
   static i32 NumDisplaysOfClassRegistered(char const *name);
   static IDISPLAY *GetDisplayOfClass(char const *name, i32 index);
   static IDISPLAY *IsDisplayOfClassPresent(char const *name);
+  static void Render(i32 scene);
+  static void InitializePerm(variptr_u *buf, variptr_u *end);
 
   // GLOBAL: LEGOBATMAN 0x00aca638
   static InteractiveDisplayManager m_oSingleton;
@@ -77,6 +80,37 @@ public:
 extern i32 Paused;
 
 void Unk0067aaa0(WORLDINFO_s *world);
+
+void NuRndrBeginScene(i32 flags);
+void NuRndrEndScene();
+void Unk006ef3d0(i32 cs); // Mac: NuPrimSetCoordinateSystem at this spot
+
+// GLOBAL: LEGOBATMAN 0x029dcd40
+extern i32 g_unk029dcd40; // coordinate-system stack depth
+// GLOBAL: LEGOBATMAN 0x00b0bab8
+extern i32 g_unk00b0bab8[];
+
+class DynamicMaterialManager {
+public:
+  static void InitializePerm(variptr_u *buf, variptr_u *end);
+
+  // GLOBAL: LEGOBATMAN 0x00ad2af8
+  static DynamicMaterialManager m_oSingleton;
+
+  void *a[0x20]; // 0x000
+  void *b[0x40]; // 0x080
+  void *c[0x40]; // 0x180
+};
+
+class HiresTextureManager {
+public:
+  static void InitializePerm(variptr_u *buf, variptr_u *end);
+
+  // GLOBAL: LEGOBATMAN 0x00ad2d78
+  static HiresTextureManager m_oSingleton;
+
+  void *a[0x10]; // 0x00
+};
 
 // FUNCTION: LEGOBATMAN 0x006000c0
 InteractiveDisplayManager::InteractiveDisplayManager() {
@@ -206,4 +240,43 @@ IDISPLAY *InteractiveDisplayManager::IsDisplayOfClassPresent(char const *name) {
       return display;
   }
   return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00600600
+void InteractiveDisplayManager::Render(i32 scene) {
+  if (scene)
+    NuRndrBeginScene(1);
+  g_unk029dcd40++;
+  Unk006ef3d0(1);
+  for (i32 i = 0; i < m_oSingleton.count; i++) {
+    if (m_oSingleton.displays[i] != 0 &&
+        ((Paused == 0 && m_oSingleton.i60 == 0) ||
+         m_oSingleton.displays[i]->RenderWhenPaused()) &&
+        m_oSingleton.displays[i]->IsVisible())
+      m_oSingleton.displays[i]->Render();
+  }
+  g_unk029dcd40--;
+  Unk006ef3d0(g_unk00b0bab8[g_unk029dcd40]);
+  if (scene)
+    NuRndrEndScene();
+  m_oSingleton.i60 = Paused;
+}
+
+// FUNCTION: LEGOBATMAN 0x006006d0
+void DynamicMaterialManager::InitializePerm(variptr_u *buf, variptr_u *end) {
+  memset(m_oSingleton.a, 0, sizeof(m_oSingleton.a));
+  memset(m_oSingleton.b, 0, sizeof(m_oSingleton.b));
+  memset(m_oSingleton.c, 0, sizeof(m_oSingleton.c));
+}
+
+// FUNCTION: LEGOBATMAN 0x00600710
+void HiresTextureManager::InitializePerm(variptr_u *buf, variptr_u *end) {
+  memset(m_oSingleton.a, 0, sizeof(m_oSingleton.a));
+}
+
+// FUNCTION: LEGOBATMAN 0x00600730
+void InteractiveDisplayManager::InitializePerm(variptr_u *buf, variptr_u *end) {
+  m_oSingleton.i60 = 0;
+  HiresTextureManager::InitializePerm(buf, end);
+  DynamicMaterialManager::InitializePerm(buf, end);
 }

@@ -1860,3 +1860,7 @@
 00600530 InteractiveDisplayManager::GetDisplayOfClass Mac order (name, index); matched
 00600590 InteractiveDisplayManager::IsDisplayOfClassPresent Mac body (WORLD, class name, level name); matched
 006001c0 InteractiveDisplayManager::UpdateInputs called first thing from UpdateInternal as on the Mac
+00600600 InteractiveDisplayManager::Render Mac body (begin scene, coordinate push, RenderWhenPaused/IsVisible/Render, pop, end scene); matched
+006006d0 DynamicMaterialManager::InitializePerm Mac body (memsets 0x80/0x100/0x100 of m_oSingleton at 0xad2af8); matched
+00600710 HiresTextureManager::InitializePerm Mac body (zeroes 0x40 bytes of m_oSingleton at 0xad2d78); matched
+00600730 InteractiveDisplayManager::InitializePerm Mac body (inlined Hires/DynamicMaterialManager::InitializePerm); matched
