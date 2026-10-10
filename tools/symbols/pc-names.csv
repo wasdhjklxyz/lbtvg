@@ -1370,6 +1370,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005948a0,0019b256,__ZN17NuFmvStreamPCBink14CreateTexturesEb,NuFmvStreamPCBink::CreateTextures(bool),confirmed,0
 005949b0,0019b3a0,__ZN17NuFmvStreamPCBink21RestoreVideoResourcesEv,NuFmvStreamPCBink::RestoreVideoResources(),confirmed,0
 005949d0,0019b7ee,__Z26PCFMVRestoreVideoResourcesv,PCFMVRestoreVideoResources(),confirmed,0
+00594a10,0019b3d4,__ZN17NuFmvStreamPCBink4OpenEPKciP11NuFmvBufferP7numtl_sj,"NuFmvStreamPCBink::Open(char const*, int, NuFmvBuffer*, numtl_s*, unsigned int)",confirmed,0
 00594dc0,0019a89a,_NuFmvInitSubtitles,_NuFmvInitSubtitles,strings,0
 00595170,0019a644,__ZN11NuFmvBuffer6UnlockEv,NuFmvBuffer::Unlock(),confirmed,0
 00595180,0019a656,__ZN11NuFmvBuffer5AllocEii,"NuFmvBuffer::Alloc(int, int)",confirmed,0

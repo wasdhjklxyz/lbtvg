@@ -49,6 +49,43 @@ struct FMVBINK_s {
   u32 *track_ids; // 0x250
 };
 
+// Raw view of the material the FMV draws into.
+struct numtl_s {
+  u8 pad00[0x99];
+  u8 b99; // 0x99
+  u8 pad9a[0xb8 - 0x9a];
+  u32 tids[3]; // 0xb8
+  u8 padc4[0x15c - 0xc4];
+  u8 b15c; // 0x15c
+  u8 pad15d[0x1f0 - 0x15d];
+  u32 attr; // 0x1f0
+};
+struct NuFmvBuffer;
+// NuFile device (function table; get_path at 0x22c).
+struct NuFileDevice_s {
+  u8 pad00[0x22c];
+  void (*get_path)(NuFileDevice_s *dev, char *out, char const *name, i32 size);
+};
+NuFileDevice_s *Unk006dc9e0(char const *name);
+// GLOBAL: LEGOBATMAN 0x0099f288
+extern NuFileDevice_s *g_unk0099f288; // default file device
+extern "C" i32 NuThreadCreateCriticalSection(void);
+extern "C" void NuThreadCriticalSectionBegin(i32 cs);
+extern "C" void NuThreadCriticalSectionEnd(i32 cs);
+void NuMtlUpdate(numtl_s *mtl);
+u32 Unk00728430(void *tex); // texture -> tid
+void *Unk00534c60();        // the DirectSound object
+#ifndef MIN
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
+#endif
+extern "C" {
+__declspec(dllimport) FMVBINK_s *__stdcall BinkOpen(char const *name,
+                                                    u32 flags);
+__declspec(dllimport) i32 __stdcall BinkSetSoundSystem(void *open, u32 param);
+__declspec(dllimport) void *__stdcall BinkOpenDirectSound(u32 param);
+__declspec(dllimport) void __stdcall BinkSetSoundTrack(u32 total, u32 *tracks);
+}
+
 void Unk005290c0();                                       // render lock
 void Unk005290d0();                                       // render unlock
 void Unk00595520(void *device, void *textures, bool all); // Free_Bink_textures
@@ -136,7 +173,8 @@ struct NuFmvRefCountedObject {
 class NuFmvStream : public NuFmvRefCountedObject {
 public:
   NuFmvStream();
-  virtual void Vfn0() = 0;
+  virtual bool Open(char const *name, i32 language, NuFmvBuffer *buffer,
+                    numtl_s *mtl, u32 flags) = 0;
   virtual bool ReOpen(char const *name);
   virtual void Close() = 0;
 };
@@ -144,7 +182,9 @@ public:
 class NuFmvStreamPCBink : public NuFmvStream {
 public:
   NuFmvStreamPCBink();
-  virtual void Vfn0();
+  virtual bool Open(char const *name, i32 language, NuFmvBuffer *buffer,
+                    numtl_s *mtl, u32 flags);
+  static i32 ms_OpenCriticalSection;
   virtual void Close();
   virtual void Start();
   virtual void Stop();
@@ -159,14 +199,15 @@ public:
   void MapBinkTexturesToTIDs();
   void RestoreVideoResources();
 
-  FMVBINK_s *bink; // 0x08
-  u8 pad0c[0x14 - 0xc];
-  u32 tracks[5];   // 0x14
-  u32 track_count; // 0x28
-  i32 i2c;         // 0x2c
-  u8 b30;          // 0x30
-  u8 b31;          // 0x31
-  u8 b32;          // 0x32
+  FMVBINK_s *bink;      // 0x08
+  char const *filename; // 0x0c
+  u32 first_track;      // 0x10
+  u32 tracks[5];        // 0x14
+  u32 track_count;      // 0x28
+  numtl_s *mtl;         // 0x2c
+  u8 b30;               // 0x30
+  u8 b31;               // 0x31
+  u8 b32;               // 0x32
   u8 pad33;
   BINKTEXTURESET_s textures; // 0x34
   u32 u10c;                  // 0x10c
@@ -184,9 +225,12 @@ extern u8 g_unk00a94028; // video resources released
 // GLOBAL: LEGOBATMAN 0x00a94029
 extern u8 g_unk00a94029; // video resources restored
 // GLOBAL: LEGOBATMAN 0x00a9402a
-static u8
-    g_unk00a9402a; // paused while inactive// GLOBAL: LEGOBATMAN 0x00a94030
+static u8 g_unk00a9402a; // paused while inactive
+// GLOBAL: LEGOBATMAN 0x00a94030
 extern NuFmvStreamPCBink g_unk00a94030[2]; // the PC FMV streams
+
+// GLOBAL: LEGOBATMAN 0x0095e6c0
+i32 NuFmvStreamPCBink::ms_OpenCriticalSection = -1;
 
 // FUNCTION: LEGOBATMAN 0x005941b0
 NuFmvStream::NuFmvStream() {}
@@ -346,7 +390,7 @@ void NuFmvStreamPCBink::Close() {
     BinkClose(bink);
     bink = 0;
   }
-  i2c = 0;
+  mtl = NULL;
 }
 
 // FUNCTION: LEGOBATMAN 0x005946c0
@@ -444,4 +488,90 @@ void PCFMVRestoreVideoResources() {
     if (g_unk00a94030[i].open && g_unk00a94030[i].bink != 0)
       g_unk00a94030[i].RestoreVideoResources();
   }
+}
+
+// FUNCTION: LEGOBATMAN 0x00594a10
+bool NuFmvStreamPCBink::Open(char const *name, i32 language,
+                             NuFmvBuffer *buffer, numtl_s *mtl, u32 flags) {
+  static const i32 maxAudioTracks = 1;
+  char path[260];
+  bool sound = !(flags & 1);
+  b30 = (flags >> 3) & 1;
+  if (ms_OpenCriticalSection == -1)
+    ms_OpenCriticalSection = NuThreadCreateCriticalSection();
+  NuThreadCriticalSectionBegin(ms_OpenCriticalSection);
+  if (!b31c) {
+    if (g_unk009d10c4 >= 4) {
+      u10c = Unk00728430(&tex[0]);
+      u110 = Unk00728430(&tex[1]);
+      u114 = Unk00728430(&tex[2]);
+    } else {
+      u298 = Unk00728430(&sm1);
+    }
+    b31c = 1;
+  }
+  if (sound) {
+    BinkSetSoundSystem(BinkOpenDirectSound, (u32)Unk00534c60());
+    u32 track = language * 10;
+    first_track = track;
+    tracks[0] = track;
+    tracks[1] = track + 1;
+    tracks[2] = track + 2;
+    tracks[3] = track + 3;
+    tracks[4] = track + 4;
+    BinkSetSoundTrack(maxAudioTracks, tracks);
+  }
+  NuFileDevice_s *dev = Unk006dc9e0(name);
+  if (dev == NULL)
+    dev = g_unk0099f288;
+  dev->get_path(dev, path, name, 260);
+  u32 open_flags = 0x4000 | (g_unk009d10c4 >= 4 ? 0x400 : 0);
+  bink = BinkOpen(path, open_flags);
+  if (bink == NULL)
+    goto fail;
+  if (sound) {
+    if (!TrackExists(first_track)) {
+      first_track = bink->track_ids[0];
+      for (i32 i = 0; i != MIN((i32)bink->num_tracks, maxAudioTracks); i++)
+        tracks[i] = first_track + i;
+      BinkClose(bink);
+      BinkSetSoundTrack(maxAudioTracks, tracks);
+      bink = BinkOpen(path, open_flags);
+    }
+    track_count = (i32)bink->num_tracks > 0;
+    if (TrackExists(tracks[1]) && TrackExists(tracks[2]) &&
+        TrackExists(tracks[3])) {
+      track_count = 4;
+      if (TrackExists(tracks[4]))
+        track_count = 5;
+    }
+    track_count = MIN(track_count, (u32)maxAudioTracks);
+  } else {
+    track_count = 0;
+    BinkSetSoundTrack(0, NULL);
+  }
+  if (!CreateTextures(false)) {
+    BinkClose(bink);
+  fail:
+    NuThreadCriticalSectionEnd(ms_OpenCriticalSection);
+    return false;
+  }
+  filename = path;
+  this->mtl = mtl;
+  this->mtl->b99 = 0xa8;
+  if (g_unk009d10c4 >= 4) {
+    this->mtl->tids[0] = u10c;
+    this->mtl->tids[1] = u110;
+    this->mtl->tids[2] = u114;
+  } else {
+    this->mtl->tids[0] = u298;
+  }
+  MapBinkTexturesToTIDs();
+  this->mtl->b15c = 1;
+  this->mtl->attr = this->mtl->attr & ~0x3000 | 0x800;
+  NuMtlUpdate(this->mtl);
+  b31 = 0;
+  b32 = 1;
+  NuThreadCriticalSectionEnd(ms_OpenCriticalSection);
+  return true;
 }
