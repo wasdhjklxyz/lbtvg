@@ -1522,14 +1522,58 @@ struct NUDATFILEINFO {
   int len; // 0x8
   int ic;
 };
+struct NUDFNODE {
+  short child_idx;   // 0x0
+  short sibling_idx; // 0x2
+  char *name;        // 0x4
+};
 struct NUDATHDR {
-  int i0;
-  int i4;
+  int version;
+  int file_count;
   NUDATFILEINFO *file_info; // 0x8
+  int tree_node_count;      // 0xc
+  NUDFNODE *file_tree;      // 0x10
 };
 // GLOBAL: LEGOBATMAN 0x00b0388c
 extern int nufile_buffering_enabled;
-int NuDatFileFindTree(void *dat, char *path);
+int NuDatFileFindHash(NUDATHDR *header, char *name);
+void NuFileUpCase(int a, char *buf);
+
+// FUNCTION: LEGOBATMAN 0x006dcbc0
+int NuDatFileFindTree(NUDATHDR *header, char *name) {
+  char buf[256];
+  char *backslash;
+  int node_idx;
+
+  if (*name == '@')
+    name = name + 4;
+  NuStrCpy(buf, name);
+  NuFileUpCase(0, buf);
+  name = buf;
+  if (header->file_tree == 0)
+    return NuDatFileFindHash(header, name);
+  node_idx = header->file_tree->child_idx;
+  backslash = NuStrStr(name, "\\");
+  if (backslash != 0)
+    *backslash = '\0';
+  do {
+    if (NuStrICmp(header->file_tree[node_idx].name, name) == 0) {
+      if (backslash == 0) {
+        if (header->file_tree[node_idx].child_idx <= 0)
+          return -header->file_tree[node_idx].child_idx;
+        return -1;
+      }
+      node_idx = header->file_tree[node_idx].child_idx;
+      name = backslash + 1;
+      backslash = NuStrStr(name, "\\");
+      if (backslash != 0)
+        *backslash = '\0';
+    } else {
+      node_idx = header->file_tree[node_idx].sibling_idx;
+    }
+  } while (node_idx != 0);
+  return -1;
+}
 __int64 NuFileSeek(int file, __int64 offset, int whence);
 
 // STUB: LEGOBATMAN 0x006dd990
