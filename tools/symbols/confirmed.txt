@@ -3628,3 +3628,4 @@
 006e1490 NuStringTableLoadTXT saga nustring_c.cpp body (LB debug checks)
 006e0e90 NuStringTableLoadCSV saga nustring_c.cpp body (stub)
 006e18a0 NuStringFilterLoad saga nustring_c.cpp body (LB size check)
+006e1b40 NuFileSmallFileManagerInit Mac NuFileSmallFileManager::Init (load key pak, reset 256 slots); last function of the nucore TU

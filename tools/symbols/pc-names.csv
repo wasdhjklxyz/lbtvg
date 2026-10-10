@@ -3902,6 +3902,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006e1490,0019540c,_NuStringTableLoadTXT,_NuStringTableLoadTXT,confirmed,0
 006e1820,00195dc0,_NuStringTableLoad,_NuStringTableLoad,confirmed,0
 006e18a0,001950f0,_NuStringFilterLoad,_NuStringFilterLoad,confirmed,0
+006e1b40,,NuFileSmallFileManagerInit,NuFileSmallFileManagerInit,confirmed,0
 006e1be0,001973d4,_NuMemSetHeap,_NuMemSetHeap,confirmed,0
 006e1bf0,001973ee,_NuMemSetDiscardable,_NuMemSetDiscardable,confirmed,0
 006e1c00,00197408,_NuMemFlushDiscardable,_NuMemFlushDiscardable,confirmed,0

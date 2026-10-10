@@ -7754,6 +7754,22 @@ void NuStringFilterLoad(char *path, VARIPTR *buf, VARIPTR buf_end) {
   NumBadWords = i;
 }
 
+// Mac NuFileSmallFileManager::Init(char const *, variptr_u *, variptr_u).
+// FUNCTION: LEGOBATMAN 0x006e1b40
+void NuFileSmallFileManagerInit(char *filepath, VARIPTR *buf, VARIPTR buf_end) {
+  int i;
+
+  g_nuFileUnk0b038a4 =
+      (int)NuFilePakLoadKeyPrePad(filepath, buf, buf_end, 1, 0, 0, 0);
+  for (i = 0; i < 256; i++) {
+    int *p = &g_nuFileUnk0b00878[i].i0;
+    p[0] = -1;
+    p[1] = -1;
+    p[2] = -1;
+    p[3] = -1;
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x006ddc00
 extern "C" i32 NuQTWrite(char *path, nuqthdr_s *header) {
   int file = NuFileOpen(path, 1);
