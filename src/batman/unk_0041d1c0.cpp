@@ -1,10 +1,13 @@
 // batman/unk_0041d1c0.cpp: TU of unknown name, found by its header-static
 // copies (the functions after them are not matched yet).
 
+#include "../gameapi/gameobject_unk.h"
 #include "../nu2api/numath/nuinline_unk.h"
 #include "../nu2api/numath/numtx_inline_unk.h"
 #include "../nu2api/numath/nutrig_unk.h"
+#include "worldinfo_unk.h"
 #include <stddef.h>
+#include <string.h>
 
 // Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
 // FUNCTION: LEGOBATMAN 0x0041d3c0
@@ -219,4 +222,40 @@ void ExtraCharacterFixUpAfterConfig(void) {
     g_unk00acb81c[id_DRAGBOMBBONUS].move_fn = (void *)Move_DRAGBOMB;
   if (id_DRAGBOMBBONUS2 != -1)
     g_unk00acb81c[id_DRAGBOMBBONUS2].move_fn = (void *)Move_DRAGBOMB;
+}
+
+void AISysGetCharacterPathPos(AISYS_s *sys, GameObject_s *obj, void *ai, i32 a,
+                              i32 b);
+
+// Batman's version of saga legoapi/characters/core/players.cpp; Mac order
+// after ExtraCharacterFixUpAfterConfig and ResetPlayerPacket.
+// STUB: LEGOBATMAN 0x0041de50
+// all stores right but the 0x3b6/0x3b8 -1 pair: cl sinks them below the
+// 0x141c..0x1428 zero stores wherever they sit in the source.
+void ResetPlayerAI(GameObject_s *obj) {
+  obj->f15d4 = 0.0f;
+  obj->b480_5 = 0;
+  obj->b480_6 = 0;
+  obj->b1410_25 = 0;
+  obj->b480_9 = 0;
+  obj->p424 = NULL;
+  obj->p428 = NULL;
+  obj->s3b6 = -1;
+  obj->s3b8 = -1;
+  obj->u418 = 0;
+  obj->b15ca = 0;
+  obj->b15cb = 0;
+  obj->u15d0 = 0;
+  obj->b15cc = 0;
+  obj->u141c = 0;
+  obj->u1420 = 0;
+  obj->u1424 = 0;
+  obj->u490 = 0;
+  obj->u1428 = 0;
+  memset((u8 *)obj + 0x3e8, 0, 0x1c);
+  obj->b3cd = 0;
+  obj->s3b4 = -1;
+  obj->b3cc = 0xff;
+  AISysGetCharacterPathPos(g_unk00960894->aiSys2bf8, obj, obj->process290, 0xff,
+                           1);
 }

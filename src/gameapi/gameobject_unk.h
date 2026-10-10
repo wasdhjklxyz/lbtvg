@@ -142,8 +142,16 @@ struct GameObject_s {
   u8 pad5b[0x278 - 0x25a];
   unsigned __int64 area_mask; // 0x278, bit per AI trigger area
   u8 pad280[0x290 - 0x280];
-  u8 process290[0x3c8 - 0x290]; // 0x290  AISCRIPTPROCESS_s
-  u8 b3c8;                      // 0x3c8
+  union {
+    u8 process290[0x3c8 - 0x290]; // 0x290  AISCRIPTPROCESS_s
+    struct {
+      u8 pad290[0x3b4 - 0x290];
+      i16 s3b4; // 0x3b4, ResetPlayerAI: -1
+      i16 s3b6; // 0x3b6, ResetPlayerAI: -1
+      i16 s3b8; // 0x3b8, ResetPlayerAI: -1
+    };
+  };
+  u8 b3c8; // 0x3c8
   u8 pad6[0x3cc - 0x3c9];
   u8 b3cc;               // 0x3cc, Action_UpdatePathInfo reset_route: 0xff
   u8 b3cd;               // 0x3cd, Action_UpdatePathInfo reset_route: 0
@@ -152,7 +160,12 @@ struct GameObject_s {
   u8 control_rotational; // 0x3d0, Action_SetControlSystem
   u8 pad7[0x3f6 - 0x3d1];
   u16 path_flags3f6; // 0x3f6, bit 0: on path (SnapToOrigin clears)
-  u8 pad3f8[0x47c - 0x3f8];
+  u8 pad3f8[0x418 - 0x3f8];
+  u32 u418; // 0x418, ResetPlayerAI: 0
+  u8 pad41c[0x424 - 0x41c];
+  void *p424; // 0x424, ResetPlayerAI: NULL
+  void *p428; // 0x428, ResetPlayerAI: NULL
+  u8 pad42c[0x47c - 0x42c];
   nuvec_s *look_target; // 0x47c, AI look target (process290 + 0x1ec)
   union {
     struct {
@@ -164,11 +177,19 @@ struct GameObject_s {
       u32 : 18;
       u32 zero_acceleration : 1; // 0x480 bit 18
     };
+    struct {
+      u32 : 5;
+      u32 b480_5 : 1; // 0x480 bits 5, 6, 9: ResetPlayerAI clears them
+      u32 b480_6 : 1;
+      u32 : 2;
+      u32 b480_9 : 1;
+    };
   };
   u8 pad7a[0x488 - 0x484];
   f32 move_range;   // 0x488
   u32 capabilities; // 0x48c, Action_SetCapability
-  u8 pad7b[0x870 - 0x490];
+  u32 u490;         // 0x490, ResetPlayerAI: 0
+  u8 pad494[0x870 - 0x494];
   u8 sock_pos870;   // 0x870, ComplexSockPosition out
   char sock_id;     // 0x871, -1 = none
   i16 sock_segment; // 0x872
@@ -347,6 +368,10 @@ struct GameObject_s {
       u32 not_with_party : 1; // 0x1410 bit 28
     };
     struct {
+      u32 : 25;
+      u32 b1410_25 : 1; // 0x1410 bit 25, ResetPlayerAI clears it
+    };
+    struct {
       u32 : 8;
       u32 dont_move : 1; // 0x1410 bit 8
     };
@@ -425,7 +450,11 @@ struct GameObject_s {
       u32 can_be_targetted_by_cable : 1; // 0x1418 bit 9
     };
   };
-  u8 pad15[0x1430 - 0x141c];
+  u32 u141c; // 0x141c, ResetPlayerAI: 0
+  u32 u1420; // 0x1420
+  u32 u1424; // 0x1424
+  u32 u1428; // 0x1428
+  u8 pad142c[0x1430 - 0x142c];
   u32 flags1430; // 0x1430
   u8 pad15b[0x143c - 0x1434];
   struct AILOCATOR_s *doomed_escape_locator; // 0x143c
@@ -455,7 +484,14 @@ struct GameObject_s {
   u8 pad15c0[0x15c6 - 0x15c0];
   u8 hitpoints;  // 0x15c6, max
   i8 current_hp; // 0x15c7
-  u8 pad15c8[0x15ec - 0x15c8];
+  u8 pad15c8[0x15ca - 0x15c8];
+  u8 b15ca; // 0x15ca, ResetPlayerAI: 0
+  u8 b15cb; // 0x15cb
+  u8 b15cc; // 0x15cc
+  u8 pad15cd[0x15d0 - 0x15cd];
+  u32 u15d0; // 0x15d0
+  f32 f15d4; // 0x15d4
+  u8 pad15d8[0x15ec - 0x15d8];
   GameObject_s *last_attacker; // 0x15ec, Condition_BeenHitBy
   u8 pad15f0[0x1608 - 0x15f0];
   nuvec_s saved_position; // 0x1608

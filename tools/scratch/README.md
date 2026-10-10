@@ -42,3 +42,10 @@ are not lost. Run inside `nix develop` from the repo root.
   next annotated function of another file, smallest first.
 - `rng.py LO HI`: every function start in a range with size, annotation state,
   our name/file and the pc-names.csv Mac pairing.
+- `macnb.py MACADDR|NAME [N]`: Mac text symbols around an address or name,
+  with the PC address pc-names.csv pairs them to.
+- `macdis.py NAME|MACADDR`: disassemble one Mac i386 function (call targets
+  named). Function pointers passed as arguments show the Mac's argument
+  order, which names PC thunk targets.
+- `thk.py ADDR...`: resolve incremental-link `jmp` thunks to their target and
+  name.
