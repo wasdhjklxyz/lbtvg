@@ -289,6 +289,14 @@ void NuVecScale(nuvec_s *v, nuvec_s *v0, f32 k);
 i32 LineIntersectSphere(nuvec_s *origin, nuvec_s *direction, nuvec_s *center,
                         f32 radius_squared, f32 *distance_squared);
 
+// FUNCTION: LEGOBATMAN 0x0044c930
+GameObject_s *GetNamedGameObject(AISYS_s *sys, char *name) {
+  Unk_AIPacketObj *api;
+  if (GetNamedAPIObjectFn && (api = GetNamedAPIObjectFn(sys, name)))
+    return api->obj;
+  return 0;
+}
+
 // STUB: LEGOBATMAN 0x0044c960
 // close: opponent load is hoisted above the flags early-out in orig, and the
 // target-distance/length locals land in swapped stack slots
@@ -3511,13 +3519,6 @@ f32 Condition_CheckCoupled(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   if (object != NULL && *(void **)((u8 *)object + 0x1160) != NULL)
     return 1.0f;
   return 0.0f;
-}
-
-static inline GameObject_s *GetNamedGameObject(AISYS_s *sys, char *name) {
-  Unk_AIPacketObj *api;
-  if (GetNamedAPIObjectFn && (api = GetNamedAPIObjectFn(sys, name)))
-    return api->obj;
-  return 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x0044f1e0

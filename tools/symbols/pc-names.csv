@@ -70,6 +70,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00449e20,,AIProcessor_Activate,AIProcessor_Activate,confirmed,0
 00449e50,,AIProcessor_RegisterGizmo,AIProcessor_RegisterGizmo,confirmed,0
 0044bf50,0006fe0c,__Z14GameAISysResetP7AISYS_s,GameAISysReset(AISYS_s*),strings,0
+0044c930,00075012,__Z18GetNamedGameObjectP7AISYS_sPc,"GetNamedGameObject(AISYS_s*, char*)",confirmed,0
 0044c960,0007503e,__Z16PartyMemberInWayP12GameObject_sS0_,"PartyMemberInWay(GameObject_s*, GameObject_s*)",gapfill,1
 0044d1d0,00075348,__Z18Condition_GlynTestP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_GlynTest(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
 0044d1e0,00075350,__Z15Condition_DebugP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_Debug(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0

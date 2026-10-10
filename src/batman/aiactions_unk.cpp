@@ -21,7 +21,10 @@ void AddMiscPickups(nuvec_s *pos, i32 player_id, i32 coins, i32 torpedoes,
 void StunGameObject(GameObject_s *target, GameObject_s *by, f32 time,
                     i32 flags);
 
-static inline GameObject_s *GetNamedGameObject(AISYS_s *sys, char *name) {
+// Most actions inline this; some (Action_AddPartDebris) call the out-of-line
+// GetNamedGameObject at 0x44c930 instead.
+GameObject_s *GetNamedGameObject(AISYS_s *sys, char *name);
+static inline GameObject_s *GetNamedGameObjectInl(AISYS_s *sys, char *name) {
   Unk_AIPacketObj *api;
   if (GetNamedAPIObjectFn && (api = GetNamedAPIObjectFn(sys, name)))
     return api->obj;
@@ -597,6 +600,60 @@ i32 Action_SetScriptParam(AISYS_s *sys, AISCRIPTPROCESS_s *process,
 // GLOBAL: LEGOBATMAN 0x009c596c
 extern f32 DEFAULT_MOVE_RANGE;
 
+i32 PARTLookupType(char *name);
+i32 AddFiniteShotPART(i32 effect, nuvec_s *position, i32 count);
+void NuVecAdd(nuvec_s *out, nuvec_s *a, nuvec_s *b);
+
+// FUNCTION: LEGOBATMAN 0x0045eac0
+i32 Action_AddPartDebris(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **params, i32 param_count,
+                         i32 first_time, f32 dt) {
+  nuvec_s offset;
+  nuvec_s pos;
+  i32 type = -1;
+  GameObject_s *obj = NULL;
+  offset.x = 0.0f;
+  offset.y = 0.0f;
+  offset.z = 0.0f;
+  if (first_time) {
+    for (i32 i = 0; i < param_count; i++) {
+      char *value;
+      if ((value = NuStrIStr(params[i], "name")) != NULL)
+        type = PARTLookupType(value + 5);
+      else if ((value = NuStrIStr(params[i], "dx=")) != NULL)
+        offset.x = AIParamToFloat(process, value + 3);
+      else if ((value = NuStrIStr(params[i], "dy=")) != NULL)
+        offset.y = AIParamToFloat(process, value + 3);
+      else if ((value = NuStrIStr(params[i], "dz=")) != NULL)
+        offset.z = AIParamToFloat(process, value + 3);
+      else if ((value = NuStrIStr(params[i], "x=")) != NULL)
+        pos.x = AIParamToFloat(process, value + 2);
+      else if ((value = NuStrIStr(params[i], "y=")) != NULL)
+        pos.y = AIParamToFloat(process, value + 2);
+      else if ((value = NuStrIStr(params[i], "z=")) != NULL)
+        pos.z = AIParamToFloat(process, value + 2);
+      else if ((value = NuStrIStr(params[i], "character=")) != NULL) {
+        obj = GetNamedGameObject(sys, value + 10);
+        if (obj != NULL)
+          pos = obj->v80;
+      } else if (NuStrIStr(params[i], "me") != NULL) {
+        if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL)
+          obj = packet->pd0->obj;
+        pos = obj->v80;
+      } else if ((value = NuStrIStr(params[i], "locator=")) != NULL) {
+        AILOCATOR_s *loc = AIPathFindLocator(sys, value + 8);
+        if (loc != NULL)
+          pos = *(nuvec_s *)((u8 *)loc + 0x10);
+      }
+    }
+    if (type != -1) {
+      NuVecAdd(&pos, &pos, &offset);
+      AddFiniteShotPART(type, &pos, 1);
+    }
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x0045f9e0
 i32 Action_SetMaxMovementRange(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                                AIPACKET_s *packet, char **args, int argc,
@@ -680,7 +737,7 @@ i32 Action_SetPath(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
   for (i32 i = 0; i < argc; i++) {
     char *value = NuStrIStr(args[i], "character=");
     if (value != 0) {
-      obj = GetNamedGameObject(sys, value + 10);
+      obj = GetNamedGameObjectInl(sys, value + 10);
     } else if (NuStrIStr(args[i], "path=LevelPath") != 0) {
       path = ((SetPathAISys_s *)sys)->path_sys->active_path;
     } else if ((value = NuStrIStr(args[i], "path")) != 0) {
@@ -722,7 +779,7 @@ i32 Action_SetDoomedEscapeLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       obj = packet->pd0->obj;
     for (i32 i = 0; i < argc; i++) {
       if ((s = NuStrIStr(args[i], "character=")))
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       else if ((s = NuStrIStr(args[i], "name")))
         name = s + 5;
       else if (NuStrIStr(args[i], "personal"))
@@ -1024,7 +1081,7 @@ i32 Action_SetForceBack(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       obj = packet->pd0->obj;
     for (i = 0; i < argc; i++) {
       if ((s = NuStrIStr(args[i], "character="))) {
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       } else if ((s = NuStrIStr(args[i], "locator="))) {
         u8 *locator = (u8 *)AIPathFindLocator(sys, s + 8);
         if (locator)
@@ -1103,7 +1160,7 @@ i32 Action_AssignLocatorInSet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
         locator = AIPathFindLocator(sys, s);
       } else if ((s = NuStrIStr(args[i], "character"))) {
         s = s + NuStrLen("character") + 1;
-        obj = GetNamedGameObject(sys, s);
+        obj = GetNamedGameObjectInl(sys, s);
         assignment = obj->b259;
       } else if ((s = NuStrIStr(args[i], "set"))) {
         s = s + NuStrLen("set") + 1;
@@ -1141,7 +1198,7 @@ i32 Action_AlertCreatures(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i = 0; i < argc; i++) {
       char *value = NuStrIStr(args[i], "character=");
       if (value != NULL)
-        obj = GetNamedGameObject(sys, value + 10);
+        obj = GetNamedGameObjectInl(sys, value + 10);
     }
     if (obj != NULL)
       AlertSurroundingCreatures(obj, &obj->v80, 1);
@@ -1165,7 +1222,7 @@ i32 Action_CanBeCarried(AISYS_s *sys, AISCRIPTPROCESS_s *process,
         } else {
           char *value = NuStrIStr(args[i], "character=");
           if (value != NULL)
-            obj = GetNamedGameObject(sys, value + 10);
+            obj = GetNamedGameObjectInl(sys, value + 10);
         }
       }
     }
@@ -1194,7 +1251,7 @@ i32 Action_CanBeTargettedByCable(AISYS_s *sys, AISCRIPTPROCESS_s *process,
         } else {
           char *value = NuStrIStr(args[i], "character=");
           if (value != NULL)
-            obj = GetNamedGameObject(sys, value + 10);
+            obj = GetNamedGameObjectInl(sys, value + 10);
         }
       }
     }
@@ -1220,7 +1277,7 @@ i32 Action_IgnoreLastSafePathPos(AISYS_s *sys, AISCRIPTPROCESS_s *process,
         } else {
           char *value = NuStrIStr(args[i], "character=");
           if (value != NULL)
-            obj = GetNamedGameObject(sys, value + 10);
+            obj = GetNamedGameObjectInl(sys, value + 10);
         }
       }
     }
@@ -1281,7 +1338,7 @@ i32 Action_SetLayer(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       obj = packet->pd0->obj;
     for (i = 0; i < argc; i++) {
       if ((s = NuStrIStr(args[i], "character="))) {
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       } else if ((s = NuStrIStr(args[i], "set_layer="))) {
         layer = (i32)AIParamToFloat(process, s + 10);
         if ((u32)(layer - 1) <= 31)
@@ -1350,7 +1407,7 @@ i32 Action_SetTechnoComplete(AISYS_s *sys, AISCRIPTPROCESS_s *process,
         complete = 0;
       } else if ((s = NuStrIStr(args[i], "controlling"))) {
         s = s + NuStrLen("controlling") + 1;
-        obj = GetNamedGameObject(g_unk00960894->aiSys2bf8, s);
+        obj = GetNamedGameObjectInl(g_unk00960894->aiSys2bf8, s);
       }
     }
     if (obj)
@@ -1702,7 +1759,7 @@ i32 Action_Activate(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   for (i32 i = 0; i < argc; i++) {
     char *value = NuStrIStr(args[i], "character=");
     if (value != NULL) {
-      obj = GetNamedGameObject(sys, value + 10);
+      obj = GetNamedGameObjectInl(sys, value + 10);
     } else if ((value = NuStrIStr(args[i], "set=")) != NULL) {
       set = (i32)AIParamToFloat(process, value + 4);
       if (set < 0 || set > 16)
@@ -2554,7 +2611,7 @@ i32 Action_SetUseOneAtOnce(AISYS_s *sys, AISCRIPTPROCESS_s *process,
           if (NuStrICmp(value, "myself") == 0 && packet != NULL)
             obj = packet->pd0->obj;
           else
-            obj = GetNamedGameObject(g_unk00960894->aiSys2bf8, value);
+            obj = GetNamedGameObjectInl(g_unk00960894->aiSys2bf8, value);
         } else if (NuStrICmp(args[i], "FALSE") == 0) {
           enabled = 0;
         }
@@ -2733,7 +2790,7 @@ i32 Action_RegisterTakeOverObject(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   for (i32 i = 0; i < argc; i++) {
     char *s = NuStrIStr(args[i], "character=");
     if (s != 0)
-      obj = GetNamedGameObject(sys, s + 10);
+      obj = GetNamedGameObjectInl(sys, s + 10);
   }
   if (obj != 0)
     RegisterTakeOverObject(obj);
@@ -2774,7 +2831,7 @@ i32 Action_ReleaseLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "character=");
       if (s != 0)
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
     }
     if (obj != 0)
       *(void **)(obj->process290 + 0xa8) = 0;
@@ -2840,7 +2897,7 @@ i32 Action_ResetContext(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       for (i32 i = 0; i < argc; i++) {
         char *s = NuStrIStr(args[i], "character=");
         if (s != 0)
-          obj = GetNamedGameObject(sys, s + 10);
+          obj = GetNamedGameObjectInl(sys, s + 10);
       }
     }
     if (obj != 0) {
@@ -2950,7 +3007,7 @@ i32 Action_SnapToOrigin(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   for (i32 i = 0; i < argc; i++) {
     char *value = NuStrIStr(args[i], "character");
     if (value != NULL)
-      obj = GetNamedGameObject(sys, value + 10);
+      obj = GetNamedGameObjectInl(sys, value + 10);
     else if (NuStrIStr(args[i], "dont_check_terrain") != NULL)
       check_terrain = 0;
   }
@@ -2991,7 +3048,7 @@ i32 Action_GrabVictim(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "victim=");
       if (s != 0)
-        victim = GetNamedGameObject(sys, s + 7);
+        victim = GetNamedGameObjectInl(sys, s + 7);
     }
     if (victim != 0)
       GrabVictim(obj, victim);
@@ -3239,7 +3296,7 @@ i32 Action_DontSetStoppedFlag(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "character");
       if (s != 0)
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       else if (NuStrICmp("FALSE", args[0]) == 0)
         on = 0;
     }
@@ -3261,7 +3318,7 @@ i32 Action_SetDeflectBolts(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "character");
       if (s != 0)
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       else if (NuStrICmp("FALSE", args[0]) == 0)
         on = 0;
     }
@@ -3283,7 +3340,7 @@ i32 Action_CanAttack(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "character=");
       if (s != 0)
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       else if (NuStrICmp(args[i], "FALSE") == 0)
         on = 0;
     }
@@ -3405,7 +3462,7 @@ i32 Action_ProcessScriptWhenDeactivated(AISYS_s *sys,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "character=");
       if (s != 0)
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       else if (NuStrICmp(args[i], "FALSE") == 0)
         on = 0;
     }
@@ -3425,7 +3482,7 @@ i32 Action_SetWoozy(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "character");
       if (s != 0)
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       if (NuStrIStr(args[i], "true") != 0)
         woozy = 1;
       else if (NuStrIStr(args[i], "false") != 0)
@@ -3495,7 +3552,7 @@ i32 Action_CatchUpForbidden(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       for (i32 i = 0; i < argc; i++) {
         char *s = NuStrIStr(args[i], "character=");
         if (s != 0)
-          obj = GetNamedGameObject(sys, s + 10);
+          obj = GetNamedGameObjectInl(sys, s + 10);
         else if (NuStrICmp(args[i], "FALSE") == 0)
           on = 0;
       }
@@ -3522,7 +3579,7 @@ i32 Action_SplineFollowTerrain(AISYS_s *sys, AISCRIPTPROCESS_s *process,
         } else {
           char *s = NuStrIStr(args[i], "character=");
           if (s != 0)
-            obj = GetNamedGameObject(sys, s + 10);
+            obj = GetNamedGameObjectInl(sys, s + 10);
         }
       }
     }
@@ -3544,7 +3601,7 @@ i32 Action_SetShieldHitPoints(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "character=");
       if (s != 0)
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       else
         hitpoints = (i32)AIParamToFloat(process, args[i]);
     }
@@ -3604,9 +3661,9 @@ i32 Action_DrawBossHitPoints(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       if (s != 0) {
         s += 10;
         if (obj != 0)
-          obj2 = GetNamedGameObject(sys, s);
+          obj2 = GetNamedGameObjectInl(sys, s);
         else
-          obj = GetNamedGameObject(sys, s);
+          obj = GetNamedGameObjectInl(sys, s);
       } else if (NuStrICmp(args[i], "reset") == 0) {
         obj = 0;
       }
@@ -3675,7 +3732,7 @@ i32 Action_NoIdleSpeed(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "character=");
       if (s != 0)
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       else if (NuStrICmp(args[i], "FALSE") == 0)
         on = 0;
     }
@@ -3693,7 +3750,7 @@ i32 Action_FaceCharacter(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "character=");
       if (s != 0)
-        process->action_data_3 = GetNamedGameObject(sys, s + 10);
+        process->action_data_3 = GetNamedGameObjectInl(sys, s + 10);
       else
         process->face_timer = AIParamToFloat(process, args[i]);
     }
@@ -3753,7 +3810,7 @@ i32 Action_IgnoreTriggerSet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "character=");
       if (s != 0) {
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       } else {
         s = NuStrIStr(args[i], "set=");
         if (s != 0) {
@@ -3786,7 +3843,7 @@ i32 Action_AddExplosion(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       if (s != 0) {
         type = GizmoBlowupTypeGetIndexFromName(g_unk00960894, s + 5);
       } else if ((s = NuStrIStr(args[i], "character=")) != 0) {
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       }
     }
     if (type != -1 && obj != 0)
@@ -3812,11 +3869,11 @@ i32 Action_TagCharacter(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "character=");
       if (s != 0) {
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       } else {
         s = NuStrIStr(args[i], "tag_to=");
         if (s != 0)
-          target = GetNamedGameObject(sys, s + 7);
+          target = GetNamedGameObjectInl(sys, s + 7);
       }
     }
     if (obj != 0) {
@@ -3843,7 +3900,7 @@ i32 Action_SetFlickerTime(AISYS_s *sys, AISCRIPTPROCESS_s *process,
         char *s = NuStrIStr(args[i], "character=");
         if (s != 0) {
           s += NuStrLen("character=");
-          obj = GetNamedGameObject(sys, s);
+          obj = GetNamedGameObjectInl(sys, s);
         } else {
           s = NuStrIStr(args[i], "time=");
           if (s != 0) {
@@ -4053,7 +4110,7 @@ i32 Action_DeActivate(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   for (i32 i = 0; i < argc; i++) {
     char *s = NuStrIStr(args[i], "character=");
     if (s != 0) {
-      obj = GetNamedGameObject(sys, s + 10);
+      obj = GetNamedGameObjectInl(sys, s + 10);
     } else if ((s = NuStrIStr(args[i], "set=")) != 0) {
       set = (i32)AIParamToFloat(process, s + 4);
       if (set < 0 || set > 16)
@@ -4109,12 +4166,12 @@ i32 Action_UncoupleVehicles(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       char *s = NuStrIStr(args[i], "body");
       if (s != 0) {
         s = s + NuStrLen("body") + 1;
-        body = GetNamedGameObject(sys, s);
+        body = GetNamedGameObjectInl(sys, s);
       } else {
         s = NuStrIStr(args[i], "trailer");
         if (s != 0) {
           s = s + NuStrLen("trailer") + 1;
-          trailer = GetNamedGameObject(sys, s);
+          trailer = GetNamedGameObjectInl(sys, s);
         }
       }
     }
@@ -4144,7 +4201,7 @@ i32 Action_DisableWhip(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "character");
       if (s != 0)
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       if (NuStrIStr(args[i], "true") != 0) {
         disabled = 1;
       } else if (NuStrIStr(args[i], "false") != 0) {
@@ -4284,9 +4341,9 @@ i32 Action_SetTaggable(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "character=");
       if (s != 0)
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       else if ((s = NuStrIStr(args[i], "tag_to=")) != 0)
-        tag_to = GetNamedGameObject(sys, s + 7);
+        tag_to = GetNamedGameObjectInl(sys, s + 7);
       else if (NuStrICmp(args[i], "FALSE") == 0)
         disabled = 1;
     }
@@ -4512,12 +4569,12 @@ i32 Action_SetLastAttacker(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (; i < argc; i++) {
       char *value = NuStrIStr(args[i], "victim=");
       if (value != NULL) {
-        victim = GetNamedGameObject(sys, value + 7);
+        victim = GetNamedGameObjectInl(sys, value + 7);
       } else if (NuStrICmp(args[i], "attacker=opponent") == 0) {
         if (packet != NULL && packet->pe4 != NULL)
           attacker = packet->pe4->obj;
       } else if ((value = NuStrIStr(args[i], "attacker=")) != NULL) {
-        attacker = GetNamedGameObject(sys, value + 9);
+        attacker = GetNamedGameObjectInl(sys, value + 9);
       } else if (NuStrICmp(args[i], "attacker=player") == 0) {
         attacker = (*(Unk_AIPacketObj **)((u8 *)sys + 0x1698))->obj;
       }
@@ -4543,7 +4600,7 @@ i32 Action_LinkTurretToController(AISYS_s *sys, AISCRIPTPROCESS_s *process,
         if (gizmo != NULL && gizmo->object != NULL)
           turret = (GIZTURRET_s *)gizmo->object;
       } else if ((value = NuStrIStr(args[i], "controller=")) != NULL) {
-        controller = GetNamedGameObject(sys, value + 11);
+        controller = GetNamedGameObjectInl(sys, value + 11);
       }
     }
     if (turret != NULL)
@@ -4570,13 +4627,13 @@ i32 Action_TakeOver(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   for (i32 i = 0; i < argc; i++) {
     char *value = NuStrIStr(args[i], "character=");
     if (value != NULL) {
-      obj = GetNamedGameObject(sys, value + 10);
+      obj = GetNamedGameObjectInl(sys, value + 10);
     } else if ((value = NuStrIStr(args[i], "player=")) != NULL) {
       i32 n = (i32)AIParamToFloat(process, value + 7) - 1;
       if ((u32)n <= 1)
         obj = Player[n];
     } else if ((value = NuStrIStr(args[i], "target=")) != NULL) {
-      target = GetNamedGameObject(sys, value + 7);
+      target = GetNamedGameObjectInl(sys, value + 7);
     } else if (NuStrIStr(args[i], "last") != NULL) {
       target = obj->last_takeover;
     } else if (NuStrIStr(args[i], "Opponent") != NULL) {
@@ -4616,7 +4673,7 @@ i32 Action_ReleaseTakeOver(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "character=");
       if (s != 0)
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
     }
     if (obj != 0 && obj->p1158 != 0)
       ReleaseTakeOver(obj, 0);
@@ -4639,7 +4696,7 @@ i32 Action_FollowCharacter(AISYS_s *sys, AISCRIPTPROCESS_s *process,
         continue;
       char *s = NuStrIStr(args[i], "character=");
       if (s != 0)
-        process->action_data_3 = GetNamedGameObject(sys, s + 10);
+        process->action_data_3 = GetNamedGameObjectInl(sys, s + 10);
       else if (NuStrICmp(args[i], "ignore_radius") == 0)
         process->action_data_1 |= 2;
       else if (NuStrICmp(args[i], "can_go_off_path") == 0)
@@ -4796,7 +4853,7 @@ i32 Action_SetCurrentSpeed(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   for (i32 i = 0; i < argc; i++) {
     char *s = NuStrIStr(args[i], "character=");
     if (s != 0)
-      obj = GetNamedGameObject(sys, s + 10);
+      obj = GetNamedGameObjectInl(sys, s + 10);
     else if (NuStrICmp("speed=TIPTOE", args[i]) == 0)
       mode = 2;
     else if (NuStrICmp("speed=WALK", args[i]) == 0)
@@ -4967,7 +5024,7 @@ i32 Action_AddItem(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
       for (i32 i = 0; i < argc; i++) {
         char *s = NuStrIStr(args[i], "character=");
         if (s != 0)
-          obj = GetNamedGameObject(sys, s + 10);
+          obj = GetNamedGameObjectInl(sys, s + 10);
         else if (NuStrICmp(args[i], "set_as_current_item=FALSE") == 0)
           set_current = 0;
         else if (NuStrICmp(args[i], "set_as_default_item=FALSE") == 0)
@@ -5093,7 +5150,7 @@ i32 Action_IgnorePhobia(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "character=");
       if (s != 0) {
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       } else if (NuStrICmp(args[i], "FALSE") == 0) {
         on = 0;
       } else if ((s = NuStrIStr(args[i], "type=")) != 0) {
@@ -5130,7 +5187,7 @@ i32 Action_NotWithParty(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "character=");
       if (s != 0)
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       else if (NuStrICmp(args[i], "FALSE") == 0)
         on = 0;
     }
@@ -5182,7 +5239,7 @@ i32 Action_DontPush(AISYS_s *sys, AISCRIPTPROCESS_s *process,
         }
       }
     } else if ((s = NuStrIStr(args[i], "character=")) != 0) {
-      obj = GetNamedGameObject(sys, s + 10);
+      obj = GetNamedGameObjectInl(sys, s + 10);
     } else if (NuStrICmp(args[i], "FALSE") == 0) {
       on = 0;
     }
@@ -5246,7 +5303,7 @@ i32 Action_IgnoreSlideTerrain(AISYS_s *sys, AISCRIPTPROCESS_s *process,
         } else {
           char *s = NuStrIStr(args[i], "character=");
           if (s != 0)
-            obj = GetNamedGameObject(sys, s + 10);
+            obj = GetNamedGameObjectInl(sys, s + 10);
         }
       }
     }
@@ -5268,7 +5325,7 @@ i32 Action_DontTargetOthersOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "character");
       if (s != 0)
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       else if (NuStrICmp("FALSE", args[i]) == 0)
         on = 0;
     }
@@ -5522,7 +5579,7 @@ i32 Action_SetCapability(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "character");
       if (s != 0) {
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       } else {
         u32 cap = Unk00461220(args[i]);
         if (cap != 0)
@@ -5576,7 +5633,7 @@ i32 Action_AddDebris(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "character=");
       if (s != 0)
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       else if ((s = NuStrIStr(args[i], "x=")) != 0)
         pos.x = AIParamToFloat(process, s + 2);
       else if ((s = NuStrIStr(args[i], "y=")) != 0)
@@ -5935,7 +5992,7 @@ i32 Action_SnapWeaponOut(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       for (i32 i = 0; i < argc; i++) {
         char *s = NuStrIStr(args[i], "character=");
         if (s != 0)
-          obj = GetNamedGameObject(sys, s + 10);
+          obj = GetNamedGameObjectInl(sys, s + 10);
         else if ((s = NuStrIStr(args[i], "keep_out=")) != 0)
           keep_out = NuStrICmp(s + 9, "TRUE") == 0;
         else if (NuStrICmp(args[i], "FALSE") == 0)
@@ -6184,7 +6241,7 @@ i32 Action_SetDontMove(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "character");
       if (s != 0)
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       else if (NuStrICmp("FALSE", args[i]) == 0)
         on = 0;
     }
@@ -6227,7 +6284,7 @@ i32 Action_KeepWeaponOut(AISYS_s *sys, AISCRIPTPROCESS_s *process,
         } else {
           char *s = NuStrIStr(args[i], "character=");
           if (s != 0)
-            obj = GetNamedGameObject(sys, s + 10);
+            obj = GetNamedGameObjectInl(sys, s + 10);
         }
       }
     }
@@ -6249,9 +6306,9 @@ i32 Action_CannotDropIn(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "character=");
       if (s != 0)
-        obj = GetNamedGameObject(sys, s + 10);
+        obj = GetNamedGameObjectInl(sys, s + 10);
       else if ((s = NuStrIStr(args[i], "tag_to=")) != 0)
-        GetNamedGameObject(sys, s + 7);
+        GetNamedGameObjectInl(sys, s + 7);
       else if (NuStrICmp(args[i], "FALSE") == 0)
         on = 0;
     }
@@ -6277,7 +6334,7 @@ i32 Action_AwkwardShapeOverride(AISYS_s *sys, AISCRIPTPROCESS_s *process,
         } else {
           char *s = NuStrIStr(args[i], "character=");
           if (s != 0)
-            obj = GetNamedGameObject(sys, s + 10);
+            obj = GetNamedGameObjectInl(sys, s + 10);
         }
       }
     }
@@ -6367,7 +6424,7 @@ i32 Action_MakeTargetableByTorps(AISYS_s *sys, AISCRIPTPROCESS_s *process,
         char *s = NuStrIStr(args[i], "name=");
         if (s != NULL) {
           s += NuStrLen("name=");
-          target = GetNamedGameObject(sys, s);
+          target = GetNamedGameObjectInl(sys, s);
         } else if (NuStrIStr(args[i], "FALSE") != NULL)
           on = 0;
       }
@@ -6433,7 +6490,7 @@ i32 Action_UpdatePathInfo(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   for (i32 i = 0; i < argc; i++) {
     char *value = NuStrIStr(args[i], "character=");
     if (value != NULL)
-      obj = GetNamedGameObject(sys, value + 10);
+      obj = GetNamedGameObjectInl(sys, value + 10);
     else if (NuStrICmp("reset_route", args[i]) == 0)
       reset = 1;
   }
