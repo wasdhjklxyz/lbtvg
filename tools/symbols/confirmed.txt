@@ -3379,3 +3379,5 @@
 00604200 GameAnimSet_GetAveragePos averages object positions (EvalAnim at start/end/current frame, or draw pos), saga GetAveragePos
 00604ff0 GameAnimSet_DrawReflection MatrixReflection per visible object between Start/EndReflectionRender (saga DrawReflection)
 0066bc70 GizFlock_Load GizFlock_RegisterGizmo load slot (fns[24]); reads flocks with EdFile*
+006daae0 NuFParGetOptionalFloat saga nufpar.cpp body (NuStrCpy and UnGetWord inlined); calls GetWord, NuAToF
+006dabf0 NuFParGetOptionalInt saga nufpar.cpp body (NuStrCpy and UnGetWord inlined); calls GetWord, NuAToI

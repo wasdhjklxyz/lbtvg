@@ -3631,6 +3631,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006da090,0018b224,_NuFileExtInitEx,_NuFileExtInitEx,strings,0
 006da8d0,0018d4c2,_NuFParGetWord,_NuFParGetWord,gapfill,1
 006daa40,0018d694,_NuFParGetFloat,_NuFParGetFloat,confirmed,0
+006daae0,0018d740,_NuFParGetOptionalFloat,_NuFParGetOptionalFloat,confirmed,0
+006dabf0,0018ffe2,_NuFParGetOptionalInt,_NuFParGetOptionalInt,confirmed,0
 006dc300,0018bea6,_NuStrIStr,_NuStrIStr,calls,1
 006dc3a0,0018bf1a,_NuStrICmp,_NuStrICmp,confirmed,0
 006dc410,0018c3fe,_NuStrNICmp,_NuStrNICmp,gapfill,1

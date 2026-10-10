@@ -9,7 +9,9 @@ typedef struct nufpar_s {
   char file_name[0x100]; // 0x08
   u32 pad108[(0x910 - 0x108) / 4];
   char *word_buf; // 0x910
-  u32 pad914[(0x930 - 0x914) / 4];
+  u32 pad914[(0x920 - 0x914) / 4];
+  i32 line_pos; // 0x920
+  u32 pad924[(0x930 - 0x924) / 4];
   struct nufpcomjump_s *jump_ctx[8];  // 0x930
   struct nufpcomjump_s *jump_ctx2[8]; // 0x950
   i32 command_pos;                    // 0x970
@@ -131,6 +133,57 @@ f32 NuFParGetFloat(NUFPAR *parser) {
     return NuAToF(buf);
   } else {
     return 0.0f;
+  }
+}
+
+// GLOBAL: LEGOBATMAN 0x00ae4344
+extern i32 old_line_pos;
+
+// FUNCTION: LEGOBATMAN 0x006daae0
+void NuFParGetOptionalFloat(NUFPAR *parser, f32 *value) {
+  char buf[64];
+
+  NuFParGetWord(parser);
+  if (parser->is_utf16) {
+    NuUnicodeToAscii(buf, (NUWCHAR16 *)parser->word_buf);
+  } else {
+    char *dst = buf;
+    char *src = parser->word_buf;
+    if (src != 0) {
+      while (*src != '\0') {
+        *dst++ = *src++;
+      }
+    }
+    *dst = '\0';
+  }
+  if (value != 0 && buf[0] != '\0') {
+    *value = NuAToF(buf);
+    if (*value == 0.0f)
+      parser->line_pos = old_line_pos;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006dabf0
+void NuFParGetOptionalInt(NUFPAR *parser, i32 *value) {
+  char buf[64];
+
+  NuFParGetWord(parser);
+  if (parser->is_utf16) {
+    NuUnicodeToAscii(buf, (NUWCHAR16 *)parser->word_buf);
+  } else {
+    char *dst = buf;
+    char *src = parser->word_buf;
+    if (src != 0) {
+      while (*src != '\0') {
+        *dst++ = *src++;
+      }
+    }
+    *dst = '\0';
+  }
+  if (value != 0 && buf[0] != '\0') {
+    *value = NuAToI(buf);
+    if (*value == 0)
+      parser->line_pos = old_line_pos;
   }
 }
 
