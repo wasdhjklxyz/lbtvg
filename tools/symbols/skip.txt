@@ -273,3 +273,4 @@
 0x006d5210 NuAPIInit: needs the 0xf4-byte nuapi struct at 0xadf648 (fields are separate globals; stores reschedule)
 0x006e0e90 NuStringTableLoadCSV: inliner choices differ (NuAsciiToUnicode called in orig), saga body
 0x006e2090 NuMemFreeFn: inlined memcmp result materialised in ours
+0x006e23d0 NuMemDumpFn: loop-tail layout of the 0xfefefefe checks

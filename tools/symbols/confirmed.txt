@@ -3633,3 +3633,6 @@
 006e1b90 NuMemDebugUnk006e1b90 empty static debug hook (bad size / external overflow)
 006e1bb0 NuMemDebugUnk006e1bb0 empty static debug hook (allocation failure)
 006e2090 NuMemFreeFn matohero numem.c body plus LB mark checks (stub)
+006e1c70 NuMemAlloc Mac order after NuMemSetExternal/GetPeakAllocAddr; NuMemAllocFn without the debug header
+006e2440 NuMemFlushFn frees every block on alloc_list (Mac order NuMemDumpFn, NuMemFlushFn)
+006e23d0 NuMemDumpFn reports blocks >= size, checks 0xfefefefe links (stub)

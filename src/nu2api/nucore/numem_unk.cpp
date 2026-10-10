@@ -189,6 +189,46 @@ extern "C" void *NuMemAllocFn(int size, const char *file, int line) {
   return rv;
 }
 
+// FUNCTION: LEGOBATMAN 0x006e1c70
+extern "C" void *NuMemAlloc(int size) {
+  void *ptr;
+  int endaddr;
+
+  if (memexternal != 0) {
+    memexternal->cursor->addr = (memexternal->cursor->addr + 0xf) & ~0xf;
+    if (memexternal->end.addr - memexternal->cursor->addr >= (u32)size) {
+      ptr = memexternal->cursor->void_ptr;
+      memexternal->cursor->addr += size;
+      return ptr;
+    }
+    return 0;
+  }
+
+  if (discardbuff != 0) {
+    size = (size + 0xf) & ~0xf;
+    if (size < discardbuff->remaining) {
+      ptr = discardbuff->cursor;
+      discardbuff->cursor += size;
+      discardbuff->remaining -= size;
+      return ptr;
+    }
+    return 0;
+  }
+
+  totalloc += size;
+  if (NuMem_Heap != 0)
+    ptr = NuHeapAllocAligned(NuMem_Heap, size, 4);
+  else
+    ptr = malloc(size);
+  memset(ptr, 0, size);
+  endaddr = (int)ptr + size;
+  if (endaddr > highallocaddr)
+    highallocaddr = endaddr;
+  if (endaddr > g_nuMemUnk00b03968)
+    g_nuMemUnk00b03968 = endaddr;
+  return ptr;
+}
+
 // STUB: LEGOBATMAN 0x006e2090
 // The inlined memcmps: the original branches straight to the report on a
 // mismatch; ours materialises memcmp's -1/0/1 first (484 B).
@@ -223,6 +263,39 @@ extern "C" void NuMemFreeFn(void *addr, const char *file, int line) {
     NuHeapFree(NuMem_Heap, head);
   else
     free(head);
+}
+
+// STUB: LEGOBATMAN 0x006e23d0
+// Loop tail (corruption checks) and the push scratch register differ.
+extern "C" void NuMemDumpFn(int min_size) {
+  MEMBLK_HEAD *p;
+  int size;
+
+  for (p = alloc_list; p != 0;) {
+    size = p->size;
+    if (size >= min_size)
+      NuMemDebugUnk006e1bb0((char *)p + size + 0x2c, p->line, p->cnt, size);
+    p = p->succ;
+    if (p == (MEMBLK_HEAD *)0xfefefefe)
+      NuMemDebugUnk006e1b90();
+    if (p == 0)
+      break;
+    if (p->succ == (MEMBLK_HEAD *)0xfefefefe)
+      NuMemDebugUnk006e1b90();
+  }
+  NuMemDebugUnk006e1bb0(totalloc);
+}
+
+// FUNCTION: LEGOBATMAN 0x006e2440
+extern "C" void NuMemFlushFn(void) {
+  MEMBLK_HEAD *p = alloc_list;
+  MEMBLK_HEAD *next;
+
+  while (p != 0) {
+    next = p->succ;
+    free(p);
+    p = next;
+  }
 }
 
 // Batman's version returns the previous heap.
