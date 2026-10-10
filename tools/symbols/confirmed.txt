@@ -2141,3 +2141,12 @@
 00618270 HubEpisodeInfo_Set Mac order after HubAreaInfo_IsAreaOpen; matched
 00618280 HubEpisodeInfo_Get Mac order after HubEpisodeInfo_Set; matched
 00618380 HubEpisodeInfo_FindFromEpisodeIndex Mac order after HubEpisodeInfo_Init + body
+0053c7a0 ov_pcm_total libvorbis vorbisfile.c body (OV_EINVAL -131, pcmlengths[i*2+1]); matched
+0053c4b0 ov_clear libvorbis vorbisfile.c body (clears vb/vd/os, frees, close callback, memset 0x2d0); matched
+0053d850 ov_pcm_tell libvorbis vorbisfile.c body; matched
+00541720 vorbis_block_clear first call of ov_clear (&vf->vb) as in libvorbis
+00541bd0 vorbis_dsp_clear second call of ov_clear (&vf->vd) as in libvorbis
+0053ef60 ogg_stream_clear third call of ov_clear (&vf->os) as in libvorbis
+00540270 vorbis_info_clear per-link call in ov_clear as in libvorbis
+005401a0 vorbis_comment_clear per-link call in ov_clear as in libvorbis
+0053f510 ogg_sync_clear called on &vf->oy in ov_clear as in libvorbis

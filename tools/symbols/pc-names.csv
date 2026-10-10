@@ -935,6 +935,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0053c890,,ov_raw_seek,ov_raw_seek,confirmed,0
 0053d650,,ov_time_seek,ov_time_seek,confirmed,0
 0053d850,,ov_pcm_tell,ov_pcm_tell,confirmed,0
+0053ef60,,ogg_stream_clear,ogg_stream_clear,confirmed,0
+0053f510,,ogg_sync_clear,ogg_sync_clear,confirmed,0
+005401a0,,vorbis_comment_clear,vorbis_comment_clear,confirmed,0
+00540270,,vorbis_info_clear,vorbis_info_clear,confirmed,0
+00541720,,vorbis_block_clear,vorbis_block_clear,confirmed,0
+00541bd0,,vorbis_dsp_clear,vorbis_dsp_clear,confirmed,0
 00558d90,0020edaa,_GetSfxId,_GetSfxId,calls,1
 00558f10,001f3ac2,_PlaySfxByIdEx,_PlaySfxByIdEx,calls,2
 00559480,0020ef1a,_PlaySfxAndSetVolume,_PlaySfxAndSetVolume,confirmed,0
