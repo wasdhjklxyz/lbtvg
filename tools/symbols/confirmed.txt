@@ -2049,3 +2049,13 @@
 00671030 FadeSystem::SetStage Mac order + saga body; matched
 00671060 FadeSystem::AddFade Mac order + saga body; matched
 006710a0 FadeSystem::SetFade Mac order + saga body; matched
+006fcad0 NuMotionAccumFilter::initResources vtable 0x8982e4 slot 1 (RTTI) + saga NuPostFilterGen slot order; matched
+006fcb00 NuSpeedBlurFilter::initResources vtable 0x89830c slot 1 (RTTI); matched
+006fcb60 NuProcessColourFilter::initResources vtable 0x897988 slot 1 (RTTI); matched
+006fcbc0 NuSSAOFilter::initResources vtable 0x8979bc slot 1 (RTTI); matched
+006fcc50 NuEdgeAAFilter::initResources vtable 0x898334 slot 1 (RTTI); matched
+00701350 NuMotionAccumFilterGen::initResources vtable 0x897cac slot 1, called first by NuMotionAccumFilter::initResources
+00701c20 NuSpeedBlurFilterGen::initResources vtable 0x897cd4 slot 1
+00701e60 NuProcessColourFilterGen::initResources vtable 0x897cfc slot 1
+007040f0 NuSSAOFilterGen::initResources vtable 0x897dc4 slot 1
+00702190 NuEdgeAAFilterGen::initResources vtable 0x897d7c slot 1
