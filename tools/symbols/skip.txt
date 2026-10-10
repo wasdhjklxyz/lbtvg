@@ -247,3 +247,4 @@
 006784c0 Puzzles_Load: bitfield |= insert temp in dx vs orig ax (6 lines), rest matches
 006d71b0 make_code (ar002): n arg in ebx (ours) vs stack (orig), known open puzzle
 006d7270 ImplodeMakeTree: register allocation follows make_code ebx puzzle
+00603df0 GameAnimSet_CreateObjectPool: imul operand load order (capacity/data_size) swapped, 2 lines

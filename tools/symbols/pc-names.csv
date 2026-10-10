@@ -2205,7 +2205,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00601fe0,002e0b50,__Z20Grabber_SetVictimPosP9GRABBER_s,Grabber_SetVictimPos(GRABBER_s*),gapfill,3
 00602270,002e111c,__Z13Grabber_ResetP11WORLDINFO_s,Grabber_Reset(WORLDINFO_s*),strings,0
 00602540,002e0da8,__Z12Grabber_DropP9GRABBER_sP7nuvec_s,"Grabber_Drop(GRABBER_s*, nuvec_s*)",strings,0
+00603a50,002ab41e,__Z37GameAnimSys_AllocateLevelProgressDataP9variptr_uS0_ii,"GameAnimSys_AllocateLevelProgressData(variptr_u*, variptr_u*, int, int)",confirmed,0
+00603ac0,002ab4ae,__Z25GameAnimSys_StoreProgressP13GAMEANIMSYS_si,"GameAnimSys_StoreProgress(GAMEANIMSYS_s*, int)",confirmed,0
+00603b20,002ab508,__Z27GameAnimSys_GetProgressDatai,GameAnimSys_GetProgressData(int),confirmed,0
+00603b80,002ab564,__Z18GameAnimSys_CreateP9variptr_uS0_,"GameAnimSys_Create(variptr_u*, variptr_u*)",confirmed,0
 00603bc0,002ab5ca,__Z18GameAnimSet_CreateP9variptr_uS0_P17GAMEANIMOBJPOOL_sP13GAMEANIMSYS_s,"GameAnimSet_Create(variptr_u*, variptr_u*, GAMEANIMOBJPOOL_s*, GAMEANIMSYS_s*)",confirmed,0
+00603c10,002ab636,__Z27GameAnimSet_AddToSystemListP13GAMEANIMSET_s,GameAnimSet_AddToSystemList(GAMEANIMSET_s*),confirmed,0
 00603cf0,002ab74e,__Z25GameAnimSet_EvaluateStateP13GAMEANIMSET_s,GameAnimSet_EvaluateState(GAMEANIMSET_s*),confirmed,0
 00603df0,002ab814,__Z28GameAnimSet_CreateObjectPoolP9variptr_uS0_ii,"GameAnimSet_CreateObjectPool(variptr_u*, variptr_u*, int, int)",confirmed,0
 00605760,0034992a,__Z13Whippers_LoadPvS_,"Whippers_Load(void*, void*)",confirmed,0

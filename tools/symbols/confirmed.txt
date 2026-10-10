@@ -3353,3 +3353,8 @@
 0067e1d0 NuLstMovePrev saga nulst.cpp body matches (prev stores reordered)
 0067e230 NuLstGetFree returns list->free + 1, as saga
 0067e240 NuLstAlloc tail call to NuLstAllocHead, as saga
+00603a50 GameAnimSys_AllocateLevelProgressData saga gameanim.cpp body matches (level_count entries of capacity bytes)
+00603ac0 GameAnimSys_StoreProgress saga gameanim.cpp body matches (set state bytes)
+00603b20 GameAnimSys_GetProgressData saga gameanim.cpp body matches
+00603b80 GameAnimSys_Create saga gameanim.cpp body matches
+00603c10 GameAnimSet_AddToSystemList moves the set from the system's stopped list to its active list (saga AddToSystemList)
