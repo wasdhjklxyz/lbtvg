@@ -763,7 +763,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005130e0,000fb00c,__ZN14SecurityCamera25AreVillainLevelsAvailableEv,SecurityCamera::AreVillainLevelsAvailable(),confirmed,0
 00513430,000fb63a,__ZN14SecurityCamera14InitializePermENS_18SecurityCameraTypeEP9variptr_uS2_,"SecurityCamera::InitializePerm(SecurityCamera::SecurityCameraType, variptr_u*, variptr_u*)",strings,0
 00514bd0,001066a8,__ZN12ShopComputer15InitializeLevelEP11WORLDINFO_s,ShopComputer::InitializeLevel(WORLDINFO_s*),strings,0
+005150f0,001067b2,__ZN12ShopComputer14IsMenuChangingEv,ShopComputer::IsMenuChanging(),confirmed,0
 00515150,001067fe,__ZN12ShopComputer17IsAnyMenuChangingEv,ShopComputer::IsAnyMenuChanging(),strings,0
+005163f0,0010605e,__ZNK12ShopComputer16RenderWhiteNoiseEv,ShopComputer::RenderWhiteNoise() const,confirmed,0
 00516420,00106088,__ZN12ShopComputer22parse_reversedirectionEP8nufpar_s,ShopComputer::parse_reversedirection(nufpar_s*),confirmed,0
 00516440,0010609c,__ZN12ShopComputer15parse_levelpathEP8nufpar_s,ShopComputer::parse_levelpath(nufpar_s*),confirmed,0
 005164a0,001060e6,__ZN12ShopComputer21parse_bgimagefilenameEP8nufpar_s,ShopComputer::parse_bgimagefilename(nufpar_s*),confirmed,0

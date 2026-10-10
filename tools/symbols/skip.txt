@@ -174,3 +174,4 @@
 006876d0 NuMtxAlignX: saga body, one fmul operand order (m00*m11), swapping in source has no effect
 006877e0 NuMtxAlignY: saga body, one fmul operand order (m12*m20), same as AlignX
 0067aae0 HiresTextureManager::GetTexture_Internal: ebx/edi register swap only (tried branch order, index/world local order, continue loop)
+005150f0 ShopComputer::IsMenuChanging: return-0 tail placement (3 forms tried; maybe the vtable-cast call)

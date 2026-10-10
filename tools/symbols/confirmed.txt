@@ -1876,3 +1876,5 @@
 00516560 ShopComputer::parse_specialobjectname Mac order (word into empty 0x50); matched
 005165c0 ShopComputer::parse_villainmode Mac order (sets 0x340 = villain mode, read by IsVillainMode); matched
 005165e0 ShopComputer::LoadSettings vtable 0x85d8f4 slot 18; Mac body (NuFParCreate, keyword table 0x945d00); matched
+005163f0 ShopComputer::RenderWhiteNoise Mac body (white noise > 0.001 -> InteractiveDisplay::RenderWhiteNoise); matched
+005150f0 ShopComputer::IsMenuChanging Mac body (IsInteractiveMode, menu f1c/f8 like IsAnyMenuChanging); stub

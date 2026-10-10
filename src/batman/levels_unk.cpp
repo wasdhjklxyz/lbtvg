@@ -367,11 +367,14 @@ struct SHOPMENU_s {
 class InteractiveDisplay {
 public:
   void InitializeLevel(WORLDINFO_s *world);
+  void RenderWhiteNoise(f32 alpha) const;
 };
 
 class ShopComputer : public InteractiveDisplay {
 public:
   static i32 IsAnyMenuChanging();
+  i32 IsMenuChanging();
+  void RenderWhiteNoise() const;
   void InitializeLevel(WORLDINFO_s *world);
   static void parse_reversedirection(struct nufpar_s *fp);
   static void parse_levelpath(struct nufpar_s *fp);
@@ -400,9 +403,9 @@ public:
   i32 i4c8; // 0x4c8
   f32 f4cc; // 0x4cc
   u8 pad4d0[4];
-  f32 f4d4; // 0x4d4
-  u8 pad4d8[4];
-  f32 f4dc[6]; // 0x4dc
+  f32 f4d4;        // 0x4d4
+  f32 white_noise; // 0x4d8
+  f32 f4dc[6];     // 0x4dc
 };
 
 typedef i32(__thiscall *ShopComputerVFn)(ShopComputer *);
@@ -433,6 +436,12 @@ void Unk00514330(char *name); // empty in the release build
 extern ShopComputer *g_unk009cf618; // the shop computer being parsed
 // GLOBAL: LEGOBATMAN 0x00945d00
 extern u8 g_unk00945d00[]; // ShopComputer keyword table
+
+// FUNCTION: LEGOBATMAN 0x005163f0
+void ShopComputer::RenderWhiteNoise() const {
+  if (white_noise > 0.001f)
+    InteractiveDisplay::RenderWhiteNoise(white_noise);
+}
 
 // FUNCTION: LEGOBATMAN 0x00516420
 void ShopComputer::parse_reversedirection(NUFPAR *fp) {
@@ -514,6 +523,16 @@ void ShopComputer::InitializeLevel(WORLDINFO_s *world) {
     f4dc[4] = 1.0f;
     f4dc[5] = 1.0f;
   }
+}
+
+// STUB: LEGOBATMAN 0x005150f0
+// the shared "return 0" tail lands at the end instead of after the first test
+// (early-return, nested and single-condition forms tried)
+i32 ShopComputer::IsMenuChanging() {
+  if (((ShopComputerVFn)vtable[16])(this) && menu != NULL &&
+      (!(menu->f1c < 0.001f) || !(menu->f8 > (f64)0.999f)))
+    return 1;
+  return 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x00515150
