@@ -3799,10 +3799,13 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006dc4b0,0018c88e,_NuStrUpr,_NuStrUpr,confirmed,0
 006dc4f0,0018d9fe,_NuStrLwr,_NuStrLwr,gapfill,1
 006dc540,0018c8c2,_NuHexStringToI,_NuHexStringToI,confirmed,0
+006dc630,0018c08c,_NuStringTok,_NuStringTok,confirmed,0
+006dc670,0018da36,_NuStrToLower,_NuStrToLower,confirmed,0
 006dc720,0018bf90,_NuStringTableGetByName,_NuStringTableGetByName,confirmed,0
 006dc990,,NuFileIsTxt,NuFileIsTxt,confirmed,0
 006dc9e0,0018c7f8,_NuFileGetDeviceFromPath,_NuFileGetDeviceFromPath,confirmed,0
 006dca60,0018b886,_NuFileInitEx,_NuFileInitEx,confirmed,0
+006dcae0,0018b92a,_NuFileInit,_NuFileInit,confirmed,0
 006dcb00,001910ea,_NuFileClose,_NuFileClose,confirmed,0
 006dcbc0,00190be0,_NuDatFileFindTree,_NuDatFileFindTree,confirmed,0
 006dceb0,00191214,_NuDatClose,_NuDatClose,confirmed,0

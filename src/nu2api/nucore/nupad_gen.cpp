@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <string.h>
 
+u8 NuToLower(u8 c);
+
 // Empty debug hook; the original's callers know it clobbers nothing, so it
 // is defined (not inlined) in this TU.
 // FUNCTION: LEGOBATMAN 0x006d24b0
@@ -1410,6 +1412,33 @@ int NuHexStringToI(char *string) {
   return value;
 }
 
+// FUNCTION: LEGOBATMAN 0x006dc630
+int NuStringTok(char *str, ...) {
+  char *token;
+  int value;
+  va_list args;
+  va_start(args, str);
+  do {
+    token = va_arg(args, char *);
+    value = va_arg(args, int);
+    if (token != NULL) {
+      if (NuStrICmp(str, token) == 0)
+        break;
+    }
+  } while (token != NULL);
+  va_end(args);
+  return value;
+}
+
+// FUNCTION: LEGOBATMAN 0x006dc670
+void NuStrToLower(char *str) {
+  char *cursor = str;
+  while (*cursor != 0) {
+    *cursor = NuToLower(*cursor);
+    ++cursor;
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x006dc4f0
 void NuStrLwr(char *dst, const char *src) {
   char c;
@@ -1908,6 +1937,9 @@ int NuFileInitEx(int device_id, int reboot_iop, int eject) {
   NuDatFileDecodeInit();
   return device_id;
 }
+
+// FUNCTION: LEGOBATMAN 0x006dcae0
+void NuFileInit(int device_id) { NuFileInitEx(device_id, 1, 0); }
 
 // FUNCTION: LEGOBATMAN 0x006dcb00
 void NuFileClose(int file) {
@@ -4132,8 +4164,6 @@ void NuStrGetExt(char *dst, char *src) {
       NuStrNCpy(dst, extension + 1, length);
   }
 }
-
-u8 NuToLower(u8 c);
 
 // FUNCTION: LEGOBATMAN 0x006d8a30
 void NuStrSubstituteString(char *dst, char *src, char *search,

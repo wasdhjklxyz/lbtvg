@@ -3585,3 +3585,6 @@
 006d88e0 NuStrGetPath saga nustring_c.cpp body
 006d8960 NuStrGetExt saga nustring_c.cpp body
 006d8a30 NuStrSubstituteString saga nustring_c.cpp body
+006dc630 NuStringTok saga nustring_c.cpp varargs body
+006dc670 NuStrToLower saga nustring_c.cpp body (NuToLower inlined)
+006dcae0 NuFileInit saga body NuFileInitEx(id, 1, 0)
