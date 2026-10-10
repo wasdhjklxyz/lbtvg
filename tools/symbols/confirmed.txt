@@ -2120,3 +2120,6 @@
 006f7080 NuPostFilter::blurSM1 shader model < 2 path of NuPostFilter::blur7x7, same signature as the Mac blurSM1
 006f37b0 NuEffectTexCreate2D Mac _NuEffectTexCreate2D (C linkage), same 5-arg calls; static pool of 32 + format switch; matched
 006f8210 NuMotionAccumFilter::initTextureResources vtable 0x8982e4 slot 3 (RTTI) + Mac body (Gen::initTextureResources, NuEffectTexCreate2D(w,h,1,1,2) into 0xac); matched
+006fe600 NuMainFilterGen::initTextureResources vtable 0x8982bc slot 3 (RTTI) + saga/Mac body; matched
+006fe6f0 NuMainFilterGen::destroyTextureResources vtable 0x8982bc slot 4 (RTTI), releases the three textures initTextureResources creates; matched
+006fe720 NuMainFilterGen::reset vtable 0x8982bc slot 6 (RTTI) + saga body (clear enabled/filter flags/count); matched

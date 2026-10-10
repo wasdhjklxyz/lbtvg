@@ -2592,6 +2592,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006fcc80,0017aea2,_Nu360MtlInit,_Nu360MtlInit,strings,0
 006fe600,0014297e,__ZN15NuMainFilterGen20initTextureResourcesEii,"NuMainFilterGen::initTextureResources(int, int)",confirmed,0
 006fe6f0,001451fa,__ZN15NuMainFilterGen23destroyTextureResourcesEv,NuMainFilterGen::destroyTextureResources(),confirmed,0
+006fe720,0014654a,__ZN15NuMainFilterGen5resetEv,NuMainFilterGen::reset(),confirmed,0
 00701350,00138592,__ZN22NuMotionAccumFilterGen13initResourcesEv,NuMotionAccumFilterGen::initResources(),confirmed,0
 00701370,00142b10,__ZN22NuMotionAccumFilterGen20initTextureResourcesEii,"NuMotionAccumFilterGen::initTextureResources(int, int)",confirmed,0
 007013a0,00124ce8,__ZN22NuMotionAccumFilterGen23destroyTextureResourcesEv,NuMotionAccumFilterGen::destroyTextureResources(),confirmed,0
