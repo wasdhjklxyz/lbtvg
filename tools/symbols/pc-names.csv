@@ -1956,6 +1956,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0061f540,00278f4c,__Z14CharScene_DrawP11WORLDINFO_siP7numtx_sS2_,"CharScene_Draw(WORLDINFO_s*, int, numtx_s*, numtx_s*)",confirmed,0
 0061f580,00278fae,__Z20CharScenes_LevelDumpP11WORLDINFO_s,CharScenes_LevelDump(WORLDINFO_s*),confirmed,0
 0061f5e0,0027900c,__Z19CharScenes_AreaDumpv,CharScenes_AreaDump(),confirmed,0
+0061f630,00279062,__Z15IconScenes_InitPcP9variptr_uS1_,"IconScenes_Init(char*, variptr_u*, variptr_u*)",confirmed,0
+0061f690,002790e4,__Z18IconScene_FindByIdi,IconScene_FindById(int),confirmed,0
+0061f890,0027932e,__Z15IconScenes_Dumpv,IconScenes_Dump(),confirmed,0
 0061fc20,002793a6,__Z13LayerFromNameP19GAMECHARACTERDATA_sPc,"LayerFromName(GAMECHARACTERDATA_s*, char*)",confirmed,0
 0061fc90,00279408,__Z18MakeLayerList_NameP16CHARACTERMODEL_sPsj,"MakeLayerList_Name(CHARACTERMODEL_s*, short*, unsigned int)",confirmed,0
 0061fd50,002794d4,__Z26SetMoveAndAnimateFunctionsjjjjiPvS_S_,"SetMoveAndAnimateFunctions(unsigned int, unsigned int, unsigned int, unsigned int, int, void*, void*, void*)",confirmed,0

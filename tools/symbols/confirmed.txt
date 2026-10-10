@@ -2566,3 +2566,6 @@
 0061f4f0 CharScene_FindHSpecial CharScene global or world scenes then NuSpecialExistsFn: saga characters.cpp; Mac order
 0061f2d0 CharScene_Load         "chars\%s\%s.gsc" NuGScnRead + NuSpecialFind; Mac string pairing
 0061f370 CharScenes_LevelLoad   CharScene_Load per flagged character in world+0x29c4: saga characters.cpp; Mac order
+0061f630 IconScenes_Init        CHARCOUNT pointer table from the buffer, IconPath copy if < 64 chars: saga gamemenuall.cpp; Mac order after CharScenes_AreaDump
+0061f690 IconScene_FindById     bounds-checked IconScene[id]: saga gamemenuall.cpp; Mac order
+0061f890 IconScenes_Dump        NuGScnRemove over IconScene, clears GCDATA+0x14 special: saga gamemenuall.cpp; Mac order

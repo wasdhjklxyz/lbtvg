@@ -32,7 +32,9 @@ typedef struct GCDATA_s {
   u32 pad0;
   CHARLAYER *layers;  // 0x04
   char *layer_lookup; // 0x08
-  u8 pad0c[0x13c - 0xc];
+  u8 pad0c[0x14 - 0xc];
+  u32 icon_special[3]; // 0x14, nuhspecial_s of the icon scene
+  u8 pad20[0x13c - 0x20];
   u32 flags13c;  // 0x13c
   u32 abilities; // 0x140
   u32 flags144;  // 0x144, 0x400: has a character scene
@@ -236,6 +238,46 @@ void CharScenes_AreaDump() {
       area = CharScene_Area;
     }
     area[i].scene = NULL;
+  }
+}
+
+// GLOBAL: LEGOBATMAN 0x00acb810
+static NUGSCN **IconScene;
+// GLOBAL: LEGOBATMAN 0x00963c58
+extern char IconPath[64];
+
+// from saga legoapi/menus/screens/gamemenuall.cpp
+// FUNCTION: LEGOBATMAN 0x0061f630
+void IconScenes_Init(char *path, VARIPTR *buf, VARIPTR *buf_end) {
+  i32 size = CHARCOUNT * sizeof(NUGSCN *);
+  NUGSCN **table = (NUGSCN **)((buf->addr + 3) & ~3);
+  IconScene = table;
+  buf->addr = (u32)table + size;
+  memset(table, 0, size);
+
+  if (path != NULL && NuStrLen(path) < 0x40)
+    NuStrCpy(IconPath, path);
+}
+
+// from saga legoapi/menus/screens/gamemenuall.cpp
+// FUNCTION: LEGOBATMAN 0x0061f690
+NUGSCN *IconScene_FindById(i32 id) {
+  if (id < 0 || id >= CHARCOUNT)
+    return NULL;
+  return IconScene[id];
+}
+
+// saga legoapi/menus/screens/gamemenuall.cpp, plus the icon special reset
+// FUNCTION: LEGOBATMAN 0x0061f890
+void IconScenes_Dump() {
+  if (IconScene == NULL)
+    return;
+  for (i32 i = 0; i < CHARCOUNT; ++i) {
+    if (IconScene[i] != NULL) {
+      NuGScnRemove(IconScene[i]);
+      IconScene[i] = NULL;
+      memset(GCDataList[i].icon_special, 0, sizeof(GCDataList[i].icon_special));
+    }
   }
 }
 
