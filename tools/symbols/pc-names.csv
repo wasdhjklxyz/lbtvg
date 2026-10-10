@@ -2156,6 +2156,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d79b0,0018a9fe,_NuStrRChrW,_NuStrRChrW,confirmed,0
 006d7a10,0018aa44,_NuStrStrW,_NuStrStrW,confirmed,0
 006d7b10,0018aa84,_NuStrCmpW,_NuStrCmpW,confirmed,0
+006d7b60,0018cd82,_NuStrICmpW,_NuStrICmpW,confirmed,0
+006d7bf0,0018bbd8,_NuStrNCmpW,_NuStrNCmpW,confirmed,0
+006d7c60,0018ce14,_NuStrNICmpW,_NuStrNICmpW,confirmed,0
 006d7dc0,0018b9d4,_NuSPrintf,_NuSPrintf,confirmed,0
 006d7ee0,0018ab32,_NuIToA,_NuIToA,confirmed,0
 006d7f60,00187f1a,_NuAToF,_NuAToF,calls,1

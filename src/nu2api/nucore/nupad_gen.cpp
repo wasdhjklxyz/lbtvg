@@ -1460,3 +1460,89 @@ i32 NuStrToLW(NUWCHAR *str, NUWCHAR **end, i32 radix) {
     return sign * value;
   return value;
 }
+
+// FUNCTION: LEGOBATMAN 0x006d7b60
+i32 NuStrICmpW(NUWCHAR *a, NUWCHAR *b) {
+  NUWCHAR a_cursor;
+  NUWCHAR b_cursor;
+
+  if (a == 0) {
+    return -1;
+  }
+
+  if (b == 0) {
+    return 1;
+  }
+
+  do {
+    a_cursor = NuToUpperW(*a);
+    b_cursor = NuToUpperW(*b);
+
+    if (a_cursor > b_cursor) {
+      return 1;
+    }
+
+    if (a_cursor < b_cursor) {
+      return -1;
+    }
+
+    a++;
+    b++;
+  } while (a_cursor != '\0' && b_cursor != '\0');
+
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d7bf0
+i32 NuStrNCmpW(const NUWCHAR *a, const NUWCHAR *b, i32 n) {
+  NUWCHAR ca, cb;
+  if (a == 0)
+    return -1;
+  if (b == 0)
+    return 1;
+  if (n == 0)
+    return 0;
+  if (n == -1)
+    n = NuStrLenW(a);
+  else if (n == -2)
+    n = NuStrLenW(b);
+  do {
+    ca = *a;
+    cb = *b;
+    if (ca > cb)
+      return 1;
+    if (ca < cb)
+      return -1;
+    ++a;
+    ++b;
+    --n;
+  } while (ca != 0 && cb != 0 && n != 0);
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d7c60
+i32 NuStrNICmpW(const NUWCHAR *a, const NUWCHAR *b, i32 n) {
+  NUWCHAR ca, cb;
+  if (a == 0)
+    return -1;
+  if (b == 0)
+    return 1;
+  if (n == 0)
+    return 0;
+  if (n == -1)
+    n = NuStrLenW(a);
+  else if (n == -2)
+    n = NuStrLenW(b);
+  do {
+    ca = NuToUpperW(*a);
+    cb = NuToUpperW(*b);
+    if (ca > cb)
+      return 1;
+    if (ca < cb)
+      return -1;
+    ++a;
+    ++b;
+    --n;
+  } while (ca != 0 && cb != 0 && n != 0);
+  return 0;
+}
