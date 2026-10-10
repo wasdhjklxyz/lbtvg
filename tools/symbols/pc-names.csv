@@ -1776,6 +1776,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005bafe0,00302b5a,__Z11Lever_ResetP7LEVER_s,Lever_Reset(LEVER_s*),confirmed,0
 005bb060,00302cea,__Z14Lever_ActivateP7GIZMO_si,"Lever_Activate(GIZMO_s*, int)",confirmed,0
 005bb0a0,00302d7a,__Z12Levers_ResetPvS_S_,"Levers_Reset(void*, void*, void*)",confirmed,0
+005bb1a0,00302f90,__Z13Levers_UpdatePvS_f,"Levers_Update(void*, void*, float)",confirmed,0
 005bb4f0,00303ca2,__Z20Levers_RegisterGizmoi,Levers_RegisterGizmo(int),confirmed,0
 005bba90,002c350a,__Z17GizmoFileReadNamePc,GizmoFileReadName(char*),confirmed,0
 005bc370,002c3dc8,__Z20GizmoGetTypeIDByNameP10GIZMOSYS_sPc,"GizmoGetTypeIDByName(GIZMOSYS_s*, char*)",confirmed,0

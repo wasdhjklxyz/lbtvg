@@ -3260,3 +3260,4 @@
 005ba400 Lever_Release Mac order Lever_Reset, Lever_Release(GameObject_s*), Lever_SetVisibility; clears the operated lever's grab bit
 005ba4f0 Lever_GetAbsTargetPos Mac Lever_GetAbsTargetPos(LEVER_s*, nuvec_s*): null checks, out = pos40 with y + 0.005f
 005ba530 Lever_FindNearest Mac Lever_FindNearest(WORLDINFO_s*, nuvec_s*, GameObject_s*, float*): calls Lever_GetAbsTargetPos and NuVecDistSqr per lever
+005bb1a0 Levers_Update Levers_RegisterGizmo late_update slot (fns[3]); Mac Levers_Update has the same NewPos/GetAbsTargetPos/GameShadow/PlaySfx 0x93,0x94/SeekLinearF sequence

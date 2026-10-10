@@ -37,17 +37,17 @@ typedef struct LEVER_s {
   nuvec_s v4c;     // 0x4c
   char name[0x10]; // 0x58
   nuvec_s pos68;   // 0x68
-  u8 pad74[0x78 - 0x74];
-  f32 pull;   // 0x78
-  f32 f7c;    // 0x7c
-  f32 f80;    // 0x80
-  f32 f84;    // 0x84
-  u16 rot_y;  // 0x88
-  u16 colour; // 0x8a
-  i16 plat;   // 0x8c, -1 = none
-  u16 s8e;    // 0x8e
-  u16 s90;    // 0x90
-  u16 s92;    // 0x92
+  f32 f74;         // 0x74
+  f32 pull;        // 0x78
+  f32 f7c;         // 0x7c
+  f32 f80;         // 0x80
+  f32 f84;         // 0x84
+  u16 rot_y;       // 0x88
+  u16 colour;      // 0x8a
+  i16 plat;        // 0x8c, -1 = none
+  u16 s8e;         // 0x8e
+  u16 s90;         // 0x90
+  u16 s92;         // 0x92
   union {
     struct {
       u16 b0 : 1;
@@ -302,7 +302,6 @@ LEVER *Lever_FindNearest(WORLDINFO_s *world, nuvec_s *pos, GameObject_s *obj,
   return nearest;
 }
 
-void Levers_Update(void *world, void *unused, f32 dt);
 void Levers_Draw(void *world, void *unused, f32 dt);
 
 // FUNCTION: LEGOBATMAN 0x005babb0
@@ -495,6 +494,78 @@ void Levers_Reset(void *world_ptr, void *unused, void *progress_ptr) {
       if (lever->plat != -1)
         PlatOnOff(lever->plat, lever->visible);
     }
+  }
+}
+
+// GLOBAL: LEGOBATMAN 0x00a95fe0
+extern f32 FRAMETIME;
+// GLOBAL: LEGOBATMAN 0x009cabf4
+extern i32 g_unk009cabf4;
+
+nuvec_s *NuSpecialGetDrawPos(nuhspecial_s *sp);
+void GameAudio_PlaySfx(i32 sfx, nuvec_s *position, i32 flags, i32 volume);
+f32 SeekLinearF(f32 current, f32 target, f32 step);
+
+// FUNCTION: LEGOBATMAN 0x005bb1a0
+void Levers_Update(void *world_ptr, void *unused, f32 dt) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  nuvec_s p;
+  LEVER *lever = world->levers;
+  if (lever == NULL)
+    return;
+  for (i32 i = 0; i < world->lever_count; i++, lever++) {
+    if (NuSpecialExistsFn(&lever->special))
+      Lever_NewPos(lever, NuSpecialGetDrawPos(&lever->special));
+    if ((lever->state & 0x2000) && lever->active) {
+      Lever_AbsTargetPosInline(lever, &p);
+      p.y = lever->pos68.y;
+      lever->v4c.y = GameShadow(NULL, &p, 0.25f, -1);
+      if (lever->v4c.y != 2000000.0) {
+        lever->v4c.y += 0.005f;
+        FindAnglesZX(&g_unk009f7a44, &lever->s90, &lever->s92);
+      }
+    }
+    if (lever->being_pulled || (lever->state & 0x1800)) {
+      if (!lever->being_pulled)
+        lever->being_pulled = 1;
+      if (lever->f7c > 0.0f) {
+        if ((lever->f7c -= FRAMETIME) <= 0.0f) {
+          GameAudio_PlaySfx(0x93, &lever->pos68, 0, 0);
+          lever->f7c = 0.0f;
+          lever->state = (lever->state & ~0x800) | 0x1040;
+        }
+      } else if (!lever->b6 && !(lever->state & 0x1000)) {
+        if (lever->pull < 17.0f) {
+          if (lever->pull == 0.0f)
+            GameAudio_PlaySfx(0x94, &lever->pos68, 0, 0);
+          if ((lever->pull += FRAMETIME * 30.0f) >= 17.0f) {
+            lever->pull = 17.0f;
+            if (lever->b5)
+              lever->f7c = lever->f80 + 0.001f;
+          }
+        }
+      } else {
+        if (!lever->b6)
+          lever->b6 = 1;
+        if ((lever->pull += FRAMETIME * 30.0f) >= 49.0f) {
+          lever->state &= 0xefb0;
+          lever->pull = 0.0f;
+          lever->f7c = 0.0f;
+          lever->f74 = 0.0f;
+        }
+      }
+      lever->s8e = (u16)(lever->pull / 0.6f * -32768.0f);
+    } else if (!lever->b0) {
+      lever->s8e = 0;
+    }
+    f32 target;
+    if (g_unk009cabf4 != 0 || (lever->active && lever->visible &&
+                               !(lever->state & 3) && lever->pull == 0.0f))
+      target = 1.0f;
+    else
+      target = 0.0f;
+    if (lever->fac != target)
+      lever->fac = SeekLinearF(lever->fac, target, FRAMETIME * 4.0f);
   }
 }
 
