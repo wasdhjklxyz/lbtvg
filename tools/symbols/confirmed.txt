@@ -3482,3 +3482,9 @@
 006d34e0 NuFileWriteUnsignedChar saga nufile.cpp body
 006d3520 NuFileWriteString Mac _NuFileWriteString: NuFileWrite(file, s, strlen(s))
 006d3570 NuFileWriteStringV saga nufile_plain.cpp body
+006d3640 Unk006d3640 directory part of a path (CRT strrchr/strncpy), returns length
+006d3690 Unk006d3690 file name without extension (CRT strrchr/strncpy), returns length
+006d3940 NameToHash nudatfile static (edx), out-of-line copy of the hash inlined in NuDatFileFindHash
+006d3880 NuDatFilePos saga nufile.cpp body
+006d3970 NuDatFileClose saga nufile.cpp body
+006d3ad0 NuDatFileOpenSize saga nufile.cpp body

@@ -3506,11 +3506,17 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d34e0,00191852,_NuFileWriteUnsignedChar,_NuFileWriteUnsignedChar,confirmed,0
 006d3520,00191826,_NuFileWriteString,_NuFileWriteString,confirmed,0
 006d3570,001917d8,_NuFileWriteStringV,_NuFileWriteStringV,confirmed,0
+006d3640,,Unk006d3640,Unk006d3640,confirmed,0
+006d3690,,Unk006d3690,Unk006d3690,confirmed,0
 006d3850,00187b36,_NuDatCalcPos,_NuDatCalcPos,confirmed,0
+006d3880,001876dc,_NuDatFilePos,_NuDatFilePos,confirmed,0
 006d38b0,0018781e,_NuDatFileSeek,_NuDatFileSeek,confirmed,0
+006d3940,,NameToHash,NameToHash,confirmed,0
+006d3970,001876a2,_NuDatFileClose,_NuDatFileClose,confirmed,0
 006d39a0,00187bca,_NuDatFileGetFreeInfo,_NuDatFileGetFreeInfo,confirmed,0
 006d3a10,00187c26,_NuDatFileGetFreeHandleIX,_NuDatFileGetFreeHandleIX,confirmed,0
 006d3a80,,OpenDatFileBase,OpenDatFileBase,confirmed,0
+006d3ad0,0018749a,_NuDatFileOpenSize,_NuDatFileOpenSize,confirmed,0
 006d3b90,,GetItems,GetItems,confirmed,0
 006d3bb0,,CalcChecksum,CalcChecksum,confirmed,0
 006d3be0,,DecryptData,DecryptData,confirmed,0

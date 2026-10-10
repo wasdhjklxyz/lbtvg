@@ -1794,6 +1794,85 @@ int NuFileWriteStringV(int file, const char *format, ...) {
   return NuFileWrite(file, text, length);
 }
 
+// Copies the directory part of path (up to the last '\\' or '/', inclusive)
+// into dest; returns its length.
+// FUNCTION: LEGOBATMAN 0x006d3640
+int Unk006d3640(char *dest, char *path) {
+  char *p;
+  char *q;
+  int len;
+
+  p = strrchr(path, '\\');
+  q = strrchr(path, '/');
+  if (q > p)
+    p = q;
+  if (p != NULL)
+    p++;
+  else
+    p = path;
+  len = p - path;
+  strncpy(dest, path, len);
+  dest[len] = '\0';
+  return len;
+}
+
+// Copies the file name of path without its extension into dest; returns its
+// length.
+// FUNCTION: LEGOBATMAN 0x006d3690
+int Unk006d3690(char *dest, char *path) {
+  char *start;
+  char *q;
+  char *end;
+  int len;
+
+  start = strrchr(path, '\\');
+  q = strrchr(path, '/');
+  if (q > start)
+    start = q;
+  if (start != NULL)
+    start++;
+  else
+    start = path;
+  end = strrchr(path, '.');
+  if (end == NULL)
+    end = path + strlen(path);
+  len = end - start;
+  strncpy(dest, start, len);
+  dest[len] = '\0';
+  return len;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3880
+__int64 NuDatFilePos(int file) {
+  NuFileUnk0ae3f80 *info;
+
+  file -= 0x800;
+  info = g_nuFileUnk0ae3f80 + file;
+  return info->i10 - info->i8;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3970
+void NuDatFileClose(int file) {
+  NuFileUnk0ae3f80 *info;
+
+  file -= 0x800;
+  info = g_nuFileUnk0ae3f80 + file;
+  if (info->i20 >= 0)
+    info->p0[info->i20 * 4 + 0xd] = -1;
+  info->i24 = 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3ad0
+int NuDatFileOpenSize(int file) {
+  NuFileUnk0ae3f80 *info;
+
+  file -= 0x800;
+  info = &g_nuFileUnk0ae3f80[file];
+  if (info->i28 != 0)
+    return info->i1c;
+  return info->i18;
+}
+
 // GLOBAL: LEGOBATMAN 0x00b0389c
 int NuFile_SwapEndianOnWrite;
 
@@ -2253,6 +2332,7 @@ int NuFileOpenDF(char *filepath, int mode, NUDATHDR *header, int quiet) {
 
 // Opens through the current data file system (the global swapped by
 // NuWin32SetDFS).
+// FUNCTION: LEGOBATMAN 0x006d3940
 static unsigned int NameToHash(char *name) {
   unsigned int hash = 0x811c9dc5;
   while (*name != '\0') {
