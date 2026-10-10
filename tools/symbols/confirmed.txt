@@ -3609,3 +3609,5 @@
 006d9060 AddDevice saga nufile.cpp body
 006dc1d0 NuStrICmpWC saga nustring_c.cpp body (stub)
 006dd5d0 NuPadUnk006dd5d0 PADRECORD/PADPLAY command-line scan setting the pad record mode/filename (name unknown)
+006d5e60 NuPadInit saga nupad.cpp body (16 scanned pads, 3 mappings)
+006d5d00 NuPadMapPlayerToPort saga body plus last-port save (Mac order after NuPadMapPortToPS2Port)

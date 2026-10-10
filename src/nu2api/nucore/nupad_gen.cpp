@@ -45,15 +45,15 @@ struct NuPad {
 // GLOBAL: LEGOBATMAN 0x00af8870
 NuPad g_nuPads[16];
 
-// 12-byte entries; +4 is a valid flag, +0 the value.
+// Player -> pad mapping (saga g_nupadMapping): 3 entries of 12 bytes.
 struct NuPadUnk0aecb64 {
-  int value;
-  int valid;
   int pad;
+  int value; // port
+  int valid; // is_active
 };
 
-// GLOBAL: LEGOBATMAN 0x00aecb64
-NuPadUnk0aecb64 g_nuPadUnk0aecb64[1];
+// GLOBAL: LEGOBATMAN 0x00aecb60
+NuPadUnk0aecb64 g_nuPadUnk0aecb64[3];
 
 // Analogue response curve: (x, y) pairs, descending x.
 struct NuPadCurvePoint {
@@ -3673,6 +3673,25 @@ void NuPadMapPortToPS2Port(int pad, int port) {
   g_nuPads[port].i14 = 0;
 }
 
+void Unk0051f900(void);
+void Unk00522720(void *data, int size);
+// GLOBAL: LEGOBATMAN 0x0099f2e0
+short PlayerLastPort[4];
+
+// FUNCTION: LEGOBATMAN 0x006d5d00
+void NuPadMapPlayerToPort(int player, int port) {
+  if (port >= 0) {
+    Unk0051f900();
+    NuPadUnk006d57e0(player, 0);
+    NuPadMapPortToPS2Port(player, port);
+    NuPadUnk006d57e0(player, 1);
+    PlayerLastPort[player] = port;
+    Unk00522720(PlayerLastPort, 8);
+  } else {
+    NuPadUnk006d57e0(player, 0);
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x006d5e30
 int NuPadPortUsedByPlayer(int port) {
   int i;
@@ -3681,6 +3700,27 @@ int NuPadPortUsedByPlayer(int port) {
       return 1;
   }
   return 0;
+}
+
+void NuPadInitPS(NuPad *pad);
+// GLOBAL: LEGOBATMAN 0x00b038f8
+extern int g_nuPadUnk0b038f8;
+
+// FUNCTION: LEGOBATMAN 0x006d5e60
+void NuPadInit(void) {
+  int i;
+
+  memset(g_nuPads, 0, sizeof(g_nuPads));
+  for (i = 0; i < 16; i++) {
+    g_nuPads[i].i4 = -1;
+    NuPadInitPS(&g_nuPads[i]);
+  }
+  for (i = 0; i < 3; i++) {
+    g_nuPadUnk0aecb64[i].valid = 0;
+    g_nuPadUnk0aecb64[i].pad = -1;
+    g_nuPadUnk0aecb64[i].value = -1;
+  }
+  g_nuPadUnk0b038f8 = 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x006d5ee0
