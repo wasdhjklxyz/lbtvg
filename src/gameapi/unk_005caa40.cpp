@@ -37,24 +37,38 @@ void Unk_InlineUser_005caa40(f32 *v, f32 a, i32 i) {
 typedef struct GIZBUILDIT_s {
   char name[0x10]; // 0x00
   void *parts;     // 0x10
-  u8 pad14[0x18 - 0x14];
-  void *p18; // 0x18
-  u8 pad1c[0x34 - 0x1c];
+  void *p14;       // 0x14
+  void *p18;       // 0x18
+  nuvec_s v1c;     // 0x1c
+  u8 pad28[0x34 - 0x28];
   nuvec_s position; // 0x34
   u8 pad40[0x44 - 0x40];
-  f32 step_timer;    // 0x44
-  f32 step_duration; // 0x48
-  u8 pad4c[0x5a - 0x4c];
-  u16 completion_score; // 0x5a
-  u8 pad5c[0x70 - 0x5c];
+  f32 step_timer;        // 0x44
+  f32 step_duration;     // 0x48
+  f32 f4c;               // 0x4c
+  f32 f50;               // 0x50
+  f32 f54;               // 0x54
+  i16 s58;               // 0x58
+  u16 completion_score;  // 0x5a
+  i16 s5c;               // 0x5c
+  i16 s5e;               // 0x5e
+  nuvec_s v60;           // 0x60
+  f32 f6c;               // 0x6c
   u8 anim_object_count;  // 0x70
   u8 build_state;        // 0x71, 2 = complete
   u8 b72;                // 0x72
   u8 built_object_count; // 0x73
-  u8 pad74[0x76 - 0x74];
-  u8 b76_0 : 1;
-  u8 turn_off_when_complete : 1; // 0x76 bit 1
-  u8 pad77[0x7c - 0x77];
+  u8 b74;                // 0x74
+  u8 b75;                // 0x75
+  union {
+    struct {
+      u8 b76_0 : 1;
+      u8 turn_off_when_complete : 1; // 0x76 bit 1
+    };
+    i16 flags76; // 0x76
+  };
+  i16 s78; // 0x78
+  u8 pad7a[0x7c - 0x7a];
   i16 s7c;         // 0x7c
   u16 active : 1;  // 0x7e
   u16 visible : 1; // 0x7e bit 1
@@ -350,7 +364,127 @@ void GizBuildIt_SetStepTime(GIZBUILDIT *buildit, GameObject_s *player) {
   buildit->step_timer = buildit->step_duration;
 }
 
-i32 GizBuildIts_Load(void *world, void *sys);
+i32 EdFileReadInt();
+char EdFileReadChar();
+i16 EdFileReadShort();
+f32 EdFileReadFloat();
+void EdFileRead(void *buf, i32 len);
+void EdFileReadNuVec(nuvec_s *v);
+void GizmoFileReadGameAnimSet(void *set, void *world, void *fn, u8 version,
+                              char *type_name, char *name);
+i32 GizmoBlowupGetNameTableId(char *name);
+int NuStrICmp(const char *a, const char *b);
+void Unk_GizBuildIt005cc3e0(GIZBUILDIT *buildit, WORLDINFO_s *world);
+
+typedef struct BUILDITANIMOBJ_s {
+  struct BUILDITANIMOBJ_s *next; // 0x00
+  u8 pad4[0x10 - 4];
+  void *p10; // 0x10
+  void *p14; // 0x14
+} BUILDITANIMOBJ;
+
+typedef struct BUILDITANIMSET_s {
+  u8 pad0[0x24];
+  BUILDITANIMOBJ *objects; // 0x24
+} BUILDITANIMSET;
+
+struct AREADATA_s {
+  u8 pad0[0x7c];
+  u32 flags7c; // 0x7c
+};
+
+// FUNCTION: LEGOBATMAN 0x005cd170
+i32 GizBuildIts_Load(void *world_ptr, void *sys_ptr) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  GIZBUILDITSYS *sys = (GIZBUILDITSYS *)sys_ptr;
+  char name[0x10];
+  char blowup_name[32];
+  i32 total = 0;
+  u8 version = EdFileReadChar();
+  sys->count = EdFileReadShort();
+  if (sys->count != 0) {
+    GIZBUILDIT *b = sys->buildits;
+    for (i32 i = 0; i < sys->count; i++, b++) {
+      EdFileRead(b->name, 0x10);
+      EdFileReadNuVec(&b->v1c);
+      GizmoFileReadGameAnimSet(b->parts, world, NULL, version, "GizBuildit",
+                               b->name);
+      b->f4c = EdFileReadFloat();
+      if (version <= 6)
+        EdFileReadFloat();
+      b->completion_score = EdFileReadShort();
+      b->s58 = EdFileReadShort();
+      b->b74 = EdFileReadChar();
+      b->b75 = EdFileReadChar();
+      if (version > 9)
+        b->f54 = EdFileReadFloat();
+      else
+        b->f54 = 1.0f;
+      if (version >= 6)
+        b->f50 = EdFileReadFloat();
+      b->s7c = -1;
+      if (version >= 7) {
+        if (version >= 8) {
+          i32 len = EdFileReadChar();
+          if (len != 0) {
+            EdFileRead(blowup_name, len);
+            b->s7c = GizmoBlowupGetNameTableId(blowup_name);
+            if (b->s7c != -1)
+              b->b7 = 1;
+          }
+        } else {
+          b->s7c = EdFileReadShort();
+        }
+        b->s5c = EdFileReadShort();
+        b->s5e = EdFileReadShort();
+        EdFileReadNuVec(&b->v60);
+      }
+      if (version >= 9)
+        b->f6c = EdFileReadFloat();
+      else if (world->area != NULL && (world->area->flags7c & 1))
+        b->f6c = 12.0f;
+      else
+        b->f6c = 1.75f;
+      if (version < 4) {
+        b->flags76 = EdFileReadChar();
+        if (version >= 2) {
+          if (EdFileReadChar())
+            b->flags76 |= 0x40;
+          if (version >= 3 && EdFileReadChar())
+            b->flags76 |= 0x80;
+        }
+      } else {
+        b->flags76 = EdFileReadShort();
+      }
+      if (version > 4) {
+        b->s78 = EdFileReadShort();
+        if (EdFileReadChar()) {
+          EdFileRead(name, 0x10);
+          for (i32 j = 0; j < sys->count; j++) {
+            if (!NuStrICmp(sys->buildits[j].name, name)) {
+              b->p18 = &sys->buildits[j];
+              b->active = 1;
+              b->visible = 1;
+              break;
+            }
+          }
+        }
+      }
+      b->anim_object_count = 0;
+      b->p14 = &((void **)sys->p10)[total];
+      for (BUILDITANIMOBJ *obj = ((BUILDITANIMSET *)b->parts)->objects;
+           obj != NULL; obj = obj->next) {
+        if ((obj->p14 != NULL && obj->p10 != NULL) || (b->flags76 & 0x40)) {
+          ((void **)b->p14)[b->anim_object_count] = obj;
+          b->anim_object_count++;
+          total++;
+        }
+      }
+      Unk_GizBuildIt005cc3e0(b, world);
+    }
+  }
+  return 1;
+}
 void GizmoBuildit_Activate(GIZMO *gizmo, i32 active);
 void GizBuildIts_LateUpdate(void *world, void *sys, f32 dt);
 

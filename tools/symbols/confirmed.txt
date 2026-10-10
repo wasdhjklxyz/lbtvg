@@ -3278,3 +3278,4 @@
 005b6d60 GizObstacles_Load GizObstacles_RegisterGizmo load slot
 004865d0 edgizforce_ReadAnimSetData passed by GizForces_Load to the anim-set reader; Mac order puts it right before GizForces_Load
 00486610 GizForces_Load GizForce_RegisterGizmo load slot
+005cd170 GizBuildIts_Load GizBuildIts_RegisterGizmo load slot
