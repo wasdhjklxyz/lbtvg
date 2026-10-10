@@ -2088,3 +2088,8 @@
 005949b0 NuFmvStreamPCBink::RestoreVideoResources Mac order after CreateTextures; matched
 005949d0 PCFMVRestoreVideoResources Mac name/order; matched
 00513580 SecurityCamera::InitializeLevel vtable 0x85d96c slot 1 (RTTI) + body (icon_play hires texture, anim packets reset); matched
+0069c7f0 HLSLShaderBuilder::buildHeader (nushadermtldesc_s const* overload) vtable 0x86f85c slot 5 (RTTI) + Mac name; wraps the desc in a ShaderMtlDescFilter; matched
+0069c830 HLSLShaderBuilder::buildHeader (ShaderMtlDescFilter const* overload) Mac strings pairing; matched
+00694a00 ShaderBuilderGen::buildHeader (nushadermtldesc_s const* overload) vtable 0x86f83c slot 5 (RTTI); matched
+00693340 ShaderMtlDescFilter::ShaderMtlDescFilter called (desc, 0, 0, 0) from the buildHeader(desc) overloads, 0x20-byte object
+00698b10 PreInterpretor::addSymbol called (name, value, bool) from HLSLShaderBuilder::buildHeader as on the Mac

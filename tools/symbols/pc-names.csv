@@ -2170,18 +2170,20 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00690410,001a69e4,_NuVecDist,_NuVecDist,gapfill,1
 00691b30,001ac16c,_NuFsqrt,_NuFsqrt,gapfill,1
 00691db0,001ac30c,_NuVec4MtxTransformVU0,_NuVec4MtxTransformVU0,gapfill,5
+00693340,001c9bf6,__ZN19ShaderMtlDescFilterC2EPK17nushadermtldesc_sPK7numtl_sii,"ShaderMtlDescFilter::ShaderMtlDescFilter(nushadermtldesc_s const*, numtl_s const*, int, int)",confirmed,0
 006943f0,0019b8bc,__Z19Create_Bink_shadersPN9IndirectX16IDirect3DDevice9E,Create_Bink_shaders(IndirectX::IDirect3DDevice9*),strings,0
+00694a00,001cd9ce,__ZN16ShaderBuilderGen11buildHeaderEPK19ShaderMtlDescFilterR14PreInterpretor,"ShaderBuilderGen::buildHeader(ShaderMtlDescFilter const*, PreInterpretor&)",confirmed,0
 006951f0,001d5d6a,__ZN17ShaderManagerHLSLC2ER21VirtualStackAllocator,ShaderManagerHLSL::ShaderManagerHLSL(VirtualStackAllocator&),strings,0
 00697cf0,001ca328,__ZNK14PreInterpretor8Variable17getSemanticStringEv,PreInterpretor::Variable::getSemanticString() const,strings,0
 006981a0,001caa68,__ZN14PreInterpretor15getDefineMarkerERKNS_8VariableE,PreInterpretor::getDefineMarker(PreInterpretor::Variable const&),strings,0
 00698550,001ca4bc,__ZN14PreInterpretorC2ER21VirtualStackAllocator12SFShaderLang,"PreInterpretor::PreInterpretor(VirtualStackAllocator&, SFShaderLang)",strings,0
+00698b10,001ca886,__ZN14PreInterpretor9addSymbolEPKcS1_b,"PreInterpretor::addSymbol(char const*, char const*, bool)",confirmed,0
 00698c30,001cc22a,__ZN14PreInterpretor13printUniformsER12StringBuffer,PreInterpretor::printUniforms(StringBuffer&),strings,0
 00698f50,001cbee8,__ZN14PreInterpretor15printAttributesER12StringBuffer,PreInterpretor::printAttributes(StringBuffer&),strings,0
 006990b0,001caca2,__ZN14PreInterpretor13printVaryingsER12StringBuffer,PreInterpretor::printVaryings(StringBuffer&),strings,0
 0069a520,001cfbb0,__ZN16ShaderBuilderGen19printCgHlslPropertyEPK17nushadermtldesc_s19SHADERSEMANTIC_enumPci,"ShaderBuilderGen::printCgHlslProperty(nushadermtldesc_s const*, SHADERSEMANTIC_enum, char*, int)",strings,0
 0069a800,001d0220,__ZN16ShaderBuilderGen15buildShaderCodeEPK19ShaderMtlDescFilterP12StringBufferS4_,"ShaderBuilderGen::buildShaderCode(ShaderMtlDescFilter const*, StringBuffer*, StringBuffer*)",strings,0
-0069b0a0,001cd9ce,__ZN16ShaderBuilderGen11buildHeaderEPK19ShaderMtlDescFilterR14PreInterpretor,"ShaderBuilderGen::buildHeader(ShaderMtlDescFilter const*, PreInterpretor&)",strings,0
-0069c830,001d1a6c,__ZN17HLSLShaderBuilder11buildHeaderEPK19ShaderMtlDescFilterR14PreInterpretor,"HLSLShaderBuilder::buildHeader(ShaderMtlDescFilter const*, PreInterpretor&)",strings,0
+0069c830,001d1a6c,__ZN17HLSLShaderBuilder11buildHeaderEPK19ShaderMtlDescFilterR14PreInterpretor,"HLSLShaderBuilder::buildHeader(ShaderMtlDescFilter const*, PreInterpretor&)",confirmed,0
 0069d8c0,001c6210,__ZN12GraphBuilder17convertToSemanticERKN9Tokenizer5TokenE,GraphBuilder::convertToSemantic(Tokenizer::Token const&),strings,0
 0069f350,001c7168,__ZN12GraphBuilder13processPragmaERK12StringBufferRi,"GraphBuilder::processPragma(StringBuffer const&, int&)",strings,0
 006a0de0,001c831e,__ZN12GraphBuilder16processDirectiveERK12StringBufferRi,"GraphBuilder::processDirective(StringBuffer const&, int&)",strings,0
