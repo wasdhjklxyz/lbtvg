@@ -2790,3 +2790,12 @@
 00678840 Puzzle_Activate activate slot of the "Puzzle" ADDGIZMOTYPE
 00678860 Puzzle_SetVisibility set_visibility slot of the "Puzzle" ADDGIZMOTYPE
 00678880 Puzzle_GetVisibility get_visibility slot of the "Puzzle" ADDGIZMOTYPE
+005a6fe0 Techno_Activate activate slot of the "Techno" ADDGIZMOTYPE
+005a7730 Technos_AddGizmos add_gizmos slot of the "Techno" ADDGIZMOTYPE
+005a77a0 Techno_GetGizmoName get_gizmo_name slot of the "Techno" ADDGIZMOTYPE
+005a77c0 Techno_GetNumOutputs get_num_outputs slot of the "Techno" ADDGIZMOTYPE
+005a77d0 Techno_GetOutputName get_output_name slot of the "Techno" ADDGIZMOTYPE
+005a77f0 Technos_AllocateProgressData allocate_progress_data slot of the "Techno" ADDGIZMOTYPE
+005a7810 Technos_ClearProgress clear_progress slot of the "Techno" ADDGIZMOTYPE
+005a7830 Technos_StoreProgress store_progress slot of the "Techno" ADDGIZMOTYPE
+005a78d0 Techno_GetPos get_pos slot of the "Techno" ADDGIZMOTYPE
