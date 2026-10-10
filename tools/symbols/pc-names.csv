@@ -779,6 +779,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004f04a0,001095a4,__Z26Signals_ReserveBufferSpacePv,Signals_ReserveBufferSpace(void*),confirmed,0
 004f0510,00109602,__Z15Signal_ActivateP7GIZMO_si,"Signal_Activate(GIZMO_s*, int)",confirmed,0
 004f0540,0010962c,__Z18Signal_ActivateRevP7GIZMO_sii,"Signal_ActivateRev(GIZMO_s*, int, int)",confirmed,0
+004f05a0,00109680,__Z20Signal_SetVisibilityP8SIGNAL_si,"Signal_SetVisibility(SIGNAL_s*, int)",confirmed,0
+004f0610,001096fc,__Z25Signal_SetGizmoVisibilityP7GIZMO_si,"Signal_SetGizmoVisibility(GIZMO_s*, int)",confirmed,0
 004f0630,00109714,__Z13Signal_GetPosP7GIZMO_s,Signal_GetPos(GIZMO_s*),confirmed,0
 004f0d60,00109da8,__Z19Signals_EarlyUpdatePvS_f,"Signals_EarlyUpdate(void*, void*, float)",confirmed,0
 004f1f10,0010ab3a,__Z20Signals_GetMaxGizmosPv,Signals_GetMaxGizmos(void*),confirmed,0

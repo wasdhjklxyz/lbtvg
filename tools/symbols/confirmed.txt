@@ -3218,3 +3218,5 @@
 005d9760 GizmoBlowUp_PlaySfx Mac order between BlowupObjEmit_Stop and GizmoBlowupAddDefaultExplosionDebris
 005de6a0 GizmoBlowUpTypeBlowUp Mac signature (WORLDINFO_s*, int, nuvec_s*): inlines TypeGetNameFromIndex, FindType, AddEffects on a zeroed local blowup, sfx 0x46
 005d94f0 GizmoBlowup_SetAutoSetReflectY Mac order (after GizmoBlowupTypeRemove, before EvaluateBlowupAnimToMtx); GameShadow under the blowup with its platform off
+004f05a0 Signal_SetVisibility Mac order (SIGNAL_s*, int) between Signal_ActivateRev and Signal_SetGizmoVisibility; esi-convention static
+004f0610 Signal_SetGizmoVisibility Signals_RegisterGizmo set_visibility slot (fns[12]), Mac name

@@ -33,9 +33,13 @@ typedef struct SIGNAL_s {
   char name[0x10];  // 0x40
   nuvec_s position; // 0x50
   u8 pad5c[0x77 - 0x5c];
-  u8 visible : 1; // 0x77
-  u8 active : 1;  // 0x77 bit 1
-  u8 pad78[0x3d0 - 0x78];
+  u8 visible : 1;      // 0x77
+  u8 active : 1;       // 0x77 bit 1
+  u8 b77_2 : 1;        // 0x77 bit 2
+  u8 has_platform : 1; // 0x77 bit 3
+  u8 pad78[0xa8 - 0x78];
+  i16 platform_id; // 0xa8
+  u8 padaa[0x3d0 - 0xaa];
   f32 f3d0; // 0x3d0
   u8 pad3d4[0x3d8 - 0x3d4];
 } SIGNAL;
@@ -83,6 +87,27 @@ i32 Signal_ActivateRev(GIZMO *gizmo, i32 active, i32 reverse) {
     return active == signal->active;
   signal->active = active == 0;
   return 1;
+}
+
+i16 NewPlatPickupInst(void *m, i32 type);
+void DeletePlatinst(i32 id);
+
+// FUNCTION: LEGOBATMAN 0x004f05a0
+static void Signal_SetVisibility(SIGNAL *signal, i32 visible) {
+  u8 was_visible = signal->visible;
+  signal->visible = visible != 0;
+  if (signal->visible && !was_visible) {
+    signal->platform_id = NewPlatPickupInst(signal, 2);
+    signal->has_platform = 1;
+  } else if (!signal->visible && was_visible) {
+    DeletePlatinst(signal->platform_id);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x004f0610
+void Signal_SetGizmoVisibility(GIZMO *gizmo, i32 visible) {
+  if (gizmo != NULL)
+    Signal_SetVisibility((SIGNAL *)gizmo->object, visible);
 }
 
 // FUNCTION: LEGOBATMAN 0x004f0630
@@ -164,7 +189,6 @@ extern ADDGIZMOTYPE Default_ADDGIZMOTYPE;
 
 void Signals_LateUpdate(void *world, void *unused, f32 dt);
 void Signals_Draw(void *world, void *unused, f32 dt);
-void Signal_SetVisibility(GIZMO *gizmo, i32 visible);
 void Signals_StoreProgress(void *world, void *unused, void *progress);
 void Signals_Reset(void *world, void *unused, void *progress);
 i32 Signals_Load(void *world, void *unused);
@@ -192,7 +216,7 @@ ADDGIZMOTYPE *Signals_RegisterGizmo(i32 type_id) {
   addtype.fns[9] = (void *)Signal_GetNumOutputs;
   addtype.fns[10] = (void *)Signal_Activate;
   addtype.fns[11] = (void *)Signal_ActivateRev;
-  addtype.fns[12] = (void *)Signal_SetVisibility;
+  addtype.fns[12] = (void *)Signal_SetGizmoVisibility;
   addtype.fns[13] = NULL;
   addtype.fns[14] = (void *)Signal_GetPos;
   addtype.fns[15] = NULL;
