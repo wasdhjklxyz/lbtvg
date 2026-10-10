@@ -2609,3 +2609,5 @@
 00491e60 GizTorp_GetNumOutputs  returns 1: saga giztorpedo.cpp; Mac order
 00491e70 GizTorpedo_AllocateProgressData 0x18 bytes from the buffer; Mac order
 00491e90 GizTorpedo_ClearProgress two 12-byte 0xff fills; Mac order
+00491d90 GizTorp_AddGizmos      AddGizmo per named machine: saga giztorpedo.cpp; Mac order
+00491f60 GizTorpedoes_SetReset  visible/active bits from the progress words: Mac order (after StoreProgress)

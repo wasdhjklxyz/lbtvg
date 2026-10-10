@@ -580,12 +580,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00491930,000af50e,__Z16GizTorp_ActivateP7GIZMO_si,"GizTorp_Activate(GIZMO_s*, int)",confirmed,0
 00491a90,000af64c,__Z14GizTorp_UpdatePvS_f,"GizTorp_Update(void*, void*, float)",confirmed,0
 00491d70,000af93c,__Z20GizTorp_GetMaxGizmosPv,GizTorp_GetMaxGizmos(void*),confirmed,0
+00491d90,000af958,__Z17GizTorp_AddGizmosP10GIZMOSYS_siPvS1_,"GizTorp_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
 00491e10,000af9ca,__Z20GizTorp_GetGizmoNameP7GIZMO_s,GizTorp_GetGizmoName(GIZMO_s*),confirmed,0
 00491e30,000af9de,__Z17GizTorp_GetOutputP7GIZMO_sii,"GizTorp_GetOutput(GIZMO_s*, int, int)",confirmed,0
 00491e40,000af9e6,__Z21GizTorp_GetOutputNameP7GIZMO_si,"GizTorp_GetOutputName(GIZMO_s*, int)",confirmed,0
 00491e60,000af9fa,__Z21GizTorp_GetNumOutputsP7GIZMO_s,GizTorp_GetNumOutputs(GIZMO_s*),confirmed,0
 00491e70,000afa04,__Z31GizTorpedo_AllocateProgressDataP9variptr_uS0_,"GizTorpedo_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
 00491e90,000afa26,__Z24GizTorpedo_ClearProgressPvS_,"GizTorpedo_ClearProgress(void*, void*)",confirmed,0
+00491f60,000afaf0,__Z21GizTorpedoes_SetResetPvS_S_,"GizTorpedoes_SetReset(void*, void*, void*)",confirmed,0
 004931b0,000afd70,__Z27Hub_SignalSwitchHeroVillain13HubSwitchMode,Hub_SignalSwitchHeroVillain(HubSwitchMode),strings,0
 004974c0,000b4830,__Z20Hub_DrawMiniKitPanelfi,"Hub_DrawMiniKitPanel(float, int)",strings,0
 00497d70,000b304c,__Z20InitializeDummyCharsP11WORLDINFO_s,InitializeDummyChars(WORLDINFO_s*),strings,0

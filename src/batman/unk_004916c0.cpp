@@ -94,6 +94,24 @@ i32 GizTorp_GetMaxGizmos(void *world_ptr) {
   return world != NULL ? world->current_level->max_torp_machines : 0;
 }
 
+typedef struct GIZMOSYS_s GIZMOSYS;
+i32 NuStrLen(const char *s);
+void AddGizmo(GIZMOSYS *gizmo_sys, i32 type_id, void *a, void *object);
+
+// Batman's form of saga giztorpedo.cpp's GizTorp_AddGizmos
+// FUNCTION: LEGOBATMAN 0x00491d90
+void GizTorp_AddGizmos(GIZMOSYS *gizmo_sys, i32 type_id, void *world_ptr,
+                       void *unused) {
+  GTWORLD *world = (GTWORLD *)world_ptr;
+  if (world != NULL && world->giz_torp_machine_sys != NULL) {
+    for (i32 i = 0; i < world->giz_torp_machine_sys->count; i++) {
+      if (NuStrLen(world->giz_torp_machine_sys->machines[i].name) != 0)
+        AddGizmo(gizmo_sys, type_id, NULL,
+                 &world->giz_torp_machine_sys->machines[i]);
+    }
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x00491e10
 char *GizTorp_GetGizmoName(GIZMO *gizmo) {
   GIZTORPMACHINE *machine;
@@ -127,5 +145,23 @@ void GizTorpedo_ClearProgress(void *world, void *progress) {
   if (progress != NULL) {
     memset(progress, 0xff, 0xc);
     memset((u8 *)progress + 0xc, 0xff, 0xc);
+  }
+}
+
+typedef struct GIZTORPPROGRESS_s {
+  u32 active[3];  // 0x00
+  u32 visible[3]; // 0x0c
+} GIZTORPPROGRESS;
+
+// FUNCTION: LEGOBATMAN 0x00491f60
+void GizTorpedoes_SetReset(void *world, void *system_ptr, void *progress_ptr) {
+  GIZTORPMACHINESYS *system = (GIZTORPMACHINESYS *)system_ptr;
+  GIZTORPPROGRESS *progress = (GIZTORPPROGRESS *)progress_ptr;
+  GIZTORPMACHINE *machine = system->machines;
+  for (i32 i = 0; i < system->count; i++, machine++) {
+    if (i >= 3)
+      break;
+    machine->visible = progress->visible[i / 32];
+    machine->active = progress->active[i / 32];
   }
 }
