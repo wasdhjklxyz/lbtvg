@@ -3279,3 +3279,5 @@
 004865d0 edgizforce_ReadAnimSetData passed by GizForces_Load to the anim-set reader; Mac order puts it right before GizForces_Load
 00486610 GizForces_Load GizForce_RegisterGizmo load slot
 005cd170 GizBuildIts_Load GizBuildIts_RegisterGizmo load slot
+0063b270 edgizdig_ReadAnimSetData passed by GizDigs_Load to the anim-set reader; Mac order puts it right before GizDigs_Load
+0063b2a0 GizDigs_Load GizDig_RegisterGizmo load slot

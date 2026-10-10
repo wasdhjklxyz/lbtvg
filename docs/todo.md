@@ -127,7 +127,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [FortBloxHero](#fortbloxhero) | 2 | 0 |
 | [Game](#game) | 1 | 0 |
 | [GizActions](#gizactions) | 3 | 0 |
-| [GizDigs](#gizdigs) | 1 | 0 |
 | [GizFlock](#gizflock) | 2 | 0 |
 | [GraphBuilder](#graphbuilder) | 3 | 0 |
 | [Grapple](#grapple) | 1 | 0 |
@@ -909,10 +908,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00484c00` 336 B `GizActions_SetRailSpecial(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
 - [ ] `00484f20` 419 B `GizActions_SetRTL(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
 - [ ] `004842b0` 582 B `GizActions_SetSuperCounter(GIZFLOW_s*, FLOWBOX_s*, char**, int)`
-
-## GizDigs
-
-- [ ] `0063b2a0` 535 B `GizDigs_Load(void*, void*)`
 
 ## GizFlock
 

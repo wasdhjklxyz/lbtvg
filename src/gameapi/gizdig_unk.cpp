@@ -30,6 +30,10 @@ typedef struct nufpcomjmp_s {
 struct GAMEANIMOBJ_s {
   GAMEANIMOBJ_s *next; // 0x00
   u32 special[3];      // 0x04, nuhspecial_s
+  void *p10;           // 0x10
+  void *p14;           // 0x14
+  u8 pad18[0x24 - 0x18];
+  void *object_data; // 0x24
 };
 
 struct GAMEANIMSET_s {
@@ -42,19 +46,32 @@ struct GAMEANIMSET_s {
 struct GIZDIG_s {
   char name[0x10];  // 0x00
   nuvec_s position; // 0x10
-  u8 pad1c[0x34 - 0x1c];
+  u8 pad1c[0x28 - 0x1c];
+  nuvec_s v28;             // 0x28
   GAMEANIMSET_s *anim_set; // 0x34
-  u8 pad38[0x58 - 0x38];
+  void *p38;               // 0x38
+  u8 pad3c[0x44 - 0x3c];
+  f32 f44; // 0x44
+  f32 f48; // 0x48
+  f32 f4c; // 0x4c
+  u8 pad50[0x58 - 0x50];
   u32 flags58; // 0x58
   u8 pad5c[0x70 - 0x5c];
   u16 u70; // 0x70
-  u8 pad72[0x76 - 0x72];
+  u16 u72; // 0x72
+  u16 u74; // 0x74
   u16 u76; // 0x76
   u8 pad78[0x7a - 0x78];
   i16 sfx_process; // 0x7a
   i16 s7c;         // 0x7c, resolved in PostLoad when flags bit 11 is set
   u16 score;       // 0x7e
-  u8 pad80[0x9c - 0x80];
+  i16 s80;         // 0x80
+  i16 s82;         // 0x82
+  nuvec_s v84;     // 0x84
+  f32 f90;         // 0x90
+  u8 pad94[0x98 - 0x94];
+  u8 b98; // 0x98
+  u8 pad99[0x9c - 0x99];
   union {
     u32 flags; // 0x9c
     struct {
@@ -219,6 +236,90 @@ void *Unk00603df0(variptr_u *buf, variptr_u *buf_end, i32 a, i32 count);
 void *Unk00603bc0(variptr_u *buf, variptr_u *buf_end, void *pool,
                   struct GAMEANIMSYS_s *anim_sys);
 i16 Unk005de820(void *world, i32 id);
+
+i32 EdFileReadInt();
+char EdFileReadChar();
+i16 EdFileReadShort();
+f32 EdFileReadFloat();
+void EdFileRead(void *buf, i32 len);
+void EdFileReadNuVec(nuvec_s *v);
+void GizmoFileReadGameAnimSet(GAMEANIMSET_s *set, void *world,
+                              void (*fn)(GAMEANIMOBJ_s *, u8), u8 version,
+                              char *type_name, char *name);
+i32 GizmoBlowupGetNameTableId(char *name);
+i32 GizmoFileReadName(char *name);
+void GizDigUnk0063b1e0(GIZDIG_s *dig);
+
+// FUNCTION: LEGOBATMAN 0x0063b270
+static void edgizdig_ReadAnimSetData(GAMEANIMOBJ_s *object, u8 version) {
+  if (object == NULL)
+    return;
+  u32 fallback[0x33];
+  u16 *data = (u16 *)object->object_data;
+  if (data == NULL)
+    data = (u16 *)fallback;
+  data[0] = EdFileReadShort();
+}
+
+// FUNCTION: LEGOBATMAN 0x0063b2a0
+i32 GizDigs_Load(void *world_ptr, void *sys_ptr) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  GIZDIGSYS_s *sys = (GIZDIGSYS_s *)sys_ptr;
+  char blowup_name[32];
+  char sfx_name[64];
+  i32 total = 0;
+  u8 version = EdFileReadChar();
+  GizDigSFX_load_version = version;
+  sys->count = EdFileReadShort();
+  if (sys->count != 0) {
+    GIZDIG_s *dig = sys->digs;
+    for (i32 i = 0; i < sys->count; i++, dig++) {
+      EdFileRead(dig->name, 0x10);
+      EdFileReadNuVec(&dig->position);
+      if (version >= 17)
+        EdFileReadNuVec(&dig->v28);
+      dig->f44 = EdFileReadFloat();
+      dig->flags58 = EdFileReadInt();
+      GizmoFileReadGameAnimSet(dig->anim_set, world, edgizdig_ReadAnimSetData,
+                               version, "GizDig", dig->name);
+      dig->f48 = EdFileReadFloat();
+      dig->f4c = EdFileReadFloat();
+      dig->s7c = -1;
+      i32 len = EdFileReadChar();
+      if (len != 0) {
+        EdFileRead(blowup_name, len);
+        dig->s7c = GizmoBlowupGetNameTableId(blowup_name);
+        if (dig->s7c != -1)
+          dig->flags |= 0x800;
+      }
+      dig->score = EdFileReadShort();
+      dig->s80 = EdFileReadShort();
+      dig->s82 = EdFileReadShort();
+      EdFileReadNuVec(&dig->v84);
+      dig->f90 = EdFileReadFloat();
+      dig->sfx_process = -1;
+      if (GizmoFileReadName(sfx_name))
+        dig->sfx_process = GetSfxId(sfx_name);
+      dig->u74 = EdFileReadShort();
+      dig->u76 = EdFileReadShort();
+      if (version >= 18)
+        dig->u72 = EdFileReadShort();
+      if (dig->flags58 & 0x40)
+        GizDigUnk0063b1e0(dig);
+      dig->b98 = 0;
+      dig->p38 = &((void **)sys->p18)[total];
+      for (GAMEANIMOBJ_s *obj = dig->anim_set->objects; obj != NULL;
+           obj = obj->next) {
+        if (obj->p14 != NULL && obj->p10 != NULL) {
+          ((void **)dig->p38)[dig->b98] = obj;
+          dig->b98++;
+          total++;
+        }
+      }
+    }
+  }
+  return 1;
+}
 
 // FUNCTION: LEGOBATMAN 0x0063b4c0
 void GizDigs_PostLoad(void *world, void *sys_ptr) {
