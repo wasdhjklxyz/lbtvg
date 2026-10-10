@@ -1799,3 +1799,10 @@
 00685ce0 NuMtxGetScale          saga body (returns nuvec_s by value) and order; matched
 00685d80 NuMtxPreScale          saga body and order; matched
 00685de0 NuMtxPreScaleX         saga body and order; matched
+00685780 NuMtxSetRotationX      saga numtx.cpp body (cos/sin via NuSinApprox), saga order; matched
+006857f0 NuMtxSetRotationY      saga macro body, saga order; matched
+00685860 NuMtxSetRotationZ      saga body, saga order; matched
+00685e10 NuMtxPreSkewYX         saga body; Mac order after PreScaleX; matched
+00685f20 NuMtxPreRotateX        saga body, order after NuMtxRotateX; matched
+006860a0 NuMtxRotateY           saga macro body; matched
+00686230 NuMtxPreRotateY180     saga body; Mac order; matched

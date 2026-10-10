@@ -1895,6 +1895,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00685690,0019dabc,_NuMtxSetTranslation,_NuMtxSetTranslation,calls,1
 006856e0,0019db08,_NuMtxSetTranslationNeg,_NuMtxSetTranslationNeg,confirmed,0
 00685730,0019db78,_NuMtxSetScale,_NuMtxSetScale,confirmed,0
+00685780,001aabac,_NuMtxSetRotationX,_NuMtxSetRotationX,confirmed,0
+006857f0,001aac2a,_NuMtxSetRotationY,_NuMtxSetRotationY,confirmed,0
+00685860,001aaca8,_NuMtxSetRotationZ,_NuMtxSetRotationZ,confirmed,0
 00685a50,0019dbc2,_NuMtxTranslate,_NuMtxTranslate,gapfill,3
 00685a80,0019dbfa,_NuMtxTranslateNeg,_NuMtxTranslateNeg,confirmed,0
 00685ab0,0019dc32,_NuMtxPreTranslate,_NuMtxPreTranslate,confirmed,0
@@ -1906,6 +1909,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00685ce0,0019df8a,_NuMtxGetScale,_NuMtxGetScale,confirmed,0
 00685d80,0019e032,_NuMtxPreScale,_NuMtxPreScale,confirmed,0
 00685de0,0019e0c0,_NuMtxPreScaleX,_NuMtxPreScaleX,confirmed,0
+00685e10,0019e0f0,_NuMtxPreSkewYX,_NuMtxPreSkewYX,confirmed,0
+00685f20,001aaf6c,_NuMtxPreRotateX,_NuMtxPreRotateX,confirmed,0
+006860a0,001ab132,_NuMtxRotateY,_NuMtxRotateY,confirmed,0
+00686230,0019e12e,_NuMtxPreRotateY180,_NuMtxPreRotateY180,confirmed,0
 00689100,001a0196,_NuFmod,_NuFmod,gapfill,2
 0068a6a0,001a6f80,_NuPlnEqn,_NuPlnEqn,gapfill,3
 0068b4d0,001a1422,_NuRandSeed,_NuRandSeed,confirmed,0

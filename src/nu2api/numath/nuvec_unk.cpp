@@ -214,6 +214,39 @@ void NuMtxSetScale(numtx_s *m, nuvec_s *s) {
   m->m33 = 1.0f;
 }
 
+// FUNCTION: LEGOBATMAN 0x00685780
+void NuMtxSetRotationX(numtx_s *m, i32 a) {
+  m->m11 = m->m22 = NuSinApprox(a + 0x4000);
+  m->m12 = NuSinApprox(a);
+  m->m21 = -m->m12;
+  m->m00 = 1.0f;
+  m->m01 = m->m02 = m->m03 = m->m23 = m->m10 = m->m20 = m->m13 = m->m30 =
+      m->m31 = m->m32 = 0.0f;
+  m->m33 = 1.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x006857f0
+void NuMtxSetRotationY(numtx_s *m, i32 a) {
+  m->m00 = m->m22 = NuSinApprox(a + 0x4000);
+  m->m20 = NuSinApprox(a);
+  m->m02 = -m->m20;
+  m->m11 = 1.0f;
+  m->m01 = m->m10 = m->m03 = m->m23 = m->m12 = m->m21 = m->m13 = m->m30 =
+      m->m31 = m->m32 = 0.0f;
+  m->m33 = 1.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00685860
+void NuMtxSetRotationZ(numtx_s *m, i32 a) {
+  m->m00 = m->m11 = NuSinApprox(a + 0x4000);
+  m->m01 = NuSinApprox(a);
+  m->m10 = -m->m01;
+  m->m22 = 1.0;
+  m->m02 = m->m12 = m->m03 = m->m23 = m->m20 = m->m21 = m->m13 = m->m30 =
+      m->m31 = m->m32 = 0.0f;
+  m->m33 = 1.0;
+}
+
 // FUNCTION: LEGOBATMAN 0x00685a50
 void NuMtxTranslate(numtx_s *m, nuvec_s *v) {
   m->m30 += v->x;
@@ -323,6 +356,152 @@ void NuMtxPreScaleX(numtx_s *m, f32 ScaleX) {
   m->m00 = m->m00 * ScaleX;
   m->m01 = m->m01 * ScaleX;
   m->m02 = m->m02 * ScaleX;
+}
+
+// saga body; x87 operand order differs in one or two rows.
+// STUB: LEGOBATMAN 0x00685e40
+void NuMtxRotateX(numtx_s *m, i32 a) {
+  f32 cosx = NuSinApprox(a + 0x4000);
+  f32 sinx = NuSinApprox(a);
+  f32 m01 = m->m01;
+  f32 m11 = m->m11;
+  f32 m21 = m->m21;
+  f32 m31 = m->m31;
+
+  m->m01 = m01 * cosx - m->m02 * sinx;
+  m->m02 = m01 * sinx + m->m02 * cosx;
+  m->m11 = m11 * cosx - m->m12 * sinx;
+  m->m12 = m11 * sinx + m->m12 * cosx;
+  m->m21 = m21 * cosx - m->m22 * sinx;
+  m->m22 = m21 * sinx + m->m22 * cosx;
+  m->m31 = m31 * cosx - m->m32 * sinx;
+  m->m32 = m31 * sinx + m->m32 * cosx;
+}
+
+// FUNCTION: LEGOBATMAN 0x00685f20
+void NuMtxPreRotateX(numtx_s *m, i32 a) {
+  f32 cosx = NuSinApprox(a + 0x4000);
+  f32 sinx = NuSinApprox(a);
+  f32 m10 = m->m10;
+  f32 m11 = m->m11;
+  f32 m12 = m->m12;
+
+  m->m10 = cosx * m10 + m->m20 * sinx;
+  m->m11 = cosx * m11 + m->m21 * sinx;
+  m->m12 = cosx * m12 + m->m22 * sinx;
+  m->m20 = m->m20 * cosx - sinx * m10;
+  m->m21 = m->m21 * cosx - sinx * m11;
+  m->m22 = m->m22 * cosx - sinx * m12;
+}
+
+// FUNCTION: LEGOBATMAN 0x006860a0
+void NuMtxRotateY(numtx_s *m, i32 a) {
+  f32 cosx = NuSinApprox(a + 0x4000);
+  f32 sinx = NuSinApprox(a);
+  f32 m00 = m->m00;
+  f32 m10 = m->m10;
+  f32 m20 = m->m20;
+  f32 m30 = m->m30;
+
+  m->m00 = m00 * cosx + m->m02 * sinx;
+  m->m02 = m->m02 * cosx - m00 * sinx;
+  m->m10 = m10 * cosx + m->m12 * sinx;
+  m->m12 = m->m12 * cosx - m10 * sinx;
+  m->m20 = m20 * cosx + m->m22 * sinx;
+  m->m22 = m->m22 * cosx - m20 * sinx;
+  m->m30 = m30 * cosx + m->m32 * sinx;
+  m->m32 = m->m32 * cosx - m30 * sinx;
+}
+
+// saga body; x87 operand order differs in one or two rows.
+// STUB: LEGOBATMAN 0x00686340
+void NuMtxPreRotateY(numtx_s *m, i32 a) {
+  f32 cosx = NuSinApprox(a + 0x4000);
+  f32 sinx = NuSinApprox(a);
+  f32 m00 = m->m00;
+  f32 m01 = m->m01;
+  f32 m02 = m->m02;
+
+  m->m00 = cosx * m00 - m->m20 * sinx;
+  m->m01 = cosx * m01 - m->m21 * sinx;
+  m->m02 = cosx * m02 - m->m22 * sinx;
+  m->m20 = sinx * m00 + m->m20 * cosx;
+  m->m21 = sinx * m01 + m->m21 * cosx;
+  m->m22 = sinx * m02 + m->m22 * cosx;
+}
+
+// saga body; x87 operand order differs in one or two rows.
+// STUB: LEGOBATMAN 0x00686270
+void NuMtxRotateZ(numtx_s *m, i32 a) {
+  f32 cosx = NuSinApprox(a + 0x4000);
+  f32 sinx = NuSinApprox(a);
+  f32 m00 = m->m00;
+  f32 m10 = m->m10;
+  f32 m20 = m->m20;
+  f32 m30 = m->m30;
+
+  m->m00 = m00 * cosx - m->m01 * sinx;
+  m->m01 = m00 * sinx + m->m01 * cosx;
+  m->m10 = m10 * cosx - m->m11 * sinx;
+  m->m11 = m10 * sinx + m->m11 * cosx;
+  m->m20 = m20 * cosx - m->m21 * sinx;
+  m->m21 = m20 * sinx + m->m21 * cosx;
+  m->m30 = m30 * cosx - m->m31 * sinx;
+  m->m31 = m30 * sinx + m->m31 * cosx;
+}
+
+// saga body; x87 operand order differs in one or two rows.
+// STUB: LEGOBATMAN 0x00686180
+void NuMtxPreRotateZ(numtx_s *m, i32 a) {
+  f32 cosx = NuSinApprox(a + 0x4000);
+  f32 sinx = NuSinApprox(a);
+  f32 m00 = m->m00;
+  f32 m01 = m->m01;
+  f32 m02 = m->m02;
+
+  m->m00 = cosx * m00 + m->m10 * sinx;
+  m->m01 = cosx * m01 + m->m11 * sinx;
+  m->m02 = cosx * m02 + m->m12 * sinx;
+  m->m10 = m->m10 * cosx - sinx * m00;
+  m->m11 = m->m11 * cosx - sinx * m01;
+  m->m12 = m->m12 * cosx - sinx * m02;
+}
+
+// FUNCTION: LEGOBATMAN 0x00686230
+void NuMtxPreRotateY180(numtx_s *m) {
+  m->m00 = -m->m00;
+  m->m01 = -m->m01;
+  m->m02 = -m->m02;
+  m->m20 = -m->m20;
+  m->m21 = -m->m21;
+  m->m22 = -m->m22;
+}
+
+// saga body; x87 operand order differs in one or two rows.
+// STUB: LEGOBATMAN 0x00685fd0
+void NuMtxPreRotateY180X(numtx_s *m, i32 a) {
+  f32 cosx = NuSinApprox(a + 0x4000);
+  f32 sinx = NuSinApprox(a);
+  f32 m10 = m->m10;
+  f32 m11 = m->m11;
+  f32 m12 = m->m12;
+
+  m->m00 = -m->m00;
+  m->m01 = -m->m01;
+  m->m02 = -m->m02;
+  m->m10 = cosx * m10 - m->m20 * sinx;
+  m->m11 = cosx * m11 - m->m21 * sinx;
+  m->m12 = cosx * m12 - m->m22 * sinx;
+  m->m20 = -(m->m20 * cosx) - sinx * m10;
+  m->m21 = -(m->m21 * cosx) - sinx * m11;
+  m->m22 = -(m->m22 * cosx) - sinx * m12;
+}
+
+// FUNCTION: LEGOBATMAN 0x00685e10
+void NuMtxPreSkewYX(numtx_s *Mtx, f32 SkewVal) {
+  Mtx->m00 = Mtx->m00 + Mtx->m10 * SkewVal;
+  Mtx->m01 = Mtx->m01 + Mtx->m11 * SkewVal;
+  Mtx->m02 = Mtx->m02 + Mtx->m12 * SkewVal;
 }
 
 // FUNCTION: LEGOBATMAN 0x00689100
