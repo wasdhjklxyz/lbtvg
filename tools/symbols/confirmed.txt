@@ -3588,3 +3588,6 @@
 006dc630 NuStringTok saga nustring_c.cpp varargs body
 006dc670 NuStrToLower saga nustring_c.cpp body (NuToLower inlined)
 006dcae0 NuFileInit saga body NuFileInitEx(id, 1, 0)
+006dc6b0 NuStringTableGetIdByName saga nustring_c.cpp body, Mac order before NuStringTok
+006dc7a0 NuStrFixExtPlatform saga body shape (LB returns int, skips already-suffixed names), Mac order
+006dc970 NuStrFixExt wrapper passing NULL platform, Mac order

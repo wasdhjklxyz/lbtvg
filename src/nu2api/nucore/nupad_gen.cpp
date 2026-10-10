@@ -430,6 +430,25 @@ extern NUSTRINGBANK StringBank[3];
 // GLOBAL: LEGOBATMAN 0x0099f30c
 extern NUWCHAR *NuBlankString;
 
+// FUNCTION: LEGOBATMAN 0x006dc6b0
+int NuStringTableGetIdByName(char *name) {
+  int j;
+  int i;
+
+  for (i = 0; i < 3; i++) {
+    for (j = 0; j < StringBank[i].string_count; j++) {
+      if (StringBank[i].strings[j].id != NULL &&
+          StringBank[i].strings[j].str_utf16 != NULL) {
+        if (NuStrICmp(StringBank[i].strings[j].id, name) == 0) {
+          return j + (i << 24);
+        }
+      }
+    }
+  }
+
+  return -1;
+}
+
 // FUNCTION: LEGOBATMAN 0x006dc720
 NUWCHAR *NuStringTableGetByName(char *name) {
   int j;
@@ -2678,6 +2697,64 @@ struct NUDATHDR {
 };
 // GLOBAL: LEGOBATMAN 0x00b0388c
 extern int nufile_buffering_enabled;
+
+// FUNCTION: LEGOBATMAN 0x006dc7a0
+int NuStrFixExtPlatform(char *dst, char *src, char *ext, int dst_size,
+                        char *platform_string) {
+  char platform_ext[64];
+  char *end;
+  char *period;
+  char *sep;
+  char *win_sep;
+  int len;
+  int ext_len;
+
+  if (dst == NULL || src == NULL || ext == NULL || *src == '\0' ||
+      dst_size == 0)
+    return 0;
+  len = NuStrLen(src);
+  end = src + len;
+  if (end[-1] == '\\' || end[-1] == '/')
+    return 0;
+  NuStrCpy(platform_ext, "PC");
+  NuStrCat(platform_ext, ".");
+  NuStrCat(platform_ext, ext);
+  ext_len = NuStrLen(platform_ext);
+  if (len > ext_len && NuStrNICmp(end - ext_len, platform_ext, ext_len) == 0) {
+    NuStrCpy(dst, src);
+    return 1;
+  }
+  NuStrCpy(dst, src);
+  period = NuStrRChr(dst, '.');
+  sep = NuStrRChr(dst, '/');
+  win_sep = NuStrRChr(dst, '\\');
+  if (win_sep > sep)
+    sep = win_sep;
+  if (sep >= period) {
+    NuStrCat(dst, "_");
+    if (platform_string != NULL)
+      NuStrCat(dst, platform_string);
+    else
+      NuStrCat(dst, "PC");
+    NuStrCat(dst, ".");
+    NuStrCat(dst, ext);
+  } else {
+    *period = '\0';
+    NuStrCat(period, "_");
+    if (platform_string != NULL)
+      NuStrCat(period, platform_string);
+    else
+      NuStrCat(period, "PC");
+    NuStrCat(period, ".");
+    NuStrCat(period, ext);
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006dc970
+int NuStrFixExt(char *dst, char *src, char *ext, int dst_size) {
+  return NuStrFixExtPlatform(dst, src, ext, dst_size, NULL);
+}
 
 // FUNCTION: LEGOBATMAN 0x006dc990
 bool NuFileIsTxt(char *path) {
