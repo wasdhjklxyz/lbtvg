@@ -787,8 +787,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00519f60,0011785e,__ZN8WorldMap18RenderTrueHeroInfoERK5VuVeciif,"WorldMap::RenderTrueHeroInfo(VuVec const&, int, int, float)",order,1
 0051a0e0,00117920,__ZN8WorldMap18RenderRedBrickInfoERK5VuVecif,"WorldMap::RenderRedBrickInfo(VuVec const&, int, float)",order,1
 0051af00,00118504,__ZN8WorldMap15RenderFadeLayerEv,WorldMap::RenderFadeLayer(),confirmed,0
-0051b0e0,00117d5c,__ZN8WorldMap14InitializePermEPcP9variptr_uS2_,"WorldMap::InitializePerm(char*, variptr_u*, variptr_u*)",strings,0
-0051b2b0,001179dc,__ZN8WorldMap15InitializeLevelEP11WORLDINFO_s,WorldMap::InitializeLevel(WORLDINFO_s*),strings,0
+0051b0e0,00117d5c,__ZN8WorldMap14InitializePermEPcP9variptr_uS2_,"WorldMap::InitializePerm(char*, variptr_u*, variptr_u*)",confirmed,0
+0051b2b0,001179dc,__ZN8WorldMap15InitializeLevelEP11WORLDINFO_s,WorldMap::InitializeLevel(WORLDINFO_s*),confirmed,0
 0051b900,00119514,__ZN8WorldMap26RenderSelectedLocationInfoEv,WorldMap::RenderSelectedLocationInfo(),confirmed,0
 0051c580,0011af0c,__ZN8WorldMap6RenderEv,WorldMap::Render(),confirmed,0
 0051cda0,001d7bda,__ZN15InputRemapClass19DebugGenMappingTextEPcP19KNOWNJOYPADMAPPINGS,"InputRemapClass::DebugGenMappingText(char*, KNOWNJOYPADMAPPINGS*)",strings,0
@@ -2593,6 +2593,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 007040f0,001385aa,__ZN15NuSSAOFilterGen13initResourcesEv,NuSSAOFilterGen::initResources(),confirmed,0
 00708100,0016af82,__ZN19NuDeferredFilterGen9isEnabledEv,NuDeferredFilterGen::isEnabled(),confirmed,0
 00708140,001385b0,__ZN19NuDeferredFilterGen13initResourcesEv,NuDeferredFilterGen::initResources(),confirmed,0
+00708160,00145284,__ZN19NuDeferredFilterGen20initTextureResourcesEii,"NuDeferredFilterGen::initTextureResources(int, int)",confirmed,0
 00708280,0014522a,__ZN19NuDeferredFilterGen23destroyTextureResourcesEv,NuDeferredFilterGen::destroyTextureResources(),confirmed,0
 007082d0,001274f2,__ZN19NuDeferredFilterGen8resetAllEv,NuDeferredFilterGen::resetAll(),confirmed,0
 00709080,001277c4,_NuMovieGrabBegin,_NuMovieGrabBegin,strings,0

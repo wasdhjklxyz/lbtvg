@@ -187,3 +187,4 @@
 005eabf0 BoltTypes_Configure: reading_type/parser stack slots vs edi; 4 layouts tried
 005e9330 Bolt_ObjTargetPosYAdjust: (h+h)/65535.0 hoisted above qrand in ours; 4 spellings tried
 00670d30 FadeSystem_PlayWipeSfx: area/flags register swap (mov eax, ecx); 3 forms tried
+00708160 NuDeferredFilterGen::initTextureResources: (width/2 == width) bool computed via xor/sete cl in original; 10 spellings tried

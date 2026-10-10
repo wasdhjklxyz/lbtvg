@@ -2099,3 +2099,6 @@
 00594420 NuFmvStreamPCBink::BlitSM1Texture string "BlitSM1Texture" + called from GetNextFrame as on the Mac; matched
 005946c0 NuFmvStreamPCBink::GetNextFrame vtable 0x86873c slot 6 (RTTI) + Mac body; matched
 005948a0 NuFmvStreamPCBink::CreateTextures Mac body (d3dCreateTexture/Create_Bink_textures, MapBinkTexturesToTIDs); matched
+00708160 NuDeferredFilterGen::initTextureResources vtable 0x897e34 slot 3 (RTTI) + Mac body
+0051b0e0 WorldMap::InitializePerm vtable 0x85d874 slot 0 (RTTI) + Mac body (beacon ring, four GetMaterial); matched
+0051b2b0 WorldMap::InitializeLevel vtable 0x85d874 slot 1 (RTTI) + Mac body (circle_a, map_icons.gsc); matched
