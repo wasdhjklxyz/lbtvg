@@ -59,3 +59,6 @@ are not lost. Run inside `nix develop` from the repo root.
   the markers START and END with each `\n====\n`-separated block of VARIANTS in
   turn (END may be `EOF`), run match.py on ADDR and report bytes/diff lines; stops at the first
   full match and keeps it, otherwise restores the file.
+- `variants_multi.py ADDR VARIANTS [FILE]`: variants made of several
+  `old\n----\nnew` edits each (`%%%%` between edits, `#####` between
+  variants); prints bytes/diff lines per variant and restores FILE.
