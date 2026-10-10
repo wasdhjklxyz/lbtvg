@@ -2961,3 +2961,24 @@
 005bad60 Levers_AllocateProgressData allocate_progress_data slot of the "Lever" ADDGIZMOTYPE
 005bad80 Levers_ClearProgress clear_progress slot of the "Lever" ADDGIZMOTYPE
 005bb4f0 Levers_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Lever"
+005b7110 GizObstacles_PostLoad x26 (post_load) slot of the "GizObstacle" ADDGIZMOTYPE
+005b7170 GizObstacles_AddLevelSfx x27 (add_level_sfx) slot of the "GizObstacle" ADDGIZMOTYPE
+005b71f0 GizObstacles_ReserveBufferSpace reserve_buffer_space slot of the "GizObstacle" ADDGIZMOTYPE
+005b72f0 GizmoObstacle_SetVisibility set_visibility slot of the "GizObstacle" ADDGIZMOTYPE
+005b7330 GizmoObstacle_GetPos get_pos slot of the "GizObstacle" ADDGIZMOTYPE
+005b76b0 GizObstacle_Stop Mac order (after GizObstacles_Reset), stops the obstacle's anim object
+005b8990 GizObstacles_AddTrigger Mac GizObstacles_AddTrigger(nuvec_s*, int), 16-entry trigger table
+005b89c0 GizObstacle_SetTechnoControlled Mac GizObstacle_SetTechnoControlled(GIZOBSTACLE_s*, float)
+005b89e0 GizObstacle_SetPushControlled Mac GizObstacle_SetPushControlled(GIZOBSTACLE_s*, GameObject_s*, float)
+005b8bc0 GizObstacles_GetMaxGizmos get_max_gizmos slot of the "GizObstacle" ADDGIZMOTYPE
+005b8be0 GizObstacles_AddGizmos add_gizmos slot of the "GizObstacle" ADDGIZMOTYPE
+005b8c40 GizmoObstacle_GetGizmoName get_gizmo_name slot of the "GizObstacle" ADDGIZMOTYPE
+005b8d90 GizmoObstacle_GetOutputName get_output_name slot of the "GizObstacle" ADDGIZMOTYPE
+005b8df0 GizmoObstacle_GetNumOutputs get_num_outputs slot of the "GizObstacle" ADDGIZMOTYPE
+005b8e00 GizObstacles_AllocateProgressData allocate_progress_data slot of the "GizObstacle" ADDGIZMOTYPE
+005b8e20 GizObstacles_ClearProgress clear_progress slot of the "GizObstacle" ADDGIZMOTYPE
+005b8ed0 GizObstacle_FindByName Mac GizObstacle_FindByName(GIZOBSTACLESYS_s*, char*), NuStrICmp walk
+005b8f20 GizObstacle_JumpToStart Mac order (after FindByName)
+005b8f40 GizObstacle_JumpToEnd Mac order (after JumpToStart)
+005b8f60 GizObstacles_StoreProgress store_progress slot of the "GizObstacle" ADDGIZMOTYPE
+005b9cd0 GizObstacles_RegisterGizmo copies Default_ADDGIZMOTYPE, name "GizObstacle"

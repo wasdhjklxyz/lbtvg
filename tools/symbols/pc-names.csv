@@ -1665,6 +1665,27 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005b1940,00357c9a,__Z21DrawObjectOnCharacterP11WORLDINFO_sP12GameObject_siP12nuhspecial_siiP7numtx_sijS6_P7nuvec_sffiS6_,"DrawObjectOnCharacter(WORLDINFO_s*, GameObject_s*, int, nuhspecial_s*, int, int, numtx_s*, int, unsigned int, numtx_s*, nuvec_s*, float, float, int, numtx_s*)",gapfill,1
 005b2a40,00358d26,__Z15LoadThingsScenev,LoadThingsScene(),strings,0
 005b6d60,002d1158,__Z17GizObstacles_LoadPvS_,"GizObstacles_Load(void*, void*)",strings,0
+005b7110,002d1534,__Z21GizObstacles_PostLoadPvS_,"GizObstacles_PostLoad(void*, void*)",confirmed,0
+005b7170,002d159a,__Z24GizObstacles_AddLevelSfxPvS_PiS0_i,"GizObstacles_AddLevelSfx(void*, void*, int*, int*, int)",confirmed,0
+005b71f0,002d1622,__Z31GizObstacles_ReserveBufferSpacePv,GizObstacles_ReserveBufferSpace(void*),confirmed,0
+005b72f0,002d1740,__Z27GizmoObstacle_SetVisibilityP7GIZMO_si,"GizmoObstacle_SetVisibility(GIZMO_s*, int)",confirmed,0
+005b7330,002d178e,__Z20GizmoObstacle_GetPosP7GIZMO_s,GizmoObstacle_GetPos(GIZMO_s*),confirmed,0
+005b76b0,002d1b02,__Z16GizObstacle_StopP13GIZOBSTACLE_s,GizObstacle_Stop(GIZOBSTACLE_s*),confirmed,0
+005b8990,002d295e,__Z23GizObstacles_AddTriggerP7nuvec_si,"GizObstacles_AddTrigger(nuvec_s*, int)",confirmed,0
+005b89c0,002d2996,__Z31GizObstacle_SetTechnoControlledP13GIZOBSTACLE_sf,"GizObstacle_SetTechnoControlled(GIZOBSTACLE_s*, float)",confirmed,0
+005b89e0,002d29ac,__Z29GizObstacle_SetPushControlledP13GIZOBSTACLE_sP12GameObject_sf,"GizObstacle_SetPushControlled(GIZOBSTACLE_s*, GameObject_s*, float)",confirmed,0
+005b8bc0,002d2be8,__Z25GizObstacles_GetMaxGizmosPv,GizObstacles_GetMaxGizmos(void*),confirmed,0
+005b8be0,002d2c04,__Z22GizObstacles_AddGizmosP10GIZMOSYS_siPvS1_,"GizObstacles_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+005b8c40,002d2c6a,__Z26GizmoObstacle_GetGizmoNameP7GIZMO_s,GizmoObstacle_GetGizmoName(GIZMO_s*),confirmed,0
+005b8d90,002d2dba,__Z27GizmoObstacle_GetOutputNameP7GIZMO_si,"GizmoObstacle_GetOutputName(GIZMO_s*, int)",confirmed,0
+005b8df0,002d2e2c,__Z27GizmoObstacle_GetNumOutputsP7GIZMO_s,GizmoObstacle_GetNumOutputs(GIZMO_s*),confirmed,0
+005b8e00,002d2e36,__Z33GizObstacles_AllocateProgressDataP9variptr_uS0_,"GizObstacles_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+005b8e20,002d2e58,__Z26GizObstacles_ClearProgressPvS_,"GizObstacles_ClearProgress(void*, void*)",confirmed,0
+005b8ed0,002d2fa8,__Z22GizObstacle_FindByNameP16GIZOBSTACLESYS_sPc,"GizObstacle_FindByName(GIZOBSTACLESYS_s*, char*)",confirmed,0
+005b8f20,002d2ffe,__Z23GizObstacle_JumpToStartP13GIZOBSTACLE_s,GizObstacle_JumpToStart(GIZOBSTACLE_s*),confirmed,0
+005b8f40,002d301a,__Z21GizObstacle_JumpToEndP13GIZOBSTACLE_s,GizObstacle_JumpToEnd(GIZOBSTACLE_s*),confirmed,0
+005b8f60,002d3036,__Z26GizObstacles_StoreProgressPvS_S_,"GizObstacles_StoreProgress(void*, void*, void*)",confirmed,0
+005b9cd0,002d382e,__Z26GizObstacles_RegisterGizmoi,GizObstacles_RegisterGizmo(int),confirmed,0
 005ba3b0,00302972,__Z25Levers_ReserveBufferSpacePv,Levers_ReserveBufferSpace(void*),confirmed,0
 005ba430,00302c98,__Z19Lever_SetVisibilityP7GIZMO_si,"Lever_SetVisibility(GIZMO_s*, int)",confirmed,0
 005ba490,00302d2c,__Z17Lever_ActivateRevP7GIZMO_sii,"Lever_ActivateRev(GIZMO_s*, int, int)",confirmed,0
