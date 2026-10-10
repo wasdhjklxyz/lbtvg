@@ -93,6 +93,8 @@ static void attenuate_curve(float *c,float att){
     c[i]+=att;
 }
 
+// STUB: LEGOBATMAN 0x00544160
+// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
 static float ***setup_tone_curves(float curveatt_dB[P_BANDS],float binHz,int n,
 				  float center_boost, float center_decay_rate){
   int i,j,k,m;
@@ -458,6 +460,8 @@ static void seed_loop(vorbis_look_psy *p,
   }
 }
 
+// STUB: LEGOBATMAN 0x00545860
+// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
 static void seed_chase(float *seeds, int linesper, long n){
   long  *posstack=alloca(n*sizeof(*posstack));
   float *ampstack=alloca(n*sizeof(*ampstack));
@@ -552,6 +556,8 @@ static void max_seeds(vorbis_look_psy *p,
   
 }
 
+// STUB: LEGOBATMAN 0x00545b30
+// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
 static void bark_noise_hybridmp(int n,const long *b,
                                 const float *f,
                                 float *noise,
@@ -794,6 +800,8 @@ void _vp_remove_floor(vorbis_look_psy *p,
     residue[i]=0.;
 }
 
+// STUB: LEGOBATMAN 0x005467b0
+// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
 void _vp_noisemask(vorbis_look_psy *p,
 		   float *logmdct, 
 		   float *logmask){
@@ -842,6 +850,8 @@ void _vp_noisemask(vorbis_look_psy *p,
 
 }
 
+// STUB: LEGOBATMAN 0x005469a0
+// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
 void _vp_tonemask(vorbis_look_psy *p,
 		  float *logfft,
 		  float *logmask,
@@ -1048,6 +1058,8 @@ static int apsort(const void *a, const void *b){
   return (f1<f2)-(f1>f2);
 }
 
+// STUB: LEGOBATMAN 0x00547560
+// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
 int **_vp_quantize_couple_sort(vorbis_block *vb,
 			       vorbis_look_psy *p,
 			       vorbis_info_mapping0 *vi,
@@ -1074,6 +1086,8 @@ int **_vp_quantize_couple_sort(vorbis_block *vb,
   return(NULL);
 }
 
+// STUB: LEGOBATMAN 0x005476a0
+// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
 void _vp_noise_normalize_sort(vorbis_look_psy *p,
 			      float *magnitudes,int *sortedindex){
   int i,j,n=p->n;

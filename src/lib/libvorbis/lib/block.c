@@ -413,6 +413,8 @@ float **vorbis_analysis_buffer(vorbis_dsp_state *v, int vals){
   return(v->pcmret);
 }
 
+// STUB: LEGOBATMAN 0x00541ef0
+// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
 static void _preextrapolate_helper(vorbis_dsp_state *v){
   int i;
   int order=32;
@@ -446,6 +448,8 @@ static void _preextrapolate_helper(vorbis_dsp_state *v){
 
 /* call with val<=0 to set eof */
 
+// STUB: LEGOBATMAN 0x00541fe0
+// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
 int vorbis_analysis_wrote(vorbis_dsp_state *v, int vals){
   vorbis_info *vi=v->vi;
   codec_setup_info *ci=vi->codec_setup;

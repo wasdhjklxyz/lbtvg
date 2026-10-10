@@ -623,6 +623,8 @@ static int _01forward(oggpack_buffer *opb,
 }
 
 /* a truncated packet here just means 'stop working'; it's not an error */
+// STUB: LEGOBATMAN 0x00554140
+// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
 static int _01inverse(vorbis_block *vb,vorbis_look_residue *vl,
 		      float **in,int ch,
 		      long (*decodepart)(codebook *, float *, 

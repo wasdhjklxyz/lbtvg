@@ -61,6 +61,8 @@ Carsten Bormann
 /* Input : n elements of time doamin data
    Output: m lpc coefficients, excitation energy */
 
+// STUB: LEGOBATMAN 0x00551660
+// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
 float vorbis_lpc_from_data(float *data,float *lpci,int n,int m){
   double *aut=alloca(sizeof(*aut)*(m+1));
   double *lpc=alloca(sizeof(*lpc)*(m));
@@ -117,6 +119,8 @@ float vorbis_lpc_from_data(float *data,float *lpci,int n,int m){
   return error;
 }
 
+// STUB: LEGOBATMAN 0x00551970
+// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
 void vorbis_lpc_predict(float *coeff,float *prime,int m,
                      float *data,long n){
 

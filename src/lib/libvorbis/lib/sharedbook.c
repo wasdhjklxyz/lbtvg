@@ -330,6 +330,8 @@ static int sort32a(const void *a,const void *b){
 }
 
 /* decode codebook arrangement is more heavily optimized than encode */
+// STUB: LEGOBATMAN 0x00548a50
+// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
 int vorbis_book_init_decode(codebook *c,const static_codebook *s){
   int i,j,n=0,tabn;
   int *sortindex;

@@ -503,6 +503,8 @@ void mdct_backward(mdct_lookup *init, DATA_TYPE *in, DATA_TYPE *out){
   }
 }
 
+// STUB: LEGOBATMAN 0x00550140
+// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
 void mdct_forward(mdct_lookup *init, DATA_TYPE *in, DATA_TYPE *out){
   int n=init->n;
   int n2=n>>1;
