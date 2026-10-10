@@ -397,6 +397,91 @@ i32 Action_DontAvoidCharacter(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+struct GIZAIMESSAGE_s {
+  u8 pad0[0x28];
+  f32 value; // 0x28
+};
+
+extern GIZAIMESSAGESYS_s *gizaimessagesys;
+i32 qrand(void);
+void LoseHitPoints(GameObject_s *obj, i32 amount);
+
+// STUB: LEGOBATMAN 0x0045dc80
+// Only diff: the original keeps params in ebp and the value in edi; ours
+// swaps them (declaration order and helper shapes tried).
+i32 Action_SetHitPoints(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char **params, i32 param_count,
+                        i32 first_time, f32 dt) {
+  GameObject_s *obj = NULL;
+  i32 set_max = 1;
+  i32 hp = -1;
+  i32 min = -1;
+  i32 max = -1;
+  i32 decrement = 0;
+  i32 max_hp = -1;
+  if (!first_time)
+    return 1;
+  if (packet != NULL && packet->pd0 != NULL)
+    obj = packet->pd0->obj;
+  for (i32 i = 0; i < param_count; i++) {
+    char *value;
+    if ((value = NuStrIStr(params[i], "character=")) != NULL) {
+      value += NuStrLen("character=");
+      Unk_AIPacketObj *api;
+      if (GetNamedAPIObjectFn != NULL &&
+          (api = GetNamedAPIObjectFn(sys, value)) != NULL)
+        obj = api->obj;
+      else
+        obj = NULL;
+    } else if ((value = NuStrIStr(params[i], "messageval=")) != NULL) {
+      value += NuStrLen("messageval=");
+      GIZAIMESSAGE_s *msg = CheckGizAIMessage(gizaimessagesys, value, NULL);
+      if (msg != NULL)
+        hp = (i32)msg->value;
+    } else if ((value = NuStrIStr(params[i], "decrement=")) != NULL) {
+      value += NuStrLen("decrement=");
+      decrement = (i32)AIParamToFloat(process, value);
+    } else if ((value = NuStrIStr(params[i], "max_hit_points=")) != NULL) {
+      value += NuStrLen("max_hit_points=");
+      max_hp = (i32)AIParamToFloat(process, value);
+    } else if (NuStrICmp(params[i], "dont_set_max") == 0) {
+      set_max = 0;
+    } else if ((value = NuStrIStr(params[i], "min")) != NULL) {
+      min = (i32)AIParamToFloat(process, value + NuStrLen("min") + 1);
+    } else if ((value = NuStrIStr(params[i], "max")) != NULL) {
+      max = (i32)AIParamToFloat(process, value + NuStrLen("max") + 1);
+    } else if (NuStrICmp(params[i], "default") != 0) {
+      hp = (i32)AIParamToFloat(process, params[i]);
+    }
+  }
+  if (obj != NULL) {
+    i32 lose = 0;
+    if (decrement != 0) {
+      i32 cur = obj->current_hp;
+      hp = cur - decrement;
+      if (hp < 0)
+        hp = 0;
+      lose = cur - hp;
+    } else if (min != -1 && max != -1 && max >= min) {
+      hp = qrand() / (0xffff / (max - min + 1) + 1) + min;
+    } else if (hp == -1 && max_hp == -1) {
+      hp = obj->p54->p24->b226;
+    }
+    if (max_hp >= 0)
+      obj->hitpoints = max_hp;
+    else if (set_max)
+      obj->hitpoints = hp;
+    if (hp >= 0) {
+      if (lose != 0) {
+        LoseHitPoints(obj, lose);
+        return 1;
+      }
+      obj->current_hp = hp;
+    }
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x0045e500
 i32 Action_SetScriptParam(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                           AIPACKET_s *packet, char **args, int argc, int flags,
@@ -5937,13 +6022,6 @@ i32 Action_GizmoActivate(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 1;
 }
-
-struct GIZAIMESSAGE_s {
-  u8 pad0[0x28];
-  f32 value; // 0x28
-};
-
-extern GIZAIMESSAGESYS_s *gizaimessagesys;
 
 void AddGameMsgCount(nuvec_s *pos, i32 count, i32 total, u8 red, u8 green,
                      u8 blue, f32 scale);

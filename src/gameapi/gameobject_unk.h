@@ -55,7 +55,8 @@ struct Unk_GameObject54_24 {
   u8 pad1dd[0x217 - 0x1dd];
   i8 hat_locator2; // 0x217, LoseHat fallback locator
   i8 hat_locator;  // 0x218
-  u8 pad219[0x227 - 0x219];
+  u8 pad219[0x226 - 0x219];
+  u8 b226;             // 0x226, Action_SetHitPoints default hit points
   u8 shield_hitpoints; // 0x227
 };
 
