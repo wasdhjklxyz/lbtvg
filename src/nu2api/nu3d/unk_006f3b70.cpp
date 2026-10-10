@@ -77,8 +77,11 @@ struct NuPostFilterGen {
 struct NuMainFilterGen : NuPostFilterGen {
   virtual void initTextureResources(i32 width, i32 height);
   virtual void destroyTextureResources();
+  virtual bool isEnabled();
 
-  u8 pad0c[0x134 - 0xc];
+  u8 pad0c[0x58 - 0xc];
+  i32 active_filter_count; // 0x58
+  u8 pad5c[0x134 - 0x5c];
 };
 
 struct NuMainFilter : NuMainFilterGen {
@@ -115,6 +118,9 @@ struct NuMotionAccumFilter : NuMotionAccumFilterGen {
   u8 pad10[0xac - 0x10];
   nueffecttex_s *texture; // 0xac
 };
+
+// FUNCTION: LEGOBATMAN 0x006f7ab0
+bool NuMainFilterGen::isEnabled() { return active_filter_count != 0; }
 
 // FUNCTION: LEGOBATMAN 0x006f8210
 void NuMotionAccumFilter::initTextureResources(i32 width, i32 height) {

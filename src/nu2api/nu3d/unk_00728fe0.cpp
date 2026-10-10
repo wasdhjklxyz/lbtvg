@@ -57,6 +57,26 @@ struct NuMotionFilterGen {
   NuDataPort<NuProxyAttachment *> depth_buffer;    // 0x20
 };
 
+// RTTI vtable 0x8982bc; fields as in src/nu2api/nu3d/numainfilter_gen_unk.cpp.
+struct NuMainFilterGen {
+  virtual ~NuMainFilterGen();
+  virtual void initResources();
+
+  bool enabled; // 0x04
+  u8 pad05[0x54 - 0x5];
+  u16 u54;                  // 0x54, saga's dof_enabled/bloom_enabled
+  bool motion_blur_enabled; // 0x56
+  u8 u57;                   // 0x57
+  i32 active_filter_count;  // 0x58
+};
+
+// FUNCTION: LEGOBATMAN 0x007289b0
+void NuMainFilterGen::initResources() {
+  u54 = 0;
+  motion_blur_enabled = false;
+  active_filter_count = 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x00728fe0
 void NuMotionFilterGen::destroyResources() {
   out_framebuffer.unregister();

@@ -30,6 +30,30 @@ extern i32 g_unk009d10c4; // pixel shader model
 // GLOBAL: LEGOBATMAN 0x029f3e48
 extern nushaderprogram_s *g_unk029f3e48; // blur program
 
+// GLOBAL: LEGOBATMAN 0x0094c0bb
+extern u8 g_unk0094c0bb;
+
+// RTTI vtable 0x8982bc.
+struct NuMainFilterGen {
+  virtual ~NuMainFilterGen();
+  virtual void initResources();
+  virtual void destroyResources();
+  virtual void initTextureResources(i32 width, i32 height);
+  virtual void destroyTextureResources();
+  virtual void render();
+
+  bool enabled; // 0x04
+  u8 pad05[0x55 - 0x5];
+  bool bloom_enabled; // 0x55
+};
+
+// RTTI vtable 0x8979e4.
+struct NuMainFilter : NuMainFilterGen {
+  virtual void render();
+
+  void Unk006f7b30(); // the shader model 1 render path
+};
+
 // Slot order from the NuDeferredFilterGen vtable 0x897e34
 // (src/nu2api/nu3d/nudeferredfilter_gen_unk.cpp).
 struct NuDeferredFilter {
@@ -59,6 +83,14 @@ void NuPostFilter::blur7x7(nueffecttex_s *src, i32 src_level,
     Unk007002c0(src, src_level, dst, dst_level, a, b, c, scale, program);
   else
     blurSM1(src, src_level, dst, dst_level, a, b, c, scale, blurSM1Program);
+}
+
+// FUNCTION: LEGOBATMAN 0x006fa8d0
+void NuMainFilter::render() {
+  if (g_unk0094c0bb)
+    NuMainFilterGen::render();
+  else if (bloom_enabled)
+    Unk006f7b30();
 }
 
 // FUNCTION: LEGOBATMAN 0x006fa8f0

@@ -2579,9 +2579,11 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006f3b70,00175d24,__ZN12NuMainFilter20initTextureResourcesEii,"NuMainFilter::initTextureResources(int, int)",confirmed,0
 006f3bb0,00173f9e,__ZN12NuMainFilter23destroyTextureResourcesEv,NuMainFilter::destroyTextureResources(),confirmed,0
 006f7080,0017f2f4,__ZN12NuPostFilter7blurSM1EP13nueffecttex_siS1_iiibfP17nushaderprogram_s,"NuPostFilter::blurSM1(nueffecttex_s*, int, nueffecttex_s*, int, int, int, bool, float, nushaderprogram_s*)",confirmed,0
+006f7ab0,00169fb0,__ZN15NuMainFilterGen9isEnabledEv,NuMainFilterGen::isEnabled(),confirmed,0
 006f8210,0017deba,__ZN19NuMotionAccumFilter20initTextureResourcesEii,"NuMotionAccumFilter::initTextureResources(int, int)",confirmed,0
 006fa6d0,0016d2ee,__ZN12NuPostFilter4copyEP13nueffecttex_sP15nuframebuffer_s,"NuPostFilter::copy(nueffecttex_s*, nuframebuffer_s*)",confirmed,0
 006fa830,0018019c,__ZN12NuPostFilter7blur7x7EP13nueffecttex_siS1_iiibfP17nushaderprogram_s,"NuPostFilter::blur7x7(nueffecttex_s*, int, nueffecttex_s*, int, int, int, bool, float, nushaderprogram_s*)",confirmed,0
+006fa8d0,0018016a,__ZN12NuMainFilter6renderEv,NuMainFilter::render(),confirmed,0
 006fa8f0,0018025a,__ZN16NuDeferredFilter25template_blurLuminanceMapEv,NuDeferredFilter::template_blurLuminanceMap(),confirmed,0
 006fa950,0018152c,_NuRndrSwapScreen,_NuRndrSwapScreen,strings,0
 006fcad0,0017b378,__ZN19NuMotionAccumFilter13initResourcesEv,NuMotionAccumFilter::initResources(),confirmed,0
@@ -2598,6 +2600,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 007013a0,00124ce8,__ZN22NuMotionAccumFilterGen23destroyTextureResourcesEv,NuMotionAccumFilterGen::destroyTextureResources(),confirmed,0
 00701c20,00138598,__ZN20NuSpeedBlurFilterGen13initResourcesEv,NuSpeedBlurFilterGen::initResources(),confirmed,0
 00701c40,00142b48,__ZN20NuSpeedBlurFilterGen20initTextureResourcesEii,"NuSpeedBlurFilterGen::initTextureResources(int, int)",confirmed,0
+00701c90,001250be,__ZN20NuSpeedBlurFilterGen23destroyTextureResourcesEv,NuSpeedBlurFilterGen::destroyTextureResources(),confirmed,0
 00701e60,0013859e,__ZN24NuProcessColourFilterGen13initResourcesEv,NuProcessColourFilterGen::initResources(),confirmed,0
 00702190,001385a4,__ZN17NuEdgeAAFilterGen13initResourcesEv,NuEdgeAAFilterGen::initResources(),confirmed,0
 007021b0,001253ac,__ZN17NuEdgeAAFilterGen20initTextureResourcesEii,"NuEdgeAAFilterGen::initTextureResources(int, int)",confirmed,0
@@ -2709,6 +2712,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 007227b0,0013dd8e,_NuLgtLaser,_NuLgtLaser,gapfill,2
 00727b40,00133cfe,_NuMtlUpdate,_NuMtlUpdate,calls,3
 00727f20,0012c0fe,_NuMtlSetCurrentRenderPlane,_NuMtlSetCurrentRenderPlane,calls,1
+007289b0,0013856e,__ZN15NuMainFilterGen13initResourcesEv,NuMainFilterGen::initResources(),confirmed,0
 00728fe0,00143f2a,__ZN17NuMotionFilterGen16destroyResourcesEv,NuMotionFilterGen::destroyResources(),confirmed,0
 0072b040,0013ee34,__ZN14NuDynamicLight7destroyEPS_,NuDynamicLight::destroy(NuDynamicLight*),calls,4
 0072c750,001296d6,_NuAnimDataChunkDestroy,_NuAnimDataChunkDestroy,strings,0

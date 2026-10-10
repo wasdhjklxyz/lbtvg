@@ -2123,3 +2123,7 @@
 006fe600 NuMainFilterGen::initTextureResources vtable 0x8982bc slot 3 (RTTI) + saga/Mac body; matched
 006fe6f0 NuMainFilterGen::destroyTextureResources vtable 0x8982bc slot 4 (RTTI), releases the three textures initTextureResources creates; matched
 006fe720 NuMainFilterGen::reset vtable 0x8982bc slot 6 (RTTI) + saga body (clear enabled/filter flags/count); matched
+007289b0 NuMainFilterGen::initResources vtable 0x8982bc slot 1 (RTTI) + saga body (clear filter flags and count); matched
+00701c90 NuSpeedBlurFilterGen::destroyTextureResources vtable slot 4 (RTTI), releases the texture initTextureResources creates; matched
+006fa8d0 NuMainFilter::render vtable 0x8979e4 slot 5 (RTTI); calls NuMainFilterGen::render when 0x94c0bb is set; matched
+006f7ab0 NuMainFilterGen::isEnabled vtable 0x8982bc slot 8 (RTTI) + saga inline (active_filter_count != 0); matched

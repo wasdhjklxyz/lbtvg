@@ -10,6 +10,7 @@ nueffecttex_s *NuEffectTexCreate2D(i32 width, i32 height, i32 levels,
                                    i32 format, i32 usage);
 void Unk006e49c0(nueffecttex_s *tex, i32 a, i32 b, i32 c); // sampler state
 void Unk006e4b90(nueffecttex_s *tex, i32 a, i32 b);        // address mode
+void Unk006e47f0(nueffecttex_s *tex); // releases the effect texture
 
 struct NuPostFilterGen {
   virtual ~NuPostFilterGen();
@@ -28,6 +29,7 @@ struct NuPostFilterGen {
 
 struct NuSpeedBlurFilterGen : NuPostFilterGen {
   virtual void initTextureResources(i32 width, i32 height);
+  virtual void destroyTextureResources();
 
   u8 pad0c[0x14 - 0xc];
   nueffecttex_s *texture; // 0x14
@@ -39,3 +41,6 @@ void NuSpeedBlurFilterGen::initTextureResources(i32 width, i32 height) {
   Unk006e49c0(texture, 2, 2, 0);
   Unk006e4b90(texture, 2, 2);
 }
+
+// FUNCTION: LEGOBATMAN 0x00701c90
+void NuSpeedBlurFilterGen::destroyTextureResources() { Unk006e47f0(texture); }
