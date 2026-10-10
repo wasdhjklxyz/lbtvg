@@ -311,3 +311,51 @@ void NuThreadSignalRecieve(i32 thread) {
 void NuThreadSignalRecieveTimeout(i32 thread, i32 timeout) {
   WaitForSingleObject(g_nuThreads[thread].signal, timeout);
 }
+
+// --- NuPSFile ----------------------------------------------------------------
+
+extern HANDLE g_nuPSFileHandles[64]; // nufile_ps_unk.cpp
+// GLOBAL: LEGOBATMAN 0x0099f820
+extern volatile i32 g_nuPSFileCritSec; // -1 until the first open
+
+// getpointer (nufile_ps_unk.cpp 0x006e3220), inlined here: this file and
+// that one are one translation unit in the original.
+static inline i32 NuPSFileFreeSlot(void) {
+  i32 i;
+  for (i = 0; i < 64; i++) {
+    if (g_nuPSFileHandles[i] == INVALID_HANDLE_VALUE)
+      return i;
+  }
+  return -1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006e3f60
+extern "C" i32 NuPSFileOpen(char *path, i32 mode) {
+  DWORD access = 0;
+  DWORD disposition = 0;
+  i32 fh;
+  switch (mode) {
+  case 0:
+    access = GENERIC_READ;
+    disposition = OPEN_EXISTING;
+    break;
+  case 1:
+    access = GENERIC_WRITE;
+    disposition = CREATE_ALWAYS;
+    break;
+  case 2:
+    access = GENERIC_WRITE;
+    disposition = OPEN_ALWAYS;
+    break;
+  }
+  if (g_nuPSFileCritSec == -1)
+    g_nuPSFileCritSec = NuThreadCreateCriticalSection();
+  NuThreadCriticalSectionBegin(g_nuPSFileCritSec);
+  fh = NuPSFileFreeSlot();
+  g_nuPSFileHandles[fh] =
+      CreateFileA(path, access, FILE_SHARE_READ, NULL, disposition, 0, NULL);
+  NuThreadCriticalSectionEnd(g_nuPSFileCritSec);
+  if (g_nuPSFileHandles[fh] == INVALID_HANDLE_VALUE)
+    return -1;
+  return fh;
+}

@@ -3674,3 +3674,4 @@
 006e3cc0 NuFileOpenDir  Mac order after NuSysDirOpen; device format_name then NuSysDirOpen(buf)+1, 0x1000 for device id 1
 006e3da0 NuFileCloseDir  inlines NuSysDirClose (same __FILE__ line 0x23e) for handles below 0x1000
 006e3df0 NuFileReadDir  calls NuSysDirRead(file-1) and repacks the entry (dir bit 8, name at 0x18 as saga saveload reads it)
+006e3f60 NuPSFileOpen  nupad_gen's NuFileOpen calls it with (path, mode); CreateFileA over the getpointer slot table, mode 0 read/1 create/2 open-always

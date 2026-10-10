@@ -4015,6 +4015,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006e3cc0,001989dc,_NuFileOpenDir,_NuFileOpenDir,confirmed,0
 006e3da0,00198ad2,_NuFileCloseDir,_NuFileCloseDir,confirmed,0
 006e3df0,00198ca8,_NuFileReadDir,_NuFileReadDir,confirmed,0
+006e3f60,0019979a,_NuPSFileOpen,_NuPSFileOpen,confirmed,0
 006e46b0,00169f2a,__ZN15NuPostFilterGenD1Ev,NuPostFilterGen::~NuPostFilterGen(),confirmed,0
 006e46c0,00169f5e,__ZN15NuPostFilterGen20initTextureResourcesEii,"NuPostFilterGen::initTextureResources(int, int)",confirmed,0
 006e46d0,00169f64,__ZN15NuPostFilterGen23destroyTextureResourcesEv,NuPostFilterGen::destroyTextureResources(),confirmed,0
