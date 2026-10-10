@@ -63,7 +63,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizForces](#gizforces) | 1 | 1 |
 | [gizmoblowup](#gizmoblowup) | 1 | 1 |
 | [GizmoPickup](#gizmopickup) | 1 | 1 |
-| [GizObstacles](#gizobstacles) | 1 | 1 |
 | [GizSpecial](#gizspecial) | 1 | 1 |
 | [GizTorps](#giztorps) | 1 | 1 |
 | [GizTurrets](#gizturrets) | 1 | 1 |
@@ -620,10 +619,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## GizmoPickup
 
 - [ ] `0048c2e0` 1217 B `GizmoPickup_CollectCoin(WORLDINFO_s*, nuvec_s*, int, int, GameObject_s*, int)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizmopickups.cpp`
-
-## GizObstacles
-
-- [ ] `005b6d60` 931 B `GizObstacles_Load(void*, void*)`  **saga** `legoapi/gizmos/object/gizobstacle.cpp`
 
 ## GizSpecial
 

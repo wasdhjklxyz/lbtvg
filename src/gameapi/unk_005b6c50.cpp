@@ -31,26 +31,52 @@ void Unk_InlineUser_005b6c50(f32 *v, f32 a, i32 i) {
 typedef struct GAMEANIMOBJ_s {
   u8 pad0[0x18];
   i32 state; // 0x18
+  u8 pad1c[0x20 - 0x1c];
+  u32 flags20;       // 0x20
+  void *object_data; // 0x24
 } GAMEANIMOBJ;
 
 typedef struct GIZOBSTACLE_s {
-  char name[0x10];  // 0x00
-  nuvec_s position; // 0x10
-  u8 pad1c[0x34 - 0x1c];
+  char name[0x10];   // 0x00
+  nuvec_s position;  // 0x10
+  nuvec_s position2; // 0x1c
+  u8 pad28[0x34 - 0x28];
   GAMEANIMOBJ *parts;   // 0x34
   GameObject_s *pusher; // 0x38
-  u8 pad3c[0x5c - 0x3c];
+  u8 pad3c[0x40 - 0x3c];
+  char name40[0x10]; // 0x40
+  f32 f50;           // 0x50
+  u8 pad54[0x58 - 0x54];
+  f32 f58;     // 0x58
   f32 control; // 0x5c
-  u8 pad60[0x80 - 0x60];
-  f32 f80; // 0x80
-  u8 pad84[0x90 - 0x84];
+  f32 f60;     // 0x60
+  f32 f64;     // 0x64
+  f32 f68;     // 0x68
+  u8 pad6c[0x70 - 0x6c];
+  f32 f70;     // 0x70
+  f32 f74;     // 0x74
+  f32 f78;     // 0x78
+  f32 f7c;     // 0x7c
+  f32 f80;     // 0x80
+  nuvec_s v84; // 0x84
   u32 flags90; // 0x90
-  u8 pad94[0xbc - 0x94];
-  i16 sbc; // 0xbc, resolved in PostLoad when flags bit 12 is set
-  u8 padbe[0xc0 - 0xbe];
+  i32 i94;     // 0x94
+  u8 pad98[0x9c - 0x98];
+  i32 i9c;     // 0x9c
+  i32 ia0;     // 0xa0
+  nuvec_s va4; // 0xa4
+  f32 fb0;     // 0xb0
+  i16 sb4;     // 0xb4
+  i16 sb6;     // 0xb6
+  i16 sb8;     // 0xb8
+  u8 padba[0xbc - 0xba];
+  i16 sbc;    // 0xbc, resolved in PostLoad when flags bit 12 is set
+  i16 sbe;    // 0xbe
   i16 sfx[2]; // 0xc0
   u8 bc4;     // 0xc4
-  u8 padc5[0xc8 - 0xc5];
+  u8 bc5;     // 0xc5
+  u8 bc6;     // 0xc6
+  u8 padc7[0xc8 - 0xc7];
   union {
     u32 flags; // 0xc8
     struct {
@@ -123,7 +149,160 @@ void Unk00604a80(GAMEANIMOBJ *parts);
 void Unk00604b00(GAMEANIMOBJ *parts);
 void Unk00604b40(GAMEANIMOBJ *parts);
 
-i32 GizObstacles_Load(void *world, void *sys);
+i32 EdFileReadInt();
+char EdFileReadChar();
+i16 EdFileReadShort();
+f32 EdFileReadFloat();
+void EdFileRead(void *buf, i32 len);
+void EdFileReadNuVec(nuvec_s *v);
+void GizmoFileReadGameAnimSet(GAMEANIMOBJ *set, void *world,
+                              void (*fn)(GAMEANIMOBJ *, u8), u8 version,
+                              char *type_name, char *name);
+i32 GizmoBlowupGetNameTableId(char *name);
+i32 GizmoFileReadName(char *name);
+extern "C" i32 GetSfxId(char *name);
+
+struct AREADATA_s {
+  u8 pad0[0x7c];
+  u32 flags7c; // 0x7c
+};
+
+// GLOBAL: LEGOBATMAN 0x00ab06e0
+extern void (*g_unk00ab06e0)(void *world, GIZOBSTACLE *obstacle);
+// GLOBAL: LEGOBATMAN 0x00ab06e8
+extern void (*g_unk00ab06e8)(GIZOBSTACLE *obstacle, i32 version);
+
+// FUNCTION: LEGOBATMAN 0x005b6d20
+static void Gizobstacle_ReadAnimSetData(GAMEANIMOBJ *object, u8 version) {
+  if (object == NULL)
+    return;
+  u16 fallback;
+  u16 *data = (u16 *)object->object_data;
+  if (data == NULL) {
+    fallback = 0;
+    data = &fallback;
+  }
+  if (version > 7)
+    data[0] = EdFileReadShort();
+  else if (object->flags20 & 2)
+    data[0] |= 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x005b6d60
+i32 GizObstacles_Load(void *world_ptr, void *sys_ptr) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  GIZOBSTACLESYS *sys = (GIZOBSTACLESYS *)sys_ptr;
+  char blowup_name[32];
+  char sfx_name[64];
+  u8 version = EdFileReadChar();
+  sys->count = EdFileReadShort();
+  if (sys->count != 0) {
+    GIZOBSTACLE *obs = sys->obstacles;
+    for (i32 i = 0; i < sys->count; i++, obs++) {
+      EdFileRead(obs->name, 0x10);
+      EdFileReadNuVec(&obs->position);
+      if (version > 1)
+        EdFileReadNuVec(&obs->position2);
+      else
+        obs->position2 = obs->position;
+      obs->f50 = EdFileReadFloat();
+      obs->f58 = EdFileReadFloat();
+      if (version > 2) {
+        EdFileReadNuVec(&obs->v84);
+        obs->sb8 = EdFileReadShort();
+      } else {
+        obs->v84.x = 0.25f;
+        obs->v84.y = 0.25f;
+        obs->v84.z = 0.25f;
+      }
+      obs->flags90 = EdFileReadInt();
+      if (version >= 12)
+        obs->i94 = EdFileReadInt();
+      if (version == 6) {
+        EdFileReadShort();
+        EdFileReadChar();
+      }
+      obs->bc4 = EdFileReadChar();
+      obs->bc5 = EdFileReadChar();
+      if (version >= 15) {
+        obs->f74 = EdFileReadFloat();
+        obs->f70 = EdFileReadFloat();
+      }
+      if (version >= 17)
+        obs->f78 = EdFileReadFloat();
+      if (version >= 18)
+        obs->f7c = EdFileReadFloat();
+      else
+        obs->f7c = 1.0f;
+      if (version >= 7)
+        obs->bc6 = EdFileReadChar();
+      else
+        obs->bc6 = 0xff;
+      GizmoFileReadGameAnimSet(obs->parts, world, Gizobstacle_ReadAnimSetData,
+                               version, "GizObstacle", obs->name);
+      if (version >= 4)
+        obs->f60 = EdFileReadFloat();
+      else
+        obs->f60 = 1.0f;
+      if (version >= 5)
+        obs->f64 = EdFileReadFloat();
+      else
+        obs->f64 = obs->f60;
+      if (version >= 8)
+        obs->f68 = EdFileReadFloat();
+      obs->sbc = -1;
+      if (version >= 9) {
+        if (version >= 10) {
+          i32 len = EdFileReadChar();
+          if (len != 0) {
+            EdFileRead(blowup_name, len);
+            obs->sbc = GizmoBlowupGetNameTableId(blowup_name);
+            if (obs->sbc != -1)
+              obs->flags |= 0x1000;
+          }
+        } else {
+          obs->sbc = EdFileReadShort();
+        }
+        obs->sbe = EdFileReadShort();
+        obs->sb4 = EdFileReadShort();
+        obs->sb6 = EdFileReadShort();
+        EdFileReadNuVec(&obs->va4);
+      }
+      if (version >= 11)
+        obs->fb0 = EdFileReadFloat();
+      else if (world->area != NULL && (world->area->flags7c & 1))
+        obs->fb0 = 12.0f;
+      else
+        obs->fb0 = 1.75f;
+      obs->sfx[0] = -1;
+      obs->sfx[1] = -1;
+      if (version >= 13) {
+        if (GizmoFileReadName(sfx_name))
+          obs->sfx[0] = GetSfxId(sfx_name);
+      } else if (g_unk00ab06e0 != NULL) {
+        g_unk00ab06e0(world, obs);
+      }
+      if (version >= 14) {
+        if (GizmoFileReadName(sfx_name))
+          obs->sfx[1] = GetSfxId(sfx_name);
+      }
+      if (version >= 16) {
+        GizmoFileReadName(obs->name40);
+        if (obs->name40 != NULL)
+          obs->flags |= 0x200000;
+      }
+      if (version >= 19) {
+        obs->i9c = EdFileReadInt();
+        obs->ia0 = EdFileReadInt();
+      } else {
+        obs->i9c = obs->ia0 = 1;
+      }
+      if (g_unk00ab06e8 != NULL)
+        g_unk00ab06e8(obs, version);
+    }
+  }
+  return 1;
+}
 
 // FUNCTION: LEGOBATMAN 0x005b7110
 void GizObstacles_PostLoad(void *world, void *sys_ptr) {
