@@ -3564,6 +3564,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d3ad0,0018749a,_NuDatFileOpenSize,_NuDatFileOpenSize,confirmed,0
 006d3b10,00187c82,_NuDatSet,_NuDatSet,confirmed,0
 006d3b20,00187c9c,_NuDatGet,_NuDatGet,confirmed,0
+006d3b30,00187cd2,_NuFileExtGetExt,_NuFileExtGetExt,confirmed,0
 006d3b90,,GetItems,GetItems,confirmed,0
 006d3bb0,,CalcChecksum,CalcChecksum,confirmed,0
 006d3be0,,DecryptData,DecryptData,confirmed,0

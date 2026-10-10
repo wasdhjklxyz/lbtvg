@@ -1708,6 +1708,26 @@ extern int g_unk0099f270;
 
 int Unk00524cf0(void);
 
+// FUNCTION: LEGOBATMAN 0x006d3b30
+int NuFileExtGetExt(char *dst, int dst_size, int type) {
+  FILEEXTINFO *info;
+  char *src;
+  int i;
+
+  for (info = extensions; info != 0; info++) {
+    if (info->platform == 4 && info->type == type) {
+      if (dst_size < info->len)
+        return 0;
+      src = info->extension + info->len;
+      for (i = 0; i < info->len; i++)
+        dst[i] = *--src;
+      dst[i] = 0;
+      return 1;
+    }
+  }
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x006d9fe0
 static int MatchExtension(char *extension, char *path_end, int path_len) {
   while (*extension != '\0') {
