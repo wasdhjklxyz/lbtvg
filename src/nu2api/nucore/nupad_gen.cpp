@@ -4120,6 +4120,154 @@ void NuPadRecordPlay(NUGENERICPAD *pad) {
   }
 }
 
+int Unk0051f2a0(void);
+int Unk0052fec0(void);
+unsigned char Unk00524070(int port, unsigned char *lx, unsigned char *ly,
+                          unsigned char *rx, unsigned char *ry,
+                          unsigned char *l1, unsigned char *l2,
+                          unsigned char *r1, unsigned char *r2,
+                          unsigned int *buttons, unsigned char *analog_pad,
+                          int *analog_button_flags);
+int Unk00522550(int port);
+void Unk006ddca0(char *filepath);
+void NuPadProcessReadData(NUGENERICPAD *pad);
+// GLOBAL: LEGOBATMAN 0x00b03940
+int g_nuPadUnk0b03940;
+
+#define SCANNED ((NUGENERICPAD *)g_nuPads)
+
+// FUNCTION: LEGOBATMAN 0x006de440
+void NuPadUpdatePads(void) {
+  int max_interface_devices;
+  int max_game_pads;
+  int i;
+  int j;
+  int has_active_pad;
+  int prev;
+
+  max_interface_devices = Unk0051f2a0();
+  max_game_pads = NuPadGetMaxGamePads();
+
+  if (Unk0052fec0() == g_nuPadUnk0b03940)
+    return;
+  g_nuPadUnk0b03940 = Unk0052fec0();
+
+  for (i = 0; i < max_interface_devices; i++) {
+    SCANNED[i].is_valid = Unk00524070(
+        i, &SCANNED[i].analog_left_x, &SCANNED[i].analog_left_y,
+        &SCANNED[i].analog_right_x, &SCANNED[i].analog_right_y,
+        &SCANNED[i].analog_l1, &SCANNED[i].analog_l2, &SCANNED[i].analog_r1,
+        &SCANNED[i].analog_r2, &SCANNED[i].digital_buttons,
+        &SCANNED[i].unknown_7c, &SCANNED[i].analog_button_flags);
+    NuPadRecordPlay(SCANNED + i);
+    if (SCANNED[i].is_valid)
+      SCANNED[i].deadzone = Unk00522550(i);
+    NuPadProcessReadData(SCANNED + i);
+  }
+
+  if (g_nuPadRecUnk0adf6b4 == 1) {
+    switch (g_nuPadRecMode) {
+    case 1:
+      Unk006ddca0(g_nuPadRecFilename);
+      break;
+    case 2:
+      g_nuPadRecMode = 0;
+      g_nuPadRecPos = (float *)g_nuPadRec.buf_start;
+      break;
+    }
+    g_nuPadRecUnk0adf6b4 = 0;
+  }
+
+  for (i = 0; i < max_interface_devices; i++) {
+    has_active_pad = 0;
+    for (j = 0; j < max_game_pads; j++) {
+      if (g_nuPadUnk0aecb64[j].valid && i == g_nuPadUnk0aecb64[j].value)
+        has_active_pad = 1;
+    }
+    if (has_active_pad)
+      continue;
+    SCANNED[i].mapped_to_pad = -1;
+  }
+
+  if (!g_nuPadUnk0b038f8) {
+    g_nuPadUnk0aecb64[0].value = -1;
+    for (j = 0; j < max_interface_devices; j++) {
+      if (SCANNED[j].is_valid) {
+        if (g_nuPadUnk0aecb64[0].value == -1) {
+          g_nuPadUnk0aecb64[0].value = j;
+          SCANNED[j].mapped_to_pad = 0;
+        }
+        if (SCANNED[j].digital_buttons != 0 ||
+            SCANNED[j].analog_left_x != ANALOG_CENTER ||
+            SCANNED[j].analog_left_y != ANALOG_CENTER ||
+            SCANNED[j].analog_right_x != ANALOG_CENTER ||
+            SCANNED[j].analog_right_y != ANALOG_CENTER) {
+          g_nuPadUnk0aecb64[0].value = j;
+          SCANNED[j].mapped_to_pad = 0;
+          if ((SCANNED[j].digital_buttons_pressed & 0x840) != 0)
+            return;
+        }
+      }
+    }
+  } else {
+    for (i = 0; i < max_game_pads; i++) {
+      if (g_nuPadUnk0aecb64[i].valid == 1 &&
+          !SCANNED[g_nuPadUnk0aecb64[i].value].is_valid) {
+        for (j = 0; j < max_interface_devices; j++) {
+          if (SCANNED[j].is_valid &&
+              (SCANNED[j].digital_buttons_pressed & 0x800) != 0 &&
+              (SCANNED[j].mapped_to_pad == -1 ||
+               !g_nuPadUnk0aecb64[SCANNED[j].mapped_to_pad].valid)) {
+            g_nuPadUnk0aecb64[i].value = j;
+            SCANNED[j].mapped_to_pad = i;
+            SCANNED[j].digital_buttons_pressed = 0;
+            goto next;
+          }
+        }
+      }
+
+      if (!g_nuPadUnk0aecb64[i].valid) {
+        g_nuPadUnk0aecb64[i].value = -1;
+        if (g_nuPadUnk0aecb64[0].valid + g_nuPadUnk0aecb64[1].valid == 0) {
+          if (i == 0) {
+            for (j = 0; j < max_interface_devices; j++) {
+              if (SCANNED[j].mapped_to_pad != -1 &&
+                  g_nuPadUnk0aecb64[SCANNED[j].mapped_to_pad].valid == 1)
+                continue;
+              SCANNED[j].mapped_to_pad = -1;
+            }
+          }
+        } else {
+          for (j = 0; j < max_interface_devices; j++) {
+            if (SCANNED[j].mapped_to_pad != -1 &&
+                g_nuPadUnk0aecb64[SCANNED[j].mapped_to_pad].valid == 1)
+              continue;
+            SCANNED[j].mapped_to_pad = -1;
+          }
+        }
+
+        prev = -1;
+        for (j = 0; j < max_interface_devices; j++) {
+          if (SCANNED[j].mapped_to_pad == -1 && SCANNED[j].is_valid) {
+            g_nuPadUnk0aecb64[i].value = j;
+            SCANNED[j].mapped_to_pad = i;
+            if (prev >= 0)
+              SCANNED[prev].mapped_to_pad = -1;
+            prev = j;
+            if (SCANNED[j].digital_buttons != 0 ||
+                SCANNED[j].analog_left_x != ANALOG_CENTER ||
+                SCANNED[j].analog_left_y != ANALOG_CENTER ||
+                SCANNED[j].analog_right_x != ANALOG_CENTER ||
+                (SCANNED[j].digital_buttons_pressed & 0x840) != 0)
+              break;
+          }
+        }
+      }
+    next:;
+    }
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x006d6430
 void NuPadRecordSetPlayEndButtons(int buttons) {
   g_nuPadRecEndPlayButtons = buttons;

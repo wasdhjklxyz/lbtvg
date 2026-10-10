@@ -3616,3 +3616,4 @@
 006d5880 NuPadProcessReadData saga nupad.cpp body, calls both deadzone statics and NuPadApplyCurve (CalcRamp) (stub)
 006d5ef0 NuPadRead saga nupad.cpp body (LB NUPAD layout)
 006d6230 NuPadRecordPlay saga nupad.cpp body
+006de440 NuPadUpdatePads saga nupad.cpp body, LB frame gate + inlined NuPadRecordEnd
