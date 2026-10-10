@@ -3283,3 +3283,4 @@
 0063b2a0 GizDigs_Load GizDig_RegisterGizmo load slot
 0066e4b0 Plugs_Load Plugs_RegisterGizmo load slot
 0066c3e0 Teleports_Load Teleport_RegisterGizmo load slot
+005a6b20 Technos_Load Technos_RegisterGizmo load slot

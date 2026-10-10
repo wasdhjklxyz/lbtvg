@@ -10,13 +10,25 @@ typedef struct TECHNO_s {
   u8 pad0[0x40];
   char name[0x10];  // 0x40
   nuvec_s position; // 0x50
-  u8 pad5c[0x8b - 0x5c];
+  u8 pad5c[0x6c - 0x5c];
+  f32 f6c; // 0x6c
+  u8 pad70[0x78 - 0x70];
+  struct TECHNOTYPE_s *type; // 0x78
+  i16 s7c;                   // 0x7c
+  u8 pad7e[0x82 - 0x7e];
+  u8 b82;  // 0x82
+  u8 b83;  // 0x83
+  i32 i84; // 0x84
+  u8 pad88[0x8b - 0x88];
   u8 active : 1;  // 0x8b
   u8 visible : 1; // 0x8b bit 1
   u8 b2 : 1;
   u8 b3 : 1;
-  u8 done : 1; // 0x8b bit 4
-  u8 pad8c[0xcc - 0x8c];
+  u8 done : 1;       // 0x8b bit 4
+  char name8c[0x10]; // 0x8c
+  char name9c[0x28]; // 0x9c
+  f32 fc4;           // 0xc4
+  u8 padc8[0xcc - 0xc8];
 } TECHNO;
 
 typedef struct TECHNOPROGRESS_s {
@@ -37,6 +49,94 @@ void *GameBufferAllocProgressUnk005bbaf0(VARIPTR *buf, VARIPTR *buf_end,
 // GLOBAL: LEGOBATMAN 0x0095fb50
 static char *Techno_OutputNames[3] = {"Active", "Special Button Down",
                                       "Got Handle"};
+
+typedef struct TECHNOTYPE_s {
+  char *name; // 0x00
+  u8 pad4[0x14 - 4];
+  u8 b14; // 0x14
+  u8 pad15[0xa0 - 0x15];
+} TECHNOTYPE;
+
+// GLOBAL: LEGOBATMAN 0x0095fb48
+extern TECHNOTYPE **g_unk0095fb48;
+
+i32 EdFileReadInt();
+char EdFileReadChar();
+i16 EdFileReadShort();
+f32 EdFileReadFloat();
+void EdFileRead(void *buf, i32 len);
+void EdFileReadNuVec(nuvec_s *v);
+i32 GizmoFileReadName(char *name);
+int NuStrICmp(const char *a, const char *b);
+int NuStrCpy(char *dst, const char *src);
+
+// FUNCTION: LEGOBATMAN 0x005a6ae0
+static TECHNOTYPE *Techno_FindTypeUnk005a6ae0(char *name) {
+  if (name != NULL && *g_unk0095fb48 != NULL) {
+    for (TECHNOTYPE *type = *g_unk0095fb48; type != NULL && type->name != NULL;
+         type++) {
+      if (!NuStrICmp(name, type->name))
+        return type;
+    }
+  }
+  return NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x005a6b20
+i32 Technos_Load(void *world_ptr, void *unused) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  char name[0x40];
+  if (world->techno_count == 0) {
+    i32 version = EdFileReadInt();
+    world->techno_count = EdFileReadInt();
+    for (i32 i = 0; i < world->techno_count; i++) {
+      EdFileRead(world->technos[i].name, 0x10);
+      EdFileReadNuVec(&world->technos[i].position);
+      world->technos[i].s7c = EdFileReadShort();
+      if (version >= 8 && GizmoFileReadName(name))
+        world->technos[i].type = Techno_FindTypeUnk005a6ae0(name);
+      if (world->technos[i].type == NULL)
+        world->technos[i].type = *g_unk0095fb48;
+      if (version >= 2) {
+        world->technos[i].b83 = EdFileReadChar();
+        EdFileRead(world->technos[i].name9c, EdFileReadInt());
+        NuStrCpy(world->technos[i].name8c, world->technos[i].name9c);
+        if (version >= 3) {
+          world->technos[i].b82 = EdFileReadChar();
+          if (version < 6) {
+            u8 *p = &world->technos[i].b82;
+            if (*p & 1)
+              *p = 1;
+            else if (*p & 2)
+              *p = 2;
+            else if (*p & 4)
+              *p = 3;
+            else if (*p & 8)
+              *p = 4;
+          }
+        } else {
+          world->technos[i].b82 = 1;
+        }
+      }
+      if (version >= 4)
+        world->technos[i].f6c = EdFileReadFloat();
+      else
+        world->technos[i].f6c = 1.0f;
+      if (version >= 5)
+        world->technos[i].i84 = EdFileReadInt();
+      else
+        world->technos[i].i84 = 0;
+      if (version >= 7)
+        world->technos[i].fc4 = EdFileReadFloat();
+      else
+        world->technos[i].fc4 = 100.0f;
+      if (world->technos[i].type->b14 != 0xff)
+        world->technos[i].b82 = world->technos[i].type->b14;
+    }
+    return 1;
+  }
+  return 0;
+}
 
 // FUNCTION: LEGOBATMAN 0x005a6fe0
 void Techno_Activate(GIZMO *gizmo, i32 active) {
