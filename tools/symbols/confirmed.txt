@@ -2066,3 +2066,12 @@
 00708100 NuDeferredFilterGen::isEnabled vtable 0x897e34 slot 8 (RTTI) + saga (enabled && counts); matched
 00708280 NuDeferredFilterGen::destroyTextureResources vtable 0x897e34 slot 4 (RTTI); matched
 007082d0 NuDeferredFilterGen::resetAll vtable 0x897e34 slot 7 (RTTI); matched
+00708140 NuDeferredFilterGen::initResources vtable 0x897e34 slot 1 (RTTI): calls resetAll; matched
+006e8ec0 NuEdgeAAFilter::initTextureResources vtable 0x898334 slot 3 (RTTI); matched
+006e8ef0 NuEdgeAAFilter::destroyTextureResources vtable 0x898334 slot 4 (RTTI); matched
+006f3b70 NuMainFilter::initTextureResources vtable 0x8979e4 slot 3 (RTTI); matched
+006f3bb0 NuMainFilter::destroyTextureResources vtable 0x8979e4 slot 4 (RTTI); matched
+007021b0 NuEdgeAAFilterGen::initTextureResources vtable 0x897d7c slot 3 (RTTI)
+007021c0 NuEdgeAAFilterGen::destroyTextureResources vtable 0x897d7c slot 4 (RTTI)
+006fe600 NuMainFilterGen::initTextureResources vtable 0x8982bc slot 3 (RTTI)
+006fe6f0 NuMainFilterGen::destroyTextureResources vtable 0x8982bc slot 4 (RTTI)

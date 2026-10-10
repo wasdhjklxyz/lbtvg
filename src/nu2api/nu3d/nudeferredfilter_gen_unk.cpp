@@ -24,6 +24,7 @@ struct NuPostFilterGen {
 };
 
 struct NuDeferredFilterGen : NuPostFilterGen {
+  virtual void initResources();
   virtual void destroyTextureResources();
   virtual void resetAll();
   virtual bool isEnabled();
@@ -48,6 +49,9 @@ struct NuDeferredFilterGen : NuPostFilterGen {
 bool NuDeferredFilterGen::isEnabled() {
   return enabled && (dynamic_light_count != 0 || deferred_geometry_count > 0);
 }
+
+// FUNCTION: LEGOBATMAN 0x00708140
+void NuDeferredFilterGen::initResources() { resetAll(); }
 
 // FUNCTION: LEGOBATMAN 0x00708280
 void NuDeferredFilterGen::destroyTextureResources() {
