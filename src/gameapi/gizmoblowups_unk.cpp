@@ -318,13 +318,18 @@ typedef struct NUINSTANIM_UNK_s {
 } NUINSTANIM_UNK;
 
 NUINSTANIM_UNK *NuSpecialGetInstAnim(nuhspecial_s *sp);
+void GameAudio_PlaySfxById(i32 sfx_id, nuvec_s *position, i32 a, i32 b);
+
 typedef struct UNK005EE1A0_s {
   u8 pad0[0x30];
   u64 flags; // 0x30
+  u8 pad38[0xec - 0x38];
+  i16 blowup_sfx; // 0xec
 } UNK005EE1A0;
 
 UNK005EE1A0 *Unk005ee1a0(i32 id);
 void GameAudio_PlaySfxById(i32 sfx_id, nuvec_s *position, i32 a, i32 b);
+void GameAudio_PlaySfx(i32 sfx, nuvec_s *position, i32 flags, i32 volume);
 
 // FUNCTION: LEGOBATMAN 0x005d8ed0
 void Blowup_Reset(GIZMOBLOWUP_s *blowup) {
@@ -444,6 +449,25 @@ i32 AddGameDebris(void *system, i32 type, nuvec_s *position);
 
 // FUNCTION: LEGOBATMAN 0x005d9750
 void BlowupObjEmit_Stop(void *part) {}
+
+// FUNCTION: LEGOBATMAN 0x005d9760
+void GizmoBlowUp_PlaySfx(GIZMOBLOWUP_s *blowup, nuvec_s *position) {
+  if (blowup == NULL || blowup->type == NULL || position == NULL)
+    return;
+  if (blowup->type->b106 != -1) {
+    UNK005EE1A0 *info = Unk005ee1a0(blowup->type->b106);
+    if (info != NULL && info->blowup_sfx != -1) {
+      GameAudio_PlaySfxById(info->blowup_sfx, position, 0, 0);
+      return;
+    }
+  }
+  if (blowup->type->sfx0 != -1)
+    GameAudio_PlaySfxById(blowup->type->sfx0, position, 0, 0);
+  else if (blowup->draw_flags & 0x40)
+    GameAudio_PlaySfx(0xc6, position, 0, 0);
+  else
+    GameAudio_PlaySfx(0x46, position, 0, 0);
+}
 
 // FUNCTION: LEGOBATMAN 0x005d9810
 void GizmoBlowupAddDefaultExplosionDebris(nuvec_s *position) {
