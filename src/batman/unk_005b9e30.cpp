@@ -28,6 +28,7 @@ void Unk_InlineUser_005b9e30(f32 *v, f32 a, i32 i) {
 #include "leveldata_unk.h"
 #include "worldinfo_unk.h"
 #include <stddef.h>
+#include <string.h>
 
 typedef struct LEVER_s {
   u8 pad0[0x40];
@@ -247,6 +248,23 @@ void Levers_ClearProgress(void *world, void *progress_ptr) {
   }
 }
 
+WORLDINFO_s *WorldInfo_CurrentlyActive(void);
+i32 ActivePlayerInRange(nuvec_s *position, f32 range_squared, f32 *out);
+
+// FUNCTION: LEGOBATMAN 0x005bae50
+i32 Levers_UpdateHint(void *hint) {
+  WORLDINFO_s *world = WorldInfo_CurrentlyActive();
+  LEVER *lever = (LEVER *)world->levers;
+  if (lever == NULL)
+    return 0;
+  for (i32 i = 0; i < world->lever_count; i++, lever++) {
+    if (lever->active && lever->visible && !(lever->state & 3) &&
+        lever->pull == 0.0f && ActivePlayerInRange(&lever->v40, 0.16f, NULL))
+      return 1;
+  }
+  return 0;
+}
+
 // GLOBAL: LEGOBATMAN 0x00960044
 extern f32 g_unk00960044;
 // GLOBAL: LEGOBATMAN 0x009f7a44
@@ -338,7 +356,32 @@ void Levers_Reset(void *world_ptr, void *unused, void *progress_ptr) {
   }
 }
 
-void Levers_StoreProgress(void *world, void *unused, void *progress);
+// FUNCTION: LEGOBATMAN 0x005bada0
+void Levers_StoreProgress(void *world_ptr, void *unused, void *progress_ptr) {
+  LEVERPROGRESS *progress = (LEVERPROGRESS *)progress_ptr;
+  if (progress == NULL)
+    return;
+  progress->down[0] = 0;
+  memset(progress->active, 0xff, 8);
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  if (world == NULL)
+    return;
+  LEVER *lever = (LEVER *)world->levers;
+  if (lever == NULL)
+    return;
+  for (i32 i = 0; i < world->lever_count; i++, lever++) {
+    if (i >= 32)
+      break;
+    i32 word = i / 32;
+    u32 bit = 1 << (i & 31);
+    if (lever->being_pulled && lever->pull >= 0.6f)
+      progress->down[word] |= bit;
+    if (!lever->visible)
+      progress->visible[word] &= ~bit;
+    if (!lever->active)
+      progress->active[word] &= ~bit;
+  }
+}
 
 // GLOBAL: LEGOBATMAN 0x00960048
 i32 lever_gizmotype_id = -1;
