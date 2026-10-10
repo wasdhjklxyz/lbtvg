@@ -279,3 +279,4 @@
 0x0045dc80 Action_SetHitPoints: with the ParamAfterKey helper only 2 lea base/index swaps remain (as CnxHelper)
 0x0046e4e0 Action_ThrowDetonator: only explode/targettable stack slots swapped; declaration orders tried
 0x00461af0 Action_CnxHelper: only 3 lea base/index swaps ([ebx+eax+1] vs [eax+ebx+1]) in key+len+1 args
+0x00456570 Action_SnapToLocator: only diff is eax=1 parking (check_terrain init + return) moving the sys /GS copy store; early return vs wrapped body tried

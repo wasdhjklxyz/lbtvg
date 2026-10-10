@@ -275,6 +275,100 @@ struct AIPATHINFO1C {
 i32 StartBigJump(GameObject_s *obj, nuvec_s *dest, i32 mode, f32 height_scale,
                  f32 speed_scale, i32 anim, i32 flags);
 
+// GLOBAL: LEGOBATMAN 0x00ab3790
+extern nuvec_s plr_lastpos;
+extern nuvec_s v000;
+
+void InitSurfaceInfo(GameObject_s *obj);
+void SetObjOnSurface(GameObject_s *obj, i32 a);
+// GLOBAL: LEGOBATMAN 0x00ab3960
+extern GameObject_s *Player[8];
+
+// STUB: LEGOBATMAN 0x00456570
+// Only diff: ours parks the constant 1 in eax (check_terrain init and the
+// return), so the sys /GS copy is stored before push edi.
+i32 Action_SnapToLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                         AIPACKET_s *packet, char **params, i32 param_count,
+                         i32 first_time, f32 dt) {
+  GameObject_s *obj = NULL;
+  i32 personal = 0;
+  i32 indexed = 0;
+  i32 random_count = 0;
+  i32 check_terrain = 1;
+  i32 height_only = 0;
+  char *name = NULL;
+  char buf[64];
+  if (first_time) {
+    if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL)
+      obj = packet->pd0->obj;
+    for (i32 i = 0; i < param_count; i++) {
+      char *value;
+      if ((value = NuStrIStr(params[i], "name")) != NULL) {
+        name = value + 5;
+      } else if (NuStrIStr(params[i], "personal") != NULL) {
+        personal = 1;
+      } else if (NuStrIStr(params[i], "indexed") != NULL) {
+        indexed = 1;
+      } else if ((value = NuStrIStr(params[i], "random")) != NULL) {
+        random_count = (i32)AIParamToFloat(process, value + 9);
+      } else if ((value = NuStrIStr(params[i], "character")) != NULL) {
+        obj = GetNamedGameObject(sys, value + 10);
+      } else if ((value = NuStrIStr(params[i], "player=")) != NULL) {
+        i32 player = (i32)AIParamToFloat(process, value + 7) - 1;
+        if ((u32)player <= 1)
+          obj = Player[player];
+      } else if (NuStrIStr(params[i], "dont_check_terrain") != NULL) {
+        check_terrain = 0;
+      } else if (NuStrIStr(params[i], "height_only") != NULL) {
+        height_only = 1;
+        check_terrain = 0;
+      }
+    }
+    if (obj == NULL) {
+      if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL)
+        obj = packet->pd0->obj;
+    }
+    if (obj != NULL) {
+      AILOCATOR_s *loc = ((AIPACKET_s *)obj->process290)->locator;
+      if (name != NULL) {
+        if (indexed && obj->b24c != -1)
+          sprintf(buf, "%s_%d", name, obj->b24c);
+        else if (personal && obj->p54 != NULL)
+          sprintf(buf, "%s_%s", name, obj->p54->file);
+        else if (random_count != 0)
+          sprintf(buf, "%s_%d", name, NuRand(0) % random_count);
+        else
+          sprintf(buf, name);
+        loc = AIPathFindLocator(sys, buf);
+      }
+      if (loc != NULL) {
+        if (height_only)
+          obj->position.y = ((nuvec_s *)((u8 *)loc + 0x10))->y;
+        else
+          obj->position = *(nuvec_s *)((u8 *)loc + 0x10);
+        ((AIPACKET_s *)obj->process290)->pos14c = obj->position;
+        obj->u246 = *(u16 *)((u8 *)loc + 0x1c);
+        obj->yaw58 = *(u16 *)((u8 *)loc + 0x1c);
+        obj->facing_angle = *(u16 *)((u8 *)loc + 0x1c);
+        *(AIPATHINFO1C *)((u8 *)obj + 0x3e8) =
+            *(AIPATHINFO1C *)((u8 *)loc + 0x20);
+        obj->v80 = obj->position;
+        obj->v98 = obj->position;
+        plr_lastpos = obj->v80;
+        obj->v8c = obj->v80;
+        ((Unk_AIPacketObj *)obj)->respawn_pos = obj->position;
+        ((Unk_AIPacketObj *)obj)->last_safe_pos = obj->position;
+        obj->saved_position = obj->position;
+        obj->velocity = v000;
+        InitSurfaceInfo(obj);
+        if (check_terrain)
+          SetObjOnSurface(obj, 0);
+      }
+    }
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x00456a90
 i32 Action_BigJumpToLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                             AIPACKET_s *packet, char **params, i32 param_count,
@@ -3399,13 +3493,6 @@ struct AICREATURE_s {
   u16 y_rot;   // 0x2c
   u8 pad2e[0xa8 - 0x2e];
 };
-
-// GLOBAL: LEGOBATMAN 0x00ab3790
-extern nuvec_s plr_lastpos;
-extern nuvec_s v000;
-
-void InitSurfaceInfo(GameObject_s *obj);
-void SetObjOnSurface(GameObject_s *obj, i32 a);
 
 // FUNCTION: LEGOBATMAN 0x00457d70
 i32 Action_SnapToOrigin(AISYS_s *sys, AISCRIPTPROCESS_s *process,
