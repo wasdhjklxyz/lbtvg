@@ -450,3 +450,17 @@ enough matched code for the percentage to mean something.
   lea.
 - **`and word [m], imm8` (66 83)** needs an `i16` field; `u16` or bitfields
   give 66 81.
+- **A float sum compared, then assigned in both arms** stays unrounded:
+  write the sum twice (CSE'd), not via a local.
+- **A search loop whose miss gives 0** matches as an inline helper with
+  `return i` / `return 0`, not as goto.
+- **`u32 on = x & 1;` assigned to two bitfields** uses different temps than
+  repeating `x & 1`.
+- **Struct/matrix locals at function scope vs an inner block** change how
+  their stores interleave with argument pushes (and can stop a tail call).
+- **`extern const f32`** is loaded as a dword and kept in an x87 register; a
+  literal is folded.
+- **Nested `if (v >= 28) { if (v < 29) ... }`** avoids the `lea/test/ja`
+  range check that `&&` produces.
+- **The parser/version-in-a-register puzzle also shows as `eax` (ours) vs
+  stack (original)** (GizmoPickups_FixDrawDistance/Load), not just `ebx`.
