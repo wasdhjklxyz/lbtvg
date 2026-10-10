@@ -161,7 +161,7 @@ static void GizTurret_ClearUnk0065fac0(GIZTURRET_s *turret) {
 }
 
 // FUNCTION: LEGOBATMAN 0x0065fb80
-static void edgizturret_ReadAnimSetData(TURRETANIMOBJ *object, u8 version) {
+static void GizTurret_ReadAnimSetData(TURRETANIMOBJ *object, u8 version) {
   if (object == NULL || version <= 2)
     return;
   u32 fallback;
@@ -189,7 +189,7 @@ i32 GizTurrets_Load(void *world_ptr, void *sys_ptr) {
   for (i32 i = 0; i < sys->count; i++, turret++) {
     GizTurret_ClearUnk0065fac0(turret);
     EdFileRead(turret->name, 0x10);
-    GizmoFileReadGameAnimSet(turret->parts, world, edgizturret_ReadAnimSetData,
+    GizmoFileReadGameAnimSet(turret->parts, world, GizTurret_ReadAnimSetData,
                              version, "GizTurret", turret->name);
     EdFileReadNuVec(&turret->position);
     EdFileReadNuVec(&turret->v30);
