@@ -367,8 +367,11 @@ struct SHOPMENU_s {
 class InteractiveDisplay {
 public:
   void InitializeLevel(WORLDINFO_s *world);
+  void DumpLevel(WORLDINFO_s *world);
   void RenderWhiteNoise(f32 alpha) const;
 };
+
+void NuGScnRemove(nugscn_s *scene);
 
 class ShopComputer : public InteractiveDisplay {
 public:
@@ -376,6 +379,7 @@ public:
   i32 IsMenuChanging();
   void RenderWhiteNoise() const;
   void InitializeLevel(WORLDINFO_s *world);
+  void DumpLevel(WORLDINFO_s *world);
   static void parse_reversedirection(struct nufpar_s *fp);
   static void parse_levelpath(struct nufpar_s *fp);
   static void parse_bgimagefilename(struct nufpar_s *fp);
@@ -403,9 +407,12 @@ public:
   i32 i4c8; // 0x4c8
   f32 f4cc; // 0x4cc
   u8 pad4d0[4];
-  f32 f4d4;        // 0x4d4
-  f32 white_noise; // 0x4d8
-  f32 f4dc[6];     // 0x4dc
+  f32 f4d4;         // 0x4d4
+  f32 white_noise;  // 0x4d8
+  f32 f4dc[6];      // 0x4dc
+  SCMTL_s *mtls[9]; // 0x4f4
+  SCMTL_s *mtl518;  // 0x518
+  SCMTL_s *mtl51c;  // 0x51c
 };
 
 typedef i32(__thiscall *ShopComputerVFn)(ShopComputer *);
@@ -522,6 +529,30 @@ void ShopComputer::InitializeLevel(WORLDINFO_s *world) {
     f4dc[3] = 1.0f;
     f4dc[4] = 1.0f;
     f4dc[5] = 1.0f;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00515010
+void ShopComputer::DumpLevel(WORLDINFO_s *world) {
+  InteractiveDisplay::DumpLevel(world);
+  if (NuStrICmp((char *)world, level_name) == 0) {
+    if (icons_scene != NULL) {
+      NuGScnRemove(icons_scene);
+      icons_scene = NULL;
+    }
+    if (mtl518 != NULL) {
+      mtl518->tid = 0;
+      NuMtlUpdate(mtl518);
+    }
+    if (mtl51c != NULL) {
+      mtl51c->tid = 0;
+      NuMtlUpdate(mtl51c);
+    }
+    for (i32 i = 0; i < 9; i++) {
+      mtls[i]->tid = 0;
+      NuMtlUpdate(mtls[i]);
+    }
+    i4c8 = 0;
   }
 }
 

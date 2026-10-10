@@ -5,6 +5,7 @@
 // GetFadeType.
 
 #include "../nu2api/nucore/common.h"
+#include "../nu2api/numath/nutrig_unk.h"
 
 struct FADEINFO_s {
   i32 mask; // 0x00
@@ -92,6 +93,19 @@ void DrawFadeScreenWipe();
 void DrawStillScreen(i32 a);
 void DrawPauseScreenWipe();
 
+struct numtl_s;
+
+void Unk0071af80(i32 x, i32 y, i32 w, i32 h, u32 colour, numtl_s *mtl);
+void Unk00670d80(i32 a, f32 alpha);
+void Unk00670e30(i32 a, f32 alpha);
+
+// GLOBAL: LEGOBATMAN 0x00a97cf0
+extern numtl_s *g_unk00a97cf0; // fade material
+
+// Body in nutrig_unk.h: this TU's copy of the static.
+// FUNCTION: LEGOBATMAN 0x00670c40
+static f32 NuSinApprox(i32 angle);
+
 // GLOBAL: LEGOBATMAN 0x00ad29ec
 extern i32 wait_till_next_frame;
 // GLOBAL: LEGOBATMAN 0x00a97d34
@@ -119,6 +133,18 @@ void Fade::InitFade() {
 
 // FUNCTION: LEGOBATMAN 0x00671110
 void Fade::UpdateFade() {}
+
+// FUNCTION: LEGOBATMAN 0x00671120
+void Fade::DrawFade() {
+  if (info->f4 > 0.0f && g_unk00a97cf0 != 0)
+    Unk0071af80(
+        0, 0, 0x2800, 0xe00,
+        (u32)(NuSinApprox((i32)((info->f4 - 0.0f) * 16384.0f + 49152.0f) +
+                          0x4000) *
+              128.0f)
+            << 24,
+        g_unk00a97cf0);
+}
 
 // FUNCTION: LEGOBATMAN 0x006711b0
 void BlackWipe::Init(FADEINFO_s *info) { this->info = info; }
@@ -220,6 +246,20 @@ void CrossFade::UpdateFade() {
     g_unk00a97d34 = 1;
 }
 
+// FUNCTION: LEGOBATMAN 0x00671430
+void CrossFade::DrawFade() {
+  if (wait_till_next_frame == 0) {
+    if (info->flags & 2) {
+      DrawStillScreen(1);
+    } else {
+      f32 alpha =
+          NuSinApprox((i32)(info->f4 * 16384.0f + 32768.0f) + 0x4000) + 1.0f;
+      Unk00670d80(0, alpha);
+      g_unk00a97d34 = 0;
+    }
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x006714a0
 void BlackCrossFade::Init(FADEINFO_s *info) { this->info = info; }
 
@@ -238,6 +278,25 @@ void BlackCrossFade::InitFade() {
     else
       g_unk00a97da0 = 1;
     wait_till_next_frame = FRAMES_TO_WAIT;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00671560
+void BlackCrossFade::DrawFade() {
+  if (wait_till_next_frame == 0) {
+    if (info->flags & 2) {
+      g_unk00a97d34 = 0;
+      f32 alpha =
+          1.0f -
+          (NuSinApprox((i32)(info->f4 * 16384.0f + 32768.0f) + 0x4000) + 1.0f);
+      Unk00670e30(0, alpha);
+    } else {
+      g_unk00a97d34 = 0;
+      f32 alpha =
+          1.0f -
+          (NuSinApprox((i32)(info->f4 * 16384.0f + 32768.0f) + 0x4000) + 1.0f);
+      Unk00670e30(0, alpha);
+    }
   }
 }
 

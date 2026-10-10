@@ -763,6 +763,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005130e0,000fb00c,__ZN14SecurityCamera25AreVillainLevelsAvailableEv,SecurityCamera::AreVillainLevelsAvailable(),confirmed,0
 00513430,000fb63a,__ZN14SecurityCamera14InitializePermENS_18SecurityCameraTypeEP9variptr_uS2_,"SecurityCamera::InitializePerm(SecurityCamera::SecurityCameraType, variptr_u*, variptr_u*)",strings,0
 00514bd0,001066a8,__ZN12ShopComputer15InitializeLevelEP11WORLDINFO_s,ShopComputer::InitializeLevel(WORLDINFO_s*),strings,0
+00515010,00105f9a,__ZN12ShopComputer9DumpLevelEP11WORLDINFO_s,ShopComputer::DumpLevel(WORLDINFO_s*),confirmed,0
 005150f0,001067b2,__ZN12ShopComputer14IsMenuChangingEv,ShopComputer::IsMenuChanging(),confirmed,0
 00515150,001067fe,__ZN12ShopComputer17IsAnyMenuChangingEv,ShopComputer::IsAnyMenuChanging(),strings,0
 005163f0,0010605e,__ZNK12ShopComputer16RenderWhiteNoiseEv,ShopComputer::RenderWhiteNoise() const,confirmed,0
@@ -1978,10 +1979,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00665f60,002b9214,__Z26GizFlock_Config_anim_speedP8nufpar_s,GizFlock_Config_anim_speed(nufpar_s*),confirmed,0
 00665f80,002b9242,__Z24GizFlock_ConfigureExtrasP11WORLDINFO_sPKcj,"GizFlock_ConfigureExtras(WORLDINFO_s*, char const*, unsigned int)",strings,0
 0066b400,002bc674,__Z20GizFlock_UpdateBoidsP12sGizFlockSysP9sGizFlock,"GizFlock_UpdateBoids(sGizFlockSys*, sGizFlock*)",strings,0
+00670c40,000298fa,_NuSinApprox,_NuSinApprox,confirmed,0
 00670d30,002a6918,__Z22FadeSystem_PlayWipeSfxv,FadeSystem_PlayWipeSfx(),confirmed,0
 006710d0,002a6d0c,__ZN4Fade4InitEP10FADEINFO_s,Fade::Init(FADEINFO_s*),confirmed,0
 006710e0,002a6d1a,__ZN4Fade8InitFadeEv,Fade::InitFade(),confirmed,0
 00671110,002a6d50,__ZN4Fade10UpdateFadeEv,Fade::UpdateFade(),confirmed,0
+00671120,002a7330,__ZN4Fade8DrawFadeEv,Fade::DrawFade(),confirmed,0
 006711b0,002a6d56,__ZN9BlackWipe4InitEP10FADEINFO_s,BlackWipe::Init(FADEINFO_s*),confirmed,0
 006711c0,002a6d64,__ZN9BlackWipe8InitFadeEv,BlackWipe::InitFade(),confirmed,0
 00671220,002a6dd6,__ZN9BlackWipe10UpdateFadeEv,BlackWipe::UpdateFade(),confirmed,0
@@ -1993,9 +1996,11 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00671350,002a6e66,__ZN9CrossFade4InitEP10FADEINFO_s,CrossFade::Init(FADEINFO_s*),confirmed,0
 00671360,002a71e0,__ZN9CrossFade8InitFadeEv,CrossFade::InitFade(),confirmed,0
 00671400,002a6e74,__ZN9CrossFade10UpdateFadeEv,CrossFade::UpdateFade(),confirmed,0
+00671430,002a73bc,__ZN9CrossFade8DrawFadeEv,CrossFade::DrawFade(),confirmed,0
 006714a0,002a6eb2,__ZN14BlackCrossFade4InitEP10FADEINFO_s,BlackCrossFade::Init(FADEINFO_s*),confirmed,0
 006714b0,002a72a8,__ZN14BlackCrossFade8InitFadeEv,BlackCrossFade::InitFade(),confirmed,0
 00671530,002a6ec0,__ZN14BlackCrossFade10UpdateFadeEv,BlackCrossFade::UpdateFade(),confirmed,0
+00671560,002a7440,__ZN14BlackCrossFade8DrawFadeEv,BlackCrossFade::DrawFade(),confirmed,0
 00671600,002a6efe,__ZN11StillScreen4InitEP10FADEINFO_s,StillScreen::Init(FADEINFO_s*),confirmed,0
 00671610,002a6f0c,__ZN11StillScreen8InitFadeEv,StillScreen::InitFade(),confirmed,0
 00671680,002a6f96,__ZN11StillScreen10UpdateFadeEv,StillScreen::UpdateFade(),confirmed,0

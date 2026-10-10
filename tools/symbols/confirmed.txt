@@ -2035,3 +2035,8 @@
 005e9670 BoltSys_FixUpBoltTypes Mac order (between Bolt_Debris_Default and BoltSys_Init), uses BoltSys fixup table + FindByName/FindIDByName; matched
 005e9b00 NetMessage::PushBack Mac order (PopFront<T>..., PushBack(void const*, int, int)); copies at the write cursor, byte-swaps 2/4-byte items; matched
 005e9b90 NetMessage::PopFront Mac order, (void const*, int, int) overload; copies from the read cursor; matched
+00515010 ShopComputer::DumpLevel vtable 0x85d8f4 slot 3 (RTTI) + Mac name; matched
+00671120 Fade::DrawFade vtable 0x869d88 slot 4 (RTTI, slot names from the existing Fade file); matched
+00671430 CrossFade::DrawFade vtable 0x869ddc slot 4 (RTTI); matched
+00671560 BlackCrossFade::DrawFade vtable 0x869df8 slot 4 (RTTI); matched
+00670c40 NuSinApprox the fade TU's copy of the static (body identical to nutrig_unk.h); matched
