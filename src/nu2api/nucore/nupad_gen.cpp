@@ -1305,21 +1305,143 @@ __int64 NuFileSeek(int file, __int64 offset, int whence) {
   return info->pos;
 }
 
+struct NUDATOPENFILEINFO {
+  int dat_file; // 0x0
+  int info_idx; // 0x4
+  __int64 pos;  // 0x8
+};
+
+// FUNCTION: LEGOBATMAN 0x006d38b0
+__int64 NuDatFileSeek(int file, __int64 offset, int whence) {
+  NuFileUnk0ae3f80 *info;
+  NUDATOPENFILEINFO *open_info;
+  __int64 offset_in_dat;
+
+  file -= 0x800;
+  info = &g_nuFileUnk0ae3f80[file];
+  open_info = &((NUDATOPENFILEINFO *)info->p0)[info->i20 + 3];
+  switch (whence) {
+  default:
+    offset_in_dat = offset + info->i8;
+    break;
+  case 1:
+    offset_in_dat = offset + info->i10;
+    break;
+  case 2:
+    offset_in_dat = info->i8 + info->i18 - offset;
+    break;
+  }
+  info->i10 = NuFileSeek(open_info->dat_file, offset_in_dat, 0);
+  open_info->pos = info->i10;
+  return info->i10;
+}
+
 void NuPSFileInitDevices(int device_id, int reboot_iop, int eject);
 extern "C" int NuThreadCreateCriticalSection(void);
 // GLOBAL: LEGOBATMAN 0x00ad7640
 int file_criticalsection;
 // GLOBAL: LEGOBATMAN 0x00b00854
-void *g_unk00b00854;
+NuFileUnk0ae3f80 *unpack_file_info;
 // GLOBAL: LEGOBATMAN 0x00af90b4
-void *g_unk00af90b4;
+NUDATOPENFILEINFO *unpack_file_odi;
 // GLOBAL: LEGOBATMAN 0x00ad7638
 __int64 unpack_file_pos;
+// GLOBAL: LEGOBATMAN 0x00aecb84
+static int decode_buffer_left;
+// Buffer sizes unknown (saga's 0x40000 would overlap neighbouring globals).
+// GLOBAL: LEGOBATMAN 0x00ae4558
+static char decode_buffer[0x10000];
+// GLOBAL: LEGOBATMAN 0x00ae434c
+static int decode_buffer_pos;
+// GLOBAL: LEGOBATMAN 0x00ad7648
+static char read_buffer[0xc000];
+// GLOBAL: LEGOBATMAN 0x00af886c
+static volatile int read_buffer_size;
+// GLOBAL: LEGOBATMAN 0x00afa23c
+static volatile int read_buffer_decoded_size;
 
 static void NuDatFileDecodeInit(void) {
-  g_unk00b00854 = 0;
-  g_unk00af90b4 = 0;
+  unpack_file_info = 0;
+  unpack_file_odi = 0;
   unpack_file_pos = -1;
+}
+
+int NuFileRead(int file, void *buf, int size);
+int ExplodeBufferSize(char *buf);
+int ExplodeCompressedSize(char *buf);
+int ExplodeBufferNoHeader(char *in_buf, char *out_buf, int compressed_size,
+                          int orig_size);
+
+// STUB: LEGOBATMAN 0x006d8ed0
+// The original reloads unpack_file_info for each half of the 64-bit pos and
+// adds in registers; ours does a read-modify-write.
+static void NuDatFileDecodeNext(void) {
+  char char_buf[12];
+
+  NuFileRead(unpack_file_odi->dat_file, char_buf, 0xc);
+  read_buffer_decoded_size = ExplodeBufferSize(char_buf);
+  read_buffer_size = ExplodeCompressedSize(char_buf) - 0xc;
+  NuFileRead(unpack_file_odi->dat_file, read_buffer, read_buffer_size);
+  unpack_file_info->i10 += read_buffer_size + 0xc;
+  unpack_file_odi->pos = unpack_file_info->i10;
+}
+
+// FUNCTION: LEGOBATMAN 0x006de270
+int NuDatFileRead(int file, void *buf, int size) {
+  NuFileUnk0ae3f80 *info;
+  NUDATOPENFILEINFO *open_file;
+  int total_read;
+  int bytes_read;
+
+  file -= 0x800;
+  info = &g_nuFileUnk0ae3f80[file];
+  open_file = &((NUDATOPENFILEINFO *)info->p0)[info->i20 + 3];
+
+  if (info->i28 == 2) {
+    total_read = 0;
+    while (size != 0) {
+      if (decode_buffer_left == 0) {
+        NuDatFileDecodeNext();
+        if (read_buffer_size == read_buffer_decoded_size)
+          memcpy(decode_buffer, read_buffer, read_buffer_size);
+        else
+          ExplodeBufferNoHeader(read_buffer, decode_buffer, read_buffer_size,
+                                read_buffer_decoded_size);
+        decode_buffer_pos = 0;
+        decode_buffer_left = read_buffer_decoded_size;
+      }
+      bytes_read = size < decode_buffer_left ? size : decode_buffer_left;
+      memcpy(buf, decode_buffer + decode_buffer_pos, bytes_read);
+      buf = (void *)((char *)buf + bytes_read);
+      decode_buffer_pos += bytes_read;
+      decode_buffer_left -= bytes_read;
+      size -= bytes_read;
+      total_read += bytes_read;
+    }
+    return total_read;
+  }
+
+  if (info->i10 != open_file->pos) {
+    NuFileSeek(open_file->dat_file, info->i10, 0);
+    open_file->pos = info->i10;
+  }
+  bytes_read = size < (0 > info->i18 + info->i8 - info->i10
+                           ? 0
+                           : info->i18 + info->i8 - info->i10)
+                   ? size
+                   : (0 > info->i18 + info->i8 - info->i10
+                          ? 0
+                          : info->i18 + info->i8 - info->i10);
+  if (bytes_read != 0) {
+    total_read = NuFileRead(open_file->dat_file, buf, bytes_read);
+    if (total_read >= 0) {
+      info->i10 += total_read;
+      open_file->pos = info->i10;
+      return total_read;
+    }
+    return total_read;
+  }
+  return 0;
 }
 
 // STUB: LEGOBATMAN 0x006dca60

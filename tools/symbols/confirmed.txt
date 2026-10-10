@@ -3439,3 +3439,5 @@
 006e0b60 NuFilePakLoadKeyPrePad Mac _NuFilePakLoadKeyPrePad shape; called by NuFilePakLoad
 006dcf10 NuFilePakGetItem Mac _NuFilePakGetItem shape (copy, slash swap, two NuStrICmp per item)
 006dd740 NuFileSmallFileOpen pak lookup of a .txt path, returns id 0x2000; Mac NuFileOpenDF calls NuFileSmallFileManager::Open here
+006d38b0 NuDatFileSeek saga nufile.cpp body (dat_file_infos 0xae3f80)
+006de270 NuDatFileRead saga nufile.cpp body, implode-only decode branch
