@@ -26,8 +26,8 @@ struct GIZMOBLOWUP_s {
   nuvec_s bounds_min;       // 0x64
   nuvec_s bounds_max;       // 0x70
   nuvec_s decal_offset;     // 0x7c
-  u8 pad88[0x94 - 0x88];
-  nuvec_s shadow_offset; // 0x94
+  nuvec_s f88;              // 0x88
+  nuvec_s shadow_offset;    // 0x94
   union {
     struct {
       u32 blown_up : 1;     // 0xa0
@@ -51,56 +51,67 @@ struct GIZMOBLOWUP_s {
     };
     u32 flags; // 0xa0
   };
-  u32 draw_flags; // 0xa4
-  u16 sa8;        // 0xa8
-  u8 padaa[0xac - 0xaa];
+  u32 draw_flags;                 // 0xa4
+  u16 sa8;                        // 0xa8
+  u16 saa;                        // 0xaa
   i32 score;                      // 0xac
   struct GIZMOBLOWUPTYPE_s *type; // 0xb0
   f32 fb4;                        // 0xb4
-  u8 padb8[0xbc - 0xb8];
-  f32 fbc; // 0xbc
-  f32 fc0; // 0xc0
-  u8 padc4[0xc8 - 0xc4];
-  f32 fc8;         // 0xc8
-  f32 decal_scale; // 0xcc
-  u8 padd0[0xd4 - 0xd0];
-  f32 fd4;           // 0xd4
-  f32 respawn_timer; // 0xd8
-  u8 paddc[0xe0 - 0xdc];
-  f32 reflect_y;    // 0xe0
-  void *antinode;   // 0xe4
-  u16 decal_rot_x;  // 0xe8
-  u16 decal_rot_y;  // 0xea
-  u16 decal_rot_z;  // 0xec
-  u16 shadow_rot_x; // 0xee
-  u16 shadow_rot_y; // 0xf0
-  u16 shadow_rot_z; // 0xf2
-  u16 rot_x;        // 0xf4
-  u16 rot_y;        // 0xf6
-  u16 rot_z;        // 0xf8
-  u8 padfa[0xfe - 0xfa];
-  char name[0x10];  // 0xfe
-  i16 platform_id;  // 0x10e
-  i16 platform_id2; // 0x110
-  u8 pad112[0x119 - 0x112];
+  f32 fb8;                        // 0xb8
+  f32 fbc;                        // 0xbc
+  f32 fc0;                        // 0xc0
+  f32 fc4;                        // 0xc4
+  f32 fc8;                        // 0xc8
+  f32 decal_scale;                // 0xcc
+  f32 fd0;                        // 0xd0
+  f32 fd4;                        // 0xd4
+  f32 respawn_timer;              // 0xd8
+  f32 fdc;                        // 0xdc
+  f32 reflect_y;                  // 0xe0
+  void *antinode;                 // 0xe4
+  u16 decal_rot_x;                // 0xe8
+  u16 decal_rot_y;                // 0xea
+  u16 decal_rot_z;                // 0xec
+  u16 shadow_rot_x;               // 0xee
+  u16 shadow_rot_y;               // 0xf0
+  u16 shadow_rot_z;               // 0xf2
+  u16 rot_x;                      // 0xf4
+  u16 rot_y;                      // 0xf6
+  u16 rot_z;                      // 0xf8
+  u16 sfa;                        // 0xfa
+  u16 sfc;                        // 0xfc
+  char name[0x10];                // 0xfe
+  i16 platform_id;                // 0x10e
+  i16 platform_id2;               // 0x110
+  u8 pad112[0x118 - 0x112];
+  u8 b118;       // 0x118
   i8 score_mult; // 0x119
   u8 b11a;       // 0x11a
   u8 b11b;       // 0x11b
-  u8 b11c;       // 0x11c
+  i8 b11c;       // 0x11c
   u8 b11d;       // 0x11d
-  u8 pad11e[0x122 - 0x11e];
+  u8 b11e;       // 0x11e
+  u8 b11f;       // 0x11f
+  u8 b120;       // 0x120
+  i8 b121;       // 0x121
   union {
     struct {
-      u16 b122_0 : 1; // 0x122
-      u16 b122_1 : 4; // 0x122 bits 1-4
-      u16 b122_5 : 1; // 0x122 bit 5
-      u16 b122_6 : 1; // 0x122 bit 6
-      u16 b122_7 : 1; // 0x122 bit 7
+      u16 b122_0 : 1;         // 0x122
+      u16 transform_type : 2; // 0x122 bits 1-2
+      u16 b122_3 : 1;         // 0x122 bit 3
+      u16 b122_4 : 1;         // 0x122 bit 4
+      u16 b122_5 : 1;         // 0x122 bit 5
+      u16 b122_6 : 1;         // 0x122 bit 6
+      u16 b122_7 : 1;         // 0x122 bit 7
+      u16 b122_8 : 1;         // 0x122 bit 8
+      u16 b122_9 : 1;         // 0x122 bit 9
+      u16 b122_10 : 1;        // 0x122 bit 10
     };
     u16 b122; // 0x122
   };
-  u8 pad124[0x128 - 0x124];
-  f32 scale; // 0x128
+  u8 pad124[0x126 - 0x124];
+  u16 torpedo_type : 3; // 0x126
+  f32 scale;            // 0x128
 };
 
 typedef struct GIZMO_s {
@@ -307,28 +318,32 @@ void Blowup_StoreProgress(void *world_ptr, void *unused, void *progress_ptr) {
 }
 
 struct GIZMOBLOWUPTYPE_s {
-  u8 pad0[0x30];
+  nuhspecial_s emit_specials[4]; // 0x00
   nuhspecial_s animated_special; // 0x30
   nuhspecial_s decal_special;    // 0x3c
   nuhspecial_s shadow_special;   // 0x48
   nuhspecial_s burst_special;    // 0x54
-  u8 pad60[0x7c - 0x60];
+  u8 pad60[0x78 - 0x60];
+  f32 f78;                   // 0x78
   u32 animation_flags;       // 0x7c
   i32 effect_flags;          // 0x80
   f32 f84;                   // 0x84
   f32 animation_start_frame; // 0x88
   f32 animation_end_frame;   // 0x8c
   f32 animation_base_frame;  // 0x90
-  u8 pad94[0x9c - 0x94];
-  f32 f9c; // 0x9c
+  f32 f94;                   // 0x94
+  f32 f98;                   // 0x98
+  f32 f9c;                   // 0x9c
   u8 pada0[0xa4 - 0xa0];
   i16 particle_types[9];          // 0xa4
   u16 count;                      // 0xb6
   u8 anti_node_data[0xdc - 0xb8]; // 0xb8
   char name[0x20];                // 0xdc
-  u8 padfc[0xff - 0xfc];
-  u8 bff;  // 0xff
-  u8 b100; // 0x100
+  u8 bfc;                         // 0xfc
+  u8 bfd;                         // 0xfd
+  u8 bfe;                         // 0xfe
+  i8 bff;                         // 0xff
+  u8 b100;                        // 0x100
   u8 pad101[0x102 - 0x101];
   i16 sfx0; // 0x102
   i16 sfx1; // 0x104
@@ -1289,6 +1304,545 @@ void gizmoblowup_PreLoad(void *world_ptr) {
   ((WORLDINFO_s *)world_ptr)->f525c = 100.0f;
 }
 
+// GLOBAL: LEGOBATMAN 0x00a958ac
+extern nugscn_s *things_scene;
+
+typedef struct TRANSFORM_TYPE_s {
+  char *name; // 0x00
+  u8 *id;     // 0x04
+} TRANSFORM_TYPE_s;
+
+typedef struct TORPEDO_TYPE_s {
+  char *name; // 0x00
+  u8 *id;     // 0x04
+} TORPEDO_TYPE_s;
+
+// GLOBAL: LEGOBATMAN 0x00ac73b8
+TRANSFORM_TYPE_s *TransformTypes;
+// GLOBAL: LEGOBATMAN 0x00ac73bc
+i32 NumTransformTypes;
+// GLOBAL: LEGOBATMAN 0x00ac73c0
+TORPEDO_TYPE_s *TorpedoTypes;
+// GLOBAL: LEGOBATMAN 0x00ac73c4
+i32 NumTorpedoTypes;
+
+// GLOBAL: LEGOBATMAN 0x00968eb4
+extern i32 g_unk00968eb4;
+
+struct GAMEANTINODEDATA_s;
+i32 EdFileReadInt();
+char EdFileReadChar();
+i16 EdFileReadShort();
+f32 EdFileReadFloat();
+void EdFileRead(void *buf, i32 len);
+void EdFileReadNuVec(nuvec_s *v);
+i32 Gizmo_FindNuSpecial(nugscn_s *scene, nuhspecial_s *special, char *name,
+                        i32 flag, GIZMOSYS_s *sys, char *label,
+                        char *type_name);
+i32 PARTLookupTypePageOnly(char *name, i32 page);
+i32 PARTLookupType(char *name);
+extern "C" i32 LookupDebrisEffectPageOnly(char *name, char page);
+i32 LookupDebrisEffect(char *name);
+void GameAntiNodeData_Read(void *data);
+extern "C" i32 GetSfxId(char *name);
+i32 GizmoFileReadName(char *name);
+nuvec_s *NuSpecialGetDrawPos(nuhspecial_s *sp);
+
+// STUB: LEGOBATMAN 0x005dbd80
+// close (34 diff lines): our instance loop keeps 0 in esi (memset arg,
+// t != NULL, score/draw_flags/sa8 stores) where the orig uses immediates and
+// pushes skip's edi; the b11c/b11d else arm is also laid out differently.
+i32 gizmoblowup_Load(void *world_ptr, void *unused) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  GIZMOBLOWUP_s *dst_blowup = NULL;
+  i32 ntypes = 0;
+  i32 count = 0;
+  i32 version;
+  i32 ninst;
+  i32 missing;
+  i32 i;
+  GIZMOBLOWUPTYPE_s *dst_type;
+  nuvec_s pos;
+  GIZMOBLOWUP_s blowup;
+  GIZMOBLOWUPTYPE_s type;
+  char text[0x100];
+  char dbuf[0x100];
+  char pbuf[0x100];
+  char nbuf[0x100];
+  char len;
+
+  if (world->gizmo_blowup_types == NULL)
+    return 0;
+  if (world->gizmo_blowups == NULL)
+    return 0;
+  memset(world->gizmo_blowup_types, 0,
+         world->current_level->max_gizmoblowuptypes *
+             sizeof(GIZMOBLOWUPTYPE_s));
+  dst_type = world->gizmo_blowup_types;
+  for (i = 0; i < world->current_level->max_gizmoblowuptypes; i++, dst_type++)
+    dst_type->b106 = -1;
+  if (world->gizmo_blowup_count == 0) {
+
+    version = EdFileReadInt();
+    if (version >= 2)
+      ntypes = EdFileReadInt();
+    ninst = EdFileReadInt();
+    if (version >= 2) {
+      dst_type = world->gizmo_blowup_types;
+      for (i = 0; i < ntypes; i++) {
+        missing = 0;
+        memset(&type, 0, sizeof(type));
+        type.b106 = -1;
+        len = EdFileReadChar();
+        EdFileRead(text, len);
+        NuStrCpy(type.name, text);
+        len = EdFileReadChar();
+        EdFileRead(text, len);
+        Gizmo_FindNuSpecial(world->scn140, &type.animated_special, text, 1,
+                            world->gizmoSys2b0c, "BlowUp", type.name);
+        if (!NuSpecialExistsFn(&type.animated_special))
+          missing = 1;
+        for (i32 j = 0; j < 2; j++)
+          type.particle_types[j] = -1;
+        if (version >= 17) {
+          for (i32 j = 0; j < 2; j++) {
+            len = EdFileReadChar();
+            if (len > 0) {
+              EdFileRead(pbuf, len);
+              type.particle_types[j] = -1;
+              type.particle_types[j] =
+                  PARTLookupTypePageOnly(pbuf, world->page_part);
+            }
+          }
+        } else if (version >= 5) {
+          len = EdFileReadChar();
+          if (len > 0) {
+            EdFileRead(pbuf, len);
+            type.particle_types[0] = PARTLookupType(pbuf);
+          }
+        } else {
+          type.particle_types[0] = EdFileReadShort();
+        }
+        for (i32 j = 0; j < 3; j++)
+          type.particle_types[j + 4] = -1;
+        for (i32 j = 0; j < 2; j++)
+          type.particle_types[j + 2] = -1;
+        for (i32 j = 0; j < 2; j++)
+          type.particle_types[j + 7] = -1;
+        if (version >= 4) {
+          for (i32 j = 0; j < 3; j++) {
+            len = EdFileReadChar();
+            if (len > 0) {
+              EdFileRead(dbuf, len);
+              type.particle_types[j + 4] = -1;
+              type.particle_types[j + 4] =
+                  LookupDebrisEffectPageOnly(dbuf, (char)world->page_pp);
+            }
+          }
+        }
+        if (version >= 26) {
+          for (i32 j = 0; j < 2; j++) {
+            len = EdFileReadChar();
+            if (len > 0) {
+              EdFileRead(dbuf, len);
+              type.particle_types[j + 2] = -1;
+              type.particle_types[j + 2] = LookupDebrisEffect(dbuf);
+            }
+          }
+        }
+        if (version >= 27) {
+          for (i32 j = 0; j < 2; j++) {
+            len = EdFileReadChar();
+            if (len > 0) {
+              EdFileRead(dbuf, len);
+              type.particle_types[j + 7] = -1;
+              type.particle_types[j + 7] = LookupDebrisEffect(dbuf);
+            }
+          }
+        }
+        type.animation_flags = EdFileReadInt();
+        if (version >= 7) {
+          type.effect_flags = EdFileReadInt();
+          type.bff = EdFileReadChar();
+          if (type.bff <= 0)
+            type.bff = 1;
+        } else {
+          type.effect_flags = 100;
+          type.bff = 1;
+        }
+        if (version >= 8)
+          type.f78 = EdFileReadFloat();
+        else
+          type.f78 = 0.0f;
+        if (version >= 9) {
+          memset(text, 0, sizeof(text));
+          len = EdFileReadChar();
+          if (len > 0) {
+            EdFileRead(text, len);
+            if (!Gizmo_FindNuSpecial(world->scn140, &type.decal_special, text,
+                                     1, world->gizmoSys2b0c, "BlowUpDecal",
+                                     type.name))
+              Gizmo_FindNuSpecial(things_scene, &type.decal_special, text, 1,
+                                  world->gizmoSys2b0c, "BlowUpDecal",
+                                  type.name);
+          }
+        }
+        if (version >= 14) {
+          type.animation_start_frame = EdFileReadFloat();
+          type.animation_end_frame = EdFileReadFloat();
+        } else {
+          type.animation_start_frame = 1.0f;
+          NUINSTANIM_UNK *anim = NuSpecialGetInstAnim(&type.animated_special);
+          if (anim != NULL)
+            type.animation_end_frame = NuAnimEndFrameOld(
+                (*(void ***)((u8 *)type.animated_special.scene +
+                             0x54))[anim->anim_ix]);
+          else
+            type.animation_end_frame = 1.0f;
+        }
+        if (version >= 15) {
+          type.bfc = EdFileReadChar();
+          type.bfd = EdFileReadChar();
+        } else {
+          type.bfc = 0;
+          type.bfd = 0;
+        }
+        if (version >= 16)
+          GameAntiNodeData_Read(type.anti_node_data);
+        else if (NuSpecialExistsFn(&type.animated_special))
+          GameAntiNodeData_Init(type.anti_node_data, &type.animated_special);
+        if (version >= 22) {
+          for (i32 j = 0; j < 4; j++) {
+            memset(text, 0, sizeof(text));
+            len = EdFileReadChar();
+            if (len > 0) {
+              EdFileRead(text, len);
+              Gizmo_FindNuSpecial(world->scn140, &type.emit_specials[j], text,
+                                  1, world->gizmoSys2b0c, "BlowUpEmitObj",
+                                  type.name);
+            }
+          }
+          type.bfe = EdFileReadChar();
+          type.f94 = EdFileReadFloat();
+          type.f98 = EdFileReadFloat();
+        } else if (version >= 18) {
+          memset(text, 0, sizeof(text));
+          len = EdFileReadChar();
+          if (len > 0) {
+            EdFileRead(text, len);
+            Gizmo_FindNuSpecial(world->scn140, &type.emit_specials[0], text, 1,
+                                world->gizmoSys2b0c, "BlowUpEmitObj",
+                                type.name);
+          }
+          type.bfe = EdFileReadChar();
+          type.f94 = EdFileReadFloat();
+          type.f98 = EdFileReadFloat();
+        } else {
+          type.f94 = -10.0f;
+          type.bfe = 0;
+          type.f98 = 1.0f;
+        }
+        if (version >= 19) {
+          memset(text, 0, 16);
+          len = EdFileReadChar();
+          if (len > 0) {
+            EdFileRead(text, len);
+            text[16] = 0;
+            Gizmo_FindNuSpecial(world->scn140, &type.shadow_special, text, 1,
+                                world->gizmoSys2b0c, "BlowUpShadow", type.name);
+          }
+        }
+        if (version >= 20) {
+          memset(text, 0, 16);
+          memset(&type.burst_special, 0, sizeof(type.burst_special));
+          len = EdFileReadChar();
+          if (len > 0) {
+            EdFileRead(text, len);
+            Gizmo_FindNuSpecial(world->scn140, &type.burst_special, text, 1,
+                                world->gizmoSys2b0c, "BlowUpSwap", type.name);
+          }
+        }
+        if (version >= 23)
+          type.f9c = EdFileReadFloat();
+        if (version >= 24)
+          type.f84 = EdFileReadFloat();
+        type.sfx0 = -1;
+        if (version >= 33) {
+          len = EdFileReadChar();
+          if (len > 0) {
+            EdFileRead(text, len);
+            type.sfx0 = GetSfxId(text);
+          }
+        }
+        type.sfx1 = -1;
+        if (version >= 38) {
+          len = EdFileReadChar();
+          if (len > 0) {
+            EdFileRead(text, len);
+            type.sfx1 = GetSfxId(text);
+          }
+        }
+        if (!missing) {
+          count++;
+          *dst_type++ = type;
+        }
+      }
+      world->gizmo_blowup_type_count = count;
+    }
+
+    for (i = 0; i < ninst; i++) {
+      i32 skip;
+      memset(&blowup, skip = 0, sizeof(blowup));
+      len = EdFileReadChar();
+      EdFileRead(text, len);
+      if (version >= 2) {
+        len = EdFileReadChar();
+        EdFileRead(blowup.name, len);
+        blowup.name[15] = 0;
+      }
+      GIZMOBLOWUPTYPE_s *t = GizmoBlowup_FindType(text, world);
+      if (t != NULL) {
+        dst_blowup = &world->gizmo_blowups[world->gizmo_blowup_count];
+        blowup.type = t;
+        world->gizmo_blowup_count++;
+      } else {
+        skip = 1;
+      }
+      EdFileReadNuVec(&pos);
+      blowup.rot_x = EdFileReadShort();
+      blowup.rot_y = EdFileReadShort();
+      blowup.rot_z = EdFileReadShort();
+      blowup.score = 0;
+      blowup.score_mult = 1;
+      blowup.b118 = 0;
+      if (version >= 2) {
+        if (version < 20) {
+          blowup.draw_flags = 0;
+          blowup.draw_flags = EdFileReadShort();
+        } else if (version >= 28) {
+          if (version < 29) {
+            blowup.draw_flags = 0;
+            i32 df = EdFileReadInt();
+            EdFileReadInt();
+            blowup.draw_flags = df;
+          } else {
+            blowup.draw_flags = 0;
+            blowup.draw_flags = EdFileReadInt();
+          }
+        } else {
+          blowup.draw_flags = 0;
+          blowup.draw_flags = EdFileReadInt();
+        }
+        if (version <= 40)
+          blowup.draw_flags &= ~0x4000;
+        blowup.sa8 = 0;
+        if (version < 30) {
+          if (blowup.draw_flags & 0x100) {
+            blowup.sa8 = 1;
+            blowup.draw_flags &= ~0x100;
+          }
+          if (blowup.draw_flags & 0x40000000) {
+            blowup.sa8 |= 4;
+            blowup.draw_flags &= ~0x40000000;
+          }
+        } else if (version >= 34) {
+          blowup.sa8 = EdFileReadShort();
+          blowup.saa = EdFileReadShort();
+        } else {
+          u32 v = EdFileReadInt();
+          blowup.sa8 = v;
+          blowup.saa = v >> 16;
+        }
+        if (version >= 41) {
+          blowup.b11e = EdFileReadChar();
+          blowup.b11f = EdFileReadChar();
+          blowup.b120 = EdFileReadChar();
+        }
+        if (version == 2)
+          blowup.draw_flags |= 5;
+        blowup.score = EdFileReadInt();
+        blowup.score_mult = EdFileReadChar();
+        blowup.b118 = EdFileReadChar();
+        if (version < g_unk00968eb4 + 1)
+          blowup.scale = 1.0f;
+      }
+      blowup.b11b = 0;
+      if (version >= 4)
+        blowup.b11b = EdFileReadChar();
+      blowup.fb8 = 0.0f;
+      if (version >= 6)
+        blowup.fb8 = EdFileReadFloat();
+      if (version >= 8) {
+        blowup.fbc = EdFileReadFloat();
+        blowup.fc4 = EdFileReadFloat();
+      } else {
+        blowup.fbc = 0.0f;
+        blowup.fc4 = 0.0f;
+      }
+      if (version >= 9) {
+        blowup.decal_rot_x = EdFileReadShort();
+        blowup.decal_rot_y = EdFileReadShort();
+        blowup.decal_rot_z = EdFileReadShort();
+        blowup.decal_offset.x = EdFileReadFloat();
+        blowup.decal_offset.y = EdFileReadFloat();
+        blowup.decal_offset.z = EdFileReadFloat();
+      }
+      if (version >= 10)
+        blowup.decal_scale = EdFileReadFloat();
+      else
+        blowup.decal_scale = 1.0f;
+      if (version >= 11) {
+        blowup.f88.x = EdFileReadFloat();
+        blowup.f88.y = EdFileReadFloat();
+        blowup.f88.z = EdFileReadFloat();
+      } else {
+        blowup.f88.x = 0.0f;
+        blowup.f88.y = 0.0f;
+        blowup.f88.z = 0.0f;
+      }
+      if (version >= 12) {
+        blowup.b11c = blowup.b11d = EdFileReadChar();
+      } else {
+        blowup.b11c = 1;
+      }
+      if (blowup.b11c < 0 || version < 12)
+        blowup.b11d = 1;
+      if (version >= 13) {
+        blowup.sfa = EdFileReadShort();
+        blowup.sfc = EdFileReadShort();
+      } else {
+        blowup.sfa = 0;
+        blowup.sfc = 0;
+      }
+      if (version >= 19) {
+        blowup.shadow_rot_x = EdFileReadShort();
+        blowup.shadow_rot_y = EdFileReadShort();
+        blowup.shadow_rot_z = EdFileReadShort();
+        blowup.shadow_offset.x = EdFileReadFloat();
+        blowup.shadow_offset.y = EdFileReadFloat();
+        blowup.shadow_offset.z = EdFileReadFloat();
+        blowup.fd0 = EdFileReadFloat();
+      }
+      blowup.fd4 = 0.0f;
+      if (version >= 21)
+        blowup.fd4 = EdFileReadFloat();
+      if (version >= 23)
+        blowup.fdc = EdFileReadFloat();
+      if (version >= 31)
+        blowup.reflect_y = EdFileReadFloat();
+      if (version >= 32)
+        blowup.b121 = EdFileReadChar();
+      else
+        blowup.b121 = -1;
+      if (version < 35) {
+        blowup.saa |= blowup.b121 & 0xf;
+        blowup.b121 = -1;
+      }
+      if (version >= 36) {
+        blowup.transform_type = 0;
+        blowup.draw_flags &= ~0x10;
+        if (GizmoFileReadName(nbuf)) {
+          for (i32 j = 0; j < NumTransformTypes; j++) {
+            if (NuStrICmp(nbuf, TransformTypes[j].name) == 0) {
+              blowup.transform_type = j + 1;
+              blowup.draw_flags |= 0x1010;
+            }
+          }
+        }
+      } else {
+        blowup.transform_type = 0;
+        blowup.draw_flags &= ~0x10;
+      }
+      blowup.b122_3 = 0;
+      if (version >= 37)
+        blowup.b122_3 = EdFileReadChar() & 1;
+      blowup.b122_4 = 0;
+      if (version >= 38)
+        blowup.b122_4 = EdFileReadChar() & 1;
+      blowup.b122_8 = 0;
+      if (version >= 40)
+        blowup.b122_8 = EdFileReadChar() & 1;
+      blowup.b122_9 = 0;
+      if (version > 41)
+        blowup.b122_9 = EdFileReadChar() & 1;
+      if (version <= 42) {
+        blowup.draw_flags |= 0x4000;
+        blowup.b122_9 = 1;
+      }
+      blowup.torpedo_type = 0;
+      if (version >= 44) {
+        if (GizmoFileReadName(nbuf)) {
+          for (i32 j = 0; j < NumTorpedoTypes; j++) {
+            if (NuStrICmp(nbuf, TorpedoTypes[j].name) == 0) {
+              blowup.torpedo_type = j + 1;
+              blowup.draw_flags |= 0x1000000;
+            }
+          }
+        }
+      } else {
+        blowup.draw_flags &= ~0x10;
+      }
+      blowup.b122_10 = 0;
+      if (version >= 45)
+        blowup.b122_10 = EdFileReadChar() & 1;
+      if (!skip) {
+        *dst_blowup = blowup;
+        dst_blowup->position = pos;
+      }
+    }
+
+    if (version >= 39)
+      world->f525c = EdFileReadFloat();
+    else
+      world->f525c = 100.0f;
+    for (i = 0; i < world->gizmo_blowup_type_count; i++) {
+      GIZMOBLOWUPTYPE_s *t = &world->gizmo_blowup_types[i];
+      t->count = 0;
+      for (i32 j = 0; j < world->gizmo_blowup_count; j++) {
+        if (world->gizmo_blowups[j].type == t)
+          t->count++;
+      }
+    }
+    for (i = world->current_level->max_gizmoblowuptypes;
+         i < world->current_level->max_gizmoblowuptypes +
+                 world->gizmo_blowup_extra_types;
+         i++) {
+      GIZMOBLOWUPTYPE_s *t = &world->gizmo_blowup_types[i];
+      t->count = 0;
+      for (i32 j = 0; j < world->gizmo_blowup_count; j++) {
+        if (world->gizmo_blowups[j].type == t)
+          t->count++;
+      }
+    }
+    for (i = 0; i < world->gizmo_blowup_count; i++) {
+      GIZMOBLOWUP_s *b = &world->gizmo_blowups[i];
+      if (NuSpecialExistsFn(&b->type->animated_special) && b->type != NULL) {
+        nuvec_s p = *NuSpecialGetDrawPos(&b->type->animated_special);
+        if (b->position.x == p.x && b->position.y == p.y &&
+            b->position.z == p.z)
+          b->type->animation_flags |= 0x2000;
+        b->platform_id2 = b->platform_id = -1;
+        if (!(b->draw_flags & 0x40000000))
+          b->reflect_y = 0.0f;
+      }
+    }
+    for (i = 0; i < world->gizmo_blowup_count; i++) {
+      GIZMOBLOWUP_s *b = &world->gizmo_blowups[i];
+      if (b->type->animation_flags & 0x2000)
+        b->initial_position = *NuSpecialGetDrawPos(&b->type->animated_special);
+      else
+        b->initial_position = b->position;
+    }
+    for (i = 0; i < world->gizmo_blowup_count; i++) {
+      GIZMOBLOWUP_s *b = &world->gizmo_blowups[i];
+      if (b->type != NULL && (b->draw_flags & 0x10))
+        b->b122 |= 0x400;
+    }
+    return 1;
+  }
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x005de530
 void GizmoBlowupVisibilityOverrides(WORLDINFO_s *world) {
   GIZMOBLOWUP_s *blowup = world->gizmo_blowups;
@@ -1395,25 +1949,6 @@ i32 GizmoBlowupGetTypeFromNameTableId(WORLDINFO_s *world, i32 name_id) {
   }
   return -1;
 }
-
-typedef struct TRANSFORM_TYPE_s {
-  char *name; // 0x00
-  u8 *id;     // 0x04
-} TRANSFORM_TYPE_s;
-
-typedef struct TORPEDO_TYPE_s {
-  char *name; // 0x00
-  u8 *id;     // 0x04
-} TORPEDO_TYPE_s;
-
-// GLOBAL: LEGOBATMAN 0x00ac73b8
-TRANSFORM_TYPE_s *TransformTypes;
-// GLOBAL: LEGOBATMAN 0x00ac73bc
-i32 NumTransformTypes;
-// GLOBAL: LEGOBATMAN 0x00ac73c0
-TORPEDO_TYPE_s *TorpedoTypes;
-// GLOBAL: LEGOBATMAN 0x00ac73c4
-i32 NumTorpedoTypes;
 
 // FUNCTION: LEGOBATMAN 0x005ded50
 void RegisterTransformTypes(TRANSFORM_TYPE_s *types, i32 count) {
@@ -1546,8 +2081,6 @@ extern i32 g_unk009631cc;
 extern f32 g_unk00966734[];
 // GLOBAL: LEGOBATMAN 0x00a96020
 extern f32 g_unk00a96020;
-// GLOBAL: LEGOBATMAN 0x00a958ac
-extern nugscn_s *things_scene;
 
 typedef struct BLOWUPICON_s {
   nuhspecial_s special; // 0x00

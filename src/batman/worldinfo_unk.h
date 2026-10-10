@@ -82,8 +82,9 @@ struct WORLDINFO_s {
   struct SOCKSYS_s *sock_sys;                // 0x29cc
   struct Unk_WorldApiObjSys *api_object_sys; // 0x29d0, APIOBJECTSYS_s
   u8 pad5x[0x2adc - 0x29d4];
-  i32 page_pp; // 0x2adc
-  u8 pad5a[0x2aec - 0x2ae0];
+  i32 page_pp;   // 0x2adc
+  i32 page_part; // 0x2ae0
+  u8 pad5a[0x2aec - 0x2ae4];
   void *burnset;      // 0x2aec
   void *cutscene_sys; // 0x2af0
   void *rtl_set;      // 0x2af4

@@ -58,6 +58,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizBombGens](#gizbombgens) | 1 | 1 |
 | [GizBuildIts](#gizbuildits) | 1 | 1 |
 | [GizForces](#gizforces) | 1 | 1 |
+| [gizmoblowup](#gizmoblowup) | 1 | 1 |
 | [GizmoPickup](#gizmopickup) | 1 | 1 |
 | [GizmoPickups](#gizmopickups) | 1 | 1 |
 | [GizObstacles](#gizobstacles) | 1 | 1 |
@@ -588,6 +589,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## GizForces
 
 - [ ] `00486610` 784 B `GizForces_Load(void*, void*)`  **saga** `legoapi/gizmos/traps/gizforce.cpp`
+
+## gizmoblowup
+
+- [ ] `005dbd80` 4698 B `gizmoblowup_Load(void*, void*)`  **stub** · **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
 
 ## GizmoPickup
 
