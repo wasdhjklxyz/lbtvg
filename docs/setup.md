@@ -180,6 +180,18 @@ has to diverge for VC8 and the 2008 layouts. To move the pin:
 `git -C ref/saga pull`, then commit `ref/saga`. Other clones under `ref/` are
 local and gitignored.
 
+Third-party code statically linked into the game, for matching it from its
+real source (the exe says `Xiph.Org libVorbis I 20070622`):
+
+```
+cd ref
+curl -LO https://downloads.xiph.org/releases/vorbis/libvorbis-1.2.0.tar.gz  # sha256 6eb7040048e35448fe224fa3fd993eb4e49a905c57893886082f1674d43b0e73
+curl -LO https://downloads.xiph.org/releases/ogg/libogg-1.1.3.tar.gz        # sha256 bae29e79fbc50bbedf1235852094b71c8c910a1ef0cd42fe4163b7b545630b65
+tar xzf libvorbis-1.2.0.tar.gz && tar xzf libogg-1.1.3.tar.gz
+```
+
+libogg 1.1.3 is the release of that era; matching confirms or refutes it.
+
 ## working rules
 
 - Never write to `orig/`. Run `make verify` after anything that opened the exes.

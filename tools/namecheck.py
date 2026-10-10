@@ -11,6 +11,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DECL = re.compile(r"//\s*(?:FUNCTION|STUB):\s*LEGOBATMAN\s+0x([0-9a-fA-F]+)\n(?:\s*//.*\n)*\s*([^\n{;]*?)\s*(?:\{|;|$)", re.M)
+# as in tools/match.py: operators, destructors, template members
+IDENT = re.compile(r"((?:[A-Za-z_~][\w~]*(?:<[^()]*>)?::)*"
+                   r"(?:operator\s*(?:\(\)|[^\s(]+)|[A-Za-z_~][\w~]*)(?:<[^()]*>)?)\s*\(")
 
 
 def main():
@@ -26,8 +29,8 @@ def main():
             want = confirmed.get(a)
             if not want:
                 continue
-            got = re.search(r"([A-Za-z_][\w:~]*)\s*\(", m.group(2))
-            got = got.group(1) if got else m.group(2)
+            got = IDENT.search(m.group(2))
+            got = re.sub(r"\s+|<[^()]*>", "", got.group(1)) if got else m.group(2)
             if got.split("::")[-1] != want.split("::")[-1]:
                 print(f"name: {a:08x} is {got} in {f.relative_to(ROOT)}, but confirmed.txt says {want}")
                 bad += 1

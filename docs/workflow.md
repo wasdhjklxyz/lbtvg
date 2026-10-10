@@ -351,3 +351,16 @@ enough matched code for the percentage to mean something.
 - `make match` also parses `operator=`/`operator()` and template members
   (`PushBack<u16>`), and treats `i32`/`int`, `u16`/`short`, `f32`/`float`...
   as the same type when telling overloads apart.
+- **Same-TU callee inlining**: an `extern "C"` callee defined in the TU got
+  inlined, the same callee as C++ did not (NuEffectTexCreate2D).
+- **A non-polymorphic base's ctor** stores before the vfptr.
+- **`case 0: break; case 1: break;`** gives the `sub eax, 0; je` chain;
+  merged labels give a range check.
+- **Dllimport functions (Bink, Sleep) are cached in registers**;
+  function-pointer globals are not.
+- **The /GS frame size** depends on whether locals live at function scope or
+  inside an inlined helper.
+- **Adjacent bools stored as one word** are a `u16`.
+- **Third-party libs** (libvorbis 1.2.0, libogg 1.1.3): match them from the
+  real source in `ref/` (see setup.md), in file order, so their own
+  custom-convention statics come out right.
