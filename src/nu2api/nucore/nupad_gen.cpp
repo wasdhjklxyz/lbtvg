@@ -725,12 +725,14 @@ struct NUFILEDEVICE {
   unsigned char pad8[0x10 - 0x8];
   char separator; // 0x10
   unsigned char pad11[0x34 - 0x11];
-  char name[16]; // 0x34
-  int match_len; // 0x44
-  int name_len;  // 0x48
-  unsigned char pad4c[0xac - 0x4c];
-  char app_dir[0x100]; // 0xac
-  unsigned char pad1ac[0x22c - 0x1ac];
+  char name[16];      // 0x34
+  int match_len;      // 0x44
+  int name_len;       // 0x48
+  char root[0x20];    // 0x4c
+  char desc[0x40];    // 0x6c
+  char app_dir[0x80]; // 0xac (saga cur_dir)
+  char sys_dir[0x80]; // 0x12c
+  char dll_dir[0x80]; // 0x1ac
   int (*format_name_fn)(NUFILEDEVICE *device, char *dst, char *path,
                         int size);             // 0x22c
   int (*interrogate_fn)(NUFILEDEVICE *device); // 0x230
@@ -856,6 +858,101 @@ int NuMemFileOpenSize(int file) {
 
 // FUNCTION: LEGOBATMAN 0x006d2f10
 int NuMcFileOpenSize(int file) { return 0; }
+
+// GLOBAL: LEGOBATMAN 0x0099f280
+extern char *iop_image_name;
+int NuStrCpy(char *dst, const char *src);
+void NuStrCat(char *dst, const char *src);
+int NuStrLen(const char *s);
+
+void NuFileUpCase(NUFILEDEVICE *device, char *filepath);
+
+// FUNCTION: LEGOBATMAN 0x006d91d0
+void NuFileSetCurrentSysDirectory(char *path) {
+  char *source;
+  char *dest;
+  char *separator = "\\";
+  if (*path != '\0') {
+    NuStrCpy(g_unk0099f288->sys_dir, path);
+    NuStrCat(g_unk0099f288->sys_dir, separator);
+  } else {
+    NuStrCpy(g_unk0099f288->sys_dir, "sys");
+    source = iop_image_name + 5;
+    dest = g_unk0099f288->sys_dir + strlen(g_unk0099f288->sys_dir);
+    while (*source != '.') {
+      *dest = *source;
+      ++dest;
+      ++source;
+    }
+    *dest++ = '\\';
+    *dest = '\0';
+  }
+  NuFileUpCase(g_unk0099f288, g_unk0099f288->sys_dir);
+}
+
+// FUNCTION: LEGOBATMAN 0x006d9290
+void NuFileGetCurrentDllPath(char *dest) {
+  NuStrCpy(dest, g_unk0099f288->root);
+  NuStrCat(dest, g_unk0099f288->dll_dir);
+  NuFileUpCase(g_unk0099f288, dest + NuStrLen(g_unk0099f288->root));
+}
+
+// FUNCTION: LEGOBATMAN 0x006d9320
+void NuFileSetCurrentDllDirectory(char *path) {
+  char *separator = "\\";
+  if (*path != '\0') {
+    NuStrCpy(g_unk0099f288->dll_dir, path);
+    NuStrCat(g_unk0099f288->dll_dir, separator);
+  } else {
+    g_unk0099f288->dll_dir[0] = '\0';
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006d98d0
+int NuFileAppendPath(char *dest, char *path, char *name) {
+  NuStrCpy(dest, path);
+  int length = strlen(dest);
+  char *end = dest + length;
+  // The original reads past the terminator before writing the separator.
+  if (*end++ != '\\' && *end++ != '/')
+    *end++ = '\\';
+  NuStrCpy(end, name);
+  return NuStrLen(dest);
+}
+
+// FUNCTION: LEGOBATMAN 0x006d9970
+int NuFileExtractFilename(char *dest, char *path) {
+  char *start = strrchr(path, '\\');
+  char *slash = strrchr(path, '/');
+  if (slash > start)
+    start = slash;
+  if (start != NULL)
+    ++start;
+  else
+    start = path;
+  NuStrCpy(dest, start);
+  return NuStrLen(dest);
+}
+
+// FUNCTION: LEGOBATMAN 0x006d99e0
+int NuFileExtractExt(char *dest, char *path) {
+  char *start = strrchr(path, '.');
+  if (start != NULL)
+    ++start;
+  else
+    start = path;
+  NuStrCpy(dest, start);
+  return NuStrLen(dest);
+}
+
+__int64 NuFilePos(int file);
+
+// FUNCTION: LEGOBATMAN 0x006d95e0
+int NuFileEOF(int file) {
+  __int64 position = NuFilePos(file);
+  __int64 size = NuFileOpenSize(file);
+  return position >= size;
+}
 
 // FUNCTION: LEGOBATMAN 0x006d9130
 void NuFileGetAppDirectory(char *dest) {

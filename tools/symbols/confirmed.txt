@@ -3540,3 +3540,10 @@
 006d9a40 NuFileWriteAddress saga nufile_plain.cpp body (static pad 0xb03934; ref_count is 0xb03878)
 006d9ac0 NuFileSetAddress saga nufile_plain.cpp body (pos_count 0xb0085c)
 006d9b30 NuFilePatchAddress saga nufile_plain.cpp body (NuFileSeek/NuFileWrite inlined)
+006d91d0 NuFileSetCurrentSysDirectory saga nufile_plain.cpp body (iop_image_name 0x99f280)
+006d9290 NuFileGetCurrentDllPath saga nufile_plain.cpp body
+006d9320 NuFileSetCurrentDllDirectory saga nufile_plain.cpp body
+006d98d0 NuFileAppendPath saga nufile_plain.cpp shape, PC also accepts '/'
+006d9970 NuFileExtractFilename saga nufile_plain.cpp shape, PC also splits on '/'
+006d99e0 NuFileExtractExt saga nufile_plain.cpp body
+006d95e0 NuFileEOF saga nufile_plain.cpp body
