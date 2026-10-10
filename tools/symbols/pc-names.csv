@@ -1923,12 +1923,16 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005d9df0,002c6f44,__Z17Blowup_ResetAtMtxP13GIZMOBLOWUP_sP7numtx_s,"Blowup_ResetAtMtx(GIZMOBLOWUP_s*, numtx_s*)",confirmed,0
 005d9e20,002c6fce,__Z17GizmoBlowupBlowupP13GIZMOBLOWUP_siiiP12GameObject_si,"GizmoBlowupBlowup(GIZMOBLOWUP_s*, int, int, int, GameObject_s*, int)",confirmed,0
 005da880,002c7916,__Z22GizmoBlowupEarlyUpdatePvS_f,"GizmoBlowupEarlyUpdate(void*, void*, float)",confirmed,0
+005dafe0,002c81d0,__Z8PlayAnimP12nuinstanim_sPffi,"PlayAnim(nuinstanim_s*, float*, float, int)",confirmed,0
 005db050,002c8240,__Z21GizmoBlowupLateUpdatePvS_f,"GizmoBlowupLateUpdate(void*, void*, float)",confirmed,0
 005db7a0,002c89c8,__Z24GizmoBlowupTypeNameBlankPc,GizmoBlowupTypeNameBlank(char*),confirmed,0
 005db7c0,002c89ea,__Z27GizBlowup_InitSingleTerrainP13GIZMOBLOWUP_s,GizBlowup_InitSingleTerrain(GIZMOBLOWUP_s*),confirmed,0
 005db930,002c8b6c,__Z21GizBlowup_InitTerrainv,GizBlowup_InitTerrain(),confirmed,0
 005db9a0,002c8bde,__Z29GizBlowup_DeleteSingleTerrainP13GIZMOBLOWUP_s,GizBlowup_DeleteSingleTerrain(GIZMOBLOWUP_s*),confirmed,0
 005db9f0,002c8c30,__Z23GizBlowup_DeleteTerrainv,GizBlowup_DeleteTerrain(),confirmed,0
+005dba80,002c8c86,__Z23GizmoBlowupUpdateMatrixP13GIZMOBLOWUP_s,GizmoBlowupUpdateMatrix(GIZMOBLOWUP_s*),confirmed,0
+005dbb40,002c8db6,__Z25GizmoBlowupGenDecalMatrixP13GIZMOBLOWUP_sP7numtx_si,"GizmoBlowupGenDecalMatrix(GIZMOBLOWUP_s*, numtx_s*, int)",confirmed,0
+005dbc10,002c8eb4,__Z26GizmoBlowupGenShadowMatrixP13GIZMOBLOWUP_sP7numtx_s,"GizmoBlowupGenShadowMatrix(GIZMOBLOWUP_s*, numtx_s*)",confirmed,0
 005dbcb0,002c9bee,__Z20GizmoBlowup_FindTypePcP11WORLDINFO_s,"GizmoBlowup_FindType(char*, WORLDINFO_s*)",confirmed,0
 005dbd60,002c9c98,__Z19gizmoblowup_PreLoadPvS_,"gizmoblowup_PreLoad(void*, void*)",confirmed,0
 005dbd80,002c9caa,__Z16gizmoblowup_LoadPvS_,"gizmoblowup_Load(void*, void*)",confirmed,0

@@ -3201,3 +3201,7 @@
 005db7a0 GizmoBlowupTypeNameBlank Mac order after GizmoBlowupLateUpdate, saga body (8 zero dwords)
 005dbcb0 GizmoBlowup_FindType Mac order before gizmoblowup_PreLoad; NuStrICmp over the type names at 0xdc
 005dbd60 gizmoblowup_PreLoad NewBlowup_RegisterGizmo slot 25, Mac order before gizmoblowup_Load
+005dafe0 PlayAnim Mac order between GizmoBlowupEarlyUpdate and GizmoBlowupLateUpdate, saga body
+005dba80 GizmoBlowupUpdateMatrix Mac order after GizBlowup_DeleteTerrain, saga body
+005dbb40 GizmoBlowupGenDecalMatrix Mac order, saga body
+005dbc10 GizmoBlowupGenShadowMatrix Mac order, saga body

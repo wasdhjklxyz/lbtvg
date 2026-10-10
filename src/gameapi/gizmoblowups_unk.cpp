@@ -23,7 +23,10 @@ struct GIZMOBLOWUP_s {
   nuvec_s initial_position; // 0x40
   u8 pad4c[0x58 - 0x4c];
   nuvec_s f58; // 0x58
-  u8 pad64[0xa0 - 0x64];
+  u8 pad64[0x7c - 0x64];
+  nuvec_s decal_offset; // 0x7c
+  u8 pad88[0x94 - 0x88];
+  nuvec_s shadow_offset; // 0x94
   union {
     struct {
       u32 blown_up : 1;     // 0xa0
@@ -52,8 +55,19 @@ struct GIZMOBLOWUP_s {
   i32 score;                      // 0xac
   struct GIZMOBLOWUPTYPE_s *type; // 0xb0
   u8 padb4[0xc8 - 0xb4];
-  f32 fc8; // 0xc8
-  u8 padcc[0xfe - 0xcc];
+  f32 fc8;         // 0xc8
+  f32 decal_scale; // 0xcc
+  u8 padd0[0xe8 - 0xd0];
+  u16 decal_rot_x;  // 0xe8
+  u16 decal_rot_y;  // 0xea
+  u16 decal_rot_z;  // 0xec
+  u16 shadow_rot_x; // 0xee
+  u16 shadow_rot_y; // 0xf0
+  u16 shadow_rot_z; // 0xf2
+  u16 rot_x;        // 0xf4
+  u16 rot_y;        // 0xf6
+  u16 rot_z;        // 0xf8
+  u8 padfa[0xfe - 0xfa];
   char name[0x10];  // 0xfe
   i16 platform_id;  // 0x10e
   i16 platform_id2; // 0x110
@@ -292,10 +306,13 @@ struct GIZMOBLOWUPTYPE_s {
 };
 
 typedef struct NUINSTANIM_UNK_s {
-  u8 pad0[0x50];
+  u8 pad0[0x40];
+  f32 tfactor; // 0x40
+  u8 pad44[0x50 - 0x44];
   u32 playing : 1;   // 0x50
   u32 bits1 : 2;     // 0x50 bits 1-2
   u32 repeating : 1; // 0x50 bit 3
+  f32 fparam1;       // 0x54
 } NUINSTANIM_UNK;
 
 NUINSTANIM_UNK *NuSpecialGetInstAnim(nuhspecial_s *sp);
@@ -452,6 +469,17 @@ GIZMOBLOWUP_s *GizmoBlowUp_FindByName(WORLDINFO_s *world, char *name) {
   return 0;
 }
 
+f32 SeekLinearF(f32 current, f32 target, f32 step);
+
+// FUNCTION: LEGOBATMAN 0x005dafe0
+void PlayAnim(NUINSTANIM_UNK *animation, f32 *playback, f32 speed,
+              i32 backwards) {
+  animation->playing = 1;
+  if (speed >= 0.0f)
+    *playback = SeekLinearF(*playback, backwards ? 1.0f : -1.0f, speed);
+  animation->tfactor = *playback * animation->fparam1;
+}
+
 // FUNCTION: LEGOBATMAN 0x005db7a0
 i32 GizmoBlowupTypeNameBlank(char *name) {
   for (i32 i = 0; i < 8; i++) {
@@ -548,6 +576,73 @@ void GizBlowup_DeleteTerrain() {
     for (i32 i = 0; i < g_unk00960894->gizmo_blowup_count; i++, blowup++)
       GizBlowup_DeleteSingleTerrain(blowup);
   }
+}
+
+numtx_s *NuSpecialGetDrawMtx(nuhspecial_s *sp);
+void NuMtxRotateY(numtx_s *m, i32 a);
+void NuMtxPreRotateX(numtx_s *m, i32 a);
+void NuMtxPreRotateZ(numtx_s *m, i32 a);
+void NuMtxTranslate(numtx_s *m, nuvec_s *v);
+void NuMtxSetIdentity(numtx_s *m);
+void NuMtxSetScale(numtx_s *m, nuvec_s *s);
+
+// GLOBAL: LEGOBATMAN 0x00ab056c
+extern nuvec_s v000;
+// GLOBAL: LEGOBATMAN 0x0095fd38
+extern nuvec_s g_unk0095fd38;
+
+// FUNCTION: LEGOBATMAN 0x005dba80
+void GizmoBlowupUpdateMatrix(GIZMOBLOWUP_s *blowup) {
+  if (blowup == NULL || blowup->type == NULL ||
+      !NuSpecialExistsFn(&blowup->type->animated_special))
+    return;
+  nuvec_s position = blowup->position;
+  *(numtx_s *)blowup = *NuSpecialGetDrawMtx(&blowup->type->animated_special);
+  blowup->position = v000;
+  NuMtxRotateY((numtx_s *)blowup, blowup->rot_y);
+  NuMtxPreRotateX((numtx_s *)blowup, blowup->rot_x);
+  NuMtxPreRotateZ((numtx_s *)blowup, blowup->rot_z);
+  NuMtxTranslate((numtx_s *)blowup, &position);
+}
+
+void NuMtxScaleU(numtx_s *m, f32 s);
+
+// FUNCTION: LEGOBATMAN 0x005dbb40
+void GizmoBlowupGenDecalMatrix(GIZMOBLOWUP_s *blowup, numtx_s *m,
+                               i32 alternate) {
+  if (blowup == NULL)
+    return;
+  NuMtxSetIdentity(m);
+  if (alternate != 0)
+    NuMtxScaleU(m, blowup->decal_scale);
+  else
+    NuMtxScaleU(m, (1.0f - 10.0f * blowup->fc8) * blowup->decal_scale);
+  m->m32 = m->m31 = m->m30 = 0.0f;
+  NuMtxRotateY(m, blowup->decal_rot_y);
+  NuMtxPreRotateX(m, blowup->decal_rot_x);
+  NuMtxPreRotateZ(m, blowup->decal_rot_z);
+  nuvec_s v;
+  v.x = blowup->decal_offset.x + blowup->position.x;
+  v.y = blowup->decal_offset.y + blowup->position.y;
+  v.z = blowup->decal_offset.z + blowup->position.z;
+  NuMtxTranslate(m, &v);
+}
+
+// FUNCTION: LEGOBATMAN 0x005dbc10
+void GizmoBlowupGenShadowMatrix(GIZMOBLOWUP_s *blowup, numtx_s *m) {
+  if (blowup == NULL)
+    return;
+  NuMtxSetIdentity(m);
+  NuMtxSetScale(m, &g_unk0095fd38);
+  m->m32 = m->m31 = m->m30 = 0.0f;
+  NuMtxRotateY(m, blowup->shadow_rot_y);
+  NuMtxPreRotateX(m, blowup->shadow_rot_x);
+  NuMtxPreRotateZ(m, blowup->shadow_rot_z);
+  nuvec_s v;
+  v.x = blowup->shadow_offset.x + blowup->position.x;
+  v.y = blowup->shadow_offset.y + blowup->position.y;
+  v.z = blowup->shadow_offset.z + blowup->position.z;
+  NuMtxTranslate(m, &v);
 }
 
 // FUNCTION: LEGOBATMAN 0x005dbcb0
