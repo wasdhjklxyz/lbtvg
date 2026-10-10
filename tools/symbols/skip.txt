@@ -249,3 +249,5 @@
 006d7270 ImplodeMakeTree: register allocation follows make_code ebx puzzle
 00603df0 GameAnimSet_CreateObjectPool: imul operand load order (capacity/data_size) swapped, 2 lines
 00604b80 GameAnimSet_JumpToAnimPos: x87 operand order in clamp compares
+0066b7f0 GizFlock_AssignCreatures static: ebx/esi register swap
+0066bc00 GizFlock_FindExtraSpecial static: esi/edi register swap
