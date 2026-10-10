@@ -1427,13 +1427,15 @@ int NuFileRead(int file, void *buf, int size) {
 }
 
 typedef struct nufpar_s {
-  int pad0;
+  char *file_buf;        // 0x00
   int file_handle;       // 0x04
   char file_name[0x100]; // 0x08
   unsigned char pad108[0x924 - 0x108];
-  int char_pos; // 0x924
-  int pad928;
-  int buf_end; // 0x92c
+  int char_pos;  // 0x924
+  int buf_start; // 0x928
+  int buf_end;   // 0x92c
+  unsigned char pad930[0x974 - 0x930];
+  int size; // 0x974
 } NUFPAR;
 
 // FUNCTION: LEGOBATMAN 0x006dd570
@@ -2604,4 +2606,50 @@ int NuRDPI(char *input) {
   ctx.get_var_fn = 0;
   get_tok_rdpi(&ctx);
   return i_expr(&ctx);
+}
+
+// FUNCTION: LEGOBATMAN 0x006deb50
+char NuFilePeekCharUnk006deb50(int file) {
+  char c = 0;
+
+  if (NuFileRead(file, &c, 1) <= 0)
+    return -1;
+  NuFileSeek(file, -1, 1);
+  return c;
+}
+
+// FUNCTION: LEGOBATMAN 0x006df630
+char NuGetChar(NUFPAR *parser) {
+  char c;
+  int len;
+  int read_to = parser->buf_end >= 0 ? parser->buf_end : 0;
+
+  if (parser->char_pos > parser->buf_end) {
+    if (parser->buf_end < parser->size) {
+      len = NuFileRead(parser->file_handle, parser->file_buf,
+                       parser->size - read_to <= 0x1000 ? parser->size - read_to
+                                                        : 0x1000);
+      parser->buf_start = parser->buf_end + 1;
+      parser->buf_end += len;
+    } else {
+      return '\0';
+    }
+    if (len == 0)
+      return '\0';
+  }
+  c = parser->file_buf[parser->char_pos - parser->buf_start];
+  parser->char_pos++;
+  return c;
+}
+
+// FUNCTION: LEGOBATMAN 0x006df6c0
+unsigned short NuGetWChar(NUFPAR *parser) {
+  unsigned char lo;
+  unsigned char hi;
+  unsigned short c;
+
+  lo = NuGetChar(parser);
+  hi = NuGetChar(parser);
+  c = lo + (hi << 8);
+  return c;
 }

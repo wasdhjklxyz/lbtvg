@@ -3686,6 +3686,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006deb00,00193b82,_NuFileReadUnsignedChar,_NuFileReadUnsignedChar,confirmed,0
 006deb20,00193b2c,_NuFileReadWChar,_NuFileReadWChar,confirmed,0
 006df610,00194aaa,_NuDatOpen,_NuDatOpen,confirmed,0
+006df630,00193468,_NuGetChar,_NuGetChar,confirmed,0
+006df6c0,001934fe,_NuGetWChar,_NuGetWChar,confirmed,0
 006dfc60,00193f7a,_NuFParCreateMem,_NuFParCreateMem,confirmed,0
 006e0530,00196e5e,_NuPadRecordLoad,_NuPadRecordLoad,strings,0
 006e0b60,00195ee8,_NuFilePakLoadKeyPrePad,_NuFilePakLoadKeyPrePad,gapfill,2
