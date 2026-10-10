@@ -575,6 +575,98 @@ f32 NuRandFloat(void);
 void NuVecAdd(nuvec_s *out, nuvec_s *a, nuvec_s *b);
 void NuVecScale(nuvec_s *out, nuvec_s *v, f32 s);
 
+f32 NuVecDist(nuvec_s *v0, nuvec_s *v1, nuvec_s *d);
+i32 SuperCarry_Carrying(GameObject_s *object);
+// GLOBAL: LEGOBATMAN 0x00851344
+extern const f32 g_unk00851344; // nearest-player start distance
+
+// FUNCTION: LEGOBATMAN 0x004586e0
+i32 Action_SetOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                       AIPACKET_s *packet, char **args, int argc, int flags,
+                       f32 time) {
+  GameObject_s *opponent = NULL;
+  if (packet == NULL || packet->pd0 == NULL || packet->pd0->obj == NULL)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags == 0)
+    return 1;
+  GameObject_s *droids[8];
+  i32 droid_count = 0;
+  // GLOBAL: LEGOBATMAN 0x009c61d0
+  static i32 prev_droid_ix;
+  for (i32 i = 0; i < argc; i++) {
+    char *value;
+    if (NuStrIStr(args[i], "opponent=droid") != NULL) {
+      for (i32 j = 0; j < 8; j++) {
+        GameObject_s *player = Player[j];
+        if (player != NULL && (player->flags1fc & 1) &&
+            (player->flags1fc & 0x1000) &&
+            (player->b257 == 0 || player->f1544 > 0.0f) &&
+            !player->not_with_party && (player->p54->model_flags & 0x10))
+          droids[droid_count++] = player;
+      }
+      if (droid_count != 0) {
+        prev_droid_ix = (prev_droid_ix + 1) % droid_count;
+        opponent = droids[prev_droid_ix];
+      }
+    } else if (NuStrIStr(args[i], "opponent=nearest_enemy") != NULL) {
+      obj->opponent = NULL;
+    } else if (NuStrIStr(args[i], "opponent=nearest_player") != NULL) {
+      f32 best = g_unk00851344;
+      GameObject_s *nearest = NULL;
+      for (i32 j = 0; j < 8; j++) {
+        GameObject_s *player = Player[j];
+        if (player != NULL && (player->flags1fc & 1) &&
+            (player->flags1fc & 0x1000) && (player->flags1fc & 0x80) != 0 &&
+            (player->b257 == 0 || player->f1544 > 0.0f) &&
+            !player->not_with_party) {
+          nuvec_s d;
+          f32 dist = NuVecDist(&obj->v80, &player->v80, &d);
+          if (dist < best) {
+            nearest = Player[j];
+            best = dist;
+          }
+        }
+      }
+      if (nearest != NULL)
+        opponent = nearest;
+    } else if (NuStrICmp(args[i], "opponent=opponent") == 0) {
+      if (packet->pe4 != NULL && packet->pe4->ai != NULL)
+        opponent = packet->pe4->obj;
+    } else if ((value = NuStrIStr(args[i], "opponent=")) != NULL) {
+      opponent = GetNamedGameObject(sys, value + 9);
+    } else if (NuStrIStr(args[i], "super_carrying") != NULL) {
+      for (i32 j = 0; j < 8; j++) {
+        GameObject_s *player = Player[j];
+        if (player != NULL && (player->flags1fc & 1) &&
+            (player->flags1fc & 0x1000) &&
+            (player->b257 == 0 || player->f1544 > 0.0f) &&
+            SuperCarry_Carrying(player))
+          opponent = Player[j];
+      }
+    } else if (NuStrICmp(args[i], "last_attacker") == 0) {
+      opponent = obj->last_attacker;
+    } else if ((value = NuStrIStr(args[i], "opponentType")) != NULL) {
+      i32 type = 0xff;
+      if (g_unk00ad68ec != NULL && g_unk00ad68fc != NULL) {
+        type = g_unk00ad68ec(value + 13);
+        if (type != 0xff)
+          type = g_unk00ad68fc(type);
+      }
+      // The original increments the argument index instead of j: it only
+      // ever compares Obj[0] (and spins if that does not match).
+      for (i32 j = 0; j < HIGHGAMEOBJECT; i++) {
+        if (Obj[j].type15b0 == type) {
+          opponent = &Obj[j];
+          break;
+        }
+      }
+    }
+  }
+  obj->opponent = opponent;
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x0045a990
 i32 Action_FollowDirection(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                            AIPACKET_s *packet, char **params, i32 param_count,

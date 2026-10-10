@@ -506,7 +506,8 @@ struct GameObject_s {
   u8 pad15cd[0x15d0 - 0x15cd];
   u32 u15d0; // 0x15d0
   f32 f15d4; // 0x15d4
-  u8 pad15d8[0x15ec - 0x15d8];
+  u8 pad15d8[0x15e8 - 0x15d8];
+  GameObject_s *opponent;      // 0x15e8, Action_SetOpponent
   GameObject_s *last_attacker; // 0x15ec, Condition_BeenHitBy
   u8 pad15f0[0x1608 - 0x15f0];
   nuvec_s saved_position; // 0x1608
