@@ -116,6 +116,34 @@ void NuAPIInit(void) {
   g_nuapiUnk0adf728[3] = 0;
 }
 
+// --- NuFrameBegin (Mac body: NuPortalInit, NuWaterReset, NuMouseRead,
+// NuKeyboardRead, NuOcclusionManagerBeginFrame, NuRndrFrameLights::Reset).
+void NuPortalInit(void);
+void NuTexUnk006e6ba0(void); // NuWaterReset
+void NuMouseRead(void);
+void NuKeyboardRead(void);
+void NuOcclusionManagerBeginFrame(void);
+class NuShadowLightManagerUnk {
+public:
+  void ResetUnk0070a470();
+};
+// GLOBAL: LEGOBATMAN 0x029e6380
+extern NuShadowLightManagerUnk nuspecial_shadow_manager;
+// nuapi frame counter
+// GLOBAL: LEGOBATMAN 0x00adf668
+int g_nuapiFrameCount;
+
+// FUNCTION: LEGOBATMAN 0x006d52f0
+void NuFrameBegin(void) {
+  g_nuapiFrameCount++;
+  NuPortalInit();
+  NuTexUnk006e6ba0();
+  NuMouseRead();
+  NuKeyboardRead();
+  NuOcclusionManagerBeginFrame();
+  nuspecial_shadow_manager.ResetUnk0070a470();
+}
+
 // FUNCTION: LEGOBATMAN 0x006d5420
 void NuFrameSetMinDelay(int delay) { nuapi_min_delay = delay; }
 

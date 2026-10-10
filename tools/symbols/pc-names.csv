@@ -3621,6 +3621,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d5170,00188e72,_NuTimeMicroSeconds,_NuTimeMicroSeconds,confirmed,0
 006d51e0,00188fea,_NuTimeScanlines,_NuTimeScanlines,confirmed,0
 006d5210,0018db12,_NuAPIInit,_NuAPIInit,confirmed,0
+006d52f0,00189040,_NuFrameBegin,_NuFrameBegin,confirmed,0
 006d5420,00189080,_NuFrameSetMinDelay,_NuFrameSetMinDelay,confirmed,0
 006d5520,001891ee,_NuRegisterEndFrameCallBackFn,_NuRegisterEndFrameCallBackFn,confirmed,0
 006d5530,00189202,_NuTerminateHardware,_NuTerminateHardware,confirmed,0
