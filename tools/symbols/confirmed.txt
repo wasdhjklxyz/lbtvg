@@ -3510,3 +3510,7 @@
 006ddd30 Unk006ddd30 ends pad recording (save to 0xadf6b0 name) or playback
 006d3700 Unk006d3700 reallocates two count*16 tables (0xb038ac/0xb038b0) with the nufile_gen.cpp __FILE__ lines 0xc5e..0xc64
 006d37a0 Unk006d37a0 frees the 0xb038ac/0xb038b0 tables (lines 0xc6e/0xc73)
+006deb90 NuFileBeginBlkRead saga nufile_plain.cpp body plus an expected-tag debug check (blkcnt 0x99f274, nufile_blkinfo 0xaed188)
+006d96f0 NuFileEndBlkRead saga nufile_plain.cpp body
+006dec40 NuFileAlignRead saga nufile_plain.cpp body (NuFileReadChar inlined)
+006d3630 Unk006d3630 returns nufile_blkinfo[blkcnt - 1].size (current read block size)

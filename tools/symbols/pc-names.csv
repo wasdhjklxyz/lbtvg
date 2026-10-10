@@ -3506,6 +3506,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d34e0,00191852,_NuFileWriteUnsignedChar,_NuFileWriteUnsignedChar,confirmed,0
 006d3520,00191826,_NuFileWriteString,_NuFileWriteString,confirmed,0
 006d3570,001917d8,_NuFileWriteStringV,_NuFileWriteStringV,confirmed,0
+006d3630,,Unk006d3630,Unk006d3630,confirmed,0
 006d3640,,Unk006d3640,Unk006d3640,confirmed,0
 006d3690,,Unk006d3690,Unk006d3690,confirmed,0
 006d3700,,Unk006d3700,Unk006d3700,confirmed,0
@@ -3696,6 +3697,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d94a0,001878ce,_NuMemFileSeek,_NuMemFileSeek,confirmed,0
 006d9540,0018fce8,_NuFilePos,_NuFilePos,confirmed,0
 006d9620,0018772a,_NuFileSeek,_NuFileSeek,confirmed,0
+006d96f0,0018fe38,_NuFileEndBlkRead,_NuFileEndBlkRead,confirmed,0
 006d9f00,0018fbb4,_NuDatFileFindHash,_NuDatFileFindHash,confirmed,0
 006d9fe0,,MatchExtension,MatchExtension,confirmed,0
 006da040,0018b1a8,_AddExtension,_AddExtension,confirmed,0
@@ -3767,6 +3769,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006deae0,00193b58,_NuFileReadChar,_NuFileReadChar,confirmed,0
 006deb00,00193b82,_NuFileReadUnsignedChar,_NuFileReadUnsignedChar,confirmed,0
 006deb20,00193b2c,_NuFileReadWChar,_NuFileReadWChar,confirmed,0
+006deb90,00193a04,_NuFileBeginBlkRead,_NuFileBeginBlkRead,confirmed,0
+006dec40,00193cfe,_NuFileAlignRead,_NuFileAlignRead,confirmed,0
 006df610,00194aaa,_NuDatOpen,_NuDatOpen,confirmed,0
 006df630,00193468,_NuGetChar,_NuGetChar,confirmed,0
 006df6c0,001934fe,_NuGetWChar,_NuGetWChar,confirmed,0

@@ -4104,6 +4104,66 @@ float NuFParGetFloatRDP(NUFPAR *parser) {
   return 0.0f;
 }
 
+struct NuFileReadBlock {
+  int tag;
+  int size;
+  __int64 position;
+};
+// GLOBAL: LEGOBATMAN 0x00aed188
+static NuFileReadBlock nufile_blkinfo[1024];
+// GLOBAL: LEGOBATMAN 0x0099f274
+static int blkcnt = 1;
+
+__int64 NuFilePos(int file);
+
+// FUNCTION: LEGOBATMAN 0x006d3630
+int Unk006d3630(void) { return nufile_blkinfo[blkcnt - 1].size; }
+
+// FUNCTION: LEGOBATMAN 0x006deb90
+int NuFileBeginBlkRead(int file, int expected_tag) {
+  int index = blkcnt++;
+  __int64 position = NuFilePos(file);
+  if (index > 1 && position >= nufile_blkinfo[index - 1].position +
+                                   nufile_blkinfo[index - 1].size) {
+    --blkcnt;
+    return 0;
+  }
+  nufile_blkinfo[index].position = NuFilePos(file);
+  NuFileRead(file, &nufile_blkinfo[index], 8);
+  if (nufile_blkinfo[index].size < 0)
+    nufile_blkinfo[index].size = -nufile_blkinfo[index].size;
+  if (expected_tag != 0 && expected_tag != nufile_blkinfo[index].tag)
+    Unk006d24b0();
+  return nufile_blkinfo[index].tag;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d96f0
+void NuFileEndBlkRead(int file) {
+  int index = --blkcnt;
+  __int64 position = NuFilePos(file);
+  if (position != nufile_blkinfo[index].position + nufile_blkinfo[index].size)
+    NuFileSeek(file,
+               nufile_blkinfo[index].position + nufile_blkinfo[index].size, 0);
+}
+
+static inline char NuFileReadChar(int file) {
+  char value = 0;
+  NuFileRead(file, &value, 1);
+  return value;
+}
+
+// FUNCTION: LEGOBATMAN 0x006dec40
+int NuFileAlignRead(int file, int mask) {
+  int count = 0;
+  __int64 position = NuFilePos(file);
+  while ((position & mask) != 0) {
+    ++position;
+    ++count;
+    NuFileReadChar(file);
+  }
+  return count;
+}
+
 // FUNCTION: LEGOBATMAN 0x006deb50
 char NuFilePeekCharUnk006deb50(int file) {
   char c = 0;
