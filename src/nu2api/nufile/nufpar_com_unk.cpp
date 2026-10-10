@@ -143,12 +143,8 @@ NUFPAR *NuAllocFPar() {
   return NULL;
 }
 
-// FUNCTION: LEGOBATMAN 0x006d40b0
-static void NuFreeFPar(NUFPAR *parser) { parser->file_buf = NULL; }
-
-// from saga nu2api/nufile/nufpar.cpp
-// FUNCTION: LEGOBATMAN 0x006d40c0
-void NuFParClose(NUFPAR *parser) { NuFreeFPar(parser); }
+// NuFreeFPar/NuFParClose (0x006d40b0/0x006d40c0) live in nupad_gen.cpp:
+// the string-table loaders there inline them.
 
 // Keeps the header-static copies above alive until their real callers are
 // matched.

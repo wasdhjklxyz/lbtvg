@@ -2710,6 +2710,13 @@ typedef struct nufpar_s {
   void *separator_tokens; // 0x980
 } NUFPAR;
 
+// FUNCTION: LEGOBATMAN 0x006d40b0
+static void NuFreeFPar(NUFPAR *parser) { parser->file_buf = NULL; }
+
+// from saga nu2api/nufile/nufpar.cpp
+// FUNCTION: LEGOBATMAN 0x006d40c0
+void NuFParClose(NUFPAR *parser) { NuFreeFPar(parser); }
+
 // Static: NuFParGetWordW keeps line_pos in a register across the store. So
 // nufile/nufpar_unk.cpp (extern old_line_pos) belongs in this TU.
 // GLOBAL: LEGOBATMAN 0x00ae4344
@@ -7418,6 +7425,101 @@ extern "C" nuqthdr_s *NuQTRead(char *path, u8 **cursor, u8 **end) {
 int NuStringTableLoadCSV(char *filepath, VARIPTR *buf, VARIPTR buf_end,
                          char *label, char *language);
 int NuStringTableLoadTXT(char *filepath, VARIPTR *buf, VARIPTR buf_end);
+
+// FUNCTION: LEGOBATMAN 0x006e1490
+int NuStringTableLoadTXT(char *filepath, VARIPTR *buf, VARIPTR buf_end) {
+  int i;
+  int max_strings;
+  NUSTRING *strings = NULL;
+  NUSTRINGBANK *bank = &StringBank[g_nuPadUnk0b03924];
+  char *tmp_buf = NULL;
+  void *mem_buf;
+  int bytes_read;
+  int mem_file;
+  NUFPAR *parser;
+  int len;
+
+  if (bank->strings != NULL)
+    Unk006d24b0();
+  bank->strings = NULL;
+  bank->max_strings = 0;
+  bank->string_count = 0;
+  i = max_strings = 0;
+  mem_buf = (void *)(buf_end.addr - 0x100000);
+  bytes_read = NuFileLoadBuffer(filepath, mem_buf, 0x100000);
+  if (0x100000 - bytes_read < 0x8000)
+    Unk006d24b0();
+  tmp_buf = (char *)((unsigned int)mem_buf + bytes_read);
+  mem_file = NuMemFileOpen(mem_buf, bytes_read, 0);
+  if (mem_file != 0) {
+    parser = NuFParOpen(mem_file);
+    if (parser != NULL) {
+      while (NuFParGetLine(parser) != 0) {
+        max_strings++;
+      }
+      NuFParClose(parser);
+    }
+    NuFileClose(mem_file);
+  }
+
+  strings = (NUSTRING *)((buf->addr + 3) & ~3);
+  buf->addr = (buf->addr + 3) & ~3;
+  buf->addr += max_strings * sizeof(NUSTRING);
+  mem_file = NuMemFileOpen(mem_buf, bytes_read, 0);
+  if (mem_file != 0) {
+    parser = NuFParOpen(mem_file);
+    if (parser != NULL) {
+      while (NuFParGetLine(parser) != 0) {
+        NuFParGetWord(parser);
+        NuFParGetWord(parser);
+        len = NuStrLenW((NUWCHAR *)parser->word_buf) + 1;
+        strings[i].id = buf->char_ptr;
+        buf->addr += len;
+        NuPadWideToAnsi(strings[i].id, (NUWCHAR *)parser->word_buf);
+        NuFParGetWord(parser);
+        len = NuStrLenW((NUWCHAR *)parser->word_buf) + 1;
+        strings[i].str_utf16 = (NUWCHAR *)((buf->addr + 1) & ~1);
+        buf->addr = (buf->addr + 1) & ~1;
+        buf->addr += len * 2;
+        NuStrCpyW(strings[i].str_utf16, (NUWCHAR *)parser->word_buf);
+
+        if (g_nuPadUnk099f308 == 1) {
+          len = NuStrLenW((NUWCHAR *)parser->word_buf) + 1;
+          strings[i].str_utf16 = (NUWCHAR *)((buf->addr + 1) & ~1);
+          buf->addr = (buf->addr + 1) & ~1;
+          buf->addr += len * 2;
+          // NuStrCpyW, open-coded: our cl stops inlining it here.
+          {
+            NUWCHAR *d = strings[i].str_utf16;
+            NUWCHAR *src = (NUWCHAR *)parser->word_buf;
+            if (src == NULL) {
+              *d = 0;
+            } else {
+              do {
+                *d++ = *src;
+              } while (*src++);
+            }
+          }
+        } else {
+          NuPadWideToUtf8((unsigned char *)tmp_buf,
+                          (NUWCHAR *)parser->word_buf);
+          len = NuStrLen(tmp_buf) + 1;
+          strings[i].str_utf16 = (NUWCHAR *)((buf->addr + 1) & ~1);
+          buf->addr = (buf->addr + 1) & ~1;
+          buf->addr += len;
+          NuStrCpy((char *)strings[i].str_utf16, tmp_buf);
+        }
+        i++;
+      }
+      NuFParClose(parser);
+      bank->strings = strings;
+      bank->string_count = i;
+      bank->max_strings = max_strings;
+    }
+    NuFileClose(mem_file);
+  }
+  return bank->string_count;
+}
 
 // FUNCTION: LEGOBATMAN 0x006e1820
 int NuStringTableLoad(char *filepath, VARIPTR *buf, VARIPTR buf_end) {
