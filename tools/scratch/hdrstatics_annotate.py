@@ -6,10 +6,12 @@ FN={'sin':('NuSinApprox','static f32 NuSinApprox(i32 angle);'),'cos':('NuCosAppr
     'fabs':('NuFabs','static f32 NuFabs(f32 f);'),'fdiv':('NuFdiv','static f32 NuFdiv(f32 a, f32 b);'),
     'sign':('NuFsign','static f32 NuFsign(f32 f);'),'v4set':('NuVec4Set','static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);'),
     'v4copy':('NuVec4Copy','static void NuVec4Copy(f32 *dst, f32 *src);'),'vscale':('NuVecScaleInline','static void NuVecScaleInline(f32 *dst, f32 *src, f32 s);'),
-    'mroty':('NuMtxRotateYInline','static void NuMtxRotateYInline(f32 *m, i32 a);'),'mcopy':('NuMtxCopyInline','static void NuMtxCopyInline(f32 *dst, f32 *src);')}
+    'mroty':('NuMtxRotateYInline','static void NuMtxRotateYInline(f32 *m, i32 a);'),'mcopy':('NuMtxCopyInline','static void NuMtxCopyInline(f32 *dst, f32 *src);'),
+    'vmag':('NuVecMagInline','static f32 NuVecMagInline(f32 *v);')}
 USE={'sin':'v[0] = NuSinApprox(i);','cos':'v[1] = NuCosApprox(i);','fabs':'v[2] = NuFabs(a);','fdiv':'v[3] = NuFdiv(a, v[4]);',
      'sign':'v[5] = NuFsign(a);','v4set':'NuVec4Set(v, a, a, a, a);','v4copy':'NuVec4Copy(v + 4, v);','vscale':'NuVecScaleInline(v + 8, v, a);',
-     'mroty':'NuMtxRotateYInline(v + 16, i);','mcopy':'NuMtxCopyInline(v + 32, v + 16);'}
+     'mroty':'NuMtxRotateYInline(v + 16, i);','mcopy':'NuMtxCopyInline(v + 32, v + 16);',
+     'vmag':'v[48] = NuVecMagInline(v);'}
 def match(f):
     r=subprocess.run(['python3','tools/match.py',f],capture_output=True,text=True)
     out=re.sub(r'\x1b\[[0-9;]*m','',r.stdout+r.stderr)

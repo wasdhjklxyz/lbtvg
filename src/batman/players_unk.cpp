@@ -8,6 +8,10 @@
 #include "worldinfo_unk.h"
 
 // Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x005c39c0
+static f32 NuVecMagInline(f32 *v);
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
 // FUNCTION: LEGOBATMAN 0x005c39f0
 static void NuMtxCopyInline(f32 *dst, f32 *src);
 
@@ -930,4 +934,10 @@ void Unk_InlineUser_players_unk(f32 *v, f32 a, i32 i) {
 // matched.
 void Unk_InlineUser_2_players_unk(f32 *v, f32 a, i32 i) {
   NuMtxCopyInline(v + 32, v + 16);
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_3_players_unk(f32 *v, f32 a, i32 i) {
+  v[48] = NuVecMagInline(v);
 }

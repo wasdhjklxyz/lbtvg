@@ -8,6 +8,10 @@
 #include <stddef.h>
 
 // Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x004b7f00
+static f32 NuVecMagInline(f32 *v);
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
 // FUNCTION: LEGOBATMAN 0x004b8100
 static void NuMtxRotateYInline(f32 *m, i32 a);
 
@@ -68,4 +72,10 @@ void Unk_InlineUser_jumping_unk(f32 *v, f32 a, i32 i) {
 // matched.
 void Unk_InlineUser_2_jumping_unk(f32 *v, f32 a, i32 i) {
   NuMtxRotateYInline(v + 16, i);
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_3_jumping_unk(f32 *v, f32 a, i32 i) {
+  v[48] = NuVecMagInline(v);
 }

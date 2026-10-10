@@ -51,3 +51,10 @@ static void NuVecScaleInline(f32 *dst, f32 *src, f32 s) {
   dst[1] = src[1] * s;
   dst[2] = src[2] * s;
 }
+
+f32 NuFsqrt(f32 f);
+
+// 46 bytes, v in eax; name unproven.
+static f32 NuVecMagInline(f32 *v) {
+  return NuFsqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+}

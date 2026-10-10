@@ -3,10 +3,12 @@ import re,os,sys,subprocess,bisect
 exec(open('tools/scratch/hdrstatics_core.py').read())
 FN={'sin':'static f32 NuSinApprox(i32 angle);','cos':'static f32 NuCosApprox(i32 angle);','fabs':'static f32 NuFabs(f32 f);','fdiv':'static f32 NuFdiv(f32 a, f32 b);',
     'sign':'static f32 NuFsign(f32 f);','v4set':'static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);','v4copy':'static void NuVec4Copy(f32 *dst, f32 *src);','vscale':'static void NuVecScaleInline(f32 *dst, f32 *src, f32 s);',
-    'mroty':'static void NuMtxRotateYInline(f32 *m, i32 a);','mcopy':'static void NuMtxCopyInline(f32 *dst, f32 *src);'}
+    'mroty':'static void NuMtxRotateYInline(f32 *m, i32 a);','mcopy':'static void NuMtxCopyInline(f32 *dst, f32 *src);',
+    'vmag':'static f32 NuVecMagInline(f32 *v);'}
 USE={'sin':'v[0] = NuSinApprox(i);','cos':'v[1] = NuCosApprox(i);','fabs':'v[2] = NuFabs(a);','fdiv':'v[3] = NuFdiv(a, v[4]);','sign':'v[5] = NuFsign(a);',
      'v4set':'NuVec4Set(v, a, a, a, a);','v4copy':'NuVec4Copy(v + 4, v);','vscale':'NuVecScaleInline(v + 8, v, a);',
-     'mroty':'NuMtxRotateYInline(v + 16, i);','mcopy':'NuMtxCopyInline(v + 32, v + 16);'}
+     'mroty':'NuMtxRotateYInline(v + 16, i);','mcopy':'NuMtxCopyInline(v + 32, v + 16);',
+     'vmag':'v[48] = NuVecMagInline(v);'}
 un=[(a,n) for a,n in copies if a not in ann and n in FN]
 clusters=[];cur=[]
 for a,n in un:

@@ -8,6 +8,10 @@
 #include <string.h>
 
 // Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00678c80
+static f32 NuVecMagInline(f32 *v);
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
 // FUNCTION: LEGOBATMAN 0x00678ba0
 static void NuVec4Copy(f32 *dst, f32 *src);
 // FUNCTION: LEGOBATMAN 0x00678bc0
@@ -501,4 +505,10 @@ void Unk_InlineUser_unk_00679840(f32 *v, f32 a, i32 i) {
   NuVec4Copy(v + 4, v);
   NuVec4Set(v, a, a, a, a);
   NuVecScaleInline(v + 8, v, a);
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_2_unk_00679840(f32 *v, f32 a, i32 i) {
+  v[48] = NuVecMagInline(v);
 }
