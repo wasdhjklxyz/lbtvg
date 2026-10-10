@@ -1734,11 +1734,11 @@ extern "C" int NuThreadCreateCriticalSection(void);
 // GLOBAL: LEGOBATMAN 0x00ad7640
 int file_criticalsection;
 // GLOBAL: LEGOBATMAN 0x00b00854
-NuFileUnk0ae3f80 *unpack_file_info;
+static NuFileUnk0ae3f80 *unpack_file_info;
 // GLOBAL: LEGOBATMAN 0x00af90b4
-NUDATOPENFILEINFO *unpack_file_odi;
+static NUDATOPENFILEINFO *unpack_file_odi;
 // GLOBAL: LEGOBATMAN 0x00ad7638
-__int64 unpack_file_pos;
+static __int64 unpack_file_pos;
 // GLOBAL: LEGOBATMAN 0x00aecb84
 static int decode_buffer_left;
 // Buffer sizes unknown (saga's 0x40000 would overlap neighbouring globals).
@@ -1753,10 +1753,20 @@ static volatile int read_buffer_size;
 // GLOBAL: LEGOBATMAN 0x00afa23c
 static volatile int read_buffer_decoded_size;
 
+// FUNCTION: LEGOBATMAN 0x006d2ab0
 static void NuDatFileDecodeInit(void) {
   unpack_file_info = 0;
   unpack_file_odi = 0;
   unpack_file_pos = -1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d2ae0
+static void NuDatFileDecodeNewFile(NuFileUnk0ae3f80 *file,
+                                   NUDATOPENFILEINFO *open_file) {
+  unpack_file_info = file;
+  unpack_file_odi = open_file;
+  unpack_file_pos = file->i8;
+  decode_buffer_left = 0;
 }
 
 int NuFileRead(int file, void *buf, int size);
@@ -2203,6 +2213,7 @@ int NuFileSwapEndianOnWrite(int enabled) {
 // FUNCTION: LEGOBATMAN 0x006d2b70
 int NuFileGetEndianSwap(void) { return NuFile_SwapEndianOnWrite; }
 
+// FUNCTION: LEGOBATMAN 0x006d2b10
 static void NuFileEndianSwap16(void *value) {
   unsigned char *value_ptr;
   unsigned short swapped;
@@ -2215,6 +2226,7 @@ static void NuFileEndianSwap16(void *value) {
   *((unsigned short *)value) = swapped;
 }
 
+// FUNCTION: LEGOBATMAN 0x006d2b30
 static void NuFileEndianSwap32(void *value) {
   unsigned char *value_ptr;
   unsigned int swapped;
@@ -3006,12 +3018,8 @@ int NuDatFileOpen(NUDATHDR *hdr, char *filepath, int mode) {
               Unk006d24d0();
           } while (seek_pos < 0);
           Unk006d24d0(file_idx);
-          if (g_nuFileUnk0ae3f80[info_idx].i28 == 2) {
-            unpack_file_info = info;
-            unpack_file_odi = open_info;
-            unpack_file_pos = info->i8;
-            decode_buffer_left = 0;
-          }
+          if (g_nuFileUnk0ae3f80[info_idx].i28 == 2)
+            NuDatFileDecodeNewFile(info, open_info);
           return info_idx + 0x800;
         }
         g_nuFileUnk0ae3f80[info_idx].i24 = 0;

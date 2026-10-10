@@ -3548,3 +3548,7 @@
 006d99e0 NuFileExtractExt saga nufile_plain.cpp body
 006d95e0 NuFileEOF saga nufile_plain.cpp body
 006d3080 NuFileStatus saga nufile.cpp body (always 0 on PC; recursion through dat files unreachable)
+006d2b10 NuFileEndianSwap16 saga nufile_plain.cpp static (eax), out-of-line copy
+006d2b30 NuFileEndianSwap32 saga nufile_plain.cpp static (eax), out-of-line copy
+006d2ab0 NuDatFileDecodeInit saga nufile.cpp static, out-of-line copy (unpack_* globals are static)
+006d2ae0 NuDatFileDecodeNewFile saga nufile.cpp static (eax/ecx), out-of-line copy
