@@ -3096,3 +3096,6 @@
 00667300 GizFlock_AllocateProgressData Mac GizFlock_AllocateProgressData, allocate_progress_data slot
 00667320 GizFlock_ClearProgress Mac GizFlock_ClearProgress, clear_progress slot of the "GizFlock" ADDGIZMOTYPE
 0066c150 GizFlock_RegisterGizmo copies Default_ADDGIZMOTYPE, name "GizFlock"
+004906d0 GizPanels_GetMaxGizmos get_max_gizmos slot of the "Panel" ADDGIZMOTYPE
+004906f0 GizPanels_AddGizmos add_gizmos slot of the "Panel" ADDGIZMOTYPE
+00491540 GizPanel_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Panel"
