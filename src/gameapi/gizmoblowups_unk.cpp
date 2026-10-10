@@ -355,7 +355,8 @@ typedef struct NUINSTANIM_UNK_s {
   u8 pad0[0x40];
   f32 tfactor; // 0x40
   f32 tfirst;  // 0x44
-  u8 pad48[0x50 - 0x48];
+  u8 pad48[0x4c - 0x48];
+  f32 ltime;         // 0x4c
   u32 playing : 1;   // 0x50
   u32 bits1 : 2;     // 0x50 bits 1-2
   u32 repeating : 1; // 0x50 bit 3
@@ -682,6 +683,198 @@ extern nuvec_s v000;
 void EvalAnim(nuhspecial_s *special, f32 frame, numtx_s *m, i32 flag);
 void NuMtxMulVU0(numtx_s *m, numtx_s *m0, numtx_s *m1);
 void NuMtxTranslate(numtx_s *m, nuvec_s *v);
+
+typedef struct BLOWUPHITOBJ_s {
+  u8 pad0[0x80];
+  nuvec_s pos; // 0x80
+  u8 pad8c[0x1fc - 0x8c];
+  u32 flags; // 0x1fc
+  u8 pad200[0x257 - 0x200];
+  u8 b257; // 0x257
+  u8 pad258[0x1544 - 0x258];
+  f32 f1544; // 0x1544
+} BLOWUPHITOBJ;
+
+// GLOBAL: LEGOBATMAN 0x00ab3960
+extern BLOWUPHITOBJ *g_unk00ab3960[8];
+// GLOBAL: LEGOBATMAN 0x00ac738c
+extern void (*g_unk00ac738c)(GIZMOBLOWUP_s *blowup);
+// GLOBAL: LEGOBATMAN 0x00ab08a0
+extern void (*g_unk00ab08a0)(GIZMOBLOWUP_s *blowup);
+
+void ObjHitObj(void *a, void *target, i32 damage, i32 b, i32 c, i32 context);
+void Unk_GizmoBlowupCreateStuff(GIZMOBLOWUP_s *blowup);
+void GizmoBlowUp_AddEffects(nuvec_s *position, GIZMOBLOWUP_s *blowup, i32 count,
+                            i32 flags, GameObject_s *object);
+
+// FUNCTION: LEGOBATMAN 0x005d9e20
+i32 GizmoBlowupBlowup(GIZMOBLOWUP_s *blowup, i32 effects, i32 hit_type,
+                      i32 damage, GameObject_s *object, i32 hit_context) {
+  i32 destroyed = 0;
+  i32 effect_flags = 0;
+  i32 shake = 0;
+  if (blowup == NULL)
+    return 0;
+  if (!(blowup->flags & 0x800000))
+    return 0;
+  if ((blowup->draw_flags & 0x1000000) && hit_type != 11)
+    return 0;
+  NUINSTANIM_UNK *anim = NuSpecialGetInstAnim(&blowup->type->animated_special);
+  if (anim != NULL) {
+    GIZMOBLOWUPTYPE_s *t = blowup->type;
+    if (t->animation_start_frame != t->animation_end_frame) {
+      if (!(t->animation_flags & 0x2000) && !(blowup->flags & 0x400000)) {
+        if (!(blowup->draw_flags & 0x208)) {
+          if (!(blowup->flags & 0x80000) &&
+              blowup->fc8 < t->animation_end_frame) {
+            blowup->flags |= 0x80000;
+            return 0;
+          }
+          blowup->flags &= ~0x80000;
+        }
+      } else if (blowup->draw_flags & 0x800000) {
+        if (anim->ltime < t->animation_start_frame ||
+            anim->ltime > t->animation_end_frame)
+          return 0;
+      } else {
+        if (blowup->fc8 < t->animation_start_frame ||
+            blowup->fc8 > t->animation_end_frame)
+          return 0;
+      }
+    }
+  }
+  GIZMOBLOWUPTYPE_s *type = blowup->type;
+  switch (hit_type) {
+  case 1:
+    blowup->flags |= 2;
+    break;
+  case 2:
+    blowup->flags |= 4;
+    break;
+  case 3:
+    blowup->flags |= 8;
+    break;
+  case 4:
+    blowup->flags |= 0x20;
+    break;
+  case 5:
+    blowup->flags |= 0x10;
+    break;
+  case 6:
+    blowup->flags |= 0x40;
+    break;
+  case 7:
+    blowup->flags |= 0x80;
+    break;
+  case 8:
+    blowup->flags |= 0x100;
+    break;
+  case 9:
+    blowup->flags |= 0x200;
+    break;
+  case 10:
+    blowup->flags |= 0x400;
+    break;
+  case 11:
+    blowup->flags |= 0x800;
+    break;
+  case 12:
+    blowup->flags |= 0x1000;
+    break;
+  case 13:
+    blowup->flags |= 0x2000;
+    break;
+  case 14:
+    blowup->b122 |= 0x40;
+    break;
+  }
+  i32 has_burst = NuSpecialExistsFn(&type->burst_special);
+  if (blowup->b122 & 0x40)
+    return 0;
+  if (has_burst) {
+    NUINSTANIM_UNK *burst = NuSpecialGetInstAnim(&type->burst_special);
+    if (burst != NULL)
+      burst->playing = 1;
+  }
+  if (damage != -1)
+    blowup->b11c -= damage;
+  if (damage == -1 || blowup->b11c <= 0) {
+    blowup->b11c = 0;
+    destroyed = 1;
+    if ((blowup->type->animation_flags & 0x2000) &&
+        (blowup->draw_flags & 0x800000))
+      NuSpecialSetVisibility(&type->animated_special, 0);
+    blowup->flags = (blowup->flags & 0xfe733fff) | 1;
+    blowup->fc8 = 1.0f;
+    if (object != NULL) {
+      if (blowup->b11a)
+        ObjHitObj(NULL, object, blowup->b11a, 1, 0, hit_context);
+    } else if (((blowup->draw_flags & 8) || (blowup->draw_flags & 0x200)) &&
+               blowup->b11a > 0 &&
+               !(blowup->fb8 <= 0.0f && blowup->fbc > 0.0f)) {
+      f32 radius_sq = blowup->fb8 * blowup->fb8;
+      for (i32 i = 0; i < 8; i++) {
+        BLOWUPHITOBJ *p = g_unk00ab3960[i];
+        if (p != NULL && (p->flags & 1) && (p->flags & 0x1000) &&
+            p->b257 == 0 && !(p->f1544 > 0.0f)) {
+          f32 x = blowup->f58.x - p->pos.x;
+          f32 y = blowup->f58.y - p->pos.y;
+          f32 z = blowup->f58.z - p->pos.z;
+          if (x * x + y * y + z * z < radius_sq)
+            ObjHitObj(NULL, p, blowup->b11a, 1, 0, hit_context);
+        }
+      }
+    }
+    if (blowup->platform_id != -1) {
+      if (!has_burst) {
+        PlatOnOff(blowup->platform_id, 0);
+      } else {
+        PlatOnOff(blowup->platform_id, 0);
+        if (blowup->platform_id2 != -1)
+          PlatOnOff(blowup->platform_id2, 1);
+      }
+      if (type->animation_flags & 0x2000)
+        NuSpecialSetVisibility(&type->animated_special, 0);
+    }
+    if (!(blowup->draw_flags & 0x400) &&
+        NuSpecialExistsFn(&blowup->type->decal_special)) {
+      blowup->fc8 = 0.1f;
+      blowup->flags |= 0x20000;
+    }
+    if (blowup->draw_flags & 0x800)
+      Unk_GizmoBlowupCreateStuff(blowup);
+    if (g_unk00ac738c != NULL)
+      g_unk00ac738c(blowup);
+    if ((blowup->flags & 1) && g_unk00ab08a0 != NULL)
+      g_unk00ab08a0(blowup);
+    if (blowup->type->b106 != -1 && (blowup->sa8 & 4)) {
+      blowup->respawn_timer = 5.0f;
+      blowup->position = blowup->initial_position;
+    } else if (blowup->fdc > 0.0f) {
+      blowup->respawn_timer = blowup->fdc;
+      blowup->position = blowup->initial_position;
+    }
+    effect_flags = 3;
+    if (blowup->draw_flags & 0x40000)
+      effect_flags = 0x13;
+    if (blowup->antinode != NULL) {
+      GameAntiNode_Remove(g_unk00960894->game_antinode_sys, blowup->antinode);
+      blowup->antinode = NULL;
+    }
+    shake = 1;
+  } else if (blowup->b21) {
+    shake = 1;
+  }
+  if (!destroyed && !blowup->b21)
+    effect_flags = 1;
+  if (shake)
+    effect_flags |= 4;
+  if (blowup->fbc > 0.0f && destroyed)
+    effect_flags |= 8;
+  if (hit_type != 8 && effects)
+    GizmoBlowUp_AddEffects(&blowup->f58, blowup, 1, effect_flags, object);
+  return 1;
+}
 
 extern "C" void NuSpecialGetBounds(nuhspecial_s *special, nuvec_s *min,
                                    nuvec_s *max);

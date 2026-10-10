@@ -15,7 +15,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 |---|---|---|
 | [Action](#action) | 49 | 37 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 42 | 37 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 46 | 37 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 45 | 36 |
 | [near terrain.c](#near-terrainc) | 24 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 10 | 6 |
 | [Condition](#condition) | 6 | 4 |
@@ -344,7 +344,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005b0900` 1269 B `OutSideSplineArea(nuvec_s*, nugspline_s*, nuvec_s*, nuvec_s*, int)`  **hint** name (order) · **saga** `legoapi/render/fx/edsplines.cpp`
 - [ ] `005b1940` 1286 B `DrawObjectOnCharacter(WORLDINFO_s*, GameObject_s*, int, nuhspecial_s*, int, int, numtx_s*, int, unsigned int, numtx_s*, nuvec_s*, float, float, int, numtx_s*)`  **hint** name (gapfill) · **saga** `legoapi/render/core/render.cpp`
 - [ ] `00633910` 1303 B `AddPickups(int, int, int, int, nuvec_s*, nuvec_s*, float, int, float, float, GameObject_s*, int, int)`  **hint** name (gapfill) · **saga** `legoapi/gizmo/object/gizmopickups.cpp`
-- [ ] `005d9e20` 1500 B `GizmoBlowupBlowup(GIZMOBLOWUP_s*, int, int, int, GameObject_s*, int)`  **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
 - [ ] `005df0d0` 2096 B `GizmoBlowupBurstDraw(void*, void*, float)`  **stub** · **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
 
 ## near terrain.c
