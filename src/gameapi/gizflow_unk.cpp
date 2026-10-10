@@ -3,7 +3,12 @@
 
 #include "../nu2api/nucore/common.h"
 #include "../nu2api/nucore/nustring.h"
+#include "../nu2api/numath/nuinline_unk.h"
 #include <stddef.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00653460
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 typedef struct nufpar_s {
   u8 pad0[0x910];
@@ -382,4 +387,10 @@ void xAction(NUFPAR *parser) {
       break;
     }
   }
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_gizflow_unk(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
 }

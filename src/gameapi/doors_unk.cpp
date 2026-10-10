@@ -2,7 +2,21 @@
 
 #include "../nu2api/nucore/common.h"
 #include "../nu2api/nucore/nustring.h"
+#include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
 #include "../nu2api/numath/nuvec.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00614760
+static f32 NuFabs(f32 f);
+// FUNCTION: LEGOBATMAN 0x00614780
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x00614820
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
+// FUNCTION: LEGOBATMAN 0x00616280
+static f32 NuFdiv(f32 a, f32 b);
+// FUNCTION: LEGOBATMAN 0x00616360
+static f32 NuCosApprox(i32 angle);
 
 typedef struct DOORSPLINE_s {
   i16 length; // 0x00
@@ -509,4 +523,14 @@ void Minicam_AddSubtitle(const MINICAM_ADDSUBTITLE_s *add) {
     sub->f10[5] = add->f10[5];
     Minicam.subtitle_count++;
   }
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_doors_unk(f32 *v, f32 a, i32 i) {
+  v[2] = NuFabs(a);
+  v[0] = NuSinApprox(i);
+  NuVec4Set(v, a, a, a, a);
+  v[3] = NuFdiv(a, v[4]);
+  v[1] = NuCosApprox(i);
 }

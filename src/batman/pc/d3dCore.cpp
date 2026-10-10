@@ -6,7 +6,21 @@
 #include <stddef.h>
 #include <windows.h>
 
+#include "../../nu2api/numath/nuinline_unk.h"
+#include "../../nu2api/numath/nutrig_unk.h"
 #include <d3d9.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00529df0
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x00529e90
+static f32 NuCosApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x00529ea0
+static void NuVec4Copy(f32 *dst, f32 *src);
+// FUNCTION: LEGOBATMAN 0x00529ec0
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
+// FUNCTION: LEGOBATMAN 0x00529ee0
+static void NuVecScaleInline(f32 *dst, f32 *src, f32 s);
 
 class CNuConsole {
 public:
@@ -95,4 +109,14 @@ i32 CD3DCore::DetermineNominalAspectRatio(unsigned int width,
   if (diff < best)
     result = 2;
   return result;
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_d3dCore(f32 *v, f32 a, i32 i) {
+  v[0] = NuSinApprox(i);
+  v[1] = NuCosApprox(i);
+  NuVec4Copy(v + 4, v);
+  NuVec4Set(v, a, a, a, a);
+  NuVecScaleInline(v + 8, v, a);
 }

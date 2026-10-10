@@ -5,7 +5,12 @@
 #include "../nu2api/nucore/common.h"
 #include <string.h>
 // windows.h
+#include "../nu2api/numath/nuinline_unk.h"
 #include <windows.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00539220
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -271,4 +276,10 @@ HRESULT WavReader::Read(u8 *buf, u32 size, u32 *read) {
   if (read != 0)
     *read = 0;
   return E_FAIL;
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_unk_0053a4b0(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
 }

@@ -1,3 +1,11 @@
+#include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00404330
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x004043f0
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 // pcbatman.cpp: first object linked; 0x00401000..0x00408900 by link order.
 
 struct Unk00404420 {
@@ -64,4 +72,11 @@ Unk00404450 *Unk00404450::Set(float a, float b, float c, float d, float e,
   f38 = o;
   f3c = p;
   return this;
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_pcbatman(f32 *v, f32 a, i32 i) {
+  v[0] = NuSinApprox(i);
+  NuVec4Set(v, a, a, a, a);
 }

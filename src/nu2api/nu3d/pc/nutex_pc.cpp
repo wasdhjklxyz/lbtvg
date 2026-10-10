@@ -1,7 +1,21 @@
 // nu2api/nu3d/pc/nutex_pc.cpp: certain range 0x006e6060..0x006e7bf0.
 
+#include "../../numath/nuinline_unk.h"
+#include "../../numath/nutrig_unk.h"
 #include <d3d9.h>
 #include <string.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x006e4100
+static f32 NuFabs(f32 f);
+// FUNCTION: LEGOBATMAN 0x006e4120
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x006e41c0
+static f32 NuCosApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x006e41d0
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
+// FUNCTION: LEGOBATMAN 0x006e4230
+static void NuVecScaleInline(f32 *dst, f32 *src, f32 s);
 
 // d3dCalls.cpp / d3dApiCalls.cpp wrappers (batman/), not yet named.
 extern "C" void D3DUnk005290c0();
@@ -186,4 +200,14 @@ void NuTexSetViewport(int x, int y, int w, int h) {
   g_nutex_viewport.MinZ = 0.0f;
   g_nutex_viewport.MaxZ = 1.0f;
   D3DUnk00531110(&g_nutex_viewport);
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_nutex_pc(f32 *v, f32 a, i32 i) {
+  v[2] = NuFabs(a);
+  v[0] = NuSinApprox(i);
+  v[1] = NuCosApprox(i);
+  NuVec4Set(v, a, a, a, a);
+  NuVecScaleInline(v + 8, v, a);
 }

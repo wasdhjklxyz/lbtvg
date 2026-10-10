@@ -288,7 +288,12 @@ void NuSoundUnk00535360(const float *pos, int chan, int vol, int p4, int p5,
 // FUNCTION: LEGOBATMAN 0x00535b60
 extern "C" void NuSoundAddRumble() {}
 
+#include "../../nu2api/numath/nuinline_unk.h"
 #include <stdio.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00533c70
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 void Unk00533c60();
 
@@ -300,3 +305,7 @@ extern "C" void NuSoundStopStereo(int id) {
   (id == g_nuSoundUnk009e6de0 ? g_nuSoundObjs[0] : g_nuSoundObjs[1])
       ->Unk005398d0();
 }
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_nusound(f32 *v, f32 a, i32 i) { NuVec4Set(v, a, a, a, a); }

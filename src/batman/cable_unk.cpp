@@ -1,7 +1,17 @@
 // batman/, file unknown: tow cable (0x00416460).
 
 #include "../gameapi/sfx_unk.h"
+#include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
 #include "worldinfo_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00415fe0
+static f32 NuFdiv(f32 a, f32 b);
+// FUNCTION: LEGOBATMAN 0x00416030
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x004160f0
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 // CABLE_s after ref/saga/src/legoapi/legoapi_types.h; Batman's layout is
 // wider (points at +0x14, velocities at +0xd8, byte flags at +0x1f9).
@@ -51,4 +61,12 @@ void ReleaseCable(CABLE_s *cable, int snap) {
   cable->target = 0;
   for (i = 0; i < cable->point_count; i++)
     cable->velocities[i].x = 0.0f;
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_cable_unk(f32 *v, f32 a, i32 i) {
+  v[3] = NuFdiv(a, v[4]);
+  v[0] = NuSinApprox(i);
+  NuVec4Set(v, a, a, a, a);
 }

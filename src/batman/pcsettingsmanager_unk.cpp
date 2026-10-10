@@ -2,6 +2,11 @@
 // between pcbatman.cpp and pcapi.cpp by link order, file name unproven.
 
 #include "../nu2api/nucore/common.h"
+#include "../nu2api/numath/nuinline_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x005240e0
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 typedef struct nufpar_s NUFPAR;
 
@@ -299,4 +304,10 @@ void PCSettingsManager::xReadUseHiresPending(NUFPAR *parser) {
 // FUNCTION: LEGOBATMAN 0x00524b40
 void PCSettingsManager::xReadForceShaderModel(NUFPAR *parser) {
   g_PCSettings.force_shader_model = NuFParGetIntRDP(parser);
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_pcsettingsmanager_unk(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
 }

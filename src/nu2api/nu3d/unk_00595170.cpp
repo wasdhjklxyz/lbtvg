@@ -3,6 +3,11 @@
 // (vtable 0x868708 slot 1), 0x595130..0x5951d8.
 
 #include "../nucore/common.h"
+#include "../numath/nuinline_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00595080
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 void NuHeapDestroy(void *heap);
 void *NuHeapAllocAligned(void *heap, i32 size, i32 align);
@@ -44,3 +49,9 @@ void NuFmvBuffer::Free(void *ptr) {
 
 // FUNCTION: LEGOBATMAN 0x005951d0
 bool NuFmvStream::ReOpen(char const *name) { return false; }
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_unk_00595170(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
+}

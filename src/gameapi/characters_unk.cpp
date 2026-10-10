@@ -2,6 +2,11 @@
 
 #include "../nu2api/nucore/common.h"
 #include "../nu2api/nucore/nustring.h"
+#include "../nu2api/numath/nuinline_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x0061f0e0
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 typedef struct CHARACTERDATA_s {
   u32 pad0[3];
@@ -95,4 +100,10 @@ void DrawHose(GameObject_s *object) {
     DrawHoseEx(obj->p54->data, (numtx_s *)obj->locator_mtx, mtl,
                obj->hose_width);
   }
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_characters_unk(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
 }

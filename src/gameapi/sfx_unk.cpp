@@ -18,7 +18,19 @@ typedef struct WORLDINFO_s {
 i32 NuFileExists(char *name);
 void SpecialSfxLoad(char *path, WORLDINFO *world);
 
+#include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
 #include "../nu2api/numath/nuvec.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00674bd0
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
+// FUNCTION: LEGOBATMAN 0x00676300
+static f32 NuFabs(f32 f);
+// FUNCTION: LEGOBATMAN 0x00676320
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x006763c0
+static f32 NuCosApprox(i32 angle);
 
 void PlaySfxByIdEx(i32 sfx_id, nuvec_s *position, f32 volume, f32 pitch);
 
@@ -269,4 +281,13 @@ void WorldMapBase::InitializeLevel(WORLDINFO_s *world) {
         pointer_mtls[i] = NuSpecialGetMtl(&special, 0);
     }
   }
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_sfx_unk(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
+  v[2] = NuFabs(a);
+  v[0] = NuSinApprox(i);
+  v[1] = NuCosApprox(i);
 }

@@ -5,6 +5,11 @@
 // slots 6..8, RenderThings 9, DisplayThings 10, EffectsThings 11).
 
 #include "../nu2api/nucore/common.h"
+#include "../nu2api/numath/nuinline_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00590be0
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 struct ThingRemoveData;
 struct ThingLevelData;
@@ -235,4 +240,10 @@ void ThingManager::EffectsThings(ThingRenderData *data) {
         Unk00717880(timer, 5);
     }
   }
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_unk_005912b0(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
 }

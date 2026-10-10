@@ -2,6 +2,11 @@
 // reached through the Backdrop_ keyword table.
 
 #include "../nu2api/nucore/common.h"
+#include "../nu2api/numath/nuinline_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00657e40
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 typedef struct nufpar_s NUFPAR;
 
@@ -179,4 +184,10 @@ void Backdrop_useBB(NUFPAR *parser) {
 // FUNCTION: LEGOBATMAN 0x006581e0
 void Backdrop_deletedist(NUFPAR *parser) {
   g_unk00ad1bfc->delete_dist = NuFParGetFloat(parser);
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_backdrop_unk(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
 }

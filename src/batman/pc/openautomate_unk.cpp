@@ -4,10 +4,15 @@
 // the OA runtime filled in. C++ (the Mac's static Cleanup is mangled), with
 // the oa* API extern "C".
 
+#include "../../nu2api/numath/nuinline_unk.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <windows.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00532960
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 typedef int oaBool;
 typedef double oaFloat;
@@ -348,4 +353,10 @@ extern "C" oaBool oaInit(const oaChar *init_str, oaVersion *version) {
   *version = g_oaVersion;
   g_oaInitialized = 1;
   return 1;
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_openautomate_unk(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
 }

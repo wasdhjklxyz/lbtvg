@@ -3,6 +3,26 @@
 // nuprocesscolourfilter_gen.cpp anchor at 0x701e80; unproven.
 
 #include "../nucore/common.h"
+#include "../numath/nuinline_unk.h"
+#include "../numath/nutrig_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x006fcf30
+static f32 NuFabs(f32 f);
+// FUNCTION: LEGOBATMAN 0x006fcf50
+static f32 NuFdiv(f32 a, f32 b);
+// FUNCTION: LEGOBATMAN 0x006fcf90
+static f32 NuFsign(f32 f);
+// FUNCTION: LEGOBATMAN 0x006fd120
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x006fd1c0
+static f32 NuCosApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x006fd400
+static void NuVec4Copy(f32 *dst, f32 *src);
+// FUNCTION: LEGOBATMAN 0x006fd420
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
+// FUNCTION: LEGOBATMAN 0x006fd490
+static void NuVecScaleInline(f32 *dst, f32 *src, f32 s);
 
 struct nueffecttex_s;
 
@@ -88,4 +108,17 @@ void NuMainFilterGen::reset() {
   u54 = 0;
   motion_blur_enabled = false;
   active_filter_count = 0;
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_numainfilter_gen_unk(f32 *v, f32 a, i32 i) {
+  v[2] = NuFabs(a);
+  v[3] = NuFdiv(a, v[4]);
+  v[5] = NuFsign(a);
+  v[0] = NuSinApprox(i);
+  v[1] = NuCosApprox(i);
+  NuVec4Copy(v + 4, v);
+  NuVec4Set(v, a, a, a, a);
+  NuVecScaleInline(v + 8, v, a);
 }

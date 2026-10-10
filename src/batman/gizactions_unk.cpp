@@ -99,7 +99,17 @@ void GizActions_PlayRadio(GIZFLOW_s *flow, FLOWBOX_s *box, char **args,
     PlayRadio(special, blowup, loop);
 }
 
+#include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
 #include "worldinfo_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00486010
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x004860d0
+static f32 NuCosApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x004860f0
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 struct GAMEANIMOBJ_s {
   GAMEANIMOBJ_s *next; // 0x00
@@ -290,4 +300,12 @@ void GizActions_HitBlowup(GIZFLOW_s *flow, FLOWBOX_s *box, char **params,
     break;
   }
   }
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_gizactions_unk(f32 *v, f32 a, i32 i) {
+  v[0] = NuSinApprox(i);
+  v[1] = NuCosApprox(i);
+  NuVec4Set(v, a, a, a, a);
 }

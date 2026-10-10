@@ -132,7 +132,15 @@ void Text_InitStringTable(i32 count, variptr_u *buf, variptr_u *) {
   buf->addr += flags_size;
 }
 
+#include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
 #include "../nu2api/numath/nuvec.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00408700
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
+// FUNCTION: LEGOBATMAN 0x005a0fa0
+static f32 NuSinApprox(i32 angle);
 
 struct TIMER_s {
   union {
@@ -285,4 +293,11 @@ void ResetTimer(TIMER *timer, f32 reset_time) {
   timer->time_elapsed = reset_time;
   timer->time_elapsed_mod_seconds = NuFmod(reset_time, 1.0f);
   timer->update_count = 0;
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_text_unk(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
+  v[0] = NuSinApprox(i);
 }

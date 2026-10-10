@@ -1,8 +1,20 @@
 // gameapi/gamepads_unk.cpp: placed by tools/new.py; file name unproven.
 
 #include "../nu2api/nucore/common.h"
+#include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
 #include "../nu2api/numath/nuvec.h"
 #include <string.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x0059ef50
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
+// FUNCTION: LEGOBATMAN 0x005a1650
+static f32 NuFabs(f32 f);
+// FUNCTION: LEGOBATMAN 0x005a2970
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x005a2a10
+static f32 NuCosApprox(i32 angle);
 
 typedef struct nupad_s nupad_s;
 
@@ -912,4 +924,13 @@ TECHNO *Technos_FindControllingTechno(GameObject_s *object) {
     }
   }
   return 0;
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_gamepads_unk(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
+  v[2] = NuFabs(a);
+  v[0] = NuSinApprox(i);
+  v[1] = NuCosApprox(i);
 }

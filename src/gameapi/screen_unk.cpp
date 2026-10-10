@@ -2,6 +2,16 @@
 // (NeedScreenGrab, DrawStillScreen), 0x5a5990..
 
 #include "../nu2api/nucore/common.h"
+#include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x005a3aa0
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x005a3b40
+static f32 NuCosApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x005a3b50
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 struct numtl_s;
 
@@ -50,4 +60,12 @@ void DrawStillScreen(i32 clear) {
                     0.0f, 0.0f, 1.0f, 1.0f, 0x80808080, pause_rndr_mtl);
   }
   NuRndrEndScene();
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_screen_unk(f32 *v, f32 a, i32 i) {
+  v[0] = NuSinApprox(i);
+  v[1] = NuCosApprox(i);
+  NuVec4Set(v, a, a, a, a);
 }

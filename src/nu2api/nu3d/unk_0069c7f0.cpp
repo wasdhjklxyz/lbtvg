@@ -2,6 +2,11 @@
 // HLSLShaderBuilder::*), buildHeader overloads.
 
 #include "../nucore/common.h"
+#include "../numath/nuinline_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x0069ae20
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 struct nushadermtldesc_s;
 struct numtl_s;
@@ -57,4 +62,10 @@ void HLSLShaderBuilder::buildHeader(ShaderMtlDescFilter const *filter,
   interp.addSymbol("BUILD_PIXEL_SHADER", 0, false);
   interp.addSymbol("HLSL_LANGUAGE", 0, false);
   interp.addSymbol("COLOR_FACTOR", "2.0", true);
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_unk_0069c7f0(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
 }

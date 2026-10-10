@@ -3,8 +3,13 @@
 // HubEpisodeInfo_Set, _Get, _Init, _FindFromEpisodeIndex).
 
 #include "../batman/worldinfo_unk.h"
+#include "../nu2api/numath/nuinline_unk.h"
 #include <stddef.h>
 #include <string.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00618070
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 struct nugspline_s {
   i16 len; // 0x00
@@ -358,4 +363,10 @@ i32 Hub_GetSelectAreaCamPos(nuvec_s *start, nuvec_s *next) {
       *next = g_unk00acb6c8->spline_ptr->pts[1];
   }
   return 1;
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_hubareainfo_unk(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
 }

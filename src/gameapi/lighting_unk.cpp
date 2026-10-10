@@ -3,8 +3,22 @@
 #include "../batman/worldinfo_unk.h"
 #include "../nu2api/nu3d/nuspecial.h"
 #include "../nu2api/nucore/common.h"
+#include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
 #include <stdio.h>
 #include <string.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x0063d930
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x0063d9d0
+static f32 NuCosApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x0063db60
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
+// FUNCTION: LEGOBATMAN 0x00641800
+static f32 NuFabs(f32 f);
+// FUNCTION: LEGOBATMAN 0x00641820
+static f32 NuFsign(f32 f);
 
 struct NuDynamicLight {
   static void destroy(NuDynamicLight *light);
@@ -197,4 +211,14 @@ void SuperCarry_PickUpBlowUp(GameObject_s *obj) {
   NewBuzzFrames(obj->p112c->pad0, 1, 0);
   GameAudio_PlaySfx(0x92, &SUPERCARRY_OBJ(obj)->pos, 0, 0);
   PlayGruntSfx(obj);
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_lighting_unk(f32 *v, f32 a, i32 i) {
+  v[0] = NuSinApprox(i);
+  v[1] = NuCosApprox(i);
+  NuVec4Set(v, a, a, a, a);
+  v[2] = NuFabs(a);
+  v[5] = NuFsign(a);
 }

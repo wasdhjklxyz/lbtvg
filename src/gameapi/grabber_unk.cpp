@@ -20,6 +20,16 @@ i32 Grabber_IsActiveGrabber(GameObject_s *object) {
 }
 
 #include "../nu2api/nucore/nustring.h"
+#include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00600830
+static f32 NuCosApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x00600840
+static void NuVec4Copy(f32 *dst, f32 *src);
+// FUNCTION: LEGOBATMAN 0x00600860
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 typedef struct nufpar_s {
   u8 pad0[0x910];
@@ -202,3 +212,11 @@ void Grab_sfx(NUFPAR *parser) {
 
 // FUNCTION: LEGOBATMAN 0x00600e80
 void Grab_drop_when_disabled(NUFPAR *parser) { Grab_grabber->flags |= 0x1000; }
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_grabber_unk(f32 *v, f32 a, i32 i) {
+  v[1] = NuCosApprox(i);
+  NuVec4Copy(v + 4, v);
+  NuVec4Set(v, a, a, a, a);
+}

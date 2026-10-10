@@ -2,7 +2,17 @@
 
 #include "../nu2api/nu3d/nuspecial.h"
 #include "../nu2api/nucore/nustring.h"
+#include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
 #include "worldinfo_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x004a6270
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x004a6330
+static f32 NuCosApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x004a6470
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 // Episode data entries indexed by WORLDINFO_s::i2974; bit 0 of +0x1b
 // selects hero vs villain.
@@ -78,4 +88,12 @@ void Credits_LoadImages(WORLDINFO_s *wi) {
   else
     NuStrCat(name, "_2.gsc");
   wi->scn148 = NuGScnRead(&wi->buf104, wi->bufEnd108, name);
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_credits_unk(f32 *v, f32 a, i32 i) {
+  v[0] = NuSinApprox(i);
+  v[1] = NuCosApprox(i);
+  NuVec4Set(v, a, a, a, a);
 }

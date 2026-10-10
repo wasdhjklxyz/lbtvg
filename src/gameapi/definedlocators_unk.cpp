@@ -3,6 +3,20 @@
 
 #include "../nu2api/nucore/common.h"
 #include "../nu2api/nucore/nustring.h"
+#include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x006207a0
+static f32 NuFabs(f32 f);
+// FUNCTION: LEGOBATMAN 0x006207c0
+static f32 NuFdiv(f32 a, f32 b);
+// FUNCTION: LEGOBATMAN 0x00620800
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x006208a0
+static f32 NuCosApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x006208b0
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 // GLOBAL: LEGOBATMAN 0x00acd768
 extern char **DefinedLocatorNames;
@@ -100,3 +114,13 @@ static i32 RedirectTextFile(char *text, char *filename, i32 strip_comments) {
     return result;
 }
 #endif
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_definedlocators_unk(f32 *v, f32 a, i32 i) {
+  v[2] = NuFabs(a);
+  v[3] = NuFdiv(a, v[4]);
+  v[0] = NuSinApprox(i);
+  v[1] = NuCosApprox(i);
+  NuVec4Set(v, a, a, a, a);
+}

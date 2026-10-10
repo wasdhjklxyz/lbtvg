@@ -1,8 +1,22 @@
 // gameapi/techno_unk.cpp: placed by tools/new.py; file name unproven.
 
 #include "../nu2api/nu3d/nuspecial.h"
+#include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
 #include "gameobject_unk.h"
 #include <stdio.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x005a8c90
+static f32 NuFabs(f32 f);
+// FUNCTION: LEGOBATMAN 0x005a8cb0
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x005a8d50
+static f32 NuCosApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x005a8d60
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
+// FUNCTION: LEGOBATMAN 0x005a8dc0
+static void NuVecScaleInline(f32 *dst, f32 *src, f32 s);
 
 struct TECHNO_s {
   u8 pad0[0x83];
@@ -99,4 +113,14 @@ void InitGrappleMtls(variptr_u *buffer, variptr_u *buffer_end) {
       }
     }
   }
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_techno_unk(f32 *v, f32 a, i32 i) {
+  v[2] = NuFabs(a);
+  v[0] = NuSinApprox(i);
+  v[1] = NuCosApprox(i);
+  NuVec4Set(v, a, a, a, a);
+  NuVecScaleInline(v + 8, v, a);
 }

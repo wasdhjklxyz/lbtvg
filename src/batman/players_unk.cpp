@@ -2,7 +2,25 @@
 // legoapi/characters/core/players.cpp.
 
 #include "../gameapi/ai/aisys_unk.h"
+#include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
 #include "worldinfo_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x005bba70
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
+// FUNCTION: LEGOBATMAN 0x005bd700
+static f32 NuFabs(f32 f);
+// FUNCTION: LEGOBATMAN 0x005be5d0
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x005be670
+static f32 NuCosApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x005c3660
+static f32 NuFsign(f32 f);
+// FUNCTION: LEGOBATMAN 0x005c38a0
+static void NuVec4Copy(f32 *dst, f32 *src);
+// FUNCTION: LEGOBATMAN 0x005c3920
+static void NuVecScaleInline(f32 *dst, f32 *src, f32 s);
 
 // GLOBAL: LEGOBATMAN 0x00a95fe0
 extern f32 FRAMETIME;
@@ -889,4 +907,16 @@ void InteractiveDisplay::RenderSquare(VuVec const &pos, f32 size,
                                       u32 const &colour, numtl_s *mtl,
                                       f32 depth) const {
   RenderRectangle(pos, size, size, colour, mtl, depth);
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_players_unk(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
+  v[2] = NuFabs(a);
+  v[0] = NuSinApprox(i);
+  v[1] = NuCosApprox(i);
+  v[5] = NuFsign(a);
+  NuVec4Copy(v + 4, v);
+  NuVecScaleInline(v + 8, v, a);
 }

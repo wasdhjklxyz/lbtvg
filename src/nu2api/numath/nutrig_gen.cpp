@@ -2,6 +2,11 @@
 // __FILE__ anchor (0x0068fed0).
 
 #include "../nucore/common.h"
+#include "./nutrig_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x0068f4c0
+static f32 NuSinApprox(i32 angle);
 
 // LUT helpers (static in saga nutrig.cpp); their own bodies are not matched
 // yet.
@@ -39,3 +44,7 @@ i32 NuAtan2DA(f32 dx, f32 dy) {
     return 0x8000 - fxyda(dx, -dy);
   return fxyda(dx, dy);
 }
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_nutrig_gen(f32 *v, f32 a, i32 i) { v[0] = NuSinApprox(i); }

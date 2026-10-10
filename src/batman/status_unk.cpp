@@ -2,6 +2,20 @@
 
 #include "../gameapi/sfx_unk.h"
 #include "../nu2api/nucore/nustring.h"
+#include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00478110
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
+// FUNCTION: LEGOBATMAN 0x004781a0
+static f32 NuFabs(f32 f);
+// FUNCTION: LEGOBATMAN 0x004781c0
+static f32 NuFdiv(f32 a, f32 b);
+// FUNCTION: LEGOBATMAN 0x00478210
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x004782d0
+static f32 NuCosApprox(i32 angle);
 
 struct STATUS_STAGE_s {
   u8 pad0[0x20];
@@ -101,4 +115,14 @@ void GizAction_SetAIMessage(GIZFLOW_s *flow, FLOWBOX_s *box, char **params,
     message->value = message->value - value;
     break;
   }
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_status_unk(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
+  v[2] = NuFabs(a);
+  v[3] = NuFdiv(a, v[4]);
+  v[0] = NuSinApprox(i);
+  v[1] = NuCosApprox(i);
 }

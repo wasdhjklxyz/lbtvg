@@ -250,6 +250,18 @@ i32 ParticlesPerSecond(f32 particles_per_second, f32 frame_time) {
 }
 
 #include "../nu2api/nucore/nustring.h"
+#include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00595ea0
+static f32 NuFabs(f32 f);
+// FUNCTION: LEGOBATMAN 0x00595ec0
+static f32 NuFdiv(f32 a, f32 b);
+// FUNCTION: LEGOBATMAN 0x00595f00
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x00595fa0
+static f32 NuCosApprox(i32 angle);
 
 struct APIDEBRISENTRY_s {
   i32 effect;      // 0x00
@@ -842,4 +854,13 @@ u32 ParseAnimStance(char *name, i32 alternate) {
   if (NuStrICmp(name, "right") == 0)
     return alternate != 0 ? 0x10000 : 0x80000;
   return alternate != 0 ? 0x4000 : 0x20000;
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_apiobject_unk(f32 *v, f32 a, i32 i) {
+  v[2] = NuFabs(a);
+  v[3] = NuFdiv(a, v[4]);
+  v[0] = NuSinApprox(i);
+  v[1] = NuCosApprox(i);
 }

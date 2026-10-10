@@ -1,3 +1,8 @@
+#include "../numath/nuinline_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x0067dce0
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 // nu2api/gamelib/listman_gen.cpp: __FILE__ anchor at 0x0067dd00 (NuLstCreate).
 
 // List node header is 16 bytes; user data follows it.
@@ -82,4 +87,10 @@ nulstnode_s *NuLstGetNext(nulst_s *list, nulstnode_s *node) {
     return list->head + 1;
   }
   return 0;
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_listman_gen(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
 }

@@ -4,7 +4,16 @@
 
 #include "../nu2api/nucore/common.h"
 #include "../nu2api/nucore/nustring.h"
+#include "../nu2api/numath/nuinline_unk.h"
 #include <string.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00678ba0
+static void NuVec4Copy(f32 *dst, f32 *src);
+// FUNCTION: LEGOBATMAN 0x00678bc0
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
+// FUNCTION: LEGOBATMAN 0x00678c30
+static void NuVecScaleInline(f32 *dst, f32 *src, f32 s);
 
 typedef struct nufpar_s {
   unsigned char pad0[0x910];
@@ -484,4 +493,12 @@ void WorldMapBase::Update(f32 dt) {
   UpdateLocationNodesScale(dt, 0);
   Unk00679170(dt);
   Unk006792c0(dt);
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_unk_00679840(f32 *v, f32 a, i32 i) {
+  NuVec4Copy(v + 4, v);
+  NuVec4Set(v, a, a, a, a);
+  NuVecScaleInline(v + 8, v, a);
 }

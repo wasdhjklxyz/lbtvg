@@ -4,9 +4,14 @@
 // (nuonline_pc), NuSet*MsgHandler, NuErrorProlog, NuSevereWarningProlog,
 // NuWarningProlog, NuDebugMsgProlog, NuDebugMsgPrologTTY.
 
+#include "../numath/nuinline_unk.h"
 #include "common.h"
 #include <stdarg.h>
 #include <stdio.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x006e25f0
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 class CNuConsole {
 public:
@@ -190,4 +195,10 @@ NuDebugTTYFunctionPtr NuDebugMsgPrologTTY(char *file, i32 line) {
   nufile = file;
   nuline = line;
   return NuDebugMsgFunctionTTY;
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_nuerror_unk(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
 }

@@ -203,7 +203,23 @@ i32 CoinsGoToMainTotal() {
 }
 
 #include "../nu2api/nu3d/nuspecial.h"
+#include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
 #include <stddef.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x005ed9b0
+static f32 NuFabs(f32 f);
+// FUNCTION: LEGOBATMAN 0x005ed9d0
+static f32 NuFdiv(f32 a, f32 b);
+// FUNCTION: LEGOBATMAN 0x005eda10
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x005edab0
+static f32 NuCosApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x005edac0
+static void NuVec4Copy(f32 *dst, f32 *src);
+// FUNCTION: LEGOBATMAN 0x005edae0
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 typedef struct nufpar_s {
   u8 pad0[0x910];
@@ -451,4 +467,15 @@ void PlayerItems_RemoveItem(GameObject_s *obj, PLAYERITEM_s *item, i32 drop) {
     NuListAppend((NULISTHDR *)((u8 *)obj + 0xb10), &item->link);
     Unk005f13d0(obj);
   }
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_playeritems_unk(f32 *v, f32 a, i32 i) {
+  v[2] = NuFabs(a);
+  v[3] = NuFdiv(a, v[4]);
+  v[0] = NuSinApprox(i);
+  v[1] = NuCosApprox(i);
+  NuVec4Copy(v + 4, v);
+  NuVec4Set(v, a, a, a, a);
 }

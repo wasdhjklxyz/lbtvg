@@ -4,7 +4,12 @@
 
 #include "../nu2api/nucore/common.h"
 #include "../nu2api/nucore/nustring.h"
+#include "../nu2api/numath/nuinline_unk.h"
 #include <new>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x0067a7f0
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 struct WORLDINFO_s;
 struct numtl_s;
@@ -131,4 +136,10 @@ i32 HiresTextureManager::GetTexture_Internal(char *name, WORLDINFO_s *world) {
   }
   NuSevereWarning(name);
   return 0;
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_unk_0067a810(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
 }

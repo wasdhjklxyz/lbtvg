@@ -3,8 +3,18 @@
 #include "../gameapi/gameobject_unk.h"
 #include "../gameapi/sfx_unk.h"
 #include "../nu2api/nucore/common.h"
+#include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
 #include "worldinfo_unk.h"
 #include <stddef.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x004f9c20
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x004f9ce0
+static f32 NuCosApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x004f9d00
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 // Both tables are 0x1c-byte entries tested at +0x9623cc / +0x96274c, 0x380
 // (32 entries) apart; the +4 flags offset (and so both bases) is assumed.
@@ -124,4 +134,12 @@ void PartUpdate_ThermalDetonator(PART_s *part) {
   if (!(part->flags148 & 0x8000) && part->radius + part->pos.y < water &&
       ((TerLayer[layer].flags & 9) || layer == 9))
     part->flags148 |= 0x8000;
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_thermaldetonators_unk(f32 *v, f32 a, i32 i) {
+  v[0] = NuSinApprox(i);
+  v[1] = NuCosApprox(i);
+  NuVec4Set(v, a, a, a, a);
 }

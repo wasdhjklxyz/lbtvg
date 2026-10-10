@@ -1,7 +1,14 @@
 // gameapi/cheats_unk.cpp: placed by tools/new.py; file name unproven.
 
 #include "../nu2api/nucore/common.h"
+#include "../nu2api/numath/nuinline_unk.h"
 #include "gameobject_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x005ce6f0
+static f32 NuFabs(f32 f);
+// FUNCTION: LEGOBATMAN 0x005ce710
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 typedef struct CHEAT_s {
   char *name; // 0x00
@@ -282,4 +289,11 @@ i32 CheatUnlocked(i32 cheat) {
   if (g_unk00abe2c0 != 0)
     return g_unk00abe2c0[cheat / 32] & (1 << (cheat & 31));
   return 0;
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_cheats_unk(f32 *v, f32 a, i32 i) {
+  v[2] = NuFabs(a);
+  NuVec4Set(v, a, a, a, a);
 }

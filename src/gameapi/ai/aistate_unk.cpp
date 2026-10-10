@@ -3,9 +3,29 @@
 
 #include "../../nu2api/nucore/common.h"
 #include "../../nu2api/nucore/nustring.h"
+#include "../../nu2api/numath/nuinline_unk.h"
+#include "../../nu2api/numath/nutrig_unk.h"
 #include "aisys_unk.h"
 #include <stddef.h>
 #include <string.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x006a10d0
+static f32 NuFabs(f32 f);
+// FUNCTION: LEGOBATMAN 0x006a10f0
+static f32 NuFdiv(f32 a, f32 b);
+// FUNCTION: LEGOBATMAN 0x006a1150
+static f32 NuFsign(f32 f);
+// FUNCTION: LEGOBATMAN 0x006a12c0
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x006a1360
+static f32 NuCosApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x006a1380
+static void NuVec4Copy(f32 *dst, f32 *src);
+// FUNCTION: LEGOBATMAN 0x006a13a0
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
+// FUNCTION: LEGOBATMAN 0x006a1400
+static void NuVecScaleInline(f32 *dst, f32 *src, f32 s);
 
 // FUNCTION: LEGOBATMAN 0x006a1950
 AISTATE *AIStateFind(char *name, AISCRIPT *script) {
@@ -195,4 +215,17 @@ void AISysRegisterPathCnxType(char *name, char *short_name, u32 connection_flag,
   type->connection_flag = connection_flag;
   type->context = context;
   type->flags = flags;
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_aistate_unk(f32 *v, f32 a, i32 i) {
+  v[2] = NuFabs(a);
+  v[3] = NuFdiv(a, v[4]);
+  v[5] = NuFsign(a);
+  v[0] = NuSinApprox(i);
+  v[1] = NuCosApprox(i);
+  NuVec4Copy(v + 4, v);
+  NuVec4Set(v, a, a, a, a);
+  NuVecScaleInline(v + 8, v, a);
 }

@@ -1,6 +1,7 @@
 // batman/cnuconsole_unk.cpp: placed by tools/new.py; file name unproven.
 
 #include "../nu2api/nucore/common.h"
+#include "../nu2api/numath/nuinline_unk.h"
 #include <signal.h>
 #include <stdarg.h>
 #include <stddef.h>
@@ -8,6 +9,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <windows.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x0052e510
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 class CNuConsole {
 public:
@@ -167,4 +172,10 @@ void CNuConsole::Initialize() {
     if (output != NULL)
       FUN_006d3520(output, "-- Log Started --\n\n");
   }
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_cnuconsole_unk(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
 }

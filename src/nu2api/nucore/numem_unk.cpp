@@ -1,7 +1,12 @@
 // nu2api/nucore/numem_unk.cpp: between nufile_gen.cpp (0x006e0830) and
 // nufile_pc.cpp (0x006e3430).
 
+#include "../numath/nuinline_unk.h"
 #include "common.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x006e1bc0
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 void *NuFilePakLoadKeyPrePad(char *filepath, VARIPTR *buf, VARIPTR buf_end,
                              i32 alignment, unsigned char *key, u32 key_len,
@@ -155,4 +160,10 @@ NUMEMDISCARDABLE *NuMemCreateDiscardable(i32 size) {
 // FUNCTION: LEGOBATMAN 0x006e2580
 void NuMemDestroyDiscardable(NUMEMDISCARDABLE *buffer) {
   NuMemFreeFn(buffer, __FILE__, 0x8a);
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_numem_unk(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
 }
