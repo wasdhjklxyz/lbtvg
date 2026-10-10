@@ -1430,10 +1430,16 @@ typedef struct nufpar_s {
   char *file_buf;        // 0x00
   int file_handle;       // 0x04
   char file_name[0x100]; // 0x08
-  unsigned char pad108[0x924 - 0x108];
-  int char_pos;  // 0x924
-  int buf_start; // 0x928
-  int buf_end;   // 0x92c
+  unsigned char pad108[0x90c - 0x108];
+  char *line_buf;    // 0x90c
+  char *word_buf;    // 0x910
+  int line_buf_size; // 0x914
+  int word_buf_size; // 0x918
+  int line_num;      // 0x91c
+  int line_pos;      // 0x920
+  int char_pos;      // 0x924
+  int buf_start;     // 0x928
+  int buf_end;       // 0x92c
   unsigned char pad930[0x974 - 0x930];
   int size; // 0x974
 } NUFPAR;
@@ -2652,4 +2658,90 @@ unsigned short NuGetWChar(NUFPAR *parser) {
   hi = NuGetChar(parser);
   c = lo + (hi << 8);
   return c;
+}
+
+// FUNCTION: LEGOBATMAN 0x006df6f0
+int NuFParGetLineW(NUFPAR *parser) {
+  unsigned short c;
+  int len;
+  unsigned short *line;
+  int at_end_of_line;
+  int is_done;
+  int in_quoted_text;
+
+  in_quoted_text = 0;
+  line = (unsigned short *)parser->line_buf;
+  len = 0;
+  parser->line_pos = 0;
+  parser->line_num++;
+  is_done = 0;
+
+  do {
+    c = NuGetWChar(parser);
+    switch (c) {
+    case '\r':
+      NuGetWChar(parser);
+    case '\n':
+      if (len == 0 || !is_done) {
+        parser->line_num++;
+        is_done = 0;
+        break;
+      }
+    case '\0':
+      line[len] = '\0';
+      return len;
+    case '"':
+      in_quoted_text = 1 - in_quoted_text;
+      is_done = 1;
+      line[len & ((parser->word_buf_size >> 1) - 1)] = c;
+      len++;
+      break;
+    case ';':
+      if (!in_quoted_text) {
+        if (len == 0 || !is_done) {
+          at_end_of_line = 0;
+          do {
+            c = NuGetWChar(parser);
+            switch (c) {
+            case '\r':
+              NuGetWChar(parser);
+            case '\n':
+            case '\0':
+              at_end_of_line = 1;
+              break;
+            default:
+              break;
+            }
+          } while (!at_end_of_line);
+          len = 0;
+          parser->line_pos = 0;
+          parser->line_num++;
+          is_done = 0;
+        } else {
+          do {
+            c = NuGetWChar(parser);
+            switch (c) {
+            case '\r':
+              NuGetWChar(parser);
+            case '\n':
+            case '\0':
+              line[len] = '\0';
+              return len;
+            default:
+              break;
+            }
+          } while (1);
+          return len;
+        }
+        break;
+      }
+    default:
+      is_done = 1;
+    case '\t':
+    case ' ':
+      line[len & ((parser->word_buf_size >> 1) - 1)] = c;
+      len++;
+      break;
+    }
+  } while (1);
 }

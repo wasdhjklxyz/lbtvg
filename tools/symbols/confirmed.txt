@@ -3416,3 +3416,4 @@
 006db510 get_tok_rdpi saga nurdpi.cpp static tokenizer
 006df630 NuGetChar saga nufpar.cpp body (buffered parser read)
 006df6c0 NuGetWChar saga nufpar.cpp body (two NuGetChar bytes, little endian)
+006df6f0 NuFParGetLineW saga nufpar.cpp body (NuGetWChar inlined)
