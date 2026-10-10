@@ -17,6 +17,7 @@ void Unk_InlineUser_00662a10(f32 *v, f32 a, i32 i) { NuVec4Set(v, a, a, a, a); }
 
 #include "../batman/leveldata_unk.h"
 #include "../batman/worldinfo_unk.h"
+#include "../nu2api/nu3d/nuspecial.h"
 #include <stddef.h>
 #include <string.h>
 
@@ -107,6 +108,47 @@ char *GizSpecial_GetGizmoName(GIZMO *gizmo) {
   return NULL;
 }
 
+typedef struct GAMEANIMSETSPECIAL_s {
+  u8 pad0[4];
+  nuhspecial_s special; // 0x04
+} GAMEANIMSETSPECIAL;
+
+typedef struct GAMEANIMSET_s {
+  u8 pad0[8];
+  u8 loaded; // 0x08
+  u8 pad9;
+  u8 flags; // 0x0a
+  u8 padb[0x18 - 0xb];
+  i32 state; // 0x18
+  u8 pad1c[0x24 - 0x1c];
+  GAMEANIMSETSPECIAL *anim; // 0x24
+} GAMEANIMSET;
+
+int NuSpecialExistsFn(nuhspecial_s *sp);
+void GameAnimSet_EvaluateState(GAMEANIMSET *set);
+
+// FUNCTION: LEGOBATMAN 0x00662ca0
+i32 GizSpecial_GetOutput(GIZMO *gizmo, i32 output, i32 query) {
+  if (gizmo != NULL) {
+    GIZSPECIAL *special = (GIZSPECIAL *)gizmo->object;
+    if (special != NULL) {
+      GAMEANIMSET *set = (GAMEANIMSET *)special->anim_set;
+      if (set->loaded && NuSpecialExistsFn(&set->anim->special) &&
+          (special->is_active || query != 0)) {
+        if (!(((GAMEANIMSET *)special->anim_set)->flags & 4))
+          GameAnimSet_EvaluateState((GAMEANIMSET *)special->anim_set);
+        switch (output) {
+        case 0:
+          return ((GAMEANIMSET *)special->anim_set)->state == 2;
+        case 1:
+          return ((GAMEANIMSET *)special->anim_set)->state != 0;
+        }
+      }
+    }
+  }
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x00662d20
 char *GizSpecial_GetOutputName(GIZMO *gizmo, i32 output_index) {
   switch (output_index) {
@@ -166,6 +208,41 @@ void GizSpecial_SetVisibility(GIZMO *gizmo, i32 visibility) {
   }
 }
 
+nuvec_s *NuSpecialGetPos(nuhspecial_s *sp);
+GIZMO *GizmoFindByName(GIZMOSYS_s *gizmo_sys, i32 type_id, char *name);
+
+// FUNCTION: LEGOBATMAN 0x00662e40
+nuvec_s *GizSpecial_GetPos(GIZMO *gizmo) {
+  if (gizmo != NULL) {
+    GIZSPECIAL *special = (GIZSPECIAL *)gizmo->object;
+    if (special != NULL && ((GAMEANIMSET *)special->anim_set)->loaded &&
+        NuSpecialExistsFn(&((GAMEANIMSET *)special->anim_set)->anim->special))
+      return NuSpecialGetPos(
+          &((GAMEANIMSET *)special->anim_set)->anim->special);
+    return NULL;
+  }
+  return NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x00662e90
+i32 GizSpecial_UsingSpecial(GIZMO **out, void *world_ptr, i32 max, char *name) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  i32 count = 0;
+  if (world == NULL || world->giz_special_sys->specials == NULL)
+    return 0;
+  for (i32 i = 0; i < world->giz_special_sys->count; i++) {
+    if (world->giz_special_sys->specials[i].anim_set != NULL) {
+      GIZSPECIAL *special = &world->giz_special_sys->specials[i];
+      if (NuStrICmp(name, special->name) == 0) {
+        out[count++] = GizmoFindByName(world->gizmoSys2b0c, -1, special->name);
+        if (count == max)
+          return -1;
+      }
+    }
+  }
+  return count;
+}
+
 // FUNCTION: LEGOBATMAN 0x00662f20
 void GizSpecial_Reset(void *world_ptr, void *unused, void *progress_ptr) {
   WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
@@ -223,8 +300,6 @@ void GizSpecial_StoreProgress(void *world_ptr, void *unused,
   }
 }
 
-i32 GizSpecial_GetOutput(GIZMO *gizmo, i32 output_index, i32 include_inactive);
-nuvec_s *GizSpecial_GetPos(GIZMO *gizmo);
 i32 GizSpecial_UsingSpecial(GIZMO **result, void *world_ptr, i32 capacity,
                             char *name);
 void *GizSpecial_ReserveBuffer(void *world_ptr);
