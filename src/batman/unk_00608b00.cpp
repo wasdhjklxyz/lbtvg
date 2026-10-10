@@ -25,6 +25,7 @@ void Unk_InlineUser_00608b00(f32 *v, f32 a, i32 i) {
 // The rest of this TU is the Mac's PushBlocks file (.. PushBlocks
 // RegisterGizmo 0x60c5d0); callbacks named by their RegisterGizmo slot.
 
+#include "../nu2api/numath/numtx.h"
 #include "leveldata_unk.h"
 #include "worldinfo_unk.h"
 #include <stddef.h>
@@ -72,12 +73,11 @@ typedef struct PUSHBLOCK_s {
 } PUSHBLOCK;
 
 typedef struct PUSHBLOCKPROGRESS_s {
-  u32 a0[4]; // 0x00
-  i32 f10;   // 0x10
-  i32 f14;   // 0x14
-  i32 f18;   // 0x18
-  u8 a1c[0xdc - 0x1c];
-  u8 adc[0x180]; // 0xdc
+  u8 a0[0x10];        // 0x00, complete per block
+  u32 f10[1];         // 0x10, visible bits
+  u32 f14[1];         // 0x14, b25 bits
+  u32 f18[1];         // 0x18, stored bits
+  nuvec_s pos[3][16]; // 0x1c, block then its parts
 } PUSHBLOCKPROGRESS;
 
 typedef struct GIZMO_s {
@@ -237,16 +237,63 @@ void *PushBlocks_AllocateProgressData(VARIPTR *buf, VARIPTR *buf_end) {
 void PushBlocks_ClearProgress(void *world, void *progress_ptr) {
   PUSHBLOCKPROGRESS *progress = (PUSHBLOCKPROGRESS *)progress_ptr;
   if (progress != NULL) {
-    progress->f14 = 0;
-    progress->f10 = -1;
-    progress->f18 = 0;
-    memset(progress->a1c, 0, 0);
+    progress->f14[0] = 0;
+    progress->f10[0] = -1;
+    progress->f18[0] = 0;
+    memset(progress->pos[0], 0, 0);
     memset(progress->a0, 0, sizeof(progress->a0));
-    memset(progress->adc, 0, sizeof(progress->adc));
+    memset(progress->pos[1], 0, sizeof(progress->pos[1]) * 2);
   }
 }
 
-void PushBlocks_StoreProgress(void *world, void *unused, void *progress);
+// GLOBAL: LEGOBATMAN 0x00ab056c
+extern nuvec_s v000;
+
+int NuSpecialExistsFn(nuhspecial_s *sp);
+numtx_s *NuSpecialGetInstanceMtx(nuhspecial_s *special);
+
+// FUNCTION: LEGOBATMAN 0x0060bde0
+void PushBlocks_StoreProgress(void *world_ptr, void *unused,
+                              void *progress_ptr) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  PUSHBLOCKPROGRESS *progress = (PUSHBLOCKPROGRESS *)progress_ptr;
+  PUSHBLOCK *pb;
+  i32 i;
+  i32 j;
+  PushBlocks_ClearProgress(world, progress);
+  if (progress == NULL || world == NULL)
+    return;
+  pb = world->pushblocks;
+  if (pb == NULL)
+    return;
+  for (i = 0; i < world->pushblock_count; i++, pb++) {
+    if (i >= 16)
+      break;
+    i32 word = i / 32;
+    u32 bit = 1 << (i & 31);
+    if (!pb->visible)
+      progress->f10[word] &= ~bit;
+    if (pb->b25)
+      progress->f14[word] |= bit;
+    if (NuSpecialExistsFn(&pb->special))
+      progress->pos[0][i] =
+          *(nuvec_s *)&NuSpecialGetInstanceMtx(&pb->special)->m30;
+    else
+      progress->pos[0][i] = v000;
+    for (j = 0; j < pb->num_parts; j++) {
+      nuhspecial_s *sp = &pb->parts[j];
+      if (sp != NULL) {
+        if (NuSpecialExistsFn(sp))
+          progress->pos[j + 1][i] =
+              *(nuvec_s *)&NuSpecialGetInstanceMtx(sp)->m30;
+        else
+          progress->pos[j + 1][i] = v000;
+      }
+    }
+    progress->a0[i] = pb->complete;
+    progress->f18[word] |= bit;
+  }
+}
 void PushBlock_BoltHitPlat(void);
 // GLOBAL: LEGOBATMAN 0x00963070
 extern i32 g_unk00963070; // pushblock file version
