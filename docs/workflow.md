@@ -464,3 +464,11 @@ enough matched code for the percentage to mean something.
   range check that `&&` produces.
 - **The parser/version-in-a-register puzzle also shows as `eax` (ours) vs
   stack (original)** (GizmoPickups_FixDrawDistance/Load), not just `ebx`.
+- **`if (count == 0) { ...; return 1; } return 0;`** gives a separate
+  early-out epilogue; `if (!count) return 1;` merges the epilogues.
+- **`if (b) x = 1; if (!b) y = 1;`** extracts a bitfield into a register; one
+  `if`/`else` gives a plain test.
+- **Dead locals matter**: an unused `T *p = &arr[i];` flipped base/index order
+  in the addressing (Signals_Load).
+- **Same-TU register-convention statics mostly come out right** (edi in
+  Techno, esi in turret/obstacle); the size/parser-on-stack puzzle remains.
