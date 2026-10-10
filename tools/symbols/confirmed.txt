@@ -3614,3 +3614,4 @@
 006d55b0 DeadZoneValueXYProper saga nupad.cpp static (stub)
 006d5620 DeadZoneValueXY saga nupad.cpp static (stub)
 006d5880 NuPadProcessReadData saga nupad.cpp body, calls both deadzone statics and NuPadApplyCurve (CalcRamp) (stub)
+006d5ef0 NuPadRead saga nupad.cpp body (LB NUPAD layout)

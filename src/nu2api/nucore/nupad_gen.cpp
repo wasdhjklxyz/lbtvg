@@ -81,16 +81,55 @@ float g_nuPadUnk0adf6e0;
 // GLOBAL: LEGOBATMAN 0x00b03924
 short g_nuPadUnk0b03924; // CurrentStringBank
 
+// LB layout of NUPAD (saga nupad.h), from NuPadRead.
 typedef struct nupad_s {
   int port;  // 0x00
   int slot;  // 0x04
   int stage; // 0x08
-  unsigned char pad0c[0x90 - 0x0c];
-  unsigned char analog_right_x; // 0x90
-  unsigned char analog_right_y; // 0x91
-  unsigned char analog_left_x;  // 0x92
-  unsigned char analog_left_y;  // 0x93
-  unsigned char pad94[0xa4 - 0x94];
+  unsigned char unknown_0c[0x10 - 0xc];
+  int digital_left_x;
+  int digital_left_y;
+  int digital_right_x;
+  int digital_right_y;
+  float left_x_normal;
+  float left_y_normal;
+  float left_x_unknown;
+  float left_y_unknown;
+  float left_x_unknown2;
+  float left_y_unknown2;
+  float right_x_normal;
+  float right_y_normal;
+  float right_x_unknown;
+  float right_y_unknown;
+  float right_x_unknown2;
+  float right_y_unknown2;
+  unsigned char unknown_50[0x70 - 0x50];
+  unsigned int digital_buttons;
+  unsigned int digital_buttons_prev;
+  unsigned int digital_buttons_pressed;
+  unsigned int digital_buttons_released;
+  int has_analog_sticks : 1;
+  int has_analog_buttons : 1;
+  int is_valid : 1;
+  unsigned char unknown_84[0x88 - 0x84];
+  char deadzone;
+  unsigned char unknown_89[0x90 - 0x89];
+  unsigned char analog_right_x;
+  unsigned char analog_right_y;
+  unsigned char analog_left_x;
+  unsigned char analog_left_y;
+  unsigned char analog_left_pad_right;
+  unsigned char analog_left_pad_left;
+  unsigned char analog_left_pad_up;
+  unsigned char analog_left_pad_down;
+  unsigned char unknown_98[0x9c - 0x98];
+  unsigned char analog_l1;
+  unsigned char analog_r1;
+  unsigned char analog_l2;
+  unsigned char analog_r2;
+  unsigned char unknown_b0;
+  unsigned char unknown_b1;
+  unsigned char unknown_a2[0xa4 - 0xa2];
 } NUPAD;
 
 extern "C" void *NuMemAllocFn(int size, const char *file, int line);
@@ -3888,6 +3927,73 @@ void NuPadProcessReadData(NUGENERICPAD *pad) {
     pad->unknown_82 = 0x7f;
     pad->unknown_83 = 0x7f;
   }
+}
+
+// FUNCTION: LEGOBATMAN 0x006d5ef0
+int NuPadRead(NUPAD *pad) {
+  int port;
+
+  if (g_nuPadUnk0aecb64[pad->port].value != -1 ||
+      (g_nuPadUnk0b038f4 && ((NUGENERICPAD *)g_nuPads)[pad->port].is_valid)) {
+    if (g_nuPadUnk0b038f4 != 0)
+      port = pad->port;
+    else
+      port = g_nuPadUnk0aecb64[pad->port].value;
+
+    pad->analog_left_x = ((NUGENERICPAD *)g_nuPads)[port].analog_left_x;
+    pad->analog_left_y = ((NUGENERICPAD *)g_nuPads)[port].analog_left_y;
+    pad->analog_right_x = ((NUGENERICPAD *)g_nuPads)[port].analog_right_x;
+    pad->analog_right_y = ((NUGENERICPAD *)g_nuPads)[port].analog_right_y;
+    pad->analog_l1 = ((NUGENERICPAD *)g_nuPads)[port].analog_l1;
+    pad->analog_l2 = ((NUGENERICPAD *)g_nuPads)[port].analog_l2;
+    pad->analog_r1 = ((NUGENERICPAD *)g_nuPads)[port].analog_r1;
+    pad->analog_r2 = ((NUGENERICPAD *)g_nuPads)[port].analog_r2;
+    pad->digital_buttons = ((NUGENERICPAD *)g_nuPads)[port].digital_buttons;
+    pad->digital_buttons_pressed =
+        ((NUGENERICPAD *)g_nuPads)[port].digital_buttons_pressed;
+    pad->digital_buttons_released =
+        ((NUGENERICPAD *)g_nuPads)[port].digital_buttons_released;
+    pad->digital_buttons_prev =
+        ((NUGENERICPAD *)g_nuPads)[port].digital_buttons_prev;
+    pad->has_analog_buttons =
+        ((NUGENERICPAD *)g_nuPads)[port].analog_button_flags;
+    pad->deadzone = ((NUGENERICPAD *)g_nuPads)[port].deadzone;
+    pad->digital_left_x = ((NUGENERICPAD *)g_nuPads)[port].digital_left_x;
+    pad->digital_left_y = ((NUGENERICPAD *)g_nuPads)[port].digital_left_y;
+    pad->digital_right_x = ((NUGENERICPAD *)g_nuPads)[port].digital_right_x;
+    pad->digital_right_y = ((NUGENERICPAD *)g_nuPads)[port].digital_right_y;
+    pad->left_x_normal = ((NUGENERICPAD *)g_nuPads)[port].left_x_normal;
+    pad->left_y_normal = ((NUGENERICPAD *)g_nuPads)[port].left_y_normal;
+    pad->left_x_unknown = ((NUGENERICPAD *)g_nuPads)[port].left_x_unknown;
+    pad->left_y_unknown = ((NUGENERICPAD *)g_nuPads)[port].left_y_unknown;
+    pad->left_x_unknown2 = ((NUGENERICPAD *)g_nuPads)[port].left_x_unknown2;
+    pad->left_y_unknown2 = ((NUGENERICPAD *)g_nuPads)[port].left_y_unknown2;
+    pad->right_x_unknown2 = ((NUGENERICPAD *)g_nuPads)[port].right_x_unknown2;
+    pad->right_y_unknown2 = ((NUGENERICPAD *)g_nuPads)[port].right_y_unknown2;
+    pad->right_x_normal = ((NUGENERICPAD *)g_nuPads)[port].right_x_normal;
+    pad->right_y_normal = ((NUGENERICPAD *)g_nuPads)[port].right_y_normal;
+    pad->right_x_unknown = ((NUGENERICPAD *)g_nuPads)[port].right_x_unknown;
+    pad->right_y_unknown = ((NUGENERICPAD *)g_nuPads)[port].right_y_unknown;
+    pad->analog_left_pad_left =
+        ((NUGENERICPAD *)g_nuPads)[port].analog_left_pad_left;
+    pad->analog_left_pad_right =
+        ((NUGENERICPAD *)g_nuPads)[port].analog_left_pad_right;
+    pad->analog_left_pad_up =
+        ((NUGENERICPAD *)g_nuPads)[port].analog_left_pad_up;
+    pad->analog_left_pad_down =
+        ((NUGENERICPAD *)g_nuPads)[port].analog_left_pad_down;
+    pad->unknown_b0 = ((NUGENERICPAD *)g_nuPads)[port].unknown_82;
+    pad->unknown_b1 = ((NUGENERICPAD *)g_nuPads)[port].unknown_83;
+    pad->is_valid = ((NUGENERICPAD *)g_nuPads)[port].is_valid;
+    return pad->is_valid;
+  }
+
+  pad->is_valid = 0;
+  pad->digital_buttons = 0;
+  pad->digital_buttons_pressed = 0;
+  pad->digital_buttons_released = 0;
+  pad->digital_buttons_prev = 0;
+  return 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x006d5c90

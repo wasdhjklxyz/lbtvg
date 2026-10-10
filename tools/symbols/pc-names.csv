@@ -3641,6 +3641,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d5e30,00189816,_NuPadPortUsedByPlayer,_NuPadPortUsedByPlayer,confirmed,0
 006d5e60,0018984a,_NuPadInit,_NuPadInit,confirmed,0
 006d5ee0,001898d0,_NuPadSetDirectMappingState,_NuPadSetDirectMappingState,confirmed,0
+006d5ef0,001898e4,_NuPadRead,_NuPadRead,confirmed,0
 006d61b0,00189bcc,_NuPadRecordStart,_NuPadRecordStart,confirmed,0
 006d6430,00189be2,_NuPadRecordSetPlayEndButtons,_NuPadRecordSetPlayEndButtons,confirmed,0
 006d6440,00189bf6,_NuPadRecordSetRecordEndButtons,_NuPadRecordSetRecordEndButtons,confirmed,0
