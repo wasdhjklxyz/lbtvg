@@ -47,9 +47,10 @@ typedef struct ATTRACTO_s {
   u8 filled : 1;           // 0x63 bit 2
   u8 drawn : 1;            // 0x63 bit 3
   nuvec_s active_position; // 0x64
-  u8 pad70[0x78 - 0x70];
-  u16 ground_angle_z; // 0x78
-  u16 ground_angle_x; // 0x7a
+  f32 scale;               // 0x70
+  f32 timer;               // 0x74
+  u16 ground_angle_z;      // 0x78
+  u16 ground_angle_x;      // 0x7a
 } ATTRACTO;
 
 typedef struct ATTRACTOPROGRESS_s {
@@ -250,6 +251,128 @@ void Attractos_Reset(void *context, void *unused, void *data) {
   }
 }
 
+// GLOBAL: LEGOBATMAN 0x00a95fe0
+extern f32 FRAMETIME;
+// GLOBAL: LEGOBATMAN 0x00a96020
+extern f32 g_unk00a96020;
+// GLOBAL: LEGOBATMAN 0x009cabf4
+extern i32 g_unk009cabf4;
+// GLOBAL: LEGOBATMAN 0x00960a28
+extern i32 g_unk00960a28;
+// GLOBAL: LEGOBATMAN 0x00960a2c
+extern i16 g_unk00960a2c[];
+
+f32 NuFmod(f32 a, f32 b);
+f32 SeekLinearF(f32 current, f32 target, f32 step);
+i32 AddGameDebris(void *system, i32 type, nuvec_s *position);
+void NuVecMtxTranslate(nuvec_s *out, nuvec_s *v, numtx_s *m);
+
+// FUNCTION: LEGOBATMAN 0x0040ae90
+void Attractos_Update(void *context, void *unused, f32 dt) {
+  WORLDINFO_s *world = (WORLDINFO_s *)context;
+  if (world == NULL)
+    return;
+  ATTRACTO *attracto = world->attractos;
+  if (attracto == NULL)
+    return;
+  for (i32 i = 0; i < world->attracto_count; i++, attracto++) {
+    if (attracto->filled) {
+      if (attracto->collected_count != 0) {
+        if (attracto->timer < 0.1f) {
+          attracto->timer += FRAMETIME * 3.0f;
+        } else {
+          f32 t = attracto->collected_count * 2.25f + g_unk00a96020;
+          nuvec_s pos;
+          pos.x =
+              NuSinApprox((u16)(NuFmod(t, 2.0f) * 0.5f * 65536.0f)) * 0.14f *
+              (1.0f -
+               NuSinApprox((u16)(NuFmod(t, 5.0f) / 5.0f * 65536.0f)) * 0.75f);
+          pos.y =
+              NuSinApprox((u16)(NuFmod(t, 5.0f) / 5.0f * 65536.0f)) * 0.25f +
+              0.38f;
+          pos.z =
+              NuCosApprox((u16)(NuFmod(t, 2.0f) * 0.5f * 65536.0f)) * 0.14f *
+              (1.0f -
+               NuSinApprox((u16)(NuFmod(t, 5.0f) / 5.0f * 65536.0f)) * 0.75f);
+          NuVecMtxTranslate(&pos, &pos, &attracto->transform);
+          AddGameDebris(world->p138,
+                        g_unk00960a2c[qrand() / (0xffff / g_unk00960a28 + 1)],
+                        &pos);
+          attracto->collected_count--;
+          attracto->timer = 0.0f;
+        }
+      }
+    } else if (attracto->timer > 0.0f) {
+      attracto->timer -= FRAMETIME;
+    }
+    f32 target;
+    if (g_unk009cabf4 != 0)
+      target = 1.0f;
+    else if (attracto->active && attracto->visible && !attracto->filled)
+      target = 1.0f;
+    else
+      target = 0.0f;
+    if (attracto->scale != target)
+      attracto->scale = SeekLinearF(attracto->scale, target, FRAMETIME * 4.0f);
+  }
+}
+
+f32 NuVecDistSqr(nuvec_s *a, nuvec_s *b, nuvec_s *out);
+
+// FUNCTION: LEGOBATMAN 0x0040b2e0
+ATTRACTO *Attracto_FindNearest(WORLDINFO_s *world, nuvec_s *position,
+                               GameObject_s *object, f32 *distance) {
+  ATTRACTO *attracto = world->attractos;
+  ATTRACTO *nearest = NULL;
+  f32 best = 1.0e9f;
+  for (i32 i = 0; i < world->attracto_count; i++, attracto++) {
+    f32 candidate;
+    if (object != NULL) {
+      if (!attracto->visible || !attracto->active || attracto->filled)
+        continue;
+      candidate = NuVecDistSqr(position, &attracto->active_position, NULL);
+    } else {
+      candidate = NuVecDistSqr(position, &attracto->pos, NULL);
+    }
+    if (candidate < best) {
+      best = candidate;
+      nearest = attracto;
+    }
+  }
+  if (distance != NULL)
+    *distance = best;
+  return nearest;
+}
+
+typedef struct GIZBUILDIT_s {
+  u8 pad0[0x44];
+  f32 step_timer;    // 0x44
+  f32 step_duration; // 0x48
+  u8 pad4c[0x70 - 0x4c];
+  u8 anim_object_count; // 0x70
+  u8 pad71[2];
+  u8 built_object_count; // 0x73
+} GIZBUILDIT;
+
+// FUNCTION: LEGOBATMAN 0x0040bbe0
+void Attracto_SetBuildItStepTime(GIZBUILDIT *buildit) {
+  i32 total = buildit->anim_object_count;
+  i32 built = buildit->built_object_count;
+  i32 threshold =
+      total * 0.5f > (f32)(total - 10) ? total * 0.5f : (f32)(total - 10);
+  f32 time = 0.3f;
+  buildit->step_duration = time;
+  if (built >= threshold)
+    built = total - built;
+  if (built > 10)
+    built = 10;
+  else if (built < 0)
+    built = 0;
+  f32 scale = built / 10.0f + 1.0f;
+  time = time / scale;
+  buildit->step_timer = buildit->step_duration = time;
+}
+
 // FUNCTION: LEGOBATMAN 0x0040bcc0
 i32 Attractos_GetMaxGizmos(void *context) {
   WORLDINFO_s *world = (WORLDINFO_s *)context;
@@ -335,7 +458,14 @@ nuvec_s *Attracto_GetPos(GIZMO *gizmo) {
   return &((ATTRACTO *)gizmo->object)->pos;
 }
 
-void Attractos_Update(void *context, void *unused, f32 dt);
+// FUNCTION: LEGOBATMAN 0x0040bf20
+void Attracto_GetPos_Top(ATTRACTO *attracto, nuvec_s *position) {
+  if (attracto != NULL && position != NULL) {
+    *position = attracto->pos;
+    position->y = 1.0f + position->y;
+  }
+}
+
 void Attractos_Draw(void *context, void *unused, f32 dt);
 
 // FUNCTION: LEGOBATMAN 0x0040bf60
