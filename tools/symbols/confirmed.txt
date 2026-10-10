@@ -2059,3 +2059,7 @@
 00701e60 NuProcessColourFilterGen::initResources vtable 0x897cfc slot 1
 007040f0 NuSSAOFilterGen::initResources vtable 0x897dc4 slot 1
 00702190 NuEdgeAAFilterGen::initResources vtable 0x897d7c slot 1
+00701370 NuMotionAccumFilterGen::initTextureResources vtable 0x897cac slot 3 (RTTI) + saga body; matched
+007013a0 NuMotionAccumFilterGen::destroyTextureResources vtable 0x897cac slot 4 (RTTI); matched
+00701c40 NuSpeedBlurFilterGen::initTextureResources vtable 0x897cd4 slot 3 (RTTI) + saga body; matched
+006f37b0 NuEffectTexCreate2D called from the *FilterGen::initTextureResources as in saga

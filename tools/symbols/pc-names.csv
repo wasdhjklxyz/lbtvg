@@ -2549,6 +2549,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006ea2d0,001840d6,__Z19NuMovieGrabGetFrameP17numoviegrabinfo_s,NuMovieGrabGetFrame(numoviegrabinfo_s*),strings,0
 006ebae0,0016f5d8,_RndrStateSetReflection,_RndrStateSetReflection,confirmed,0
 006ef910,0017a7d8,_NuMtlUpdatePS,_NuMtlUpdatePS,gapfill,3
+006f37b0,0017de3a,_NuEffectTexCreate2D,_NuEffectTexCreate2D,confirmed,0
 006fa950,0018152c,_NuRndrSwapScreen,_NuRndrSwapScreen,strings,0
 006fcad0,0017b378,__ZN19NuMotionAccumFilter13initResourcesEv,NuMotionAccumFilter::initResources(),confirmed,0
 006fcb00,0017b2f2,__ZN17NuSpeedBlurFilter13initResourcesEv,NuSpeedBlurFilter::initResources(),confirmed,0
@@ -2557,7 +2558,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006fcc50,0017b156,__ZN14NuEdgeAAFilter13initResourcesEv,NuEdgeAAFilter::initResources(),confirmed,0
 006fcc80,0017aea2,_Nu360MtlInit,_Nu360MtlInit,strings,0
 00701350,00138592,__ZN22NuMotionAccumFilterGen13initResourcesEv,NuMotionAccumFilterGen::initResources(),confirmed,0
+00701370,00142b10,__ZN22NuMotionAccumFilterGen20initTextureResourcesEii,"NuMotionAccumFilterGen::initTextureResources(int, int)",confirmed,0
+007013a0,00124ce8,__ZN22NuMotionAccumFilterGen23destroyTextureResourcesEv,NuMotionAccumFilterGen::destroyTextureResources(),confirmed,0
 00701c20,00138598,__ZN20NuSpeedBlurFilterGen13initResourcesEv,NuSpeedBlurFilterGen::initResources(),confirmed,0
+00701c40,00142b48,__ZN20NuSpeedBlurFilterGen20initTextureResourcesEii,"NuSpeedBlurFilterGen::initTextureResources(int, int)",confirmed,0
 00701e60,0013859e,__ZN24NuProcessColourFilterGen13initResourcesEv,NuProcessColourFilterGen::initResources(),confirmed,0
 00702190,001385a4,__ZN17NuEdgeAAFilterGen13initResourcesEv,NuEdgeAAFilterGen::initResources(),confirmed,0
 007040f0,001385aa,__ZN15NuSSAOFilterGen13initResourcesEv,NuSSAOFilterGen::initResources(),confirmed,0
