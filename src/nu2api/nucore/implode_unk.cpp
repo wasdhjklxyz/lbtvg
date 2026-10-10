@@ -5,6 +5,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 // FUNCTION: LEGOBATMAN 0x006d6910
 // from saga nu2api/nucore/implode.cpp
@@ -553,4 +554,71 @@ unsigned int ImplodeDecodeC(void) {
   blocksize--;
   SELECT(value, literal_table, 0x14, 0x1fe, 0x80000, literal_len);
   return value;
+}
+
+// GLOBAL: LEGOBATMAN 0x00ad7634
+static int bytes_to_copy;
+
+// FUNCTION: LEGOBATMAN 0x006dd670
+static void decode(unsigned int size, unsigned char *buf) {
+  // GLOBAL: LEGOBATMAN 0x00b0393c
+  static unsigned int i;
+  unsigned int n;
+  unsigned int c;
+
+  n = 0;
+  while (--bytes_to_copy >= 0) {
+    buf[n] = buf[i];
+    i = (i + 1) & 0x1fff;
+    if (++n == size)
+      return;
+  }
+  for (;;) {
+    c = ImplodeDecodeC();
+    if (c <= 0xff) {
+      buf[n] = c;
+      if (++n == size)
+        return;
+    } else {
+      bytes_to_copy = c - 0xfd;
+      i = (n - ImplodeDecodeOffset() - 1) & 0x1fff;
+      while (--bytes_to_copy >= 0) {
+        buf[n] = buf[i];
+        i = (i + 1) & 0x1fff;
+        if (++n == size)
+          return;
+      }
+    }
+  }
+}
+
+// GLOBAL: LEGOBATMAN 0x00b01878
+static unsigned char buffer[0x2000];
+// GLOBAL: LEGOBATMAN 0x00b00858
+unsigned int implode_origsize;
+
+// FUNCTION: LEGOBATMAN 0x006ddd70
+int ExplodeBufferNoHeader(char *in_buf, char *out_buf, int compressed_size,
+                          int orig_size) {
+  int total_read;
+  unsigned int read_size;
+
+  if (gExplodeInitialised == 0)
+    return 0;
+  implode_inbuffer = (unsigned char *)in_buf;
+  implode_outbuffer = (unsigned char *)out_buf;
+  implode_origsize = orig_size;
+  implode_compsize = compressed_size;
+  ImplodeHufDecodeStart();
+  bytes_to_copy = 0;
+  total_read = 0;
+  while (implode_origsize != 0) {
+    read_size = implode_origsize > 0x2000 ? 0x2000 : implode_origsize;
+    decode(read_size, buffer);
+    memcpy(implode_outbuffer, buffer, read_size);
+    implode_outbuffer += read_size;
+    implode_origsize -= read_size;
+    total_read += read_size;
+  }
+  return total_read;
 }

@@ -3399,3 +3399,5 @@
 006d9620 NuFileSeek saga nufile.cpp body matches
 006d94a0 NuMemFileSeek saga nufile.cpp body matches (memfiles at 0xafa0a8)
 006de800 NuMemFileRead saga nufile.cpp body matches
+006dd670 decode saga implode.cpp static (LZ copy loop, buf in edi)
+006ddd70 ExplodeBufferNoHeader saga implode.cpp body (decode_start and HufDecodeStart inlined)
