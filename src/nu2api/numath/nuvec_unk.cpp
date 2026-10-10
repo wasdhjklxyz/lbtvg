@@ -608,6 +608,123 @@ void NuMtxInvR(numtx_s *m, numtx_s *m0) {
   m->m33 = 1.0f;
 }
 
+// saga body; x87 product operand order differs (VC reorders per term).
+// STUB: LEGOBATMAN 0x00686620
+void NuMtxMul(numtx_s *m, numtx_s *m0, numtx_s *m1) {
+  numtx_s gm;
+
+  if ((m == m0) || (m == m1)) {
+    gm.m00 = m1->m00 * m0->m00 + m1->m10 * m0->m01 + m1->m20 * m0->m02;
+    gm.m01 = m1->m01 * m0->m00 + m1->m11 * m0->m01 + m1->m21 * m0->m02;
+    gm.m02 = m1->m02 * m0->m00 + m1->m12 * m0->m01 + m1->m22 * m0->m02;
+    gm.m03 = 0.0f;
+    gm.m10 = m1->m00 * m0->m10 + m1->m10 * m0->m11 + m1->m20 * m0->m12;
+    gm.m11 = m1->m01 * m0->m10 + m1->m11 * m0->m11 + m1->m21 * m0->m12;
+    gm.m12 = m1->m02 * m0->m10 + m1->m12 * m0->m11 + m1->m22 * m0->m12;
+    gm.m13 = 0.0f;
+    gm.m20 = m1->m00 * m0->m20 + m1->m10 * m0->m21 + m1->m20 * m0->m22;
+    gm.m21 = m1->m01 * m0->m20 + m1->m11 * m0->m21 + m1->m21 * m0->m22;
+    gm.m22 = m1->m02 * m0->m20 + m1->m12 * m0->m21 + m1->m22 * m0->m22;
+    gm.m23 = 0.0f;
+    gm.m30 =
+        m1->m00 * m0->m30 + m1->m10 * m0->m31 + m1->m20 * m0->m32 + m1->m30;
+    gm.m31 =
+        m1->m01 * m0->m30 + m1->m11 * m0->m31 + m1->m21 * m0->m32 + m1->m31;
+    gm.m32 =
+        m1->m02 * m0->m30 + m1->m12 * m0->m31 + m1->m22 * m0->m32 + m1->m32;
+    gm.m33 = 1.0f;
+    *m = gm;
+  } else {
+    m->m00 = m1->m00 * m0->m00 + m1->m10 * m0->m01 + m1->m20 * m0->m02;
+    m->m01 = m1->m01 * m0->m00 + m1->m11 * m0->m01 + m1->m21 * m0->m02;
+    m->m02 = m1->m02 * m0->m00 + m1->m12 * m0->m01 + m1->m22 * m0->m02;
+    m->m03 = 0.0f;
+    m->m10 = m1->m00 * m0->m10 + m1->m10 * m0->m11 + m1->m20 * m0->m12;
+    m->m11 = m1->m01 * m0->m10 + m1->m11 * m0->m11 + m1->m21 * m0->m12;
+    m->m12 = m1->m02 * m0->m10 + m1->m12 * m0->m11 + m1->m22 * m0->m12;
+    m->m13 = 0.0f;
+    m->m20 = m1->m00 * m0->m20 + m1->m10 * m0->m21 + m1->m20 * m0->m22;
+    m->m21 = m1->m01 * m0->m20 + m1->m11 * m0->m21 + m1->m21 * m0->m22;
+    m->m22 = m1->m02 * m0->m20 + m1->m12 * m0->m21 + m1->m22 * m0->m22;
+    m->m23 = 0.0f;
+    m->m30 =
+        m1->m00 * m0->m30 + m1->m10 * m0->m31 + m1->m20 * m0->m32 + m1->m30;
+    m->m31 =
+        m1->m01 * m0->m30 + m1->m11 * m0->m31 + m1->m21 * m0->m32 + m1->m31;
+    m->m32 =
+        m1->m02 * m0->m30 + m1->m12 * m0->m31 + m1->m22 * m0->m32 + m1->m32;
+    m->m33 = 1.0f;
+  }
+}
+
+// saga body; x87 product operand order differs (VC reorders per term).
+// STUB: LEGOBATMAN 0x006868f0
+void NuMtxMulR(numtx_s *m, numtx_s *m0, numtx_s *m1) {
+  numtx_s gm;
+
+  if ((m == m0) || (m == m1)) {
+    gm.m00 = m1->m00 * m0->m00 + m1->m10 * m0->m01 + m1->m20 * m0->m02;
+    gm.m01 = m1->m01 * m0->m00 + m1->m11 * m0->m01 + m1->m21 * m0->m02;
+    gm.m02 = m1->m02 * m0->m00 + m1->m12 * m0->m01 + m1->m22 * m0->m02;
+    gm.m03 = 0.0;
+    gm.m10 = m1->m00 * m0->m10 + m1->m10 * m0->m11 + m1->m20 * m0->m12;
+    gm.m11 = m1->m01 * m0->m10 + m1->m11 * m0->m11 + m1->m21 * m0->m12;
+    gm.m12 = m1->m02 * m0->m10 + m1->m12 * m0->m11 + m1->m22 * m0->m12;
+    gm.m13 = 0.0;
+    gm.m20 = m1->m00 * m0->m20 + m1->m10 * m0->m21 + m1->m20 * m0->m22;
+    gm.m21 = m1->m01 * m0->m20 + m1->m11 * m0->m21 + m1->m21 * m0->m22;
+    gm.m22 = m1->m02 * m0->m20 + m1->m12 * m0->m21 + m1->m22 * m0->m22;
+    gm.m23 = 0.0;
+    gm.m30 = gm.m31 = gm.m32 = 0.0f;
+    gm.m33 = 1.0;
+    *m = gm;
+  } else {
+    m->m00 = m1->m00 * m0->m00 + m1->m10 * m0->m01 + m1->m20 * m0->m02;
+    m->m01 = m1->m01 * m0->m00 + m1->m11 * m0->m01 + m1->m21 * m0->m02;
+    m->m02 = m1->m02 * m0->m00 + m1->m12 * m0->m01 + m1->m22 * m0->m02;
+    m->m03 = 0.0;
+    m->m10 = m1->m00 * m0->m10 + m1->m10 * m0->m11 + m1->m20 * m0->m12;
+    m->m11 = m1->m01 * m0->m10 + m1->m11 * m0->m11 + m1->m21 * m0->m12;
+    m->m12 = m1->m02 * m0->m10 + m1->m12 * m0->m11 + m1->m22 * m0->m12;
+    m->m13 = 0.0;
+    m->m20 = m1->m00 * m0->m20 + m1->m10 * m0->m21 + m1->m20 * m0->m22;
+    m->m21 = m1->m01 * m0->m20 + m1->m11 * m0->m21 + m1->m21 * m0->m22;
+    m->m22 = m1->m02 * m0->m20 + m1->m12 * m0->m21 + m1->m22 * m0->m22;
+    m->m23 = 0.0;
+    m->m30 = m->m31 = m->m32 = 0.0f;
+    m->m33 = 1.0;
+  }
+}
+
+// saga body; x87 product operand order differs (VC reorders per term).
+// STUB: LEGOBATMAN 0x00686d80
+void NuMtxInvRSS(numtx_s *inv, numtx_s *T) {
+  numtx_s gm;
+
+  f32 det = T->m00 * (T->m11 * T->m22 - T->m12 * T->m21) -
+            T->m01 * (T->m10 * T->m22 - T->m12 * T->m20) +
+            T->m02 * (T->m10 * T->m21 - T->m11 * T->m20);
+  f32 invdet = det == 0.0f ? 0.0f : 1.0f / det;
+
+  gm.m00 = (T->m11 * T->m22 - T->m12 * T->m21) * invdet;
+  gm.m10 = (T->m10 * T->m22 - T->m12 * T->m20) * -invdet;
+  gm.m20 = (T->m10 * T->m21 - T->m11 * T->m20) * invdet;
+  gm.m01 = (T->m01 * T->m22 - T->m02 * T->m21) * -invdet;
+  gm.m11 = (T->m00 * T->m22 - T->m02 * T->m20) * invdet;
+  gm.m21 = (T->m00 * T->m21 - T->m01 * T->m20) * -invdet;
+  gm.m02 = (T->m01 * T->m12 - T->m02 * T->m11) * invdet;
+  gm.m12 = (T->m00 * T->m12 - T->m02 * T->m10) * -invdet;
+  gm.m22 = (T->m00 * T->m11 - T->m01 * T->m10) * invdet;
+  gm.m03 = 0.0f;
+  gm.m13 = 0.0f;
+  gm.m23 = 0.0f;
+  gm.m33 = 1.0f;
+  gm.m30 = 0.0f;
+  gm.m31 = 0.0f;
+  gm.m32 = 0.0f;
+  *inv = gm;
+}
+
 // FUNCTION: LEGOBATMAN 0x00689100
 float NuFmod(float a, float b) { return a - b * (int)(a / b); }
 

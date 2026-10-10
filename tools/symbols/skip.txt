@@ -168,3 +168,6 @@
 00686180 NuMtxPreRotateZ: saga body tentative (size 174 vs 170), operand order
 00686270 NuMtxRotateZ: saga body, x87 operand order in the m11 rows
 00686340 NuMtxPreRotateY: saga body tentative (size 168 vs 172), operand order
+00686620 NuMtxMul: saga body (size fits), x87 product operand order differs per term; both operand orders tried
+006868f0 NuMtxMulR: saga body (size fits), same operand-order issue as NuMtxMul
+00686d80 NuMtxInvRSS: saga body (size fits), operand order + a jp/jnp compare flip
