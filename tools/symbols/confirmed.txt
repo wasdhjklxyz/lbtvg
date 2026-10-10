@@ -1845,6 +1845,18 @@
 00513070 SecurityCamera::DumpLevel vtable 0x85d96c slot 3; Mac body (base DumpLevel, icon tid, m_noFocusCameraTime = 1000); matched
 00512f80 SecurityCamera::AllowPlayerDropOut Mac body (batcave_a, m_noFocusCameraTime < 5, manager transitioning/camera target); matched
 005130e0 SecurityCamera::AreVillainLevelsAvailable Mac body (Episode_CountOpenAreas 3/4/5, -1); matched
-006003d0 InteractiveDisplayManager::GetTransitioningDisplay called from SecurityCamera::AllowPlayerDropOut in the Mac's position
-00600410 InteractiveDisplayManager::GetCameraTarget called from SecurityCamera::AllowPlayerDropOut in the Mac's position
+006003d0 InteractiveDisplayManager::GetTransitioningDisplay called from SecurityCamera::AllowPlayerDropOut in the Mac's position; matched
+00600410 InteractiveDisplayManager::GetCameraTarget called from SecurityCamera::AllowPlayerDropOut in the Mac's position; matched
 00648f60 Episode_CountOpenAreas called (3/4/5, -1) from SecurityCamera::AreVillainLevelsAvailable as on the Mac
+006000c0 InteractiveDisplayManager::InteractiveDisplayManager zeroes count and the fields the manager uses (m_oSingleton at 0xaca638, Mac static member); matched
+006000e0 InteractiveDisplayManager::AddDisplay Mac body (|= GetDoesLevelLoadRender, displays[count++]); matched
+00600110 InteractiveDisplayManager::InitializeLevel Mac order, slot 1 over all displays; matched
+00600150 InteractiveDisplayManager::ActivateLevel Mac order, slot 2 over all displays; matched
+00600180 InteractiveDisplayManager::DumpLevel Mac order, slot 3 over all displays; matched
+00600370 InteractiveDisplayManager::UpdateInternal Mac body (Paused, time += dt, UpdateInputs, ShouldUpdate/Update); matched
+00600450 InteractiveDisplayManager::UpdateCamera_Internal Mac body (GetCameraTarget()->UpdateGameCamera, slot 20); matched
+00600470 InteractiveDisplayManager::IsDisplayOfClassInteractiveMode Mac body (class name + IsInteractiveMode, returns the display); matched
+006004d0 InteractiveDisplayManager::NumDisplaysOfClassRegistered Mac order, counts class-name matches; matched
+00600530 InteractiveDisplayManager::GetDisplayOfClass Mac order (name, index); matched
+00600590 InteractiveDisplayManager::IsDisplayOfClassPresent Mac body (WORLD, class name, level name); matched
+006001c0 InteractiveDisplayManager::UpdateInputs called first thing from UpdateInternal as on the Mac
