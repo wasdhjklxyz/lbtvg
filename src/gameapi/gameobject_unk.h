@@ -174,6 +174,7 @@ struct GameObject_s {
   u8 pad42c[0x47c - 0x42c];
   nuvec_s *look_target; // 0x47c, AI look target (process290 + 0x1ec)
   union {
+    u32 flags480; // 0x480
     struct {
       u32 flags480_lo : 26;
       u32 move_range_type : 2; // 0x480 bits 26-27
@@ -189,6 +190,8 @@ struct GameObject_s {
       u32 b480_6 : 1;
       u32 : 2;
       u32 b480_9 : 1;
+      u32 : 1;
+      u32 b480_11 : 1; // Action_SetSide clears it on a side change
     };
   };
   u8 pad7a[0x488 - 0x484];
@@ -328,8 +331,10 @@ struct GameObject_s {
   u8 pad14d[0x13b8 - 0x1384];
   GameObject_s *fire_target13b8; // 0x13b8, Action_FollowDirection
   GameObject_s *takeover_target; // 0x13bc
-  u8 pad13c0[0x13e0 - 0x13c0];
-  f32 current_speed_mul; // 0x13e0
+  u8 pad13c0[0x13d8 - 0x13c0];
+  GameObject_s *alert_target; // 0x13d8, Action_SetSide clears
+  f32 alert_target_timer;     // 0x13dc
+  f32 current_speed_mul;      // 0x13e0
   u8 pad13e4[0x13f0 - 0x13e4];
   f32 walk_speed_override; // 0x13f0
   u8 pad13f4[0x1404 - 0x13f4];

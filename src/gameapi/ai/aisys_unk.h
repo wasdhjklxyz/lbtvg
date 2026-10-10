@@ -33,7 +33,8 @@ struct Unk_AIPacketObj {
   nuvec_s respawn_pos; // 0x1cc
   u8 pad1d8[0x1f8 - 0x1d8];
   u32 flags1f8; // 0x1f8, Condition_Side
-  u8 pad1fc[0x230 - 0x1fc];
+  u32 flags1fc; // 0x1fc, bit 0: in use
+  u8 pad200[0x230 - 0x200];
   f32 viewdistance;  // 0x230
   f32 heardistance;  // 0x234
   f32 maxviewheight; // 0x238
@@ -80,6 +81,8 @@ struct AIPACKET_s {
       u32 movement_mode : 3; // 0x1f0 bits 0-2, AIMoveInstruction
       u32 : 6;
       u32 circle_clockwise : 1; // 0x1f0 bit 9, Action_CircleLocator
+      u32 : 1;
+      u32 got_opponent : 1; // 0x1f0 bit 11, Action_SetSide clears it with pe4
     };
   };
   u8 pad1f4[0x1fc - 0x1f4];

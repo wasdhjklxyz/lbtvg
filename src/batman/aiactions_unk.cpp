@@ -39,6 +39,152 @@ AISTATE *AIStateFind(char *name, AISCRIPT *script);
 f32 NuVecMagSqr(nuvec_s *v);
 void NuVecSub(nuvec_s *out, nuvec_s *a, nuvec_s *b);
 
+// 0xa8-byte creature origins at AISYS_s +0x224 (GameObject_s::b3c8 indexes).
+struct AICREATURE_s {
+  u8 pad0[0x20];
+  nuvec_s pos; // 0x20
+  u16 y_rot;   // 0x2c
+  u8 pad2e[0x50 - 0x2e];
+  i16 type; // 0x50, apicharsys character index
+  u8 pad52[0xa8 - 0x52];
+};
+
+struct APICHARDATA_s {
+  u8 pad0[4];
+  u32 model_flags; // 0x04, 0x200 = goody, 4 = baddy
+  u8 pad8[0x48 - 8];
+};
+
+struct APICHARSYS_s {
+  u8 pad0[0x20];
+  APICHARDATA_s *char_data; // 0x20
+};
+
+// GLOBAL: LEGOBATMAN 0x00a94740
+extern APICHARSYS_s *apicharsys;
+// GLOBAL: LEGOBATMAN 0x00ab0818
+extern u32 LEGO_AIPATHCNX_FORGOODIES;
+// GLOBAL: LEGOBATMAN 0x00ab081c
+extern u32 LEGO_AIPATHCNX_FORBADDIES;
+
+static __forceinline void ActionApplySide(AISYS_s *sys, GameObject_s *obj,
+                                          i32 side) {
+  u32 old_flags = obj->flags1f8;
+  u32 old_side = old_flags & 0x10005;
+  obj->flags1f8 = old_flags & 0xfffefffa;
+  switch (side) {
+  case 0:
+    obj->flags1f8 |= 4;
+    break;
+  case 1:
+    obj->flags1f8 |= 1;
+    break;
+  case 2:
+    obj->flags1f8 |= 0x10000;
+    break;
+  case 3:
+    if ((obj->flags1f8 & 0x400) && obj->b3c8 != 0xff) {
+      AICREATURE_s *creature =
+          &(*(AICREATURE_s **)((u8 *)sys + 0x224))[obj->b3c8];
+      u32 model_flags = apicharsys->char_data[creature->type].model_flags;
+      if (model_flags & 0x200)
+        obj->flags1f8 |= 4;
+      else if (model_flags & 4)
+        obj->flags1f8 |= 1;
+    }
+    break;
+  }
+  u32 flags = obj->flags1f8;
+  obj->capabilities &= ~(LEGO_AIPATHCNX_FORGOODIES | LEGO_AIPATHCNX_FORBADDIES);
+  if (flags & 1)
+    obj->capabilities |= LEGO_AIPATHCNX_FORBADDIES;
+  else if (!(flags & 4))
+    obj->capabilities |= LEGO_AIPATHCNX_FORGOODIES;
+  if ((old_side & flags) == 0) {
+    ((AIPACKET_s *)obj->process290)->pe4 = NULL;
+    obj->alert_target_timer = 0.0f;
+    obj->flags480 &= ~0x800;
+    obj->alert_target = NULL;
+  }
+}
+
+// STUB: LEGOBATMAN 0x004541f0
+// Only diff: the creature lookup in both inlined ActionApplySide copies loads
+// sys->creatures into a register ([ecx+esi+0x50]); the original adds it to
+// the scaled index (add ecx, [esi+0x224]). Pointer/int/local shapes tried.
+i32 Action_SetSide(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
+                   char **args, int argc, int flags, f32 time) {
+  f32 range_squared = 0.0f;
+  f32 distance_squared = 0.0f;
+  i32 side = 0;
+  i32 type_ids[10];
+  i32 type_count = 0;
+  GameObject_s *object = NULL;
+  if (flags != 0) {
+    if (packet != NULL && packet->pd0 != NULL && (packet->pd0->flags1fc & 1) &&
+        packet->pd0->obj != NULL)
+      object = packet->pd0->obj;
+    for (i32 i = 0; i < argc; i++) {
+      char *value;
+      if (NuStrICmp(args[i], "neutral") == 0) {
+        side = 0;
+      } else if (NuStrICmp(args[i], "goodie") == 0 ||
+                 NuStrICmp(args[i], "goody") == 0) {
+        side = -1;
+      } else if (NuStrICmp(args[i], "baddie") == 0 ||
+                 NuStrICmp(args[i], "baddy") == 0) {
+        side = 1;
+      } else if (NuStrICmp(args[i], "goodiebaddie") == 0 ||
+                 NuStrICmp(args[i], "goodybaddy") == 0) {
+        side = 2;
+      } else if (NuStrICmp(args[i], "default") == 0) {
+        side = 3;
+      } else if ((value = NuStrIStr(args[i], "type")) != NULL) {
+        if (g_unk00ad68ec != NULL && g_unk00ad68fc != NULL) {
+          i32 local_type = g_unk00ad68ec(value + 5);
+          if (local_type != 0xff) {
+            i32 global_type = g_unk00ad68fc(local_type);
+            if (global_type != -1 && type_count < 10)
+              type_ids[type_count++] = global_type;
+          }
+        }
+      } else if ((value = NuStrIStr(args[i], "character=")) != NULL) {
+        object = GetNamedGameObject(sys, value + 10);
+      } else if ((value = NuStrIStr(args[i], "range=")) != NULL) {
+        range_squared = AIParamToFloat(process, value + 6);
+        range_squared *= range_squared;
+      }
+    }
+    if (type_count <= 0 && !(range_squared > 0.0f)) {
+      if (object != NULL)
+        ActionApplySide(sys, object, side);
+      return 1;
+    }
+    for (i32 i = 0; i < HIGHGAMEOBJECT; i++) {
+      GameObject_s *candidate = &Obj[i];
+      i32 match = 0;
+      if (!(candidate->flags1fc & 1) || !(candidate->flags1fc & 0x1000) ||
+          !(candidate->flags1f8 & 0x400))
+        continue;
+      for (i32 j = 0; j < type_count; j++) {
+        if (candidate->type15b0 == type_ids[j])
+          match = 1;
+      }
+      if (range_squared > 0.0f && object != NULL) {
+        nuvec_s d;
+        NuVecSub(&d, &object->position, &candidate->position);
+        distance_squared = d.x * d.x + d.y * d.y + d.z * d.z;
+      }
+      if ((match == 1 &&
+           (distance_squared < range_squared || range_squared == 0.0f)) ||
+          (type_count == 0 && distance_squared < range_squared))
+        ActionApplySide(sys, candidate, side);
+    }
+    return 1;
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x00454950
 i32 Action_SetStateArea(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                         AIPACKET_s *packet, char **params, i32 param_count,
@@ -3565,14 +3711,6 @@ i32 Action_Respawnable(AISYS_s *sys, AISCRIPTPROCESS_s *process,
 }
 
 void GrabVictim(GameObject_s *obj, GameObject_s *victim);
-
-// 0xa8-byte creature origins at AISYS_s +0x224 (GameObject_s::b3c8 indexes).
-struct AICREATURE_s {
-  u8 pad0[0x20];
-  nuvec_s pos; // 0x20
-  u16 y_rot;   // 0x2c
-  u8 pad2e[0xa8 - 0x2e];
-};
 
 // FUNCTION: LEGOBATMAN 0x00457d70
 i32 Action_SnapToOrigin(AISYS_s *sys, AISCRIPTPROCESS_s *process,
