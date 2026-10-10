@@ -35,7 +35,18 @@ MODULE = "LEGOBATMAN"
 CFLAGS = ["/nologo", "/c", "/O2", "/Oy", "/GS", "/EHsc", "/MT", "/Gd", "/Gy", "/Z7"]
 
 ANNOT = re.compile(r"//\s*FUNCTION:\s*" + MODULE + r"\s+0x([0-9a-fA-F]+)")
-IDENT = re.compile(r"([A-Za-z_~][\w:~]*)\s*\(")
+IDENT = re.compile(r"((?:[A-Za-z_~][\w~]*(?:<[^()]*>)?::)*"
+                   r"(?:operator\s*(?:\(\)|[^\s(]+)|[A-Za-z_~][\w~]*)(?:<[^()]*>)?)\s*\(")
+TYPEDEF = {"u8": "char", "i8": "char", "u16": "short", "i16": "short", "u32": "int",
+           "i32": "int", "BOOL": "int", "u64": "__int64", "i64": "__int64",
+           "f32": "float", "f64": "double"}
+
+def untemplate(s):
+    """Drop template arguments: our src and the demangler spell them differently."""
+    prev = None
+    while prev != s:
+        prev, s = s, re.sub(r"<[^<>()]*>", "", s)
+    return s
 SIG = {}  # (path, addr) -> source parameter list, to tell overloads apart
 
 def die(msg):
@@ -68,7 +79,7 @@ def annotations(path, stubs=False):
                 if stubs:
                     break
                 die(f"{path}:{i+1}: cannot find a function name after the annotation")
-            out.append((int(m.group(1), 16), mm.group(1)))
+            out.append((int(m.group(1), 16), re.sub(r"\s+", "", untemplate(mm.group(1)))))
             break
     return out
 
@@ -140,7 +151,8 @@ def params_of(text):
         words = [w for w in re.findall(r"[A-Za-z_]\w*", p) if w not in ("const", "struct", "union", "enum", "class")]
         if len(words) > 1 and not p.rstrip().endswith(("*", "&")):
             words = words[:-1]  # drop the parameter name
-        sig.append((words[-1] if words else "", p.count("*") + p.count("&")))
+        w = words[-1] if words else ""
+        sig.append((TYPEDEF.get(w, w), p.count("*") + p.count("&")))
     return sig
 
 def find(funcs, name, sig=None):
@@ -149,9 +161,11 @@ def find(funcs, name, sig=None):
     @Name@N (fastcall)."""
     want = re.compile(r"(^|[\s:*&])" + re.escape(name) + r"\(")
     c_sym = re.compile(r"^[_@]" + re.escape(name.split("::")[-1]) + r"(@\d+)?$")
-    hits = [k for k in funcs if want.search(k) or c_sym.match(k)]
+    plain = {k: untemplate(k) for k in funcs}
+    hits = [k for k in funcs if want.search(plain[k]) or c_sym.match(k)]
     if len(hits) > 1 and sig is not None:  # overloads: compare parameter lists
-        args = {k: params_of(k[want.search(k).end() - 1:]) if want.search(k) else None for k in hits}
+        args = {k: params_of(plain[k][want.search(plain[k]).end() - 1:]) if want.search(plain[k]) else None
+                for k in hits}
         same = [k for k in hits if args[k] is not None and len(args[k]) == len(sig)]
         exact = [k for k in same if [p for _, p in args[k]] == [p for _, p in sig]
                  and all(a == b or not a or not b for (a, _), (b, _) in zip(args[k], sig))]
@@ -338,7 +352,7 @@ def main(argv):
             seen += 1
             if is_stub:
                 want = re.compile(r"(^|[\s:*&])" + re.escape(name) + r"\(|^[_@]" + re.escape(name.split("::")[-1]) + r"(@\d+)?$")
-                if not [k for k in funcs if want.search(k)]:
+                if not [k for k in funcs if want.search(untemplate(k))]:
                     print(f"STUB  {addr:08x}  {name}: not compiled (still in #if 0?)   [{src.relative_to(ROOT)}]")
                     continue
             (code, relocs), sym = find(funcs, name, SIG.get((src, addr)))

@@ -427,9 +427,7 @@ void WorldMapBase::parse_mapimageaspectratio(NUFPAR *fp) {
   g_unk00ad2af4->map_aspect_ratio = NuFParGetFloat(fp);
 }
 
-// STUB: LEGOBATMAN 0x00679b60
-// matches, but tools/match.py IDENT cannot parse "operator=": flip to
-// FUNCTION once it does (checked with IDENT patched to accept operator names)
+// FUNCTION: LEGOBATMAN 0x00679b60
 WorldMapLocation &WorldMapLocation::operator=(const WorldMapLocation &o) {
   pos = o.pos;
   v10 = o.v10;

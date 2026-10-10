@@ -192,7 +192,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [WavReader](#wavreader) | 1 | 0 |
 | [WorldMap](#worldmap) | 9 | 0 |
 | [WorldMapBase](#worldmapbase) | 9 | 0 |
-| [WorldMapLocation](#worldmaplocation) | 1 | 0 |
 
 ## Action
 
@@ -1202,7 +1201,3 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0067a3e0` 427 B `WorldMapBase::ToggleInteractive(int, int)`
 - [ ] `0067a590` 588 B `WorldMapBase::parse_location(nufpar_s*)`
 - [ ] `00679e40` 1299 B `WorldMapBase::UpdatePointer(float)`
-
-## WorldMapLocation
-
-- [ ] `00679b60` 115 B `WorldMapLocation::operator=(WorldMapLocation const&)`  **stub**

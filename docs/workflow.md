@@ -339,3 +339,15 @@ enough matched code for the percentage to mean something.
   opposite of check-then-reload above: try both).
 - `make match` handles overloads (parameter lists compared), destructors and
   return types on their own line; no `// clang-format off` needed.
+- **Overloaded virtuals are laid out in reverse declaration order.**
+- **`(i32)f << 24` stored to a `u32`** inlines a qword `fistp`; stored to an
+  `i32` it calls `_ftol`.
+- **An `align(16)` member** pads the vfptr out to 0x10.
+- **A user-defined `operator=`** gives fld/fstp copies and can move a loop's
+  base-pointer offset (VuVec).
+- **`for (i = 0; i != N; i++)` over a global array** gives `cmp esi, addr; jne`.
+- **Identical if/else bodies** need the shared global store inside both
+  branches, or cl merges them.
+- `make match` also parses `operator=`/`operator()` and template members
+  (`PushBack<u16>`), and treats `i32`/`int`, `u16`/`short`, `f32`/`float`...
+  as the same type when telling overloads apart.
