@@ -1270,6 +1270,102 @@ extern i32 force_gizmotype_id;
 i32 qrand(void);
 i32 GizForce_Complete(GIZFORCE_s *force);
 
+i32 ObjHitObj(GameObject_s *attacker, GameObject_s *target, i32 damage,
+              u16 flags, i32 probe, i32 context);
+void NewRumble(nupad_s *pad, f32 strength, i32 frames);
+void NewBuzz(nupad_s *pad, f32 duration, i32 frames);
+AIAREA_s *AISysFindArea(AISYS_s *sys, char *name);
+
+// 0x40-byte trigger areas; the owner (AISYS_s) holds the array at +0x244.
+struct AIAreaOwner_s;
+struct AIAREA_s {
+  u8 pad0[0x38];
+  struct AIAreaOwner_s *owner; // 0x38
+  u8 pad3c[0x40 - 0x3c];
+};
+struct AIAreaOwner_s {
+  u8 pad0[0x244];
+  AIAREA_s *areas; // 0x244
+};
+
+// GLOBAL: LEGOBATMAN 0x00ab3988
+extern i32 g_unk00ab3988; // player count
+
+// FUNCTION: LEGOBATMAN 0x004646a0
+i32 Action_TakeDamage(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                      AIPACKET_s *packet, char **params, i32 param_count,
+                      i32 first_time, f32 dt) {
+  f32 range = 0.0f;
+  GameObject_s *hitter = NULL;
+  AIAREA_s *area = NULL;
+  i32 damage = 1;
+  i32 set = 0;
+  GameObject_s *obj = NULL;
+  nuvec_s d;
+  if (first_time) {
+    if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL)
+      obj = packet->pd0->obj;
+    if (param_count > 0) {
+      for (i32 i = 0; i < param_count; i++) {
+        char *value;
+        if ((value = NuStrIStr(params[i], "character=")) != NULL) {
+          obj = GetNamedGameObjectInl(sys, value + 10);
+        } else if ((value = NuStrIStr(params[i], "hitter=")) != NULL) {
+          hitter = GetNamedGameObjectInl(sys, value + 7);
+        } else if ((value = NuStrIStr(params[i], "damage=")) != NULL) {
+          damage = (i32)AIParamToFloat(process, value + 7);
+        } else if ((value = NuStrIStr(params[i], "PlayersInTriggerArea=")) !=
+                   NULL) {
+          area = AISysFindArea(g_unk00960894->aiSys2bf8, value + 21);
+        } else if ((value = NuStrIStr(params[i], "PlayersInRange=")) != NULL) {
+          range = AIParamToFloat(process, value + 15);
+        } else if (NuStrIStr(params[i], "opponent") != NULL) {
+          if (packet != NULL && packet->pe4 != NULL &&
+              packet->pe4->obj != NULL) {
+            obj = packet->pe4->obj;
+            if (packet->pd0 != NULL && packet->pd0->obj != NULL)
+              hitter = packet->pd0->obj;
+          }
+        } else if ((value = NuStrIStr(params[i], "set=")) != NULL) {
+          set = (i32)AIParamToFloat(process, value + 4);
+          if (set < 0 || set > 16)
+            set = 0;
+        }
+      }
+    }
+    if (set != 0) {
+      GameObject_s *o = Obj;
+      for (i32 i = 0; i < HIGHGAMEOBJECT; i++, o++) {
+        if ((o->flags1fc & 1) && o->process290[0xb4] == set)
+          ObjHitObj(hitter, o, damage, 0, 0, 1);
+      }
+    } else if (area != NULL) {
+      for (i32 i = 0; i < g_unk00ab3988; i++) {
+        GameObject_s *p = Player[i];
+        if (p != NULL && (p->flags1fc & 1) && (p->flags1fc & 0x1000) &&
+            p->b257 == 0 && (p->flags1fc & 0x80) &&
+            (p->area_mask &
+             ((unsigned __int64)1 << (area - area->owner->areas))) != 0) {
+          ObjHitObj(hitter, p, damage, 0, 0, 1);
+          NewRumble(p->p112c->pad0, 0.5f, 0);
+          NewBuzz(p->p112c->pad0, 0.1f, 0);
+        }
+      }
+    } else if (range != 0.0f) {
+      for (i32 i = 0; i < g_unk00ab3988; i++) {
+        GameObject_s *p = Player[i];
+        if (p != NULL && (p->flags1fc & 1) && (p->flags1fc & 0x1000) &&
+            p->b257 == 0 && (p->flags1fc & 0x80) &&
+            NuVecDistSqr(&p->position, &packet->pd0->pos5c, &d) < range)
+          ObjHitObj(hitter, p, damage, 0, 0, 1);
+      }
+    } else if (obj != NULL) {
+      ObjHitObj(hitter, obj, damage, 0, 0, 1);
+    }
+  }
+  return 1;
+}
+
 // STUB: LEGOBATMAN 0x00464d10
 // close: orig keeps a separate (store-interleaved) epilogue for the
 // triggered_by_hit return 0; ours tail-merges it with the final return 0.
