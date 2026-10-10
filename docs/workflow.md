@@ -567,3 +567,34 @@ enough matched code for the percentage to mean something.
 - **`nufile_pc.cpp` + `nufile_ps_unk.cpp` (+ probably `nutime_pc.cpp`) are
   one TU**: getpointer and NuThreadCriticalSectionBegin inline into
   NuPSFileOpen.
+
+### x87 operand order (run 30 lab, VC8 /O2)
+
+1. **Swapping operands of a commutative op on memory leaves changes
+   nothing** (derefs, stack params, locals): `x *= y` / `x = x * y` /
+   `y * x`, parentheses, float temps, inline vs macro, `(f32)` casts,
+   `const`, `p->x` vs `((f32 *)p)[0]`, local pointer copies, local
+   declaration order. Exception: two globals load the right operand first.
+   Constants and global scalars always end up as the fmul/fadd memory
+   operand.
+2. **Two single-use memory leaves**: the one with the bigger addressing mode
+   is loaded first (`[reg+disp32]` > `[reg+disp8]` > `[reg]` > global >
+   stack slot); the other is the memory operand. Tie: the leaf whose base
+   register is used again sooner gets the `fld`. Source order is irrelevant.
+3. **Leaves reused across statements (CSE)**: an already-seen leaf becomes
+   the memory operand; the new one is loaded first. Statement order, even of
+   later statements, can flip an earlier product.
+4. **The knob for `A - B`: write `-(B) + A`.** Same ops, different internal
+   order: flips `fld mem; fmul st(i)` <-> `fld st(i); fmul mem` and moves
+   `fxch`, in that row and later ones. `A + -(B)` does nothing;
+   `A - -(B)` flips too but adds an `fchs`. (Fixed NuMtxRotateX/Z/PreRotateY,
+   PreRotateY180X.)
+5. **Compares, from mask + jcc (the jump skips the body)**: `a < b` 0x41
+   jne; `a <= b` 0x01 jne; `a > b` 0x05 jp; `a >= b` 0x41 jp; `!(...)` keeps
+   the mask and flips jne<->je / jp<->jnp. Constant on the right
+   (`t < 0.5f`): fld/fldz the constant, `fcomp t` (a constant reused in a
+   loop stays a dword in st0). Constant on the left (`0.5f > t`): load `t`,
+   `fcomp` a qword.
+
+Still open: memory-only leaves under CSE (NuVecCross, NuMtxAlignX/Y),
+term order inside sums (NuMtxMul/MulR), pointer tie-breaks (Action_BigJump).
