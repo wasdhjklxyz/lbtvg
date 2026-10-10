@@ -27,3 +27,13 @@ are not lost. Run inside `nix develop` from the repo root.
 - `libmap.py LO HI file.c...` then `libmap_check.py`: place a third-party
   library's real source in the exe (each function's exact address, then a
   relocation cross-check). How libvorbis/libogg were mapped.
+- `hdrstatics_annotate.py [FILE...]`, `hdrstatics_newtu.py` (both exec
+  `hdrstatics_core.py`): VC8 emits an out-of-line copy of every *referenced*
+  header static in each TU, even when all calls were inlined (NuSinApprox,
+  NuCosApprox, NuFabs, NuFdiv, NuFsign, NuVec4Set, NuVec4Copy,
+  NuVecScaleInline; bodies in `nutrig_unk.h` / `nuinline_unk.h`). The first
+  annotates the copies in the TU's existing file (prototype under the
+  annotation plus an `Unk_InlineUser_*` keep-alive), verifying the whole file
+  with match.py and reverting on any regression; the second creates
+  `unk_<addr>.cpp` TU files for clusters with no annotated neighbour. Add a
+  family to `F` (prefix bytes, exact length) and to the FN/USE tables.
