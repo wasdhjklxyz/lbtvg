@@ -26,10 +26,58 @@ int NuFileUnk006dd990(char *name);
 // FUNCTION: LEGOBATMAN 0x006e3070
 int NuFileExists(char *name) { return NuFileUnk006dd990(name); }
 
+// saga NUFILE_DEVICE
 struct nudev_s {
   u8 pad00[0xc];
-  i32 present; // 0x0c
+  i32 present;       // 0x0c
+  u8 pad10[0x24];    // 0x10
+  char name[16];     // 0x34
+  u8 pad44[8];       // 0x44
+  char root[32];     // 0x4c
+  char desc[64];     // 0x6c
+  char cur_dir[128]; // 0xac
 };
+
+int NuStrLen(const char *s);
+char *NuStrStr(char *haystack, const char *needle);
+int NuStrNICmp(const char *a, const char *b, int n);
+int NuStrCpy(char *dst, const char *src);
+void NuStrCat(char *dst, const char *src);
+void NuFileUpCase(nudev_s *device, char *filepath);
+void NuFileReldirFix(nudev_s *device, char *path);
+
+// FUNCTION: LEGOBATMAN 0x006e3080
+i32 DEV_FormatName(nudev_s *device, char *formatted_name, char *path,
+                   i32 buf_size) {
+  char buf[512];
+  i32 device_name_len;
+  char *subpath;
+
+  device_name_len = NuStrLen(device->name);
+  if (NuStrStr(path, ":")) {
+    NuStrCpy(buf, path);
+  } else if (NuStrNICmp(path, device->name, device_name_len) == 0) {
+    subpath = &path[NuStrLen(device->name)];
+    if (*subpath == '\\' || *subpath == '/') {
+      NuStrCpy(buf, path);
+    } else {
+      NuStrCpy(buf, device->root);
+      NuStrCat(buf, device->cur_dir);
+      NuStrCat(buf, subpath);
+    }
+  } else {
+    NuStrCpy(buf, device->root);
+    NuStrCat(buf, device->cur_dir);
+    NuStrCat(buf, path);
+  }
+  NuFileUpCase(device, buf + NuStrLen(device->root));
+  NuFileReldirFix(device, buf);
+  if (NuStrLen(buf) < buf_size) {
+    NuStrCpy(formatted_name, buf);
+    return 1;
+  }
+  return 0;
+}
 
 // FUNCTION: LEGOBATMAN 0x006e31d0
 i32 DEVCDDVDROM_Interrogate(nudev_s *dev) {

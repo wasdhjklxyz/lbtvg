@@ -3977,6 +3977,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006e3040,00198394,_bgProcClose,_bgProcClose,confirmed,0
 006e3050,0019839a,_NuFileInitEarly,_NuFileInitEarly,confirmed,0
 006e3070,001983d0,_NuFileExists,_NuFileExists,confirmed,0
+006e3080,001983da,_DEV_FormatName,_DEV_FormatName,confirmed,0
 006e31d0,00198558,_DEVCDDVDROM_Interrogate,_DEVCDDVDROM_Interrogate,confirmed,0
 006e31e0,0019856c,_DEVHOST_Interrogate,_DEVHOST_Interrogate,confirmed,0
 006e31f0,00198580,_DEVMEMORYCARD_Interrogate,_DEVMEMORYCARD_Interrogate,confirmed,0
