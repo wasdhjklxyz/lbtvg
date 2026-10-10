@@ -1943,3 +1943,12 @@
 0053a550 WavReader::Close vtable slot 3, Mac body (CloseHandle); matched
 0053a580 WavReader::SetOffset vtable slot 8, Mac body; stub
 0053a5f0 WavReader::SetFilePointer64 Mac body (SetFilePointerEx); matched
+0053ab50 OggReader::OggReader RTTI .?AVOggReader@@ vtable 0x867604; Mac order (ctor first), WavReader base ctor; matched
+0053abb0 OggReader::Open (char*, WAVEFORMATEX* overload) vtable slot 2, returns E_FAIL; matched
+0053abc0 OggReader::GetSize vtable slot 5, Mac body (WavReader::GetSize or ov_pcm_total * block align); matched
+0053ac00 OggReader::GetFormat vtable slot 4, Mac body (cmov between the two formats); matched
+0053ac10 OggReader::ResetFile vtable slot 6, Mac body (ov_raw_seek); matched
+0053ad60 OggReader::Close vtable slot 3, Mac body (ov_clear); matched
+0053c7a0 ov_pcm_total Mac dylib stub called from OggReader::GetSize
+0053c890 ov_raw_seek Mac dylib stub called from OggReader::ResetFile
+0053c4b0 ov_clear Mac dylib stub called from OggReader::Close

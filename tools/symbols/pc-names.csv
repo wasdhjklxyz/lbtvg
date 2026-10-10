@@ -902,7 +902,15 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0053a550,001b4c1c,__ZN9WavReader5CloseEv,WavReader::Close(),confirmed,0
 0053a580,001b4c86,__ZN9WavReader9SetOffsetEf,WavReader::SetOffset(float),confirmed,0
 0053a5f0,001b4d02,__ZN9WavReader16SetFilePointer64EPvxPxm,"WavReader::SetFilePointer64(void*, long long, long long*, unsigned long)",confirmed,0
-0053afc0,001b2cc4,__ZN9OggReader4OpenEP10nudathdr_sPcPN7MacDoze13tWAVEFORMATEXE,"OggReader::Open(nudathdr_s*, char*, MacDoze::tWAVEFORMATEX*)",strings,0
+0053ab50,001b2c22,__ZN9OggReaderC2Ev,OggReader::OggReader(),confirmed,0
+0053abb0,001b2cc4,__ZN9OggReader4OpenEP10nudathdr_sPcPN7MacDoze13tWAVEFORMATEXE,"OggReader::Open(nudathdr_s*, char*, MacDoze::tWAVEFORMATEX*)",confirmed,0
+0053abc0,001b3096,__ZN9OggReader7GetSizeEv,OggReader::GetSize(),confirmed,0
+0053ac00,001b30e2,__ZN9OggReader9GetFormatEv,OggReader::GetFormat(),confirmed,0
+0053ac10,001b30fa,__ZN9OggReader9ResetFileEv,OggReader::ResetFile(),confirmed,0
+0053ad60,001b327a,__ZN9OggReader5CloseEv,OggReader::Close(),confirmed,0
+0053c4b0,,ov_clear,ov_clear,confirmed,0
+0053c7a0,,ov_pcm_total,ov_pcm_total,confirmed,0
+0053c890,,ov_raw_seek,ov_raw_seek,confirmed,0
 00558d90,0020edaa,_GetSfxId,_GetSfxId,calls,1
 00558f10,001f3ac2,_PlaySfxByIdEx,_PlaySfxByIdEx,calls,2
 00559480,0020ef1a,_PlaySfxAndSetVolume,_PlaySfxAndSetVolume,confirmed,0
