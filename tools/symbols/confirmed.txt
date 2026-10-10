@@ -1806,3 +1806,7 @@
 00685f20 NuMtxPreRotateX        saga body, order after NuMtxRotateX; matched
 006860a0 NuMtxRotateY           saga macro body; matched
 00686230 NuMtxPreRotateY180     saga body; Mac order; matched
+00686b20 NuMtxTransposeR        saga numtx.cpp body; matched
+00686b90 NuMtxTranspose         saga body; matched
+00686c30 NuMtxInv               saga body, after Transpose as in saga; matched
+00686d10 NuMtxInvR              saga body (size 110 B fits); matched

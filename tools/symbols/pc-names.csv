@@ -1913,6 +1913,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00685f20,001aaf6c,_NuMtxPreRotateX,_NuMtxPreRotateX,confirmed,0
 006860a0,001ab132,_NuMtxRotateY,_NuMtxRotateY,confirmed,0
 00686230,0019e12e,_NuMtxPreRotateY180,_NuMtxPreRotateY180,confirmed,0
+00686b20,0019ea42,_NuMtxTransposeR,_NuMtxTransposeR,confirmed,0
+00686b90,0019ea9c,_NuMtxTranspose,_NuMtxTranspose,confirmed,0
+00686c30,0019eb08,_NuMtxInv,_NuMtxInv,confirmed,0
+00686d10,0019ebe8,_NuMtxInvR,_NuMtxInvR,confirmed,0
 00689100,001a0196,_NuFmod,_NuFmod,gapfill,2
 0068a6a0,001a6f80,_NuPlnEqn,_NuPlnEqn,gapfill,3
 0068b4d0,001a1422,_NuRandSeed,_NuRandSeed,confirmed,0

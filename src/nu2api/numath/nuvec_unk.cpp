@@ -504,6 +504,110 @@ void NuMtxPreSkewYX(numtx_s *Mtx, f32 SkewVal) {
   Mtx->m02 = Mtx->m02 + Mtx->m12 * SkewVal;
 }
 
+// FUNCTION: LEGOBATMAN 0x00686b20
+void NuMtxTransposeR(numtx_s *m, numtx_s *m0) {
+  f32 t;
+
+  t = m0->m01;
+  m->m01 = m0->m10;
+  m->m10 = t;
+  t = m0->m02;
+  m->m02 = m0->m20;
+  m->m20 = t;
+  t = m0->m12;
+  m->m12 = m0->m21;
+  m->m21 = t;
+  m->m00 = m0->m00;
+  m->m11 = m0->m11;
+  m->m22 = m0->m22;
+  m->m30 = m0->m30;
+  m->m31 = m0->m31;
+  m->m32 = m0->m32;
+  m->m33 = m0->m33;
+}
+
+// FUNCTION: LEGOBATMAN 0x00686b90
+void NuMtxTranspose(numtx_s *m, numtx_s *m0) {
+  f32 t;
+
+  t = m0->m01;
+  m->m01 = m0->m10;
+  m->m10 = t;
+  t = m0->m02;
+  m->m02 = m0->m20;
+  m->m20 = t;
+  t = m0->m03;
+  m->m03 = m0->m30;
+  m->m30 = t;
+  t = m0->m12;
+  m->m12 = m0->m21;
+  m->m21 = t;
+  t = m0->m13;
+  m->m13 = m0->m31;
+  m->m31 = t;
+  t = m0->m23;
+  m->m23 = m0->m32;
+  m->m32 = t;
+  m->m00 = m0->m00;
+  m->m11 = m0->m11;
+  m->m22 = m0->m22;
+  m->m33 = m0->m33;
+}
+
+// FUNCTION: LEGOBATMAN 0x00686c30
+void NuMtxInv(numtx_s *m, numtx_s *m0) {
+  f32 t;
+
+  f32 tx = -m0->m30;
+  f32 ty = -m0->m31;
+  f32 tz = -m0->m32;
+
+  t = m0->m01;
+  m->m01 = m0->m10;
+  m->m10 = t;
+  t = m0->m02;
+  m->m02 = m0->m20;
+  m->m20 = t;
+  t = m0->m12;
+  m->m12 = m0->m21;
+  m->m21 = t;
+  m->m00 = m0->m00;
+  m->m11 = m0->m11;
+  m->m22 = m0->m22;
+  m->m30 = m->m00 * tx + m->m10 * ty + m->m20 * tz;
+  m->m31 = m->m01 * tx + m->m11 * ty + m->m21 * tz;
+  m->m32 = m->m02 * tx + m->m12 * ty + m->m22 * tz;
+  m->m23 = 0.0f;
+  m->m13 = m->m23;
+  m->m03 = m->m13;
+  m->m33 = 1.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00686d10
+void NuMtxInvR(numtx_s *m, numtx_s *m0) {
+  f32 t;
+
+  t = m0->m01;
+  m->m01 = m0->m10;
+  m->m10 = t;
+  t = m0->m02;
+  m->m02 = m0->m20;
+  m->m20 = t;
+  t = m0->m12;
+  m->m12 = m0->m21;
+  m->m21 = t;
+  m->m00 = m0->m00;
+  m->m11 = m0->m11;
+  m->m22 = m0->m22;
+  m->m23 = 0.0f;
+  m->m13 = m->m23;
+  m->m03 = m->m13;
+  m->m32 = 0.0f;
+  m->m31 = m->m32;
+  m->m30 = m->m31;
+  m->m33 = 1.0f;
+}
+
 // FUNCTION: LEGOBATMAN 0x00689100
 float NuFmod(float a, float b) { return a - b * (int)(a / b); }
 
