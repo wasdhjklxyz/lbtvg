@@ -22,8 +22,9 @@ struct GIZMOBLOWUP_s {
   u8 pad3c[0x40 - 0x3c];
   nuvec_s initial_position; // 0x40
   u8 pad4c[0x58 - 0x4c];
-  nuvec_s f58; // 0x58
-  u8 pad64[0x7c - 0x64];
+  nuvec_s f58;          // 0x58
+  nuvec_s bounds_min;   // 0x64
+  nuvec_s bounds_max;   // 0x70
   nuvec_s decal_offset; // 0x7c
   u8 pad88[0x94 - 0x88];
   nuvec_s shadow_offset; // 0x94
@@ -35,7 +36,8 @@ struct GIZMOBLOWUP_s {
       u32 visible : 1;      // 0xa0 bit 14
       u32 b15 : 1;          // 0xa0 bit 15
       u32 b16 : 1;          // 0xa0 bit 16
-      u32 bits17 : 2;       // 0xa0 bits 17-18
+      u32 b17 : 1;          // 0xa0 bit 17
+      u32 b18 : 1;          // 0xa0 bit 18
       u32 b19 : 1;          // 0xa0 bit 19
       u32 anim_playing : 1; // 0xa0 bit 20
       u32 b21 : 1;          // 0xa0 bit 21
@@ -54,12 +56,17 @@ struct GIZMOBLOWUP_s {
   u8 padaa[0xac - 0xaa];
   i32 score;                      // 0xac
   struct GIZMOBLOWUPTYPE_s *type; // 0xb0
-  u8 padb4[0xbc - 0xb4];
+  f32 fb4;                        // 0xb4
+  u8 padb8[0xbc - 0xb8];
   f32 fbc; // 0xbc
-  u8 padc0[0xc8 - 0xc0];
+  f32 fc0; // 0xc0
+  u8 padc4[0xc8 - 0xc4];
   f32 fc8;         // 0xc8
   f32 decal_scale; // 0xcc
-  u8 padd0[0xe8 - 0xd0];
+  u8 padd0[0xd8 - 0xd0];
+  f32 respawn_timer; // 0xd8
+  u8 paddc[0xe4 - 0xdc];
+  void *antinode;   // 0xe4
   u16 decal_rot_x;  // 0xe8
   u16 decal_rot_y;  // 0xea
   u16 decal_rot_z;  // 0xec
@@ -80,9 +87,16 @@ struct GIZMOBLOWUP_s {
   u8 b11c;       // 0x11c
   u8 b11d;       // 0x11d
   u8 pad11e[0x122 - 0x11e];
-  u16 b122_0 : 1; // 0x122
-  u16 b122_1 : 4; // 0x122 bits 1-4
-  u16 b122_5 : 1; // 0x122 bit 5
+  union {
+    struct {
+      u16 b122_0 : 1; // 0x122
+      u16 b122_1 : 4; // 0x122 bits 1-4
+      u16 b122_5 : 1; // 0x122 bit 5
+      u16 b122_6 : 1; // 0x122 bit 6
+      u16 b122_7 : 1; // 0x122 bit 7
+    };
+    u16 b122; // 0x122
+  };
   u8 pad124[0x128 - 0x124];
   f32 scale; // 0x128
 };
@@ -306,13 +320,14 @@ struct GIZMOBLOWUPTYPE_s {
   u8 pad94[0x9c - 0x94];
   f32 f9c; // 0x9c
   u8 pada0[0xa4 - 0xa0];
-  i16 particle_types[7]; // 0xa4
-  u8 padb2[0xb8 - 0xb2];
+  i16 particle_types[9]; // 0xa4
+  u8 padb6[0xb8 - 0xb6];
   u8 anti_node_data[0xdc - 0xb8]; // 0xb8
   char name[0x20];                // 0xdc
   u8 padfc[0xff - 0xfc];
-  u8 bff; // 0xff
-  u8 pad100[0x102 - 0x100];
+  u8 bff;  // 0xff
+  u8 b100; // 0x100
+  u8 pad101[0x102 - 0x101];
   i16 sfx0; // 0x102
   i16 sfx1; // 0x104
   i8 b106;  // 0x106
@@ -489,7 +504,7 @@ GIZMOBLOWUPTYPE_s *GizmoBlowupTypeAdd(WORLDINFO_s *world, nuhspecial_s *special,
     type->animated_special = *special;
     NuStrCpy(type->name, NuSpecialGetName(&type->animated_special));
   }
-  memset(type->particle_types, 0xff, sizeof(type->particle_types));
+  memset(type->particle_types, 0xff, 7 * sizeof(i16));
   type->effect_flags = 100;
   type->bff = 1;
   type->animation_flags = 0xc000;
@@ -600,6 +615,417 @@ void Blowup_ResetAtMtx(GIZMOBLOWUP_s *blowup, numtx_s *mtx) {
   if (blowup != NULL && mtx != NULL) {
     Blowup_Reset(blowup);
     *(numtx_s *)blowup = *mtx;
+  }
+}
+
+// GLOBAL: LEGOBATMAN 0x00a95fe0
+extern f32 FRAMETIME;
+// GLOBAL: LEGOBATMAN 0x00a9602c
+extern u32 PickupFlickerFrame;
+// GLOBAL: LEGOBATMAN 0x00ad10a4
+extern i32 g_unk00ad10a4;
+// GLOBAL: LEGOBATMAN 0x00aca000
+extern void (*g_unk00aca000)(i32, i32, GIZMOBLOWUP_s *, UNK005EE1A0 *, f32, i32,
+                             i32);
+
+typedef struct BLOWUPPLUG_s {
+  u8 pad0[0x28];
+  i32 blowup_ix; // 0x28
+  u8 pad2c[0x44 - 0x2c];
+} BLOWUPPLUG;
+
+typedef struct BLOWUPPLUGSYS_s {
+  BLOWUPPLUG *plugs; // 0x00
+  i32 count;         // 0x04
+} BLOWUPPLUGSYS;
+
+void PushAway(nuvec_s *pos, f32 radius, nuvec_s *min, nuvec_s *max, void *a,
+              void *b, void *c, f32 strength, u32 flags);
+void UpdateMidPos(GIZMOBLOWUP_s *blowup);
+void GizmoBlowupEvalAnim(GIZMOBLOWUP_s *blowup, GIZMOBLOWUPTYPE_s *type,
+                         f32 base_frame, numtx_s *m, NUINSTANIM_UNK *anim,
+                         f32 end_frame);
+numtx_s *NuSpecialGetInstanceMtx(nuhspecial_s *special);
+i32 GizmoBlowupBlowup(GIZMOBLOWUP_s *blowup, i32 effects, i32 hit_type,
+                      i32 damage, GameObject_s *object, i32 hit_context);
+extern "C" void AddVariableShotDebrisEffectTimed1(i32 effect, nuvec_s *pos,
+                                                  i32 count, f32 time, i16 rz,
+                                                  i16 ry, numtx_s *m);
+i32 Unk00558ee0(i32 sfx);
+void *GameAntiNode_Add(void *sys, nuvec_s *pos, u16 rot, void *data, f32 f,
+                       i32 flag);
+void GameAntiNode_Update(void *sys, void *node, nuvec_s *pos, u16 rot,
+                         void *data, f32 f, i32 flag);
+void GameAntiNode_Remove(void *sys, void *node);
+
+// FUNCTION: LEGOBATMAN 0x005da880
+void GizmoBlowupEarlyUpdate(void *world_ptr, void *unused, f32 dt) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  if (world == NULL)
+    return;
+  GIZMOBLOWUP_s *blowup = world->gizmo_blowups;
+  if (blowup == NULL)
+    return;
+  for (i32 i = 0; i < world->gizmo_blowup_count; i++, blowup++) {
+    i32 updated = 0;
+    if (blowup->blown_up && (blowup->flags & 0x30000000) == 0 &&
+        blowup->b122_5 &&
+        (blowup->respawn_timer > 0.0f ||
+         (g_unk00ad10a4 == 0 && (blowup->sa8 & 5)))) {
+      if (blowup->respawn_timer > 0.0f)
+        blowup->respawn_timer -= FRAMETIME;
+      f32 limit =
+          (blowup->type->b106 == -1 && !(blowup->sa8 & 1)) ? 2.0f : 1.0f;
+      i32 plugged = 0;
+      BLOWUPPLUGSYS *plugs = (BLOWUPPLUGSYS *)world->plug_sys;
+      if (plugs != NULL && plugs->plugs != NULL) {
+        BLOWUPPLUG *plug = plugs->plugs;
+        for (i32 j = 0; j < plugs->count; j++, plug++) {
+          if (plug->blowup_ix != -1 &&
+              plug->blowup_ix < world->gizmo_blowup_count &&
+              blowup == &world->gizmo_blowups[plug->blowup_ix]) {
+            plugged = 1;
+            break;
+          }
+        }
+      }
+      if (blowup->respawn_timer <= limit && !plugged) {
+        blowup->visible = 1;
+        if (blowup->respawn_timer <= 0.0f) {
+          GizBlowup_Respawn(blowup);
+        } else if (PickupFlickerFrame % 6 >= 3) {
+          blowup->visible = 0;
+        }
+        f32 rx = (blowup->bounds_max.x - blowup->bounds_min.x) * 0.5f;
+        f32 rz = (blowup->bounds_max.z - blowup->bounds_min.z) * 0.5f;
+        if (rz > rx)
+          rx = rz;
+        PushAway(&blowup->f58, rx, &blowup->bounds_min, &blowup->bounds_max,
+                 NULL, NULL, NULL, 1.0f, 4);
+      }
+    }
+
+    NUINSTANIM_UNK *anim =
+        NuSpecialGetInstAnim(&blowup->type->animated_special);
+    u32 activated = blowup->activated;
+    if (!((activated && !blowup->blown_up) || (blowup->flags & 0x20000))) {
+      if (!activated && anim != NULL && anim->playing)
+        anim->playing = 0;
+    } else {
+      if (blowup->draw_flags & 0x400000) {
+        *(numtx_s *)blowup =
+            *NuSpecialGetInstanceMtx(&blowup->type->animated_special);
+        blowup->b16 = 1;
+      }
+      if (blowup->sa8 != 0)
+        blowup->b16 = 1;
+      if (blowup->b16) {
+        UpdateMidPos(blowup);
+        updated = 1;
+      }
+      if (anim != NULL) {
+        f32 end_frame = NuAnimEndFrameOld(
+            (*(void ***)((u8 *)blowup->type->animated_special.scene +
+                         0x54))[anim->anim_ix]);
+        f32 base_frame = blowup->type->animation_base_frame;
+        if (blowup->b19) {
+          if (!(blowup->type->b100 & 1) &&
+              ((blowup->type->animation_flags & 0x2000) || blowup->b22)) {
+            blowup->type->animation_base_frame +=
+                FRAMETIME * 60.0f * anim->tfactor;
+            blowup->b16 = 1;
+            if (blowup->type->animation_base_frame >= end_frame) {
+              if (anim->repeating)
+                blowup->type->animation_base_frame = 1.0f;
+              else
+                blowup->b24 = 1;
+            }
+            blowup->type->b100 |= 1;
+          }
+          blowup->fc8 += FRAMETIME * 60.0f * anim->tfactor;
+          numtx_s m;
+          GizmoBlowupEvalAnim(blowup, blowup->type, base_frame, &m, anim,
+                              end_frame);
+          blowup->f58.x = m.m30;
+          blowup->f58.y = m.m31;
+          blowup->f58.z = m.m32;
+          if (blowup->fc8 >= end_frame) {
+            if (!anim->repeating) {
+              blowup->fc8 = blowup->type->animation_start_frame;
+              blowup->b24 = 1;
+            } else {
+              blowup->fc8 = 0.0f;
+            }
+          }
+        }
+      }
+      if (blowup->type->sfx1 != -1 && Unk00558ee0(blowup->type->sfx1) == 1)
+        GameAudio_PlaySfxById(blowup->type->sfx1, &blowup->f58, 0, 0);
+      if (blowup->b18) {
+        if (blowup->fc0 > 0.0f) {
+          if ((blowup->fc0 -= FRAMETIME) <= 0.0f) {
+            if (anim == NULL || blowup->b19)
+              blowup->b24 = 1;
+            else
+              blowup->b19 = 1;
+            blowup->b18 = 0;
+          }
+        }
+      } else if (blowup->flags & 0x20000) {
+        if (blowup->fc8 > 0.0f)
+          blowup->fc8 -= FRAMETIME;
+        else
+          blowup->flags &= ~0x20000;
+      }
+      if (blowup->b24)
+        GizmoBlowupBlowup(blowup, 1, -1, 1, NULL, 1);
+      for (i32 k = 7; k < 9; k++) {
+        if (blowup->type->particle_types[k] != -1)
+          AddVariableShotDebrisEffectTimed1(blowup->type->particle_types[k],
+                                            &blowup->f58, 60, FRAMETIME, 0, 0,
+                                            NULL);
+      }
+      if (g_unk00aca000 != NULL && blowup->type->b106 != -1) {
+        UNK005EE1A0 *info = Unk005ee1a0(blowup->type->b106);
+        if (info != NULL)
+          g_unk00aca000(0, 0, blowup, info, 1000000000.0f, 0, i);
+        if ((info->flags & 0x20000000000ULL) && blowup->platform_id == -1) {
+          f32 r = blowup->fb4 * 0.5f;
+          PushAway(&blowup->f58, r, NULL, NULL, NULL, NULL, NULL, 3.0f, 5);
+        }
+      }
+    }
+
+    blowup->flags &= 0x7fffffff;
+    blowup->b122_7 = 0;
+    if (blowup->visible) {
+      if (blowup->antinode != NULL) {
+        if (updated)
+          GameAntiNode_Update(
+              g_unk00960894->game_antinode_sys, blowup->antinode, &blowup->f58,
+              blowup->rot_z + blowup->rot_y, blowup->type->anti_node_data, 0.0f,
+              !((blowup->draw_flags >> 14) & 1));
+      } else {
+        if (!updated)
+          UpdateMidPos(blowup);
+        blowup->antinode = GameAntiNode_Add(
+            g_unk00960894->game_antinode_sys, &blowup->f58,
+            blowup->rot_z + blowup->rot_y, blowup->type->anti_node_data, 0.0f,
+            !((blowup->draw_flags >> 14) & 1));
+        if (blowup->antinode != NULL && (blowup->b122 & 0x200))
+          ((u8 *)blowup->antinode)[0x37] |= 1;
+      }
+    } else if (blowup->antinode != NULL) {
+      GameAntiNode_Remove(g_unk00960894->game_antinode_sys, blowup->antinode);
+      blowup->antinode = NULL;
+    }
+  }
+}
+
+// GLOBAL: LEGOBATMAN 0x0085d378
+extern const f32 BlowupDetectRange;
+// GLOBAL: LEGOBATMAN 0x00ac7394
+static i32 g_unk00ac7394;
+// GLOBAL: LEGOBATMAN 0x00ac7398
+static u8 *g_unk00ac7398;
+// GLOBAL: LEGOBATMAN 0x00ac739c
+extern GIZMOBLOWUPTYPE_s *g_unk00ac739c;
+// GLOBAL: LEGOBATMAN 0x00ac73a0
+extern GIZMOBLOWUPTYPE_s *g_unk00ac73a0;
+// GLOBAL: LEGOBATMAN 0x00960e1c
+extern i32 g_unk00960e1c;
+// GLOBAL: LEGOBATMAN 0x00ab3980
+extern GameObject_s *player;
+// GLOBAL: LEGOBATMAN 0x00ab3984
+extern GameObject_s *player2;
+// GLOBAL: LEGOBATMAN 0x00aca594
+extern u8 *g_unk00aca594;
+// GLOBAL: LEGOBATMAN 0x00966628
+extern i32 g_unk00966628;
+// GLOBAL: LEGOBATMAN 0x0096662c
+extern i32 g_unk0096662c;
+// GLOBAL: LEGOBATMAN 0x00961224
+extern f32 g_unk00961224;
+// GLOBAL: LEGOBATMAN 0x009652cc
+extern f32 AreaPickupScale;
+// GLOBAL: LEGOBATMAN 0x00960c94
+extern f32 g_unk00960c94;
+// GLOBAL: LEGOBATMAN 0x00a95800
+extern char *g_unk00a95800;
+
+typedef struct ADDGAMEMSG_s {
+  char *text;               // 0x00
+  nuvec_s *position;        // 0x04
+  nuvec_s *target_position; // 0x08
+  f32 scale;                // 0x0c
+  f32 target_scale;         // 0x10
+  u8 red;                   // 0x14
+  u8 green;                 // 0x15
+  u8 blue;                  // 0x16
+  u8 pad17;
+  u32 flags;    // 0x18
+  f32 duration; // 0x1c
+  u32 pad20[(0x44 - 0x20) / 4];
+  void *callback; // 0x44
+  u32 pad48;
+  u8 pad4c[3];
+  u8 b4f; // 0x4f
+} ADDGAMEMSG;
+
+// GLOBAL: LEGOBATMAN 0x00960c98
+extern ADDGAMEMSG AddGameMsg_Default;
+
+void *AddGameMsg(ADDGAMEMSG *message);
+u8 *Hint_FindHint(i32 id);
+f32 NuVecDistSqr(nuvec_s *a, nuvec_s *b, nuvec_s *d);
+i32 Transform_TargettedByObj(GIZMOBLOWUP_s *blowup);
+f32 SeekLinearF(f32 current, f32 target, f32 step);
+u64 Cheats_CheckFlags(u64 flags);
+void MiniKitDetector(nuvec_s *position);
+i32 qrand(void);
+i32 ParticlesPerSecond(f32 particles_per_second, f32 frame_time);
+void NuVecRotateY(nuvec_s *v, nuvec_s *v0, i32 a);
+void NuVecAdd(nuvec_s *out, nuvec_s *a, nuvec_s *b);
+i32 NewShadowOnPlatform(void);
+extern "C" void AddVariableShotDebrisEffect(i32 effect, nuvec_s *pos, i32 count,
+                                            i32 a, i32 b);
+void Unk005d4220(void);
+
+#define CABLE_P4(p) (*(u8 **)((u8 *)(p)->cable157c + 4))
+#define CABLE_FLAGS(c) ((*(u8 **)(*(u8 **)((c) + 0x54) + 0x24))[0x144])
+
+// FUNCTION: LEGOBATMAN 0x005db050
+void GizmoBlowupLateUpdate(void *world_ptr, void *unused, f32 dt) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  i32 ncand;
+  i32 near;
+  nuvec_s v;
+  nuvec_s mn[2];
+  nuvec_s mx[2];
+  i16 cand[512];
+  u8 *c;
+
+  g_unk00ac7394 = 0;
+  if (world == NULL)
+    return;
+  ncand = 0;
+  GIZMOBLOWUPTYPE_s *type = world->gizmo_blowup_types;
+  for (i32 i = 0; i < world->gizmo_blowup_type_count; i++, type++) {
+    if (NuSpecialExistsFn(&type->animated_special) &&
+        NuSpecialGetInstAnim(&type->animated_special) != NULL &&
+        (type->b100 & 1))
+      type->b100 &= ~1;
+  }
+  if (g_unk00ac7398 == NULL && g_unk00960e1c != -1)
+    g_unk00ac7398 = Hint_FindHint(g_unk00960e1c);
+  if (g_unk00ac7398 != NULL && g_unk00ac7398[0x16] == 0) {
+    if (player != NULL) {
+      mn[0].x = player->v80.x - BlowupDetectRange;
+      mn[0].y = player->v80.y - BlowupDetectRange;
+      mn[0].z = player->v80.z - BlowupDetectRange;
+      mx[0].x = player->v80.x + BlowupDetectRange;
+      mx[0].y = player->v80.y + BlowupDetectRange;
+      mx[0].z = player->v80.z + BlowupDetectRange;
+    }
+    if (player2 != NULL) {
+      mn[1].x = player2->v80.x - BlowupDetectRange;
+      mn[1].y = player2->v80.y - BlowupDetectRange;
+      mn[1].z = player2->v80.z - BlowupDetectRange;
+      mx[1].x = player2->v80.x + BlowupDetectRange;
+      mx[1].y = player2->v80.y + BlowupDetectRange;
+      mx[1].z = player2->v80.z + BlowupDetectRange;
+    }
+  }
+  if ((player != NULL && player->cable157c != NULL &&
+       (c = CABLE_P4(player)) != NULL && (CABLE_FLAGS(c) & 8)) ||
+      (player2 != NULL && player2->cable157c != NULL &&
+       (c = CABLE_P4(player2)) != NULL && (CABLE_FLAGS(c) & 8)))
+    near = 1;
+  else
+    near = 0;
+
+  GIZMOBLOWUP_s *blowup = world->gizmo_blowups;
+  for (i32 i = 0; i < world->gizmo_blowup_count; i++, blowup++) {
+    if (blowup->b15 && blowup->activated && blowup->visible &&
+        !blowup->blown_up) {
+      if ((blowup->draw_flags & 0x40) && g_unk00ac7398 != NULL &&
+          g_unk00ac7398[0x16] == 0) {
+        if (player != NULL && blowup->f58.x > mn[0].x &&
+            blowup->f58.x < mx[0].x && blowup->f58.z > mn[0].z &&
+            blowup->f58.z < mx[0].z && blowup->f58.y > mn[0].y &&
+            blowup->f58.y < mx[0].y &&
+            NuVecDistSqr(&blowup->f58, &player->v80, NULL) <
+                BlowupDetectRange * BlowupDetectRange) {
+          g_unk00ac7394++;
+        } else if (player2 != NULL && blowup->f58.x > mn[1].x &&
+                   blowup->f58.x < mx[1].x && blowup->f58.z > mn[1].z &&
+                   blowup->f58.z < mx[1].z && blowup->f58.y > mn[1].y &&
+                   blowup->f58.y < mx[1].y &&
+                   NuVecDistSqr(&blowup->f58, &player2->v80, NULL) <
+                       BlowupDetectRange * BlowupDetectRange) {
+          g_unk00ac7394++;
+        }
+      }
+      u32 df = blowup->draw_flags & 0x4018083;
+      if (df == 2 || df == 0x8002 || (df & 0x4000000))
+        cand[ncand++] = i;
+      if (near && (blowup->draw_flags & 0x4000000)) {
+        ADDGAMEMSG msg = AddGameMsg_Default;
+        msg.position = &blowup->f58;
+        f32 scale = world->area != NULL ? *(f32 *)((u8 *)world->area + 0xb8)
+                                        : AreaPickupScale;
+        msg.flags = 0x87;
+        msg.text = g_unk00a95800;
+        msg.scale = scale * g_unk00960c94;
+        msg.b4f = 4;
+        msg.red = 0xff;
+        msg.green = 0xbf;
+        msg.blue = 0;
+        msg.callback = (void *)Unk005d4220;
+        AddGameMsg(&msg);
+      }
+    }
+    if (blowup->draw_flags & 0x10) {
+      if (Transform_TargettedByObj(blowup))
+        blowup->flags |= 0x80000000;
+      else if (blowup->scale < 1.0f)
+        blowup->scale = SeekLinearF(blowup->scale, 1.0f, FRAMETIME);
+    }
+    if (Cheats_CheckFlags(0x40000) &&
+        (world->i124 == -1 || g_unk00aca594 == NULL ||
+         !(g_unk00aca594[world->i124 * 12 + 7] & 1))) {
+      if (blowup->type == g_unk00ac739c && !blowup->b29) {
+        if (blowup->visible)
+          MiniKitDetector(&blowup->position);
+      } else if (blowup->type == g_unk00ac73a0 && !blowup->blown_up) {
+        MiniKitDetector(&blowup->position);
+      }
+    }
+  }
+
+  if (ncand > 0) {
+    i32 effect = VehicleArea ? g_unk0096662c : g_unk00966628;
+    if (effect != -1 &&
+        ((i32 *)*(u8 **)((u8 *)world->p138 + 8))[effect * 5] != -1) {
+      GIZMOBLOWUP_s *b =
+          &world->gizmo_blowups[cand[qrand() / (0xffff / ncand + 1)]];
+      if (ParticlesPerSecond(ncand * g_unk00961224, FRAMETIME) > 0) {
+        v.x = v.y = 0.0f;
+        v.z = qrand() * (1.0f / 65535.0f) * b->fb4;
+        NuVecRotateY(&v, &v, qrand());
+        NuVecAdd(&v, &v, &b->f58);
+        f32 h = GameShadow(NULL, &v, VehicleArea ? 6.0f : 2.0f, -1);
+        if (h != 2000000.0) {
+          i32 plat = NewShadowOnPlatform();
+          if (b->platform_id == -1 || plat == b->platform_id) {
+            v.y = h;
+            AddVariableShotDebrisEffect(
+                ((i32 *)*(u8 **)((u8 *)world->p138 + 8))[effect * 5], &v, 1, 0,
+                0);
+          }
+        }
+      }
+    }
   }
 }
 

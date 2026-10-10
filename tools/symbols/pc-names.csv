@@ -861,6 +861,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004ff6d0,00116914,__Z34Transform_FindFreezeObstacleTargetP11WORLDINFO_sP12GameObject_sPff,"Transform_FindFreezeObstacleTarget(WORLDINFO_s*, GameObject_s*, float*, float)",strings,0
 004ffbf0,00116610,__Z18Transform_DrawBeamP12GameObject_sP7nuvec_s,"Transform_DrawBeam(GameObject_s*, nuvec_s*)",strings,0
 004fff70,00115eaa,__Z20Transform_DrawTargetiiP7nuvec_sff,"Transform_DrawTarget(int, int, nuvec_s*, float, float)",strings,0
+005004f0,00116468,__Z24Transform_TargettedByObjPv,Transform_TargettedByObj(void*),confirmed,0
 005013a0,00033bf2,__Z20ArkhamAsylum_B_ResetP11WORLDINFO_s,ArkhamAsylum_B_Reset(WORLDINFO_s*),strings,0
 005026f0,0003bbc0,__Z19FortBloxHero_B_InitP11WORLDINFO_s,FortBloxHero_B_Init(WORLDINFO_s*),strings,0
 00502b60,0003c06a,__Z20FortBloxHero_B_ResetP11WORLDINFO_s,FortBloxHero_B_Reset(WORLDINFO_s*),strings,0
@@ -1444,6 +1445,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00571f70,001ff55a,_ShadowInfo,_ShadowInfo,calls,1
 00571fe0,001ff5de,_EShadowInfo,_EShadowInfo,calls,1
 00572040,001ff638,_NewTerrPlatformsOff,_NewTerrPlatformsOff,calls,1
+00572050,001ff64c,_NewShadowOnPlatform,_NewShadowOnPlatform,confirmed,0
 00572be0,002158ec,_NewRayCast,_NewRayCast,gapfill,1
 00572d90,002156a6,_NewRayCastScaleYMask,_NewRayCastScaleYMask,gapfill,1
 00573e30,00200b08,_NewPlatPickupInst,_NewPlatPickupInst,confirmed,0
@@ -1891,6 +1893,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005d3640,002ae2fe,__Z14AddGameMessagePcP7nuvec_sfS1_fhhhjf,"AddGameMessage(char*, nuvec_s*, float, nuvec_s*, float, unsigned char, unsigned char, unsigned char, unsigned int, float)",confirmed,0
 005d3f60,002aeab8,__Z12FindGameMsgsiiiiP13GAMEMESSAGE_sPS0_,"FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)",gapfill,4
 005d3fd0,002aeb64,__Z15AddGameMsgCountP7nuvec_siihhhf,"AddGameMsgCount(nuvec_s*, int, int, unsigned char, unsigned char, unsigned char, float)",confirmed,0
+005d4770,002eaecc,__Z13Hint_FindHinti,Hint_FindHint(int),confirmed,0
 005d5670,0029b69e,__Z30DetonatorSys_RegisterCallbacksPFvP11DETONATOR_sRfE,"DetonatorSys_RegisterCallbacks(void (*)(DETONATOR_s*, float&))",confirmed,0
 005d5690,0029b6bc,__Z25DetonatorSys_RegisterTypeP13DETONATORTYPE,DetonatorSys_RegisterType(DETONATORTYPE*),gapfill,2
 005d5890,0029b8e4,__Z17DetonatorSys_InitiiiiiP9variptr_uS_,"DetonatorSys_Init(int, int, int, int, int, variptr_u*, variptr_u)",confirmed,0

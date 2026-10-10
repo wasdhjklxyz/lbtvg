@@ -3226,3 +3226,6 @@
 00634af0 GizmoPickup_SetVisibility GizmoPickups_RegisterGizmo set_visibility slot (fns[12])
 00634ee0 GizmoPickup_GetPos GizmoPickups_RegisterGizmo get_pos slot (fns[14]); position at 0x08 as saga GIZMOPICKUP_s
 00634940 GizmoPickups_ReserveBufferSpace GizmoPickups_RegisterGizmo reserve_buffer_space slot (fns[23]); saga shape plus Batman gravity
+005d4770 Hint_FindHint Mac GizmoBlowupLateUpdate calls Hint_FindHint(int) at the same point (global hint id, result cached, byte +0x16 tested)
+005004f0 Transform_TargettedByObj Mac GizmoBlowupLateUpdate calls it (via thunk 0x401a23 on PC) in the draw_flags & 0x10 branch before SeekLinearF
+00572050 NewShadowOnPlatform Mac GizmoBlowupLateUpdate calls it right after GameShadow, result compared with the blowup's platform id

@@ -172,11 +172,11 @@ struct WORLDINFO_s {
   struct GIZTIMER_s *giz_timers;       // 0x526c
   i32 giz_timer_count;                 // 0x5270
   u8 pad5274[0x5278 - 0x5274];
-  struct GIZRANDOMSYS_s *giz_randoms;      // 0x5278
-  struct GIZSPECIALSYS_s *giz_special_sys; // 0x527c
-  u8 pad5280[0x5284 - 0x5280];
-  struct EDGIZSHADOW_s *shadow_editor;     // 0x5284
-  struct GIZBOMBGENSYS_s *giz_bombgen_sys; // 0x5288
+  struct GIZRANDOMSYS_s *giz_randoms;          // 0x5278
+  struct GIZSPECIALSYS_s *giz_special_sys;     // 0x527c
+  struct GAMEANTINODESYS_s *game_antinode_sys; // 0x5280
+  struct EDGIZSHADOW_s *shadow_editor;         // 0x5284
+  struct GIZBOMBGENSYS_s *giz_bombgen_sys;     // 0x5288
   u8 pad528c[0x52f8 - 0x528c];
   struct PLUGSYS_s *plug_sys;     // 0x52f8
   struct PUZZLESYS_s *puzzle_sys; // 0x52fc
