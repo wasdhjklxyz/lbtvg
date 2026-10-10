@@ -182,6 +182,82 @@ i32 Action_SetScriptState(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+int sprintf(char *buf, const char *fmt, ...);
+i32 NuRand(void *seed);
+f32 NuVecDistSqr(nuvec_s *a, nuvec_s *b, nuvec_s *d);
+struct AILOCATOR_s *AIPathFindLocator(AISYS_s *sys, char *name);
+
+// FUNCTION: LEGOBATMAN 0x00456060
+i32 Action_SetLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                      AIPACKET_s *packet, char **params, i32 param_count,
+                      i32 first_time, f32 dt) {
+  f32 best_dist = 1000000000.0f;
+  char *name = NULL;
+  i32 personal = 0;
+  i32 indexed = 0;
+  i32 nearest = 0;
+  i32 random_count = 0;
+  Unk_AIPacketObj *target = NULL;
+  AILOCATOR_s *locator = NULL;
+  AILOCATOR_s *best = NULL;
+  char buf[64];
+  nuvec_s d;
+  if (!first_time)
+    return 1;
+  if (packet != NULL && packet->pd0 != NULL)
+    target = packet->pd0;
+  if (param_count == 0)
+    return 1;
+  for (i32 index = 0; index < param_count; index++) {
+    char *value = NuStrIStr(params[index], "name=");
+    if (value != NULL)
+      name = value + 5;
+    else if (NuStrICmp(params[index], "personal") == 0)
+      personal = 1;
+    else if (NuStrICmp(params[index], "indexed") == 0)
+      indexed = 1;
+    else if (NuStrICmp(params[index], "nearest") == 0)
+      nearest = 1;
+    else if ((value = NuStrIStr(params[index], "random=")) != NULL)
+      random_count = (i32)AIParamToFloat(process, value + 7);
+    else if ((value = NuStrIStr(params[index], "character=")) != NULL &&
+             GetNamedAPIObjectFn != NULL)
+      target = GetNamedAPIObjectFn(sys, value + 10);
+  }
+  if (name != NULL) {
+    if (nearest) {
+      AILOCATOR_s *loc;
+      i32 i = 0;
+      do {
+        sprintf(buf, "%s_%d", name, i++);
+        loc = AIPathFindLocator(sys, buf);
+        if (loc != NULL) {
+          f32 dist =
+              NuVecDistSqr(&packet->pos14c, (nuvec_s *)((u8 *)loc + 0x10), &d);
+          if (dist < best_dist) {
+            best_dist = dist;
+            best = loc;
+          }
+        }
+      } while (loc != NULL);
+      locator = best;
+    } else if (packet != NULL) {
+      if (indexed && packet->pd0->b24c != -1)
+        sprintf(buf, "%s_%d", name, (i8)packet->pd0->b24c);
+      else if (personal && packet->pd0->character != NULL)
+        sprintf(buf, "%s_%s", name, packet->pd0->character->file);
+      else if (random_count != 0)
+        sprintf(buf, "%s_%d", name, NuRand(0) % random_count);
+      else
+        sprintf(buf, name);
+      locator = AIPathFindLocator(sys, buf);
+    }
+  }
+  if (target != NULL)
+    ((AIPACKET_s *)target->ai)->locator = locator;
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x0045af10
 i32 Action_SetIgnorePlayerItemsTargetting(AISYS_s *sys,
                                           AISCRIPTPROCESS_s *process,

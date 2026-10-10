@@ -38,11 +38,16 @@ struct Unk_AIPacketObj {
   f32 heardistance;  // 0x234
   f32 maxviewheight; // 0x238
   f32 minviewheight; // 0x23c
+  u8 pad240[0x24c - 0x240];
+  char b24c; // 0x24c, Action_SetLocator "indexed" suffix (0xff = none)
 };
 
 struct AIPACKET_s {
   u8 pad0[0xa8];
-  char *locator_name; // 0xa8, EngageLocator default
+  union {
+    char *locator_name;          // 0xa8, EngageLocator default
+    struct AILOCATOR_s *locator; // 0xa8, Action_SetLocator
+  };
   u8 padac[0xd0 - 0xac];
   Unk_AIPacketObj *pd0; // 0xd0
   Unk_AIPacketObj *pd4; // 0xd4
@@ -57,7 +62,8 @@ struct AIPACKET_s {
   u8 group_member_index;   // 0x148
   u8 group_column;         // 0x149
   u8 group_row;            // 0x14a
-  u8 pad14b[0x158 - 0x14b];
+  u8 pad14b[0x14c - 0x14b];
+  nuvec_s pos14c;                 // 0x14c, Action_SetLocator nearest origin
   struct AIPATHSET_s *path_set;   // 0x158
   struct AIPATHNODE_s *path_node; // 0x15c, node byte 0x10 = index
   u8 pad160[0x184 - 0x160];
