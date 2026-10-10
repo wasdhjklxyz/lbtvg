@@ -3637,6 +3637,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d94a0,001878ce,_NuMemFileSeek,_NuMemFileSeek,confirmed,0
 006d9540,0018fce8,_NuFilePos,_NuFilePos,confirmed,0
 006d9620,0018772a,_NuFileSeek,_NuFileSeek,confirmed,0
+006d9f00,0018fbb4,_NuDatFileFindHash,_NuDatFileFindHash,confirmed,0
 006d9fe0,,MatchExtension,MatchExtension,confirmed,0
 006da040,0018b1a8,_AddExtension,_AddExtension,confirmed,0
 006da090,0018b224,_NuFileExtInitEx,_NuFileExtInitEx,strings,0

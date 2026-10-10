@@ -1533,10 +1533,70 @@ struct NUDATHDR {
   NUDATFILEINFO *file_info; // 0x8
   int tree_node_count;      // 0xc
   NUDFNODE *file_tree;      // 0x10
+  int leaf_names_len;       // 0x14
+  char *leaf_names;         // 0x18
+  unsigned int *hash_idxs;  // 0x1c
+  int hash_count;           // 0x20
+  int hashes_len;           // 0x24
+  char *hashes;             // 0x28
 };
 // GLOBAL: LEGOBATMAN 0x00b0388c
 extern int nufile_buffering_enabled;
-int NuDatFileFindHash(NUDATHDR *header, char *name);
+static unsigned int NameToHash(char *name) {
+  unsigned int hash = 0x811c9dc5;
+  while (*name != '\0') {
+    hash = (*name ^ hash) * 0x199933;
+    name++;
+  }
+  return hash;
+}
+
+static __forceinline int NuStrCmpInline(const char *a, const char *b) {
+  if (!a)
+    return -1;
+  if (!b)
+    return 1;
+  char ca;
+  char cb;
+  do {
+    ca = *a;
+    cb = *b;
+    if (ca > cb)
+      return 1;
+    if (ca < cb)
+      return -1;
+    a++;
+    b++;
+  } while (ca && cb);
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d9f00
+int NuDatFileFindHash(NUDATHDR *header, char *name) {
+  unsigned int hash = NameToHash(name);
+  int i;
+
+  for (i = 0; i < header->file_count; i++) {
+    if (header->hash_idxs[i] == hash)
+      return i;
+  }
+  if (header->hash_count != 0) {
+    VARIPTR ptr;
+    ptr.char_ptr = header->hashes;
+    for (i = 0; i < header->hash_count; i++) {
+      if (NuStrCmpInline(ptr.char_ptr, name) == 0) {
+        ptr.addr += NuStrLen(ptr.char_ptr) + 1;
+        if ((ptr.addr & 1) != 0)
+          ptr.addr++;
+        return *ptr.i16_ptr;
+      }
+      ptr.addr += NuStrLen(ptr.char_ptr) + 3;
+      if ((ptr.addr & 1) != 0)
+        ptr.addr++;
+    }
+  }
+  return -1;
+}
 void NuFileUpCase(int a, char *buf);
 
 // FUNCTION: LEGOBATMAN 0x006dcbc0

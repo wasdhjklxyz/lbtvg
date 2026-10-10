@@ -3424,3 +3424,4 @@
 006d9130 NuFileGetAppDirectory copies the default device app dir (Mac _NuFileGetAppDirectory)
 006d9160 NuFileSetAppDirectory copies into the default device app dir and appends its separator (Mac _NuFileSetAppDirectory)
 006dcbc0 NuDatFileFindTree saga nudatfile.cpp body (NuStrStr for the path split)
+006d9f00 NuDatFileFindHash saga nudatfile.cpp shape (FNV-style hash, linear index search, then the name table)
