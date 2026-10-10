@@ -111,18 +111,18 @@ void GizTorp_Activate(GIZMO *gizmo, i32 active) {
 }
 
 // Batman's form of saga giztorpedo.cpp's GizTorp_Update
-// STUB: LEGOBATMAN 0x00491a90
-// the original keeps 0.5 as one dword constant in st(0) for the whole loop;
-// ours loads a qword 0.5 and compares the other way round (3 forms tried).
+// FUNCTION: LEGOBATMAN 0x00491a90
+// `t < 0.5f` / `t > 0.5f` (constant on the right) keep 0.5 as one dword in
+// st(0) for the whole loop; `0.5f > t` loads a qword 0.5 each time.
 void GizTorp_Update(void *world_ptr, void *unused, f32 dt) {
   GIZTORPMACHINESYS *system = ((GTWORLD *)world_ptr)->giz_torp_machine_sys;
   if (system == NULL)
     return;
   for (i32 i = 0; i < system->count; i++) {
     GIZTORPMACHINE *machine = &system->machines[i];
-    if (0.5f > machine->activation_time) {
+    if (machine->activation_time < 0.5f) {
       machine->activation_time = FRAMETIME + machine->activation_time;
-      if (0.5f < machine->activation_time)
+      if (machine->activation_time > 0.5f)
         machine->activation_time = 0.5f;
     }
   }

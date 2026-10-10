@@ -37,7 +37,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Doors](#doors) | 2 | 2 |
 | [GizAction](#gizaction) | 2 | 2 |
 | [GizPanel](#gizpanel) | 2 | 2 |
-| [GizTorp](#giztorp) | 2 | 2 |
 | [LevelObjects](#levelobjects) | 2 | 2 |
 | [near nutrig_gen.cpp](#near-nutrig_gencpp) | 3 | 2 |
 | [Tag](#tag) | 2 | 2 |
@@ -66,6 +65,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [gizmoblowup](#gizmoblowup) | 1 | 1 |
 | [GizmoPickup](#gizmopickup) | 1 | 1 |
 | [GizSpecial](#gizspecial) | 1 | 1 |
+| [GizTorp](#giztorp) | 1 | 1 |
 | [GizTorps](#giztorps) | 1 | 1 |
 | [GizTurrets](#gizturrets) | 1 | 1 |
 | [Grapples](#grapples) | 1 | 1 |
@@ -503,11 +503,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0048f750` 993 B `GizPanel_Update(void*, void*, float)`  **saga** `legoapi/gizmos/object/gizpanel.cpp`
 - [ ] `00490b20` 1178 B `GizPanel_MoveCode(WORLDINFO_s*, GameObject_s*, int)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizpanel.cpp`
 
-## GizTorp
-
-- [ ] `00491a90` 94 B `GizTorp_Update(void*, void*, float)`  **stub** · **saga** `legoapi/gizmo/object/giztorpedo.cpp`
-- [ ] `00491b10` 475 B `GizTorp_Draw(void*, void*, float)`  **saga** `legoapi/gizmo/object/giztorpedo.cpp`
-
 ## LevelObjects
 
 - [ ] `0060e8e0` 215 B `LevelObjects_InitForGame(LEVELOBJECT*, variptr_u*, variptr_u*, int, int)`  **stub** · **hint** name (order) · **saga** `legoapi/world/levelobjects.cpp`
@@ -630,6 +625,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## GizSpecial
 
 - [ ] `00662c30` 93 B `GizSpecial_FindByName(char*, WORLDINFO_s*)`  **stub** · **saga** `legoapi/gizmos/trigger/gizspecial.cpp`
+
+## GizTorp
+
+- [ ] `00491b10` 475 B `GizTorp_Draw(void*, void*, float)`  **saga** `legoapi/gizmo/object/giztorpedo.cpp`
 
 ## GizTorps
 
