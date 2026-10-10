@@ -1382,6 +1382,77 @@ struct TECHNO_s {
 i32 GizmoGetTypeIDByName(GIZMOSYS_s *gizmo_sys, char *name);
 TECHNO_s *Technos_FindControllingTechno(GameObject_s *object);
 
+// GLOBAL: LEGOBATMAN 0x009cb0b4
+extern i32 lightning_type;
+// GLOBAL: LEGOBATMAN 0x00942de8
+extern f32 lightning_sizew[2];
+// GLOBAL: LEGOBATMAN 0x00942df0
+extern f32 lightning_sizel[2];
+// GLOBAL: LEGOBATMAN 0x00942df8
+extern f32 lightning_sizewab[2];
+// GLOBAL: LEGOBATMAN 0x00942e00
+extern f32 lightning_endw[2];
+// GLOBAL: LEGOBATMAN 0x00942e08
+extern i32 lightning_col[2];
+
+void ForceLightning_Origin(GameObject_s *obj, nuvec_s *primary,
+                           nuvec_s *secondary);
+f32 NuRandFloat(void);
+f32 NuVecDist(nuvec_s *v0, nuvec_s *v1, nuvec_s *d);
+extern "C" void NuLgtLaser(i32 type, f32 sizew, f32 sizel, f32 sizewab,
+                           nuvec_s *pos, nuvec_s *dir, i32 col, f32 endw,
+                           f32 len);
+void PlaySfx(char *name, nuvec_s *pos);
+
+// FUNCTION: LEGOBATMAN 0x0046eee0
+i32 Action_ForceLightning(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **params, i32 param_count,
+                          i32 first_time, f32 dt) {
+  GameObject_s *obj = NULL;
+  nuvec_s target;
+  nuvec_s dir;
+  nuvec_s origin[2];
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL)
+    obj = packet->pd0->obj;
+  if (first_time && param_count > 0) {
+    for (i32 i = 0; i < param_count; i++) {
+      char *value = NuStrIStr(params[i], "locator=");
+      if (value != NULL) {
+        AILOCATOR_s *loc = AIPathFindLocator(sys, value + 8);
+        if (loc != NULL) {
+          process->action_pos = *(nuvec_s *)((u8 *)loc + 0x10);
+          process->action_data_1 = 1;
+        }
+      } else if ((value = NuStrIStr(params[i], "randxz=")) != NULL) {
+        process->action_data_4 = AIParamToFloat(process, value + 7);
+      }
+    }
+  }
+  if (obj == NULL || process->action_data_1 == 0)
+    return 0;
+  ForceLightning_Origin(obj, &origin[0], &origin[1]);
+  target = process->action_pos;
+  if (process->action_data_4 > 0.0f) {
+    target.x +=
+        process->action_data_4 -
+        NuRandFloat() * (process->action_data_4 + process->action_data_4);
+    target.z +=
+        process->action_data_4 -
+        NuRandFloat() * (process->action_data_4 + process->action_data_4);
+  }
+  for (i32 i = 0; i < 2; i++) {
+    if (origin[i].y != 1000000000.0) {
+      f32 dist = NuVecDist(&target, &origin[i], &dir);
+      NuLgtLaser(lightning_type, lightning_sizew[0], lightning_sizel[0],
+                 lightning_sizewab[0], &origin[i], &dir, lightning_col[0],
+                 lightning_endw[0], dist);
+      PlaySfx("ForceLightningLp", &process->action_pos);
+    }
+  }
+  packet->look_target = &process->action_pos;
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x0046f500
 i32 Action_SetTechnoComplete(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                              AIPACKET_s *packet, char **args, int argc,
