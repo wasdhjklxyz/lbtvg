@@ -665,7 +665,7 @@ struct NuFileUnk0b00878 {
 // GLOBAL: LEGOBATMAN 0x00ae3740
 FILEINFO file_info[0x21];
 // GLOBAL: LEGOBATMAN 0x00afa0a8
-NuFileUnk0afa0a8 g_nuFileUnk0afa0a8[1];
+NuFileUnk0afa0a8 g_nuFileUnk0afa0a8[20];
 // GLOBAL: LEGOBATMAN 0x00ae3f80
 NuFileUnk0ae3f80 g_nuFileUnk0ae3f80[20];
 // GLOBAL: LEGOBATMAN 0x00b00878
@@ -1725,6 +1725,156 @@ static void AquireFileBuffer(FILEINFO *info) {
     NuPSFileLSeek(info->handle, -info->buf_len, 1);
     NuPSFileRead(info->handle, buf->data, info->buf_len);
   }
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3160
+int NuMemFileOpen(void *buf, int buf_size, int mode) {
+  int i;
+
+  if (buf_size > 0 && (mode == 0 || mode == 1)) {
+    for (i = 0; i < 20; i++) {
+      if (!g_nuFileUnk0afa0a8[i].i10) {
+        g_nuFileUnk0afa0a8[i].start = (int)buf;
+        g_nuFileUnk0afa0a8[i].end = (int)buf + buf_size - 1;
+        g_nuFileUnk0afa0a8[i].i8 = g_nuFileUnk0afa0a8[i].start;
+        g_nuFileUnk0afa0a8[i].ic = mode;
+        g_nuFileUnk0afa0a8[i].i10 = 1;
+        return i + 0x400;
+      }
+    }
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d31f0
+void *NuMemFileAddr(int file) {
+  return (void *)g_nuFileUnk0afa0a8[file - 0x400].i8;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3210
+int NuMemFileWrite(int file, void *data, int size) {
+  file -= 0x400;
+  size = g_nuFileUnk0afa0a8[file].end - g_nuFileUnk0afa0a8[file].i8 + 1 < size
+             ? g_nuFileUnk0afa0a8[file].end - g_nuFileUnk0afa0a8[file].i8 + 1
+             : size;
+  if (size != 0) {
+    memcpy((void *)g_nuFileUnk0afa0a8[file].i8, data, size);
+    g_nuFileUnk0afa0a8[file].i8 += size;
+  }
+  return size;
+}
+
+extern "C" int NuPSFileWrite(int fh, void *buf, int size);
+
+// FUNCTION: LEGOBATMAN 0x006d3260
+int NuFileWrite(int file, void *data, int size) {
+  if (file >= 0x1000)
+    return 0;
+  if (file >= 0x400)
+    return NuMemFileWrite(file, data, size);
+  file -= 1;
+  return NuPSFileWrite(file, data, size);
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3520
+int NuFileWriteString(int file, char *str) {
+  return NuFileWrite(file, str, strlen(str));
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3570
+int NuFileWriteStringV(int file, const char *format, ...) {
+  int length;
+  va_list args;
+  char text[1024];
+
+  va_start(args, format);
+  vsprintf(text, format, args);
+  va_end(args);
+  length = strlen(text);
+  return NuFileWrite(file, text, length);
+}
+
+// GLOBAL: LEGOBATMAN 0x00b0389c
+int NuFile_SwapEndianOnWrite;
+
+static void NuFileEndianSwap16(void *value) {
+  unsigned char *value_ptr;
+  unsigned short swapped;
+  unsigned char *swap_ptr;
+
+  value_ptr = (unsigned char *)value;
+  swap_ptr = (unsigned char *)&swapped;
+  swap_ptr[0] = value_ptr[1];
+  swap_ptr[1] = value_ptr[0];
+  *((unsigned short *)value) = swapped;
+}
+
+static void NuFileEndianSwap32(void *value) {
+  unsigned char *value_ptr;
+  unsigned int swapped;
+  unsigned char *swap_ptr;
+
+  value_ptr = (unsigned char *)value;
+  swap_ptr = (unsigned char *)&swapped;
+  swap_ptr[0] = value_ptr[3];
+  swap_ptr[1] = value_ptr[2];
+  swap_ptr[2] = value_ptr[1];
+  swap_ptr[3] = value_ptr[0];
+  *((unsigned int *)value) = swapped;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3290
+int NuFileWriteFloat(int file, float value) {
+  float tmp = value;
+  if (NuFile_SwapEndianOnWrite != 0)
+    NuFileEndianSwap32(&tmp);
+  return NuFileWrite(file, &tmp, sizeof(tmp));
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3300
+int NuFileWriteInt(int file, int value) {
+  int tmp;
+
+  tmp = value;
+  if (NuFile_SwapEndianOnWrite != 0)
+    NuFileEndianSwap32(&tmp);
+  return NuFileWrite(file, &tmp, sizeof(int));
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3370
+unsigned int NuFileWriteUnsignedInt(int file, unsigned int value) {
+  unsigned int tmp;
+
+  tmp = value;
+  if (NuFile_SwapEndianOnWrite != 0)
+    NuFileEndianSwap32(&tmp);
+  return NuFileWrite(file, &tmp, sizeof(unsigned int));
+}
+
+// FUNCTION: LEGOBATMAN 0x006d33e0
+int NuFileWriteShort(int file, short value) {
+  short tmp = value;
+  if (NuFile_SwapEndianOnWrite != 0)
+    NuFileEndianSwap16(&tmp);
+  return NuFileWrite(file, &tmp, sizeof(tmp));
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3440
+int NuFileWriteUnsignedShort(int file, unsigned short value) {
+  unsigned short tmp = value;
+  if (NuFile_SwapEndianOnWrite != 0)
+    NuFileEndianSwap16(&tmp);
+  return NuFileWrite(file, &tmp, sizeof(tmp));
+}
+
+// FUNCTION: LEGOBATMAN 0x006d34a0
+int NuFileWriteChar(int file, char value) {
+  return NuFileWrite(file, &value, sizeof(value));
+}
+
+// FUNCTION: LEGOBATMAN 0x006d34e0
+int NuFileWriteUnsignedChar(int file, unsigned char value) {
+  return NuFileWrite(file, &value, sizeof(value));
 }
 
 int NuDatFileRead(int file, void *buf, int size);

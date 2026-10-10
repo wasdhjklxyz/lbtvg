@@ -3469,3 +3469,16 @@
 006d2f80 Unk006d2f80 small-file read (Mac NuFileSmallFileManager::Read shape); called by NuFileRead for ids >= 0x2000
 006d2fe0 Unk006d2fe0 small-file seek (Mac NuFileSmallFileManager::Seek shape); called by NuFileSeek for ids >= 0x2000
 006d3060 Unk006d3060 small-file size (Mac NuFileSmallFileManager::Size shape); inlined in NuFileOpenSize
+006d3160 NuMemFileOpen saga nufile.cpp body (memfiles 0xafa0a8, 20 x 0x14)
+006d31f0 NuMemFileAddr saga nufile.cpp body
+006d3210 NuMemFileWrite saga nufile.cpp body
+006d3260 NuFileWrite saga nufile.cpp shape (no memory card: ids >= 0x1000 return 0)
+006d3290 NuFileWriteFloat saga nufile.cpp body (NuFile_SwapEndianOnWrite 0xb0389c)
+006d3300 NuFileWriteInt saga nufile.cpp body
+006d3370 NuFileWriteUnsignedInt saga nufile.cpp body
+006d33e0 NuFileWriteShort saga nufile.cpp body
+006d3440 NuFileWriteUnsignedShort saga nufile.cpp body
+006d34a0 NuFileWriteChar saga nufile.cpp body
+006d34e0 NuFileWriteUnsignedChar saga nufile.cpp body
+006d3520 NuFileWriteString Mac _NuFileWriteString: NuFileWrite(file, s, strlen(s))
+006d3570 NuFileWriteStringV saga nufile_plain.cpp body
