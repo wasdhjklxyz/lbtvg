@@ -2554,3 +2554,6 @@
 0061ff20 CharVariants_Init      stores the variant array and count if both valid, as on the Mac
 0061ff40 CharVariant_Find       NuStrICmp over the variant names; follows CharVariants_Init as on the Mac
 0061ffc0 ExtraModels_MakeList   the Mac's EXTRAMODEL walk (required model or movement type), -1 terminated output
+006200e0 initHose               NuMtlCreate x2 into the hose materials, colour/alpha setup: the Mac's initHose
+0061fc20 LayerFromName          NuStrICmp over GCDATA layers (0x1c each), returns mask_bit: saga charconfig.cpp; before MakeLayerList_Name as on the Mac
+0061fc90 MakeLayerList_Name     32-bit layer mask to hierarchy layers: saga charconfig.cpp; before SetMoveAndAnimateFunctions as on the Mac

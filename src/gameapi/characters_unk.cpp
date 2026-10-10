@@ -38,17 +38,75 @@ i32 CharIDFromName(char *name) {
   return -1;
 }
 
+typedef struct CHARLAYER_s {
+  char name[0x18];
+  i16 mask_bit;        // 0x18
+  i16 hierarchy_layer; // 0x1a
+} CHARLAYER;
+
 typedef struct GCDATA_s {
-  u8 pad0[0x13c];
+  u32 pad0;
+  CHARLAYER *layers;  // 0x04
+  char *layer_lookup; // 0x08
+  u8 pad0c[0x13c - 0xc];
   u32 flags13c;  // 0x13c
   u32 abilities; // 0x140
   u8 pad144[0x22b - 0x144];
   i8 movement_type; // 0x22b
-  u8 pad22c[0x240 - 0x22c];
+  u8 pad22c[0x23c - 0x22c];
+  u8 layer_count; // 0x23c
+  u8 pad23d[0x240 - 0x23d];
 } GCDATA;
 
 // GLOBAL: LEGOBATMAN 0x00acb82c
 extern GCDATA *GCDataList;
+
+// from saga legoapi/characters/core/charconfig.cpp
+// FUNCTION: LEGOBATMAN 0x0061fc20
+i32 LayerFromName(GCDATA *character, char *name) {
+  for (i32 i = 0; i < character->layer_count; i++) {
+    if (NuStrICmp(name, character->layers[i].name) == 0)
+      return character->layers[i].mask_bit;
+  }
+  return -1;
+}
+
+struct CHARACTERMODEL_s {
+  i16 model_id;
+};
+
+// from saga legoapi/characters/core/charconfig.cpp
+// FUNCTION: LEGOBATMAN 0x0061fc90
+i32 MakeLayerList_Name(CHARACTERMODEL_s *model, i16 *output, u32 mask) {
+  if (model == NULL || output == NULL)
+    return 0;
+  GCDATA *data = &GCDataList[model->model_id];
+  i32 count = 0;
+  u32 flag = 1;
+  for (i32 bit = 0; bit < 32; ++bit, flag <<= 1) {
+    if ((mask & flag) == 0 || bit >= data->layer_count)
+      continue;
+    i32 layer;
+    if (data->layer_lookup != NULL) {
+      layer = data->layer_lookup[bit];
+    } else {
+      for (layer = 0; layer < data->layer_count; ++layer) {
+        if (data->layers[layer].mask_bit == bit)
+          break;
+      }
+      if (layer == data->layer_count)
+        continue;
+    }
+    if (layer == -1)
+      continue;
+    const i16 hierarchy_layer = data->layers[layer].hierarchy_layer;
+    if (hierarchy_layer != -1) {
+      *output++ = hierarchy_layer;
+      ++count;
+    }
+  }
+  return count;
+}
 
 // Batman's form of saga legoapi/characters/motion/move.cpp: one loop, every
 // test optional.
@@ -257,8 +315,19 @@ struct HOSEOBJ_s {
 };
 
 struct HOSEMTL_s {
-  u8 pad0[0x74];
-  u16 tid; // 0x74
+  u8 pad0[0x40];
+  u32 attrib_lo : 4; // 0x40
+  u32 attrib_4 : 8;
+  u32 alpha_mode : 2; // 0x40 bits 12-13
+  u32 attrib_14 : 2;  // 0x40 bits 14-15
+  u32 attrib_hi : 16;
+  u8 pad44[0x54 - 0x44];
+  f32 r; // 0x54
+  f32 g; // 0x58
+  f32 b; // 0x5c
+  u8 pad60[0x70 - 0x60];
+  f32 alpha; // 0x70
+  u16 tid;   // 0x74
 };
 
 // GLOBAL: LEGOBATMAN 0x00acb814
@@ -269,6 +338,22 @@ extern HOSEMTL_s *g_hoseMtlTextured;
 extern i32 g_hoseUseCharTexture;
 
 void NuMtlUpdate(HOSEMTL_s *mtl);
+HOSEMTL_s *NuMtlCreate(i32 count);
+
+// same as the Mac's initHose
+// FUNCTION: LEGOBATMAN 0x006200e0
+void initHose() {
+  g_hoseMtl = NuMtlCreate(1);
+  g_hoseMtl->r = 1.0f;
+  g_hoseMtl->g = 1.0f;
+  g_hoseMtl->b = 1.0f;
+  g_hoseMtl->alpha_mode = 2;
+  g_hoseMtl->attrib_14 = 0;
+  g_hoseMtl->alpha = 1.0f;
+  g_hoseMtl->attrib_lo = 0;
+  NuMtlUpdate(g_hoseMtl);
+  g_hoseMtlTextured = NuMtlCreate(1);
+}
 void DrawHoseEx(HOSECHARDATA_s *data, numtx_s *mtx, HOSEMTL_s *mtl, f32 width);
 
 // FUNCTION: LEGOBATMAN 0x00620370
