@@ -3640,6 +3640,125 @@ void NuPadRecordLoad(char *filepath, VARIPTR *buffer, VARIPTR end) {
 }
 
 // GLOBAL: LEGOBATMAN 0x00adf6b0
+extern char *g_nuPadRecFilename;
+
+// FUNCTION: LEGOBATMAN 0x006e05d0
+void NuPadRecordInit(int mode, char *filepath, VARIPTR *buffer, VARIPTR end,
+                     int size) {
+  switch (mode) {
+  default:
+    g_nuPadRec.mode = 0;
+    break;
+  case 1:
+    g_nuPadRec.mode = 1;
+    g_nuPadRec.record =
+        (unsigned char *)NuMemAllocFn(size + 4, __FILE__, 0x462);
+    g_nuPadRec.record =
+        (unsigned char *)(((unsigned int)g_nuPadRec.record + 3) & ~3);
+    g_nuPadRec.buf_start = g_nuPadRec.record;
+    g_nuPadRec.buf_end = g_nuPadRec.record + size;
+    g_nuPadRecFilename = filepath;
+    break;
+  case 2:
+    NuPadRecordLoad(filepath, buffer, end);
+    g_nuPadRecFilename = filepath;
+    break;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006deb20
+u16 NuFileReadWChar(int file) {
+  i16 value = 0;
+  NuFileRead(file, &value, sizeof(u16));
+  return value;
+}
+
+// STUB: LEGOBATMAN 0x006e0650
+// Register choice for the switch value (orig cx) and the order of the
+// default/blank cases and the comment loop differ.
+int GetLineW(u16 *line, int file) {
+  int length = 0;
+  int end_of_line;
+  int has_text = 0;
+  int quoted = 0;
+  u16 character;
+
+  for (;;) {
+    character = NuFileReadWChar(file);
+    switch (character) {
+    case '\r':
+      NuFileReadWChar(file);
+      // Fall through.
+    case '\n':
+      if (length == 0 || has_text == 0) {
+        has_text = 0;
+        break;
+      }
+      // Fall through.
+    case '\0':
+      line[length] = 0;
+      return length;
+
+    case '"':
+      quoted = 1 - quoted;
+      has_text = 1;
+      line[length++] = character;
+      break;
+
+    case ';':
+      if (quoted != 0)
+        goto append_character;
+
+      if (length == 0 || has_text == 0) {
+        end_of_line = 0;
+        do {
+          character = NuFileReadWChar(file);
+          switch (character) {
+          case '\n':
+          case '\0':
+            end_of_line = 1;
+            break;
+          case '\r':
+            NuFileReadWChar(file);
+            end_of_line = 1;
+            break;
+          }
+        } while (end_of_line == 0);
+        length = 0;
+        has_text = 0;
+        break;
+      }
+
+      do {
+        character = NuFileReadWChar(file);
+        switch (character) {
+        case '\n':
+        case '\0':
+          line[length] = 0;
+          return length;
+        case '\r':
+          NuFileReadWChar(file);
+          line[length] = 0;
+          return length;
+        }
+      } while (true);
+
+    default:
+    append_character:
+      has_text = 1;
+      line[length++] = character;
+      break;
+
+    case ' ':
+    case '\t':
+      if (has_text != 0)
+        line[length++] = character;
+      break;
+    }
+  }
+}
+
+// GLOBAL: LEGOBATMAN 0x00adf6b0
 char *g_nuPadRecFilename;
 // GLOBAL: LEGOBATMAN 0x00adf6b4
 int g_nuPadRecUnk0adf6b4;

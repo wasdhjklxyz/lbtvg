@@ -3883,6 +3883,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006dfd20,00193372,_NuPPGetSize,_NuPPGetSize,confirmed,0
 006dfde0,00193218,_NuPPLoadBuffer,_NuPPLoadBuffer,confirmed,0
 006e0530,00196e5e,_NuPadRecordLoad,_NuPadRecordLoad,strings,0
+006e05d0,00196f36,_NuPadRecordInit,_NuPadRecordInit,confirmed,0
+006e0650,00194094,_GetLineW,_GetLineW,confirmed,0
 006e0830,00194ee2,_NuFileLoad,_NuFileLoad,confirmed,0
 006e08b0,00194fa2,_NuFileLoadBuffer,_NuFileLoadBuffer,confirmed,0
 006e0a10,00195eba,_NuFileLoadBufferVP,_NuFileLoadBufferVP,confirmed,0

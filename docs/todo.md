@@ -18,7 +18,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near rtleditor.cpp](#near-rtleditorcpp) | 43 | 34 |
 | [near terrain.c](#near-terrainc) | 24 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 10 | 6 |
-| [near nupad_gen.cpp](#near-nupad_gencpp) | 5 | 5 |
+| [near nupad_gen.cpp](#near-nupad_gencpp) | 6 | 6 |
 | [Condition](#condition) | 6 | 4 |
 | [CRC](#crc) | 4 | 4 |
 | [Grabber](#grabber) | 5 | 4 |
@@ -394,6 +394,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006dd430` 318 B `_NuFParInterpretWordCTX`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006dd2d0` 347 B `_NuFParInterpretWord`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
 - [ ] `006d7270` 397 B `_ImplodeMakeTree`  **stub** · **saga** `legoapi/render/fx/inflate.cpp`
+- [ ] `006e0650` 480 B `_GetLineW`  **stub** · **saga** `nu2api/nucore/nustring_c.cpp`
 - [ ] `006dfde0` 1116 B `_NuPPLoadBuffer`  **stub** · **saga** `nu2api/nufile/nufile.cpp`
 
 ## Condition

@@ -269,3 +269,4 @@
 0x006d55b0 DeadZoneValueXYProper: register convention (y on stack vs ebx)
 0x006d5620 DeadZoneValueXY: register convention
 0x006d5880 NuPadProcessReadData: x87 clamp scheduling
+0x006e0650 GetLineW: switch register + case block order (jump table)

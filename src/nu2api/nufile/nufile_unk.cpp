@@ -56,13 +56,6 @@ u8 NuFileReadUnsignedChar(int file) {
   return value;
 }
 
-// FUNCTION: LEGOBATMAN 0x006deb20
-u16 NuFileReadWChar(int file) {
-  i16 value = 0;
-  NuFileReadUnk006de860(file, &value, sizeof(u16));
-  return value;
-}
-
 struct nudathdr_s;
 
 nudathdr_s *NuDatOpenEx(char *filepath, variptr_u *buf, i32 *unused, i16 mode);
