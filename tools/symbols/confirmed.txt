@@ -3128,3 +3128,5 @@
 00704130 NuSSAOFilterGen::render slot 5 of the NuSSAOFilterGen vtable
 007080e0 NuDeferredFilterGen::NuDeferredFilterGen sets the NuDeferredFilterGen vtable 0x897e34
 00708150 NuDeferredFilterGen::destroyResources slot 2 of the NuDeferredFilterGen vtable 0x897e34
+00728920 NuMainFilterGen::NuMainFilterGen sets the NuMainFilterGen vtable 0x8982bc
+007289c0 NuMainFilterGen::destroyResources slot 2 of the NuMainFilterGen vtable 0x8982bc

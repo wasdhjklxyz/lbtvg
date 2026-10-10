@@ -58,17 +58,67 @@ struct NuMotionFilterGen {
 };
 
 // RTTI vtable 0x8982bc; fields as in src/nu2api/nu3d/numainfilter_gen_unk.cpp.
-struct NuMainFilterGen {
-  virtual ~NuMainFilterGen();
+struct NuPostFilterGen {
+  NuPostFilterGen() : enabled(false) {}
+  virtual ~NuPostFilterGen() {}
   virtual void initResources();
+  virtual void destroyResources();
+  virtual void initTextureResources(i32 width, i32 height);
+  virtual void destroyTextureResources();
+  virtual void render();
+  virtual void reset();
+  virtual void resetAll();
+  virtual bool isEnabled();
 
   bool enabled; // 0x04
-  u8 pad05[0x54 - 0x5];
+  i32 program;  // 0x08
+};
+
+struct NuMainFilterGen : NuPostFilterGen {
+  NuMainFilterGen();
+  virtual void initResources();
+  virtual void destroyResources();
+
+  u8 pad0c[0x54 - 0xc];
   u16 u54;                  // 0x54, saga's dof_enabled/bloom_enabled
   bool motion_blur_enabled; // 0x56
   u8 u57;                   // 0x57
   i32 active_filter_count;  // 0x58
+  u8 pad5c[0x70 - 0x5c];
+  f32 f70; // 0x70
+  i32 i74; // 0x74
+  f32 f78; // 0x78
+  i32 i7c; // 0x7c
+  f32 f80; // 0x80
+  f32 f84; // 0x84
+  f32 f88; // 0x88
+  f32 f8c; // 0x8c
+  i32 i90; // 0x90
+  i32 i94; // 0x94
+  u8 pad98[0x118 - 0x98];
+  f32 f118; // 0x118
+  f32 f11c; // 0x11c
+  f32 f120; // 0x120
 };
+
+// FUNCTION: LEGOBATMAN 0x00728920
+NuMainFilterGen::NuMainFilterGen() {
+  f80 = 1.0f;
+  f84 = 1.0f;
+  f88 = 1.0f;
+  i94 = 0;
+  f8c = 3.0f;
+  i90 = 3;
+  i7c = 0;
+  f78 = 5.0f;
+  i74 = 0;
+  f70 = 2.1f;
+  f118 = 0.0f;
+  f11c = 0.0f;
+  f120 = 1.0f;
+}
+
+// SYNTHETIC: LEGOBATMAN 0x00728990 NuMainFilterGen::`scalar deleting destructor'
 
 // FUNCTION: LEGOBATMAN 0x007289b0
 void NuMainFilterGen::initResources() {
@@ -76,6 +126,9 @@ void NuMainFilterGen::initResources() {
   motion_blur_enabled = false;
   active_filter_count = 0;
 }
+
+// FUNCTION: LEGOBATMAN 0x007289c0
+void NuMainFilterGen::destroyResources() {}
 
 // FUNCTION: LEGOBATMAN 0x00728fe0
 void NuMotionFilterGen::destroyResources() {
