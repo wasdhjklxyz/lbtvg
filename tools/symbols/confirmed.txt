@@ -3455,3 +3455,8 @@
 006dd150 NuFParGetIntRDP Mac _NuFParGetIntRDP: word to ascii, NuRDPI
 006dd210 NuFParGetFloatRDP saga nufpar.cpp body (NuRDPF inlined)
 006d24c0 Unk006d24c0 empty debug hook, get_tok_rdpf's unknown-character report
+006dc9e0 NuFileGetDeviceFromPath saga nufile.cpp body (devices 0xaf6528, numdevices 0xaf318c)
+006d3850 NuDatCalcPos saga nudatfile.cpp body (datsys_offset 0xb03898)
+006d39a0 NuDatFileGetFreeInfo saga nufile.cpp body (volatile is_used)
+006d3a10 NuDatFileGetFreeHandleIX saga nufile.cpp body (8 open files)
+006d3a80 OpenDatFileBase saga nufile.cpp static (eax/ecx), called by NuDatFileOpen

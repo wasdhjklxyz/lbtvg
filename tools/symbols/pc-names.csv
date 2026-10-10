@@ -3488,7 +3488,11 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d2800,00186f9a,_NuHeapDestroy,_NuHeapDestroy,confirmed,0
 006d2810,0018dc44,_NuHeapAllocAlignedNamed,_NuHeapAllocAlignedNamed,confirmed,0
 006d30c0,,AquireFileBuffer,AquireFileBuffer,confirmed,0
+006d3850,00187b36,_NuDatCalcPos,_NuDatCalcPos,confirmed,0
 006d38b0,0018781e,_NuDatFileSeek,_NuDatFileSeek,confirmed,0
+006d39a0,00187bca,_NuDatFileGetFreeInfo,_NuDatFileGetFreeInfo,confirmed,0
+006d3a10,00187c26,_NuDatFileGetFreeHandleIX,_NuDatFileGetFreeHandleIX,confirmed,0
+006d3a80,,OpenDatFileBase,OpenDatFileBase,confirmed,0
 006d3b90,,GetItems,GetItems,confirmed,0
 006d3bb0,,CalcChecksum,CalcChecksum,confirmed,0
 006d3be0,,DecryptData,DecryptData,confirmed,0
@@ -3687,6 +3691,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006dc540,0018c8c2,_NuHexStringToI,_NuHexStringToI,confirmed,0
 006dc720,0018bf90,_NuStringTableGetByName,_NuStringTableGetByName,confirmed,0
 006dc990,,NuFileIsTxt,NuFileIsTxt,confirmed,0
+006dc9e0,0018c7f8,_NuFileGetDeviceFromPath,_NuFileGetDeviceFromPath,confirmed,0
 006dca60,0018b886,_NuFileInitEx,_NuFileInitEx,confirmed,0
 006dcb00,001910ea,_NuFileClose,_NuFileClose,confirmed,0
 006dcbc0,00190be0,_NuDatFileFindTree,_NuDatFileFindTree,confirmed,0

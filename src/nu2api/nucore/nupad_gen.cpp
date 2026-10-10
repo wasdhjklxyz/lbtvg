@@ -650,7 +650,7 @@ struct NuFileUnk0ae3f80 {
   int i18;
   int i1c;
   int i20;
-  int i24;
+  volatile int i24; // is_used
   int i28;
   unsigned char pad[0x30 - 0x2c];
 };
@@ -667,7 +667,7 @@ FILEINFO file_info[0x21];
 // GLOBAL: LEGOBATMAN 0x00afa0a8
 NuFileUnk0afa0a8 g_nuFileUnk0afa0a8[1];
 // GLOBAL: LEGOBATMAN 0x00ae3f80
-NuFileUnk0ae3f80 g_nuFileUnk0ae3f80[1];
+NuFileUnk0ae3f80 g_nuFileUnk0ae3f80[20];
 // GLOBAL: LEGOBATMAN 0x00b00878
 NuFileUnk0b00878 g_nuFileUnk0b00878[1];
 // GLOBAL: LEGOBATMAN 0x00b038a4
@@ -721,14 +721,48 @@ struct NUFILEDEVICE {
   int id; // 0x0
   unsigned char pad4[0x10 - 0x4];
   char separator; // 0x10
-  unsigned char pad11[0xac - 0x11];
+  unsigned char pad11[0x34 - 0x11];
+  char name[16]; // 0x34
+  int match_len; // 0x44
+  int name_len;  // 0x48
+  unsigned char pad4c[0xac - 0x4c];
   char app_dir[0x100]; // 0xac
   unsigned char pad1ac[0x22c - 0x1ac];
   void (*format_name_fn)(NUFILEDEVICE *device, char *dst, char *path,
                          int size); // 0x22c
+  void *interrogate_fn;             // 0x230
 };
 // GLOBAL: LEGOBATMAN 0x0099f288
 extern NUFILEDEVICE *g_unk0099f288;
+
+// GLOBAL: LEGOBATMAN 0x00af6528
+extern NUFILEDEVICE devices[];
+// GLOBAL: LEGOBATMAN 0x00af318c
+extern int numdevices;
+int NuStrNICmp(const char *a, const char *b, int n);
+
+// FUNCTION: LEGOBATMAN 0x006dc9e0
+NUFILEDEVICE *NuFileGetDeviceFromPath(char *path) {
+  NUFILEDEVICE *device;
+  int i;
+  int device_idx;
+
+  device = NULL;
+  for (i = 0; i < 8; i++) {
+    if (path[i] == ':')
+      break;
+  }
+  if (i < 8) {
+    for (device_idx = 0; device_idx < numdevices; device_idx++) {
+      if (NuStrNICmp(path, devices[device_idx].name,
+                     devices[device_idx].match_len) == 0) {
+        device = &devices[device_idx];
+        break;
+      }
+    }
+  }
+  return device;
+}
 
 // FUNCTION: LEGOBATMAN 0x006d9130
 void NuFileGetAppDirectory(char *dest) {
@@ -1895,15 +1929,21 @@ struct NUDFNODE {
 struct NUDATHDR {
   int version;
   int file_count;
-  NUDATFILEINFO *file_info; // 0x8
-  int tree_node_count;      // 0xc
-  NUDFNODE *file_tree;      // 0x10
-  int leaf_names_len;       // 0x14
-  char *leaf_names;         // 0x18
-  unsigned int *hash_idxs;  // 0x1c
-  int hash_count;           // 0x20
-  int hashes_len;           // 0x24
-  char *hashes;             // 0x28
+  NUDATFILEINFO *file_info;        // 0x8
+  int tree_node_count;             // 0xc
+  NUDFNODE *file_tree;             // 0x10
+  int leaf_names_len;              // 0x14
+  char *leaf_names;                // 0x18
+  unsigned int *hash_idxs;         // 0x1c
+  int hash_count;                  // 0x20
+  int hashes_len;                  // 0x24
+  char *hashes;                    // 0x28
+  NUDATOPENFILEINFO open_files[8]; // 0x30
+  short unknown;                   // 0xb0
+  short mode;                      // 0xb2
+  int unknown2;                    // 0xb4
+  int unknown3;                    // 0xb8
+  char *name;                      // 0xbc
 };
 // GLOBAL: LEGOBATMAN 0x00b0388c
 extern int nufile_buffering_enabled;
@@ -1916,8 +1956,7 @@ bool NuFileIsTxt(char *path) {
 }
 
 int NuFileSmallFileOpen(char *path);
-NUFILEDEVICE *NuFileGetDeviceFromPath(char *path);
-int NuDatFileOpen(NUDATHDR *header, char *filepath, int mode);
+int NuDatFileOpen(NUDATHDR *hdr, char *filepath, int mode);
 extern "C" int NuPSFileOpen(char *path, int mode);
 void Unk006d24d0(...);
 int NuFileStatus(int file);
@@ -2084,6 +2123,126 @@ int NuDatFileFindTree(NUDATHDR *header, char *name) {
     }
   } while (node_idx != 0);
   return -1;
+}
+
+// GLOBAL: LEGOBATMAN 0x00b03898
+int datsys_offset;
+
+// FUNCTION: LEGOBATMAN 0x006d3850
+__int64 NuDatCalcPos(NUDATHDR *header, int index) {
+  __int64 pos = index;
+
+  if (header->version <= -2)
+    pos <<= 8;
+  pos += datsys_offset;
+  return pos;
+}
+
+void NuThreadCriticalSectionBegin(int cs);
+void NuThreadCriticalSectionEnd(int cs);
+
+// FUNCTION: LEGOBATMAN 0x006d39a0
+int NuDatFileGetFreeInfo(void) {
+  int found;
+  int i;
+
+  found = -1;
+  NuThreadCriticalSectionBegin(file_criticalsection);
+  for (i = 0; i < 20; i++) {
+    if (!g_nuFileUnk0ae3f80[i].i24) {
+      g_nuFileUnk0ae3f80[i].i24 = 1;
+      found = i;
+      break;
+    }
+  }
+  NuThreadCriticalSectionEnd(file_criticalsection);
+  return found;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3a10
+int NuDatFileGetFreeHandleIX(NUDATHDR *hdr, int info_idx) {
+  int file_idx;
+  int i;
+
+  file_idx = -1;
+  NuThreadCriticalSectionBegin(file_criticalsection);
+  for (i = 0; i < 8; i++) {
+    if (hdr->open_files[i].info_idx == -1) {
+      hdr->open_files[i].info_idx = info_idx;
+      file_idx = i;
+      break;
+    }
+  }
+  NuThreadCriticalSectionEnd(file_criticalsection);
+  return file_idx;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3a80
+static int OpenDatFileBase(NUDATHDR *hdr, int file_idx) {
+  NUDATOPENFILEINFO *open_file;
+
+  open_file = hdr->open_files + file_idx;
+  if (open_file->dat_file == 0) {
+    open_file->dat_file = NuFileOpenDF(hdr->name, hdr->mode, NULL, 0);
+    open_file->pos = 0;
+  }
+  return open_file->dat_file;
+}
+
+// STUB: LEGOBATMAN 0x006dccf0
+// Register choice: the original spills file_idx (into the mode slot) and
+// stores start before pos; ours keeps file_idx in edi.
+int NuDatFileOpen(NUDATHDR *hdr, char *filepath, int mode) {
+  int node_idx;
+  int info_idx;
+  int file_idx;
+  NUDATOPENFILEINFO *open_info;
+  NuFileUnk0ae3f80 *info;
+  __int64 seek_pos;
+
+  if (mode == 0) {
+    node_idx = NuDatFileFindTree(hdr, filepath);
+    if (node_idx >= 0 && hdr->file_info[node_idx].i4 != 0) {
+      info_idx = NuDatFileGetFreeInfo();
+      if (info_idx != -1) {
+        file_idx = NuDatFileGetFreeHandleIX(hdr, info_idx);
+        if (file_idx != -1) {
+          open_info = &hdr->open_files[file_idx];
+          OpenDatFileBase(hdr, file_idx);
+          info = &g_nuFileUnk0ae3f80[info_idx];
+          info->p0 = (int *)hdr;
+          g_nuFileUnk0ae3f80[info_idx].i8 =
+              NuDatCalcPos(hdr, hdr->file_info[node_idx].i0);
+          g_nuFileUnk0ae3f80[info_idx].i10 = g_nuFileUnk0ae3f80[info_idx].i8;
+          g_nuFileUnk0ae3f80[info_idx].i18 = hdr->file_info[node_idx].i4;
+          g_nuFileUnk0ae3f80[info_idx].i1c = hdr->file_info[node_idx].len;
+          g_nuFileUnk0ae3f80[info_idx].i28 = hdr->file_info[node_idx].ic;
+          g_nuFileUnk0ae3f80[info_idx].i20 = file_idx;
+          open_info->pos = g_nuFileUnk0ae3f80[info_idx].i10;
+          do {
+            seek_pos = NuFileSeek(open_info->dat_file,
+                                  g_nuFileUnk0ae3f80[info_idx].i8, 0);
+            if (seek_pos < 0)
+              Unk006d24d0();
+          } while (seek_pos < 0);
+          Unk006d24d0(file_idx);
+          if (g_nuFileUnk0ae3f80[info_idx].i28 == 2) {
+            unpack_file_info = info;
+            unpack_file_odi = open_info;
+            unpack_file_pos = info->i8;
+            decode_buffer_left = 0;
+          }
+          return info_idx + 0x800;
+        }
+        g_nuFileUnk0ae3f80[info_idx].i24 = 0;
+        return 0;
+      }
+      Unk006d24d0();
+      return 0;
+    }
+    Unk006d24d0(filepath);
+  }
+  return 0;
 }
 __int64 NuFileSeek(int file, __int64 offset, int whence);
 
