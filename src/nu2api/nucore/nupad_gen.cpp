@@ -592,8 +592,8 @@ typedef struct fileinfo_s {
   int buf_len;             // 0x28
   int use_buf;             // 0x2c
   int unused;              // 0x30
-  int mode;                // 0x34
-  int pad38;               // 0x38
+  int i34;                 // 0x34
+  int mode;                // 0x38
   struct FILEBUFINFO *buf; // 0x3c
 } FILEINFO;
 struct FILEBUFINFO {
@@ -686,10 +686,14 @@ extern "C" __int64 NuPSFileLSeek(int fh, __int64 offset, int whence);
 extern "C" int NuPSFileClose(int fh);
 
 struct NUFILEDEVICE {
-  unsigned char pad0[0x10];
+  int id; // 0x0
+  unsigned char pad4[0x10 - 0x4];
   char separator; // 0x10
   unsigned char pad11[0xac - 0x11];
   char app_dir[0x100]; // 0xac
+  unsigned char pad1ac[0x22c - 0x1ac];
+  void (*format_name_fn)(NUFILEDEVICE *device, char *dst, char *path,
+                         int size); // 0x22c
 };
 // GLOBAL: LEGOBATMAN 0x0099f288
 extern NUFILEDEVICE *g_unk0099f288;
@@ -1507,13 +1511,14 @@ extern NuPadRec g_nuPadRec;
 // GLOBAL: LEGOBATMAN 0x00b03884
 extern int g_unk00b03884;
 
-int NuFileOpenUnk006dd7a0(char *path, int mode, int a, int b);
+struct NUDATHDR;
+int NuFileOpenDF(char *filepath, int mode, NUDATHDR *header, int quiet);
 
 // Opens through the current data file system (the global swapped by
 // NuWin32SetDFS).
 // FUNCTION: LEGOBATMAN 0x006dd970
 int NuFileOpen(char *path, int mode) {
-  return NuFileOpenUnk006dd7a0(path, mode, g_unk00b03884, 0);
+  return NuFileOpenDF(path, mode, (NUDATHDR *)g_unk00b03884, 0);
 }
 
 struct NUDATFILEINFO {
@@ -1542,6 +1547,92 @@ struct NUDATHDR {
 };
 // GLOBAL: LEGOBATMAN 0x00b0388c
 extern int nufile_buffering_enabled;
+
+// FUNCTION: LEGOBATMAN 0x006dc990
+bool NuFileIsTxt(char *path) {
+  if (NuStrICmp(NuStrRChr(path, '.'), ".txt") == 0)
+    return true;
+  return false;
+}
+
+int NuFileSmallFileOpen(char *path);
+NUFILEDEVICE *NuFileGetDeviceFromPath(char *path);
+int NuDatFileOpen(NUDATHDR *header, char *filepath, int mode);
+extern "C" int NuPSFileOpen(char *path, int mode);
+void Unk006d24d0(...);
+int NuFileStatus(int file);
+
+// FUNCTION: LEGOBATMAN 0x006dd7a0
+int NuFileOpenDF(char *filepath, int mode, NUDATHDR *header, int quiet) {
+  char buf[256];
+  __int64 len;
+  NUFILEDEVICE *device;
+  int file_index;
+  int file_handle;
+
+  if (NuFileIsTxt(filepath)) {
+    file_handle = NuFileSmallFileOpen(filepath);
+    if (file_handle != 0)
+      return file_handle;
+  }
+
+  device = NuFileGetDeviceFromPath(filepath);
+  if (device == NULL) {
+    if (header != NULL && mode != 1 && mode != 2) {
+      file_handle = NuDatFileOpen(header, filepath, mode);
+      if (file_handle != 0)
+        return file_handle;
+    }
+    device = g_unk0099f288;
+  }
+
+  device->format_name_fn(device, buf, filepath, 0x100);
+
+  if (device->id == 1)
+    return 0x1000;
+
+  file_index = NuPSFileOpen(buf, mode);
+  if (file_index < 0)
+    return 0;
+
+  memset(&file_info[file_index], 0, sizeof(FILEINFO));
+  file_info[file_index].handle = file_index;
+  file_info[file_index].mode = mode;
+
+  if (mode != 1) {
+    if (file_index <= 16) {
+      do {
+        len = NuFileSeek(file_index + 1, 0, 2);
+        if (len < 0 && !quiet)
+          Unk006d24d0();
+      } while (len < 0);
+      file_info[file_index].file_len = len;
+      if (mode == 3) {
+        while (NuFileStatus(file_index + 1) != 0) {
+        }
+      }
+      do {
+        len = NuFileSeek(file_index + 1, 0, 0);
+        if (len < 0 && !quiet)
+          Unk006d24d0();
+      } while (len < 0);
+      if (mode == 3) {
+        while (NuFileStatus(file_index + 1) != 0) {
+        }
+      }
+    }
+  } else {
+    file_info[file_index].file_len = 0;
+  }
+
+  if (mode == 0)
+    file_info[file_index].use_buf = nufile_buffering_enabled;
+  file_info[file_index].unused = 0;
+  return file_index + 1;
+}
+
+// Opens through the current data file system (the global swapped by
+// NuWin32SetDFS).
 static unsigned int NameToHash(char *name) {
   unsigned int hash = 0x811c9dc5;
   while (*name != '\0') {
@@ -1655,7 +1746,7 @@ int NuFileExistQuiet(char *filepath) {
       return dat->file_info[index].len;
     }
   }
-  file = NuFileOpenUnk006dd7a0(filepath, 0, (int)dat, 1);
+  file = NuFileOpenDF(filepath, 0, dat, 1);
   if (file != 0)
     NuFileClose(file);
   nufile_buffering_enabled = buffering;
@@ -1680,7 +1771,7 @@ __int64 NuFileSize(char *filepath) {
   }
   pos = -1;
   if (filepath != 0 && *filepath != '\0') {
-    file = NuFileOpenUnk006dd7a0(filepath, 0, (int)dat, 0);
+    file = NuFileOpenDF(filepath, 0, dat, 0);
     if (file != 0) {
       do {
         pos = NuFileSeek(file, 0, 2);
@@ -1705,7 +1796,7 @@ static inline int NuFileReadInt(int file) {
 void NuPadRecordLoad(char *filepath, VARIPTR *buffer, VARIPTR end) {
   g_nuPadRec.mode = 0;
   if (filepath != 0) {
-    int file = NuFileOpenUnk006dd7a0(filepath, 0, g_unk00b03884, 0);
+    int file = NuFileOpenDF(filepath, 0, (NUDATHDR *)g_unk00b03884, 0);
     if (file != 0) {
       int size = NuFileReadInt(file);
       g_nuPadRec.record =

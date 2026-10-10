@@ -3425,3 +3425,5 @@
 006d9160 NuFileSetAppDirectory copies into the default device app dir and appends its separator (Mac _NuFileSetAppDirectory)
 006dcbc0 NuDatFileFindTree saga nudatfile.cpp body (NuStrStr for the path split)
 006d9f00 NuDatFileFindHash saga nudatfile.cpp shape (FNV-style hash, linear index search, then the name table)
+006dd7a0 NuFileOpenDF saga nufile.cpp body (Mac _NuFileOpenDF_IJ), plus the .txt small-file check first
+006dc990 NuFileIsTxt returns NuStrICmp(NuStrRChr(path, '.'), ".txt") == 0; gates the small-file open in NuFileOpenDF
