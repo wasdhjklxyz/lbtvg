@@ -2112,3 +2112,9 @@
 0053af10 OggReader::~OggReader stores vtable 0x867604 (RTTI), Mac body (destroy CS, Close, ~WavReader); matched
 00728fe0 NuMotionFilterGen::destroyResources vtable 0x89842c slot 2 (RTTI), Mac body (release four shader handles); matched
 00734e80 NuMotionFilterGen::initResources vtable 0x89842c slot 1 (RTTI), Mac body (bind postEffect.* parameters); matched
+007089c0 NuDeferredFilterGen::template_blurLuminanceMap vtable 0x897e34 slot 9 = Mac vtable slot 10 (two Mac dtor slots); Mac body (copy, blur7x7); matched
+006fa6d0 NuPostFilter::copy first call of NuDeferredFilterGen::template_blurLuminanceMap as on the Mac
+006fa830 NuPostFilter::blur7x7 second call of NuDeferredFilterGen::template_blurLuminanceMap as on the Mac
+006fa8f0 NuDeferredFilter::template_blurLuminanceMap vtable 0x89835c slot 9 (RTTI, overrides NuDeferredFilterGen slot 9); Mac emits it right after blur7x7; matched
+006fa830 NuPostFilter::blur7x7 called from template_blurLuminanceMap as on the Mac; SM1 path calls blurSM1 with blurSM1Program; matched
+006f7080 NuPostFilter::blurSM1 shader model < 2 path of NuPostFilter::blur7x7, same signature as the Mac blurSM1

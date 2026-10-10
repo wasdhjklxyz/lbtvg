@@ -2578,6 +2578,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006f37b0,0017de3a,_NuEffectTexCreate2D,_NuEffectTexCreate2D,confirmed,0
 006f3b70,00175d24,__ZN12NuMainFilter20initTextureResourcesEii,"NuMainFilter::initTextureResources(int, int)",confirmed,0
 006f3bb0,00173f9e,__ZN12NuMainFilter23destroyTextureResourcesEv,NuMainFilter::destroyTextureResources(),confirmed,0
+006f7080,0017f2f4,__ZN12NuPostFilter7blurSM1EP13nueffecttex_siS1_iiibfP17nushaderprogram_s,"NuPostFilter::blurSM1(nueffecttex_s*, int, nueffecttex_s*, int, int, int, bool, float, nushaderprogram_s*)",confirmed,0
+006fa6d0,0016d2ee,__ZN12NuPostFilter4copyEP13nueffecttex_sP15nuframebuffer_s,"NuPostFilter::copy(nueffecttex_s*, nuframebuffer_s*)",confirmed,0
+006fa830,0018019c,__ZN12NuPostFilter7blur7x7EP13nueffecttex_siS1_iiibfP17nushaderprogram_s,"NuPostFilter::blur7x7(nueffecttex_s*, int, nueffecttex_s*, int, int, int, bool, float, nushaderprogram_s*)",confirmed,0
+006fa8f0,0018025a,__ZN16NuDeferredFilter25template_blurLuminanceMapEv,NuDeferredFilter::template_blurLuminanceMap(),confirmed,0
 006fa950,0018152c,_NuRndrSwapScreen,_NuRndrSwapScreen,strings,0
 006fcad0,0017b378,__ZN19NuMotionAccumFilter13initResourcesEv,NuMotionAccumFilter::initResources(),confirmed,0
 006fcb00,0017b2f2,__ZN17NuSpeedBlurFilter13initResourcesEv,NuSpeedBlurFilter::initResources(),confirmed,0
@@ -2602,6 +2606,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00708160,00145284,__ZN19NuDeferredFilterGen20initTextureResourcesEii,"NuDeferredFilterGen::initTextureResources(int, int)",confirmed,0
 00708280,0014522a,__ZN19NuDeferredFilterGen23destroyTextureResourcesEv,NuDeferredFilterGen::destroyTextureResources(),confirmed,0
 007082d0,001274f2,__ZN19NuDeferredFilterGen8resetAllEv,NuDeferredFilterGen::resetAll(),confirmed,0
+007089c0,0012752c,__ZN19NuDeferredFilterGen25template_blurLuminanceMapEv,NuDeferredFilterGen::template_blurLuminanceMap(),confirmed,0
 00709080,001277c4,_NuMovieGrabBegin,_NuMovieGrabBegin,strings,0
 00709de0,00128314,__ZN14NuInstSurfGeom7DestroyEv,NuInstSurfGeom::Destroy(),strings,0
 0070b190,00129372,_NuAnimDataFindVersion,_NuAnimDataFindVersion,confirmed,0

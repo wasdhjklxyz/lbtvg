@@ -19,6 +19,23 @@ i32 Unk006e4900(nueffecttex_s *tex); // NuEffectTexGetWidth
 i32 Unk006e4910(nueffecttex_s *tex); // NuEffectTexGetHeight
 i32 Unk006e4950(nueffecttex_s *tex); // NuEffectTexGetLevels
 
+struct nushaderprogram_s;
+void Unk00530ca0(i32 state, i32 value); // render state
+
+struct NuPostFilter {
+  static void copy(nueffecttex_s *src, i32 src_level, nueffecttex_s *dst,
+                   i32 dst_level, nushaderprogram_s *program,
+                   nueffecttex_s *extra);
+  static void blur7x7(nueffecttex_s *src, i32 src_level, nueffecttex_s *dst,
+                      i32 dst_level, i32 a, i32 b, bool c, f32 scale,
+                      nushaderprogram_s *program);
+};
+
+// GLOBAL: LEGOBATMAN 0x029f3e2c
+extern nushaderprogram_s *g_unk029f3e2c; // copy program
+// GLOBAL: LEGOBATMAN 0x029f3e48
+extern nushaderprogram_s *g_unk029f3e48; // blur program
+
 // GLOBAL: LEGOBATMAN 0x029dcc08
 extern nueffecttex_s *g_unk029dcc08; // default effect texture
 // GLOBAL: LEGOBATMAN 0x00adf714
@@ -45,6 +62,7 @@ struct NuDeferredFilterGen : NuPostFilterGen {
   virtual void destroyTextureResources();
   virtual void resetAll();
   virtual bool isEnabled();
+  virtual void template_blurLuminanceMap(); // 9
 
   nueffecttex_s *tex0c;        // 0x0c
   nueffecttex_s *i10;          // 0x10
@@ -128,4 +146,16 @@ void NuDeferredFilterGen::resetAll() {
   dynamic_light_count = 0;
   i4c = 0;
   deferred_geometry_count = 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x007089c0
+void NuDeferredFilterGen::template_blurLuminanceMap() {
+  Unk00530ca0(0x16, 1);
+  Unk00530ca0(0xf, 0);
+  Unk00530ca0(0x1b, 0);
+  Unk00530ca0(7, 0);
+  Unk00530ca0(0x34, 0);
+  NuPostFilter::copy(tex18, 0, i14, 0, g_unk029f3e2c, 0);
+  NuPostFilter::blur7x7(tex18, 0, tex18, 1, 2, program - 1, true, 1.0f,
+                        g_unk029f3e48);
 }
