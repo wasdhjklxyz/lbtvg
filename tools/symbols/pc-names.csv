@@ -1972,6 +1972,17 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00601fe0,002e0b50,__Z20Grabber_SetVictimPosP9GRABBER_s,Grabber_SetVictimPos(GRABBER_s*),gapfill,3
 00602270,002e111c,__Z13Grabber_ResetP11WORLDINFO_s,Grabber_Reset(WORLDINFO_s*),strings,0
 00602540,002e0da8,__Z12Grabber_DropP9GRABBER_sP7nuvec_s,"Grabber_Drop(GRABBER_s*, nuvec_s*)",strings,0
+0060ba80,0031df80,__Z29PushBlocks_ReserveBufferSpacePv,PushBlocks_ReserveBufferSpace(void*),confirmed,0
+0060bad0,,PushBlocks_Reset,PushBlocks_Reset,confirmed,0
+0060baf0,,PushBlock_Activate,PushBlock_Activate,confirmed,0
+0060bb70,,PushBlock_SetVisibility,PushBlock_SetVisibility,confirmed,0
+0060bbe0,,PushBlocks_GetMaxGizmos,PushBlocks_GetMaxGizmos,confirmed,0
+0060bc00,,PushBlocks_AddGizmos,PushBlocks_AddGizmos,confirmed,0
+0060bc70,,PushBlock_GetGizmoName,PushBlock_GetGizmoName,confirmed,0
+0060bd10,,PushBlock_GetOutputName,PushBlock_GetOutputName,confirmed,0
+0060bd60,,PushBlock_GetNumOutputs,PushBlock_GetNumOutputs,confirmed,0
+0060bd70,,PushBlocks_AllocateProgressData,PushBlocks_AllocateProgressData,confirmed,0
+0060c5d0,,PushBlocks_RegisterGizmo,PushBlocks_RegisterGizmo,confirmed,0
 0060cea0,0030769e,__Z17GameDrawMenuEntryP6MENU_sPc,"GameDrawMenuEntry(MENU_s*, char*)",confirmed,0
 0060cee0,003076f6,__Z9GetMenuIDv,GetMenuID(),gapfill,2
 0060d110,002ff8ae,__Z20Levels_ConfigureListPcP9variptr_uS1_iPiPFvP11LEVELDATA_sE,"Levels_ConfigureList(char*, variptr_u*, variptr_u*, int, int*, void (*)(LEVELDATA_s*))",strings,0

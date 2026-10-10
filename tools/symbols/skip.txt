@@ -220,3 +220,5 @@
 005e0260 Ledge_FindNearest: float local vs dead param home slot swapped (best/rounding temp)
 005ca470 Shards_Draw: rot3a load hoisted above the spinning branch in the original, 3 forms tried
 005cc110 GizBuildItMul: esi/edi swapped between player and build_amount, 3 forms tried
+0060bcd0 PushBlock_GetOutput: final je vs jmp-to-shared-jne, 5 forms tried
+0060bd90 PushBlocks_ClearProgress: header stores vs memset push scheduling, all 6 orders tried

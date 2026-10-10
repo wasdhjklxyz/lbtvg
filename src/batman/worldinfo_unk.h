@@ -107,7 +107,10 @@ struct WORLDINFO_s {
   struct GIZDIGSYS_s *giz_dig_sys;                   // 0x47c0
   struct EQUIVALENTOBJECTGROUP_s *equivalent_groups; // 0x47c4
   i32 equivalent_group_count;                        // 0x47c8
-  u8 pad8b[0x4800 - 0x47cc];
+  u8 pad47cc[0x47d0 - 0x47cc];
+  struct PUSHBLOCK_s *pushblocks; // 0x47d0
+  i32 pushblock_count;            // 0x47d4
+  u8 pad8b[0x4800 - 0x47d8];
   struct GRABBERSYS_s *grabber_sys; // 0x4800
   u8 pad4804[0x4808 - 0x4804];
   struct RIPPLEEFFECT_s *ripple_effects; // 0x4808

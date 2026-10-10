@@ -2896,3 +2896,14 @@
 005cce70 GizBuildIt_Finish saga body (build_state = complete, optional turn-off, GizBuildIt_FinishFn)
 005cceb0 GizBuildIt_SetStepTime saga body (0.3 / GizBuildItMul)
 005ce220 GizBuildIts_RegisterGizmo copies Default_ADDGIZMOTYPE, name "GizBuildit"
+0060ba80 PushBlocks_ReserveBufferSpace reserve_buffer_space slot of the "PushBlocks" ADDGIZMOTYPE
+0060bad0 PushBlocks_Reset reset slot of the "PushBlocks" ADDGIZMOTYPE
+0060baf0 PushBlock_Activate activate slot of the "PushBlocks" ADDGIZMOTYPE
+0060bb70 PushBlock_SetVisibility set_visibility slot of the "PushBlocks" ADDGIZMOTYPE
+0060bbe0 PushBlocks_GetMaxGizmos get_max_gizmos slot of the "PushBlocks" ADDGIZMOTYPE
+0060bc00 PushBlocks_AddGizmos add_gizmos slot of the "PushBlocks" ADDGIZMOTYPE
+0060bc70 PushBlock_GetGizmoName get_gizmo_name slot of the "PushBlocks" ADDGIZMOTYPE
+0060bd10 PushBlock_GetOutputName get_output_name slot of the "PushBlocks" ADDGIZMOTYPE
+0060bd60 PushBlock_GetNumOutputs get_num_outputs slot of the "PushBlocks" ADDGIZMOTYPE
+0060bd70 PushBlocks_AllocateProgressData allocate_progress_data slot of the "PushBlocks" ADDGIZMOTYPE
+0060c5d0 PushBlocks_RegisterGizmo copies Default_ADDGIZMOTYPE, name "PushBlocks"
