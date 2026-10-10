@@ -58,13 +58,29 @@ void Unk_InlineUser_2_unk_005b2ce0(f32 *v, f32 a, i32 i) {
 typedef struct SPINNER_s {
   u8 pad0[0x40];
   char name[0x10]; // 0x40
-  u8 pad50[0x68 - 0x50];
-  void *parts; // 0x68
-  u8 pad6c[0xa8 - 0x6c];
+  u8 pad50[0x5c - 0x50];
+  nuvec_s position; // 0x5c
+  void *parts;      // 0x68
+  u8 pad6c[0x70 - 0x6c];
+  f32 f70; // 0x70
+  u8 pad74[0x7c - 0x74];
+  u16 s7c; // 0x7c
+  u8 pad7e[0x82 - 0x7e];
+  u16 s82;     // 0x82
+  u32 flags84; // 0x84
+  u8 pad88[0xa8 - 0x88];
   u8 num_outputs; // 0xa8
   u8 pada9;
-  u8 add_gizmo : 1; // 0xaa
-  u8 padab[0x314 - 0xab];
+  union {
+    struct {
+      u16 add_gizmo : 1; // 0xaa
+      u16 paused : 1;    // 0xaa bit 1
+      u16 baa_2 : 3;     // 0xaa bits 2-4
+      u16 baa_5 : 1;     // 0xaa bit 5
+    };
+    i16 flagsaa; // 0xaa
+  };
+  u8 padac[0x314 - 0xac];
 } SPINNER;
 
 typedef struct SPINNERPROGRESS_s {
@@ -183,15 +199,47 @@ void Spinners_ClearProgress(void *world, void *progress_ptr) {
     memset(progress, 0, sizeof(SPINNERPROGRESS));
 }
 
+void Unk00604b40(void *parts);
+
+// FUNCTION: LEGOBATMAN 0x005b4dc0
+void Spinner_Activate(GIZMO *gizmo, i32 active) {
+  if (gizmo == NULL)
+    return;
+  SPINNER *spinner = (SPINNER *)gizmo->object;
+  if (active) {
+    if (spinner->paused) {
+      spinner->f70 = 0.0f;
+      spinner->s7c = spinner->s82;
+      Unk00604b40(spinner->parts);
+    }
+    spinner->flagsaa &= ~0x22;
+    spinner->flags84 &= ~0x20;
+  } else {
+    spinner->paused = 1;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x005b4e20
+nuvec_s *Spinner_GetPos(GIZMO *gizmo) {
+  if (gizmo == NULL || gizmo->object == NULL)
+    return NULL;
+  return &((SPINNER *)gizmo->object)->position;
+}
+
+void SpinnerSetVisibilityUnk005b4e40(SPINNER *spinner, i32 visible);
+
+// FUNCTION: LEGOBATMAN 0x005b5090
+void Spinner_SetVisibility(GIZMO *gizmo, i32 visible) {
+  if (gizmo != NULL)
+    SpinnerSetVisibilityUnk005b4e40((SPINNER *)gizmo->object, visible);
+}
+
 i32 Spinners_Load(void *world, void *unused);
 void Spinners_Reset(void *world, void *unused, void *progress);
 void Spinners_StoreProgress(void *world, void *unused, void *progress);
 void Spinners_Update(void *world, void *unused, f32 dt);
 void Spinners_Draw(void *world, void *unused, f32 dt);
 i32 Spinner_GetOutput(GIZMO *gizmo, i32 output, i32 b);
-void Spinner_Activate(GIZMO *gizmo, i32 active);
-void Spinner_SetVisibility(GIZMO *gizmo, i32 visible);
-nuvec_s *Spinner_GetPos(GIZMO *gizmo);
 i32 Spinner_UsingSpecial(void);
 void Spinners_BoltHitPlat(void);
 void Spinners_GetBestBoltTarget(void);

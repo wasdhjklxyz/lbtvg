@@ -3220,3 +3220,6 @@
 005d94f0 GizmoBlowup_SetAutoSetReflectY Mac order (after GizmoBlowupTypeRemove, before EvaluateBlowupAnimToMtx); GameShadow under the blowup with its platform off
 004f05a0 Signal_SetVisibility Mac order (SIGNAL_s*, int) between Signal_ActivateRev and Signal_SetGizmoVisibility; esi-convention static
 004f0610 Signal_SetGizmoVisibility Signals_RegisterGizmo set_visibility slot (fns[12]), Mac name
+005b4dc0 Spinner_Activate Spinners_RegisterGizmo activate slot (fns[10])
+005b4e20 Spinner_GetPos Spinners_RegisterGizmo get_pos slot (fns[14])
+005b5090 Spinner_SetVisibility Spinners_RegisterGizmo set_visibility slot (fns[12]); tail-calls the per-spinner setter 0x5b4e40
