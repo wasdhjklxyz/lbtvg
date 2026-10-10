@@ -576,9 +576,13 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0048d650,000ac170,__Z18PowerUp_ImpactPartP6PART_s,PowerUp_ImpactPart(PART_s*),strings,0
 0048f750,000ad826,__Z15GizPanel_UpdatePvS_f,"GizPanel_Update(void*, void*, float)",strings,0
 00490b20,000aee18,__Z17GizPanel_MoveCodeP11WORLDINFO_sP12GameObject_si,"GizPanel_MoveCode(WORLDINFO_s*, GameObject_s*, int)",strings,0
+004916f0,000af31a,__Z12GizTorp_LoadPvS_,"GizTorp_Load(void*, void*)",confirmed,0
+00491810,000af41a,__Z27GizTorps_ReserveBufferSpacePv,GizTorps_ReserveBufferSpace(void*),confirmed,0
 00491900,000af4e6,__Z21GizTorp_SetVisibilityP7GIZMO_si,"GizTorp_SetVisibility(GIZMO_s*, int)",confirmed,0
 00491930,000af50e,__Z16GizTorp_ActivateP7GIZMO_si,"GizTorp_Activate(GIZMO_s*, int)",confirmed,0
+00491960,000af536,__Z19GizTorp_ActivateRevP7GIZMO_sii,"GizTorp_ActivateRev(GIZMO_s*, int, int)",confirmed,0
 00491a90,000af64c,__Z14GizTorp_UpdatePvS_f,"GizTorp_Update(void*, void*, float)",confirmed,0
+00491b10,000af6b2,__Z12GizTorp_DrawPvS_f,"GizTorp_Draw(void*, void*, float)",confirmed,0
 00491d70,000af93c,__Z20GizTorp_GetMaxGizmosPv,GizTorp_GetMaxGizmos(void*),confirmed,0
 00491d90,000af958,__Z17GizTorp_AddGizmosP10GIZMOSYS_siPvS1_,"GizTorp_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
 00491e10,000af9ca,__Z20GizTorp_GetGizmoNameP7GIZMO_s,GizTorp_GetGizmoName(GIZMO_s*),confirmed,0
@@ -587,7 +591,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00491e60,000af9fa,__Z21GizTorp_GetNumOutputsP7GIZMO_s,GizTorp_GetNumOutputs(GIZMO_s*),confirmed,0
 00491e70,000afa04,__Z31GizTorpedo_AllocateProgressDataP9variptr_uS0_,"GizTorpedo_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
 00491e90,000afa26,__Z24GizTorpedo_ClearProgressPvS_,"GizTorpedo_ClearProgress(void*, void*)",confirmed,0
+00491ec0,000afa6e,__Z24GizTorpedo_StoreProgressPvS_S_,"GizTorpedo_StoreProgress(void*, void*, void*)",confirmed,0
 00491f60,000afaf0,__Z21GizTorpedoes_SetResetPvS_S_,"GizTorpedoes_SetReset(void*, void*, void*)",confirmed,0
+00491fd0,000afb52,__Z28GizTorpMachine_RegisterGizmoi,GizTorpMachine_RegisterGizmo(int),confirmed,0
 004931b0,000afd70,__Z27Hub_SignalSwitchHeroVillain13HubSwitchMode,Hub_SignalSwitchHeroVillain(HubSwitchMode),strings,0
 004974c0,000b4830,__Z20Hub_DrawMiniKitPanelfi,"Hub_DrawMiniKitPanel(float, int)",strings,0
 00497d70,000b304c,__Z20InitializeDummyCharsP11WORLDINFO_s,InitializeDummyChars(WORLDINFO_s*),strings,0

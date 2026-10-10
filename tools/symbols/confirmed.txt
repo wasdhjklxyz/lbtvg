@@ -2611,3 +2611,9 @@
 00491e90 GizTorpedo_ClearProgress two 12-byte 0xff fills; Mac order
 00491d90 GizTorp_AddGizmos      AddGizmo per named machine: saga giztorpedo.cpp; Mac order
 00491f60 GizTorpedoes_SetReset  visible/active bits from the progress words: Mac order (after StoreProgress)
+00491ec0 GizTorpedo_StoreProgress clears visible/active bits of hidden/inactive machines: Mac order
+00491fd0 GizTorpMachine_RegisterGizmo "Torp Machine" ADDGIZMOTYPE with every GizTorp callback: saga giztorpedo.cpp; Mac order
+00491960 GizTorp_ActivateRev    activate_rev slot of the Torp Machine ADDGIZMOTYPE
+00491b10 GizTorp_Draw           draw slot of the Torp Machine ADDGIZMOTYPE
+004916f0 GizTorp_Load           load slot of the Torp Machine ADDGIZMOTYPE
+00491810 GizTorps_ReserveBufferSpace reserve_buffer_space slot of the Torp Machine ADDGIZMOTYPE
