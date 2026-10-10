@@ -327,3 +327,15 @@ enough matched code for the percentage to mean something.
   allocate registers differently.
 - **x87 commutative operand order** (`fld a; fmul b`) did not follow source
   order in numtx (NuMtxMul, RotateX/Z...); unsolved, stubbed.
+- **Make the class polymorphic**: calls through `void **vtable` casts
+  schedule differently from real virtual calls.
+- **A constructor gets an EH frame** unless its callees are `extern "C"`
+  (or otherwise known not to throw).
+- **`a = b = c = 0`** stores right to left.
+- **`mov; shr n; not; test al, 1`** is `~(flags >> n) & 1`.
+- **Separate `if (x) return 0;` lines vs one `||` condition** place the shared
+  return tail differently.
+- **Copy a global pointer into a local** to stop it being reloaded (the
+  opposite of check-then-reload above: try both).
+- `make match` handles overloads (parameter lists compared), destructors and
+  return types on their own line; no `// clang-format off` needed.

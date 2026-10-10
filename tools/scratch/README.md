@@ -22,3 +22,5 @@ are not lost. Run inside `nix develop` from the repo root.
 - `vtable.py ADDR`: find the vtable(s) holding ADDR (directly or through an
   incremental-link `jmp` thunk) and print every slot resolved. Pair slots
   with the Mac binary's inline emission order to name inline virtuals.
+- `rtti.py NAME...`: a class's vtable(s) from its RTTI `.?AV` name, slots
+  resolved through thunks.
