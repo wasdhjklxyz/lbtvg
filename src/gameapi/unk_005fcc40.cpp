@@ -63,6 +63,8 @@ typedef struct ZIPUP_s {
   u16 active : 1;  // 0xe8 bit 6
   u16 visible : 1; // 0xe8 bit 7
   u16 in_use : 1;  // 0xe8 bit 8
+  u16 b9 : 1;
+  u16 b10 : 1; // 0xe8 bit 10
   u8 pade9[0xec - 0xea];
   f32 lower_ground_height; // 0xec
   f32 upper_ground_height; // 0xf0
@@ -168,6 +170,60 @@ i32 ZipUp_ActivateRev(GIZMO *gizmo, i32 value, i32 query) {
   zipup->active = 1;
   zipup->direction = 0;
   return 1;
+}
+
+i32 EdFileReadInt();
+void EdFileRead(void *buf, i32 len);
+void EdFileReadNuVec(nuvec_s *v);
+u16 EdFileReadUnsignedShort();
+u8 EdFileReadUnsignedChar();
+
+// FUNCTION: LEGOBATMAN 0x005fd160
+i32 ZipUps_Load(void *world_ptr, void *unused) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  i32 i = 0;
+  if (world->zipup_count == 0) {
+    i32 version = EdFileReadInt();
+    world->zipup_count = EdFileReadInt();
+    for (i = 0; i < world->zipup_count; i++) {
+      EdFileRead(world->zipups[i].name, 0x10);
+      EdFileReadNuVec(&world->zipups[i].lower_position);
+      EdFileReadNuVec(&world->zipups[i].hook_origin);
+      EdFileReadNuVec(&world->zipups[i].upper_position);
+      world->zipups[i].hook_x_rotation = EdFileReadUnsignedShort();
+      world->zipups[i].hook_y_rotation = EdFileReadUnsignedShort();
+      world->zipups[i].config0 = EdFileReadUnsignedChar() != 0;
+      world->zipups[i].config1 = EdFileReadUnsignedChar() != 0;
+      world->zipups[i].has_upper = EdFileReadUnsignedChar() != 0;
+      if (version >= 2)
+        world->zipups[i].config4 = EdFileReadUnsignedChar() != 0;
+      else
+        world->zipups[i].config4 = 1;
+      if (version >= 3)
+        world->zipups[i].config5 = EdFileReadUnsignedChar() != 0;
+      else
+        world->zipups[i].config5 = 0;
+      if (version >= 4)
+        world->zipups[i].config2 = EdFileReadUnsignedChar() != 0;
+      else
+        world->zipups[i].config2 = 1;
+      if (version >= 5)
+        world->zipups[i].b10 = EdFileReadUnsignedChar() != 0;
+      else
+        world->zipups[i].b10 = 0;
+      if (version >= 6) {
+        world->zipups[i].lower_b100 = EdFileReadUnsignedChar();
+        world->zipups[i].upper_b101 = EdFileReadUnsignedChar();
+      } else {
+        world->zipups[i].lower_b100 = 0;
+        world->zipups[i].upper_b101 = 0;
+      }
+      world->zipups[i].lower_sfx = -1;
+      world->zipups[i].upper_sfx = -1;
+    }
+    return 1;
+  }
+  return 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x005fd440

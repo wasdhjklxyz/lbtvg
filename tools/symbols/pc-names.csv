@@ -2103,6 +2103,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005fc350,00266a4e,__Z17AreaFromMiniKitIDi,AreaFromMiniKitID(int),gapfill,4
 005fc730,00266d2e,__Z12DrawGoToAreaP6MENU_si,"DrawGoToArea(MENU_s*, int)",strings,0
 005fd100,0035116e,__Z17ZipUp_ActivateRevP7GIZMO_sii,"ZipUp_ActivateRev(GIZMO_s*, int, int)",confirmed,0
+005fd160,003511ce,__Z11ZipUps_LoadPvS_,"ZipUps_Load(void*, void*)",confirmed,0
 005fd440,003514ee,__Z18ZipUps_InitTerrainP11WORLDINFO_s,ZipUps_InitTerrain(WORLDINFO_s*),confirmed,0
 005fd490,003515f4,__Z25ZipUps_ReserveBufferSpacePv,ZipUps_ReserveBufferSpace(void*),confirmed,0
 005fd6e0,00351656,__Z12ZipUps_ResetPvS_S_,"ZipUps_Reset(void*, void*, void*)",confirmed,0
