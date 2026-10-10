@@ -449,6 +449,40 @@ extern i32 g_unk00966624; // default explosion debris type, -1 = none
 
 i32 AddGameDebris(void *system, i32 type, nuvec_s *position);
 
+// STUB: LEGOBATMAN 0x005d93c0
+// the original keeps `moved` in ebp and spills `last` to the world slot; ours
+// the other way round (decl order, while, end-- forms tried).
+void GizmoBlowupTypeRemove(GIZMOBLOWUPTYPE_s *type, WORLDINFO_s *world) {
+  if (world == NULL || world->gizmo_blowup_type_count <= 0)
+    return;
+  if (type == NULL)
+    return;
+  GIZMOBLOWUPTYPE_s *types = world->gizmo_blowup_types;
+  if (type < types)
+    return;
+  GIZMOBLOWUPTYPE_s *end = types + world->current_level->max_gizmoblowuptypes;
+  if (type > end)
+    return;
+  GIZMOBLOWUPTYPE_s *last = end - 1;
+  if (type < last) {
+    for (GIZMOBLOWUPTYPE_s *moved = type + 1; moved <= last; moved++) {
+      for (i32 i = 0; i < world->gizmo_blowup_count; i++) {
+        GIZMOBLOWUP_s *blowup = &world->gizmo_blowups[i];
+        if (blowup->type == moved)
+          blowup->type--;
+      }
+    }
+  }
+  while (type !=
+         &world->gizmo_blowup_types[world->gizmo_blowup_type_count - 1]) {
+    GIZMOBLOWUPTYPE_s *next = type + 1;
+    *type = *next;
+    type = next;
+  }
+  memset(type, 0, sizeof(*type));
+  world->gizmo_blowup_type_count--;
+}
+
 // GLOBAL: LEGOBATMAN 0x009ca98c
 extern f32 g_unk009ca98c;
 

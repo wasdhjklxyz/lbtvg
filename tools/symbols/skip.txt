@@ -229,3 +229,4 @@
 005a9390 Grapple_Reset: depends on Grapple_ResetShadow's convention
 005a9520 Grapples_Reset: progress bit insert / dynamic loop register allocation
 0048f120 GizPanels_Load: body matches, gizpanel_sys check-then-reload/shrink-wrap prologue not reproduced
+005d93c0 GizmoBlowupTypeRemove: moved/last register vs spill choice swapped (4 forms)
