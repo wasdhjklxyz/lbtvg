@@ -3551,6 +3551,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006fcbc0,0017b19e,__ZN12NuSSAOFilter13initResourcesEv,NuSSAOFilter::initResources(),confirmed,0
 006fcc50,0017b156,__ZN14NuEdgeAAFilter13initResourcesEv,NuEdgeAAFilter::initResources(),confirmed,0
 006fcc80,0017aea2,_Nu360MtlInit,_Nu360MtlInit,strings,0
+006fe5d0,0016afaa,__ZN12NuPostFilterC2Ev,NuPostFilter::NuPostFilter(),confirmed,0
 006fe600,0014297e,__ZN15NuMainFilterGen20initTextureResourcesEii,"NuMainFilterGen::initTextureResources(int, int)",confirmed,0
 006fe6f0,001451fa,__ZN15NuMainFilterGen23destroyTextureResourcesEv,NuMainFilterGen::destroyTextureResources(),confirmed,0
 006fe720,0014654a,__ZN15NuMainFilterGen5resetEv,NuMainFilterGen::reset(),confirmed,0

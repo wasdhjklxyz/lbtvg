@@ -45,7 +45,8 @@ u32 Unk006e4950(nueffecttex_s *tex);  // NuEffectTexGetLevels
 void Unk006e47f0(nueffecttex_s *tex); // releases the effect texture
 
 struct NuPostFilterGen {
-  virtual ~NuPostFilterGen();
+  NuPostFilterGen() : enabled(false) {}
+  virtual ~NuPostFilterGen() {}
   virtual void initResources();
   virtual void destroyResources();
   virtual void initTextureResources(i32 width, i32 height);
@@ -80,6 +81,15 @@ struct NuMainFilterGen : NuPostFilterGen {
   u8 pad7c[0x8c - 0x7c];
   f32 dof_blur; // 0x8c
 };
+
+struct NuPostFilter : NuPostFilterGen {
+  NuPostFilter();
+};
+
+// FUNCTION: LEGOBATMAN 0x006fe5d0
+NuPostFilter::NuPostFilter() {}
+
+// SYNTHETIC: LEGOBATMAN 0x006fe5e0 NuPostFilter::`scalar deleting destructor'
 
 // FUNCTION: LEGOBATMAN 0x006fe600
 void NuMainFilterGen::initTextureResources(i32 width, i32 height) {
