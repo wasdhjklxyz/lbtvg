@@ -4796,6 +4796,30 @@ float NuRDPFVar(char *input, nurdpgetvarfn *get_var_fn) {
 // FUNCTION: LEGOBATMAN 0x006db2a0
 float NuRDPF(char *input) { return NuRDPFVar(input, NULL); }
 
+// Relocates a memory file's self-relative pointer table in place and returns
+// its data (Mac name unknown).
+// FUNCTION: LEGOBATMAN 0x006db2d0
+void *NuMemFileUnk006db2d0(int file) {
+  char *p;
+  void *data;
+  int n;
+  int *slot;
+  int i;
+
+  p = (char *)g_nuFileUnk0afa0a8[file - 0x400].i8;
+  data = p + 4;
+  p += *(int *)p;
+  n = *(int *)p;
+  p += 4;
+  for (i = 0; i < n; i++) {
+    slot = (int *)(p + *(int *)p);
+    if (*slot != 0)
+      *slot += (int)slot;
+    p += 4;
+  }
+  return data;
+}
+
 typedef struct rdpictxt_s {
   int cur_tok;
   int cur_val;
@@ -5204,6 +5228,17 @@ static int i_expr(RDPICTXT *ctx) {
       return expr;
     }
   }
+}
+
+// FUNCTION: LEGOBATMAN 0x006dbd30
+int NuRDPIVar(char *input, nurdpgetvarfn *get_var_fn) {
+  RDPICTXT ctx;
+
+  ctx.buf = input;
+  ctx.pos = 0;
+  ctx.get_var_fn = get_var_fn;
+  get_tok_rdpi(&ctx);
+  return i_expr(&ctx);
 }
 
 // FUNCTION: LEGOBATMAN 0x006dbd70

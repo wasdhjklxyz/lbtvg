@@ -478,6 +478,15 @@ static unsigned short literal_table[0x1000];
 // GLOBAL: LEGOBATMAN 0x00aec558
 static unsigned char literal_len[0x1fe];
 
+// GLOBAL: LEGOBATMAN 0x00ad7634
+static int bytes_to_copy;
+
+// FUNCTION: LEGOBATMAN 0x006dbda0
+static void decode_start(void) {
+  ImplodeHufDecodeStart();
+  bytes_to_copy = 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x006dbdd0
 void read_offset_len(int table_size, int bit_count, int zero_value) {
   int n;
@@ -573,9 +582,6 @@ unsigned int ImplodeDecodeC(void) {
   return value;
 }
 
-// GLOBAL: LEGOBATMAN 0x00ad7634
-static int bytes_to_copy;
-
 // FUNCTION: LEGOBATMAN 0x006dd670
 static void decode(unsigned int size, unsigned char *buf) {
   // GLOBAL: LEGOBATMAN 0x00b0393c
@@ -626,8 +632,7 @@ int ExplodeBufferNoHeader(char *in_buf, char *out_buf, int compressed_size,
   implode_outbuffer = (unsigned char *)out_buf;
   implode_origsize = orig_size;
   implode_compsize = compressed_size;
-  ImplodeHufDecodeStart();
-  bytes_to_copy = 0;
+  decode_start();
   total_read = 0;
   while (implode_origsize != 0) {
     read_size = implode_origsize > 0x2000 ? 0x2000 : implode_origsize;

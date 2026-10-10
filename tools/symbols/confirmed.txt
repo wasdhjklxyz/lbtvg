@@ -3597,3 +3597,6 @@
 006dc1a0 NuPadUnk006d7400::NuPadUnk006d7400 ctor(pool, size): clear + SetPool
 006d8560 NuAsciiToUnicode saga nustring_c.cpp loop shape
 006dc5a0 NuSPrintfW saga nustring_c.cpp body (stub)
+006dbda0 decode_start saga implode.cpp static, out-of-line copy emitted because ExplodeBufferNoHeader references it
+006dbd30 NuRDPIVar Mac order between i_expr and NuRDPI, NuRDPI body with get_var_fn
+006db2d0 NuMemFileUnk006db2d0 memory-file self-relative pointer fixup (name unknown)

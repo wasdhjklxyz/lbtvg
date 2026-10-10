@@ -3788,11 +3788,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006db210,0018f53c,_f_expr,_f_expr,confirmed,0
 006db270,0018f598,_NuRDPFVar,_NuRDPFVar,confirmed,0
 006db2a0,0018f5d2,_NuRDPF,_NuRDPF,confirmed,0
+006db2d0,,NuMemFileUnk006db2d0,NuMemFileUnk006db2d0,confirmed,0
 006db510,0018df74,_get_tok_rdpi,_get_tok_rdpi,confirmed,0
 006dba10,0018e5e6,_prim,_prim,confirmed,0
 006dbae0,0018e6cc,_term,_term,confirmed,0
 006dbc40,0018e83e,_i_expr,_i_expr,confirmed,0
+006dbd30,0018e95e,_NuRDPIVar,_NuRDPIVar,confirmed,0
 006dbd70,0018e990,_NuRDPI,_NuRDPI,confirmed,0
+006dbda0,,decode_start,decode_start,confirmed,0
 006dbdd0,00192290,_read_offset_len,_read_offset_len,confirmed,0
 006dbf10,,read_literal_len,read_literal_len,confirmed,0
 006dc080,001923de,_ImplodeDecodeC,_ImplodeDecodeC,confirmed,0
