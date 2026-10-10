@@ -57,7 +57,7 @@ extern int g_nuPadUnk0adf658; // video_aspect
 // GLOBAL: LEGOBATMAN 0x00adf664
 extern float g_nuapiFps;
 // GLOBAL: LEGOBATMAN 0x00adf698
-int g_nuapiForcedFrameTime;
+int g_nuapiUnk0adf698;
 // GLOBAL: LEGOBATMAN 0x00adf6ac
 int g_nuapiPadRecBufSize;
 // GLOBAL: LEGOBATMAN 0x00adf6b8
@@ -102,7 +102,7 @@ void NuAPIInit(void) {
   g_nuapiUnk0adf738 = 1.0f;
   g_nuPadUnk0adf658 = 0;
   g_nuapiDisableOSMenuFreeze = 0;
-  g_nuapiForcedFrameTime = nuapi_forced_frame_time;
+  g_nuapiUnk0adf698 = nuapi_forced_frame_time;
   g_nuapiMultiThreadRender = 1;
   g_nuapiUnk0adf6fc = 0;
   g_nuPadRecEndRecordButtons = 0;

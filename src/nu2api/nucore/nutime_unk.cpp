@@ -113,3 +113,40 @@ f32 NuTimeMicroSeconds(NUTIME *t) {
 
 // FUNCTION: LEGOBATMAN 0x006d51e0
 f32 NuTimeScanlines(NUTIME *t) { return NuTimeSeconds(t) * 272.0f * 60.0f; }
+
+// nuapi.time (frame start)
+// GLOBAL: LEGOBATMAN 0x00adf680
+extern NUTIME g_nuapiTime;
+// GLOBAL: LEGOBATMAN 0x00adf664
+extern f32 g_nuapiFps;
+void bgSuspendMain(int lines);
+
+// Scanlines left in this frame at the current refresh (name unknown):
+// returns 1 when fewer than min_lines remain, else lets the background
+// thread run and returns 0.
+// FUNCTION: LEGOBATMAN 0x006d5320
+int NuTimeUnk006d5320(int min_lines) {
+  NUTIME now;
+  NUTIME diff;
+  int remaining = 0;
+  int lines;
+  f32 x;
+
+  NuTimeGet(&now);
+  NuTimeSub(&diff, &now, &g_nuapiTime);
+  x = NuTimeSeconds(&diff) * 272.0f * 60.0f;
+  lines = (int)x;
+  if (g_nuapiFps == 60.0f)
+    remaining = 0xff - lines;
+  else if (g_nuapiFps == 50.0f)
+    remaining = 0x131 - lines;
+  else if (g_nuapiFps == 30.0f)
+    remaining = 0x1e0 - lines;
+  else if (g_nuapiFps == 25.0f)
+    remaining = 0x244 - lines;
+  if (remaining >= min_lines) {
+    bgSuspendMain(remaining);
+    return 0;
+  }
+  return 1;
+}

@@ -3622,6 +3622,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d51e0,00188fea,_NuTimeScanlines,_NuTimeScanlines,confirmed,0
 006d5210,0018db12,_NuAPIInit,_NuAPIInit,confirmed,0
 006d52f0,00189040,_NuFrameBegin,_NuFrameBegin,confirmed,0
+006d5320,,NuTimeUnk006d5320,NuTimeUnk006d5320,confirmed,0
 006d5420,00189080,_NuFrameSetMinDelay,_NuFrameSetMinDelay,confirmed,0
 006d5430,00189094,_PrintStartupString,_PrintStartupString,confirmed,0
 006d5500,,NuUnk006d5500,NuUnk006d5500,confirmed,0

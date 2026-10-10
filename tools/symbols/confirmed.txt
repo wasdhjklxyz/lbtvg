@@ -3642,3 +3642,4 @@
 006d52f0 NuFrameBegin Mac body (frame++, portal/water/mouse/keyboard/occlusion, frame lights reset)
 006d5430 PrintStartupString Mac order after NuFrameSetMinDelay; vsprintf + debug font line, y += 0x14
 006d5500 NuUnk006d5500 prints a pending message via PrintStartupString (name unknown)
+006d5320 NuTimeUnk006d5320 scanlines left this frame at 60/50/30/25 fps, yields to bgproc (name unknown; inlines NuTimeGet/NuTimeSub, so nutime TU)
