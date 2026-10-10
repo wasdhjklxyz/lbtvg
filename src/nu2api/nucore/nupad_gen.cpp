@@ -1293,3 +1293,170 @@ int NuStrCmpW(const NUWCHAR *a, const NUWCHAR *b) {
   } while (ca != 0 && cb != 0);
   return 0;
 }
+
+// FUNCTION: LEGOBATMAN 0x006d7ee0
+char *NuIToA(i32 value, char *buffer, i32 radix) {
+  char reversed[33];
+  char *digit = reversed;
+  char *out = buffer;
+  if (value < 0) {
+    value = -value;
+    *out++ = '-';
+  }
+  do {
+    *digit++ = value % radix + '0';
+    value /= radix;
+  } while (value != 0);
+  while (digit != reversed)
+    *out++ = *--digit;
+  *out++ = '\0';
+  return buffer;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d8070
+i32 NuStrToL(char *str, char **end, i32 radix) {
+  i32 value = 0;
+  i32 sign = 0;
+  char c = *str++;
+  while (c == ' ' || c == '\t')
+    c = *str++;
+  if (c == '-') {
+    sign = -1;
+    c = *str++;
+  } else if (c == '+')
+    c = *str++;
+  if (radix == 0) {
+    radix = 10;
+    if (c == '0' && (*str == 'x' || *str == 'X')) {
+      radix = 16;
+      ++str;
+      c = *str;
+    }
+  }
+  while (1) {
+    if (c >= '0' && c <= '9')
+      c -= '0';
+    else if (c >= 'A' && c <= 'Z')
+      c -= 'A' - 10;
+    else if (c >= 'a' && c <= 'z')
+      c -= 'a' - 10;
+    else
+      break;
+    if (c >= radix)
+      break;
+    value *= radix;
+    value += c;
+    c = *str++;
+  }
+  if (end != 0)
+    *end = str - 1;
+  if (sign)
+    return sign * value;
+  return value;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d81a0
+NUWCHAR *NuIToAW(i32 value, NUWCHAR *buffer, i32 radix) {
+  NUWCHAR reversed[33];
+  NUWCHAR *digit = reversed;
+  NUWCHAR *out = buffer;
+  if (value < 0) {
+    value = -value;
+    *out++ = '-';
+  }
+  do {
+    *digit++ = value % radix + '0';
+    value /= radix;
+  } while (value != 0);
+  while (digit != reversed)
+    *out++ = *--digit;
+  *out++ = 0;
+  return buffer;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d8220
+f32 NuAToFW(const NUWCHAR *str) {
+  f32 value = 0.0f;
+  f32 divisor = 1.0f;
+  NUWCHAR c = *str++;
+  if (c == '-') {
+    divisor = -1.0f;
+    c = *str++;
+  }
+  while (c >= '0' && c <= '9') {
+    value *= 10.0f;
+    value += c - '0';
+    c = *str++;
+  }
+  if (c == '.') {
+    c = *str++;
+    while (c >= '0' && c <= '9') {
+      divisor *= 10.0f;
+      value *= 10.0f;
+      value += c - '0';
+      c = *str++;
+    }
+  }
+  return value / divisor;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d82f0
+i32 NuAToIW(const NUWCHAR *str) {
+  i32 value = 0;
+  i32 sign = 0;
+  NUWCHAR c = *str++;
+  if (c == '-') {
+    sign = -1;
+    c = *str++;
+  }
+  while (c >= '0' && c <= '9') {
+    value = (value << 3) + (value << 1);
+    value = value + c - '0';
+    c = *str++;
+  }
+  if (sign)
+    return sign * value;
+  return value;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d8340
+i32 NuStrToLW(NUWCHAR *str, NUWCHAR **end, i32 radix) {
+  i32 value = 0;
+  i32 sign = 0;
+  NUWCHAR c = *str++;
+  while (c == ' ' || c == '\t')
+    c = *str++;
+  if (c == '-') {
+    sign = -1;
+    c = *str++;
+  } else if (c == '+')
+    c = *str++;
+  if (radix == 0) {
+    radix = 10;
+    if (c == '0' && (*str == 'x' || *str == 'X')) {
+      radix = 16;
+      ++str;
+      c = *str;
+    }
+  }
+  while (1) {
+    if (c >= '0' && c <= '9')
+      c -= '0';
+    else if (c >= 'A' && c <= 'Z')
+      c -= 'A' - 10;
+    else if (c >= 'a' && c <= 'z')
+      c -= 'a' - 10;
+    else
+      break;
+    if (c >= radix)
+      break;
+    value *= radix;
+    value += c;
+    c = *str++;
+  }
+  if (end != 0)
+    *end = str - 1;
+  if (sign)
+    return sign * value;
+  return value;
+}

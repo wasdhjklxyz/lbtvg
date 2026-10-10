@@ -1764,3 +1764,9 @@
 006d79b0 NuStrRChrW             saga body, Mac order; matched
 006d7a10 NuStrStrW              saga body, Mac order (after NuStrLenW 0x6d79f0); matched
 006d7b10 NuStrCmpW              saga body, Mac order; matched
+006d7ee0 NuIToA                 saga nustring_c body, Mac order (after NuIsAl); matched
+006d8070 NuStrToL               saga body, Mac order (after NuIToA/NuAToI); matched
+006d81a0 NuIToAW                saga body, Mac order (after NuIsAlW); matched
+006d8220 NuAToFW                saga body, Mac order; matched
+006d82f0 NuAToIW                saga body, Mac order; matched
+006d8340 NuStrToLW              saga body, Mac order; matched

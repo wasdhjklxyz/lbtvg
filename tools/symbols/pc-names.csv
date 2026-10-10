@@ -2157,8 +2157,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d7a10,0018aa44,_NuStrStrW,_NuStrStrW,confirmed,0
 006d7b10,0018aa84,_NuStrCmpW,_NuStrCmpW,confirmed,0
 006d7dc0,0018b9d4,_NuSPrintf,_NuSPrintf,confirmed,0
+006d7ee0,0018ab32,_NuIToA,_NuIToA,confirmed,0
 006d7f60,00187f1a,_NuAToF,_NuAToF,calls,1
 006d8020,00187ec6,_NuAToI,_NuAToI,confirmed,0
+006d8070,0018ab88,_NuStrToL,_NuStrToL,confirmed,0
+006d81a0,0018ac8a,_NuIToAW,_NuIToAW,confirmed,0
+006d8220,0018acea,_NuAToFW,_NuAToFW,confirmed,0
+006d82f0,0018ad9c,_NuAToIW,_NuAToIW,confirmed,0
+006d8340,0018adf2,_NuStrToLW,_NuStrToLW,confirmed,0
 006d8440,00187e42,_NuUnicodeToAscii,_NuUnicodeToAscii,gapfill,2
 006da090,0018b224,_NuFileExtInitEx,_NuFileExtInitEx,strings,0
 006da8d0,0018d4c2,_NuFParGetWord,_NuFParGetWord,gapfill,1
