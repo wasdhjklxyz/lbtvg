@@ -2510,6 +2510,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00662fc0,002d5766,__Z31GizSpecial_AllocateProgressDataP9variptr_uS0_,"GizSpecial_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
 00662fe0,002d5788,__Z24GizSpecial_ClearProgressPvS_,"GizSpecial_ClearProgress(void*, void*)",confirmed,0
 00663020,002d57c2,__Z24GizSpecial_StoreProgressPvS_S_,"GizSpecial_StoreProgress(void*, void*, void*)",confirmed,0
+006631c0,002d5992,__Z24GizSpecial_RegisterGizmoi,GizSpecial_RegisterGizmo(int),confirmed,0
 006633c0,002c259e,__Z17CheckGizAIMessageP17GIZAIMESSAGESYS_sPKcP14GIZAIMESSAGE_s,"CheckGizAIMessage(GIZAIMESSAGESYS_s*, char const*, GIZAIMESSAGE_s*)",calls,1
 00663540,002c2772,__Z25GizAIMessage_GetMaxGizmosPv,GizAIMessage_GetMaxGizmos(void*),confirmed,0
 00663550,002c277c,__Z22GizAIMessage_AddGizmosP10GIZMOSYS_siPvS1_,"GizAIMessage_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0

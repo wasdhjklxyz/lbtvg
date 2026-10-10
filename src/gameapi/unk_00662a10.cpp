@@ -52,6 +52,21 @@ void GameAnimSet_Play(void *anim_set, f32 speed, i32 a);
 void GameAnimSet_Stop(void *anim_set);
 void GameAnimSet_SetVisibility(void *anim_set, i32 visible);
 
+typedef struct ADDGIZMOTYPE_s {
+  char *name;        // 0x00
+  char *prefix;      // 0x04
+  u16 progress_size; // 0x08
+  void *fns[0x1c];   // 0x0c
+} ADDGIZMOTYPE;
+
+// GLOBAL: LEGOBATMAN 0x00960118
+extern ADDGIZMOTYPE Default_ADDGIZMOTYPE;
+
+// GLOBAL: LEGOBATMAN 0x00967ae4
+static char gizSpec_prefix[] = "qaz_";
+// GLOBAL: LEGOBATMAN 0x00967aec
+i32 gizspecial_gizmotype_id = -1;
+
 // FUNCTION: LEGOBATMAN 0x00662a30
 i32 GizSpecial_GetMaxGizmos(void *special) {
   WORLDINFO_s *world = (WORLDINFO_s *)special;
@@ -206,4 +221,51 @@ void GizSpecial_StoreProgress(void *world_ptr, void *unused,
         progress->reversed[word] |= bit;
     }
   }
+}
+
+i32 GizSpecial_GetOutput(GIZMO *gizmo, i32 output_index, i32 include_inactive);
+nuvec_s *GizSpecial_GetPos(GIZMO *gizmo);
+i32 GizSpecial_UsingSpecial(GIZMO **result, void *world_ptr, i32 capacity,
+                            char *name);
+void *GizSpecial_ReserveBuffer(void *world_ptr);
+
+// FUNCTION: LEGOBATMAN 0x006631c0
+ADDGIZMOTYPE *GizSpecial_RegisterGizmo(i32 type_id) {
+  // GLOBAL: LEGOBATMAN 0x00ad2090
+  static ADDGIZMOTYPE addtype;
+
+  addtype = Default_ADDGIZMOTYPE;
+  addtype.name = "NuSpecial";
+  addtype.prefix = gizSpec_prefix;
+  addtype.progress_size = 0;
+  addtype.fns[0] = (void *)GizSpecial_GetMaxGizmos;
+  addtype.fns[1] = (void *)GizSpecial_AddGizmos;
+  addtype.fns[2] = NULL;
+  addtype.fns[3] = NULL;
+  addtype.fns[4] = NULL;
+  addtype.fns[5] = NULL;
+  addtype.fns[6] = (void *)GizSpecial_GetGizmoName;
+  addtype.fns[7] = (void *)GizSpecial_GetOutput;
+  addtype.fns[8] = (void *)GizSpecial_GetOutputName;
+  addtype.fns[9] = (void *)GizSpecial_GetNumOutputs;
+  addtype.fns[10] = (void *)GizSpecial_Activate;
+  addtype.fns[11] = (void *)GizSpecial_ActivateRev;
+  addtype.fns[12] = (void *)GizSpecial_SetVisibility;
+  addtype.fns[13] = NULL;
+  addtype.fns[14] = (void *)GizSpecial_GetPos;
+  addtype.fns[15] = (void *)GizSpecial_UsingSpecial;
+  addtype.fns[16] = NULL;
+  addtype.fns[17] = NULL;
+  addtype.fns[18] = NULL;
+  addtype.fns[19] = (void *)GizSpecial_AllocateProgressData;
+  addtype.fns[20] = (void *)GizSpecial_ClearProgress;
+  addtype.fns[21] = (void *)GizSpecial_StoreProgress;
+  addtype.fns[22] = (void *)GizSpecial_Reset;
+  addtype.fns[23] = (void *)GizSpecial_ReserveBuffer;
+  addtype.fns[24] = NULL;
+  addtype.fns[25] = NULL;
+  addtype.fns[26] = NULL;
+  addtype.fns[27] = NULL;
+  gizspecial_gizmotype_id = type_id;
+  return &addtype;
 }

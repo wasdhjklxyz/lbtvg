@@ -2726,3 +2726,4 @@
 00663020 GizSpecial_StoreProgress store_progress slot of the "NuSpecial" ADDGIZMOTYPE
 00662c20 GizSpecial_GetName Mac global (returns special->name at 0), inlined into GetGizmoName
 00662c30 GizSpecial_FindByName Mac global (char*, WORLDINFO_s*), NuStrICmp over giz_special_sys
+006631c0 GizSpecial_RegisterGizmo copies Default_ADDGIZMOTYPE, name "NuSpecial", prefix gizSpec_prefix "qaz_"
