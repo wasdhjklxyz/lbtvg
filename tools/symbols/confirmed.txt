@@ -3153,3 +3153,11 @@
 0040bf20 Attracto_GetPos_Top body as saga (pos with y + 1.0)
 005a8e30 Grapples_Load Grapples_RegisterGizmo load slot (fns[24])
 005a91b0 Grapple_ResetRopePoints body as saga's first loop (rope_length / 6 segments)
+0048efd0 GizPanel_CreateTerrain body as saga (DeletePlatinst, NewPlatPickupInst, PlatInstRotate), called from SetVisibility
+0048f340 GizPanels_ReserveBufferSpace GizPanel_RegisterGizmo reserve_buffer_space slot (fns[23])
+0048f410 GizPanel_SetVisibility GizPanel_RegisterGizmo set_visibility slot (fns[12])
+00490940 GizPanels_AddLevelSfx GizPanel_RegisterGizmo slot 27, AddLevelSfxFromName on two names
+00491500 GizPanel_Activate GizPanel_RegisterGizmo activate slot (fns[10])
+00573e30 NewPlatPickupInst saga GizPanel_CreateTerrain / Attractos_InitTerrain call with (mtx, type)
+005740f0 PlatInstRotate saga GizPanel_CreateTerrain tail call (id, 1)
+00574270 DeletePlatinst saga GizPanel_SetVisibility / Attracto_SetVisibility call

@@ -635,6 +635,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0048a620,000a755c,__Z22GizForce_RegisterGizmoi,GizForce_RegisterGizmo(int),confirmed,0
 0048c2e0,000aae98,__Z23GizmoPickup_CollectCoinP11WORLDINFO_sP7nuvec_siiP12GameObject_si,"GizmoPickup_CollectCoin(WORLDINFO_s*, nuvec_s*, int, int, GameObject_s*, int)",strings,0
 0048d650,000ac170,__Z18PowerUp_ImpactPartP6PART_s,PowerUp_ImpactPart(PART_s*),strings,0
+0048efd0,000ad06c,__Z22GizPanel_CreateTerrainP10GIZPANEL_s,GizPanel_CreateTerrain(GIZPANEL_s*),confirmed,0
+0048f340,000ad306,__Z28GizPanels_ReserveBufferSpacePv,GizPanels_ReserveBufferSpace(void*),confirmed,0
+0048f410,000ad3c0,__Z22GizPanel_SetVisibilityP7GIZMO_si,"GizPanel_SetVisibility(GIZMO_s*, int)",confirmed,0
 0048f750,000ad826,__Z15GizPanel_UpdatePvS_f,"GizPanel_Update(void*, void*, float)",strings,0
 004906d0,,GizPanels_GetMaxGizmos,GizPanels_GetMaxGizmos,confirmed,0
 004906f0,,GizPanels_AddGizmos,GizPanels_AddGizmos,confirmed,0
@@ -644,7 +647,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00490800,000ae790,__Z22GizPanel_GetNumOutputsP7GIZMO_s,GizPanel_GetNumOutputs(GIZMO_s*),confirmed,0
 00490810,000ae79a,__Z30GizPanels_AllocateProgressDataP9variptr_uS0_,"GizPanels_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
 00490830,000ae7bc,__Z23GizPanels_ClearProgressPvS_,"GizPanels_ClearProgress(void*, void*)",confirmed,0
+00490940,,GizPanels_AddLevelSfx,GizPanels_AddLevelSfx,confirmed,0
 00490b20,000aee18,__Z17GizPanel_MoveCodeP11WORLDINFO_sP12GameObject_si,"GizPanel_MoveCode(WORLDINFO_s*, GameObject_s*, int)",strings,0
+00491500,000ad5f6,__Z17GizPanel_ActivateP7GIZMO_si,"GizPanel_Activate(GIZMO_s*, int)",confirmed,0
 00491540,000ae95e,__Z22GizPanel_RegisterGizmoi,GizPanel_RegisterGizmo(int),confirmed,0
 004916f0,000af31a,__Z12GizTorp_LoadPvS_,"GizTorp_Load(void*, void*)",confirmed,0
 00491810,000af41a,__Z27GizTorps_ReserveBufferSpacePv,GizTorps_ReserveBufferSpace(void*),confirmed,0
@@ -1438,7 +1443,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00572040,001ff638,_NewTerrPlatformsOff,_NewTerrPlatformsOff,calls,1
 00572be0,002158ec,_NewRayCast,_NewRayCast,gapfill,1
 00572d90,002156a6,_NewRayCastScaleYMask,_NewRayCastScaleYMask,gapfill,1
+00573e30,00200b08,_NewPlatPickupInst,_NewPlatPickupInst,confirmed,0
+005740f0,00200dd0,_PlatInstRotate,_PlatInstRotate,confirmed,0
 00574220,00200eae,_PlatOnOff,_PlatOnOff,gapfill,4
+00574270,0020e2c2,_DeletePlatinst,_DeletePlatinst,confirmed,0
 005797f0,001f4188,_PlaySfxById,_PlaySfxById,confirmed,0
 005798a0,0020fa7a,_PlaySfx,_PlaySfx,confirmed,0
 0057be20,0021e3e6,_DebFreeInstantly,_DebFreeInstantly,gapfill,4

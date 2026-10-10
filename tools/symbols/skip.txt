@@ -229,3 +229,4 @@
 005a92b0 Grapple_ResetShadow: position pointer passed in ebx by our cl, on the stack in the original
 005a9390 Grapple_Reset: depends on Grapple_ResetShadow's convention
 005a9520 Grapples_Reset: progress bit insert / dynamic loop register allocation
+0048f120 GizPanels_Load: body matches, gizpanel_sys check-then-reload/shrink-wrap prologue not reproduced
