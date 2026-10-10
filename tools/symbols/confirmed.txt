@@ -2935,3 +2935,15 @@
 00606160 Whippers_ClearProgress clear_progress slot of the "Whipper" ADDGIZMOTYPE
 00606180 Whippers_StoreProgress store_progress slot of the "Whipper" ADDGIZMOTYPE
 00606240 Whippers_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Whipper"
+005a9160 Grapples_ReserveBufferSpace reserve_buffer_space slot of the "Grapple" ADDGIZMOTYPE
+005aac40 Grapple_Activate activate slot of the "Grapple" ADDGIZMOTYPE
+005aac70 Grapple_SetVisibility set_visibility slot of the "Grapple" ADDGIZMOTYPE
+005aac90 Grapples_GetMaxGizmos get_max_gizmos slot of the "Grapple" ADDGIZMOTYPE
+005aacb0 Grapples_AddGizmos add_gizmos slot of the "Grapple" ADDGIZMOTYPE
+005aad20 Grapple_GetGizmoName get_gizmo_name slot of the "Grapple" ADDGIZMOTYPE
+005aad80 Grapple_GetOutputName get_output_name slot of the "Grapple" ADDGIZMOTYPE
+005aada0 Grapple_GetNumOutputs get_num_outputs slot of the "Grapple" ADDGIZMOTYPE
+005aadb0 Grapples_AllocateProgressData allocate_progress_data slot of the "Grapple" ADDGIZMOTYPE
+005aadd0 Grapples_ClearProgress clear_progress slot of the "Grapple" ADDGIZMOTYPE
+005aadf0 Grapples_StoreProgress store_progress slot of the "Grapple" ADDGIZMOTYPE
+005ab830 Grapples_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Grapple"

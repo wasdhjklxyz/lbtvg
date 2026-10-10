@@ -126,9 +126,10 @@ struct WORLDINFO_s {
   struct SIGNAL_s *signals; // 0x51d4
   i32 signal_count;         // 0x51d8
   u8 pad51dc[0x51ec - 0x51dc];
-  struct TECHNO_s *technos; // 0x51ec
-  i32 techno_count;         // 0x51f0
-  u8 pad51f4[0x51fc - 0x51f4];
+  struct TECHNO_s *technos;                   // 0x51ec
+  i32 techno_count;                           // 0x51f0
+  struct GRAPPLE_s *grapples;                 // 0x51f4
+  i32 grapple_count;                          // 0x51f8
   struct SHARD_s *shards;                     // 0x51fc
   i32 shard_count;                            // 0x5200
   struct WHIPPER_s *whippers;                 // 0x5204

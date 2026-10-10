@@ -1629,9 +1629,21 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005a7830,0033dbca,__Z21Technos_StoreProgressPvS_S_,"Technos_StoreProgress(void*, void*, void*)",confirmed,0
 005a78d0,0033dc9a,__Z13Techno_GetPosP7GIZMO_s,Techno_GetPos(GIZMO_s*),confirmed,0
 005a7bd0,0033e194,__Z19Techno_FindOperatorPvPP9GAMEPAD_sPP12GameObject_s,"Techno_FindOperator(void*, GAMEPAD_s**, GameObject_s**)",confirmed,0
+005a9160,002e4968,__Z27Grapples_ReserveBufferSpacePv,Grapples_ReserveBufferSpace(void*),confirmed,0
 005a9390,002e4af0,__Z13Grapple_ResetP9GRAPPLE_sP7nuvec_s,"Grapple_Reset(GRAPPLE_s*, nuvec_s*)",gapfill,1
 005a9520,002e4c4e,__Z14Grapples_ResetPvS_S_,"Grapples_Reset(void*, void*, void*)",strings,0
 005aa1f0,002e58ac,__Z15InitGrappleMtlsP9variptr_uS0_,"InitGrappleMtls(variptr_u*, variptr_u*)",strings,0
+005aac40,002e5a7e,__Z16Grapple_ActivateP7GIZMO_si,"Grapple_Activate(GIZMO_s*, int)",confirmed,0
+005aac70,002e5ab8,__Z21Grapple_SetVisibilityP7GIZMO_si,"Grapple_SetVisibility(GIZMO_s*, int)",confirmed,0
+005aac90,002e5ae2,__Z21Grapples_GetMaxGizmosPv,Grapples_GetMaxGizmos(void*),confirmed,0
+005aacb0,002e5afe,__Z18Grapples_AddGizmosP10GIZMOSYS_siPvS1_,"Grapples_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+005aad20,002e5b66,__Z20Grapple_GetGizmoNameP7GIZMO_s,Grapple_GetGizmoName(GIZMO_s*),confirmed,0
+005aad80,002e5bc4,__Z21Grapple_GetOutputNameP7GIZMO_si,"Grapple_GetOutputName(GIZMO_s*, int)",confirmed,0
+005aada0,002e5bf2,__Z21Grapple_GetNumOutputsP7GIZMO_s,Grapple_GetNumOutputs(GIZMO_s*),confirmed,0
+005aadb0,002e5bfc,__Z29Grapples_AllocateProgressDataP9variptr_uS0_,"Grapples_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+005aadd0,002e5c1e,__Z22Grapples_ClearProgressPvS_,"Grapples_ClearProgress(void*, void*)",confirmed,0
+005aadf0,002e5c66,__Z22Grapples_StoreProgressPvS_S_,"Grapples_StoreProgress(void*, void*, void*)",confirmed,0
+005ab830,002e5d0a,__Z22Grapples_RegisterGizmoi,Grapples_RegisterGizmo(int),confirmed,0
 005ae180,00354d2c,__Z8getqseedv,getqseed(),confirmed,0
 005ae190,00354d3e,__Z10ResetSeedsv,ResetSeeds(),confirmed,0
 005ae1d0,00354daa,__Z11SeekLinearFfff,"SeekLinearF(float, float, float)",confirmed,0

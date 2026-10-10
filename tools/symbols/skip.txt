@@ -224,3 +224,4 @@
 0060bd90 PushBlocks_ClearProgress: header stores vs memset push scheduling, all 6 orders tried
 00629e70 SecurityDoor_PlatsOnOff: ours passes the int in ebx, original loads it from the stack (AIScriptCopyString puzzle)
 00629f60 SecurityDoor_SetVisibility: depends on the 0x629e70 convention
+005aad30 Grapple_GetOutput: case 2 passes eax (=0) args, source expression unknown
