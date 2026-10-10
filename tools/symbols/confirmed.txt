@@ -2947,3 +2947,17 @@
 005aadd0 Grapples_ClearProgress clear_progress slot of the "Grapple" ADDGIZMOTYPE
 005aadf0 Grapples_StoreProgress store_progress slot of the "Grapple" ADDGIZMOTYPE
 005ab830 Grapples_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Grapple"
+005ba3b0 Levers_ReserveBufferSpace reserve_buffer_space slot of the "Lever" ADDGIZMOTYPE
+005ba430 Lever_SetVisibility set_visibility slot of the "Lever" ADDGIZMOTYPE
+005ba490 Lever_ActivateRev activate_rev slot of the "Lever" ADDGIZMOTYPE
+005babb0 Levers_GetMaxGizmos get_max_gizmos slot of the "Lever" ADDGIZMOTYPE
+005babd0 Levers_AddGizmos add_gizmos slot of the "Lever" ADDGIZMOTYPE
+005bac40 Lever_GetGizmoName get_gizmo_name slot of the "Lever" ADDGIZMOTYPE
+005bac60 Lever_FullyPulledDown Mac order (after Lever_GetGizmoName), inlined into Lever_GetOutput case 0
+005bac90 Lever_BeingPulled Mac order (after Lever_FullyPulledDown), returns the being-pulled bit
+005bacb0 Lever_GetOutput get_output slot of the "Lever" ADDGIZMOTYPE
+005bad20 Lever_GetOutputName get_output_name slot of the "Lever" ADDGIZMOTYPE
+005bad50 Lever_GetNumOutputs get_num_outputs slot of the "Lever" ADDGIZMOTYPE
+005bad60 Levers_AllocateProgressData allocate_progress_data slot of the "Lever" ADDGIZMOTYPE
+005bad80 Levers_ClearProgress clear_progress slot of the "Lever" ADDGIZMOTYPE
+005bb4f0 Levers_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Lever"

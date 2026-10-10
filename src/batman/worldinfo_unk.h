@@ -125,7 +125,9 @@ struct WORLDINFO_s {
   u8 pad8c[0x51d4 - 0x51c4];
   struct SIGNAL_s *signals; // 0x51d4
   i32 signal_count;         // 0x51d8
-  u8 pad51dc[0x51ec - 0x51dc];
+  struct LEVER_s *levers;   // 0x51dc
+  i32 lever_count;          // 0x51e0
+  u8 pad51e4[0x51ec - 0x51e4];
   struct TECHNO_s *technos;                   // 0x51ec
   i32 techno_count;                           // 0x51f0
   struct GRAPPLE_s *grapples;                 // 0x51f4

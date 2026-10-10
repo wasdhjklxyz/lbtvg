@@ -1665,6 +1665,20 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005b1940,00357c9a,__Z21DrawObjectOnCharacterP11WORLDINFO_sP12GameObject_siP12nuhspecial_siiP7numtx_sijS6_P7nuvec_sffiS6_,"DrawObjectOnCharacter(WORLDINFO_s*, GameObject_s*, int, nuhspecial_s*, int, int, numtx_s*, int, unsigned int, numtx_s*, nuvec_s*, float, float, int, numtx_s*)",gapfill,1
 005b2a40,00358d26,__Z15LoadThingsScenev,LoadThingsScene(),strings,0
 005b6d60,002d1158,__Z17GizObstacles_LoadPvS_,"GizObstacles_Load(void*, void*)",strings,0
+005ba3b0,00302972,__Z25Levers_ReserveBufferSpacePv,Levers_ReserveBufferSpace(void*),confirmed,0
+005ba430,00302c98,__Z19Lever_SetVisibilityP7GIZMO_si,"Lever_SetVisibility(GIZMO_s*, int)",confirmed,0
+005ba490,00302d2c,__Z17Lever_ActivateRevP7GIZMO_sii,"Lever_ActivateRev(GIZMO_s*, int, int)",confirmed,0
+005babb0,00303a38,__Z19Levers_GetMaxGizmosPv,Levers_GetMaxGizmos(void*),confirmed,0
+005babd0,00303a54,__Z16Levers_AddGizmosP10GIZMOSYS_siPvS1_,"Levers_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+005bac40,00303abe,__Z18Lever_GetGizmoNameP7GIZMO_s,Lever_GetGizmoName(GIZMO_s*),confirmed,0
+005bac60,00303ad2,__Z21Lever_FullyPulledDownP7LEVER_s,Lever_FullyPulledDown(LEVER_s*),confirmed,0
+005bac90,00303b00,__Z17Lever_BeingPulledP7LEVER_s,Lever_BeingPulled(LEVER_s*),confirmed,0
+005bacb0,00304350,__Z15Lever_GetOutputP7GIZMO_sii,"Lever_GetOutput(GIZMO_s*, int, int)",confirmed,0
+005bad20,00303b14,__Z19Lever_GetOutputNameP7GIZMO_si,"Lever_GetOutputName(GIZMO_s*, int)",confirmed,0
+005bad50,00303b44,__Z19Lever_GetNumOutputsP7GIZMO_s,Lever_GetNumOutputs(GIZMO_s*),confirmed,0
+005bad60,00303b4e,__Z27Levers_AllocateProgressDataP9variptr_uS0_,"Levers_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+005bad80,00303b70,__Z20Levers_ClearProgressPvS_,"Levers_ClearProgress(void*, void*)",confirmed,0
+005bb4f0,00303ca2,__Z20Levers_RegisterGizmoi,Levers_RegisterGizmo(int),confirmed,0
 005bba90,002c350a,__Z17GizmoFileReadNamePc,GizmoFileReadName(char*),confirmed,0
 005bc370,002c3dc8,__Z20GizmoGetTypeIDByNameP10GIZMOSYS_sPc,"GizmoGetTypeIDByName(GIZMOSYS_s*, char*)",confirmed,0
 005bc570,002c447a,__Z15GizmoFindByNameP10GIZMOSYS_siPc,"GizmoFindByName(GIZMOSYS_s*, int, char*)",confirmed,0
