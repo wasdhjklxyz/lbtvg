@@ -1910,7 +1910,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00678e00,0034f8ba,__ZN12WorldMapBase19SetAreaOpenCompleteEiii,"WorldMapBase::SetAreaOpenComplete(int, int, int)",confirmed,0
 00678ef0,0034fab6,__ZN12WorldMapBase15InitializeLevelEP11WORLDINFO_s,WorldMapBase::InitializeLevel(WORLDINFO_s*),strings,0
 00678fc0,0034f224,__ZN12WorldMapBase9DumpLevelEP11WORLDINFO_s,WorldMapBase::DumpLevel(WORLDINFO_s*),confirmed,0
+006790c0,,"WorldMapBase::FadeIn(float,","WorldMapBase::FadeIn(float,",confirmed,0
+00679110,,WorldMapBase::FadeOut(float),WorldMapBase::FadeOut(float),confirmed,0
 006794c0,,WorldMapBase::GetLocation(AREADATA_s,WorldMapBase::GetLocation(AREADATA_s,confirmed,0
+00679510,,IsBonusArea(AREADATA_s*),IsBonusArea(AREADATA_s*),confirmed,0
 00679540,,WorldMapBase::GetLocationId(int),WorldMapBase::GetLocationId(int),confirmed,0
 00679580,,WorldMapBase::GetLocationId(char*),WorldMapBase::GetLocationId(char*),confirmed,0
 006797c0,0034f376,__ZNK12WorldMapBase26GetLastCompletedLocationIdEv,WorldMapBase::GetLastCompletedLocationId() const,confirmed,0

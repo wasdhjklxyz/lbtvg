@@ -28,9 +28,11 @@ struct nugscn_s;
 struct WMAREA_s {
   u8 pad00[0x40];
   char name[0x3c]; // 0x40
-  u8 flags;        // 0x7c
-  u8 pad7d[0x84 - 0x7d];
+  u32 flags;       // 0x7c
+  u8 pad80[0x84 - 0x80];
   u8 id; // 0x84
+  u8 pad85[0x8e - 0x85];
+  i8 b8e; // 0x8e
 };
 
 // Mac: WorldMapLocation (0x50 bytes, 16 of them in WorldMapInfo).
@@ -71,6 +73,8 @@ public:
   WMLOCATION_s *GetLocation(WMAREA_s const *area);
   i32 GetLastCompletedLocationId() const;
   void SetAreaOpenComplete(i32 area_id, i32 open, i32 complete);
+  void FadeIn(f32 duration, f32 target);
+  void FadeOut(f32 duration);
 
   void *vtable;
   u8 pad004[0x10 - 4];
@@ -83,7 +87,8 @@ public:
   char overlay_name[0x40]; // 0x27c
   u8 pad2bc[0x344 - 0x2bc];
   i32 episode_id; // 0x344
-  u8 pad348[0x360 - 0x348];
+  i32 mode;       // 0x348, 1 = interactive, 2 = playback
+  u8 pad34c[0x360 - 0x34c];
   i32 i360; // 0x360, WorldMapInfo starts here
   u8 pad364[0x370 - 0x364];
   WMLOCATION_s locations[16]; // 0x370
@@ -99,7 +104,15 @@ public:
   f32 magnification;              // 0x88c
   WMCOLOUR_s colour_mainline;     // 0x890
   WMCOLOUR_s colour_nextlocation; // 0x89c
-  u8 pad8a8[0x958 - 0x8a8];
+  u8 pad8a8[0x8b0 - 0x8a8];
+  i32 fade_mode; // 0x8b0, 1 = in, 2 = out
+  f32 f8b4;      // 0x8b4
+  f32 fade_from; // 0x8b8
+  f32 alpha;     // 0x8bc
+  u8 pad8c0[0x8f0 - 0x8c0];
+  f32 fade_target;   // 0x8f0
+  f32 fade_duration; // 0x8f4
+  u8 pad8f8[0x958 - 0x8f8];
   nugscn_s *scene; // 0x958
   struct {
     i32 a, b, c;
@@ -140,6 +153,41 @@ void WorldMapBase::DumpLevel(WORLDINFO_s *world) {
       memset(&v95c, 0, sizeof(v95c));
     }
   }
+}
+
+// FUNCTION: LEGOBATMAN 0x006790c0
+void WorldMapBase::FadeIn(f32 duration, f32 target) {
+  if (duration == 0.0f) {
+    alpha = 1.0f;
+  } else {
+    fade_duration = duration;
+    fade_mode = 1;
+    fade_target = -target;
+    fade_from = alpha;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00679110
+void WorldMapBase::FadeOut(f32 duration) {
+  if (duration == 0.0f) {
+    alpha = 0.0f;
+    mode = 0;
+    fade_mode = 0;
+  } else {
+    fade_duration = duration;
+    fade_mode = 2;
+    fade_target = 0.0f;
+    fade_from = alpha;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00679510
+i32 IsBonusArea(WMAREA_s *area) {
+  if (area->flags & 4)
+    return 1;
+  if (area->flags & 0x40)
+    return 0;
+  return area->b8e < 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x006794c0

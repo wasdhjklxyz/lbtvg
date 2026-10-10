@@ -1900,3 +1900,6 @@
 006794c0 WorldMapBase::GetLocation(AREADATA_s const*) Mac body (returns the location whose area matches); matched
 006797c0 WorldMapBase::GetLastCompletedLocationId Mac body; matched
 00679580 WorldMapBase::GetLocationId(char*) Mac body (NuStrICmp on area name 0x40); overload clashes with GetLocationId(int) in match.py
+006790c0 WorldMapBase::FadeIn(float, float) Mac body (duration 0 -> alpha 1, else fade mode 1, -target); matched
+00679110 WorldMapBase::FadeOut(float) Mac body (duration 0 -> alpha 0, mode 0, else fade mode 2); matched
+00679510 IsBonusArea(AREADATA_s*) Mac body (flags & 4, flags & 0x40, byte 0x8e sign), in the WorldMapBase file as on the Mac; matched
