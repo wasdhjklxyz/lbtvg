@@ -84,7 +84,8 @@ struct WORLDINFO_s {
   nugscn_s *scn140; // 0x140
   u8 pad3[0x148 - 0x144];
   nugscn_s *scn148; // 0x148
-  u8 pad4[0x2968 - 0x14c];
+  u8 pad4[0x2964 - 0x14c];
+  void *terrain;                       // 0x2964
   struct GAMEANIMSYS_s *game_anim_sys; // 0x2968
   u8 pad296c[0x2974 - 0x296c];
   i32 i2974; // 0x2974

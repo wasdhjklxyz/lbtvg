@@ -1742,6 +1742,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005b71f0,002d1622,__Z31GizObstacles_ReserveBufferSpacePv,GizObstacles_ReserveBufferSpace(void*),confirmed,0
 005b72f0,002d1740,__Z27GizmoObstacle_SetVisibilityP7GIZMO_si,"GizmoObstacle_SetVisibility(GIZMO_s*, int)",confirmed,0
 005b7330,002d178e,__Z20GizmoObstacle_GetPosP7GIZMO_s,GizmoObstacle_GetPos(GIZMO_s*),confirmed,0
+005b74e0,002d17a8,__Z18GizObstacles_ResetPvS_S_,"GizObstacles_Reset(void*, void*, void*)",confirmed,0
 005b76b0,002d1b02,__Z16GizObstacle_StopP13GIZOBSTACLE_s,GizObstacle_Stop(GIZOBSTACLE_s*),confirmed,0
 005b8990,002d295e,__Z23GizObstacles_AddTriggerP7nuvec_si,"GizObstacles_AddTrigger(nuvec_s*, int)",confirmed,0
 005b89c0,002d2996,__Z31GizObstacle_SetTechnoControlledP13GIZOBSTACLE_sf,"GizObstacle_SetTechnoControlled(GIZOBSTACLE_s*, float)",confirmed,0

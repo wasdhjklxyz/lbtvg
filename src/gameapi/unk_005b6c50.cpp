@@ -25,6 +25,7 @@ void Unk_InlineUser_005b6c50(f32 *v, f32 a, i32 i) {
 
 #include "../batman/leveldata_unk.h"
 #include "../batman/worldinfo_unk.h"
+#include "../nu2api/nu3d/nuspecial.h"
 #include <stddef.h>
 #include <string.h>
 
@@ -37,10 +38,10 @@ typedef struct GAMEANIMOBJ_s {
 } GAMEANIMOBJ;
 
 typedef struct GIZOBSTACLE_s {
-  char name[0x10];   // 0x00
-  nuvec_s position;  // 0x10
-  nuvec_s position2; // 0x1c
-  u8 pad28[0x34 - 0x28];
+  char name[0x10];      // 0x00
+  nuvec_s position;     // 0x10
+  nuvec_s position2;    // 0x1c
+  nuvec_s v28;          // 0x28
   GAMEANIMOBJ *parts;   // 0x34
   GameObject_s *pusher; // 0x38
   u8 pad3c[0x40 - 0x3c];
@@ -52,7 +53,7 @@ typedef struct GIZOBSTACLE_s {
   f32 f60;     // 0x60
   f32 f64;     // 0x64
   f32 f68;     // 0x68
-  u8 pad6c[0x70 - 0x6c];
+  f32 f6c;     // 0x6c
   f32 f70;     // 0x70
   f32 f74;     // 0x74
   f32 f78;     // 0x78
@@ -69,13 +70,13 @@ typedef struct GIZOBSTACLE_s {
   i16 sb4;     // 0xb4
   i16 sb6;     // 0xb6
   i16 sb8;     // 0xb8
-  u8 padba[0xbc - 0xba];
-  i16 sbc;    // 0xbc, resolved in PostLoad when flags bit 12 is set
-  i16 sbe;    // 0xbe
-  i16 sfx[2]; // 0xc0
-  u8 bc4;     // 0xc4
-  u8 bc5;     // 0xc5
-  u8 bc6;     // 0xc6
+  i16 sba;     // 0xba
+  i16 sbc;     // 0xbc, resolved in PostLoad when flags bit 12 is set
+  i16 sbe;     // 0xbe
+  i16 sfx[2];  // 0xc0
+  u8 bc4;      // 0xc4
+  u8 bc5;      // 0xc5
+  u8 bc6;      // 0xc6
   u8 padc7[0xc8 - 0xc7];
   union {
     u32 flags; // 0xc8
@@ -84,6 +85,16 @@ typedef struct GIZOBSTACLE_s {
       u32 visible : 1;           // bit 1
       u32 techno_controlled : 1; // bit 2
       u32 push_controlled : 1;   // bit 3
+      u32 b4 : 7;
+      u32 b11 : 1; // bit 11
+      u32 b12 : 1;
+      u32 b13 : 1; // bit 13
+      u32 b14 : 1; // bit 14
+      u32 b15 : 2;
+      u32 b17 : 1; // bit 17
+      u32 b18 : 1; // bit 18
+      u32 b19 : 1; // bit 19
+      u32 b20 : 1; // bit 20
     };
   };
 } GIZOBSTACLE;
@@ -369,6 +380,89 @@ nuvec_s *GizmoObstacle_GetPos(GIZMO *gizmo) {
   return NULL;
 }
 
+typedef struct OBSTACLEANIMOBJ_s {
+  struct OBSTACLEANIMOBJ_s *next; // 0x00
+  nuhspecial_s special;           // 0x04
+  u8 pad10[0x24 - 0x10];
+  i16 *object_data; // 0x24
+} OBSTACLEANIMOBJ;
+
+int NuSpecialExistsFn(nuhspecial_s *sp);
+i32 Unk_SpecialInstanceIx0070f860(nuhspecial_s *sp);
+i16 Unk_FindPlatInst005740a0(i32 ix);
+extern "C" i32 NuPortalWhichRoom(nugscn_s *scene, nuvec_s *pos);
+void Unk_GameAnimSetAveragePos00604200(GAMEANIMOBJ *set, nuvec_s *out, i32 a,
+                                       i32 b, i32 c);
+void GameAnimSet_EvaluateState(GAMEANIMOBJ *set);
+void Unk_GameAnimSet00604320(GAMEANIMOBJ *set, nuvec_s *pos, f32 *radius, i32 a,
+                             i32 b, i32 c, i32 d);
+
+// FUNCTION: LEGOBATMAN 0x005b7390
+static void GizObstacle_ResetUnk005b7390(GIZOBSTACLE *obstacle,
+                                         WORLDINFO_s *world) {
+  obstacle->control = 1.0f;
+  obstacle->flags = (obstacle->flags & 0xffa01ff3) | 3;
+  obstacle->f80 = 0.0f;
+  if (obstacle->parts == NULL)
+    return;
+  for (OBSTACLEANIMOBJ *obj = (OBSTACLEANIMOBJ *)obstacle->parts->object_data;
+       obj != NULL; obj = obj->next) {
+    i16 *data = obj->object_data;
+    data[1] = -1;
+    if (world->terrain != NULL && !(data[0] & 1) &&
+        NuSpecialExistsFn(&obj->special)) {
+      data[1] = Unk_FindPlatInst005740a0(
+          Unk_SpecialInstanceIx0070f860(&obj->special));
+      if (data[1] != -1) {
+        obstacle->flags |= 0x8000;
+        if (data[0] & 4)
+          obstacle->flags |= 0x400000;
+      }
+    }
+    if (data[0] & 2)
+      obstacle->flags |= 0x10000;
+  }
+  obstacle->sba =
+      world->scn140 != NULL
+          ? (i16)NuPortalWhichRoom(world->scn140, &obstacle->position)
+          : -1;
+  if (obstacle->flags90 & 2)
+    Unk_GameAnimSetAveragePos00604200(obstacle->parts, &obstacle->position2, 0,
+                                      1, 1);
+  GameAnimSet_EvaluateState(obstacle->parts);
+  obstacle->v28 = obstacle->position;
+  obstacle->f6c = 1.0f;
+  Unk_GameAnimSet00604320(obstacle->parts, &obstacle->v28, &obstacle->f6c, 0, 2,
+                          1, 1);
+}
+
+// FUNCTION: LEGOBATMAN 0x005b74e0
+void GizObstacles_Reset(void *world_ptr, void *sys_ptr, void *progress_ptr) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  GIZOBSTACLESYS *sys = (GIZOBSTACLESYS *)sys_ptr;
+  GIZOBSTACLEPROGRESS *progress = (GIZOBSTACLEPROGRESS *)progress_ptr;
+  GIZOBSTACLE *obstacle = sys->obstacles;
+  for (i32 i = 0; i < sys->count; i++, obstacle++) {
+    GizObstacle_ResetUnk005b7390(obstacle, world);
+    if (progress != NULL && i < 0x80) {
+      i32 word = i / 32;
+      u32 bit = 1 << (i & 31);
+      obstacle->visible = (progress->visible[word] & bit) != 0;
+      obstacle->active = (progress->active[word] & bit) != 0;
+      obstacle->b11 = (progress->a20[word] & bit) != 0;
+      obstacle->b13 = (progress->a30[word] & bit) != 0;
+      obstacle->b14 = (progress->a40[word] & bit) != 0;
+      obstacle->b17 = (progress->a50[word] & bit) != 0;
+      obstacle->b18 = (progress->a60[word] & bit) != 0;
+      obstacle->b19 = (progress->a70[word] & bit) != 0;
+      obstacle->b20 = (progress->a80[word] & bit) != 0;
+      if ((obstacle->flags90 & 0x200000) && (progress->a90[word] & bit))
+        Unk00604f10(obstacle->parts, 0);
+    }
+  }
+  GizObstacle_TriggerCount = 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x005b76b0
 void GizObstacle_Stop(GIZOBSTACLE *obstacle) {
   if (obstacle != NULL)
@@ -539,7 +633,6 @@ void GizObstacles_StoreProgress(void *world, void *sys_ptr,
   }
 }
 
-void GizObstacles_Reset(void *world, void *sys, void *progress);
 void GizmoObstacle_Activate(GIZMO *gizmo, i32 active);
 i32 GizmoObstacle_ActivateRev(GIZMO *gizmo, i32 value, i32 query);
 void GizObstacles_BoltHitPlat(void);
