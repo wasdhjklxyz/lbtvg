@@ -1741,3 +1741,5 @@
 004f7420 SecurityCamera::GetUsesWhiteNoise slot 7, Mac inline order; matched
 004f7430 SecurityCamera::IsCameraTarget slot 15, Mac inline order; matched
 004f7450 SecurityCamera::RenderWhenPaused slot 14, Mac inline order; matched
+004f7500 LightFlickerOverlay::IsVisible vtable 0x85d9f4 slot 12, Mac inline order (GetClassNameA, IsVisible, ShouldUpdate); matched
+004f7530 LightFlickerOverlay::ShouldUpdate slot 13, Mac inline order; byte-identical to 0x4f7500 and 0x4f74d0; matched

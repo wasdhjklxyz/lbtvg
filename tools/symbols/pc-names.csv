@@ -704,6 +704,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004f7430,000fc310,__ZNK14SecurityCamera14IsCameraTargetEv,SecurityCamera::IsCameraTarget() const,confirmed,0
 004f7450,000fc32a,__ZNK14SecurityCamera16RenderWhenPausedEv,SecurityCamera::RenderWhenPaused() const,confirmed,0
 004f74c0,000ca03c,__ZNK19LightFlickerOverlay13GetClassNameAEv,LightFlickerOverlay::GetClassNameA() const,strings,0
+004f7500,000ca046,__ZNK19LightFlickerOverlay9IsVisibleEv,LightFlickerOverlay::IsVisible() const,confirmed,0
+004f7530,000ca070,__ZNK19LightFlickerOverlay12ShouldUpdateEv,LightFlickerOverlay::ShouldUpdate() const,confirmed,0
 004f7560,0010dab6,__Z9LoadPerm2v,LoadPerm2(),strings,0
 004f9a60,00110fdc,__Z18Text_DecodeButtonsPcS_,"Text_DecodeButtons(char*, char*)",strings,0
 004f9ab0,0011101e,__Z16Text_LoadStringsP9variptr_uS0_,"Text_LoadStrings(variptr_u*, variptr_u*)",confirmed,0

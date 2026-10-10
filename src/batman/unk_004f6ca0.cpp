@@ -28,8 +28,8 @@ public:
   virtual i32 GetUsesOverlayTexture() const;                               // 9
   virtual void Vfn10();                                                    // 10
   virtual void Vfn11();                                                    // 11
-  virtual i32 Vfn12() const;                                               // 12
-  virtual void Vfn13();                                                    // 13
+  virtual i32 IsVisible() const;                                           // 12
+  virtual i32 ShouldUpdate() const;                                        // 13
   virtual i32 RenderWhenPaused() const;                                    // 14
   virtual i32 IsCameraTarget() const;                                      // 15
   virtual i32 IsInteractiveMode() const;                                   // 16
@@ -99,9 +99,26 @@ extern i32 g_unk009cf570; // security camera type the camera follows
 
 char *NuStrIStr(char *str, const char *sub);
 
-struct LightFlickerOverlay {
-  const char *GetClassNameA() const;
+// vtable 0x0085d9f4: overrides slots 12 and 13 (Mac inline order
+// GetClassNameA, IsVisible, ShouldUpdate).
+class LightFlickerOverlay : public InteractiveDisplay {
+public:
+  virtual const char *GetClassNameA() const;
+  virtual i32 IsVisible() const;
+  virtual i32 ShouldUpdate() const;
 };
+
+// Raw view of WORLD->area (0x130) and its flags byte (0x7c).
+struct LFO_AREADATA {
+  u8 pad[0x7c];
+  u8 flags; // 0x7c, 0x40 = lights flicker
+};
+struct LFO_WORLD {
+  u8 pad[0x130];
+  LFO_AREADATA *area; // 0x130
+};
+
+extern WORLDINFO_s *WORLD; // 0x00960894
 
 // FUNCTION: LEGOBATMAN 0x004f6c80
 void InteractiveDisplay::ActivateLevel(WORLDINFO_s *world) {}
@@ -240,4 +257,20 @@ i32 SecurityCamera::RenderWhenPaused() const { return 1; }
 // FUNCTION: LEGOBATMAN 0x004f74c0
 const char *LightFlickerOverlay::GetClassNameA() const {
   return "LightFlickerOverlay";
+}
+
+// FUNCTION: LEGOBATMAN 0x004f7500
+i32 LightFlickerOverlay::IsVisible() const {
+  if (WORLD != 0 && ((LFO_WORLD *)WORLD)->area != 0 &&
+      (((LFO_WORLD *)WORLD)->area->flags & 0x40))
+    return 1;
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x004f7530
+i32 LightFlickerOverlay::ShouldUpdate() const {
+  if (WORLD != 0 && ((LFO_WORLD *)WORLD)->area != 0 &&
+      (((LFO_WORLD *)WORLD)->area->flags & 0x40))
+    return 1;
+  return 0;
 }
