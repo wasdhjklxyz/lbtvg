@@ -1404,6 +1404,83 @@ extern "C" void NuLgtLaser(i32 type, f32 sizew, f32 sizel, f32 sizewab,
                            f32 len);
 void PlaySfx(char *name, nuvec_s *pos);
 
+// GLOBAL: LEGOBATMAN 0x00961104
+extern i32 blowup_gizmotype_id;
+void FastWeaponIn(GameObject_s *obj, i32 force_sound);
+void FastWeaponOut(GameObject_s *obj, i32 force_sound);
+extern "C" f32 AnimDuration(i32 character_id, i32 animation, f32 start_frame,
+                            f32 end_frame, i32 subtract_frame_time);
+
+// STUB: LEGOBATMAN 0x0046e4e0
+// Only diff: explode/targettable land in swapped stack slots (any
+// declaration order).
+i32 Action_ThrowDetonator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **params, i32 param_count,
+                          i32 first_time, f32 dt) {
+  BlowupTarget_s *blowup = NULL;
+  i32 explode = 0;
+  i32 targettable = 1;
+  GameObject_s *opponent = NULL;
+  GameObject_s *obj;
+  if (packet == NULL || packet->pd0 == NULL || packet->pd0->obj == NULL)
+    return 1;
+  obj = packet->pd0->obj;
+  if (first_time) {
+    for (i32 i = 0; i < param_count; i++) {
+      char *value;
+      if (NuStrIStr(params[i], "opponent=last_attacker") != NULL) {
+        opponent = obj->last_attacker;
+      } else if (NuStrIStr(params[i], "opponent=opponent") != NULL) {
+        if (((AIPACKET_s *)obj->process290)->pe4 != NULL)
+          opponent = ((AIPACKET_s *)obj->process290)->pe4->obj;
+      } else if ((value = NuStrIStr(params[i], "opponent=")) != NULL) {
+        opponent = GetNamedGameObject(sys, value + 9);
+      } else if ((value = NuStrIStr(params[i], "blowup=")) != NULL) {
+        GIZMO_s *gizmo = GizmoFindByName(g_unk00960894->gizmoSys2b0c,
+                                         blowup_gizmotype_id, value + 7);
+        if (gizmo != NULL)
+          blowup = (BlowupTarget_s *)gizmo->object;
+      } else if (NuStrICmp(params[i], "explode_on_impact") == 0) {
+        explode = 1;
+      } else if (NuStrICmp(params[i], "targettable=FALSE") == 0) {
+        targettable = 0;
+      }
+    }
+  }
+  obj->b9db = 0x2e;
+  memset(&obj->force_target, 0, 0x10);
+  if (opponent != NULL)
+    obj->force_target = opponent;
+  else if (blowup != NULL)
+    obj->blowup_target = blowup;
+  obj->b9e1 = 0;
+  if (explode)
+    obj->b9e1 = 1;
+  if (targettable)
+    obj->b9e1 |= 2;
+  if (obj->b9db == 6) {
+    FastWeaponIn(obj, 0);
+    obj->s9d0 = 0x65;
+  } else if (obj->b9db == 7) {
+    FastWeaponOut(obj, 0);
+    obj->s9d0 = 0x6e;
+  } else if (obj->b131c == 1) {
+    obj->s9d0 = 0x6f;
+  } else if (obj->flags130c & 0x80000) {
+    obj->s9d0 = 0x6e;
+  } else {
+    obj->s9d0 = 0x65;
+  }
+  if (((void **)obj->p50->p0c)[obj->s9d0] == NULL)
+    obj->s9d0 = 0x65;
+  obj->flags9e4 &= ~0x40;
+  if (((void **)obj->p50->p0c)[obj->s9d0] != NULL)
+    obj->f98c = AnimDuration(obj->type15b0, obj->s9d0, 0.0f, 0.0f, 1);
+  else
+    obj->f98c = 1.0f;
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x0046eee0
 i32 Action_ForceLightning(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                           AIPACKET_s *packet, char **params, i32 param_count,
@@ -2548,9 +2625,6 @@ struct GIZMOBLOWUP_s {
   u8 pad0[0xa0];
   u8 output_flags; // 0xa0, bit 0: already blown up
 };
-
-// GLOBAL: LEGOBATMAN 0x00961104
-extern i32 blowup_gizmotype_id;
 
 void GizmoBlowupBlowup(GIZMOBLOWUP_s *blowup, i32 a, i32 b, i32 damage,
                        GameObject_s *obj, i32 c);

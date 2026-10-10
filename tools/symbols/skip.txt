@@ -277,3 +277,4 @@
 0x006e2cc0 bgThreadMain: bgProcActive->done = 1 reads the global twice (volatile-like) but the fn test reuses it; volatile cast fixes one, not both
 0x006e2ef0 bgProcAbortAll: only diff is edi pushed at entry (original) vs shrink-wrapped into the loop (ours); loop shape variants don't move it
 0x0045dc80 Action_SetHitPoints: body complete, only ebp/edi swapped (params vs value); declaration order and inline helper tried
+0x0046e4e0 Action_ThrowDetonator: only explode/targettable stack slots swapped; declaration orders tried

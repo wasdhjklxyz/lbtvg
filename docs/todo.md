@@ -319,7 +319,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00477ab0` 631 B `Action_CycleCharacter(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `004691f0` 634 B `Action_MoveForward(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/gameai_actions.cpp`
 - [ ] `00468ea0` 662 B `Action_GameFollowPlayer(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizactions.cpp`
-- [ ] `0046e4e0` 680 B `Action_ThrowDetonator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `0046e4e0` 680 B `Action_ThrowDetonator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `0045c1d0` 686 B `Action_CreateRailCreature(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `004741c0` 720 B `Action_ZipDown(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `0045a990` 765 B `Action_FollowDirection(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
