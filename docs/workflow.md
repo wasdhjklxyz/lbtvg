@@ -364,3 +364,10 @@ enough matched code for the percentage to mean something.
 - **Third-party libs** (libvorbis 1.2.0, libogg 1.1.3): match them from the
   real source in `ref/` (see setup.md), in file order, so their own
   custom-convention statics come out right.
+- **/GS copies a pointer parameter to a local** only if it is dereferenced;
+  writing through the member it was stored in avoids the copy.
+- **`goto fail` into a later failure block** reproduces two failure tails
+  sharing one block.
+- **Per-TU flags** (`NO_GS` in `tools/match.py`): the libvorbis 1.2.0 core
+  was built with `/GS-`; vorbisfile.c (libvorbisfile upstream) and libogg
+  1.1.3 match with the game's `/GS`. Third-party code goes under `src/lib/`.

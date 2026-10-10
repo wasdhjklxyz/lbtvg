@@ -312,8 +312,7 @@ static int comp(const void *a,const void *b){
    afford to fail) */
 
 #define EPSILON 10e-7
-// STUB: LEGOBATMAN 0x00557430
-// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
+// FUNCTION: LEGOBATMAN 0x00557430
 static int Laguerre_With_Deflation(float *a,int ord,float *r){
   int i,m;
   double lastdelta=0.f;
@@ -370,8 +369,7 @@ static int Laguerre_With_Deflation(float *a,int ord,float *r){
 
 
 /* for spit-and-polish only */
-// STUB: LEGOBATMAN 0x00557710
-// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
+// FUNCTION: LEGOBATMAN 0x00557710
 static int Newton_Raphson(float *a,int ord,float *r){
   int i, k, count=0;
   double error=1.f;
@@ -411,8 +409,7 @@ static int Newton_Raphson(float *a,int ord,float *r){
 
 
 /* Convert lpc coefficients to lsp coefficients */
-// STUB: LEGOBATMAN 0x005578d0
-// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
+// FUNCTION: LEGOBATMAN 0x005578d0
 int vorbis_lpc_to_lsp(float *lpc,float *lsp,int m){
   int order2=(m+1)>>1;
   int g1_order,g2_order;

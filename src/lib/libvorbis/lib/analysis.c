@@ -70,8 +70,7 @@ int vorbis_analysis(vorbis_block *vb, ogg_packet *op){
 }
 
 /* there was no great place to put this.... */
-// STUB: LEGOBATMAN 0x005433b0
-// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
+// FUNCTION: LEGOBATMAN 0x005433b0
 void _analysis_output_always(char *base,int i,float *v,int n,int bark,int dB,ogg_int64_t off){
   int j;
   FILE *of;

@@ -24,3 +24,6 @@ are not lost. Run inside `nix develop` from the repo root.
   with the Mac binary's inline emission order to name inline virtuals.
 - `rtti.py NAME...`: a class's vtable(s) from its RTTI `.?AV` name, slots
   resolved through thunks.
+- `libmap.py LO HI file.c...` then `libmap_check.py`: place a third-party
+  library's real source in the exe (each function's exact address, then a
+  relocation cross-check). How libvorbis/libogg were mapped.

@@ -149,7 +149,7 @@ def compiles(path):
     obj = ROOT / "build/new-check.obj"
     obj.parent.mkdir(exist_ok=True)
     cmd = ["wibo", str(match.VC8 / "Bin/cl.exe")] + \
-        [f for f in match.CFLAGS if not (path.suffix == ".c" and f == "/EHsc")] + \
+        match.cflags(path) + \
         [f'/I"Z:{match.VC8 / "INCLUDE"}"', f'/I"Z:{match.DXSDK / "Include"}"', f'/I"Z:{match.WINSDK6 / "Include"}"', f'/Fo"Z:{obj}"', f'"Z:{path}"']
     r = subprocess.run(" ".join(cmd), shell=True, capture_output=True, text=True)
     errs = [l for l in (r.stdout + r.stderr).splitlines() if " error " in l]

@@ -9,7 +9,7 @@ Scans src/**/*.c, *.cpp for reccmp-style annotations:
     // FUNCTION: LEGOBATMAN 0x0058b6d0
     int SetValue(int v) { ... }
 
-Each TU is compiled once with the VC8 flag set (CFLAGS below) under wibo into
+Each TU is compiled once with the VC8 flag set (cflags() below) under wibo into
 build/. The function is located in the .obj by demangled name, its bytes are
 compared against orig/LEGOBatman.exe at the annotated address, with the 4 bytes
 at every relocation masked (the .obj does not know final addresses). Exit code
@@ -33,6 +33,20 @@ MODULE = "LEGOBATMAN"
 # The starting flag set (docs/toolchain.md). /Gy only changes packaging: one
 # COMDAT section per function, so each function's size is exact.
 CFLAGS = ["/nologo", "/c", "/O2", "/Oy", "/GS", "/EHsc", "/MT", "/Gd", "/Gy", "/Z7"]
+
+# Per-TU exceptions, proven by matching: the libvorbis core library was built
+# with /GS- (29 alloca/array functions match only that way); libvorbisfile
+# (vorbisfile.c, its own library upstream) and libogg use the game's flags.
+NO_GS = [("lib/libvorbis/lib", {"vorbisfile.c"})]
+
+def cflags(src):
+    """The flag set for one TU (C has no /EHsc; see NO_GS)."""
+    src = Path(src).resolve()
+    f = [x for x in CFLAGS if not (src.suffix == ".c" and x == "/EHsc")]
+    for d, keep in NO_GS:
+        if (SRC / d).resolve() in src.parents and src.name not in keep:
+            f = ["/GS-" if x == "/GS" else x for x in f]
+    return f
 
 ANNOT = re.compile(r"//\s*FUNCTION:\s*" + MODULE + r"\s+0x([0-9a-fA-F]+)")
 IDENT = re.compile(r"((?:[A-Za-z_~][\w~]*(?:<[^()]*>)?::)*"
@@ -86,7 +100,7 @@ def annotations(path, stubs=False):
 def compile_tu(src):
     BUILD.mkdir(exist_ok=True)
     obj = BUILD / (src.relative_to(SRC).as_posix().replace("/", "__") + ".obj")
-    cmd = ["wibo", str(VC8 / "Bin/cl.exe")] + [f for f in CFLAGS if not (src.suffix == ".c" and f == "/EHsc")] + [
+    cmd = ["wibo", str(VC8 / "Bin/cl.exe")] + cflags(src) + [
         f'/I"Z:{VC8 / "INCLUDE"}"', f'/I"Z:{DXSDK / "Include"}"', f'/I"Z:{WINSDK6 / "Include"}"',
         f'/Fo"Z:{obj}"', f'"Z:{src}"']
     # wibo wants a single guest command line; join and let it parse quotes.

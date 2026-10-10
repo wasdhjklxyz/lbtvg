@@ -79,8 +79,7 @@ void vorbis_comment_add(vorbis_comment *vc,char *comment){
   vc->user_comments[vc->comments]=NULL;
 }
 
-// STUB: LEGOBATMAN 0x0053ff60
-// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
+// FUNCTION: LEGOBATMAN 0x0053ff60
 void vorbis_comment_add_tag(vorbis_comment *vc, char *tag, char *contents){
   char *comment=alloca(strlen(tag)+strlen(contents)+2); /* +2 for = and \0 */
   strcpy(comment, tag);
@@ -102,8 +101,7 @@ static int tagcompare(const char *s1, const char *s2, int n){
   return 0;
 }
 
-// STUB: LEGOBATMAN 0x00540060
-// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
+// FUNCTION: LEGOBATMAN 0x00540060
 char *vorbis_comment_query(vorbis_comment *vc, char *tag, int count){
   long i;
   int found = 0;
@@ -125,8 +123,7 @@ char *vorbis_comment_query(vorbis_comment *vc, char *tag, int count){
   return NULL; /* didn't find anything */
 }
 
-// STUB: LEGOBATMAN 0x00540110
-// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
+// FUNCTION: LEGOBATMAN 0x00540110
 int vorbis_comment_query_count(vorbis_comment *vc, char *tag){
   int i,count=0;
   int taglen = strlen(tag)+1; /* +1 for the = we append */
@@ -361,8 +358,7 @@ static int _vorbis_unpack_books(vorbis_info *vi,oggpack_buffer *opb){
 }
 
 /* Is this packet a vorbis ID header? */
-// STUB: LEGOBATMAN 0x00540850
-// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
+// FUNCTION: LEGOBATMAN 0x00540850
 int vorbis_synthesis_idheader(ogg_packet *op){
   oggpack_buffer opb;
   char buffer[6];
@@ -392,8 +388,7 @@ int vorbis_synthesis_idheader(ogg_packet *op){
    with bitstream comments and a third packet that holds the
    codebook. */
 
-// STUB: LEGOBATMAN 0x00540980
-// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
+// FUNCTION: LEGOBATMAN 0x00540980
 int vorbis_synthesis_headerin(vorbis_info *vi,vorbis_comment *vc,ogg_packet *op){
   oggpack_buffer opb;
   
@@ -477,8 +472,7 @@ static int _vorbis_pack_info(oggpack_buffer *opb,vorbis_info *vi){
   return(0);
 }
 
-// STUB: LEGOBATMAN 0x00540c10
-// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
+// FUNCTION: LEGOBATMAN 0x00540c10
 static int _vorbis_pack_comment(oggpack_buffer *opb,vorbis_comment *vc){
   char temp[]="Xiph.Org libVorbis I 20070622";
   int bytes = strlen(temp);

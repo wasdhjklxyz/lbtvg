@@ -192,35 +192,6 @@
 0060ffc0 Customiser::HasChangedSinceSave: inlined memcmp register assignment differs; 5 forms tried
 006180c0 HubAreaInfo_Init: loop pointer biased by +4 in the original; 4 loop forms tried
 00618380 HubEpisodeInfo_FindFromEpisodeIndex: original reloads the s16 episode per use, ours CSEs it; 3 forms tried
-005433b0 _analysis_output_always: libvorbis 1.2.0 analysis.c verbatim; matches with /GS- (match.py has no per-file flags)
-00541ef0 _preextrapolate_helper: libvorbis 1.2.0 block.c verbatim; matches with /GS- (match.py has no per-file flags)
-00541fe0 vorbis_analysis_wrote: libvorbis 1.2.0 block.c verbatim; matches with /GS- (match.py has no per-file flags)
-00549b60 vorbis_book_decodevs_add: libvorbis 1.2.0 codebook.c verbatim; matches with /GS- (match.py has no per-file flags)
-00550d00 _ve_amp: libvorbis 1.2.0 envelope.c verbatim; matches with /GS- (match.py has no per-file flags)
-00551320 _ve_envelope_search: libvorbis 1.2.0 envelope.c verbatim; matches with /GS- (match.py has no per-file flags)
-0053ff60 vorbis_comment_add_tag: libvorbis 1.2.0 info.c verbatim; matches with /GS- (match.py has no per-file flags)
-00540060 vorbis_comment_query: libvorbis 1.2.0 info.c verbatim; matches with /GS- (match.py has no per-file flags)
-00540110 vorbis_comment_query_count: libvorbis 1.2.0 info.c verbatim; matches with /GS- (match.py has no per-file flags)
-00540850 vorbis_synthesis_idheader: libvorbis 1.2.0 info.c verbatim; matches with /GS- (match.py has no per-file flags)
-00540980 vorbis_synthesis_headerin: libvorbis 1.2.0 info.c verbatim; matches with /GS- (match.py has no per-file flags)
-00540c10 _vorbis_pack_comment: libvorbis 1.2.0 info.c verbatim; matches with /GS- (match.py has no per-file flags)
-00557430 Laguerre_With_Deflation: libvorbis 1.2.0 lsp.c verbatim; matches with /GS- (match.py has no per-file flags)
-00557710 Newton_Raphson: libvorbis 1.2.0 lsp.c verbatim; matches with /GS- (match.py has no per-file flags)
-005578d0 vorbis_lpc_to_lsp: libvorbis 1.2.0 lsp.c verbatim; matches with /GS- (match.py has no per-file flags)
-005520e0 mapping0_forward: libvorbis 1.2.0 mapping0.c verbatim; matches with /GS- (match.py has no per-file flags)
-00552c10 mapping0_inverse: libvorbis 1.2.0 mapping0.c verbatim; matches with /GS- (match.py has no per-file flags)
-00550140 mdct_forward: libvorbis 1.2.0 mdct.c verbatim; matches with /GS- (match.py has no per-file flags)
-00544160 setup_tone_curves: libvorbis 1.2.0 psy.c verbatim; matches with /GS- (match.py has no per-file flags)
-00545860 seed_chase: libvorbis 1.2.0 psy.c verbatim; matches with /GS- (match.py has no per-file flags)
-00545b30 bark_noise_hybridmp: libvorbis 1.2.0 psy.c verbatim; matches with /GS- (match.py has no per-file flags)
-005467b0 _vp_noisemask: libvorbis 1.2.0 psy.c verbatim; matches with /GS- (match.py has no per-file flags)
-005469a0 _vp_tonemask: libvorbis 1.2.0 psy.c verbatim; matches with /GS- (match.py has no per-file flags)
-00547560 _vp_quantize_couple_sort: libvorbis 1.2.0 psy.c verbatim; matches with /GS- (match.py has no per-file flags)
-005476a0 _vp_noise_normalize_sort: libvorbis 1.2.0 psy.c verbatim; matches with /GS- (match.py has no per-file flags)
-00554140 _01inverse: libvorbis 1.2.0 res0.c verbatim; matches with /GS- (match.py has no per-file flags)
-00548a50 vorbis_book_init_decode: libvorbis 1.2.0 sharedbook.c verbatim; matches with /GS- (match.py has no per-file flags)
-00551660 vorbis_lpc_from_data: libvorbis 1.2.0 lpc.c verbatim; matches with /GS- (match.py has no per-file flags)
-00551970 vorbis_lpc_predict: libvorbis 1.2.0 lpc.c verbatim; matches with /GS- (match.py has no per-file flags)
 00618290 HubEpisodeInfo_Init: loop pointer biased by +4 in the original (as HubAreaInfo_Init); do-while, for and indexed forms tried
 00514d10 ShopComputer::ActivateLevel: one scheduling difference (icon store vs push ebx); store order, buffer scope, ternary tried
 006183e0 Unk006183e0 (nearest HubEpisodeInfo special): list load via eax and a second induction variable for &info->sp2; 4 forms tried

@@ -92,8 +92,7 @@ void _ve_envelope_clear(envelope_lookup *e){
 /* fairly straight threshhold-by-band based until we find something
    that works better and isn't patented. */
 
-// STUB: LEGOBATMAN 0x00550d00
-// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
+// FUNCTION: LEGOBATMAN 0x00550d00
 static int _ve_amp(envelope_lookup *ve,
 		   vorbis_info_psy_global *gi,
 		   float *data,
@@ -221,8 +220,7 @@ static int seq=0;
 static ogg_int64_t totalshift=-1024;
 #endif
 
-// STUB: LEGOBATMAN 0x00551320
-// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
+// FUNCTION: LEGOBATMAN 0x00551320
 long _ve_envelope_search(vorbis_dsp_state *v){
   vorbis_info *vi=v->vi;
   codec_setup_info *ci=vi->codec_setup;

@@ -392,8 +392,7 @@ long vorbis_book_decode(codebook *book, oggpack_buffer *b){
 }
 
 /* returns 0 on OK or -1 on eof *************************************/
-// STUB: LEGOBATMAN 0x00549b60
-// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
+// FUNCTION: LEGOBATMAN 0x00549b60
 long vorbis_book_decodevs_add(codebook *book,float *a,oggpack_buffer *b,int n){
   if(book->used_entries>0){
     int step=n/book->dim;

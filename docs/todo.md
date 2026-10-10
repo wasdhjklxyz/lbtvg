@@ -63,7 +63,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near apisave.c](#near-apisavec) | 6 | 1 |
 | [near nuanim_gen.cpp](#near-nuanim_gencpp) | 2 | 1 |
 | [near nutimebar_gen.cpp](#near-nutimebar_gencpp) | 2 | 1 |
-| [near oggreader.cpp](#near-oggreadercpp) | 4 | 1 |
+| [near oggreader.cpp](#near-oggreadercpp) | 3 | 1 |
 | [NuCommand](#nucommand) | 1 | 1 |
 | [NuDeferredFilterGen](#nudeferredfiltergen) | 1 | 1 |
 | [NuInit](#nuinit) | 1 | 1 |
@@ -88,12 +88,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [ThermalDetonator](#thermaldetonator) | 1 | 1 |
 | [TrafficAnimSys](#trafficanimsys) | 1 | 1 |
 | [Transform](#transform) | 3 | 1 |
-| [analysis](#analysis) | 1 | 0 |
 | [AnimInclude](#animinclude) | 1 | 0 |
 | [ArkhamAsylum](#arkhamasylum) | 1 | 0 |
 | [Backdrop](#backdrop) | 2 | 0 |
 | [BackdropSys](#backdropsys) | 1 | 0 |
-| [bark](#bark) | 1 | 0 |
 | [Batarang](#batarang) | 1 | 0 |
 | [Batman](#batman) | 1 | 0 |
 | [Batte](#batte) | 1 | 0 |
@@ -129,13 +127,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [InteractiveDisplay](#interactivedisplay) | 4 | 0 |
 | [InteractiveDisplayManager](#interactivedisplaymanager) | 1 | 0 |
 | [KillParts](#killparts) | 1 | 0 |
-| [Laguerre](#laguerre) | 1 | 0 |
 | [Legal](#legal) | 1 | 0 |
 | [LevelStreaming](#levelstreaming) | 2 | 0 |
 | [LightningManager](#lightningmanager) | 1 | 0 |
 | [LoadAreaData](#loadareadata) | 1 | 0 |
-| [mapping0](#mapping0) | 2 | 0 |
-| [mdct](#mdct) | 1 | 0 |
 | [MemoryManager](#memorymanager) | 2 | 0 |
 | [MovePlayer](#moveplayer) | 1 | 0 |
 | [near d3dCalls.cpp](#near-d3dcallscpp) | 1 | 0 |
@@ -145,7 +140,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near numtl_dlist.cpp](#near-numtl_dlistcpp) | 1 | 0 |
 | [near pcapi.cpp](#near-pcapicpp) | 2 | 0 |
 | [near windows.cpp](#near-windowscpp) | 2 | 0 |
-| [Newton](#newton) | 1 | 0 |
 | [NuDisplay](#nudisplay) | 1 | 0 |
 | [NudxFw](#nudxfw) | 1 | 0 |
 | [NuEdgeAAFilterGen](#nuedgeaafiltergen) | 3 | 0 |
@@ -174,12 +168,9 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [PartStop](#partstop) | 1 | 0 |
 | [PlayerItems](#playeritems) | 3 | 0 |
 | [PlayerItemTypeSys](#playeritemtypesys) | 2 | 0 |
-| [preextrapolate](#preextrapolate) | 1 | 0 |
 | [PreInterpretor](#preinterpretor) | 7 | 0 |
 | [RailSys](#railsys) | 1 | 0 |
 | [ScoreMultiplier](#scoremultiplier) | 2 | 0 |
-| [seed](#seed) | 1 | 0 |
-| [setup](#setup) | 1 | 0 |
 | [ShaderBuilderGen](#shaderbuildergen) | 2 | 0 |
 | [ShaderManagerHLSL](#shadermanagerhlsl) | 1 | 0 |
 | [ShaderMtlDescFilter](#shadermtldescfilter) | 1 | 0 |
@@ -196,9 +187,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Surfaces](#surfaces) | 1 | 0 |
 | [Titles](#titles) | 1 | 0 |
 | [TrueHero](#truehero) | 1 | 0 |
-| [ve](#ve) | 2 | 0 |
-| [vorbis](#vorbis) | 12 | 0 |
-| [vp](#vp) | 4 | 0 |
 | [WavReader](#wavreader) | 2 | 0 |
 | [WorldMap](#worldmap) | 7 | 0 |
 | [WorldMapBase](#worldmapbase) | 9 | 0 |
@@ -608,7 +596,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `00558d90` 137 B `_GetSfxId`  **stub** · **saga** `nu2api/numusic/sfx.cpp`
 - [ ] `0055fc00` 307 B `_LookupDebrisEffectPageIgnore`  **hint** name (gapfill)
-- [ ] `00554140` 487 B `_01inverse`  **stub**
 - [ ] `00558f10` 1377 B `_PlaySfxByIdEx`
 
 ## NuCommand
@@ -714,10 +701,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `004ff6d0` 700 B `Transform_FindFreezeObstacleTarget(WORLDINFO_s*, GameObject_s*, float*, float)`
 - [ ] `004fff70` 1030 B `Transform_DrawTarget(int, int, nuvec_s*, float, float)`  **saga** `legoapi/actions/character/transform.cpp`
 
-## analysis
-
-- [ ] `005433b0` 396 B `_analysis_output_always`  **stub**
-
 ## AnimInclude
 
 - [ ] `006285d0` 923 B `AnimInclude_Init(char*, variptr_u*, variptr_u*)`
@@ -734,10 +717,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## BackdropSys
 
 - [ ] `00658260` 551 B `BackdropSys_Configure(WORLDINFO_s*, char*)`
-
-## bark
-
-- [ ] `00545b30` 2906 B `bark_noise_hybridmp`  **stub**
 
 ## Batarang
 
@@ -907,10 +886,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `0043dc00` 519 B `KillParts_VEHICLE(ADDPART_s*, int, int, GameObject_s*, int, unsigned short, unsigned short, nuvec_s*)`
 
-## Laguerre
-
-- [ ] `00557430` 727 B `Laguerre_With_Deflation`  **stub**
-
 ## Legal
 
 - [ ] `004f5d90` 129 B `Legal_GetName(char*)`
@@ -927,15 +902,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## LoadAreaData
 
 - [ ] `004a84c0` 2773 B `LoadAreaData_DrawAreaVillain(AREADATA_s*, int, float, float, float, float)`
-
-## mapping0
-
-- [ ] `00552c10` 1204 B `mapping0_inverse`  **stub**
-- [ ] `005520e0` 2861 B `mapping0_forward`  **stub**
-
-## mdct
-
-- [ ] `00550140` 743 B `mdct_forward`  **stub**
 
 ## MemoryManager
 
@@ -975,10 +941,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `00528cd0` 127 B `_PCInitStrings`  **hint** name (gapfill)
 - [ ] `00528460` 498 B `NuPCCreateWindow(MacDoze::HINSTANCE__*, int, int)`
-
-## Newton
-
-- [ ] `00557710` 445 B `Newton_Raphson`  **stub**
 
 ## NuDisplay
 
@@ -1112,10 +1074,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005ee210` 909 B `PlayerItemTypeSys_ParseLocator(nufpar_s*, PLAYERITEMTYPE_s*, int)`
 - [ ] `005ee5a0` 7330 B `PlayerItemTypeSys_Load(char*, nugscn_s*, variptr_u*, variptr_u*)`
 
-## preextrapolate
-
-- [ ] `00541ef0` 229 B `_preextrapolate_helper`  **stub**
-
 ## PreInterpretor
 
 - [ ] `00697cf0` 161 B `PreInterpretor::Variable::getSemanticString() const`
@@ -1134,14 +1092,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `00635b10` 83 B `ScoreMultiplier_IncrementMultiplier(GameObject_s*, int, int, float)`  **stub** · **hint** name (gapfill)
 - [ ] `00635b70` 259 B `ScoreMultiplier_DrawGameMessage(GameObject_s*, GameObject_s*)`  **hint** name (order)
-
-## seed
-
-- [ ] `00545860` 403 B `seed_chase`  **stub**
-
-## setup
-
-- [ ] `00544160` 3032 B `setup_tone_curves`  **stub**
 
 ## ShaderBuilderGen
 
@@ -1209,33 +1159,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## TrueHero
 
 - [ ] `00478f40` 2059 B `TrueHero_Update(STATUS_STAGE_s*, STATUSPACKET_s*, float)`
-
-## ve
-
-- [ ] `00551320` 533 B `_ve_envelope_search`  **stub**
-- [ ] `00550d00` 1554 B `_ve_amp`  **stub**
-
-## vorbis
-
-- [ ] `00540110` 143 B `vorbis_comment_query_count`  **stub**
-- [ ] `00540060` 167 B `vorbis_comment_query`  **stub**
-- [ ] `0053ff60` 175 B `vorbis_comment_add_tag`  **stub**
-- [ ] `00540850` 286 B `vorbis_synthesis_idheader`  **stub**
-- [ ] `00551970` 291 B `vorbis_lpc_predict`  **stub**
-- [ ] `00540c10` 296 B `_vorbis_pack_comment`  **stub**
-- [ ] `00541fe0` 297 B `vorbis_analysis_wrote`  **stub**
-- [ ] `00549b60` 354 B `vorbis_book_decodevs_add`  **stub**
-- [ ] `00540980` 404 B `vorbis_synthesis_headerin`  **stub**
-- [ ] `00551660` 770 B `vorbis_lpc_from_data`  **stub**
-- [ ] `005578d0` 1038 B `vorbis_lpc_to_lsp`  **stub**
-- [ ] `00548a50` 1279 B `vorbis_book_init_decode`  **stub**
-
-## vp
-
-- [ ] `005476a0` 167 B `_vp_noise_normalize_sort`  **stub**
-- [ ] `00547560` 311 B `_vp_quantize_couple_sort`  **stub**
-- [ ] `005469a0` 314 B `_vp_tonemask`  **stub**
-- [ ] `005467b0` 489 B `_vp_noisemask`  **stub**
 
 ## WavReader
 

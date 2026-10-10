@@ -247,8 +247,7 @@ extern int floor1_encode(oggpack_buffer *opb,vorbis_block *vb,
 			 int *post,int *ilogmask);
 
 
-// STUB: LEGOBATMAN 0x005520e0
-// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
+// FUNCTION: LEGOBATMAN 0x005520e0
 static int mapping0_forward(vorbis_block *vb){
   vorbis_dsp_state      *vd=vb->vd;
   vorbis_info           *vi=vd->vi;
@@ -738,8 +737,7 @@ static int mapping0_forward(vorbis_block *vb){
   return(0);
 }
 
-// STUB: LEGOBATMAN 0x00552c10
-// matches only with /GS- (libvorbis was built without /GS; alloca/arrays get a cookie here)
+// FUNCTION: LEGOBATMAN 0x00552c10
 static int mapping0_inverse(vorbis_block *vb,vorbis_info_mapping *l){
   vorbis_dsp_state     *vd=vb->vd;
   vorbis_info          *vi=vd->vi;
