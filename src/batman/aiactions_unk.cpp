@@ -28,6 +28,80 @@ static inline GameObject_s *GetNamedGameObject(AISYS_s *sys, char *name) {
   return 0;
 }
 
+// GLOBAL: LEGOBATMAN 0x00ad68ec
+extern u8 (*g_unk00ad68ec)(char *name);
+// GLOBAL: LEGOBATMAN 0x00ad68fc
+extern i32 (*g_unk00ad68fc)(i32 id);
+AISTATE *AIStateFind(char *name, AISCRIPT *script);
+f32 NuVecMagSqr(nuvec_s *v);
+void NuVecSub(nuvec_s *out, nuvec_s *a, nuvec_s *b);
+
+// FUNCTION: LEGOBATMAN 0x00454950
+i32 Action_SetStateArea(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                        AIPACKET_s *packet, char **params, i32 param_count,
+                        i32 first_time, f32 dt) {
+  f32 range_sq = 0.0f;
+  char *state_name = NULL;
+  i32 types[10];
+  i32 type_count = 0;
+  nuvec_s origin;
+  GameObject_s *src;
+  if (!first_time)
+    return 1;
+  {
+    for (i32 index = 0; index < param_count; index++) {
+      char *value = NuStrIStr(params[index], "range=");
+      if (value != NULL) {
+        range_sq = AIParamToFloat(process, value + 6);
+        range_sq *= range_sq;
+      } else if ((value = NuStrIStr(params[index], "type")) != NULL) {
+        if (g_unk00ad68ec != NULL && g_unk00ad68fc != NULL) {
+          i32 local_type = g_unk00ad68ec(value + 5);
+          if (local_type != 0xff) {
+            i32 global_type = g_unk00ad68fc(local_type);
+            if (global_type != -1 && type_count < 10)
+              types[type_count++] = global_type;
+          }
+        }
+      } else if ((value = NuStrIStr(params[index], "State=")) != NULL) {
+        state_name = value + 6;
+      }
+    }
+    if (state_name == NULL || (type_count <= 0 && !(range_sq > 0.0f))) {
+      process->next_state = AIStateFind(state_name, process->script);
+      return 1;
+    }
+    if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL) {
+      src = packet->pd0->obj;
+      origin = src->v80;
+    }
+    for (i32 i = 0; i < HIGHGAMEOBJECT; i++) {
+      GameObject_s *obj = &Obj[i];
+      if (!(obj->flags1fc & 1) || !(obj->flags1fc & 0x1000) ||
+          !(obj->flags1f8 & 0x400))
+        continue;
+      nuvec_s diff;
+      NuVecSub(&diff, &origin, &obj->position);
+      f32 dist = NuVecMagSqr(&diff);
+      if (type_count != 0) {
+        i32 match = 0;
+        for (i32 j = 0; j < type_count; j++) {
+          if (obj->type15b0 == types[j])
+            match = 1;
+        }
+        if (match && (range_sq == 0.0f || dist < range_sq)) {
+          ((AISCRIPTPROCESS_s *)obj->p4)->next_state =
+              AIStateFind(state_name, ((AISCRIPTPROCESS_s *)obj->p4)->script);
+        }
+      } else if (range_sq > dist) {
+        ((AISCRIPTPROCESS_s *)obj->p4)->next_state =
+            AIStateFind(state_name, ((AISCRIPTPROCESS_s *)obj->p4)->script);
+      }
+    }
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x004556b0
 i32 Action_Explode(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
                    char **args, int argc, int flags, f32 time) {
@@ -3192,10 +3266,6 @@ i32 Action_SetShieldHitPoints(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
-// GLOBAL: LEGOBATMAN 0x00ad68ec
-extern u8 (*g_unk00ad68ec)(char *name);
-// GLOBAL: LEGOBATMAN 0x00ad68fc
-extern i32 (*g_unk00ad68fc)(i32 id);
 extern i32 g_unk0093b104;
 extern i32 g_unk0093b108;
 
