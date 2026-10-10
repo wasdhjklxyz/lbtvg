@@ -3,40 +3,50 @@
 
 #include "../nucore/common.h"
 
-// 12-byte shader table entry; only the reference count is evidenced.
-struct NuShaderEntry {
+struct NuFramebuffer;
+struct NuProxyAttachment;
+
+// 12-byte port entry; only the reference count is evidenced.
+struct NuDataPortEntry {
   u32 u00;
   u32 u04;
   i32 refs; // 0x08
 };
 
-// The shader parameter table: entries first.
-struct NuShaderTable {
-  NuShaderEntry entries[1];
+// Entries first.
+class NuDataPortManager {
+public:
+  i32 registerPort(char const *name, void *data);
 
-  i32 Find(const char *name, i32 flags);
+  NuDataPortEntry ports[1];
 };
 
-// {index, table} handle into a shader parameter table.
-struct NuShaderHandle {
-  i32 index;            // 0x00
-  NuShaderTable *table; // 0x04
-
-  NuShaderEntry *Release() {
-    NuShaderEntry *e = &table->entries[index];
+// Mac NuDataPort<T>: {index, manager}; the Mac assert in unregister is
+// compiled out here.
+template <class T> class NuDataPort {
+public:
+  ~NuDataPort() {
+    if (index >= 0)
+      unregister();
+  }
+  NuDataPortEntry *unregister() {
+    NuDataPortEntry *e = &manager->ports[index];
     e->refs += -1;
     return e;
   }
-  void Bind(const char *name, i32 flags, NuShaderTable *t) {
+  void registerData(char const *name, T data, NuDataPortManager &mgr) {
     if (index >= 0)
-      Release();
-    table = t;
-    index = t->Find(name, flags);
+      unregister();
+    manager = &mgr;
+    index = mgr.registerPort(name, data);
   }
+
+  i32 index;                  // 0x00
+  NuDataPortManager *manager; // 0x04
 };
 
 // GLOBAL: LEGOBATMAN 0x029f82f0
-extern NuShaderTable g_unk029f82f0; // shader parameter table
+extern NuDataPortManager g_unk029f82f0; // the data port manager
 
 struct NuMotionFilterGen {
   virtual ~NuMotionFilterGen();
@@ -44,16 +54,16 @@ struct NuMotionFilterGen {
   virtual void destroyResources();
 
   u8 pad04[8 - 4];
-  NuShaderHandle out_framebuffer; // 0x08
-  NuShaderHandle color_buffer;    // 0x10
-  NuShaderHandle velocity_buffer; // 0x18
-  NuShaderHandle depth_buffer;    // 0x20
+  NuDataPort<NuFramebuffer *> out_framebuffer;     // 0x08
+  NuDataPort<NuProxyAttachment *> color_buffer;    // 0x10
+  NuDataPort<NuProxyAttachment *> velocity_buffer; // 0x18
+  NuDataPort<NuProxyAttachment *> depth_buffer;    // 0x20
 };
 
 // FUNCTION: LEGOBATMAN 0x00734e80
 void NuMotionFilterGen::initResources() {
-  out_framebuffer.Bind("postEffect.outFramebuffer", 0, &g_unk029f82f0);
-  color_buffer.Bind("postEffect.colorBuffer", 0, &g_unk029f82f0);
-  velocity_buffer.Bind("postEffect.velocityBuffer", 0, &g_unk029f82f0);
-  depth_buffer.Bind("postEffect.depthBuffer", 0, &g_unk029f82f0);
+  out_framebuffer.registerData("postEffect.outFramebuffer", 0, g_unk029f82f0);
+  color_buffer.registerData("postEffect.colorBuffer", 0, g_unk029f82f0);
+  velocity_buffer.registerData("postEffect.velocityBuffer", 0, g_unk029f82f0);
+  depth_buffer.registerData("postEffect.depthBuffer", 0, g_unk029f82f0);
 }
