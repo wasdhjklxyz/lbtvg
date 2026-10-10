@@ -2040,3 +2040,12 @@
 00671430 CrossFade::DrawFade vtable 0x869ddc slot 4 (RTTI); matched
 00671560 BlackCrossFade::DrawFade vtable 0x869df8 slot 4 (RTTI); matched
 00670c40 NuSinApprox the fade TU's copy of the static (body identical to nutrig_unk.h); matched
+00670d20 SetFramesToWait Mac order (before FadeSystem_PlayWipeSfx), stores FRAMES_TO_WAIT; matched
+00670d80 DrawStillScreenWithAlpha Mac order after FadeSystem_PlayWipeSfx, (int clear, float alpha); matched
+00670e30 DrawCurrentScreenWithAlpha Mac order after DrawStillScreenWithAlpha; matched
+00670ef0 FadeSystem::Init Mac order + saga body (fades cleared, current -1); matched
+00670f20 FadeSystem::Update Mac order + saga body (fade clamp, busy, UpdateFade)
+00671000 FadeSystem::Draw Mac order + saga body; matched
+00671030 FadeSystem::SetStage Mac order + saga body; matched
+00671060 FadeSystem::AddFade Mac order + saga body; matched
+006710a0 FadeSystem::SetFade Mac order + saga body; matched

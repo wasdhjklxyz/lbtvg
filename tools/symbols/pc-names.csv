@@ -1980,7 +1980,16 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00665f80,002b9242,__Z24GizFlock_ConfigureExtrasP11WORLDINFO_sPKcj,"GizFlock_ConfigureExtras(WORLDINFO_s*, char const*, unsigned int)",strings,0
 0066b400,002bc674,__Z20GizFlock_UpdateBoidsP12sGizFlockSysP9sGizFlock,"GizFlock_UpdateBoids(sGizFlockSys*, sGizFlock*)",strings,0
 00670c40,000298fa,_NuSinApprox,_NuSinApprox,confirmed,0
+00670d20,002a6904,__Z15SetFramesToWaitj,SetFramesToWait(unsigned int),confirmed,0
 00670d30,002a6918,__Z22FadeSystem_PlayWipeSfxv,FadeSystem_PlayWipeSfx(),confirmed,0
+00670d80,002a6996,__Z24DrawStillScreenWithAlphaif,"DrawStillScreenWithAlpha(int, float)",confirmed,0
+00670e30,002a6a64,__Z26DrawCurrentScreenWithAlphaif,"DrawCurrentScreenWithAlpha(int, float)",confirmed,0
+00670ef0,002a6b26,__ZN10FadeSystem4InitEv,FadeSystem::Init(),confirmed,0
+00670f20,002a6b6e,__ZN10FadeSystem6UpdateEv,FadeSystem::Update(),confirmed,0
+00671000,002a6c30,__ZN10FadeSystem4DrawEv,FadeSystem::Draw(),confirmed,0
+00671030,002a6c66,__ZN10FadeSystem8SetStageEc,FadeSystem::SetStage(char),confirmed,0
+00671060,002a6c98,__ZN10FadeSystem7AddFadeEP8FadeBase,FadeSystem::AddFade(FadeBase*),confirmed,0
+006710a0,002a6cda,__ZN10FadeSystem7SetFadeERK8FADETYPEj,"FadeSystem::SetFade(FADETYPE const&, unsigned int)",confirmed,0
 006710d0,002a6d0c,__ZN4Fade4InitEP10FADEINFO_s,Fade::Init(FADEINFO_s*),confirmed,0
 006710e0,002a6d1a,__ZN4Fade8InitFadeEv,Fade::InitFade(),confirmed,0
 00671110,002a6d50,__ZN4Fade10UpdateFadeEv,Fade::UpdateFade(),confirmed,0

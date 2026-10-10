@@ -8,10 +8,10 @@
 #include "../nu2api/numath/nutrig_unk.h"
 
 struct FADEINFO_s {
-  i32 mask; // 0x00
-  f32 f4;   // 0x04
-  f32 f8;   // 0x08
-  u8 pad0c[4];
+  i32 mask;  // 0x00
+  f32 f4;    // 0x04
+  f32 f8;    // 0x08
+  i32 busy;  // 0x0c
   u32 flags; // 0x10
 };
 
@@ -84,7 +84,48 @@ public:
   virtual void DrawFade();
 };
 
-void FadeSystem_PlayWipeSfx();
+struct FADETYPE {
+  i32 type;
+};
+
+// Mac: FadeSystem; starts with the FADEINFO_s handed to every fade.
+struct FadeSystem : FADEINFO_s {
+  void Init();
+  void Draw();
+  void SetStage(char stage);
+  i32 AddFade(FadeBase *fade);
+  i32 SetFade(FADETYPE const &type, u32 frames);
+
+  FadeBase *fades[7]; // 0x14
+  i32 current;        // 0x30
+  i32 i34;            // 0x34
+};
+
+struct nuvec_s;
+
+// Raw view of the current area (WORLD + 0x12c).
+struct FDAREA_s {
+  u8 pad00[0x64];
+  u32 flags; // 0x64
+};
+
+struct FDWORLD_s {
+  u8 pad000[0x12c];
+  FDAREA_s *area; // 0x12c
+};
+
+// GLOBAL: LEGOBATMAN 0x00960894
+extern FDWORLD_s *WORLD;
+// GLOBAL: LEGOBATMAN 0x00acb070
+extern i32 g_unk00acb070;
+// GLOBAL: LEGOBATMAN 0x00acb714
+extern i32 g_unk00acb714;
+// GLOBAL: LEGOBATMAN 0x00aca8a8
+extern FDAREA_s *g_unk00aca8a8;
+// GLOBAL: LEGOBATMAN 0x00ad29f0
+extern i32 g_unk00ad29f0;
+
+void GameAudio_PlaySfx(i32 sfx, nuvec_s *position, i32 flags, i32 volume);
 void NeedScreenGrab(i32 a);
 void DrawSpinScreen(i32 a, f32 t);
 
@@ -122,8 +163,39 @@ extern numtl_s *g_unk00a97cf0; // fade material
 // FUNCTION: LEGOBATMAN 0x00670c40
 static f32 NuSinApprox(i32 angle);
 
+// GLOBAL: LEGOBATMAN 0x00ad29ec
+extern i32 wait_till_next_frame;
+// GLOBAL: LEGOBATMAN 0x00a97d34
+extern i32 g_unk00a97d34;
+// GLOBAL: LEGOBATMAN 0x00a97da0
+extern i32 g_unk00a97da0;
+// GLOBAL: LEGOBATMAN 0x00968494
+extern i32 FRAMES_TO_WAIT;
+// GLOBAL: LEGOBATMAN 0x009684a8
+extern f32 SPINFADETIME;
+
+// FUNCTION: LEGOBATMAN 0x00670d20
+void SetFramesToWait(u32 frames) { FRAMES_TO_WAIT = frames; }
+
+// STUB: LEGOBATMAN 0x00670d30
+// area/flags registers swapped (orig: area in ecx, "mov eax, ecx" for flags)
+void FadeSystem_PlayWipeSfx() {
+  FDAREA_s *area = WORLD->area;
+  if (area == 0)
+    return;
+  if ((area->flags & 0x1000000) && g_unk00acb070 != 0)
+    return;
+  if (g_unk00acb714 != 0)
+    return;
+  if (area->flags & 0xe0)
+    return;
+  if (area == g_unk00aca8a8)
+    return;
+  GameAudio_PlaySfx(0x40, 0, 0, 0);
+}
+
 // FUNCTION: LEGOBATMAN 0x00670d80
-void Unk00670d80(i32 clear, f32 alpha) {
+void DrawStillScreenWithAlpha(i32 clear, f32 alpha) {
   FDMTL_s *mtl = Unk005a5ab0();
   mtl->alpha = alpha;
   NuRndrBeginScene(1);
@@ -137,7 +209,7 @@ void Unk00670d80(i32 clear, f32 alpha) {
 }
 
 // FUNCTION: LEGOBATMAN 0x00670e30
-void Unk00670e30(i32 clear, f32 alpha) {
+void DrawCurrentScreenWithAlpha(i32 clear, f32 alpha) {
   NuRndrBeginScene(1);
   if (clear != 0)
     NuRndrClear(0x500, 0, 1.0f);
@@ -146,16 +218,54 @@ void Unk00670e30(i32 clear, f32 alpha) {
   NuRndrEndScene();
 }
 
-// GLOBAL: LEGOBATMAN 0x00ad29ec
-extern i32 wait_till_next_frame;
-// GLOBAL: LEGOBATMAN 0x00a97d34
-extern i32 g_unk00a97d34;
-// GLOBAL: LEGOBATMAN 0x00a97da0
-extern i32 g_unk00a97da0;
-// GLOBAL: LEGOBATMAN 0x00968494
-extern i32 FRAMES_TO_WAIT;
-// GLOBAL: LEGOBATMAN 0x009684a8
-extern f32 SPINFADETIME;
+// FUNCTION: LEGOBATMAN 0x00670ef0
+void FadeSystem::Init() {
+  fades[0] = 0;
+  fades[1] = 0;
+  fades[2] = 0;
+  fades[3] = 0;
+  fades[4] = 0;
+  fades[5] = 0;
+  fades[6] = 0;
+  i34 = 1;
+  current = -1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00671000
+void FadeSystem::Draw() {
+  if (current != -1 && g_unk00ad29f0 == 0 && fades[current] != 0)
+    fades[current]->DrawFade();
+}
+
+// FUNCTION: LEGOBATMAN 0x00671030
+void FadeSystem::SetStage(char stage) {
+  flags = stage;
+  busy = 0;
+  if (current != -1 && fades[current] != 0)
+    fades[current]->InitFade();
+}
+
+// FUNCTION: LEGOBATMAN 0x00671060
+i32 FadeSystem::AddFade(FadeBase *fade) {
+  if (fade == 0)
+    return 0;
+  i32 type = fade->GetFadeType();
+  fade->Init(this);
+  fades[type] = fade;
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006710a0
+i32 FadeSystem::SetFade(FADETYPE const &type, u32 frames) {
+  i32 t = type.type;
+  if (t != -1 && fades[t] != 0) {
+    current = t;
+    mask = frames;
+    return 1;
+  }
+  current = -1;
+  return 0;
+}
 
 // FUNCTION: LEGOBATMAN 0x006710d0
 void Fade::Init(FADEINFO_s *info) { this->info = info; }
@@ -294,7 +404,7 @@ void CrossFade::DrawFade() {
     } else {
       f32 alpha =
           NuSinApprox((i32)(info->f4 * 16384.0f + 32768.0f) + 0x4000) + 1.0f;
-      Unk00670d80(0, alpha);
+      DrawStillScreenWithAlpha(0, alpha);
       g_unk00a97d34 = 0;
     }
   }
@@ -329,13 +439,13 @@ void BlackCrossFade::DrawFade() {
       f32 alpha =
           1.0f -
           (NuSinApprox((i32)(info->f4 * 16384.0f + 32768.0f) + 0x4000) + 1.0f);
-      Unk00670e30(0, alpha);
+      DrawCurrentScreenWithAlpha(0, alpha);
     } else {
       g_unk00a97d34 = 0;
       f32 alpha =
           1.0f -
           (NuSinApprox((i32)(info->f4 * 16384.0f + 32768.0f) + 0x4000) + 1.0f);
-      Unk00670e30(0, alpha);
+      DrawCurrentScreenWithAlpha(0, alpha);
     }
   }
 }

@@ -186,3 +186,4 @@
 005a9520 Grapples_Reset: calls the esi-convention static Grapple_Reset 0x5a9390 (not written) + bitfield xor sequences
 005eabf0 BoltTypes_Configure: reading_type/parser stack slots vs edi; 4 layouts tried
 005e9330 Bolt_ObjTargetPosYAdjust: (h+h)/65535.0 hoisted above qrand in ours; 4 spellings tried
+00670d30 FadeSystem_PlayWipeSfx: area/flags register swap (mov eax, ecx); 3 forms tried
