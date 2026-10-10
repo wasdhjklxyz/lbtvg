@@ -2148,6 +2148,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d75c0,001886a4,_NuStrNCpy,_NuStrNCpy,gapfill,1
 006d7670,0018703e,_NuStrLen,_NuStrLen,gapfill,1
 006d7770,00187b7e,_NuStrCmp,_NuStrCmp,gapfill,2
+006d7820,0018a8a2,_NuToUpperW,_NuToUpperW,confirmed,0
+006d7840,0018a8cc,_NuToLowerW,_NuToLowerW,confirmed,0
+006d7860,0018a8f6,_NuStrCatW,_NuStrCatW,confirmed,0
+006d78a0,0018a924,_NuStrNCatW,_NuStrNCatW,confirmed,0
+006d7980,0018a9d8,_NuStrChrW,_NuStrChrW,confirmed,0
+006d79b0,0018a9fe,_NuStrRChrW,_NuStrRChrW,confirmed,0
+006d7a10,0018aa44,_NuStrStrW,_NuStrStrW,confirmed,0
+006d7b10,0018aa84,_NuStrCmpW,_NuStrCmpW,confirmed,0
 006d7dc0,0018b9d4,_NuSPrintf,_NuSPrintf,confirmed,0
 006d7f60,00187f1a,_NuAToF,_NuAToF,calls,1
 006d8020,00187ec6,_NuAToI,_NuAToI,confirmed,0

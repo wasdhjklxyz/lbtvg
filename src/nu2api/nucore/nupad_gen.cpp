@@ -1171,3 +1171,125 @@ void NuLanguageInit(void) {
   g_nuPadUnk0adf64c = 0;
   NuLanguageInitPS();
 }
+
+// --- nustring_c.cpp wide helpers (saga bodies; Mac order NuToUpperW,
+// NuToLowerW, NuStrCatW, NuStrNCatW, NuStrCpyW, NuStrNCpyW, NuStrChrW,
+// NuStrRChrW, NuStrLenW, NuStrStrW, NuStrCmpW) -------------------------------
+
+typedef unsigned short NUWCHAR;
+
+// FUNCTION: LEGOBATMAN 0x006d7820
+NUWCHAR NuToUpperW(NUWCHAR c) {
+  if (c >= 0x61 && c <= 0x7a) {
+    c -= 0x20;
+  } else if (c > 0xdf && c < 0x100) {
+    c -= 0x20;
+  }
+
+  return c;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d7840
+NUWCHAR NuToLowerW(NUWCHAR c) {
+  if (c >= 0x41 && c <= 0x5a) {
+    c += 0x20;
+  } else if (c > 0xbf && c < 0xe0) {
+    c += 0x20;
+  }
+
+  return c;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d7860
+void NuStrCatW(NUWCHAR *str, const NUWCHAR *ext) {
+  while (*str != 0)
+    ++str;
+  if (ext != 0) {
+    do {
+      *str = *ext;
+      ++str;
+    } while (*ext++ != 0);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006d78a0
+int NuStrNCatW(NUWCHAR *str, const NUWCHAR *ext, int n) {
+  while (*str != 0)
+    ++str;
+  int copied = 0;
+  if (ext != 0) {
+    do {
+      if (n == 0)
+        break;
+      *str = *ext;
+      ++str;
+      ++copied;
+      --n;
+    } while (*ext++ != 0);
+  }
+  return copied;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d7980
+NUWCHAR *NuStrChrW(NUWCHAR *str, NUWCHAR c) {
+  while (*str != 0) {
+    if (*str == c)
+      return str;
+    ++str;
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d79b0
+NUWCHAR *NuStrRChrW(NUWCHAR *str, NUWCHAR c) {
+  NUWCHAR *cursor = str;
+  while (*cursor != 0)
+    ++cursor;
+  while (cursor >= str) {
+    if (*cursor == c)
+      return cursor;
+    --cursor;
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d7a10
+NUWCHAR *NuStrStrW(NUWCHAR *str, const NUWCHAR *sub) {
+  while (*str != 0) {
+    NUWCHAR *cursor = str;
+    const NUWCHAR *match = sub;
+    while (*match != 0) {
+      if (*cursor == 0)
+        break;
+      if (*cursor != *match)
+        break;
+      ++cursor;
+      ++match;
+    }
+    if (*match == 0)
+      return str;
+    ++str;
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d7b10
+int NuStrCmpW(const NUWCHAR *a, const NUWCHAR *b) {
+  NUWCHAR ca;
+  NUWCHAR cb;
+  if (a == 0)
+    return -1;
+  if (b == 0)
+    return 1;
+  do {
+    ca = *a;
+    cb = *b;
+    if (ca > cb)
+      return 1;
+    if (ca < cb)
+      return -1;
+    ++a;
+    ++b;
+  } while (ca != 0 && cb != 0);
+  return 0;
+}

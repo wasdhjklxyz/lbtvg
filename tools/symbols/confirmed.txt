@@ -1756,3 +1756,11 @@
 004f7390 SecurityCamera::SecurityCamera base ctor inlined, stores vtable 0x85d96c; matched
 004f7460 LightFlickerOverlay::LightFlickerOverlay base ctor inlined, stores vtable 0x85d9f4; matched
 005c4c30 InteractiveDisplay::RenderSquare Mac order right after RenderRectangle (0x5c4b20, which it calls with size twice); matched
+006d7820 NuToUpperW             saga nustring_c body, Mac order (after NuStrFindPosU); matched
+006d7840 NuToLowerW             saga body, Mac order; matched
+006d7860 NuStrCatW              saga body, Mac order; matched
+006d78a0 NuStrNCatW             saga body, Mac order; matched
+006d7980 NuStrChrW              saga body, Mac order; matched
+006d79b0 NuStrRChrW             saga body, Mac order; matched
+006d7a10 NuStrStrW              saga body, Mac order (after NuStrLenW 0x6d79f0); matched
+006d7b10 NuStrCmpW              saga body, Mac order; matched
