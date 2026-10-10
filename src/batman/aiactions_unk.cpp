@@ -31,6 +31,11 @@ static inline GameObject_s *GetNamedGameObjectInl(AISYS_s *sys, char *name) {
   return 0;
 }
 
+// "key=value" with a one-character separator: the text after it.
+static inline char *ParamAfterKey(char *value, char *key) {
+  return value + NuStrLen(key) + 1;
+}
+
 // GLOBAL: LEGOBATMAN 0x00ad68ec
 extern u8 (*g_unk00ad68ec)(char *name);
 // GLOBAL: LEGOBATMAN 0x00ad68fc
@@ -492,8 +497,8 @@ i32 qrand(void);
 void LoseHitPoints(GameObject_s *obj, i32 amount);
 
 // STUB: LEGOBATMAN 0x0045dc80
-// Only diff: the original keeps params in ebp and the value in edi; ours
-// swaps them (declaration order and helper shapes tried).
+// Only diff: min/max args come out as lea [len+value+1], the original has
+// [value+len+1] (same puzzle as Action_CnxHelper).
 i32 Action_SetHitPoints(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                         AIPACKET_s *packet, char **params, i32 param_count,
                         i32 first_time, f32 dt) {
@@ -532,9 +537,9 @@ i32 Action_SetHitPoints(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     } else if (NuStrICmp(params[i], "dont_set_max") == 0) {
       set_max = 0;
     } else if ((value = NuStrIStr(params[i], "min")) != NULL) {
-      min = (i32)AIParamToFloat(process, value + NuStrLen("min") + 1);
+      min = (i32)AIParamToFloat(process, ParamAfterKey(value, "min"));
     } else if ((value = NuStrIStr(params[i], "max")) != NULL) {
-      max = (i32)AIParamToFloat(process, value + NuStrLen("max") + 1);
+      max = (i32)AIParamToFloat(process, ParamAfterKey(value, "max"));
     } else if (NuStrICmp(params[i], "default") != 0) {
       hp = (i32)AIParamToFloat(process, params[i]);
     }
@@ -821,10 +826,6 @@ AIPATHCNXHELPER_s *AIPathCnxHelperSys_AddHelper(void *sys, void *cnx, u8 dir,
 void AddClimbHelper(WORLDINFO_s *world, void *cnx, AILOCATOR_s *locator);
 void AddLedgeHelper(WORLDINFO_s *world, void *cnx, i32 dir, void *ledge1,
                     void *ledge2, i32 ledge_dir);
-
-static inline char *ParamAfterKey(char *value, char *key) {
-  return value + NuStrLen(key) + 1;
-}
 
 // STUB: LEGOBATMAN 0x00461af0
 // Only diff: lea [value+len+1] comes out as [len+value+1] (3 places;
