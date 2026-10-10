@@ -34,16 +34,18 @@ typedef struct nuapi_s {
   i32 screen_height;          // 0x18
   f32 fps;                    // 0x1c
   i32 nuframe_begin_cnt;      // 0x20
-  u32 pad24[5];               // 0x24
-  NUTIME time;                // 0x38
+  u32 pad24;                  // 0x24
+  NUTIME time;                // 0x28: frame start
+  u32 pad30[2];               // 0x30
+  NUTIME time2;               // 0x38
   f32 frametime;              // 0x40
-  u32 pad44;                  // 0x44
+  i32 frame_count;            // 0x44
   f32 forced_frame_time;      // 0x48
-  u32 pad4c;                  // 0x4c
+  f32 unk4c;                  // 0x4c: frame time summed while 0x029f3ee4 == 0
   i32 unk50;                  // 0x50
   NUPADREC pad_record;        // 0x54
   u32 pad7c[2];               // 0x7c
-  i32 unk84;                  // 0x84
+  void *wind;                 // 0x84: NUWIND *, NuWindAnimate(nuapi.wind, ...)
   u32 pad88[3];               // 0x88
   i32 disable_os_menu_freeze; // 0x94
   f32 video_brightness;       // 0x98
@@ -53,7 +55,7 @@ typedef struct nuapi_s {
   i32 multi_thread_render;    // 0xac
   u32 padb0;                  // 0xb0
   i32 unkb4;                  // 0xb4
-  f32 wind[4];                // 0xb8
+  f32 unkb8[4];               // 0xb8
   void *current_gscene;       // 0xc8
   i32 unkcc;                  // 0xcc
   u32 padd0[4];               // 0xd0

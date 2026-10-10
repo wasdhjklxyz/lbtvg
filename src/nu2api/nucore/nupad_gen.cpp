@@ -718,7 +718,7 @@ void NuPadUnk006d6150(int keep) {
 }
 
 // FUNCTION: LEGOBATMAN 0x006d61c0
-void NuPadRecStep(void) {
+void NuPadRecordEndFrame(void) {
   if (nuapi.pad_record.is_recording)
     nuapi.pad_record.is_recording = 0;
   switch (nuapi.pad_record.mode) {
@@ -3645,6 +3645,160 @@ NUDATHDR *NuDatOpenEx(char *filepath, VARIPTR *buf, int *size_out, short mode) {
   }
   nufile_buffering_enabled = buffering;
   return NULL;
+}
+
+// --- NuFrameEnd (Mac order: NuRndrBeginScene, GetPCStartupMessage,
+// NuMtlAnimate, NuTexAnimProcess, NuWindAnimate, NuOcclusionManagerEndFrame,
+// NuDisplayList{Begin,End}CriticalSection, NuProcessSystemEvents,
+// NuPCShowWinCursor, NudxInput_SetMouseExclusive, NuSoundSystem{Suspend,
+// Resume}, NuIsRenderingPossible, NuTimeBarSetRender, NuRndrSwapScreenEx,
+// NuTimeBarSlotSetEx, NuPostEffectTiming, NuMovieGrabFrame, NuScreenDump,
+// NuRndrFrameLights::Reset).
+extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long ms);
+void NuRndrBeginScene(int);
+char *GetPCStartupMessage(void);
+void PrintStartupString(int colour, char *fmt, ...);
+void NuRndrEndScene(void);
+void NuMtlAnimate(f32 frame_time);
+void NuTexAnimProcess(f32 frame_time);
+void NuWindAnimate(void *wind, f32 frame_time);
+void NuOcclusionManagerEndFrame(void);
+void NuDisplayListBeginCriticalSection(void);
+void NuDisplayListEndCriticalSection(void);
+int NuProcessSystemEvents(void);
+void NuPCShowWinCursor(int show);
+int NudxInput_SetMouseExclusive(int exclusive);
+void NuSoundSystemSuspend(void);
+void NuSoundSystemResume(void);
+void NuIsRenderingPossible(void);
+void NuTimeBarSetRender(int);
+int NuRndrSwapScreenEx(int mode, void (*callback)(void));
+f32 NuTimeSeconds(NUTIME *t);
+void NuTimeBarSlotSetEx(int bar, int slot, int value, char *name);
+void bgSuspendMain(int lines);
+void NuPadUpdatePads(void);
+f32 NuPostEffectTiming(int *grab);
+void NuMovieGrabFrame(void);
+extern "C" void NuScreenDump(void);
+class NuRndrFrameLightsUnk {
+public:
+  void ResetUnk0070a470();
+};
+// GLOBAL: LEGOBATMAN 0x029e6380
+extern NuRndrFrameLightsUnk nuspecial_shadow_manager;
+
+// GLOBAL: LEGOBATMAN 0x0099f2a8
+static f32 g_configMsgTime = 6.0f;
+// GLOBAL: LEGOBATMAN 0x00afa238
+extern int g_nuStartupStringY;
+// GLOBAL: LEGOBATMAN 0x0094d3a0
+extern i32 g_unk0094d3a0; // app active
+// GLOBAL: LEGOBATMAN 0x009d1334
+extern i32 g_unk009d1334;
+// GLOBAL: LEGOBATMAN 0x00b038d0
+extern void (*nuapi_endframe_callbackfn)(void);
+// GLOBAL: LEGOBATMAN 0x0099f298
+extern int nuapi_min_delay;
+// GLOBAL: LEGOBATMAN 0x00af6500
+extern f32 elapsedShaderTimeAPI;
+// GLOBAL: LEGOBATMAN 0x029f3ee4
+extern f32 g_unk029f3ee4;
+
+extern "C" void NuTimeGetTicksPS(u32 *low, u32 *high);
+
+static inline void NuTimeGetChecked(NUTIME *t) {
+  NuTimeGetTicksPS(&t->low, (u32 *)&t->high);
+  if (t->high < 0)
+    Unk006d24b0();
+}
+
+static inline void NuTimeSubInl(NUTIME *t, NUTIME *a, NUTIME *b) {
+  if (a->low >= b->low) {
+    t->low = a->low - b->low;
+    t->high = a->high - b->high;
+  } else {
+    t->low = a->low - b->low;
+    t->high = a->high - b->high - 1;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006e0240
+f32 NuFrameEnd(void) {
+  int grab = 1;
+  NUTIME now;
+
+  if (g_configMsgTime > 0.0f) {
+    g_configMsgTime -= nuapi.frametime;
+    g_nuStartupStringY = 0x14;
+    NuRndrBeginScene(1);
+    if (GetPCStartupMessage())
+      PrintStartupString(-1, GetPCStartupMessage());
+    NuRndrEndScene();
+  }
+  NuMtlAnimate(nuapi.frametime);
+  NuTexAnimProcess(nuapi.frametime);
+  NuWindAnimate(nuapi.wind, nuapi.frametime);
+  NuOcclusionManagerEndFrame();
+  NuDisplayListBeginCriticalSection();
+  if (!g_unk0094d3a0) {
+    if (g_unk009d1334) {
+      Sleep(1);
+      NuProcessSystemEvents();
+    } else {
+      int exclusive;
+      NuPCShowWinCursor(1);
+      exclusive = NudxInput_SetMouseExclusive(0);
+      NuSoundSystemSuspend();
+      while (!g_unk0094d3a0) {
+        Sleep(10);
+        if (!NuProcessSystemEvents())
+          break;
+      }
+      NuIsRenderingPossible();
+      NuTimeGetChecked(&nuapi.time);
+      NuSoundSystemResume();
+      NuPCShowWinCursor(0);
+      NudxInput_SetMouseExclusive(exclusive);
+    }
+  } else {
+    NuProcessSystemEvents();
+    NuIsRenderingPossible();
+  }
+  NuPadRecordEndFrame();
+  NuTimeBarSetRender(-1);
+  NuRndrSwapScreenEx(1, nuapi_endframe_callbackfn);
+  {
+    NUTIME delta;
+    NuTimeGetChecked(&now);
+    NuTimeSubInl(&delta, &now, &nuapi.time);
+    nuapi.frametime = NuTimeSeconds(&delta);
+    nuapi.time = now;
+  }
+  NuTimeBarSlotSetEx(-1, 8, nuapi.unke0[2], "GEOMS");
+  NuTimeBarSlotSetEx(-1, 9, nuapi.unke0[3], "VERTS");
+  elapsedShaderTimeAPI += nuapi.frametime;
+  NuDisplayListEndCriticalSection();
+  NuTimeGetChecked(&nuapi.time2);
+  bgSuspendMain(nuapi_min_delay);
+  NuPadUpdatePads();
+  nuapi.frame_count++;
+  if (nuapi.forced_frame_time != 0.0f)
+    nuapi.frametime = nuapi.forced_frame_time;
+  f32 t = NuPostEffectTiming(&grab);
+  if (t != 0.0f) {
+    nuapi.frametime = t;
+    if (grab)
+      NuMovieGrabFrame();
+  } else {
+    NuMovieGrabFrame();
+  }
+  nuapi.nuframe_begin_cnt--;
+  nuapi.disable_os_menu_freeze = 0;
+  if (g_unk029f3ee4 == 0.0f)
+    nuapi.unk4c += nuapi.frametime;
+  NuScreenDump();
+  nuspecial_shadow_manager.ResetUnk0070a470();
+  return nuapi.frametime;
 }
 
 // FUNCTION: LEGOBATMAN 0x006e0530

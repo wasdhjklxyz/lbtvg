@@ -979,12 +979,16 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00524b20,001c2db2,__ZN17PCSettingsManager20xReadUseHiresPendingEP8nufpar_s,PCSettingsManager::xReadUseHiresPending(nufpar_s*),confirmed,0
 00524b40,001c2dda,__ZN17PCSettingsManager21xReadForceShaderModelEP8nufpar_s,PCSettingsManager::xReadForceShaderModel(nufpar_s*),confirmed,0
 00525100,001c12e8,_NuInitHardware,_NuInitHardware,strings,0
+005261a0,001bf5ec,_NuIsRenderingPossible,_NuIsRenderingPossible,confirmed,0
 00526230,001bf682,_NuWin32SetDFS,_NuWin32SetDFS,gapfill,2
 005264c0,001c412e,_NuPCDetermineLanguage,_NuPCDetermineLanguage,strings,0
 00526b40,001c57c4,__Z31NuPCProcessCommandLineArgumentsPc,NuPCProcessCommandLineArguments(char*),strings,0
 00527010,001c4766,__Z24NuPCCreateWindowFromHWndPN7MacDoze6HWND__Ei,"NuPCCreateWindowFromHWnd(MacDoze::HWND__*, int)",strings,0
 005270a0,001c4832,__Z30RelaunchMediaCenterIfNecessaryv,RelaunchMediaCenterIfNecessary(),strings,0
+00527150,001c4d80,_NuProcessSystemEvents,_NuProcessSystemEvents,confirmed,0
+00527bc0,001c518c,_NuPCShowWinCursor,_NuPCShowWinCursor,confirmed,0
 00527d60,001c532a,__Z27PCCreateMouseCursorMaterialv,PCCreateMouseCursorMaterial(),strings,0
+00527ef0,001c5500,_GetPCStartupMessage,_GetPCStartupMessage,confirmed,0
 00528460,001c5508,__Z16NuPCCreateWindowPN7MacDoze11HINSTANCE__Eii,"NuPCCreateWindow(MacDoze::HINSTANCE__*, int, int)",strings,0
 005288a0,001c3bd4,_NuScratchReset,_NuScratchReset,confirmed,0
 005288b0,001c3bec,_NuScratchAlloc32,_NuScratchAlloc32,calls,2
@@ -993,6 +997,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00528940,001c3c7c,_NuScratchRelease,_NuScratchRelease,calls,2
 00528cd0,001d74b8,_PCInitStrings,_PCInitStrings,gapfill,3
 00529440,001b680a,_NudxFw_DrawFrameStats,_NudxFw_DrawFrameStats,strings,0
+00529bc0,001b70f8,_NudxInput_SetMouseExclusive,_NudxInput_SetMouseExclusive,confirmed,0
 0052a610,001bac78,__ZNK8CD3DCore15FindNearestModeEjjj,"CD3DCore::FindNearestMode(unsigned int, unsigned int, unsigned int) const",gapfill,2
 0052a7a0,001ba728,__ZNK8CD3DCore27DetermineNominalAspectRatioEjj,"CD3DCore::DetermineNominalAspectRatio(unsigned int, unsigned int) const",gapfill,1
 0052c0a0,001ba7cc,__ZN8CD3DCore13PreInitializeEv,CD3DCore::PreInitialize(),strings,0
@@ -1019,10 +1024,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005336a0,001d6d8e,__Z7Cleanupv,Cleanup(),confirmed,0
 005339b0,001d6e1c,_oaGetNextCommand,_oaGetNextCommand,confirmed,0
 00533a80,001d6f4e,_oaInit,_oaInit,confirmed,0
+00533cb0,001b067a,_NuSoundSystemResume,_NuSoundSystemResume,confirmed,0
 00534ff0,001b2198,_NuSoundInitPS,_NuSoundInitPS,strings,0
 005354c0,001b27ea,_NuSoundPlay3dLoopSfx,_NuSoundPlay3dLoopSfx,gapfill,2
 00535b60,001b169c,_NuSoundAddRumble,_NuSoundAddRumble,calls,3
 00535c10,001b1700,_NuSoundStopStereo,_NuSoundStopStereo,strings,0
+00536210,001b2ab8,_NuSoundSystemSuspend,_NuSoundSystemSuspend,confirmed,0
 00536cd0,001ad58e,__ZN7NuMusic18GlobalParseErrorFnEP8nufpar_s,NuMusic::GlobalParseErrorFn(nufpar_s*),confirmed,0
 005375d0,001ae210,__ZN7NuMusic5DebugEii,"NuMusic::Debug(int, int)",strings,0
 00538970,001ad5f8,__ZN7NuMusic7xsIndexEP8nufpar_sPv,"NuMusic::xsIndex(nufpar_s*, void*)",confirmed,0
@@ -3649,6 +3656,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d5ee0,001898d0,_NuPadSetDirectMappingState,_NuPadSetDirectMappingState,confirmed,0
 006d5ef0,001898e4,_NuPadRead,_NuPadRead,confirmed,0
 006d61b0,00189bcc,_NuPadRecordStart,_NuPadRecordStart,confirmed,0
+006d61c0,00189162,_NuPadRecordEndFrame,_NuPadRecordEndFrame,confirmed,0
 006d6230,00189574,_NuPadRecordPlay,_NuPadRecordPlay,confirmed,0
 006d6430,00189be2,_NuPadRecordSetPlayEndButtons,_NuPadRecordSetPlayEndButtons,confirmed,0
 006d6440,00189bf6,_NuPadRecordSetRecordEndButtons,_NuPadRecordSetRecordEndButtons,confirmed,0
@@ -3890,6 +3898,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006dfc60,00193f7a,_NuFParCreateMem,_NuFParCreateMem,confirmed,0
 006dfd20,00193372,_NuPPGetSize,_NuPPGetSize,confirmed,0
 006dfde0,00193218,_NuPPLoadBuffer,_NuPPLoadBuffer,confirmed,0
+006e0240,00196b0a,_NuFrameEnd,_NuFrameEnd,confirmed,0
 006e0530,00196e5e,_NuPadRecordLoad,_NuPadRecordLoad,strings,0
 006e05d0,00196f36,_NuPadRecordInit,_NuPadRecordInit,confirmed,0
 006e0650,00194094,_GetLineW,_GetLineW,confirmed,0
@@ -4017,6 +4026,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006ea2d0,001840d6,__Z19NuMovieGrabGetFrameP17numoviegrabinfo_s,NuMovieGrabGetFrame(numoviegrabinfo_s*),strings,0
 006ebae0,0016f5d8,_RndrStateSetReflection,_RndrStateSetReflection,confirmed,0
 006ef910,0017a7d8,_NuMtlUpdatePS,_NuMtlUpdatePS,gapfill,3
+006efb50,0017cf3a,_NuMtlAnimate,_NuMtlAnimate,confirmed,0
 006f37b0,0017de3a,_NuEffectTexCreate2D,_NuEffectTexCreate2D,confirmed,0
 006f3b70,00175d24,__ZN12NuMainFilter20initTextureResourcesEii,"NuMainFilter::initTextureResources(int, int)",confirmed,0
 006f3bb0,00173f9e,__ZN12NuMainFilter23destroyTextureResourcesEv,NuMainFilter::destroyTextureResources(),confirmed,0
@@ -4032,6 +4042,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006fa8d0,0018016a,__ZN12NuMainFilter6renderEv,NuMainFilter::render(),confirmed,0
 006fa8f0,0018025a,__ZN16NuDeferredFilter25template_blurLuminanceMapEv,NuDeferredFilter::template_blurLuminanceMap(),confirmed,0
 006fa950,0018152c,_NuRndrSwapScreen,_NuRndrSwapScreen,strings,0
+006fb1c0,0018266a,_NuRndrSwapScreenEx,_NuRndrSwapScreenEx,confirmed,0
 006fcad0,0017b378,__ZN19NuMotionAccumFilter13initResourcesEv,NuMotionAccumFilter::initResources(),confirmed,0
 006fcb00,0017b2f2,__ZN17NuSpeedBlurFilter13initResourcesEv,NuSpeedBlurFilter::initResources(),confirmed,0
 006fcb60,0017b26c,__ZN21NuProcessColourFilter13initResourcesEv,NuProcessColourFilter::initResources(),confirmed,0
@@ -4068,6 +4079,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00704110,0012686e,__ZN15NuSSAOFilterGen20initTextureResourcesEii,"NuSSAOFilterGen::initTextureResources(int, int)",confirmed,0
 00704120,00126874,__ZN15NuSSAOFilterGen23destroyTextureResourcesEv,NuSSAOFilterGen::destroyTextureResources(),confirmed,0
 00704130,0012687a,__ZN15NuSSAOFilterGen6renderEv,NuSSAOFilterGen::render(),confirmed,0
+00705010,00145148,_NuOcclusionManagerEndFrame,_NuOcclusionManagerEndFrame,confirmed,0
 007080e0,0014921c,__ZN19NuDeferredFilterGenC2Ev,NuDeferredFilterGen::NuDeferredFilterGen(),confirmed,0
 00708100,0016af82,__ZN19NuDeferredFilterGen9isEnabledEv,NuDeferredFilterGen::isEnabled(),confirmed,0
 00708140,001385b0,__ZN19NuDeferredFilterGen13initResourcesEv,NuDeferredFilterGen::initResources(),confirmed,0
@@ -4077,6 +4089,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 007082d0,001274f2,__ZN19NuDeferredFilterGen8resetAllEv,NuDeferredFilterGen::resetAll(),confirmed,0
 007089c0,0012752c,__ZN19NuDeferredFilterGen25template_blurLuminanceMapEv,NuDeferredFilterGen::template_blurLuminanceMap(),confirmed,0
 00709080,001277c4,_NuMovieGrabBegin,_NuMovieGrabBegin,strings,0
+00709970,00161412,_NuMovieGrabFrame,_NuMovieGrabFrame,confirmed,0
 00709de0,00128314,__ZN14NuInstSurfGeom7DestroyEv,NuInstSurfGeom::Destroy(),strings,0
 0070b190,00129372,_NuAnimDataFindVersion,_NuAnimDataFindVersion,confirmed,0
 0070b1f0,0012943c,_NuAnimDataChunkCreate,_NuAnimDataChunkCreate,confirmed,0
@@ -4167,15 +4180,22 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00711fd0,0012d082,_pftaEnd,_pftaEnd,confirmed,0
 00711ff0,0012d0b2,_pftaScriptname,_pftaScriptname,confirmed,0
 00712030,00149d44,_NuTexAnimProgParseFile,_NuTexAnimProgParseFile,strings,0
+00712e10,00152a8c,_NuTexAnimProcess,_NuTexAnimProcess,confirmed,0
+00713a90,001487c2,_NuRndrBeginScene,_NuRndrBeginScene,confirmed,0
 00713e40,0014e9e8,_NuRndrStartReflectionRender,_NuRndrStartReflectionRender,confirmed,0
 00713e60,0014ea12,_NuRndrEndReflectionRender,_NuRndrEndReflectionRender,confirmed,0
 00715180,0012fc58,_NuCameraCreate,_NuCameraCreate,strings,0
 007151e0,0012fccc,_NuCameraDestroy,_NuCameraDestroy,strings,0
 00716660,0013096c,_NuCameraTransformScreenClip,_NuCameraTransformScreenClip,confirmed,0
 007173c0,001618f8,_CreateTimeBar,_CreateTimeBar,strings,0
+00717990,00137c5e,_NuTimeBarSlotSetEx,_NuTimeBarSlotSetEx,confirmed,0
+00717ae0,001310f2,_NuTimeBarSetRender,_NuTimeBarSetRender,confirmed,0
 007186e0,0013154e,_NuPortalWhichRoom,_NuPortalWhichRoom,confirmed,0
 0071e2d0,00150f48,_AddCurvePoint,_AddCurvePoint,gapfill,6
 0071e890,00153090,_NuRndrCurve,_NuRndrCurve,gapfill,4
+0071f370,001333a6,_NuWindAnimate,_NuWindAnimate,confirmed,0
+0071fe20,00133574,_NuDisplayListBeginCriticalSection,_NuDisplayListBeginCriticalSection,confirmed,0
+0071fe30,00133596,_NuDisplayListEndCriticalSection,_NuDisplayListEndCriticalSection,confirmed,0
 007227b0,0013dd8e,_NuLgtLaser,_NuLgtLaser,gapfill,2
 00727b40,00133cfe,_NuMtlUpdate,_NuMtlUpdate,calls,3
 00727f20,0012c0fe,_NuMtlSetCurrentRenderPlane,_NuMtlSetCurrentRenderPlane,calls,1
@@ -4189,11 +4209,13 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00729380,00186290,__ZN17NuSpeedBlurFilterD2Ev,NuSpeedBlurFilter::~NuSpeedBlurFilter(),confirmed,0
 00729440,0016afd0,__ZN16NuDeferredFilterC2Ev,NuDeferredFilter::NuDeferredFilter(),confirmed,0
 00729460,00186348,__ZN16NuDeferredFilterD2Ev,NuDeferredFilter::~NuDeferredFilter(),confirmed,0
+00729680,001529cc,_NuPostEffectTiming,_NuPostEffectTiming,confirmed,0
 0072b040,0013ee34,__ZN14NuDynamicLight7destroyEPS_,NuDynamicLight::destroy(NuDynamicLight*),calls,4
 0072c750,001296d6,_NuAnimDataChunkDestroy,_NuAnimDataChunkDestroy,strings,0
 0072e150,0015cc26,_NuQFntDuplicate,_NuQFntDuplicate,gapfill,2
 00732510,0015dcfc,_NuGScnRead,_NuGScnRead,calls,1
 00734e80,00143f66,__ZN17NuMotionFilterGen13initResourcesEv,NuMotionFilterGen::initResources(),confirmed,0
+00737dc0,00152590,_NuRndrEndScene,_NuRndrEndScene,confirmed,0
 00739910,001679dc,_NuSpecialClipTestShadowLights,_NuSpecialClipTestShadowLights,gapfill,7
 0073a000,00167b06,_NuDisplayListRndrSpecial,_NuDisplayListRndrSpecial,gapfill,5
 0073aa10,0016968c,_NuSpecialDrawAt,_NuSpecialDrawAt,gapfill,4

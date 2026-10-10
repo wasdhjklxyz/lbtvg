@@ -51,10 +51,10 @@ extern int nuapi_padrec_buffersize;
 void NuAPIInit(void) {
   memset(&nuapi, 0, sizeof(nuapi));
   nuapi.fps = 60.0f;
-  nuapi.wind[0] = 0.0f;
-  nuapi.wind[1] = 0.0f;
-  nuapi.wind[2] = 0.0f;
-  nuapi.wind[3] = 0.0f;
+  nuapi.unkb8[0] = 0.0f;
+  nuapi.unkb8[1] = 0.0f;
+  nuapi.unkb8[2] = 0.0f;
+  nuapi.unkb8[3] = 0.0f;
   nuapi.video_mode = 2;
   nuapi.video_swap_mode = 5;
   nuapi.language = 2;
@@ -67,7 +67,7 @@ void NuAPIInit(void) {
   nuapi.unkb4 = 0;
   nuapi.pad_record.end_record_buttons = 0;
   nuapi.pad_record.end_play_buttons = 0;
-  nuapi.unk84 = 0;
+  nuapi.wind = 0;
   nuapi.current_gscene = 0;
   nuapi.pad_record.buf_size = nuapi_padrec_buffersize;
   nuapi.unka8 = 4;

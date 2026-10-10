@@ -3643,3 +3643,25 @@
 006d5430 PrintStartupString Mac order after NuFrameSetMinDelay; vsprintf + debug font line, y += 0x14
 006d5500 NuUnk006d5500 prints a pending message via PrintStartupString (name unknown)
 006d5320 NuTimeUnk006d5320 scanlines left this frame at 60/50/30/25 fps, yields to bgproc (name unknown; inlines NuTimeGet/NuTimeSub, so nutime TU)
+006e0240 NuFrameEnd Mac NuFrameEnd call sequence (NuMtlAnimate, NuTexAnimProcess, NuWindAnimate, ..., NuScreenDump, NuRndrFrameLights::Reset) matches 1:1
+006d61c0 NuPadRecordEndFrame Mac NuFrameEnd calls _NuPadRecordEndFrame right after the window-suspend block; PC NuFrameEnd calls 0x6d61c0 there
+00713a90 NuRndrBeginScene  called from NuFrameEnd in the same slot as Mac _NuFrameEnd's 
+00527ef0 GetPCStartupMessage  called from NuFrameEnd in the same slot as Mac _NuFrameEnd's 
+00737dc0 NuRndrEndScene  called from NuFrameEnd in the same slot as Mac _NuFrameEnd's 
+006efb50 NuMtlAnimate  called from NuFrameEnd in the same slot as Mac _NuFrameEnd's 
+00712e10 NuTexAnimProcess  called from NuFrameEnd in the same slot as Mac _NuFrameEnd's 
+0071f370 NuWindAnimate  called from NuFrameEnd in the same slot as Mac _NuFrameEnd's 
+00705010 NuOcclusionManagerEndFrame  called from NuFrameEnd in the same slot as Mac _NuFrameEnd's 
+0071fe20 NuDisplayListBeginCriticalSection  called from NuFrameEnd in the same slot as Mac _NuFrameEnd's 
+00527150 NuProcessSystemEvents  called from NuFrameEnd in the same slot as Mac _NuFrameEnd's 
+00527bc0 NuPCShowWinCursor  called from NuFrameEnd in the same slot as Mac _NuFrameEnd's 
+00529bc0 NudxInput_SetMouseExclusive  called from NuFrameEnd in the same slot as Mac _NuFrameEnd's 
+00536210 NuSoundSystemSuspend  called from NuFrameEnd in the same slot as Mac _NuFrameEnd's 
+005261a0 NuIsRenderingPossible  called from NuFrameEnd in the same slot as Mac _NuFrameEnd's 
+00533cb0 NuSoundSystemResume  called from NuFrameEnd in the same slot as Mac _NuFrameEnd's 
+00717ae0 NuTimeBarSetRender  called from NuFrameEnd in the same slot as Mac _NuFrameEnd's 
+006fb1c0 NuRndrSwapScreenEx  called from NuFrameEnd in the same slot as Mac _NuFrameEnd's 
+00717990 NuTimeBarSlotSetEx  called from NuFrameEnd in the same slot as Mac _NuFrameEnd's 
+0071fe30 NuDisplayListEndCriticalSection  called from NuFrameEnd in the same slot as Mac _NuFrameEnd's 
+00729680 NuPostEffectTiming  called from NuFrameEnd in the same slot as Mac _NuFrameEnd's 
+00709970 NuMovieGrabFrame  called from NuFrameEnd in the same slot as Mac _NuFrameEnd's 

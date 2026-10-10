@@ -115,7 +115,7 @@ int NuTimeUnk006d5320(int min_lines) {
   f32 x;
 
   NuTimeGet(&now);
-  NuTimeSub(&diff, &now, &nuapi.time);
+  NuTimeSub(&diff, &now, &nuapi.time2);
   x = NuTimeSeconds(&diff) * 272.0f * 60.0f;
   lines = (int)x;
   if (nuapi.fps == 60.0f)
