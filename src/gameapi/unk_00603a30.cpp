@@ -15,6 +15,8 @@ void Unk_InlineUser_00603a30(f32 *v, f32 a, i32 i) { NuVec4Set(v, a, a, a, a); }
 // legoapi/characters/motion/gameanim.cpp has a later version of it; the
 // Batman layout differs: two system lists, a 0x28-byte set).
 
+#include "../batman/leveldata_unk.h"
+#include "../batman/worldinfo_unk.h"
 #include "../nu2api/nucore/nulist.h"
 #include "../nu2api/numath/numtx.h"
 #include <stddef.h>
@@ -109,6 +111,15 @@ extern "C" void NuSpecialSetVisibility(nuhspecial_s *sp, i32 visible);
 struct numtx_s *NuSpecialGetMtx(nuhspecial_s *sp);
 void NuSpecialSetDrawMtx(nuhspecial_s *sp, struct numtx_s *mtx);
 f32 GameShadow(void *object, nuvec_s *position, f32 probe_height, i32 a);
+numtx_s *NuSpecialGetDrawMtx(nuhspecial_s *sp);
+nuvec_s *NuSpecialGetDrawPos(nuhspecial_s *sp);
+i32 NuSpecialDrawAt(nuhspecial_s *sp, numtx_s *mtx);
+i32 MatrixReflection(numtx_s *mtx, i32 axis, f32 plane, f32 y, numtx_s *out);
+extern "C" void NuRndrStartReflectionRender(i32 a);
+extern "C" void NuRndrEndReflectionRender(void);
+void EvalAnim(nuhspecial_s *special, f32 frame, numtx_s *matrix, i32 flag);
+void NuVecAdd(nuvec_s *out, nuvec_s *a, nuvec_s *b);
+void NuVecScale(nuvec_s *out, nuvec_s *v, f32 s);
 // GLOBAL: LEGOBATMAN 0x009ca98c
 extern f32 g_unk009ca98c;
 void SetAnimFrame(nuhspecial_s *special, f32 frame);
@@ -413,6 +424,50 @@ i32 GameAnimSet_IsAnimationReset(GAMEANIMSET *set) {
     if (animated_count > 0 && repeating_count == animated_count)
       return 0;
   }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00604200
+i32 GameAnimSet_GetAveragePos(GAMEANIMSET *set, nuvec_s *position,
+                              i32 frame_selection, i32 include_animated,
+                              i32 include_static) {
+  nuvec_s sum = {0.0f, 0.0f, 0.0f};
+  i32 count = 0;
+  GAMEANIMOBJ *obj;
+  numtx_s matrix;
+
+  if (set == NULL || position == NULL || set->object_count == 0 ||
+      set->objects == NULL)
+    return 0;
+  for (obj = set->objects; obj != NULL; obj = obj->next) {
+    if (obj->f0 & 1)
+      continue;
+    if (obj->instance_anim != NULL) {
+      if (include_animated) {
+        f32 frame;
+        switch (frame_selection) {
+        case 0:
+          frame = obj->start_frame;
+          break;
+        case 1:
+          frame = obj->end_frame;
+          break;
+        default:
+          frame = obj->instance_anim->ltime;
+          break;
+        }
+        EvalAnim(&obj->special, frame, &matrix, 1);
+        NuVecAdd(&sum, &sum, (nuvec_s *)&matrix.m30);
+        count++;
+      }
+    } else if (include_static) {
+      NuVecAdd(&sum, &sum, NuSpecialGetDrawPos(&obj->special));
+      count++;
+    }
+  }
+  if (count == 0)
+    return 0;
+  NuVecScale(position, &sum, 1.0f / count);
   return 1;
 }
 
@@ -733,4 +788,28 @@ f32 GameAnimSet_GetCompletionRatio(GAMEANIMSET *set) {
     }
   }
   return ratio;
+}
+
+// FUNCTION: LEGOBATMAN 0x00604ff0
+void GameAnimSet_DrawReflection(GAMEANIMSET *set, i32 axis, f32 offset,
+                                numtx_s *matrix) {
+  GAMEANIMOBJ *obj;
+  numtx_s reflection;
+
+  if (set == NULL || set->objects == NULL)
+    return;
+  if (matrix == NULL)
+    matrix = NuSpecialGetMtx(&set->objects->special);
+  f32 plane = ((f32 *)matrix)[11 + axis] + offset;
+  NuRndrStartReflectionRender(0);
+  for (obj = set->objects; obj != NULL; obj = obj->next) {
+    if (!(obj->f0 & 2) && NuSpecialGetVisibilityFn(&obj->special) != 0) {
+      numtx_s *draw_matrix = NuSpecialGetDrawMtx(&obj->special);
+      if (MatrixReflection(draw_matrix, axis, plane,
+                           g_unk00960894->current_level->reflect_y,
+                           &reflection) != 0)
+        NuSpecialDrawAt(&obj->special, &reflection);
+    }
+  }
+  NuRndrEndReflectionRender();
 }

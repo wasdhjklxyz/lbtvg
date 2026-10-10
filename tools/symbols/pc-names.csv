@@ -2217,6 +2217,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00604120,002acff6,__Z28GameAnimSet_RemoveAllObjectsP13GAMEANIMSET_s,GameAnimSet_RemoveAllObjects(GAMEANIMSET_s*),confirmed,0
 00604150,002ab932,__Z22GameAnimSet_SetTFactorP13GAMEANIMSET_sf,"GameAnimSet_SetTFactor(GAMEANIMSET_s*, float)",confirmed,0
 006041d0,002ab9a4,__Z24GameAnimSet_ScaleFParam1P13GAMEANIMSET_sf,"GameAnimSet_ScaleFParam1(GAMEANIMSET_s*, float)",confirmed,0
+00604200,002ab9d4,__Z25GameAnimSet_GetAveragePosP13GAMEANIMSET_sP7nuvec_siii,"GameAnimSet_GetAveragePos(GAMEANIMSET_s*, nuvec_s*, int, int, int)",confirmed,0
 00604690,002abe48,__Z28GameAnimSet_IsAnimationResetP13GAMEANIMSET_s,GameAnimSet_IsAnimationReset(GAMEANIMSET_s*),confirmed,0
 006047b0,002abec4,__Z16GameAnimSet_PlayP13GAMEANIMSET_sfi,"GameAnimSet_Play(GAMEANIMSET_s*, float, int)",confirmed,0
 00604ac0,002ac17a,__Z24GameAnimSet_SetRepeatingP13GAMEANIMSET_si,"GameAnimSet_SetRepeating(GAMEANIMSET_s*, int)",confirmed,0
@@ -2231,6 +2232,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00604f10,002ac60c,__Z25GameAnimSet_SetVisibilityP13GAMEANIMSET_si,"GameAnimSet_SetVisibility(GAMEANIMSET_s*, int)",confirmed,0
 00604f40,002ac640,__Z20GameAnimSet_EvalAnimP13GAMEANIMSET_s,GameAnimSet_EvalAnim(GAMEANIMSET_s*),confirmed,0
 00604f80,002ac678,__Z27GameAnimSet_AutoSetReflectYP13GAMEANIMSET_sP7nuvec_sP7numtx_s,"GameAnimSet_AutoSetReflectY(GAMEANIMSET_s*, nuvec_s*, numtx_s*)",confirmed,0
+00604ff0,002ac700,__Z26GameAnimSet_DrawReflectionP13GAMEANIMSET_sifP7numtx_s,"GameAnimSet_DrawReflection(GAMEANIMSET_s*, int, float, numtx_s*)",confirmed,0
 00605760,0034992a,__Z13Whippers_LoadPvS_,"Whippers_Load(void*, void*)",confirmed,0
 00605950,00349b54,__Z27Whippers_ReserveBufferSpacePv,Whippers_ReserveBufferSpace(void*),confirmed,0
 00605b20,00349db6,__Z16Whipper_ActivateP7GIZMO_si,"Whipper_Activate(GIZMO_s*, int)",confirmed,0

@@ -3376,3 +3376,5 @@
 00604f80 GameAnimSet_AutoSetReflectY GameShadow ground minus mtx m31 (saga AutoSetReflectY)
 006047b0 GameAnimSet_Play saga Play shape (EvaluateState, state checks by speed sign, tfactor), Batman lists
 00604e30 GameAnimSet_GetCompletionRatio first animated object's (ltime - start) / (end - start), clamped (saga)
+00604200 GameAnimSet_GetAveragePos averages object positions (EvalAnim at start/end/current frame, or draw pos), saga GetAveragePos
+00604ff0 GameAnimSet_DrawReflection MatrixReflection per visible object between Start/EndReflectionRender (saga DrawReflection)
