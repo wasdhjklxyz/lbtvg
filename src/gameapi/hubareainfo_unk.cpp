@@ -20,6 +20,7 @@ struct HIAREADATA_s {
 struct HILEVELDATA_s {
   u8 pad00[0x1a];
   u8 episode; // 0x1a
+  u8 pad1b[0x20 - 0x1b];
 };
 
 // 0x40 bytes, terminated by a NULL area name.
@@ -42,10 +43,17 @@ typedef struct HUBAREAINFO_s {
 
 // 0x3c bytes, terminated by episode -1.
 typedef struct HUBEPISODEINFO_s {
-  i16 episode; // 0x00
-  u8 pad02[0x18 - 2];
-  HILEVELDATA_s *level; // 0x18
-  u8 pad1c[0x3c - 0x1c];
+  i16 episode;    // 0x00
+  char *gizmo;    // 0x04
+  char *special;  // 0x08
+  char *special2; // 0x0c
+  char *spline;   // 0x10
+  u8 pad14[0x18 - 0x14];
+  HILEVELDATA_s *level;    // 0x18
+  GIZMO_s *gizmo_ptr;      // 0x1c
+  u32 sp[3];               // 0x20, an nuhspecial_s
+  u32 sp2[3];              // 0x2c, an nuhspecial_s
+  nugspline_s *spline_ptr; // 0x38
 } HUBEPISODEINFO;
 
 GIZMO_s *GizmoFindByName(GIZMOSYS_s *gizmo_sys, i32 type_id, char *name);
@@ -62,6 +70,8 @@ HUBEPISODEINFO *g_unk00acb6e8;
 extern u8 *g_unk00aca594; // per-area progress, 12 bytes each
 // GLOBAL: LEGOBATMAN 0x00ad11c4
 extern i32 g_unk00ad11c4;
+// GLOBAL: LEGOBATMAN 0x00ad11c0
+extern HILEVELDATA_s *g_unk00ad11c0; // level data list, 0x20 bytes each
 
 // FUNCTION: LEGOBATMAN 0x006180a0
 void HubAreaInfo_Set(HUBAREAINFO *info) { g_unk00acb6e4 = info; }
@@ -133,6 +143,39 @@ void HubEpisodeInfo_Set(HUBEPISODEINFO *info) { g_unk00acb6e8 = info; }
 
 // FUNCTION: LEGOBATMAN 0x00618280
 HUBEPISODEINFO *HubEpisodeInfo_Get() { return g_unk00acb6e8; }
+
+// STUB: LEGOBATMAN 0x00618290
+// same +4 loop-pointer bias as HubAreaInfo_Init (esi = info + 4); otherwise
+// identical
+void HubEpisodeInfo_Init(WORLDINFO_s *world) {
+  HUBEPISODEINFO *info = g_unk00acb6e8;
+  if (info != NULL && info->episode != -1) {
+    do {
+      if (info->episode >= 0 && info->episode < g_unk00ad11c4)
+        info->level = &g_unk00ad11c0[info->episode];
+      else
+        info->level = NULL;
+      info->gizmo_ptr =
+          info->gizmo != NULL
+              ? GizmoFindByName(world->gizmoSys2b0c, -1, info->gizmo)
+              : NULL;
+      if (info->special != NULL)
+        NuSpecialFind(world->scn140, (nuhspecial_s *)info->sp, info->special,
+                      1);
+      else
+        memset(info->sp, 0, sizeof(info->sp));
+      if (info->special2 != NULL)
+        NuSpecialFind(world->scn140, (nuhspecial_s *)info->sp2, info->special2,
+                      1);
+      else
+        memset(info->sp2, 0, sizeof(info->sp2));
+      info->spline_ptr = info->spline != NULL
+                             ? NuSplineFind(world->scn140, info->spline)
+                             : NULL;
+      info++;
+    } while (info->episode != -1);
+  }
+}
 
 // STUB: LEGOBATMAN 0x00618380
 // the original reloads info->episode at every use; ours keeps it in cx

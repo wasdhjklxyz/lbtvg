@@ -221,3 +221,4 @@
 00548a50 vorbis_book_init_decode: libvorbis 1.2.0 sharedbook.c verbatim; matches with /GS- (match.py has no per-file flags)
 00551660 vorbis_lpc_from_data: libvorbis 1.2.0 lpc.c verbatim; matches with /GS- (match.py has no per-file flags)
 00551970 vorbis_lpc_predict: libvorbis 1.2.0 lpc.c verbatim; matches with /GS- (match.py has no per-file flags)
+00618290 HubEpisodeInfo_Init: loop pointer biased by +4 in the original (as HubAreaInfo_Init); do-while, for and indexed forms tried
