@@ -200,7 +200,14 @@ struct GameObject_s {
   char special_move; // 0x9de, -1 = none
   u8 b9df;           // 0x9df
   u8 b9e0;           // 0x9e0
-  u8 pad9e1[0x9e8 - 0x9e1];
+  u8 pad9e1[0x9e4 - 0x9e1];
+  union {
+    u32 flags9e4; // 0x9e4
+    struct {
+      u32 : 7;
+      u32 facing_reversed : 1; // 0x9e4 bit 7, ObjOpponentStillThere
+    };
+  };
   f32 f9e8;  // 0x9e8
   char b9ec; // 0x9ec
   u8 b9ed_lo : 1;

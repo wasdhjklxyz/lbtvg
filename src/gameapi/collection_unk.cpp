@@ -55,3 +55,35 @@ void UpdateCoinPacket(COINPACKET_s *packet, i32 active, i32 player_index) {
     }
   }
 }
+
+extern nuvec_s v001;
+void NuVecRotateY(nuvec_s *v, nuvec_s *v0, i32 a);
+float NuVecDistSqr(nuvec_s *a, nuvec_s *b, nuvec_s *d);
+
+// STUB: LEGOBATMAN 0x00639580
+// close: orig keeps dot and 0.0 on the x87 stack and compares per arm
+// (fcom st1 / fcompp); ours compares dot in memory once for both arms
+i32 ObjOpponentStillThere(GameObject_s *object, GameObject_s *opponent,
+                          f32 gap) {
+  nuvec_s forward;
+  nuvec_s difference;
+  f32 distance;
+  f32 dot;
+  f32 radius;
+  i32 reversed;
+
+  if (object->force_target == 0)
+    return 0;
+  NuVecRotateY(&forward, &v001, object->u246);
+  distance = NuVecDistSqr(&opponent->position, &object->position, &difference);
+  reversed = object->facing_reversed;
+  dot = forward.x * difference.x + forward.z * difference.z;
+  if ((!reversed && dot >= 0.0f) || (reversed && dot <= 0.0f)) {
+    radius = object->radius + opponent->radius;
+    radius += gap;
+    radius *= radius;
+    if (distance < radius)
+      return 1;
+  }
+  return 0;
+}

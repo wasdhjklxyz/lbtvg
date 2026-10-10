@@ -200,3 +200,5 @@
 00558440 CRC_ProcessStringIgnoreCase: same register allocation as CRC_ProcessString
 00558480 CRC_ProcessStringNIgnoreCase: same register allocation as CRC_ProcessString
 00618580 Hub_CanStartMenu: register allocation (flags/mask swapped), 10 variants tried
+00639580 ObjOpponentStillThere: x87 facing test (dot kept on stack per arm), 16 spellings tried
+005a9520 Grapples_Reset: needs same-TU register-arg static Grapple_Reset 0x5a9390 (esi) and the 0x19c GRAPPLE_s bitfields

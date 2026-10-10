@@ -1,6 +1,8 @@
 // gameapi/bolts_unk.cpp: placed by tools/new.py; file name unproven.
 
 #include "../nu2api/nucore/common.h"
+#include "../nu2api/numath/nutrig_unk.h"
+#include "../nu2api/numath/nuvec.h"
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
@@ -599,7 +601,9 @@ struct BTVec_s {
 
 // Raw view of GameObject_s for the default shoot origin.
 struct BTObject_s {
-  u8 pad00[0x80];
+  u8 pad00[0x5a];
+  u16 facing_angle; // 0x5a
+  u8 pad5c[0x80 - 0x5c];
   BTVec_s collision_position; // 0x80
   u8 pad8c[0xb0 - 0x8c];
   f32 collision_height; // 0xb0
@@ -655,6 +659,23 @@ i32 BoltType_FindIDByName(char *name, BTWorld_s *world) {
 // FUNCTION: LEGOBATMAN 0x005e92b0
 void Bolt_GetShootOrigin_Default(BTObject_s *object, BTVec_s *position) {
   *position = object->collision_position;
+}
+
+// Body in nutrig_unk.h: this TU's copy of the static.
+// FUNCTION: LEGOBATMAN 0x005e7b70
+static f32 NuSinApprox(i32 angle);
+
+struct BOLTTYPE_s;
+
+// FUNCTION: LEGOBATMAN 0x005e92e0
+u16 Bolt_GetShootDirection_Default(BTObject_s *object, nuvec_s *direction,
+                                   BOLTTYPE_s *type) {
+  if (direction != NULL) {
+    direction->x = NuSinApprox(object->facing_angle);
+    direction->y = 0.0f;
+    direction->z = NuSinApprox(object->facing_angle + 0x4000);
+  }
+  return object->facing_angle;
 }
 
 // FUNCTION: LEGOBATMAN 0x005e9670

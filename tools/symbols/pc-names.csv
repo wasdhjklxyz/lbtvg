@@ -1613,6 +1613,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005d9e20,002c6fce,__Z17GizmoBlowupBlowupP13GIZMOBLOWUP_siiiP12GameObject_si,"GizmoBlowupBlowup(GIZMOBLOWUP_s*, int, int, int, GameObject_s*, int)",confirmed,0
 005dda30,002cb9c0,__Z22GizmoBlowUp_FindByNameP11WORLDINFO_sPc,"GizmoBlowUp_FindByName(WORLDINFO_s*, char*)",calls,1
 005dfa60,002ec12c,__Z15ObjHitObj_FlagsP12GameObject_s,ObjHitObj_Flags(GameObject_s*),gapfill,1
+005e7b70,000298fa,_NuSinApprox,_NuSinApprox,confirmed,0
 005e8750,0026b032,__Z7BT_nameP8nufpar_s,BT_name(nufpar_s*),confirmed,0
 005e8790,0026b086,__Z8BT_speedP8nufpar_s,BT_speed(nufpar_s*),confirmed,0
 005e87b0,0026b0b4,__Z11BT_durationP8nufpar_s,BT_duration(nufpar_s*),confirmed,0
@@ -2355,7 +2356,6 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00665f60,002b9214,__Z26GizFlock_Config_anim_speedP8nufpar_s,GizFlock_Config_anim_speed(nufpar_s*),confirmed,0
 00665f80,002b9242,__Z24GizFlock_ConfigureExtrasP11WORLDINFO_sPKcj,"GizFlock_ConfigureExtras(WORLDINFO_s*, char const*, unsigned int)",strings,0
 0066b400,002bc674,__Z20GizFlock_UpdateBoidsP12sGizFlockSysP9sGizFlock,"GizFlock_UpdateBoids(sGizFlockSys*, sGizFlock*)",strings,0
-00670c40,000298fa,_NuSinApprox,_NuSinApprox,confirmed,0
 00670d20,002a6904,__Z15SetFramesToWaitj,SetFramesToWait(unsigned int),confirmed,0
 00670d30,002a6918,__Z22FadeSystem_PlayWipeSfxv,FadeSystem_PlayWipeSfx(),confirmed,0
 00670d80,002a6996,__Z24DrawStillScreenWithAlphaif,"DrawStillScreenWithAlpha(int, float)",confirmed,0

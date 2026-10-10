@@ -2500,3 +2500,5 @@
 00618580 Hub_CanStartMenu  Mac order (u32, u32*) signature: player mask + out flags (stub)
 00618690 Hub_GetSelectAreaCamPos  Mac order, (nuvec_s*, nuvec_s*) signature
 006183e0 HubEpisodeInfo_FindNearestMapToPlayers  Mac order after FindFromEpisodeIndex, (u32 players) signature
+005e7b70 NuSinApprox  bolts TU's copy of the static (called by Bolt_GetShootDirection_Default); matched
+00670f20 FadeSystem::Update  todo saga legoapi/render/light/fade.cpp; between FadeSystem::Init and the fade classes; matched

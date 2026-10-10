@@ -9,8 +9,8 @@
 
 struct FADEINFO_s {
   i32 mask;  // 0x00
-  f32 f4;    // 0x04
-  f32 f8;    // 0x08
+  f32 fade;  // 0x04
+  f32 rate;  // 0x08
   i32 busy;  // 0x0c
   u32 flags; // 0x10
 };
@@ -95,6 +95,7 @@ struct FadeSystem : FADEINFO_s {
   void SetStage(char stage);
   i32 AddFade(FadeBase *fade);
   i32 SetFade(FADETYPE const &type, u32 frames);
+  void Update();
 
   FadeBase *fades[7]; // 0x14
   i32 current;        // 0x30
@@ -231,6 +232,35 @@ void FadeSystem::Init() {
   current = -1;
 }
 
+extern f32 FRAMETIME;
+
+// FUNCTION: LEGOBATMAN 0x00670f20
+void FadeSystem::Update() {
+  f32 old_fade = fade;
+  i32 type = current;
+  if (type == -1)
+    return;
+
+  fade = fade + rate * FRAMETIME;
+  if (fade > 1.0f)
+    fade = 1.0f;
+  else if (fade < 0.0f)
+    fade = 0.0f;
+
+  if (old_fade < 1.0f && fade == 1.0f)
+    busy = 1;
+  else if (busy != 0)
+    --busy;
+
+  if (fades[type] != 0)
+    fades[type]->UpdateFade();
+  if (fade == 0.0f || fade == 1.0f) {
+    if (fade == 0.0f)
+      current = -1;
+    rate = 0.0f;
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x00671000
 void FadeSystem::Draw() {
   if (current != -1 && g_unk00ad29f0 == 0 && fades[current] != 0)
@@ -273,11 +303,11 @@ void Fade::Init(FADEINFO_s *info) { this->info = info; }
 // FUNCTION: LEGOBATMAN 0x006710e0
 void Fade::InitFade() {
   if (info->flags & 1) {
-    info->f4 = 1.0f;
-    info->f8 = -1.3333334f;
+    info->fade = 1.0f;
+    info->rate = -1.3333334f;
   } else {
-    info->f4 = 0.0f;
-    info->f8 = 2.0f;
+    info->fade = 0.0f;
+    info->rate = 2.0f;
   }
 }
 
@@ -286,10 +316,10 @@ void Fade::UpdateFade() {}
 
 // FUNCTION: LEGOBATMAN 0x00671120
 void Fade::DrawFade() {
-  if (info->f4 > 0.0f && g_unk00a97cf0 != 0)
+  if (info->fade > 0.0f && g_unk00a97cf0 != 0)
     Unk0071af80(
         0, 0, 0x2800, 0xe00,
-        (u32)(NuSinApprox((i32)((info->f4 - 0.0f) * 16384.0f + 49152.0f) +
+        (u32)(NuSinApprox((i32)((info->fade - 0.0f) * 16384.0f + 49152.0f) +
                           0x4000) *
               128.0f)
             << 24,
@@ -303,11 +333,11 @@ void BlackWipe::Init(FADEINFO_s *info) { this->info = info; }
 void BlackWipe::InitFade() {
   i32 old = info->mask;
   if (info->flags & 1) {
-    info->f4 = 1.0f;
-    info->f8 = -1.3333334f;
+    info->fade = 1.0f;
+    info->rate = -1.3333334f;
   } else {
-    info->f4 = 0.0f;
-    info->f8 = 2.0f;
+    info->fade = 0.0f;
+    info->rate = 2.0f;
   }
   do {
     info->mask = 1 << (qrand() / 0x4000);
@@ -327,13 +357,13 @@ void StillScreenWipe::Init(FADEINFO_s *info) { this->info = info; }
 void StillScreenWipe::InitFade() {
   i32 old = info->mask;
   if (info->flags & 1) {
-    info->f4 = 1.0f;
-    info->f8 = -1.3333334f;
+    info->fade = 1.0f;
+    info->rate = -1.3333334f;
     FadeSystem_PlayWipeSfx();
   } else {
     g_unk00a97d34 = 0;
-    info->f4 = 1.0f;
-    info->f8 = 2.0f;
+    info->fade = 1.0f;
+    info->rate = 2.0f;
     if (g_unk00a97da0)
       NeedScreenGrab(1);
     else
@@ -370,13 +400,13 @@ void CrossFade::Init(FADEINFO_s *info) { this->info = info; }
 void CrossFade::InitFade() {
   i32 old = info->mask;
   if (info->flags & 1) {
-    info->f4 = 1.0f;
-    info->f8 = -1.3333334f;
+    info->fade = 1.0f;
+    info->rate = -1.3333334f;
     FadeSystem_PlayWipeSfx();
   } else {
     g_unk00a97d34 = 0;
-    info->f4 = 1.0f;
-    info->f8 = 2.0f;
+    info->fade = 1.0f;
+    info->rate = 2.0f;
     if (g_unk00a97da0)
       NeedScreenGrab(1);
     else
@@ -403,7 +433,7 @@ void CrossFade::DrawFade() {
       DrawStillScreen(1);
     } else {
       f32 alpha =
-          NuSinApprox((i32)(info->f4 * 16384.0f + 32768.0f) + 0x4000) + 1.0f;
+          NuSinApprox((i32)(info->fade * 16384.0f + 32768.0f) + 0x4000) + 1.0f;
       DrawStillScreenWithAlpha(0, alpha);
       g_unk00a97d34 = 0;
     }
@@ -416,13 +446,13 @@ void BlackCrossFade::Init(FADEINFO_s *info) { this->info = info; }
 // FUNCTION: LEGOBATMAN 0x006714b0
 void BlackCrossFade::InitFade() {
   if (info->flags & 1) {
-    info->f4 = 1.0f;
-    info->f8 = -1.3333334f;
+    info->fade = 1.0f;
+    info->rate = -1.3333334f;
     FadeSystem_PlayWipeSfx();
   } else {
     g_unk00a97d34 = 0;
-    info->f4 = 0.0f;
-    info->f8 = 2.0f;
+    info->fade = 0.0f;
+    info->rate = 2.0f;
     if (g_unk00a97da0)
       NeedScreenGrab(1);
     else
@@ -438,13 +468,15 @@ void BlackCrossFade::DrawFade() {
       g_unk00a97d34 = 0;
       f32 alpha =
           1.0f -
-          (NuSinApprox((i32)(info->f4 * 16384.0f + 32768.0f) + 0x4000) + 1.0f);
+          (NuSinApprox((i32)(info->fade * 16384.0f + 32768.0f) + 0x4000) +
+           1.0f);
       DrawCurrentScreenWithAlpha(0, alpha);
     } else {
       g_unk00a97d34 = 0;
       f32 alpha =
           1.0f -
-          (NuSinApprox((i32)(info->f4 * 16384.0f + 32768.0f) + 0x4000) + 1.0f);
+          (NuSinApprox((i32)(info->fade * 16384.0f + 32768.0f) + 0x4000) +
+           1.0f);
       DrawCurrentScreenWithAlpha(0, alpha);
     }
   }
@@ -465,11 +497,11 @@ void StillScreen::Init(FADEINFO_s *info) { this->info = info; }
 void StillScreen::InitFade() {
   i32 old = info->mask;
   if (info->flags & 1) {
-    info->f4 = 0.0f;
-    info->f8 = 0.0f;
+    info->fade = 0.0f;
+    info->rate = 0.0f;
   } else {
-    info->f4 = 1.0f;
-    info->f8 = 2.0f;
+    info->fade = 1.0f;
+    info->rate = 2.0f;
     NeedScreenGrab(1);
     wait_till_next_frame = FRAMES_TO_WAIT;
   }
@@ -503,13 +535,13 @@ void SpinWipe::Init(FADEINFO_s *info) { this->info = info; }
 void SpinWipe::InitFade() {
   i32 old = info->mask;
   if (info->flags & 1) {
-    info->f4 = 1.0f;
-    info->f8 = -2.0f;
+    info->fade = 1.0f;
+    info->rate = -2.0f;
     FadeSystem_PlayWipeSfx();
   } else {
     g_unk00a97d34 = 0;
-    info->f4 = 0.0f;
-    info->f8 = 1.0f / SPINFADETIME;
+    info->fade = 0.0f;
+    info->rate = 1.0f / SPINFADETIME;
     if (g_unk00a97da0)
       NeedScreenGrab(1);
     else
@@ -533,7 +565,7 @@ void SpinWipe::UpdateFade() {
 void SpinWipe::DrawFade() {
   if (wait_till_next_frame == 0) {
     if (info->flags & 2)
-      DrawSpinScreen(1, info->f4);
+      DrawSpinScreen(1, info->fade);
     else
       DrawFadeScreenWipe();
   }
