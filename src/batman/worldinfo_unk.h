@@ -108,7 +108,10 @@ struct WORLDINFO_s {
   u8 pad8b2[0x51bc - 0x51b0];
   struct PORTALDOOR_s *portal_doors; // 0x51bc
   i32 portal_door_count;             // 0x51c0
-  u8 pad8c[0x5220 - 0x51c4];
+  u8 pad8c[0x520c - 0x51c4];
+  struct ATTRACTO_s *attractos; // 0x520c
+  i32 attracto_count;           // 0x5210
+  u8 pad8d[0x5220 - 0x5214];
   Unk_WorldInfo5220 *p5220; // 0x5220
   u8 pad9[0x5228 - 0x5224];
   i32 gizmo_blowup_count; // 0x5228

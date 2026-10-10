@@ -2628,3 +2628,16 @@
 00591360 ThingManager::ThingManager Mac ctor body (NuTimeBarCreateSet, theThingManager, 0x104..0x114)
 005913a0 ThingManager::~ThingManager stores the ThingManager vtable 0x868590
 005914a0 ThingManager::RenderTimingBars Mac body (0x114 test, NuTimeBarSetRender(0x110)), between AddThingAfterThis and RemoveTemporaryThings
+0040bf60 Attractos_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Attracto" (Mac static Attractos_RegisterGizmo::name)
+0040ab10 Attractos_ReserveBufferSpace reserve_buffer_space slot of the "Attracto" ADDGIZMOTYPE
+0040ab70 Attracto_Activate activate slot of the "Attracto" ADDGIZMOTYPE
+0040bcc0 Attractos_GetMaxGizmos get_max_gizmos slot of the "Attracto" ADDGIZMOTYPE
+0040bce0 Attractos_AddGizmos add_gizmos slot of the "Attracto" ADDGIZMOTYPE
+0040bd60 Attracto_GetGizmoName get_gizmo_name slot of the "Attracto" ADDGIZMOTYPE
+0040bd80 Attracto_GetOutput get_output slot of the "Attracto" ADDGIZMOTYPE
+0040bda0 Attracto_GetOutputName get_output_name slot of the "Attracto" ADDGIZMOTYPE (Mac Attracto_OutputName "Filled")
+0040bdb0 Attracto_GetNumOutputs get_num_outputs slot of the "Attracto" ADDGIZMOTYPE
+0040bdc0 Attractos_AllocateProgressData allocate_progress_data slot of the "Attracto" ADDGIZMOTYPE
+0040bde0 Attractos_ClearProgress clear_progress slot of the "Attracto" ADDGIZMOTYPE
+0040be20 Attractos_StoreProgress store_progress slot of the "Attracto" ADDGIZMOTYPE
+0040bf00 Attracto_GetPos get_pos slot of the "Attracto" ADDGIZMOTYPE

@@ -238,6 +238,8 @@ OggReader::~OggReader() {
   Close();
 }
 
+// SYNTHETIC: LEGOBATMAN 0x0053b2f0 OggReader::`scalar deleting destructor'
+
 // Keeps the header-static copies above alive until their real callers are
 // matched.
 void Unk_InlineUser_unk_0053ac00(f32 *v, f32 a, i32 i) {

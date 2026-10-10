@@ -1,6 +1,19 @@
 pc_addr,mac_addr,mac_name,demangled,method,round
 00408900,000f9178,__Z8InitOnceiPPc,"InitOnce(int, char**)",strings,0
 00408e60,000f8e4a,__Z23Text_ExpandButtonStringPcS_,"Text_ExpandButtonString(char*, char*)",strings,0
+0040ab10,00029a82,__Z28Attractos_ReserveBufferSpacePv,Attractos_ReserveBufferSpace(void*),confirmed,0
+0040ab70,00029ade,__Z17Attracto_ActivateP7GIZMO_si,"Attracto_Activate(GIZMO_s*, int)",confirmed,0
+0040bcc0,00029fa0,__Z22Attractos_GetMaxGizmosPv,Attractos_GetMaxGizmos(void*),confirmed,0
+0040bce0,00029fbc,__Z19Attractos_AddGizmosP10GIZMOSYS_siPvS1_,"Attractos_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+0040bd60,0002a020,__Z21Attracto_GetGizmoNameP7GIZMO_s,Attracto_GetGizmoName(GIZMO_s*),confirmed,0
+0040bd80,0002a034,__Z18Attracto_GetOutputP7GIZMO_sii,"Attracto_GetOutput(GIZMO_s*, int, int)",confirmed,0
+0040bda0,0002a048,__Z22Attracto_GetOutputNameP7GIZMO_si,"Attracto_GetOutputName(GIZMO_s*, int)",confirmed,0
+0040bdb0,0002a052,__Z22Attracto_GetNumOutputsP7GIZMO_s,Attracto_GetNumOutputs(GIZMO_s*),confirmed,0
+0040bdc0,0002a05c,__Z30Attractos_AllocateProgressDataP9variptr_uS0_,"Attractos_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+0040bde0,0002a07e,__Z23Attractos_ClearProgressPvS_,"Attractos_ClearProgress(void*, void*)",confirmed,0
+0040be20,0002a0e2,__Z23Attractos_StoreProgressPvS_S_,"Attractos_StoreProgress(void*, void*, void*)",confirmed,0
+0040bf00,0002a1b0,__Z15Attracto_GetPosP7GIZMO_s,Attracto_GetPos(GIZMO_s*),confirmed,0
+0040bf60,0002a1c4,__Z23Attractos_RegisterGizmoi,Attractos_RegisterGizmo(int),confirmed,0
 0040f6a0,0002c842,__Z19Batarang_UpdateHintP6HINT_s,Batarang_UpdateHint(HINT_s*),strings,0
 004154e0,00032d60,__Z20Batman_GameAISysInitv,Batman_GameAISysInit(),strings,0
 00415970,0003378e,__Z29SockParBATMAN_one_player_onlyP8nufpar_sPv,"SockParBATMAN_one_player_only(nufpar_s*, void*)",confirmed,0
