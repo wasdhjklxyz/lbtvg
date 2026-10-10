@@ -41,8 +41,12 @@ i32 ov_raw_seek(OggVorbis_File *vf, __int64 pos);
 __int64 ov_pcm_total(OggVorbis_File *vf, i32 i);
 i32 ov_time_seek(OggVorbis_File *vf, double pos);
 __int64 ov_pcm_tell(OggVorbis_File *vf);
+i32 ov_read(OggVorbis_File *vf, char *buffer, i32 length, i32 bigendianp,
+            i32 word, i32 sgned, i32 *bitstream);
+extern "C" unsigned int NuTimeGetTime(void);
 void NuMemCpy(void *dst, const void *src, u32 size);
 extern "C" i32 NuThreadCreateCriticalSection(void);
+extern "C" void NuThreadDestroyCriticalSection(i32 cs);
 
 // GLOBAL: LEGOBATMAN 0x009e8178
 extern i32 g_unk009e8178; // OggReader critical section
@@ -52,11 +56,13 @@ extern u8 g_unk009e7c28[0x550];
 class OggReader : public WavReader {
 public:
   OggReader();
+  virtual ~OggReader();
   virtual HRESULT Open(char *name, WAVEFORMATEX *wfx);
   virtual HRESULT Close();
   virtual void *GetFormat();
   virtual u32 GetSize();
   virtual HRESULT ResetFile();
+  virtual HRESULT Read(u8 *buf, u32 size, u32 *read);
   virtual i32 SetOffset(f32 offset);
 
   unsigned char flag; // 0x40, 1 = ogg
@@ -107,6 +113,42 @@ HRESULT OggReader::ResetFile() {
   if (mem != 0)
     return ov_raw_seek((OggVorbis_File *)vf, 0) < 0 ? E_FAIL : S_OK;
   return E_FAIL;
+}
+
+// FUNCTION: LEGOBATMAN 0x0053ac50
+HRESULT OggReader::Read(u8 *buf, u32 size, u32 *read) {
+  if (!flag)
+    return WavReader::Read(buf, size, read);
+  if (mem == 0) {
+    *read = 0;
+    return E_FAIL;
+  }
+  NuTimeGetTime();
+  i32 bitstream = 0;
+  i32 r = ov_read((OggVorbis_File *)vf, (char *)buf, size, 0, 2, 1, &bitstream);
+  if (r < 0) {
+    if (read != 0)
+      *read = 0;
+    return E_FAIL;
+  }
+  buf += r;
+  u32 total = r;
+  while (r > 0 && total < size) {
+    r = ov_read((OggVorbis_File *)vf, (char *)buf, size - total, 0, 2, 1,
+                &bitstream);
+    if (r < 0) {
+      if (read != 0)
+        *read = 0;
+      return E_FAIL;
+    }
+    total += r;
+    buf += r;
+  }
+  if (total < size)
+    memset(buf, 0, size - total);
+  if (read != 0)
+    *read = total;
+  return S_OK;
 }
 
 // FUNCTION: LEGOBATMAN 0x0053ad60
@@ -180,4 +222,13 @@ i32 ovcb_tell(void *datasource) {
   if (reader->mem == 0)
     return 0;
   return reader->mem_pos;
+}
+
+// FUNCTION: LEGOBATMAN 0x0053af10
+OggReader::~OggReader() {
+  if (flag && g_unk009e8178 != 0) {
+    NuThreadDestroyCriticalSection(g_unk009e8178);
+    g_unk009e8178 = 0;
+  }
+  Close();
 }

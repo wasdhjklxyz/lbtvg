@@ -922,12 +922,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0053abc0,001b3096,__ZN9OggReader7GetSizeEv,OggReader::GetSize(),confirmed,0
 0053ac00,001b30e2,__ZN9OggReader9GetFormatEv,OggReader::GetFormat(),confirmed,0
 0053ac10,001b30fa,__ZN9OggReader9ResetFileEv,OggReader::ResetFile(),confirmed,0
+0053ac50,001b3148,__ZN9OggReader4ReadEPhmPm,"OggReader::Read(unsigned char*, unsigned long, unsigned long*)",confirmed,0
 0053ad60,001b327a,__ZN9OggReader5CloseEv,OggReader::Close(),confirmed,0
 0053ada0,001b33c4,__ZN9OggReader9SetOffsetEf,OggReader::SetOffset(float),confirmed,0
 0053ae00,001b342a,__Z9ovcb_readPvmmS_,"ovcb_read(void*, unsigned long, unsigned long, void*)",confirmed,0
 0053ae70,001b3492,__Z9ovcb_seekPvxi,"ovcb_seek(void*, long long, int)",confirmed,0
 0053aed0,001b34f4,__Z10ovcb_closePv,ovcb_close(void*),confirmed,0
 0053aef0,001b350c,__Z9ovcb_tellPv,ovcb_tell(void*),confirmed,0
+0053af10,001b32c0,__ZN9OggReaderD0Ev,OggReader::~OggReader(),confirmed,0
 0053c4b0,,ov_clear,ov_clear,confirmed,0
 0053c7a0,,ov_pcm_total,ov_pcm_total,confirmed,0
 0053c890,,ov_raw_seek,ov_raw_seek,confirmed,0

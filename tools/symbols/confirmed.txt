@@ -2108,3 +2108,5 @@
 0053a710 WavReader::LeaveChunk Mac order after FindChunk + body (seek past chunk); matched
 0053a760 WavReader::Open vtable 0x8675cc slot 1 (RTTI) Open(nudathdr_s*, char*, WAVEFORMATEX*), RIFF/WAVE/"fmt "/"data"; matched
 0053a990 WavReader::Read vtable 0x8675cc slot 7 (RTTI) + Mac body
+0053ac50 OggReader::Read vtable 0x867604 slot 7 (RTTI) + Mac body (ov_read loop, zero fill); matched
+0053af10 OggReader::~OggReader stores vtable 0x867604 (RTTI), Mac body (destroy CS, Close, ~WavReader); matched
