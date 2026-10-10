@@ -31,11 +31,6 @@ static inline GameObject_s *GetNamedGameObjectInl(AISYS_s *sys, char *name) {
   return 0;
 }
 
-// "key=value" with a one-character separator: the text after it.
-static inline char *ParamAfterKey(char *value, char *key) {
-  return value + NuStrLen(key) + 1;
-}
-
 // GLOBAL: LEGOBATMAN 0x00ad68ec
 extern u8 (*g_unk00ad68ec)(char *name);
 // GLOBAL: LEGOBATMAN 0x00ad68fc
@@ -581,9 +576,7 @@ extern GIZAIMESSAGESYS_s *gizaimessagesys;
 i32 qrand(void);
 void LoseHitPoints(GameObject_s *obj, i32 amount);
 
-// STUB: LEGOBATMAN 0x0045dc80
-// Only diff: min/max args come out as lea [len+value+1], the original has
-// [value+len+1] (same puzzle as Action_CnxHelper).
+// FUNCTION: LEGOBATMAN 0x0045dc80
 i32 Action_SetHitPoints(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                         AIPACKET_s *packet, char **params, i32 param_count,
                         i32 first_time, f32 dt) {
@@ -622,9 +615,11 @@ i32 Action_SetHitPoints(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     } else if (NuStrICmp(params[i], "dont_set_max") == 0) {
       set_max = 0;
     } else if ((value = NuStrIStr(params[i], "min")) != NULL) {
-      min = (i32)AIParamToFloat(process, ParamAfterKey(value, "min"));
+      value += NuStrLen("min") + 1;
+      min = (i32)AIParamToFloat(process, value);
     } else if ((value = NuStrIStr(params[i], "max")) != NULL) {
-      max = (i32)AIParamToFloat(process, ParamAfterKey(value, "max"));
+      value += NuStrLen("max") + 1;
+      max = (i32)AIParamToFloat(process, value);
     } else if (NuStrICmp(params[i], "default") != 0) {
       hp = (i32)AIParamToFloat(process, params[i]);
     }
@@ -912,9 +907,7 @@ void AddClimbHelper(WORLDINFO_s *world, void *cnx, AILOCATOR_s *locator);
 void AddLedgeHelper(WORLDINFO_s *world, void *cnx, i32 dir, void *ledge1,
                     void *ledge2, i32 ledge_dir);
 
-// STUB: LEGOBATMAN 0x00461af0
-// Only diff: lea [value+len+1] comes out as [len+value+1] (3 places;
-// expression order and helper shapes tried).
+// FUNCTION: LEGOBATMAN 0x00461af0
 i32 Action_CnxHelper(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                      AIPACKET_s *packet, char **params, i32 param_count,
                      i32 first_time, f32 dt) {
@@ -950,20 +943,20 @@ i32 Action_CnxHelper(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       if (gizmo != NULL)
         grapple = gizmo->object;
     } else if ((value = NuStrIStr(params[i], "ledge1")) != NULL) {
-      GIZMO_s *gizmo =
-          GizmoFindByName(g_unk00960894->gizmoSys2b0c, ledge_gizmotype_id,
-                          ParamAfterKey(value, "ledge1"));
+      value += NuStrLen("ledge1") + 1;
+      GIZMO_s *gizmo = GizmoFindByName(g_unk00960894->gizmoSys2b0c,
+                                       ledge_gizmotype_id, value);
       if (gizmo != NULL)
         ledge1 = gizmo->object;
     } else if ((value = NuStrIStr(params[i], "ledge2")) != NULL) {
-      GIZMO_s *gizmo =
-          GizmoFindByName(g_unk00960894->gizmoSys2b0c, ledge_gizmotype_id,
-                          ParamAfterKey(value, "ledge2"));
+      value += NuStrLen("ledge2") + 1;
+      GIZMO_s *gizmo = GizmoFindByName(g_unk00960894->gizmoSys2b0c,
+                                       ledge_gizmotype_id, value);
       if (gizmo != NULL)
         ledge2 = gizmo->object;
     } else if ((value = NuStrIStr(params[i], "ledge_dir")) != NULL) {
-      ledge_dir =
-          (i32)AIParamToFloat(process, ParamAfterKey(value, "ledge_dir"));
+      value += NuStrLen("ledge_dir") + 1;
+      ledge_dir = (i32)AIParamToFloat(process, value);
     } else if ((value = NuStrIStr(params[i], "climb_locator=")) != NULL) {
       value += NuStrLen("climb_locator=");
       climb = AIPathFindLocator(sys, value);
@@ -7089,6 +7082,73 @@ i32 Action_UpdatePathInfo(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     Unk005bf1c0(obj);
     Unk006b6c40(g_unk00960894->aiSys2bf8, obj, (AIPACKET_s *)obj->process290,
                 0xff, 1);
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00477ab0
+i32 Action_CycleCharacter(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **args, int argc, int flags,
+                          f32 time) {
+  i32 single_switch = 0;
+  if (packet == NULL || packet->pd0 == NULL || packet->pd0->obj == NULL)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (FreePlay == 0 || obj->b24c == -1)
+    return 1;
+  if (flags != 0) {
+    process->action_data_1 = 0xff;
+    for (i32 i = 0; i < argc; i++) {
+      char *value = NuStrIStr(args[i], "time");
+      if (value != NULL) {
+        value += NuStrLen("time") + 1;
+        process->action_data_4 = AIParamToFloat(process, value);
+        continue;
+      }
+      value = NuStrIStr(args[i], "ability");
+      if (value != NULL) {
+        value += NuStrLen("Ability") + 1;
+        u32 ability = Unk00461220(value);
+        if (ability != 0)
+          process->action_data_1 = (u8)ability;
+        continue;
+      }
+      value = NuStrIStr(args[i], "min_speed=");
+      if (value != NULL) {
+        process->action_data_5 = AIParamToFloat(process, value + 10);
+        continue;
+      }
+      if (NuStrICmp(args[i], "SingleSwitch") == 0)
+        single_switch = 1;
+    }
+  }
+  if (obj->b9db == 0xb)
+    return 0;
+  i32 ability = process->action_data_1;
+  if (ability != -1) {
+    if (process->action_data_5 == 0.0f ||
+        packet->pd0->character->p24->run_speed >= process->action_data_5) {
+      if (obj->capabilities & ability)
+        return 1;
+    }
+    process->action_timer += time;
+    if (process->action_timer > process->action_data_4) {
+      process->action_timer = 0.0f;
+      obj->p112c->buttons8 |= g_unk0095f73c;
+    }
+    return 0;
+  }
+  if (process->action_data_5 != 0.0f) {
+    if (packet->pd0->character->p24->run_speed >= process->action_data_5)
+      return 1;
+    process->action_timer += time;
+    if (process->action_timer > process->action_data_4) {
+      process->action_timer = 0.0f;
+      obj->p112c->buttons8 |= g_unk0095f73c;
+    }
+  } else if (single_switch != 0) {
+    obj->p112c->buttons8 |= g_unk0095f73c;
+    return 1;
   }
   return 1;
 }
