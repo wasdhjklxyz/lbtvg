@@ -3734,6 +3734,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d8770,0018b0f2,_NuStringTableSetBank,_NuStringTableSetBank,confirmed,0
 006d8780,0018b112,_NuStringTableUnload,_NuStringTableUnload,confirmed,0
 006d87b0,0018b14e,_NuStringTableGetById,_NuStringTableGetById,confirmed,0
+006d8800,0018bc70,_NuStrGetFilenameNoExt,_NuStrGetFilenameNoExt,confirmed,0
+006d88e0,0018f5ee,_NuStrGetPath,_NuStrGetPath,confirmed,0
+006d8960,0018f658,_NuStrGetExt,_NuStrGetExt,confirmed,0
+006d8a30,0018da66,_NuStrSubstituteString,_NuStrSubstituteString,confirmed,0
 006d8b10,,NuStringCharEquiv,NuStringCharEquiv,confirmed,0
 006d8b70,,NuStringIsFluff,NuStringIsFluff,confirmed,0
 006d8ba0,,NuStringBadSubString,NuStringBadSubString,confirmed,0

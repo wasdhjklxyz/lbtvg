@@ -3581,3 +3581,7 @@
 006d8ba0 NuStringBadSubString saga static, calls NuStringCharEquiv
 006d8d00 NuStringFilterBadWordsW saga body, BadWords loop
 006d8de0 NuStringFilterBadWords saga body, two NuUTF8ToUnicode + FilterBadWordsW
+006d8800 NuStrGetFilenameNoExt Mac body shape (strip ., last / or \, copy if fits, restore .), LB adds a size arg
+006d88e0 NuStrGetPath saga nustring_c.cpp body
+006d8960 NuStrGetExt saga nustring_c.cpp body
+006d8a30 NuStrSubstituteString saga nustring_c.cpp body

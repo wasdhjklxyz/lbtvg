@@ -4076,6 +4076,97 @@ NUWCHAR *NuStringTableGetById(int id) {
   return StringBank[bank].strings[id].str_utf16;
 }
 
+// FUNCTION: LEGOBATMAN 0x006d8800
+void NuStrGetFilenameNoExt(char *dst, char *src, int size) {
+  char *extension;
+  char *separator;
+  char *backslash;
+
+  extension = NuStrRChr(src, '.');
+  if (extension != NULL)
+    *extension = '\0';
+  separator = NuStrRChr(src, '/');
+  backslash = NuStrRChr(src, '\\');
+  if (backslash > separator)
+    separator = backslash;
+  if (separator != NULL)
+    separator++;
+  else
+    separator = src;
+  if (NuStrLen(separator) <= size)
+    NuStrCpy(dst, separator);
+  if (extension != NULL)
+    *extension = '.';
+}
+
+// FUNCTION: LEGOBATMAN 0x006d88e0
+void NuStrGetPath(char *dst, char *src) {
+  char *separator = NuStrRChr(src, '/');
+  char *backslash = NuStrRChr(src, '\\');
+  if (backslash > separator)
+    separator = backslash;
+  if (separator == NULL) {
+    *dst = 0;
+  } else {
+    int length = separator - src + 1;
+    NuStrNCpy(dst, src, length);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006d8960
+void NuStrGetExt(char *dst, char *src) {
+  char *separator;
+  char *extension = NuStrRChr(src, '.');
+  separator = NuStrRChr(src, '/');
+  char *backslash = NuStrRChr(src, '\\');
+  if (backslash > separator)
+    separator = backslash;
+  if (extension == NULL || separator > extension) {
+    *dst = 0;
+  } else {
+    char *end = src + NuStrLen(src);
+    int length = end - extension;
+    if (length == 0)
+      *dst = 0;
+    else
+      NuStrNCpy(dst, extension + 1, length);
+  }
+}
+
+u8 NuToLower(u8 c);
+
+// FUNCTION: LEGOBATMAN 0x006d8a30
+void NuStrSubstituteString(char *dst, char *src, char *search,
+                           char *replacement) {
+  int matched = 0;
+  while (*src != 0) {
+    while (search[matched] != 0) {
+      if (NuToLower(src[matched]) != NuToLower(search[matched])) {
+        matched = 0;
+        break;
+      }
+      ++matched;
+    }
+    if (matched != 0) {
+      src += matched;
+      if (replacement != NULL) {
+        matched = 0;
+        while (replacement[matched] != 0) {
+          *dst = replacement[matched];
+          ++dst;
+          ++matched;
+        }
+      }
+      matched = 0;
+    } else {
+      *dst = *src;
+      ++dst;
+      ++src;
+    }
+  }
+  *dst = 0;
+}
+
 // --- bad word filter (saga nustring_c.cpp) ----------------------------------
 
 // GLOBAL: LEGOBATMAN 0x0099f310
