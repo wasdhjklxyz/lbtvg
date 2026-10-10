@@ -24,9 +24,29 @@ public:
   u32 pad[0x20 / 4];
 };
 
+// Members with destructors (types unknown; dtors at 0x697e40, 0x699d00,
+// 0x6d7440).
+class ShaderBuilderUnk20c {
+public:
+  ~ShaderBuilderUnk20c();
+  u8 pad[0xca0 - 0x20c];
+};
+
+class ShaderBuilderUnkca0 {
+public:
+  ~ShaderBuilderUnkca0();
+  u8 pad[0x10];
+};
+
+class ShaderBuilderUnkcb0 {
+public:
+  ~ShaderBuilderUnkcb0();
+  u8 pad[4];
+};
+
 class ShaderBuilderGen {
 public:
-  virtual void Vfn0();
+  virtual ~ShaderBuilderGen();
   virtual void Vfn1();
   virtual void Vfn2();
   virtual void Vfn3();
@@ -36,7 +56,18 @@ public:
                            PreInterpretor &interp);
   virtual void buildHeader(nushadermtldesc_s const *desc,
                            PreInterpretor &interp);
+
+  u8 pad4[0x208 - 4];
+  i32 f208;                 // 0x208
+  ShaderBuilderUnk20c m20c; // 0x20c
+  ShaderBuilderUnkca0 mca0; // 0xca0
+  ShaderBuilderUnkcb0 mcb0; // 0xcb0
 };
+
+// FUNCTION: LEGOBATMAN 0x00694890
+ShaderBuilderGen::~ShaderBuilderGen() { f208 = 0; }
+
+// SYNTHETIC: LEGOBATMAN 0x00694950 ShaderBuilderGen::`scalar deleting destructor'
 
 // FUNCTION: LEGOBATMAN 0x00694a00
 void ShaderBuilderGen::buildHeader(nushadermtldesc_s const *desc,

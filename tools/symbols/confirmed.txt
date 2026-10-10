@@ -3141,3 +3141,4 @@
 006f3cc0 NuSSAOFilter::NuSSAOFilter calls NuSSAOFilterGen ctor, sets the NuSSAOFilter vtable 0x8979bc, builds 8 sin/cos samples
 006f3d50 NuSSAOFilter::~NuSSAOFilter inlined base dtors leave the NuPostFilterGen vtable
 006fe5d0 NuPostFilter::NuPostFilter sets the NuPostFilter vtable 0x897c48
+00694890 ShaderBuilderGen::~ShaderBuilderGen sets the ShaderBuilderGen vtable 0x86f83c, called from both ShaderBuilder SDDs

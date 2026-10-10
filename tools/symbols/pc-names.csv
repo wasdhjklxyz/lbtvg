@@ -3123,6 +3123,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00691db0,001ac30c,_NuVec4MtxTransformVU0,_NuVec4MtxTransformVU0,gapfill,5
 00693340,001c9bf6,__ZN19ShaderMtlDescFilterC2EPK17nushadermtldesc_sPK7numtl_sii,"ShaderMtlDescFilter::ShaderMtlDescFilter(nushadermtldesc_s const*, numtl_s const*, int, int)",confirmed,0
 006943f0,0019b8bc,__Z19Create_Bink_shadersPN9IndirectX16IDirect3DDevice9E,Create_Bink_shaders(IndirectX::IDirect3DDevice9*),strings,0
+00694890,001d662e,__ZN16ShaderBuilderGenD2Ev,ShaderBuilderGen::~ShaderBuilderGen(),confirmed,0
 00694a00,001cd9ce,__ZN16ShaderBuilderGen11buildHeaderEPK19ShaderMtlDescFilterR14PreInterpretor,"ShaderBuilderGen::buildHeader(ShaderMtlDescFilter const*, PreInterpretor&)",confirmed,0
 006951f0,001d5d6a,__ZN17ShaderManagerHLSLC2ER21VirtualStackAllocator,ShaderManagerHLSL::ShaderManagerHLSL(VirtualStackAllocator&),strings,0
 00697cf0,001ca328,__ZNK14PreInterpretor8Variable17getSemanticStringEv,PreInterpretor::Variable::getSemanticString() const,strings,0
