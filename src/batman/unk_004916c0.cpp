@@ -21,15 +21,20 @@ typedef struct GIZTORPMACHINE_s {
   char name[0x10];     // 0x00
   f32 position[3];     // 0x10
   f32 activation_time; // 0x1c
-  u8 pad20[0x2d - 0x20];
+  i16 s20;             // 0x20
+  u8 pad22[0x28 - 0x22];
+  i16 s28; // 0x28
+  u8 pad2a[0x2d - 0x2a];
   u8 active : 1;  // 0x2d bit 0
   u8 visible : 1; // 0x2d bit 1
+  u8 b2 : 1;      // 0x2d bit 2
   u8 pad2e[2];
 } GIZTORPMACHINE;
 
 typedef struct GIZTORPMACHINESYS_s {
   GIZTORPMACHINE *machines; // 0x00
   i32 count;                // 0x04
+  f32 f8;                   // 0x08
 } GIZTORPMACHINESYS;
 
 typedef struct GIZMO_s {
@@ -50,6 +55,42 @@ typedef struct GTWORLD_s {
 
 // GLOBAL: LEGOBATMAN 0x00a95fe0
 extern f32 FRAMETIME;
+
+i32 EdFileReadInt();
+i16 EdFileReadShort();
+f32 EdFileReadFloat();
+void EdFileRead(void *buf, i32 len);
+void EdFileReadNuVec(f32 *v);
+u8 EdFileReadUnsignedChar();
+
+// FUNCTION: LEGOBATMAN 0x004916f0
+i32 GizTorp_Load(void *world_ptr, void *unused) {
+  GTWORLD *world = (GTWORLD *)world_ptr;
+  GIZTORPMACHINESYS *sys;
+  if (world == NULL || (sys = world->giz_torp_machine_sys) == NULL ||
+      sys->count != 0)
+    return 0;
+  i32 version = EdFileReadInt();
+  sys->count = EdFileReadInt();
+  if (version >= 3)
+    sys->f8 = EdFileReadFloat();
+  else
+    sys->f8 = 1.0f;
+  for (i32 i = 0; i < sys->count; i++) {
+    EdFileRead(sys->machines[i].name, EdFileReadInt());
+    EdFileReadNuVec(sys->machines[i].position);
+    sys->machines[i].s20 = EdFileReadShort();
+    if (version >= 2)
+      sys->machines[i].b2 = EdFileReadUnsignedChar() != 0;
+    else
+      sys->machines[i].b2 = 0;
+    if (version >= 4)
+      sys->machines[i].s28 = EdFileReadShort();
+    else
+      sys->machines[i].s28 = 0;
+  }
+  return 1;
+}
 
 // from saga giztorpedo.cpp
 // FUNCTION: LEGOBATMAN 0x00491900
