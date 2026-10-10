@@ -21,11 +21,21 @@ void Unk_InlineUser_006763d0(f32 *v, f32 a, i32 i) { NuVec4Set(v, a, a, a, a); }
 
 typedef struct PUZZLE_s {
   char name[0x10]; // 0x00
-  u8 pad10[0x54 - 0x10];
+  nuvec_s pos;     // 0x10
+  u8 pad1c[0x34 - 0x1c];
+  nuvec_s v34; // 0x34
+  nuvec_s v40; // 0x40
+  f32 f4c;     // 0x4c
+  u8 pad50[0x54 - 0x50];
   u16 active : 1;  // 0x54
   u16 visible : 1; // 0x54 bit 1
   u16 solved : 1;  // 0x54 bit 2
-  u8 pad56[0x94 - 0x56];
+  u16 b3 : 3;      // 0x54 bits 3-5
+  u16 b6 : 4;      // 0x54 bits 6-9
+  u8 pad56[0x5a - 0x56];
+  u16 s5a; // 0x5a
+  u16 s5c; // 0x5c, angle
+  u8 pad5e[0x94 - 0x5e];
 } PUZZLE;
 
 typedef struct PUZZLESYS_s {
@@ -87,6 +97,64 @@ void Puzzle_StoreProgress(void *world_ptr, void *unused, void *progress_ptr) {
         progress->active[word] &= ~bit;
     }
   }
+}
+
+// GLOBAL: LEGOBATMAN 0x00ab056c
+extern nuvec_s v000;
+
+extern "C" i32 EdFileReadInt(void);
+extern "C" char EdFileReadChar(void);
+extern "C" u16 EdFileReadUnsignedShort(void);
+extern "C" f32 EdFileReadFloat(void);
+extern "C" void EdFileRead(void *buf, i32 len);
+extern "C" void EdFileReadNuVec(nuvec_s *out);
+void NuVecRotateY(nuvec_s *v, nuvec_s *v0, i32 a);
+void NuVecAdd(nuvec_s *out, nuvec_s *a, nuvec_s *b);
+
+// STUB: LEGOBATMAN 0x006784c0
+// The b6 |= insert keeps the char in dx (orig ax); all else matches.
+i32 Puzzles_Load(void *world_ptr, void *unused) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  nuvec_s offset = v000;
+  PUZZLE *puzzle;
+  i32 version;
+  i32 count;
+  i32 i;
+
+  if (world->puzzle_sys == NULL || world->puzzle_sys->puzzles == NULL ||
+      world->puzzle_sys->count != 0)
+    return 0;
+  version = EdFileReadInt();
+  count = EdFileReadInt();
+  world->puzzle_sys->count = 0;
+  puzzle = world->puzzle_sys->puzzles;
+  for (i = 0; i < count; i++, puzzle++) {
+    EdFileRead(puzzle->name, EdFileReadChar());
+    EdFileReadNuVec(&puzzle->pos);
+    puzzle->f4c = EdFileReadFloat();
+    puzzle->b6 |= (u8)EdFileReadChar();
+    puzzle->s5a = EdFileReadUnsignedShort();
+    puzzle->s5c = EdFileReadUnsignedShort();
+    if (version >= 3)
+      EdFileReadNuVec(&puzzle->v40);
+    else
+      puzzle->v40 = puzzle->pos;
+    if (version >= 4) {
+      EdFileReadNuVec(&puzzle->v34);
+    } else {
+      offset = v000;
+      offset.z = 0.35f;
+      NuVecRotateY(&offset, &offset, puzzle->s5c + 0x8000);
+      NuVecAdd(&puzzle->v34, &offset, &puzzle->pos);
+    }
+    world->puzzle_sys->count++;
+  }
+  for (i = 0; i < world->puzzle_sys->count; i++) {
+    puzzle = &world->puzzle_sys->puzzles[i];
+    puzzle->active = 1;
+    puzzle->visible = 1;
+  }
+  return 1;
 }
 
 // FUNCTION: LEGOBATMAN 0x00678740

@@ -3327,3 +3327,4 @@
 0059d500 EdFileWriteMemCard saga edfile.cpp body; EdFileOpen inlined and folded for media 2
 0059d550 EdFileReadMemCard saga edfile.cpp body matches (tail jump to EdFileClose)
 0059d590 EdFileBackup saga edfile.cpp body matches (NuFileSize, copy loop through edfile_buffer)
+006784c0 Puzzles_Load Puzzle_RegisterGizmo load slot (fns[24]); reads the PZL editor data with EdFile*

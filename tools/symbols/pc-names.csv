@@ -3153,6 +3153,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006781b0,00324310,__Z23Puzzle_AllocateProgressP9variptr_uS0_,"Puzzle_AllocateProgress(variptr_u*, variptr_u*)",confirmed,0
 006781d0,00324332,__Z20Puzzle_ClearProgressPvS_,"Puzzle_ClearProgress(void*, void*)",confirmed,0
 006781f0,0032434c,__Z20Puzzle_StoreProgressPvS_S_,"Puzzle_StoreProgress(void*, void*, void*)",confirmed,0
+006784c0,,Puzzles_Load,Puzzles_Load,confirmed,0
 00678740,00324686,__Z19Puzzle_GetMaxGizmosPv,Puzzle_GetMaxGizmos(void*),confirmed,0
 00678760,003246a2,__Z16Puzzle_AddGizmosP10GIZMOSYS_siPvS1_,"Puzzle_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
 006787c0,0032470a,__Z19Puzzle_GetGizmoNameP7GIZMO_s,Puzzle_GetGizmoName(GIZMO_s*),confirmed,0
