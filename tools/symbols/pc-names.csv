@@ -2597,6 +2597,16 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00670030,002da2b4,__Z14createGizTimerPvfiPc,"createGizTimer(void*, float, int, char*)",confirmed,0
 006700c0,002da392,__Z13GizTimer_LoadPvS_,"GizTimer_Load(void*, void*)",confirmed,0
 00670150,002da404,__Z22GizTimer_RegisterGizmoi,GizTimer_RegisterGizmo(int),confirmed,0
+006703d0,002c2b94,__Z23GizMiniCut_GetGizmoNameP7GIZMO_s,GizMiniCut_GetGizmoName(GIZMO_s*),confirmed,0
+006703e0,002c2ba4,__Z23GizMiniCut_GetMaxGizmosPv,GizMiniCut_GetMaxGizmos(void*),confirmed,0
+00670400,002c2bba,__Z20GizMiniCut_GetOutputP7GIZMO_sii,"GizMiniCut_GetOutput(GIZMO_s*, int, int)",confirmed,0
+00670440,002c2bee,__Z20GizMiniCut_AddGizmosP10GIZMOSYS_siPvS1_,"GizMiniCut_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+00670490,002c2c48,__Z24GizMiniCut_GetNumOutputsP7GIZMO_s,GizMiniCut_GetNumOutputs(GIZMO_s*),confirmed,0
+006704a0,002c2c52,__Z17GizMiniCut_GetPosP7GIZMO_s,GizMiniCut_GetPos(GIZMO_s*),confirmed,0
+00670580,002c2d4a,__Z24GizMiniCut_GetOutputNameP7GIZMO_si,"GizMiniCut_GetOutputName(GIZMO_s*, int)",confirmed,0
+006705a0,002c2d74,__Z29GizMiniCut_ReserveBufferSpacePv,GizMiniCut_ReserveBufferSpace(void*),confirmed,0
+006708b0,002c3166,__Z18GizMiniCut_GetGuidP7GIZMO_s,GizMiniCut_GetGuid(GIZMO_s*),confirmed,0
+006709b0,002c332a,__Z19GizMiniCut_ResetAllPvS_S_,"GizMiniCut_ResetAll(void*, void*, void*)",confirmed,0
 00670d20,002a6904,__Z15SetFramesToWaitj,SetFramesToWait(unsigned int),confirmed,0
 00670d30,002a6918,__Z22FadeSystem_PlayWipeSfxv,FadeSystem_PlayWipeSfx(),confirmed,0
 00670d80,002a6996,__Z24DrawStillScreenWithAlphaif,"DrawStillScreenWithAlpha(int, float)",confirmed,0

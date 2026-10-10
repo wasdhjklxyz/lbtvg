@@ -2756,3 +2756,13 @@
 0066eef0 Plug_GetPos get_pos slot of the "Plug" ADDGIZMOTYPE
 0066e780 Plugs_ReserveBufferSpace reserve_buffer_space slot of the "Plug" ADDGIZMOTYPE
 0066f020 Plugs_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Plug"
+006703d0 GizMiniCut_GetGizmoName get_gizmo_name slot of the "MiniCut" ADDGIZMOTYPE
+006703e0 GizMiniCut_GetMaxGizmos get_max_gizmos slot of the "MiniCut" ADDGIZMOTYPE
+00670400 GizMiniCut_GetOutput get_output slot of the "MiniCut" ADDGIZMOTYPE
+00670440 GizMiniCut_AddGizmos add_gizmos slot of the "MiniCut" ADDGIZMOTYPE
+00670490 GizMiniCut_GetNumOutputs get_num_outputs slot of the "MiniCut" ADDGIZMOTYPE
+006704a0 GizMiniCut_GetPos get_pos slot of the "MiniCut" ADDGIZMOTYPE
+00670580 GizMiniCut_GetOutputName get_output_name slot of the "MiniCut" ADDGIZMOTYPE
+006705a0 GizMiniCut_ReserveBufferSpace reserve_buffer_space slot of the "MiniCut" ADDGIZMOTYPE
+006709b0 GizMiniCut_ResetAll reset slot of the "MiniCut" ADDGIZMOTYPE
+006708b0 GizMiniCut_GetGuid saga body (u16 guid at 0x1a, -1 on NULL), Mac order after LateUpdate
