@@ -3540,8 +3540,16 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d6a80,0018ede0,_ImplodeGetBits,_ImplodeGetBits,confirmed,0
 006d6af0,0018eda2,_ImplodeInitGetBits,_ImplodeInitGetBits,confirmed,0
 006d6b10,0018a2d6,_ExplodeExit,_ExplodeExit,confirmed,0
+006d6b30,0018ec36,_ExplodeBufferSize,_ExplodeBufferSize,confirmed,0
+006d6bb0,0018eca4,_ExplodeCompressedSize,_ExplodeCompressedSize,confirmed,0
+006d6c30,00192614,_ImplodeDecodeOffset,_ImplodeDecodeOffset,confirmed,0
 006d6cd0,00191026,_ImplodeHufDecodeStart,_ImplodeHufDecodeStart,confirmed,0
-006d6d00,0018a2ec,_ImplodeMakeTable,_ImplodeMakeTable,strings,0
+006d6d00,0018a2ec,_ImplodeMakeTable,_ImplodeMakeTable,confirmed,0
+006d6f90,0018a5fc,_count_len,_count_len,confirmed,0
+006d6ff0,,make_len,make_len,confirmed,0
+006d7130,,downheap,downheap,confirmed,0
+006d71b0,,make_code,make_code,confirmed,0
+006d7270,001900b8,_ImplodeMakeTree,_ImplodeMakeTree,confirmed,0
 006d7500,00187052,_NuStrCat,_NuStrCat,gapfill,1
 006d7590,001871ae,_NuStrCpy,_NuStrCpy,gapfill,1
 006d75c0,001886a4,_NuStrNCpy,_NuStrNCpy,gapfill,1

@@ -3328,3 +3328,12 @@
 0059d550 EdFileReadMemCard saga edfile.cpp body matches (tail jump to EdFileClose)
 0059d590 EdFileBackup saga edfile.cpp body matches (NuFileSize, copy loop through edfile_buffer)
 006784c0 Puzzles_Load Puzzle_RegisterGizmo load slot (fns[24]); reads the PZL editor data with EdFile*
+006d6b30 ExplodeBufferSize saga implode.cpp body matches ("LZ2K" magic, then ImplodeGetI)
+006d6bb0 ExplodeCompressedSize saga implode.cpp body matches (size at +8, plus 0xc header)
+006d6c30 ImplodeDecodeOffset saga implode.cpp body matches; Mac name
+006d6d00 ImplodeMakeTable saga implode.cpp body matches; Mac name
+006d6f90 count_len ar002 maketree.c count_len (recursive over implode_left/right); Mac static _count_len
+006d6ff0 make_len ar002 maketree.c make_len (count_len inlined, overflow message dropped)
+006d7130 downheap ar002 maketree.c downheap
+006d71b0 make_code ar002 maketree.c make_code (start[18] from len_cnt)
+006d7270 ImplodeMakeTree ar002 maketree.c make_tree; Mac _ImplodeMakeTree
