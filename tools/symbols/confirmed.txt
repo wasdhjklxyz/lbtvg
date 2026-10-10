@@ -1837,3 +1837,8 @@
 005c71d0 InteractiveDisplay::InitializePerm vtable 0x85d75c slot 0; Mac body (InteractiveDisplayQFont3DZ, GetMaterial 4/6/5/1/7); matched
 005c5d80 InteractiveDisplay::GetCharacterIconMaterial Mac body (CDataList icon special + alt, NuSpecialExistsFn/GetMtl), ret 0xc = 3 args; matched
 005c5df0 InteractiveDisplay::GetFrameMaterial Mac body (index > -1, world specials), ret 8; matched
+00512080 LightFlickerOverlay::InitializePerm vtable 0x85d9f4 slot 0; Mac body (base InitializePerm, NuMtlCreateEx3D(1, 0), z 3 / filter 1 / alpha 2); matched
+00512500 LightFlickerOverlay::Render vtable 0x85d9f4 slot 11; Mac body (RenderBackground(0, 0, 0, mtl)); matched
+00512580 LoadScreenDisplay::InitializePerm Mac body (LoadSettings slot 18 then base InitializePerm), follows LFO as on the Mac; matched
+005125b0 LoadScreenDisplay::Update Mac body (base Update), Mac order after InitializePerm; matched
+005125d0 LoadScreenDisplay::Render Mac body (RenderBackground zeros, += 0.05, m_bForceAllVisible = 0); matched
