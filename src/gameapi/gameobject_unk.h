@@ -501,7 +501,8 @@ struct GameObject_s {
   nuvec_s saved_position; // 0x1608
   u8 pad1614[0x1618 - 0x1614];
   struct GIZFORCE_s *gizforce_target; // 0x1618
-  u8 pad19[0x1628 - 0x161c];
+  struct GIZDIG_s *dig;               // 0x161c
+  u8 pad19[0x1628 - 0x1620];
   struct AITRIGGERSET_s *active_trigger_set; // 0x1628, Action_UseTriggerSet
   i16 s162c;                                 // 0x162c
   u8 pad20[0x1648 - 0x162e];

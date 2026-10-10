@@ -2607,6 +2607,29 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0063b080,0029ddc4,__Z19GizDigSFX_returnsfxP8nufpar_s,GizDigSFX_returnsfx(nufpar_s*),confirmed,0
 0063b090,0029ddca,__Z19GizDigSFX_ConfigureP11WORLDINFO_sPc,"GizDigSFX_Configure(WORLDINFO_s*, char*)",confirmed,0
 0063b2a0,0029df30,__Z12GizDigs_LoadPvS_,"GizDigs_Load(void*, void*)",strings,0
+0063b4c0,0029e2a6,__Z16GizDigs_PostLoadPvS_,"GizDigs_PostLoad(void*, void*)",confirmed,0
+0063b520,0029e306,__Z19GizDigs_AddLevelSfxPvS_PiS0_i,"GizDigs_AddLevelSfx(void*, void*, int*, int*, int)",confirmed,0
+0063b580,0029e364,__Z26GizDigs_ReserveBufferSpacePv,GizDigs_ReserveBufferSpace(void*),confirmed,0
+0063b660,0029e4c8,__Z17GizmoDig_ActivateP7GIZMO_si,"GizmoDig_Activate(GIZMO_s*, int)",confirmed,0
+0063b6f0,0029e56c,__Z20GizDig_SetVisibilityP8GIZDIG_si,"GizDig_SetVisibility(GIZDIG_s*, int)",confirmed,0
+0063b730,002a0b32,__Z22GizmoDig_SetVisibilityP7GIZMO_si,"GizmoDig_SetVisibility(GIZMO_s*, int)",confirmed,0
+0063b770,0029e5b4,__Z15GizmoDig_GetPosP7GIZMO_s,GizmoDig_GetPos(GIZMO_s*),confirmed,0
+0063bb60,0029e9b6,__Z19GizDigs_EarlyUpdatePvS_f,"GizDigs_EarlyUpdate(void*, void*, float)",confirmed,0
+0063c330,0029f396,__Z18GizDigs_AngleTodigP7nuvec_sP8GIZDIG_s,"GizDigs_AngleTodig(nuvec_s*, GIZDIG_s*)",confirmed,0
+0063c370,0029f3ca,__Z19GizDig_AnimCompleteP8GIZDIG_s,GizDig_AnimComplete(GIZDIG_s*),confirmed,0
+0063c3f0,0029f3fc,__Z22GizDig_GameObjUsingdigP12GameObject_sP8GIZDIG_s,"GizDig_GameObjUsingdig(GameObject_s*, GIZDIG_s*)",confirmed,0
+0063c420,0029f44c,__Z20GizDigs_GetMaxGizmosPv,GizDigs_GetMaxGizmos(void*),confirmed,0
+0063c440,0029f468,__Z17GizDigs_AddGizmosP10GIZMOSYS_siPvS1_,"GizDigs_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+0063c4a0,0029f4ce,__Z21GizmoDig_GetGizmoNameP7GIZMO_s,GizmoDig_GetGizmoName(GIZMO_s*),confirmed,0
+0063c4b0,0029f4de,__Z18GizmoDig_GetOutputP7GIZMO_sii,"GizmoDig_GetOutput(GIZMO_s*, int, int)",confirmed,0
+0063c520,0029f54c,__Z22GizmoDig_GetOutputNameP7GIZMO_si,"GizmoDig_GetOutputName(GIZMO_s*, int)",confirmed,0
+0063c550,0029f580,__Z22GizmoDig_GetNumOutputsP7GIZMO_s,GizmoDig_GetNumOutputs(GIZMO_s*),confirmed,0
+0063c560,0029f58a,__Z28GizDigs_AllocateProgressDataP9variptr_uS0_,"GizDigs_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+0063c580,0029f5ac,__Z21GizDigs_ClearProgressPvS_,"GizDigs_ClearProgress(void*, void*)",confirmed,0
+0063c5d0,0029f654,__Z21GizDigs_StoreProgressPvS_S_,"GizDigs_StoreProgress(void*, void*, void*)",confirmed,0
+0063c6b0,0029f734,__Z15GizDigs_FindDigP11WORLDINFO_sPc,"GizDigs_FindDig(WORLDINFO_s*, char*)",confirmed,0
+0063c710,0029f786,__Z17GizDig_TotalScorePv,GizDig_TotalScore(void*),confirmed,0
+0063c750,0029f7c4,__Z20GizDig_RegisterGizmoi,GizDig_RegisterGizmo(int),confirmed,0
 0063e3b0,003049c2,__Z10LoadLightsP11WORLDINFO_sPc,"LoadLights(WORLDINFO_s*, char*)",confirmed,0
 0063e470,00304aa4,__Z20InitGameObjectLightsv,InitGameObjectLights(),confirmed,0
 0063e540,00304b94,__Z20FreeGameObjectLightsv,FreeGameObjectLights(),confirmed,0

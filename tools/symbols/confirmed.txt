@@ -2982,3 +2982,26 @@
 005b8f40 GizObstacle_JumpToEnd Mac order (after JumpToStart)
 005b8f60 GizObstacles_StoreProgress store_progress slot of the "GizObstacle" ADDGIZMOTYPE
 005b9cd0 GizObstacles_RegisterGizmo copies Default_ADDGIZMOTYPE, name "GizObstacle"
+0063b4c0 GizDigs_PostLoad x26 (post_load) slot of the "GizDig" ADDGIZMOTYPE
+0063b520 GizDigs_AddLevelSfx x27 (add_level_sfx) slot of the "GizDig" ADDGIZMOTYPE
+0063b580 GizDigs_ReserveBufferSpace reserve_buffer_space slot of the "GizDig" ADDGIZMOTYPE
+0063b660 GizmoDig_Activate activate slot of the "GizDig" ADDGIZMOTYPE
+0063b6f0 GizDig_SetVisibility Mac GizDig_SetVisibility(GIZDIG_s*, int), inlined into the set_visibility slot
+0063b730 GizmoDig_SetVisibility set_visibility slot of the "GizDig" ADDGIZMOTYPE
+0063b770 GizmoDig_GetPos get_pos slot of the "GizDig" ADDGIZMOTYPE
+0063bb60 GizDigs_EarlyUpdate early_update slot of the "GizDig" ADDGIZMOTYPE
+0063c330 GizDigs_AngleTodig Mac GizDigs_AngleTodig(nuvec_s*, GIZDIG_s*), NuAtan2D to the dig
+0063c370 GizDig_AnimComplete Mac GizDig_AnimComplete(GIZDIG_s*), anim state 0/2 check
+0063c3f0 GizDig_GameObjUsingdig Mac GizDig_GameObjUsingdig(GameObject_s*, GIZDIG_s*)
+0063c420 GizDigs_GetMaxGizmos get_max_gizmos slot of the "GizDig" ADDGIZMOTYPE
+0063c440 GizDigs_AddGizmos add_gizmos slot of the "GizDig" ADDGIZMOTYPE
+0063c4a0 GizmoDig_GetGizmoName get_gizmo_name slot of the "GizDig" ADDGIZMOTYPE
+0063c4b0 GizmoDig_GetOutput get_output slot of the "GizDig" ADDGIZMOTYPE
+0063c520 GizmoDig_GetOutputName get_output_name slot of the "GizDig" ADDGIZMOTYPE
+0063c550 GizmoDig_GetNumOutputs get_num_outputs slot of the "GizDig" ADDGIZMOTYPE
+0063c560 GizDigs_AllocateProgressData allocate_progress_data slot of the "GizDig" ADDGIZMOTYPE
+0063c580 GizDigs_ClearProgress clear_progress slot of the "GizDig" ADDGIZMOTYPE
+0063c5d0 GizDigs_StoreProgress store_progress slot of the "GizDig" ADDGIZMOTYPE
+0063c6b0 GizDigs_FindDig Mac GizDigs_FindDig(WORLDINFO_s*, char*), NuStrICmp walk
+0063c710 GizDig_TotalScore Mac GizDig_TotalScore(void*), sums score
+0063c750 GizDig_RegisterGizmo copies Default_ADDGIZMOTYPE, name "GizDig"
