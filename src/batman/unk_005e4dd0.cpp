@@ -5,22 +5,25 @@
 #include "leveldata_unk.h"
 #include "worldinfo_unk.h"
 #include <stddef.h>
+#include <string.h>
 
 typedef struct TUBE_s {
-  char name[0x10]; // 0x00
-  u8 pad10[0x1c - 0x10];
+  char name[0x10];  // 0x00
+  u32 special[3];   // 0x10, nuhspecial_s
   nuvec_s position; // 0x1c
-  u8 pad28[0x2c - 0x28];
-  f32 height; // 0x2c
-  f32 radius; // 0x30
-  u8 pad34[0x38 - 0x34];
-  f32 top;       // 0x38
-  f32 radius_sq; // 0x3c
+  f32 f28;          // 0x28
+  f32 height;       // 0x2c
+  f32 radius;       // 0x30
+  f32 f34;          // 0x34
+  f32 top;          // 0x38
+  f32 radius_sq;    // 0x3c
   u8 pad40[0x44 - 0x40];
   u8 active : 1;  // 0x44
   u8 visible : 1; // 0x44 bit 1
   u8 b2 : 1;
   u8 reversed : 1; // 0x44 bit 3
+  u8 b4 : 1;       // 0x44 bit 4
+  u8 b5 : 1;       // 0x44 bit 5
   u8 pad45[0x50 - 0x45];
 } TUBE;
 
@@ -40,6 +43,60 @@ void *GameBufferAllocProgressUnk005bbaf0(VARIPTR *buf, VARIPTR *buf_end,
 
 // GLOBAL: LEGOBATMAN 0x009617e4
 static char *Tube_OutputName = "Active";
+
+i32 EdFileReadInt();
+char EdFileReadChar();
+f32 EdFileReadFloat();
+void EdFileRead(void *buf, i32 len);
+void EdFileReadNuVec(nuvec_s *v);
+int NuSpecialFind(nugscn_s *scene, nuhspecial_s *out, char *name, i32 a);
+int NuSpecialExistsFn(nuhspecial_s *sp);
+
+// FUNCTION: LEGOBATMAN 0x005e4f80
+i32 Tubes_Load(void *world_ptr, void *unused) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  i32 i = 0;
+  if (world->tube_count == 0) {
+    i32 version = EdFileReadInt();
+    world->tube_count = EdFileReadInt();
+    TUBE *tube = world->tubes;
+    for (i = 0; i < world->tube_count; i++, tube++) {
+      EdFileRead(tube->name, 0x10);
+      EdFileReadNuVec(&tube->position);
+      tube->height = EdFileReadFloat();
+      tube->radius = EdFileReadFloat();
+      if (version >= 2)
+        tube->b2 = EdFileReadChar() != 0;
+      else
+        tube->b2 = 0;
+      tube->f34 = 1.25f;
+      if (version >= 3) {
+        i32 len = EdFileReadChar();
+        if (len != 0) {
+          char name[0x100] = {0};
+          EdFileRead(name, len);
+          NuSpecialFind(world->scn140, (nuhspecial_s *)world->tubes[i].special,
+                        name, 0);
+          if (!NuSpecialExistsFn((nuhspecial_s *)world->tubes[i].special))
+            memset(world->tubes[i].special, 0, sizeof(world->tubes[i].special));
+        }
+      }
+      if (version >= 4)
+        tube->b4 = EdFileReadChar() != 0;
+      else
+        tube->b4 = 0;
+      if (version >= 5) {
+        tube->b5 = EdFileReadChar() != 0;
+        tube->f28 = EdFileReadFloat();
+      } else {
+        tube->b5 = 0;
+        tube->f28 = 0.0f;
+      }
+    }
+    return 1;
+  }
+  return 0;
+}
 
 // FUNCTION: LEGOBATMAN 0x005e5140
 void *Tubes_ReserveBufferSpace(void *world_ptr) {

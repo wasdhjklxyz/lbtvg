@@ -3288,3 +3288,4 @@
 00670280 GizMiniCut_Load GizMiniCut_RegisterGizmo load slot
 00605760 Whippers_Load Whippers_RegisterGizmo load slot
 005dfd10 Ledges_Load Ledges_RegisterGizmo load slot
+005e4f80 Tubes_Load Tubes_RegisterGizmo load slot

@@ -2006,6 +2006,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005e0660,002f7cae,__Z20Ledges_ClearProgressPvS_,"Ledges_ClearProgress(void*, void*)",confirmed,0
 005e06a0,002f7cf6,__Z20Ledges_StoreProgressPvS_S_,"Ledges_StoreProgress(void*, void*, void*)",confirmed,0
 005e0750,002f7d9a,__Z20Ledges_RegisterGizmoi,Ledges_RegisterGizmo(int),confirmed,0
+005e4f80,003478b0,__Z10Tubes_LoadPvS_,"Tubes_Load(void*, void*)",confirmed,0
 005e5140,00347ade,__Z24Tubes_ReserveBufferSpacePv,Tubes_ReserveBufferSpace(void*),confirmed,0
 005e5190,00347b3c,__Z13Tube_ActivateP7GIZMO_si,"Tube_Activate(GIZMO_s*, int)",confirmed,0
 005e51b0,00347b60,__Z16Tube_ActivateRevP7GIZMO_sii,"Tube_ActivateRev(GIZMO_s*, int, int)",confirmed,0
