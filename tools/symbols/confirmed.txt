@@ -3636,3 +3636,4 @@
 006e1c70 NuMemAlloc Mac order after NuMemSetExternal/GetPeakAllocAddr; NuMemAllocFn without the debug header
 006e2440 NuMemFlushFn frees every block on alloc_list (Mac order NuMemDumpFn, NuMemFlushFn)
 006e23d0 NuMemDumpFn reports blocks >= size, checks 0xfefefefe links (stub)
+006e1f30 NuMemReAllocFn Mac order after NuMemFree; realloc the debug block and relink it

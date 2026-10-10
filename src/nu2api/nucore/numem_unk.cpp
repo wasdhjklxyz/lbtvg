@@ -229,6 +229,77 @@ extern "C" void *NuMemAlloc(int size) {
   return ptr;
 }
 
+extern "C" void *realloc(void *ptr, unsigned int size);
+
+// FUNCTION: LEGOBATMAN 0x006e1f30
+extern "C" void *NuMemReAllocFn(void *addr, int size, const char *file,
+                                int line) {
+  char *rv;
+  int endaddr;
+  void *ptr;
+  MEMBLK_HEAD *head;
+  MEMBLK_TAIL *tail;
+  MEMBLK_HEAD *list;
+
+  if (memexternal != 0) {
+    NuMemDebugUnk006e1b90();
+    memexternal->cursor->addr = (memexternal->cursor->addr + 0xf) & ~0xf;
+    if (memexternal->end.addr - memexternal->cursor->addr >= (u32)size) {
+      ptr = memexternal->cursor->void_ptr;
+      memexternal->cursor->addr += size;
+      return ptr;
+    }
+    return 0;
+  }
+
+  if (discardbuff != 0) {
+    size = (size + 0xf) & ~0xf;
+    if (size < discardbuff->remaining) {
+      ptr = discardbuff->cursor;
+      discardbuff->cursor += size;
+      discardbuff->remaining -= size;
+      return ptr;
+    }
+    return 0;
+  }
+
+  head = (MEMBLK_HEAD *)addr - 1;
+  if (head->succ != 0)
+    head->succ->prev = head->prev;
+  if (head->prev != 0) {
+    head->prev->succ = head->succ;
+    list = alloc_list;
+  } else {
+    list = head->succ;
+    alloc_list = list;
+  }
+
+  rv = (char *)realloc(head, size + strlen(file) + 0x2d);
+  if (rv == 0) {
+    NuMemDebugUnk006e1bb0(size, file, line);
+  } else {
+    totalloc += size - ((MEMBLK_HEAD *)rv)->size;
+    ((MEMBLK_HEAD *)rv)->size = size;
+    tail = (MEMBLK_TAIL *)(rv + sizeof(MEMBLK_HEAD) + size);
+    memcpy(tail->mark, blk_end, 12);
+    strcpy((char *)(tail + 1), file);
+    ((MEMBLK_HEAD *)rv)->line = line;
+    ((MEMBLK_HEAD *)rv)->succ = list;
+    if (list != 0)
+      list->prev = (MEMBLK_HEAD *)rv;
+    ((MEMBLK_HEAD *)rv)->prev = 0;
+    alloc_list = (MEMBLK_HEAD *)rv;
+    rv += sizeof(MEMBLK_HEAD);
+  }
+
+  endaddr = (int)rv + size;
+  if (endaddr > highallocaddr)
+    highallocaddr = endaddr;
+  if (endaddr > g_nuMemUnk00b03968)
+    g_nuMemUnk00b03968 = endaddr;
+  return rv;
+}
+
 // STUB: LEGOBATMAN 0x006e2090
 // The inlined memcmps: the original branches straight to the report on a
 // mismatch; ours materialises memcmp's -1/0/1 first (484 B).
