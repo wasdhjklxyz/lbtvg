@@ -217,6 +217,7 @@ extern i32 g_unk00960048; // gizmo type id of levers
 class InteractiveDisplayBase {
 public:
   void InitializePerm(char *name, variptr_u *buffer, variptr_u *buffer_end);
+  void DumpLevel(WORLDINFO_s *world);
 };
 
 class DynamicMaterialManager {
@@ -233,8 +234,14 @@ extern u8 g_unk0096068c[];
 
 class SecurityCamera : public InteractiveDisplayBase {
 public:
+  // GLOBAL: LEGOBATMAN 0x00945bf4
+  static f32 m_noFocusCameraTime;
+
   enum SecurityCameraType {};
   void ActivateLevel(WORLDINFO_s *world);
+  void DumpLevel(WORLDINFO_s *world);
+  static i32 AllowPlayerDropOut();
+  static i32 AreVillainLevelsAvailable();
   void InitializePerm(SecurityCameraType type, variptr_u *buffer,
                       variptr_u *buffer_end);
 
@@ -289,6 +296,58 @@ void SecurityCamera::ActivateLevel(WORLDINFO_s *world) {
                             kind == 1 ? "hologram_lever" : "projectorLever");
     lever = (lever != NULL && ((u8 *)lever)[6] == g_unk00960048) ? lever : NULL;
   }
+}
+
+struct SCMTL_s {
+  u8 pad0[0x74];
+  u16 tid; // 0x74
+};
+
+void NuMtlUpdate(SCMTL_s *mtl);
+
+class InteractiveDisplay;
+
+class InteractiveDisplayManager {
+public:
+  static InteractiveDisplay *GetTransitioningDisplay();
+  static InteractiveDisplay *GetCameraTarget();
+};
+
+char *NuStrIStr(char *str, const char *sub);
+i32 Episode_CountOpenAreas(i32 episode, i32 area);
+
+// FUNCTION: LEGOBATMAN 0x00512f80
+i32 SecurityCamera::AllowPlayerDropOut() {
+  if (g_unk00960894 != NULL && NuStrIStr((char *)g_unk00960894, "batcave_a")) {
+    if (m_noFocusCameraTime < 5.0f)
+      return 0;
+    if (InteractiveDisplayManager::GetTransitioningDisplay() != NULL)
+      return 0;
+    return InteractiveDisplayManager::GetCameraTarget() == NULL;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00513070
+void SecurityCamera::DumpLevel(WORLDINFO_s *world) {
+  InteractiveDisplayBase::DumpLevel(world);
+  if (NuStrICmp((char *)world, level_name) == 0) {
+    if (mtl3f4 != NULL) {
+      ((SCMTL_s *)mtl3f4)->tid = 0;
+      NuMtlUpdate((SCMTL_s *)mtl3f4);
+    }
+    lever = NULL;
+    m_noFocusCameraTime = 1000.0f;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x005130e0
+i32 SecurityCamera::AreVillainLevelsAvailable() {
+  if (Episode_CountOpenAreas(3, -1))
+    return 1;
+  if (Episode_CountOpenAreas(4, -1))
+    return 1;
+  return Episode_CountOpenAreas(5, -1) != 0;
 }
 
 i32 Unk006004d0(char *class_name);

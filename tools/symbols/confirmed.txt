@@ -1842,3 +1842,9 @@
 00512580 LoadScreenDisplay::InitializePerm Mac body (LoadSettings slot 18 then base InitializePerm), follows LFO as on the Mac; matched
 005125b0 LoadScreenDisplay::Update Mac body (base Update), Mac order after InitializePerm; matched
 005125d0 LoadScreenDisplay::Render Mac body (RenderBackground zeros, += 0.05, m_bForceAllVisible = 0); matched
+00513070 SecurityCamera::DumpLevel vtable 0x85d96c slot 3; Mac body (base DumpLevel, icon tid, m_noFocusCameraTime = 1000); matched
+00512f80 SecurityCamera::AllowPlayerDropOut Mac body (batcave_a, m_noFocusCameraTime < 5, manager transitioning/camera target); matched
+005130e0 SecurityCamera::AreVillainLevelsAvailable Mac body (Episode_CountOpenAreas 3/4/5, -1); matched
+006003d0 InteractiveDisplayManager::GetTransitioningDisplay called from SecurityCamera::AllowPlayerDropOut in the Mac's position
+00600410 InteractiveDisplayManager::GetCameraTarget called from SecurityCamera::AllowPlayerDropOut in the Mac's position
+00648f60 Episode_CountOpenAreas called (3/4/5, -1) from SecurityCamera::AreVillainLevelsAvailable as on the Mac

@@ -757,7 +757,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00512580,000ca160,__ZN17LoadScreenDisplay14InitializePermEPcP9variptr_uS2_,"LoadScreenDisplay::InitializePerm(char*, variptr_u*, variptr_u*)",confirmed,0
 005125b0,000ca1a8,__ZN17LoadScreenDisplay6UpdateEf,LoadScreenDisplay::Update(float),confirmed,0
 005125d0,000ca1b2,__ZN17LoadScreenDisplay6RenderEv,LoadScreenDisplay::Render(),confirmed,0
+00512f80,000faf4c,__ZN14SecurityCamera18AllowPlayerDropOutEv,SecurityCamera::AllowPlayerDropOut(),confirmed,0
 00512fe0,000fb3fe,__ZN14SecurityCamera13ActivateLevelEP11WORLDINFO_s,SecurityCamera::ActivateLevel(WORLDINFO_s*),strings,0
+00513070,000fafa0,__ZN14SecurityCamera9DumpLevelEP11WORLDINFO_s,SecurityCamera::DumpLevel(WORLDINFO_s*),confirmed,0
+005130e0,000fb00c,__ZN14SecurityCamera25AreVillainLevelsAvailableEv,SecurityCamera::AreVillainLevelsAvailable(),confirmed,0
 00513430,000fb63a,__ZN14SecurityCamera14InitializePermENS_18SecurityCameraTypeEP9variptr_uS2_,"SecurityCamera::InitializePerm(SecurityCamera::SecurityCameraType, variptr_u*, variptr_u*)",strings,0
 00514bd0,001066a8,__ZN12ShopComputer15InitializeLevelEP11WORLDINFO_s,ShopComputer::InitializeLevel(WORLDINFO_s*),strings,0
 00515150,001067fe,__ZN12ShopComputer17IsAnyMenuChangingEv,ShopComputer::IsAnyMenuChanging(),strings,0
@@ -1234,6 +1237,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005fc2b0,0026699c,__Z12DumpAreaDataii,"DumpAreaData(int, int)",confirmed,0
 005fc350,00266a4e,__Z17AreaFromMiniKitIDi,AreaFromMiniKitID(int),gapfill,4
 005fc730,00266d2e,__Z12DrawGoToAreaP6MENU_si,"DrawGoToArea(MENU_s*, int)",strings,0
+006003d0,002f24fe,__ZN25InteractiveDisplayManager23GetTransitioningDisplayEv,InteractiveDisplayManager::GetTransitioningDisplay(),confirmed,0
+00600410,002f2546,__ZN25InteractiveDisplayManager15GetCameraTargetEv,InteractiveDisplayManager::GetCameraTarget(),confirmed,0
 006009e0,002df46e,__Z11Grab_radiusP8nufpar_s,Grab_radius(nufpar_s*),confirmed,0
 00600a00,002df4a0,__Z10Grab_speedP8nufpar_s,Grab_speed(nufpar_s*),confirmed,0
 00600a20,002df4d2,__Z11Grab_rotateP8nufpar_s,Grab_rotate(nufpar_s*),confirmed,0
@@ -1792,6 +1797,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00648390,00263bfc,__Z17Arcade_AwardPointiii,"Arcade_AwardPoint(int, int, int)",order,4
 006486e0,00264012,__Z19Arcade_PlayerKilledii,"Arcade_PlayerKilled(int, int)",confirmed,0
 00648970,002a4b3a,__Z22Episodes_ConfigureListPcP9variptr_uS1_iPi,"Episodes_ConfigureList(char*, variptr_u*, variptr_u*, int, int*)",strings,0
+00648f60,002a50cc,__Z22Episode_CountOpenAreasii,"Episode_CountOpenAreas(int, int)",confirmed,0
 0064ce30,002fa184,__Z19NewStatusRumbleBuzziffi,"NewStatusRumbleBuzz(int, float, float, int)",gapfill,2
 00652260,00338224,__Z24SuperCounterConfig_ResetP12SUPERCOUNTER,SuperCounterConfig_Reset(SUPERCOUNTER*),confirmed,0
 00652290,00338262,__Z28SuperCounterConfig_ParseLineP12SUPERCOUNTERP8nufpar_s,"SuperCounterConfig_ParseLine(SUPERCOUNTER*, nufpar_s*)",strings,0
