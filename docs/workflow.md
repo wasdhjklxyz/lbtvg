@@ -507,3 +507,26 @@ enough matched code for the percentage to mean something.
   register also used for the compares.
 - **`idx = file - 0x2000`** gives `add -0x2000`; `file -= 0x2000` gives
   `sub`.
+- **TU extents**: the nucore unity TU runs to 0x6e1b86
+  (NuFileSmallFileManager::Init at 0x6e1b40); numem is its own TU from
+  0x6e1b90 (own empty debug statics at 0x6e1b90/0x6e1bb0); 0x6d5320 inlines
+  NuTimeSub (shares a TU with nutime).
+- **Empty debug hooks inlined into many copies** are dropped in early
+  functions but kept in later ones in the original; ours keeps no-arg calls
+  everywhere and drops string-arg calls everywhere. Unsolved (0x6d2fe0,
+  NuFilePatchAddress, NuDatFileLoadBuffer).
+- **Inline budget**: when ours stops inlining a repeated callee (second
+  NuStrCpyW), open-code that copy.
+- **`goto next` at the loop end** reproduces an out-of-line "found" block
+  jumping to the outer loop's increment.
+- **Caching a global per branch** (`list = alloc_list;` /
+  `list = head->succ; alloc_list = list;`) keeps it in a register across a
+  call.
+- **Neighbouring globals with rescheduled stores are one struct** (nuapi at
+  0xadf648, 0xf4 bytes); index a global array directly
+  (`((T *)g)[i].f`), not through a local pointer.
+- **Inlined memcmp**: the original branches straight to the mismatch path;
+  ours computing -1/0/1 first means a different source shape.
+- `make new FUNC=0x... NAME=SagaName` uses that name when the address has no
+  pairing yet; `tools/scratch/bytesearch.py` searches `.text` for a byte
+  pattern.

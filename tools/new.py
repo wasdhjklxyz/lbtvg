@@ -2,6 +2,8 @@
 """Start work on a function: pick its file, put it there, try it.
 
     tools/new.py 0x005ae160          (or: make new FUNC=0x005ae160)
+    tools/new.py 0x006deec0 NuDatOpenEx   (or: make new FUNC=... NAME=...) when
+                                     the address has no paired name yet
     tools/new.py random              (or: make new) a random todo: small, saga has it
     tools/new.py random any          a random todo of any kind
 
@@ -309,9 +311,10 @@ def main(argv):
     sys.stdout.reconfigure(line_buffering=True)
     if argv and argv[0] == "random":
         argv = [f"0x{pick_random(argv[1] if len(argv) > 1 else ''):08x}"]
-    if len(argv) != 1 or not argv[0].lower().startswith("0x"):
+    if len(argv) not in (1, 2) or not argv[0].lower().startswith("0x"):
         sys.exit(__doc__)
     addr = int(argv[0], 16)
+    given = argv[1] if len(argv) == 2 else None
     matched = False
     done = annotated()
     if addr in done:
@@ -321,6 +324,8 @@ def main(argv):
     rows = {int(r["pc_addr"], 16): r for r in csv.DictReader(open(ROOT / "tools/symbols/pc-names.csv"))}
     names = {a: r["demangled"] for a, r in rows.items()}
     method = rows[addr]["method"] if addr in rows else None
+    if given:
+        names[addr], method = given, "given"
     weak = method in ("order", "gapfill")
     full = names.get(addr)
     name = short_name(full) if full else None
@@ -332,7 +337,8 @@ def main(argv):
     rel = path.relative_to(ROOT)
     print(f"{addr:08x}  {full or 'FUN_%08x' % addr}")
     if method:
-        trust = {"confirmed": "confirmed by hand", "strings": "strong (shared strings)",
+        trust = {"confirmed": "confirmed by hand", "given": "given on the command line: prove it by matching",
+                 "strings": "strong (shared strings)",
                  "calls": "good (call order)"}.get(method, f"HINT ({method}): check the code agrees before trusting it")
         print(f"name:  {trust}")
     print(f"file:  {rel}  ({why})")

@@ -56,7 +56,7 @@ fmt-check:
 # start a function (FUNC=0x... or a random easy todo): pick its file, insert
 # saga's body (or a TODO), try to match
 new:
-	tools/new.py $(or $(FUNC),random)
+	tools/new.py $(or $(FUNC),random) $(NAME)
 
 # run the game under wine from play/ (outside Steam): windowed WINDOW=1280x720 by
 # default, FULLSCREEN=1 [RES=1920x1080]; WINE=, D3DX9_DLL=, DXVK=0 to use your own
