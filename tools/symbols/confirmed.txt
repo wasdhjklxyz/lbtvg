@@ -3622,3 +3622,4 @@
 006e0650 GetLineW saga nustring_c.cpp body (stub)
 006d6550 NuVideoSetSwapMode saga nuvideo.cpp shape (LB: fps from NuVideoGetRetraceRatePS)
 006d6870 NuLanguageInitFromConsole Mac name (Mac order after NuVideoScreenSwap), language init with availability table
+006d5210 NuAPIInit saga nuapi.cpp body (stub)
