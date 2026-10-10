@@ -3358,3 +3358,9 @@
 00603b20 GameAnimSys_GetProgressData saga gameanim.cpp body matches
 00603b80 GameAnimSys_Create saga gameanim.cpp body matches
 00603c10 GameAnimSet_AddToSystemList moves the set from the system's stopped list to its active list (saga AddToSystemList)
+006040c0 GameAnimSet_RemoveObject unlinks the object, returns it to the pool free list (saga RemoveObject)
+00604120 GameAnimSet_RemoveAllObjects RemoveObject on the head until empty (saga RemoveAllObjects)
+006041d0 GameAnimSet_ScaleFParam1 instanim fparam1 *= scale per object (saga ScaleFParam1)
+00604ac0 GameAnimSet_SetRepeating sets the instanim repeating bit per object (saga SetRepeating)
+00604b00 GameAnimSet_JumpToEnd ltime = end_frame per object, then EvaluateState (saga JumpToEnd)
+00604b40 GameAnimSet_JumpToStart ltime = start_frame per object, then EvaluateState (saga JumpToStart)

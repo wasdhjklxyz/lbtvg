@@ -29,7 +29,16 @@ typedef struct nuinstanim_s {
   f32 tfactor; // 0x40
   u8 pad44[0x4c - 0x44];
   f32 ltime; // 0x4c
-  u32 flags; // 0x50, 1 playing
+  union {
+    u32 flags; // 0x50, 1 playing
+    struct {
+      u32 playing : 1;
+      u32 b1 : 1;
+      u32 b2 : 1;
+      u32 repeating : 1; // bit 3
+    };
+  };
+  f32 fparam1; // 0x54
 } NUINSTANIM;
 
 typedef struct GAMEANIMOBJ_s {
@@ -308,6 +317,50 @@ void GameAnimSet_GetFrameRangeUnk00603ea0(GAMEANIMSET *set) {
   }
 }
 
+// FUNCTION: LEGOBATMAN 0x006040c0
+void GameAnimSet_RemoveObject(GAMEANIMSET *set, GAMEANIMOBJ *object) {
+  GAMEANIMOBJ *p;
+
+  if (set != NULL && object != NULL) {
+    if (object == set->objects) {
+      set->objects = object->next;
+    } else {
+      for (p = set->objects; p != NULL; p = p->next) {
+        if (p->next == object) {
+          p->next = object->next;
+          break;
+        }
+      }
+    }
+    object->next = NULL;
+    set->object_count--;
+    set->pool->active_count--;
+    object->next = set->pool->free;
+    set->pool->free = object;
+    GameAnimSet_GetFrameRangeUnk00603ea0(set);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00604120
+void GameAnimSet_RemoveAllObjects(GAMEANIMSET *set) {
+  if (set != NULL) {
+    while (set->objects != NULL)
+      GameAnimSet_RemoveObject(set, set->objects);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006041d0
+void GameAnimSet_ScaleFParam1(GAMEANIMSET *set, f32 scale) {
+  GAMEANIMOBJ *obj;
+
+  if (set != NULL) {
+    for (obj = set->objects; obj != NULL; obj = obj->next) {
+      if (obj->instance_anim != NULL)
+        obj->instance_anim->fparam1 = obj->instance_anim->fparam1 * scale;
+    }
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x00604730
 i32 GameAnimSet_ResetUnk00604730(GAMEANIMSET *set) {
   GAMEANIMOBJ *obj;
@@ -337,6 +390,51 @@ i32 GameAnimSet_StopUnk00604a80(GAMEANIMSET *set) {
       if (obj->instance_anim != NULL)
         obj->instance_anim->flags &= ~1;
     }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00604ac0
+i32 GameAnimSet_SetRepeating(GAMEANIMSET *set, i32 repeating) {
+  GAMEANIMOBJ *obj;
+
+  if (set != NULL) {
+    for (obj = set->objects; obj != NULL; obj = obj->next) {
+      if (obj->instance_anim != NULL)
+        obj->instance_anim->repeating = repeating;
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00604b00
+i32 GameAnimSet_JumpToEnd(GAMEANIMSET *set) {
+  GAMEANIMOBJ *obj;
+
+  if (set != NULL) {
+    for (obj = set->objects; obj != NULL; obj = obj->next) {
+      if (obj->instance_anim != NULL) {
+        obj->instance_anim->flags &= ~1;
+        obj->instance_anim->ltime = obj->end_frame;
+      }
+    }
+    GameAnimSet_EvaluateState(set);
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00604b40
+i32 GameAnimSet_JumpToStart(GAMEANIMSET *set) {
+  GAMEANIMOBJ *obj;
+
+  if (set != NULL) {
+    for (obj = set->objects; obj != NULL; obj = obj->next) {
+      if (obj->instance_anim != NULL) {
+        obj->instance_anim->flags &= ~1;
+        obj->instance_anim->ltime = obj->start_frame;
+      }
+    }
+    GameAnimSet_EvaluateState(set);
   }
   return 1;
 }
