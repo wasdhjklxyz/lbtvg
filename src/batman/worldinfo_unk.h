@@ -34,10 +34,14 @@ struct Unk_WorldInfo5220Entry { // GIZMOPICKUP_s
     };
     u16 state; // 0x18
   };
-  u8 pad1[0x24 - 0x1a];
-  u8 b24;        // 0x24
+  u8 pad1[0x1c - 0x1a];
+  f32 shadow_y;  // 0x1c
+  u16 rot_x;     // 0x20
+  u16 rot_z;     // 0x22
+  u8 b24;        // 0x24, room
   u8 type_index; // 0x25
-  u8 pad2[0x2c - 0x26];
+  u16 s26;       // 0x26
+  f32 f28;       // 0x28
 };
 
 struct Unk_WorldInfo5220 {

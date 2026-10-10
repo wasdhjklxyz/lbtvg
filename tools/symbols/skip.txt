@@ -236,3 +236,4 @@
 005dbd80 gizmoblowup_Load: near match; instance loop zero constant CSE'd into esi (orig immediates) and b11c/b11d block layout
 00634880 GizmoPickups_FixDrawDistance: open register-arg case, orig version arg on stack, ours in eax
 00634ef0 GizmoPickups_Load: matches except the FixDrawDistance call (push ebx vs mov eax, ebx)
+00634c70 GizmoPickups_Reset: near match, type_d compare operands land in swapped registers (edx/ecx)

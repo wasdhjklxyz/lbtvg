@@ -3244,3 +3244,7 @@
 00634550 GizmoPickup_Activate GizmoPickups_RegisterGizmo activate slot (fns[10]); Mac GizmoPickup_Activate calls SuperCounter_ActivateGizmoPickup, Mission_Active, PlaySfx, AddGameDebris in the same order
 006528c0 SuperCounter_ActivateGizmoPickup Mac GizmoPickup_Activate calls SuperCounter_ActivateGizmoPickup(GIZMO_s*, GIZMOPICKUP_s*) with (gizmo, pickup) at the same point
 00634ef0 GizmoPickups_Load GizmoPickups_RegisterGizmo load slot (fns[24])
+00634c70 GizmoPickups_Reset GizmoPickups_RegisterGizmo reset slot (fns[22]); Mac GizmoPickups_Reset has the same NuStrICmp/SuperCounter_FindFromNameAndLevel/SuperCounter_AnyCollected sequence
+00652ab0 SuperCounter_AnyCollected Mac GizmoPickups_Reset calls SuperCounter_AnyCollected(SUPERCOUNTER*, WORLDINFO_s*) on the FindFromNameAndLevel result
+006529f0 SuperCounter_FindFromNameAndLevel Mac GizmoPickups_Reset calls SuperCounter_FindFromNameAndLevel(char*, WORLDINFO_s*, SUPERCOUNTERPICKUP**) with (pickup name, world, NULL)
+007186e0 NuPortalWhichRoom Mac GizmoPickups_Reset (inlined per-pickup init) calls _NuPortalWhichRoom(scene, &pos) where PC 0x634b20 calls 0x7186e0

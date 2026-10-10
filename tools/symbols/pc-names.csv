@@ -2717,6 +2717,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00634710,002cd722,__Z26GizmoPickups_StoreProgressPvS_S_,"GizmoPickups_StoreProgress(void*, void*, void*)",confirmed,0
 00634940,002d0a36,__Z31GizmoPickups_ReserveBufferSpacePv,GizmoPickups_ReserveBufferSpace(void*),confirmed,0
 00634af0,002cd7fc,__Z25GizmoPickup_SetVisibilityP7GIZMO_si,"GizmoPickup_SetVisibility(GIZMO_s*, int)",confirmed,0
+00634c70,002cd824,__Z18GizmoPickups_ResetPvS_S_,"GizmoPickups_Reset(void*, void*, void*)",confirmed,0
 00634ee0,002cdc6e,__Z18GizmoPickup_GetPosP7GIZMO_s,GizmoPickup_GetPos(GIZMO_s*),confirmed,0
 00634ef0,002cdc82,__Z17GizmoPickups_LoadPvS_,"GizmoPickups_Load(void*, void*)",confirmed,0
 00635020,002cdece,__Z23GizmoPickups_TotalScorePv,GizmoPickups_TotalScore(void*),confirmed,0
@@ -2819,6 +2820,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00652260,00338224,__Z24SuperCounterConfig_ResetP12SUPERCOUNTER,SuperCounterConfig_Reset(SUPERCOUNTER*),confirmed,0
 00652290,00338262,__Z28SuperCounterConfig_ParseLineP12SUPERCOUNTERP8nufpar_s,"SuperCounterConfig_ParseLine(SUPERCOUNTER*, nufpar_s*)",strings,0
 006528c0,0033890c,__Z32SuperCounter_ActivateGizmoPickupP7GIZMO_sP13GIZMOPICKUP_s,"SuperCounter_ActivateGizmoPickup(GIZMO_s*, GIZMOPICKUP_s*)",confirmed,0
+006529f0,00338a6c,__Z33SuperCounter_FindFromNameAndLevelPcP11WORLDINFO_sPP18SUPERCOUNTERPICKUP,"SuperCounter_FindFromNameAndLevel(char*, WORLDINFO_s*, SUPERCOUNTERPICKUP**)",confirmed,0
+00652ab0,00338b36,__Z25SuperCounter_AnyCollectedP12SUPERCOUNTERP11WORLDINFO_s,"SuperCounter_AnyCollected(SUPERCOUNTER*, WORLDINFO_s*)",confirmed,0
 00652e50,00338e60,__Z22SuperCounter_CharCheckiP7nuvec_siP12SUPERCOUNTERP16SUPERCOUNTERSAVEi,"SuperCounter_CharCheck(int, nuvec_s*, int, SUPERCOUNTER*, SUPERCOUNTERSAVE*, int)",gapfill,1
 00653250,003392c6,__Z29SuperCounter_CreateAIMessagesiiP12SUPERCOUNTERP16SUPERCOUNTERSAVEi,"SuperCounter_CreateAIMessages(int, int, SUPERCOUNTER*, SUPERCOUNTERSAVE*, int)",strings,0
 00654020,002c081e,__Z11xParent_ColP8nufpar_s,xParent_Col(nufpar_s*),confirmed,0
@@ -3787,6 +3790,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 007151e0,0012fccc,_NuCameraDestroy,_NuCameraDestroy,strings,0
 00716660,0013096c,_NuCameraTransformScreenClip,_NuCameraTransformScreenClip,confirmed,0
 007173c0,001618f8,_CreateTimeBar,_CreateTimeBar,strings,0
+007186e0,0013154e,_NuPortalWhichRoom,_NuPortalWhichRoom,confirmed,0
 0071e2d0,00150f48,_AddCurvePoint,_AddCurvePoint,gapfill,6
 0071e890,00153090,_NuRndrCurve,_NuRndrCurve,gapfill,4
 007227b0,0013dd8e,_NuLgtLaser,_NuLgtLaser,gapfill,2

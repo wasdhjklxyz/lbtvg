@@ -118,18 +118,29 @@ i32 GizmoPickup_GetNumOutputs(GIZMO *gizmo) { return 1; }
 struct GIZMOPICKUPTYPE_s {
   u8 pad0[4];
   char *sfx; // 0x04
-  u8 pad8[0xe - 0x8];
-  u8 flags; // 0x0e
-  u8 padf[0x2c - 0xf];
+  u8 pad8[0xc - 0x8];
+  char code;   // 0x0c
+  u8 variants; // 0x0d
+  u8 flags;    // 0x0e
+  u8 padf[0x14 - 0xf];
+  f32 f14; // 0x14
+  f32 f18; // 0x18
+  f32 f1c; // 0x1c
+  u8 pad20[0x2c - 0x20];
   i16 debris; // 0x2c
-  u8 pad2e[0x3c - 0x2e];
+  u8 pad2e[0x34 - 0x2e];
+  f32 f34; // 0x34
+  f32 f38; // 0x38
 };
 
 struct GIZMOPICKUPSYS_s {
   GIZMOPICKUPTYPE_s *types; // 0x00
-  u8 pad4[0xc - 0x4];
+  u8 pad4[0x8 - 0x4];
+  u16 count; // 0x08
+  u8 pada;
+  i8 type_b; // 0x0b
   i8 type_c; // 0x0c
-  u8 padd;
+  i8 type_d; // 0x0d
   i8 type_e; // 0x0e
 };
 
@@ -366,6 +377,132 @@ void GizmoPickup_SetVisibility(GIZMO *gizmo, i32 visible) {
     ((Unk_WorldInfo5220Entry *)gizmo->object)->visible = visible != 0;
 }
 
+struct PICKUPLEVELLIST_s {
+  char names[10][8]; // 0x00
+  u8 count;          // 0x50
+  u8 pad51[3];
+};
+
+// GLOBAL: LEGOBATMAN 0x009ca98c
+extern f32 g_unk009ca98c;
+// GLOBAL: LEGOBATMAN 0x009f7a44
+extern nuvec_s g_unk009f7a44;
+// GLOBAL: LEGOBATMAN 0x00ab0898
+extern i32 SuperStory;
+// GLOBAL: LEGOBATMAN 0x00aca8fc
+extern PICKUPLEVELLIST_s *g_unk00aca8fc;
+// GLOBAL: LEGOBATMAN 0x00aca594
+extern u8 *g_unk00aca594;
+
+extern "C" void NewTerrPlatformsOff(void);
+i32 NuStrICmp(const char *a, const char *b);
+f32 GameShadow(void *object, nuvec_s *position, f32 probe_height, i32 a);
+void FindAnglesZX(nuvec_s *normal, u16 *x_rotation, u16 *z_rotation);
+i32 qrand(void);
+i16 NuPortalWhichRoom(nugscn_s *scene, nuvec_s *pos);
+void *SuperCounter_FindFromNameAndLevel(char *name, WORLDINFO_s *world,
+                                        void **pickup);
+i32 SuperCounter_AnyCollected(void *counter, WORLDINFO_s *world);
+
+static inline i32 GizmoPickup_FindType(char code) {
+  for (i32 i = 0; i < GizmoPickupSys->count; i++) {
+    if (GizmoPickupSys->types[i].code == code)
+      return i;
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00634b20
+static void GizmoPickup_Init(WORLDINFO_s *world,
+                             Unk_WorldInfo5220Entry *pickup) {
+  pickup->type_index = GizmoPickup_FindType(pickup->type_code);
+  NewTerrPlatformsOff();
+  f32 y = GameShadow(NULL, &pickup->position, g_unk009ca98c, -1);
+  pickup->shadow_y = y;
+  if (y != 2000000.0) {
+    if (pickup->position.y <= y)
+      pickup->shadow_y = 2000000.0f;
+    else
+      FindAnglesZX(&g_unk009f7a44, &pickup->rot_x, &pickup->rot_z);
+  }
+  pickup->state = (pickup->state & ~0x18) | 7;
+  if (GizmoPickupSys->types[pickup->type_index].variants > 0)
+    pickup->b16 =
+        qrand() /
+        (0xffff / GizmoPickupSys->types[pickup->type_index].variants + 1);
+  else
+    pickup->b16 = 0;
+  pickup->b24 = world->scn140 != NULL
+                    ? NuPortalWhichRoom(world->scn140, &pickup->position)
+                    : -1;
+  pickup->s26 = qrand();
+  pickup->f28 = 0.0f;
+  pickup->state = (pickup->state & ~0x40) | 0x20;
+}
+
+// STUB: LEGOBATMAN 0x00634c70
+// 2 instructions: type_index/type_d compare loads get edx/ecx swapped.
+void GizmoPickups_Reset(void *world_ptr, void *unused, void *progress_ptr) {
+  for (i32 i = 0; i < GizmoPickupSys->count; i++) {
+    GizmoPickupSys->types[i].f34 =
+        GizmoPickupSys->types[i].f1c * GizmoPickupSys->types[i].f14;
+    GizmoPickupSys->types[i].f38 =
+        GizmoPickupSys->types[i].f1c * GizmoPickupSys->types[i].f18;
+  }
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  if (world == NULL)
+    return;
+  Unk_WorldInfo5220Entry *pickup = world->p5220->list;
+  if (pickup != NULL) {
+    GIZMOPICKUPPROGRESS *progress = (GIZMOPICKUPPROGRESS *)progress_ptr;
+    for (i32 i = 0; i < world->p5220->count; i++, pickup++) {
+      GizmoPickup_Init(world, pickup);
+      if (progress != NULL && i < 0x200) {
+        i32 word = i / 32;
+        u32 bit = 1 << (i & 31);
+        pickup->visible = (progress->visible[word] & bit) != 0;
+        pickup->enabled = (progress->enabled[word] & bit) != 0;
+        pickup->collected = (progress->collected[word] & bit) != 0;
+        pickup->activated = (progress->activated[word] & bit) != 0;
+        if ((pickup->b15 & 1) && !pickup->activated)
+          pickup->state &= ~6;
+      } else if (pickup->b15 & 1) {
+        pickup->state &= ~6;
+      }
+      if (GizmoPickupSys->type_b != -1 &&
+          pickup->type_index == GizmoPickupSys->type_b) {
+        if (SuperStory != 0)
+          goto collected;
+        if (g_unk00aca8fc != NULL) {
+          for (i32 j = 0; j < g_unk00aca8fc[world->level_idx].count; j++) {
+            if (NuStrICmp(pickup->name,
+                          g_unk00aca8fc[world->level_idx].names[j]) == 0)
+              goto collected;
+          }
+        }
+        goto check;
+      collected:
+        pickup->state |= 0x40;
+      check:
+        if (!(pickup->state & 0x40)) {
+          void *counter =
+              SuperCounter_FindFromNameAndLevel(pickup->name, world, NULL);
+          if (counter != NULL && SuperCounter_AnyCollected(counter, world))
+            pickup->state |= 0x40;
+        }
+      }
+      if (GizmoPickupSys->type_d != -1 &&
+          GizmoPickupSys->type_d == pickup->type_index) {
+        if (SuperStory != 0 || (g_unk00aca594 != NULL &&
+                                (g_unk00aca594[world->i124 * 12 + 7] & 1)))
+          pickup->state |= 0x100;
+      }
+    }
+  }
+  if (world->p5220->temp_list != NULL)
+    memset(world->p5220->temp_list, 0, 0xb00);
+}
+
 // FUNCTION: LEGOBATMAN 0x00634ee0
 nuvec_s *GizmoPickup_GetPos(GIZMO *gizmo) {
   if (gizmo == NULL)
@@ -373,7 +510,6 @@ nuvec_s *GizmoPickup_GetPos(GIZMO *gizmo) {
   return &((Unk_WorldInfo5220Entry *)gizmo->object)->position;
 }
 
-void GizmoPickups_Reset(void *world, void *unused, void *progress);
 void GizmoPickups_PostLoad(void *a, void *b);
 
 // GLOBAL: LEGOBATMAN 0x009652c4
