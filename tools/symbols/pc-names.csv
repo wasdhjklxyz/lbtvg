@@ -1099,6 +1099,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005c3ff0,002eceb6,__ZN18InteractiveDisplay9DumpLevelEP11WORLDINFO_s,InteractiveDisplay::DumpLevel(WORLDINFO_s*),confirmed,0
 005c4080,002ecc00,__ZN18InteractiveDisplay23GetFirstSpecialMaterialEP8nugscn_sPc,"InteractiveDisplay::GetFirstSpecialMaterial(nugscn_s*, char*)",gapfill,1
 005c4c30,002f0934,__ZNK18InteractiveDisplay12RenderSquareERK5VuVecfRKjP7numtl_sf,"InteractiveDisplay::RenderSquare(VuVec const&, float, unsigned int const&, numtl_s*, float) const",confirmed,0
+005c5d80,002ecc3e,__ZNK18InteractiveDisplay24GetCharacterIconMaterialEP11WORLDINFO_sii,"InteractiveDisplay::GetCharacterIconMaterial(WORLDINFO_s*, int, int) const",confirmed,0
+005c5df0,002eccba,__ZNK18InteractiveDisplay16GetFrameMaterialEP11WORLDINFO_si,"InteractiveDisplay::GetFrameMaterial(WORLDINFO_s*, int) const",confirmed,0
 005c64e0,002ecf4c,__ZNK18InteractiveDisplay9IsVisibleEv,InteractiveDisplay::IsVisible() const,confirmed,0
 005c65f0,002ecd10,__ZN18InteractiveDisplay16UpdateWhiteNoiseEf,InteractiveDisplay::UpdateWhiteNoise(float),confirmed,0
 005c6de0,002ecd8a,__ZN18InteractiveDisplay21UpdateBackgroundAlphaEf,InteractiveDisplay::UpdateBackgroundAlpha(float),confirmed,0

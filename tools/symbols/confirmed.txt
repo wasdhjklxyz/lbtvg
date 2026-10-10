@@ -1835,3 +1835,5 @@
 005c65f0 InteractiveDisplay::UpdateWhiteNoise called from Update (slot 10) like the Mac; Mac body (50 noise words, NuRandFloat/NuRandInt); matched
 005c6de0 InteractiveDisplay::UpdateBackgroundAlpha Mac body (field 0x224 on Mac = 0x234 on PC set to 1.0f, one float arg); matched
 005c71d0 InteractiveDisplay::InitializePerm vtable 0x85d75c slot 0; Mac body (InteractiveDisplayQFont3DZ, GetMaterial 4/6/5/1/7); matched
+005c5d80 InteractiveDisplay::GetCharacterIconMaterial Mac body (CDataList icon special + alt, NuSpecialExistsFn/GetMtl), ret 0xc = 3 args; matched
+005c5df0 InteractiveDisplay::GetFrameMaterial Mac body (index > -1, world specials), ret 8; matched

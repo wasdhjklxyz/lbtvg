@@ -206,7 +206,9 @@ nuvec_s *Player_StartPos(GameObject_s *obj) {
 struct CHARACTERDATA_s {
   u8 pad0[4];
   u32 model_flags; // 0x04
-  u8 pad8[0x48 - 8];
+  u8 pad8[0x16 - 8];
+  i16 icon_special; // 0x16
+  u8 pad18[0x48 - 0x18];
 };
 
 // GLOBAL: LEGOBATMAN 0x00acb81c
@@ -614,6 +616,9 @@ struct InteractiveDisplay {
   virtual i32 IsCameraTransitioning() const;                               // 21
 
   void UpdateBackgroundAlpha(f32 dt);
+  void *GetCharacterIconMaterial(WORLDINFO_s *world, i32 character,
+                                 i32 alt) const;
+  void *GetFrameMaterial(WORLDINFO_s *world, i32 index) const;
   void Unk005c3f20(const IDVEC_s &v);
   static const char *Unk005c3f50();
   char *Unk005c3f60();
@@ -735,6 +740,43 @@ void InteractiveDisplay::UpdateWhiteNoise(f32 dt) {
 
 // FUNCTION: LEGOBATMAN 0x005c6de0
 void InteractiveDisplay::UpdateBackgroundAlpha(f32 dt) { f234 = 1.0f; }
+
+// Raw view of the WORLDINFO_s special table (0x2b04): 16-byte entries.
+struct IDSPECIAL_s {
+  nuhspecial_s special;
+  u32 pad;
+};
+
+struct IDWORLD_s {
+  u8 pad0[0x2b04];
+  IDSPECIAL_s *specials; // 0x2b04
+};
+
+i32 NuSpecialExistsFn(nuhspecial_s *sp);
+
+// FUNCTION: LEGOBATMAN 0x005c5d80
+void *InteractiveDisplay::GetCharacterIconMaterial(WORLDINFO_s *world,
+                                                   i32 character,
+                                                   i32 alt) const {
+  void *mtl = 0;
+  i32 index = CDataList[character].icon_special;
+  if (alt)
+    index++;
+  if (index != -1 &&
+      NuSpecialExistsFn(&((IDWORLD_s *)world)->specials[index].special))
+    mtl = NuSpecialGetMtl(&((IDWORLD_s *)world)->specials[index].special, 0);
+  return mtl;
+}
+
+// FUNCTION: LEGOBATMAN 0x005c5df0
+void *InteractiveDisplay::GetFrameMaterial(WORLDINFO_s *world,
+                                           i32 index) const {
+  void *mtl = 0;
+  if (index > -1 &&
+      NuSpecialExistsFn(&((IDWORLD_s *)world)->specials[index].special))
+    mtl = NuSpecialGetMtl(&((IDWORLD_s *)world)->specials[index].special, 0);
+  return mtl;
+}
 
 // FUNCTION: LEGOBATMAN 0x005c64e0
 i32 InteractiveDisplay::IsVisible() const {
