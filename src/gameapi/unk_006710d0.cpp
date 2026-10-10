@@ -96,8 +96,24 @@ void DrawPauseScreenWipe();
 struct numtl_s;
 
 void Unk0071af80(i32 x, i32 y, i32 w, i32 h, u32 colour, numtl_s *mtl);
-void Unk00670d80(i32 a, f32 alpha);
-void Unk00670e30(i32 a, f32 alpha);
+void Unk0071ae30(f32 x, f32 y, f32 z, f32 w, f32 h, f32 u0, f32 v0, f32 u1,
+                 f32 v1, u32 colour, numtl_s *mtl);
+
+// numtl_s view: the alpha the cross fade writes.
+struct FDMTL_s {
+  u8 pad00[0x70];
+  f32 alpha; // 0x70
+};
+
+FDMTL_s *Unk005a5ab0(); // returns the pause/still-screen material
+i32 NuRndrBeginScene(i32 flags);
+void NuRndrClear(i32 clear_flags, i32 background_colour, f32 alpha);
+void NuRndrGradRectUV2di(i32 x, i32 y, i32 width, i32 height, f32 u0, f32 v0,
+                         f32 u1, f32 v1, i32 *colours, FDMTL_s *material);
+void NuRndrEndScene();
+
+// GLOBAL: LEGOBATMAN 0x00968550
+extern i32 g_unk00968550[4]; // cross fade rect: x, y, width, height
 
 // GLOBAL: LEGOBATMAN 0x00a97cf0
 extern numtl_s *g_unk00a97cf0; // fade material
@@ -105,6 +121,30 @@ extern numtl_s *g_unk00a97cf0; // fade material
 // Body in nutrig_unk.h: this TU's copy of the static.
 // FUNCTION: LEGOBATMAN 0x00670c40
 static f32 NuSinApprox(i32 angle);
+
+// FUNCTION: LEGOBATMAN 0x00670d80
+void Unk00670d80(i32 clear, f32 alpha) {
+  FDMTL_s *mtl = Unk005a5ab0();
+  mtl->alpha = alpha;
+  NuRndrBeginScene(1);
+  if (clear != 0)
+    NuRndrClear(0x500, 0, 1.0f);
+  i32 colour = ((i32)(alpha * 128.0f) << 24) | 0x808080;
+  i32 colours[4] = {colour, colour, colour, colour};
+  NuRndrGradRectUV2di(g_unk00968550[0], g_unk00968550[1], g_unk00968550[2],
+                      g_unk00968550[3], 0.0f, 0.0f, 1.0f, 1.0f, colours, mtl);
+  NuRndrEndScene();
+}
+
+// FUNCTION: LEGOBATMAN 0x00670e30
+void Unk00670e30(i32 clear, f32 alpha) {
+  NuRndrBeginScene(1);
+  if (clear != 0)
+    NuRndrClear(0x500, 0, 1.0f);
+  Unk0071ae30(-48.0f, -28.0f, 1.0f, 10260.0f, 3592.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+              (u32)((1.0f - alpha) * 128.0f) << 24, g_unk00a97cf0);
+  NuRndrEndScene();
+}
 
 // GLOBAL: LEGOBATMAN 0x00ad29ec
 extern i32 wait_till_next_frame;
