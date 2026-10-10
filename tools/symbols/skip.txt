@@ -211,3 +211,5 @@
 0061f4f0 CharScene_FindHSpecial: block order of the world branch, 4 forms tried
 00491a90 GizTorp_Update: x87 0.5 constant kept as dword in st0 across the loop, ours qword
 0040be20 Attractos_StoreProgress: or eax,-1 scheduled one slot later, 4 forms tried
+004854e0 GizBombGens_SetResetFlag: bitfield insert layout differs, 5 forms tried
+00485d90 GizBombGen_FindByName: null checks before the pushes in ours, 4 forms tried

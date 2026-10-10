@@ -53,7 +53,9 @@ struct WORLDINFO_s {
   variptr_u buf104;       // 0x104
   variptr_u bufEnd108;    // 0x108
   i32 config_count;       // 0x10c
-  u8 pad1[0x124 - 0x110];
+  u8 pad1[0x11c - 0x110];
+  u8 reset_flags; // 0x11c, bit 0 kill bombs on reset
+  u8 pad11d[0x124 - 0x11d];
   i32 i124; // 0x124, SuperCounter_AreaCheck area
   u8 pad128[0x12c - 0x128];
   struct LEVELDATA_s *current_level; // 0x12c
@@ -64,7 +66,9 @@ struct WORLDINFO_s {
   nugscn_s *scn140; // 0x140
   u8 pad3[0x148 - 0x144];
   nugscn_s *scn148; // 0x148
-  u8 pad4[0x2974 - 0x14c];
+  u8 pad4[0x2968 - 0x14c];
+  struct GAMEANIMSYS_s *game_anim_sys; // 0x2968
+  u8 pad296c[0x2974 - 0x296c];
   i32 i2974; // 0x2974
   u8 pad5[0x29cc - 0x2978];
   struct SOCKSYS_s *sock_sys;                // 0x29cc
@@ -117,6 +121,8 @@ struct WORLDINFO_s {
   i32 gizmo_blowup_count; // 0x5228
   u8 pad10[0x5230 - 0x522c];
   GIZMOBLOWUP_s *gizmo_blowups; // 0x5230
+  u8 pad5234[0x5288 - 0x5234];
+  struct GIZBOMBGENSYS_s *giz_bombgen_sys; // 0x5288
 };
 
 // GLOBAL: LEGOBATMAN 0x00960894

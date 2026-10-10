@@ -579,6 +579,24 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00484590,000a448c,__Z20GizActions_HitBlowupP9GIZFLOW_sP9FLOWBOX_sPPci,"GizActions_HitBlowup(GIZFLOW_s*, FLOWBOX_s*, char**, int)",strings,0
 00484c00,000a4a42,__Z25GizActions_SetRailSpecialP9GIZFLOW_sP9FLOWBOX_sPPci,"GizActions_SetRailSpecial(GIZFLOW_s*, FLOWBOX_s*, char**, int)",strings,0
 00484f20,000a4cc6,__Z17GizActions_SetRTLP9GIZFLOW_sP9FLOWBOX_sPPci,"GizActions_SetRTL(GIZFLOW_s*, FLOWBOX_s*, char**, int)",strings,0
+00485180,000a4e90,__Z26Gizbombgen_ReadAnimSetDataP13GAMEANIMOBJ_sh,"Gizbombgen_ReadAnimSetData(GAMEANIMOBJ_s*, unsigned char)",confirmed,0
+004851b0,000a4ec6,__Z16GizBombGens_LoadPvS_,"GizBombGens_Load(void*, void*)",confirmed,0
+00485290,000a4f70,__Z30GizBombGens_ReserveBufferSpacePv,GizBombGens_ReserveBufferSpace(void*),confirmed,0
+00485390,000a5064,__Z21GizmoBombGen_ActivateP7GIZMO_si,"GizmoBombGen_Activate(GIZMO_s*, int)",confirmed,0
+004853f0,000a508e,__Z26GizmoBombGen_SetVisibilityP7GIZMO_si,"GizmoBombGen_SetVisibility(GIZMO_s*, int)",confirmed,0
+00485440,000a50da,__Z19GizmoBombGen_GetPosP7GIZMO_s,GizmoBombGen_GetPos(GIZMO_s*),confirmed,0
+004854e0,000a50f4,__Z24GizBombGens_SetResetFlagPvS_S_,"GizBombGens_SetResetFlag(void*, void*, void*)",confirmed,0
+00485c50,000a5874,__Z24GizBombGens_GetMaxGizmosPv,GizBombGens_GetMaxGizmos(void*),confirmed,0
+00485c70,000a5890,__Z21GizBombGens_AddGizmosP10GIZMOSYS_siPvS1_,"GizBombGens_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+00485ce0,000a58ec,__Z25GizmoBombGen_GetGizmoNameP7GIZMO_s,GizmoBombGen_GetGizmoName(GIZMO_s*),confirmed,0
+00485d00,000a58fc,__Z22GizmoBombGen_GetOutputP7GIZMO_sii,"GizmoBombGen_GetOutput(GIZMO_s*, int, int)",confirmed,0
+00485d20,000a590e,__Z26GizmoBombGen_GetOutputNameP7GIZMO_si,"GizmoBombGen_GetOutputName(GIZMO_s*, int)",confirmed,0
+00485d30,000a5918,__Z26GizmoBombGen_GetNumOutputsP7GIZMO_s,GizmoBombGen_GetNumOutputs(GIZMO_s*),confirmed,0
+00485d40,000a5922,__Z32GizBombGens_AllocateProgressDataP9variptr_uS0_,"GizBombGens_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+00485d60,000a5944,__Z25GizBombGens_ClearProgressPvS_,"GizBombGens_ClearProgress(void*, void*)",confirmed,0
+00485d90,000a598c,__Z21GizBombGen_FindByNameP15GIZBOMBGENSYS_sPc,"GizBombGen_FindByName(GIZBOMBGENSYS_s*, char*)",confirmed,0
+00485df0,000a59da,__Z25GizBombGens_StoreProgressPvS_S_,"GizBombGens_StoreProgress(void*, void*, void*)",confirmed,0
+00485e90,000a5a62,__Z24GizBombGen_RegisterGizmoi,GizBombGen_RegisterGizmo(int),confirmed,0
 004861e0,000a5c90,__Z21GizForceSFX_forcenameP8nufpar_s,GizForceSFX_forcename(nufpar_s*),confirmed,0
 00486230,000a5d30,__Z22GizForceSFX_processsfxP8nufpar_s,GizForceSFX_processsfx(nufpar_s*),confirmed,0
 00486290,000a5d7e,__Z23GizForceSFX_completesfxP8nufpar_s,GizForceSFX_completesfx(nufpar_s*),confirmed,0

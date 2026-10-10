@@ -2641,3 +2641,21 @@
 0040bde0 Attractos_ClearProgress clear_progress slot of the "Attracto" ADDGIZMOTYPE
 0040be20 Attractos_StoreProgress store_progress slot of the "Attracto" ADDGIZMOTYPE
 0040bf00 Attracto_GetPos get_pos slot of the "Attracto" ADDGIZMOTYPE
+00485180 Gizbombgen_ReadAnimSetData passed to GizmoFileReadGameAnimSet by GizBombGens_Load (Mac order)
+004851b0 GizBombGens_Load load slot of the "BombGenerator" ADDGIZMOTYPE
+00485290 GizBombGens_ReserveBufferSpace reserve_buffer_space slot of the "BombGenerator" ADDGIZMOTYPE
+00485390 GizmoBombGen_Activate activate slot of the "BombGenerator" ADDGIZMOTYPE
+004853f0 GizmoBombGen_SetVisibility set_visibility slot of the "BombGenerator" ADDGIZMOTYPE
+00485440 GizmoBombGen_GetPos get_pos slot of the "BombGenerator" ADDGIZMOTYPE
+004854e0 GizBombGens_SetResetFlag reset slot of the "BombGenerator" ADDGIZMOTYPE
+00485c50 GizBombGens_GetMaxGizmos get_max_gizmos slot of the "BombGenerator" ADDGIZMOTYPE
+00485c70 GizBombGens_AddGizmos add_gizmos slot of the "BombGenerator" ADDGIZMOTYPE
+00485ce0 GizmoBombGen_GetGizmoName get_gizmo_name slot of the "BombGenerator" ADDGIZMOTYPE
+00485d00 GizmoBombGen_GetOutput get_output slot of the "BombGenerator" ADDGIZMOTYPE
+00485d20 GizmoBombGen_GetOutputName get_output_name slot ("Active") of the "BombGenerator" ADDGIZMOTYPE
+00485d30 GizmoBombGen_GetNumOutputs get_num_outputs slot of the "BombGenerator" ADDGIZMOTYPE
+00485d40 GizBombGens_AllocateProgressData allocate_progress_data slot of the "BombGenerator" ADDGIZMOTYPE
+00485d60 GizBombGens_ClearProgress clear_progress slot of the "BombGenerator" ADDGIZMOTYPE
+00485d90 GizBombGen_FindByName Mac order between ClearProgress and StoreProgress, saga body
+00485df0 GizBombGens_StoreProgress store_progress slot of the "BombGenerator" ADDGIZMOTYPE
+00485e90 GizBombGen_RegisterGizmo copies Default_ADDGIZMOTYPE, name "BombGenerator"
