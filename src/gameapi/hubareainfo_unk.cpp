@@ -196,3 +196,39 @@ HUBEPISODEINFO *HubEpisodeInfo_FindFromEpisodeIndex(i32 index) {
   }
   return NULL;
 }
+
+i32 NuSpecialExistsFn(nuhspecial_s *sp);
+nuvec_s *NuSpecialGetDrawPos(nuhspecial_s *special);
+float NuVecDistSqr(nuvec_s *a, nuvec_s *b, nuvec_s *d);
+// Raw view of a player: only the position is evidenced.
+struct HIPLAYER_s {
+  u8 pad00[0x5c];
+  nuvec_s pos; // 0x5c
+};
+extern HIPLAYER_s *Player[8];
+
+// STUB: LEGOBATMAN 0x006183e0
+// nearest episode special to the given players (mask); orig loads the list via
+// eax and recomputes &info->sp2 per pass, ours keeps it as a second IV
+HUBEPISODEINFO *Unk006183e0(u32 players) {
+  HUBEPISODEINFO *best = NULL;
+  HUBEPISODEINFO *info = g_unk00acb6e8;
+  if (info != NULL) {
+    f32 best_dist = 25.0f;
+    for (; info->episode != -1; info++) {
+      if (NuSpecialExistsFn((nuhspecial_s *)info->sp2)) {
+        for (i32 i = 0; i < 2; i++) {
+          if (players & (1 << i)) {
+            f32 d = NuVecDistSqr(NuSpecialGetDrawPos((nuhspecial_s *)info->sp2),
+                                 &Player[i]->pos, NULL);
+            if (d < best_dist) {
+              best_dist = d;
+              best = info;
+            }
+          }
+        }
+      }
+    }
+  }
+  return best;
+}
