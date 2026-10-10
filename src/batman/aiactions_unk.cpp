@@ -798,6 +798,113 @@ void AISysCharacterSetPath(void *ai, SetPathAIPath_s *path);
 void AISysGetCharacterPathPos(AISYS_s *sys, GameObject_s *obj, void *ai, i32 a,
                               i32 b);
 
+struct GIZMO_s {
+  void *object; // 0x00
+};
+
+GIZMO_s *GizmoFindByName(GIZMOSYS_s *gizmo_sys, i32 type_id, char *name);
+// GLOBAL: LEGOBATMAN 0x0095fc30
+extern i32 grapple_gizmotype_id;
+// GLOBAL: LEGOBATMAN 0x00961394
+extern i32 ledge_gizmotype_id;
+
+struct AIPATHCNXHELPER_s {
+  u8 pad0[0x10];
+  f32 jump_off_dy; // 0x10
+};
+
+struct AIPATH_s *AISysFindPath(AISYS_s *sys, char *name);
+void *AIPAthFindPathCnx(AISYS_s *sys, struct AIPATH_s *path, char *from,
+                        char *to, i32 *dir);
+AIPATHCNXHELPER_s *AIPathCnxHelperSys_AddHelper(void *sys, void *cnx, u8 dir,
+                                                void *grapple, u8 a);
+void AddClimbHelper(WORLDINFO_s *world, void *cnx, AILOCATOR_s *locator);
+void AddLedgeHelper(WORLDINFO_s *world, void *cnx, i32 dir, void *ledge1,
+                    void *ledge2, i32 ledge_dir);
+
+static inline char *ParamAfterKey(char *value, char *key) {
+  return value + NuStrLen(key) + 1;
+}
+
+// STUB: LEGOBATMAN 0x00461af0
+// Only diff: lea [value+len+1] comes out as [len+value+1] (3 places;
+// expression order and helper shapes tried).
+i32 Action_CnxHelper(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                     AIPACKET_s *packet, char **params, i32 param_count,
+                     i32 first_time, f32 dt) {
+  f32 jump_off_dy = 0.0f;
+  char *to = NULL;
+  i32 both = 0;
+  char *from = NULL;
+  struct AIPATH_s *path = NULL;
+  void *grapple = NULL;
+  void *ledge1 = NULL;
+  void *ledge2 = NULL;
+  AILOCATOR_s *climb = NULL;
+  i32 ledge_dir = -1;
+  if (!first_time)
+    return 1;
+  for (i32 i = 0; i < param_count; i++) {
+    char *value;
+    if ((value = NuStrIStr(params[i], "pathname=")) != NULL) {
+      path = AISysFindPath(sys, value + 9);
+    } else if (NuStrIStr(params[i], "bothways") != NULL) {
+      both = 1;
+    } else if ((value = NuStrIStr(params[i], "from=")) != NULL) {
+      from = value + NuStrLen("from=");
+    } else if ((value = NuStrIStr(params[i], "to=")) != NULL) {
+      to = value + NuStrLen("to=");
+    } else if ((value = NuStrIStr(params[i], "jump_off_dy=")) != NULL) {
+      value += NuStrLen("jump_off_dy=");
+      jump_off_dy = AIParamToFloat(process, value);
+    } else if ((value = NuStrIStr(params[i], "grapple=")) != NULL) {
+      value += NuStrLen("grapple=");
+      GIZMO_s *gizmo = GizmoFindByName(g_unk00960894->gizmoSys2b0c,
+                                       grapple_gizmotype_id, value);
+      if (gizmo != NULL)
+        grapple = gizmo->object;
+    } else if ((value = NuStrIStr(params[i], "ledge1")) != NULL) {
+      GIZMO_s *gizmo =
+          GizmoFindByName(g_unk00960894->gizmoSys2b0c, ledge_gizmotype_id,
+                          ParamAfterKey(value, "ledge1"));
+      if (gizmo != NULL)
+        ledge1 = gizmo->object;
+    } else if ((value = NuStrIStr(params[i], "ledge2")) != NULL) {
+      GIZMO_s *gizmo =
+          GizmoFindByName(g_unk00960894->gizmoSys2b0c, ledge_gizmotype_id,
+                          ParamAfterKey(value, "ledge2"));
+      if (gizmo != NULL)
+        ledge2 = gizmo->object;
+    } else if ((value = NuStrIStr(params[i], "ledge_dir")) != NULL) {
+      ledge_dir =
+          (i32)AIParamToFloat(process, ParamAfterKey(value, "ledge_dir"));
+    } else if ((value = NuStrIStr(params[i], "climb_locator=")) != NULL) {
+      value += NuStrLen("climb_locator=");
+      climb = AIPathFindLocator(sys, value);
+    }
+  }
+  if (from != NULL && to != NULL) {
+    void *cnx = AIPAthFindPathCnx(sys, path, from, to, &first_time);
+    if (cnx != NULL) {
+      if (both)
+        first_time = 0xff;
+      if (grapple != NULL) {
+        AIPATHCNXHELPER_s *helper = AIPathCnxHelperSys_AddHelper(
+            g_unk00960894->ai_path_cnx_helper_sys, cnx, first_time, grapple, 1);
+        if (helper != NULL)
+          helper->jump_off_dy = jump_off_dy;
+      } else if (climb != NULL) {
+        AddClimbHelper(g_unk00960894, cnx, climb);
+      } else if (ledge1 != NULL || ledge2 != NULL) {
+        first_time = 0xff;
+        AddLedgeHelper(g_unk00960894, cnx, first_time, ledge1, ledge2,
+                       ledge_dir);
+      }
+    }
+  }
+  return 1;
+}
+
 // STUB: LEGOBATMAN 0x00461ff0
 // body right; orig keeps three separate early-return epilogues, ours
 // tail-merges them (and loads argc into eax before the loop).
@@ -903,14 +1010,9 @@ struct GIZOBSTACLE_s {
   u32 flags_c8_hi : 17;
 };
 
-struct GIZMO_s {
-  void *object; // 0x00
-};
-
 // GLOBAL: LEGOBATMAN 0x0095ff24
 extern i32 obstacle_gizmotype_id;
 
-GIZMO_s *GizmoFindByName(GIZMOSYS_s *gizmo_sys, i32 type_id, char *name);
 void GizObstacle_JumpToEnd(GIZOBSTACLE_s *obstacle);
 void GizObstacle_PlayForwards(GIZOBSTACLE_s *obstacle);
 void GizObstacle_JumpToStart(GIZOBSTACLE_s *obstacle);
