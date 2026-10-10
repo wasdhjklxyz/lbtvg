@@ -3406,3 +3406,57 @@ void *NuFilePakLoadKeyPrePad(char *filepath, VARIPTR *buf, VARIPTR buf_end,
   }
   return hdr;
 }
+
+// FUNCTION: LEGOBATMAN 0x006dcf10
+i32 NuFilePakGetItem(void *hdr_ptr, char *item_name) {
+  char buf[256];
+  NUFILEPAKITEM *items;
+  NUFILEPAKHDR *hdr;
+  i32 j;
+  u32 i;
+
+  hdr = (NUFILEPAKHDR *)hdr_ptr;
+  NuStrCpy(buf, item_name);
+  for (j = 0; j < NuStrLen(item_name); j++) {
+    if (buf[j] == '/')
+      buf[j] = '\\';
+    else if (buf[j] == '\\')
+      buf[j] = '/';
+  }
+  fpk_err = 0;
+  items = GetItems(hdr);
+  for (i = 0; i < hdr->item_count; i++) {
+    if (NuStrICmp((char *)hdr + items[i].name_offset, item_name) == 0) {
+      if (items[i].attr.removed)
+        return 0;
+      return i + 1;
+    }
+    if (NuStrICmp((char *)hdr + items[i].name_offset, buf) == 0) {
+      if (items[i].attr.removed)
+        return 0;
+      return i + 1;
+    }
+  }
+  return 0;
+}
+
+// Opens a file held in the small-file pak (g_nuFileUnk0b038a4) as id 0x2000.
+// FUNCTION: LEGOBATMAN 0x006dd740
+int NuFileSmallFileOpen(char *path) {
+  int item;
+
+  if (g_nuFileUnk0b038a4 != 0) {
+    item = NuFilePakGetItem((void *)g_nuFileUnk0b038a4, path);
+    if (item != 0) {
+      while (g_nuFileUnk0b00878[0].i0 != -1) {
+      }
+      g_nuFileUnk0b00878[0].i0 = item;
+      g_nuFileUnk0b00878[0].i4 = 0;
+      NuFilePakGetItemInfo((void *)g_nuFileUnk0b038a4, item,
+                           (void **)&g_nuFileUnk0b00878[0].i8,
+                           &g_nuFileUnk0b00878[0].ic);
+      return 0x2000;
+    }
+  }
+  return 0;
+}
