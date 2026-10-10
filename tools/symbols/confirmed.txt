@@ -3372,3 +3372,5 @@
 00604f40 GameAnimSet_EvalAnim SetAnimFrame(special, ltime) per object (saga EvalAnim)
 00604150 GameAnimSet_SetTFactor tfactor = fparam1*factor*dir or dir*factor (saga SetTFactor)
 00604690 GameAnimSet_IsAnimationReset saga body shape (repeating/playing/ltime vs start)
+00604db0 GameAnimSet_SetOffset copies each object's mtx, adds the offset, NuSpecialSetDrawMtx (saga SetOffset)
+00604f80 GameAnimSet_AutoSetReflectY GameShadow ground minus mtx m31 (saga AutoSetReflectY)

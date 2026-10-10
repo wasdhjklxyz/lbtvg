@@ -16,6 +16,7 @@ void Unk_InlineUser_00603a30(f32 *v, f32 a, i32 i) { NuVec4Set(v, a, a, a, a); }
 // Batman layout differs: two system lists, a 0x28-byte set).
 
 #include "../nu2api/nucore/nulist.h"
+#include "../nu2api/numath/numtx.h"
 #include <stddef.h>
 
 struct nuhspecial_s {
@@ -105,6 +106,11 @@ extern "C" void NuListRemove(NULISTHDR *list, NULISTLNK *node);
 void NuSpecialSetNoVisiTest(nuhspecial_s *special, i32 enabled);
 i32 NuSpecialGetVisibilityFn(nuhspecial_s *sp);
 extern "C" void NuSpecialSetVisibility(nuhspecial_s *sp, i32 visible);
+struct numtx_s *NuSpecialGetMtx(nuhspecial_s *sp);
+void NuSpecialSetDrawMtx(nuhspecial_s *sp, struct numtx_s *mtx);
+f32 GameShadow(void *object, nuvec_s *position, f32 probe_height, i32 a);
+// GLOBAL: LEGOBATMAN 0x009ca98c
+extern f32 g_unk009ca98c;
 void SetAnimFrame(nuhspecial_s *special, f32 frame);
 
 // FUNCTION: LEGOBATMAN 0x00603a50
@@ -605,4 +611,60 @@ void GameAnimSet_EvalAnim(GAMEANIMSET *set) {
         SetAnimFrame(&obj->special, obj->instance_anim->ltime);
     }
   }
+}
+
+// STUB: LEGOBATMAN 0x00604b80
+// x87 operand order in the two clamp compares (ltime*dir loads first).
+void GameAnimSet_JumpToAnimPos(GAMEANIMSET *set, f32 position) {
+  GAMEANIMOBJ *obj;
+
+  if (set == NULL)
+    return;
+  for (obj = set->objects; obj != NULL; obj = obj->next) {
+    if (obj->instance_anim == NULL || obj->animation == NULL)
+      continue;
+    obj->instance_anim->flags &= ~1;
+    f32 frame =
+        (obj->end_frame - obj->start_frame) * position + obj->start_frame;
+    obj->instance_anim->ltime = frame;
+    f32 direction = obj->start_frame > obj->end_frame ? -1.0f : 1.0f;
+    if (obj->instance_anim->ltime * direction > obj->end_frame * direction)
+      obj->instance_anim->ltime = obj->end_frame;
+    if (obj->instance_anim->ltime * direction < obj->start_frame * direction)
+      obj->instance_anim->ltime = obj->start_frame;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00604db0
+void GameAnimSet_SetOffset(GAMEANIMSET *set, nuvec_s *offset) {
+  GAMEANIMOBJ *obj;
+
+  if (set == NULL)
+    return;
+  for (obj = set->objects; obj != NULL; obj = obj->next) {
+    if (obj->f0 & 4)
+      continue;
+    numtx_s *source = NuSpecialGetMtx(&obj->special);
+    if (source == NULL)
+      continue;
+    numtx_s matrix = *source;
+    matrix.m30 += offset->x;
+    matrix.m31 += offset->y;
+    matrix.m32 += offset->z;
+    NuSpecialSetDrawMtx(&obj->special, &matrix);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00604f80
+f32 GameAnimSet_AutoSetReflectY(GAMEANIMSET *set, nuvec_s *position,
+                                numtx_s *matrix) {
+  if (set != NULL && set->objects != NULL) {
+    if (matrix == NULL)
+      matrix = NuSpecialGetMtx(&set->objects->special);
+    f32 height = matrix->m31;
+    f32 ground = GameShadow(NULL, position, g_unk009ca98c, -1);
+    if (ground != 2000000.0)
+      return ground - height;
+  }
+  return 0.0f;
 }
