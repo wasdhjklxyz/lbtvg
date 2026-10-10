@@ -3661,6 +3661,235 @@ void NuPadClose(NUPAD *pad) {
 // FUNCTION: LEGOBATMAN 0x006d5870
 int NuPadGetFirstActivePad(void) { return g_nuPadUnk099f2d8; }
 
+typedef struct _nugenericpad_s {
+  unsigned char is_valid;
+  int mapped_to_pad;
+  unsigned char analog_left_x;
+  unsigned char analog_left_y;
+  unsigned char analog_right_x;
+  unsigned char analog_right_y;
+  unsigned char analog_l1;
+  unsigned char analog_l2;
+  unsigned char analog_r1;
+  unsigned char analog_r2;
+  unsigned int digital_buttons;
+  unsigned int digital_buttons_pressed;
+  unsigned int digital_buttons_released;
+  unsigned int digital_buttons_prev;
+  int analog_button_flags;
+  int digital_left_x;
+  int digital_left_y;
+  int digital_right_x;
+  int digital_right_y;
+  int deadzone;
+  float left_x_normal;
+  float left_y_normal;
+  float left_x_unknown;
+  float left_y_unknown;
+  float left_x_unknown2;
+  float left_y_unknown2;
+  float right_x_unknown2;
+  float right_y_unknown2;
+  float right_x_normal;
+  float right_y_normal;
+  float right_x_unknown;
+  float right_y_unknown;
+  float left_up_ramp;
+  float left_down_ramp;
+  float left_left_ramp;
+  float left_right_ramp;
+  unsigned char analog_left_pad_left;
+  unsigned char analog_left_pad_right;
+  unsigned char analog_left_pad_up;
+  unsigned char analog_left_pad_down;
+  unsigned char unknown_7c;
+  unsigned char unknown_7d;
+  unsigned char unknown_7e;
+  unsigned char unknown_7f;
+  unsigned char unknown_80;
+  unsigned char unknown_81;
+  unsigned char unknown_82;
+  unsigned char unknown_83;
+} NUGENERICPAD;
+
+#define ANALOG_CENTER 0x80
+#define NUPAD_MIN(a, b) ((a) < (b) ? (a) : (b))
+#define NUPAD_MAX(a, b) ((a) > (b) ? (a) : (b))
+
+// GLOBAL: LEGOBATMAN 0x00b038c9
+extern char UseCorrectDeadZoning;
+// GLOBAL: LEGOBATMAN 0x0099f2ac
+float ramp_rate = 0.1f;
+float NuFsqrt(float f);
+
+// STUB: LEGOBATMAN 0x006d55b0
+// Register convention: original takes y_value on the stack, ours in ebx.
+static void DeadZoneValueXYProper(int *x_value, int *y_value, int deadzone) {
+  int inverse;
+  int cur_value;
+
+  inverse = ANALOG_CENTER - deadzone;
+
+  cur_value = *x_value;
+  if (cur_value >= deadzone) {
+    cur_value++;
+    *x_value = ((cur_value - deadzone) * 0x7f) / inverse;
+  } else if (cur_value < -deadzone) {
+    *x_value = ((cur_value + deadzone) * 0x7f) / inverse;
+  } else {
+    *x_value = 0;
+  }
+
+  cur_value = *y_value;
+  if (cur_value >= deadzone) {
+    cur_value++;
+    *y_value = ((cur_value - deadzone) * 0x7f) / inverse;
+  } else if (cur_value < -deadzone) {
+    *y_value = ((cur_value + deadzone) * 0x7f) / inverse;
+  } else {
+    *y_value = 0;
+  }
+}
+
+// STUB: LEGOBATMAN 0x006d5620
+// Register convention: x in eax/edi, y in esi; ours moves both through ebx/edi.
+static void DeadZoneValueXY(int *x_value, int *y_value, int deadzone) {
+  float x_normal;
+  float y_normal;
+  float deadzone_normal;
+  float magnitude;
+
+  if (UseCorrectDeadZoning) {
+    DeadZoneValueXYProper(x_value, y_value, deadzone);
+    return;
+  }
+
+  x_normal = *x_value / 127.0f;
+  y_normal = *y_value / 127.0f;
+  deadzone_normal = deadzone / 127.0f;
+
+  if (x_normal > 1.0f)
+    x_normal = 1.0f;
+  if (x_normal < -1.0f)
+    x_normal = -1.0f;
+  if (y_normal > 1.0f)
+    y_normal = 1.0f;
+  if (y_normal < -1.0f)
+    y_normal = -1.0f;
+
+  magnitude = NuFsqrt(x_normal * x_normal + y_normal * y_normal);
+
+  if (magnitude < deadzone_normal) {
+    *x_value = 0;
+    *y_value = 0;
+  }
+}
+
+// STUB: LEGOBATMAN 0x006d5880
+// x87 stack scheduling of the MIN/MAX clamps differs (ours 1039 B).
+void NuPadProcessReadData(NUGENERICPAD *pad) {
+  float ramp_rate_normal;
+
+  pad->digital_buttons_pressed =
+      pad->digital_buttons & ~pad->digital_buttons_prev;
+  pad->digital_buttons_released =
+      ~pad->digital_buttons & pad->digital_buttons_prev;
+  pad->digital_buttons_prev = pad->digital_buttons;
+
+  pad->digital_left_x = pad->analog_left_x - ANALOG_CENTER;
+  pad->digital_left_y = ANALOG_CENTER - pad->analog_left_y;
+  pad->digital_right_x = pad->analog_right_x - ANALOG_CENTER;
+  pad->digital_right_y = ANALOG_CENTER - pad->analog_right_y;
+
+  if (pad->deadzone != 0) {
+    DeadZoneValueXY(&pad->digital_left_x, &pad->digital_left_y, pad->deadzone);
+    DeadZoneValueXY(&pad->digital_right_x, &pad->digital_right_y,
+                    pad->deadzone);
+    pad->analog_left_x = pad->digital_left_x + ANALOG_CENTER;
+    pad->analog_left_y = ANALOG_CENTER - pad->digital_left_y;
+    pad->analog_right_x = pad->digital_right_x + ANALOG_CENTER;
+    pad->analog_right_y = ANALOG_CENTER - pad->digital_right_y;
+  }
+
+  pad->left_x_normal = (float)pad->digital_left_x;
+  pad->left_y_normal = (float)pad->digital_left_y;
+  pad->left_x_normal /= 128.0f;
+  pad->left_y_normal /= 128.0f;
+
+  if (pad->left_x_normal > 0.0f)
+    pad->left_x_normal =
+        NUPAD_MAX(0.0f, pad->left_x_normal - pad->left_x_unknown2);
+  if (pad->left_x_normal < 0.0f)
+    pad->left_x_normal =
+        NUPAD_MIN(0.0f, pad->left_x_normal + pad->left_x_unknown2);
+  if (pad->left_y_normal > 0.0f)
+    pad->left_y_normal =
+        NUPAD_MAX(0.0f, pad->left_y_normal - pad->left_y_unknown2);
+  if (pad->left_y_normal < 0.0f)
+    pad->left_y_normal =
+        NUPAD_MIN(0.0f, pad->left_y_normal + pad->left_y_unknown2);
+
+  pad->right_x_normal = (float)pad->digital_right_x;
+  pad->right_y_normal = (float)pad->digital_right_y;
+  pad->right_x_normal /= 128.0f;
+  pad->right_y_normal /= 128.0f;
+
+  if (pad->right_x_normal > 0.0f)
+    pad->right_x_normal =
+        NUPAD_MAX(0.0f, pad->right_x_normal - pad->right_x_unknown2);
+  if (pad->right_x_normal < 0.0f)
+    pad->right_x_normal =
+        NUPAD_MIN(0.0f, pad->right_x_normal + pad->right_x_unknown2);
+  if (pad->right_y_normal > 0.0f)
+    pad->right_y_normal =
+        NUPAD_MAX(0.0f, pad->right_y_normal - pad->right_y_unknown2);
+  if (pad->right_y_normal < 0.0f)
+    pad->right_y_normal =
+        NUPAD_MIN(0.0f, pad->right_y_normal + pad->right_y_unknown2);
+
+  if ((pad->analog_button_flags & 1) != 0) {
+    pad->analog_left_pad_left = pad->unknown_7c;
+    pad->analog_left_pad_right = pad->unknown_7d;
+    pad->analog_left_pad_up = pad->unknown_7e;
+    pad->analog_left_pad_down = pad->unknown_7f;
+  } else {
+    ramp_rate_normal = ramp_rate / 30.0f;
+
+    if ((pad->digital_buttons & 0x1000) != 0)
+      pad->left_up_ramp = NUPAD_MIN(1.0f, pad->left_up_ramp + ramp_rate_normal);
+    else
+      pad->left_up_ramp = 0.0f;
+    if ((pad->digital_buttons & 0x4000) != 0)
+      pad->left_down_ramp =
+          NUPAD_MIN(1.0f, pad->left_down_ramp + ramp_rate_normal);
+    else
+      pad->left_down_ramp = 0.0f;
+    if ((pad->digital_buttons & 0x8000) != 0)
+      pad->left_left_ramp =
+          NUPAD_MIN(1.0f, pad->left_left_ramp + ramp_rate_normal);
+    else
+      pad->left_left_ramp = 0.0f;
+    if ((pad->digital_buttons & 0x2000) != 0)
+      pad->left_right_ramp =
+          NUPAD_MIN(1.0f, pad->left_right_ramp + ramp_rate_normal);
+    else
+      pad->left_right_ramp = 0.0f;
+
+    pad->analog_left_pad_left = NuPadApplyCurve(pad->left_left_ramp) * 255.0f;
+    pad->analog_left_pad_right = NuPadApplyCurve(pad->left_right_ramp) * 255.0f;
+    pad->analog_left_pad_up = NuPadApplyCurve(pad->left_up_ramp) * 255.0f;
+    pad->analog_left_pad_down = NuPadApplyCurve(pad->left_down_ramp) * 255.0f;
+  }
+
+  if ((pad->analog_button_flags & 2) != 0) {
+    pad->unknown_82 = pad->unknown_80;
+    pad->unknown_83 = pad->unknown_81;
+  } else {
+    pad->unknown_82 = 0x7f;
+    pad->unknown_83 = 0x7f;
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x006d5c90
 int NuPadGetMaxGamePads(void) { return g_nuPadUnk099f2dc; }
 

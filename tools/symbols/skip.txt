@@ -266,3 +266,6 @@
 0x006dc5a0 NuSPrintfW: our cl inlines NuAsciiToUnicode, original calls it; buffer order swapped
 0x006dfde0 NuPPLoadBuffer: inlined bounds-checked seek retry loops, layout differs (see NuDatOpenEx)
 0x006dc1d0 NuStrICmpWC: second loop NuToUpper register choice (al/cl), saga body
+0x006d55b0 DeadZoneValueXYProper: register convention (y on stack vs ebx)
+0x006d5620 DeadZoneValueXY: register convention
+0x006d5880 NuPadProcessReadData: x87 clamp scheduling
