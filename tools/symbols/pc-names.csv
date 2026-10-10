@@ -2161,7 +2161,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00601fe0,002e0b50,__Z20Grabber_SetVictimPosP9GRABBER_s,Grabber_SetVictimPos(GRABBER_s*),gapfill,3
 00602270,002e111c,__Z13Grabber_ResetP11WORLDINFO_s,Grabber_Reset(WORLDINFO_s*),strings,0
 00602540,002e0da8,__Z12Grabber_DropP9GRABBER_sP7nuvec_s,"Grabber_Drop(GRABBER_s*, nuvec_s*)",strings,0
+00603bc0,002ab5ca,__Z18GameAnimSet_CreateP9variptr_uS0_P17GAMEANIMOBJPOOL_sP13GAMEANIMSYS_s,"GameAnimSet_Create(variptr_u*, variptr_u*, GAMEANIMOBJPOOL_s*, GAMEANIMSYS_s*)",confirmed,0
 00603cf0,002ab74e,__Z25GameAnimSet_EvaluateStateP13GAMEANIMSET_s,GameAnimSet_EvaluateState(GAMEANIMSET_s*),confirmed,0
+00603df0,002ab814,__Z28GameAnimSet_CreateObjectPoolP9variptr_uS0_ii,"GameAnimSet_CreateObjectPool(variptr_u*, variptr_u*, int, int)",confirmed,0
 00605950,00349b54,__Z27Whippers_ReserveBufferSpacePv,Whippers_ReserveBufferSpace(void*),confirmed,0
 00605b20,00349db6,__Z16Whipper_ActivateP7GIZMO_si,"Whipper_Activate(GIZMO_s*, int)",confirmed,0
 00605b40,00349de0,__Z19Whipper_ActivateRevP7GIZMO_sii,"Whipper_ActivateRev(GIZMO_s*, int, int)",confirmed,0
@@ -2936,6 +2938,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00662fc0,002d5766,__Z31GizSpecial_AllocateProgressDataP9variptr_uS0_,"GizSpecial_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
 00662fe0,002d5788,__Z24GizSpecial_ClearProgressPvS_,"GizSpecial_ClearProgress(void*, void*)",confirmed,0
 00663020,002d57c2,__Z24GizSpecial_StoreProgressPvS_S_,"GizSpecial_StoreProgress(void*, void*, void*)",confirmed,0
+006630d0,002d5862,__Z24GizSpecial_ReserveBufferPv,GizSpecial_ReserveBuffer(void*),confirmed,0
 006631c0,002d5992,__Z24GizSpecial_RegisterGizmoi,GizSpecial_RegisterGizmo(int),confirmed,0
 006633c0,002c259e,__Z17CheckGizAIMessageP17GIZAIMESSAGESYS_sPKcP14GIZAIMESSAGE_s,"CheckGizAIMessage(GIZAIMESSAGESYS_s*, char const*, GIZAIMESSAGE_s*)",calls,1
 00663540,002c2772,__Z25GizAIMessage_GetMaxGizmosPv,GizAIMessage_GetMaxGizmos(void*),confirmed,0

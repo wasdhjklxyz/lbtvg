@@ -32,6 +32,7 @@ typedef struct GIZSPECIAL_s {
 typedef struct GIZSPECIALSYS_s {
   GIZSPECIAL *specials; // 0x00
   i32 count;            // 0x04
+  void *pool;           // 0x08
 } GIZSPECIALSYS;
 
 typedef struct GIZSPECIALPROGRESS_s {
@@ -302,7 +303,33 @@ void GizSpecial_StoreProgress(void *world_ptr, void *unused,
 
 i32 GizSpecial_UsingSpecial(GIZMO **result, void *world_ptr, i32 capacity,
                             char *name);
-void *GizSpecial_ReserveBuffer(void *world_ptr);
+void *GameBufferAlloc(VARIPTR *buf, VARIPTR *buf_end, i32 size);
+void *GameAnimSet_CreateObjectPool(VARIPTR *buf, VARIPTR *buf_end, i32 a,
+                                   i32 count);
+void *GameAnimSet_Create(VARIPTR *buf, VARIPTR *buf_end, void *pool,
+                         struct GAMEANIMSYS_s *sys);
+
+// FUNCTION: LEGOBATMAN 0x006630d0
+void *GizSpecial_ReserveBuffer(void *world_ptr) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  if (world->current_level->max_gizspecials != 0) {
+    VARIPTR *buf = &world->buf104;
+    VARIPTR *buf_end = &world->bufEnd108;
+    GIZSPECIALSYS *sys =
+        (GIZSPECIALSYS *)GameBufferAlloc(buf, buf_end, sizeof(GIZSPECIALSYS));
+    world->giz_special_sys = sys;
+    sys->pool = GameAnimSet_CreateObjectPool(
+        buf, buf_end, 0, world->current_level->max_gizspecials);
+    sys->specials = (GIZSPECIAL *)GameBufferAlloc(
+        buf, buf_end,
+        world->current_level->max_gizspecials * sizeof(GIZSPECIAL));
+    for (i32 i = 0; i < world->current_level->max_gizspecials; i++)
+      sys->specials[i].anim_set =
+          GameAnimSet_Create(buf, buf_end, sys->pool, world->game_anim_sys);
+    buf->addr = (buf->addr + 3) & ~3;
+  }
+  return world->giz_special_sys;
+}
 
 // FUNCTION: LEGOBATMAN 0x006631c0
 ADDGIZMOTYPE *GizSpecial_RegisterGizmo(i32 type_id) {
