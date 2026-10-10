@@ -219,6 +219,7 @@ class InteractiveDisplayBase {
 public:
   void InitializePerm(char *name, variptr_u *buffer, variptr_u *buffer_end);
   void InitializeLevel(WORLDINFO_s *world);
+  void ActivateLevel(WORLDINFO_s *world);
   void DumpLevel(WORLDINFO_s *world);
 };
 
@@ -323,8 +324,15 @@ void SecurityCamera::ActivateLevel(WORLDINFO_s *world) {
 struct SCMTL_s {
   u8 pad0[0x40];
   u32 flags; // 0x40
-  u8 pad44[0x74 - 0x44];
+  u8 pad44[0x54 - 0x44];
+  struct {
+    f32 x, y, z;
+  } v54; // 0x54
+  u8 pad60[0x70 - 0x60];
+  f32 f70; // 0x70
   u16 tid; // 0x74
+  u8 pad76[0xb8 - 0x76];
+  u16 tid_b8; // 0xb8
 };
 
 void NuMtlUpdate(SCMTL_s *mtl);
@@ -419,7 +427,7 @@ struct SHOPMENU_s {
   f32 f8; // 0x08
   u32 padc[(0x1c - 0xc) / 4];
   f32 f1c; // 0x1c
-  u32 pad20[(0x118 - 0x20) / 4];
+  u32 pad20[(0x28 - 0x20) / 4];
 };
 
 // Slot order from the PC vtable at 0x0085d75c (src/batman/unk_004f6ca0.cpp).
@@ -446,6 +454,7 @@ public:
   virtual void LoadSettings(char *name);                                   // 18
 
   void RenderWhiteNoise(f32 alpha) const;
+  void *GetFrameMaterial(WORLDINFO_s *world, i32 index) const;
 };
 
 void NuGScnRemove(nugscn_s *scene);
@@ -457,6 +466,7 @@ public:
   void RenderWhiteNoise() const;
   void InitializePerm(char *name, variptr_u *buf, variptr_u *end);
   void InitializeLevel(WORLDINFO_s *world);
+  void ActivateLevel(WORLDINFO_s *world);
   void DumpLevel(WORLDINFO_s *world);
   static void parse_reversedirection(struct nufpar_s *fp);
   static void parse_levelpath(struct nufpar_s *fp);
@@ -478,13 +488,13 @@ public:
   i32 villain_mode; // 0x340
   i32 i344;         // 0x344
   u8 pad348[0x37c - 0x348];
-  f32 f37c;              // 0x37c
-  f32 f380;              // 0x380
-  void *mtl384;          // 0x384
-  nugscn_s *icons_scene; // 0x388
-  SHOPMENU_s menu_data;  // 0x38c
-  SHOPMENU_s *menu;      // 0x4a4
-  f32 f4a8;              // 0x4a8
+  f32 f37c;                // 0x37c
+  f32 f380;                // 0x380
+  void *mtl384;            // 0x384
+  nugscn_s *icons_scene;   // 0x388
+  SHOPMENU_s menu_data[7]; // 0x38c
+  SHOPMENU_s *menu;        // 0x4a4
+  f32 f4a8;                // 0x4a8
   u8 pad4ac[0x4b0 - 0x4ac];
   f32 f4b0; // 0x4b0
   f32 f4b4; // 0x4b4
@@ -504,6 +514,10 @@ public:
 };
 
 extern "C" i32 NuMtlSetCurrentRenderPlane(i32 render_plane);
+
+i32 Unk004e8d00(i32 menu, WORLDINFO_s *world); // entries in a shop menu
+// GLOBAL: LEGOBATMAN 0x009631a8
+extern i32 g_unk009631a8; // frame special index
 
 // GLOBAL: LEGOBATMAN 0x00945ce4
 extern char *g_shopIconNames[];
@@ -554,7 +568,7 @@ void ShopComputer::InitializePerm(char *name, variptr_u *buf, variptr_u *end) {
   mtl384 = g_dynamicMaterialManager.GetMaterial(0, 0, 4);
   f4a8 = 0.5f;
   icons_scene = 0;
-  menu = &menu_data;
+  menu = menu_data;
   i4c8 = 0;
 }
 
@@ -622,7 +636,7 @@ void ShopComputer::LoadSettings(char *name) {
 void ShopComputer::InitializeLevel(WORLDINFO_s *world) {
   InteractiveDisplay::InitializeLevel(world);
   if (NuStrICmp((char *)world, level_name) == 0) {
-    menu_data.Unk00511aa0(world, 6, 0);
+    menu_data[0].Unk00511aa0(world, 6, 0);
     i32 plane = NuMtlSetCurrentRenderPlane(3);
     icons_scene = NuGScnRead(
         &world->buf104, world->bufEnd108,
@@ -630,19 +644,62 @@ void ShopComputer::InitializeLevel(WORLDINFO_s *world) {
     NuMtlSetCurrentRenderPlane(plane);
     if (icons_scene != NULL) {
       for (i32 i = 0; g_shopIconNames[i] != NULL; i++)
-        menu_data.icons[i] = InteractiveDisplayStatics::GetFirstSpecialMaterial(
-            icons_scene, g_shopIconNames[i]);
+        menu_data[0].icons[i] =
+            InteractiveDisplayStatics::GetFirstSpecialMaterial(
+                icons_scene, g_shopIconNames[i]);
     }
     f4d4 = 0.0f;
     i4c8 = 0;
     f4cc = 0.0f;
-    menu = &menu_data;
+    menu = menu_data;
     f4dc[0] = 1.0f;
     f4dc[1] = 1.0f;
     f4dc[2] = 1.0f;
     f4dc[3] = 1.0f;
     f4dc[4] = 1.0f;
     f4dc[5] = 1.0f;
+  }
+}
+
+// STUB: LEGOBATMAN 0x00514d10
+// one instruction off: the icon store is scheduled after "push ebx" in the orig
+// (store order, buffer scope, ternary tried)
+void ShopComputer::ActivateLevel(WORLDINFO_s *world) {
+  if (NuStrICmp((char *)world, level_name) == 0 && i4c8++ == 0) {
+    menu_data[1].Unk00511aa0(world, Unk004e8d00(0, world), 0);
+    menu_data[2].Unk00511aa0(world, Unk004e8d00(1, world), 0);
+    menu_data[3].Unk00511aa0(world, Unk004e8d00(2, world), 0);
+    menu_data[4].Unk00511aa0(world, 0, 0);
+    menu_data[5].Unk00511aa0(world, Unk004e8d00(4, world), 0);
+    menu_data[6].Unk00511aa0(world, Unk004e8d00(5, world), 0);
+    for (i32 i = 0; i < 6; i++) {
+      SHOPMENU_s *sub = &menu_data[i + 1];
+      for (i32 j = 0; j < Unk004e8d00(i, world); j++) {
+        char name[32];
+        NuSPrintf(name, "%s_%i", g_shopIconNames[i], j);
+        void *icon = InteractiveDisplayStatics::GetFirstSpecialMaterial(
+            icons_scene, name);
+        if (icon == NULL)
+          icon = menu_data[0].icons[i];
+        sub->f1c = 1.0f;
+        sub->icons[j] = icon;
+        sub->f8 = 0.0f;
+      }
+    }
+    SCMTL_s *frame = (SCMTL_s *)GetFrameMaterial(world, g_unk009631a8);
+    if (frame != NULL) {
+      mtl51c->tid = frame->tid_b8;
+      mtl518->tid = mtl51c->tid;
+      mtl51c->v54 = frame->v54;
+      mtl518->v54 = mtl51c->v54;
+      mtl51c->f70 = frame->f70;
+      mtl518->f70 = mtl51c->f70;
+      NuMtlUpdate(mtl518);
+      NuMtlUpdate(mtl51c);
+    }
+    f4d4 = 0.0f;
+    i344 = 0;
+    f4cc = 0.0f;
   }
 }
 
