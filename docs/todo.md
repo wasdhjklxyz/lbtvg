@@ -15,7 +15,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 |---|---|---|
 | [Action](#action) | 49 | 37 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 43 | 37 |
-| [near rtleditor.cpp](#near-rtleditorcpp) | 40 | 31 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 38 | 29 |
 | [near terrain.c](#near-terrainc) | 20 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 9 | 6 |
 | [Condition](#condition) | 6 | 4 |
@@ -286,7 +286,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## near rtleditor.cpp
 
-- [ ] `005a5990` 14 B `NeedScreenGrab(int)`  **saga** `legoapi/render/core/screen.cpp`
 - [ ] `005d3f60` 105 B `FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)`  **stub** · **hint** name (gapfill)
 - [ ] `0059c4b0` 127 B `_ActionFromName`  **stub** · **hint** name (gapfill)
 - [ ] `005b00d0` 153 B `LineIntersectCircle(nuvec_s*, nuvec_s*, nuvec_s*, float)`  **stub** · **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
@@ -294,7 +293,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00656130` 203 B `AddRipple(ripple_set_s*, numtx_s*, float, float, float, float, RGBA, RGBA, int, numtl_s*, nuvec_s*)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/items/fx/ripples.cpp`
 - [ ] `005a3020` 212 B `ConstantRumble(GameObject_s*, float, float)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/misc/legoapi_misc.cpp`
 - [ ] `00639580` 229 B `ObjOpponentStillThere(GameObject_s*, GameObject_s*, float)`  **hint** name (order) · **saga** `legoapi/actions/character/speederchase.cpp`
-- [ ] `005a59b0` 247 B `DrawStillScreen(int)`  **saga** `legoapi/render/core/screen.cpp`
 - [ ] `00620b30` 249 B `RedirectTextFile(char*, char*, int, int*)`  **stub** · **saga** `legoapi/characters/core/charconfig.cpp`
 - [ ] `005fb300` 291 B `AddToModelList(APICHARACTERMODELLIST_s*, int*, int, int, int, EXTRAMODEL*, unsigned char)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
 - [ ] `005b0e00` 317 B `VecRotateAxis(nuvec_s*, unsigned short, nuvec_s*)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
