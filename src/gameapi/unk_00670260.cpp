@@ -21,9 +21,18 @@ void Unk_InlineUser_00670260(f32 *v, f32 a, i32 i) { NuVec4Set(v, a, a, a, a); }
 #include <string.h>
 
 typedef struct MINICUTPART_s {
-  u8 pad0[0x20];
+  char name[0x20];            // 0x00
   nuvec_s *resolved_position; // 0x20
-  u8 pad24[0x44 - 0x24];
+  f32 f24;                    // 0x24
+  f32 f28;                    // 0x28
+  f32 f2c;                    // 0x2c
+  f32 f30;                    // 0x30
+  i16 s34;                    // 0x34
+  i16 s36;                    // 0x36
+  i16 s38;                    // 0x38
+  u8 pad3a[0x3c - 0x3a];
+  f32 f3c; // 0x3c
+  f32 f40; // 0x40
 } MINICUTPART;
 
 typedef struct MINICUT_s {
@@ -47,6 +56,46 @@ typedef struct GIZMO_s {
 void AddGizmo(GIZMOSYS_s *gizmo_sys, i32 type_id, void *a, void *object);
 int sprintf(char *buf, const char *fmt, ...);
 void GizMiniCut_Reset(MINICUT *minicut, WORLDINFO_s *world);
+
+i32 EdFileReadInt();
+char EdFileReadChar();
+i16 EdFileReadShort();
+f32 EdFileReadFloat();
+void EdFileRead(void *buf, i32 len);
+
+// STUB: LEGOBATMAN 0x00670280
+// one register: orig movsx eax, al for the first EdFileRead length, ours edx.
+i32 GizMiniCut_Load(void *world_ptr, void *unused) {
+  EdFileReadInt();
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  world->minicut_count = EdFileReadInt();
+  if (world->minicut_count > world->current_level->max_minicuts)
+    world->minicut_count = world->current_level->max_minicuts;
+  for (i32 i = 0; i < world->minicut_count; i++) {
+    MINICUT *cut = &world->minicuts[i];
+    EdFileRead(cut->name, EdFileReadChar());
+    cut->f1c = EdFileReadFloat();
+    cut->f20 = EdFileReadFloat();
+    cut->f24 = EdFileReadFloat();
+    cut->f28 = EdFileReadFloat();
+    cut->f2c = EdFileReadFloat();
+    cut->part_count = EdFileReadChar();
+    for (i32 j = 0; j < cut->part_count; j++) {
+      MINICUTPART *part = &cut->parts[j];
+      EdFileRead(part->name, EdFileReadChar());
+      part->f24 = EdFileReadFloat();
+      part->f28 = EdFileReadFloat();
+      part->f2c = EdFileReadFloat();
+      part->f30 = EdFileReadFloat();
+      part->s34 = EdFileReadShort();
+      part->s36 = EdFileReadShort();
+      part->s38 = EdFileReadShort();
+      part->f3c = EdFileReadFloat();
+      part->f40 = EdFileReadFloat();
+    }
+  }
+  return 1;
+}
 
 // FUNCTION: LEGOBATMAN 0x006703d0
 char *GizMiniCut_GetGizmoName(GIZMO *gizmo) {

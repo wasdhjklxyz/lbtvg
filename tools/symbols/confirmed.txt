@@ -3285,3 +3285,4 @@
 0066c3e0 Teleports_Load Teleport_RegisterGizmo load slot
 005a6b20 Technos_Load Technos_RegisterGizmo load slot
 00629ce0 SecurityDoors_Load SecurityDoors_RegisterGizmo load slot
+00670280 GizMiniCut_Load GizMiniCut_RegisterGizmo load slot
