@@ -284,9 +284,7 @@ void SetObjOnSurface(GameObject_s *obj, i32 a);
 // GLOBAL: LEGOBATMAN 0x00ab3960
 extern GameObject_s *Player[8];
 
-// STUB: LEGOBATMAN 0x00456570
-// Only diff: ours parks the constant 1 in eax (check_terrain init and the
-// return), so the sys /GS copy is stored before push edi.
+// FUNCTION: LEGOBATMAN 0x00456570
 i32 Action_SnapToLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                          AIPACKET_s *packet, char **params, i32 param_count,
                          i32 first_time, f32 dt) {
@@ -325,8 +323,9 @@ i32 Action_SnapToLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       }
     }
     if (obj == NULL) {
-      if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL)
-        obj = packet->pd0->obj;
+      if (packet == NULL || packet->pd0 == NULL || packet->pd0->obj == NULL)
+        return 1;
+      obj = packet->pd0->obj;
     }
     if (obj != NULL) {
       AILOCATOR_s *loc = ((AIPACKET_s *)obj->process290)->locator;
