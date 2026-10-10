@@ -2118,3 +2118,5 @@
 006fa8f0 NuDeferredFilter::template_blurLuminanceMap vtable 0x89835c slot 9 (RTTI, overrides NuDeferredFilterGen slot 9); Mac emits it right after blur7x7; matched
 006fa830 NuPostFilter::blur7x7 called from template_blurLuminanceMap as on the Mac; SM1 path calls blurSM1 with blurSM1Program; matched
 006f7080 NuPostFilter::blurSM1 shader model < 2 path of NuPostFilter::blur7x7, same signature as the Mac blurSM1
+006f37b0 NuEffectTexCreate2D Mac _NuEffectTexCreate2D (C linkage), same 5-arg calls; static pool of 32 + format switch; matched
+006f8210 NuMotionAccumFilter::initTextureResources vtable 0x8982e4 slot 3 (RTTI) + Mac body (Gen::initTextureResources, NuEffectTexCreate2D(w,h,1,1,2) into 0xac); matched

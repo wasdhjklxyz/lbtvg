@@ -2579,6 +2579,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006f3b70,00175d24,__ZN12NuMainFilter20initTextureResourcesEii,"NuMainFilter::initTextureResources(int, int)",confirmed,0
 006f3bb0,00173f9e,__ZN12NuMainFilter23destroyTextureResourcesEv,NuMainFilter::destroyTextureResources(),confirmed,0
 006f7080,0017f2f4,__ZN12NuPostFilter7blurSM1EP13nueffecttex_siS1_iiibfP17nushaderprogram_s,"NuPostFilter::blurSM1(nueffecttex_s*, int, nueffecttex_s*, int, int, int, bool, float, nushaderprogram_s*)",confirmed,0
+006f8210,0017deba,__ZN19NuMotionAccumFilter20initTextureResourcesEii,"NuMotionAccumFilter::initTextureResources(int, int)",confirmed,0
 006fa6d0,0016d2ee,__ZN12NuPostFilter4copyEP13nueffecttex_sP15nuframebuffer_s,"NuPostFilter::copy(nueffecttex_s*, nuframebuffer_s*)",confirmed,0
 006fa830,0018019c,__ZN12NuPostFilter7blur7x7EP13nueffecttex_siS1_iiibfP17nushaderprogram_s,"NuPostFilter::blur7x7(nueffecttex_s*, int, nueffecttex_s*, int, int, int, bool, float, nushaderprogram_s*)",confirmed,0
 006fa8f0,0018025a,__ZN16NuDeferredFilter25template_blurLuminanceMapEv,NuDeferredFilter::template_blurLuminanceMap(),confirmed,0
