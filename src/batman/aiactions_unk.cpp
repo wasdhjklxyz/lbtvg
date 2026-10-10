@@ -482,6 +482,69 @@ i32 Action_SetHitPoints(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+// FUNCTION: LEGOBATMAN 0x0045e190
+i32 Action_SetMessage(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                      AIPACKET_s *packet, char **params, i32 param_count,
+                      i32 first_time, f32 dt) {
+  f32 amount = 0.0f;
+  i32 op = 0;
+  char *name = NULL;
+  if (first_time && gizaimessagesys != NULL && param_count > 0) {
+    for (i32 i = 0; i < param_count; i++) {
+      char *value;
+      if ((value = NuStrIStr(params[i], "name=")) != NULL) {
+        name = value + NuStrLen("name=");
+      } else if (NuStrICmp(params[i], "value=hitpoints") == 0) {
+        if (packet != NULL && packet->pd0 != NULL)
+          amount = packet->pd0->obj->current_hp;
+      } else if ((value = NuStrIStr(params[i], "value=")) != NULL) {
+        value += NuStrLen("value=");
+        amount = AIParamToFloat(process, value);
+      } else if ((value = NuStrIStr(params[i], "increment=")) != NULL) {
+        value += NuStrLen("increment=");
+        amount = AIParamToFloat(process, value);
+        op = 1;
+      } else if ((value = NuStrIStr(params[i], "decrement=")) != NULL) {
+        value += NuStrLen("decrement=");
+        amount = AIParamToFloat(process, value);
+        op = -1;
+      } else if ((value = NuStrIStr(params[i], "bit=")) != NULL) {
+        value += NuStrLen("bit=");
+        amount = AIParamToFloat(process, value);
+        op = 2;
+      } else if (NuStrICmp(params[i], "negate") == 0) {
+        op = 3;
+      }
+    }
+    if (name != NULL) {
+      GIZAIMESSAGE_s *msg = CheckGizAIMessage(gizaimessagesys, name, NULL);
+      if (msg != NULL) {
+        switch (op) {
+        case -1:
+          msg->value -= amount;
+          break;
+        case 0:
+          msg->value = amount;
+          break;
+        case 1:
+          msg->value = msg->value + amount;
+          break;
+        case 2: {
+          i32 bit = (i32)amount - 1;
+          if ((u32)bit <= 31)
+            msg->value = (f32)((1 << bit) | (i32)msg->value);
+          break;
+        }
+        case 3:
+          msg->value = -msg->value;
+          break;
+        }
+      }
+    }
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x0045e500
 i32 Action_SetScriptParam(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                           AIPACKET_s *packet, char **args, int argc, int flags,
