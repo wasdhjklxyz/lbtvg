@@ -435,3 +435,122 @@ int ImplodeMakeTree(int nparm, unsigned short freqparm[],
   make_code(nparm, lenparm, codeparm);
   return k;
 }
+
+// The decoder's table readers (saga implode.cpp); they sit after the
+// string/file code in the exe, inside the same nupad_gen.cpp TU span.
+
+#define SELECT(dst, table, shift, count, initial_mask, len)                    \
+  {                                                                            \
+    (dst) = (table)[implode_bitbuf >> shift];                                  \
+    if ((dst) >= (count)) {                                                    \
+      unsigned int mask = (initial_mask);                                      \
+      do {                                                                     \
+        if ((implode_bitbuf & mask) != 0)                                      \
+          (dst) = implode_right[(dst)];                                        \
+        else                                                                   \
+          (dst) = implode_left[(dst)];                                         \
+        mask >>= 1;                                                            \
+      } while ((dst) >= (count));                                              \
+    }                                                                          \
+    ImplodeFillBuf((len)[(dst)]);                                              \
+  }
+
+// GLOBAL: LEGOBATMAN 0x00af1188
+static unsigned short literal_table[0x1000];
+// GLOBAL: LEGOBATMAN 0x00aec558
+static unsigned char literal_len[0x1fe];
+
+// FUNCTION: LEGOBATMAN 0x006dbdd0
+void read_offset_len(int table_size, int bit_count, int zero_value) {
+  int n;
+  int i;
+  int value;
+
+  n = ImplodeGetBits(bit_count);
+  if (n == 0) {
+    value = ImplodeGetBits(bit_count);
+    for (i = 0; i < table_size; i++)
+      offset_len[i] = 0;
+    for (i = 0; i < 0x100; i++)
+      offset_table[i] = value;
+    return;
+  }
+
+  i = 0;
+  while (i < n) {
+    value = implode_bitbuf >> 0x1d;
+    if (value == 7) {
+      for (unsigned int k = 0x10000000; (implode_bitbuf & k) != 0;
+           k >>= 1, value++) {
+      }
+    }
+    ImplodeFillBuf(value < 7 ? 3 : value - 3);
+    offset_len[i] = value;
+    i++;
+    if (i == zero_value) {
+      value = ImplodeGetBits(2);
+      while (--value >= 0) {
+        offset_len[i] = 0;
+        i++;
+      }
+    }
+  }
+  for (; i < table_size; i++)
+    offset_len[i] = 0;
+  ImplodeMakeTable(table_size, offset_len, 8, offset_table);
+}
+
+// FUNCTION: LEGOBATMAN 0x006dbf10
+void read_literal_len(void) {
+  int n;
+  int i;
+  int value;
+
+  n = ImplodeGetBits(9);
+  if (n == 0) {
+    value = ImplodeGetBits(9);
+    for (i = 0; i < (int)sizeof(literal_len); i++)
+      literal_len[i] = 0;
+    for (i = 0; i < 0x1000; i++)
+      literal_table[i] = value;
+    return;
+  }
+
+  i = 0;
+  while (i < n) {
+    SELECT(value, offset_table, 0x18, 0x13, 0x800000, offset_len);
+    if (value <= 2) {
+      if (value == 0)
+        value = 1;
+      else if (value == 1)
+        value = ImplodeGetBits(4) + 0x3;
+      else
+        value = ImplodeGetBits(9) + 0x14;
+      while (--value >= 0) {
+        literal_len[i] = 0;
+        i++;
+      }
+    } else {
+      literal_len[i] = value - 2;
+      i++;
+    }
+  }
+  for (; i < (int)sizeof(literal_len); i++)
+    literal_len[i] = 0;
+  ImplodeMakeTable(sizeof(literal_len), literal_len, 0xc, literal_table);
+}
+
+// FUNCTION: LEGOBATMAN 0x006dc080
+unsigned int ImplodeDecodeC(void) {
+  unsigned int value;
+
+  if (blocksize == 0) {
+    blocksize = ImplodeGetBits(0x10);
+    read_offset_len(0x13, 5, 3);
+    read_literal_len();
+    read_offset_len(0xe, 4, -1);
+  }
+  blocksize--;
+  SELECT(value, literal_table, 0x14, 0x1fe, 0x80000, literal_len);
+  return value;
+}

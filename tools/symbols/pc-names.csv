@@ -3640,6 +3640,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006daa40,0018d694,_NuFParGetFloat,_NuFParGetFloat,confirmed,0
 006daae0,0018d740,_NuFParGetOptionalFloat,_NuFParGetOptionalFloat,confirmed,0
 006dabf0,0018ffe2,_NuFParGetOptionalInt,_NuFParGetOptionalInt,confirmed,0
+006dbdd0,00192290,_read_offset_len,_read_offset_len,confirmed,0
+006dbf10,,read_literal_len,read_literal_len,confirmed,0
+006dc080,001923de,_ImplodeDecodeC,_ImplodeDecodeC,confirmed,0
 006dc300,0018bea6,_NuStrIStr,_NuStrIStr,calls,1
 006dc3a0,0018bf1a,_NuStrICmp,_NuStrICmp,confirmed,0
 006dc410,0018c3fe,_NuStrNICmp,_NuStrNICmp,gapfill,1
