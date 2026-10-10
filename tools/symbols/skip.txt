@@ -241,3 +241,4 @@
 004864a0 GizForceUnk004864a0: register-arg puzzle, orig size on stack, ours in ecx
 004864f0 GizForceUnk004864f0: matches except the 0x4864a0 call (size ecx vs push)
 0066e4b0 Plugs_Load: loop-head register swap (zero ecx vs eax), rest identical
+0066c3e0 Teleports_Load: register rotation from the 2nd EdFileRead on (eax vs ecx), structure identical

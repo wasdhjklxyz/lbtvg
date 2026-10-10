@@ -2971,6 +2971,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00667320,002b98f8,__Z22GizFlock_ClearProgressPvS_,"GizFlock_ClearProgress(void*, void*)",confirmed,0
 0066b400,002bc674,__Z20GizFlock_UpdateBoidsP12sGizFlockSysP9sGizFlock,"GizFlock_UpdateBoids(sGizFlockSys*, sGizFlock*)",strings,0
 0066c150,002b9c9c,__Z22GizFlock_RegisterGizmoi,GizFlock_RegisterGizmo(int),confirmed,0
+0066c3e0,,Teleports_Load,Teleports_Load,confirmed,0
 0066c640,0033fb7e,__Z28Teleports_ReserveBufferSpacePv,Teleports_ReserveBufferSpace(void*),confirmed,0
 0066c690,0033fbdc,__Z30Teleports_AllocateProgressDataP9variptr_uS0_,"Teleports_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
 0066c6b0,0033fbfe,__Z23Teleports_ClearProgressPvS_,"Teleports_ClearProgress(void*, void*)",confirmed,0

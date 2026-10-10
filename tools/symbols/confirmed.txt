@@ -3282,3 +3282,4 @@
 0063b270 edgizdig_ReadAnimSetData passed by GizDigs_Load to the anim-set reader; Mac order puts it right before GizDigs_Load
 0063b2a0 GizDigs_Load GizDig_RegisterGizmo load slot
 0066e4b0 Plugs_Load Plugs_RegisterGizmo load slot
+0066c3e0 Teleports_Load Teleport_RegisterGizmo load slot
