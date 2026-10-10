@@ -272,7 +272,9 @@ void Blowup_StoreProgress(void *world_ptr, void *unused, void *progress_ptr) {
 struct GIZMOBLOWUPTYPE_s {
   u8 pad0[0x30];
   nuhspecial_s animated_special; // 0x30
-  u8 pad3c[0x102 - 0x3c];
+  u8 pad3c[0x54 - 0x3c];
+  nuhspecial_s burst_special; // 0x54
+  u8 pad60[0x102 - 0x60];
   i16 sfx0; // 0x102
   i16 sfx1; // 0x104
   i8 b106;  // 0x106
@@ -381,8 +383,57 @@ GIZMOBLOWUP_s *GizmoBlowUp_FindByName(WORLDINFO_s *world, char *name) {
   return 0;
 }
 
-i32 GizBlowup_InitSingleTerrain(GIZMOBLOWUP_s *blowup);
 void DeletePlatinst(i32 id);
+i32 NuSpecialGetInstanceix(nuhspecial_s *special);
+int NuSpecialExistsFn(nuhspecial_s *sp);
+i32 FindPlatInst(i32 instance);
+i16 NewPlatPickupInst(void *m, i32 type);
+i16 Unk00573890(void *object, i32 instance);
+void PlatInstRotate(i32 id, i32 rotate);
+
+typedef struct UNK005EE030_s {
+  u8 pad0[0xf8];
+  i16 pickup_type; // 0xf8
+} UNK005EE030;
+
+UNK005EE030 *Unk005ee030(nuhspecial_s *special);
+
+// FUNCTION: LEGOBATMAN 0x005db7c0
+i32 GizBlowup_InitSingleTerrain(GIZMOBLOWUP_s *blowup) {
+  if (blowup != NULL && (!blowup->blown_up || blowup->sa8 != 0) &&
+      (blowup->draw_flags & 4)) {
+    if (blowup->platform_id == -1) {
+      i32 instance = NuSpecialGetInstanceix(&blowup->type->animated_special);
+      UNK005EE030 *info = Unk005ee030(&blowup->type->animated_special);
+      if (info != NULL) {
+        if (blowup->type->b106 != -1 && info->pickup_type != -1)
+          blowup->platform_id = NewPlatPickupInst(blowup, info->pickup_type);
+      } else if ((blowup->draw_flags & 0x20000000) &&
+                 !(blowup->draw_flags & 0x800000)) {
+        blowup->platform_id = Unk00573890(blowup, instance);
+      } else if (blowup->draw_flags & 0x20000000) {
+        blowup->platform_id = FindPlatInst(instance);
+      } else {
+        blowup->platform_id = Unk00573890(blowup, instance);
+      }
+      if (blowup->platform_id == -1)
+        return 0;
+      if (!blowup->visible)
+        PlatOnOff(blowup->platform_id, 0);
+    }
+    PlatInstRotate(blowup->platform_id, 1);
+    if (blowup->platform_id2 == -1 &&
+        NuSpecialExistsFn(&blowup->type->burst_special)) {
+      blowup->platform_id2 = Unk00573890(
+          blowup, NuSpecialGetInstanceix(&blowup->type->burst_special));
+      if (blowup->platform_id2 == -1)
+        return -1;
+    }
+    PlatInstRotate(blowup->platform_id2, 1);
+    return 1;
+  }
+  return 0;
+}
 
 // FUNCTION: LEGOBATMAN 0x005db930
 void GizBlowup_InitTerrain() {

@@ -53,7 +53,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Faders](#faders) | 1 | 1 |
 | [GameCam](#gamecam) | 1 | 1 |
 | [GameMsg](#gamemsg) | 1 | 1 |
-| [GizBlowup](#gizblowup) | 1 | 1 |
 | [GizBombGen](#gizbombgen) | 1 | 1 |
 | [GizBombGens](#gizbombgens) | 1 | 1 |
 | [GizBuildIts](#gizbuildits) | 1 | 1 |
@@ -555,10 +554,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## GameMsg
 
 - [ ] `00635760` 841 B `GameMsg_Draw_MiniKitDetector(GAMEMESSAGE_s*, nuvec_s*, float)`  **hint** name (order) · **saga** `legoapi/menus/core/gamehint.cpp`
-
-## GizBlowup
-
-- [ ] `005db7c0` 364 B `GizBlowup_InitSingleTerrain(GIZMOBLOWUP_s*)`  **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
 
 ## GizBombGen
 
