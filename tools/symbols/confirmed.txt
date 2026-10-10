@@ -3403,3 +3403,7 @@
 006ddd70 ExplodeBufferNoHeader saga implode.cpp body (decode_start and HufDecodeStart inlined)
 006de7a0 ExplodeBuffer saga implode.cpp body (LZ2K header, then ExplodeBufferNoHeader)
 006dca60 NuFileInitEx saga nufile.cpp body (NuFileExtInit and NuDatFileDecodeInit inlined)
+006d24b0 Unk006d24b0 empty varargs debug hook (ret); callers keep registers across it
+006dd570 NuFParSuspend saga nufpar.cpp body (debug hook on bad state, NuFileClose)
+006ddb90 NuFParResume saga nufpar.cpp body (NuFileOpen inlined, seek to char_pos)
+006dd990 NuFileExistQuiet saga nufile.cpp shape (dat lookup, else open/close)

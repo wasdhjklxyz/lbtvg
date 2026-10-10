@@ -254,3 +254,4 @@
 006d9540 NuFilePos: index temp esi vs eax in the 0x2000 branch (1 line)
 006dda10 NuFileSize: base/index order of the dat file_info load (1 line)
 006dca60 NuFileInitEx: NuDatFileDecodeInit store order (-1 before NULLs)
+006dd990 NuFileExistQuiet: base/index order of the dat file_info load (1 line), as NuFileSize

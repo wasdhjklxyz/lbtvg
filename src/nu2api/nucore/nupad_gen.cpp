@@ -7,6 +7,16 @@
 #include <stdio.h>
 #include <string.h>
 
+// Empty debug hook; the original's callers know it clobbers nothing, so it
+// is defined (not inlined) in this TU.
+// FUNCTION: LEGOBATMAN 0x006d24b0
+static void Unk006d24b0(...) {}
+
+// Stands in for the TU's first real caller (0x006dad60 passes it a pointer),
+// which is what keeps the calls to the empty hook and tells the compiler it
+// clobbers nothing.
+void Unk_InlineUser_nupad_gen_debug(char *p) { Unk006d24b0(p); }
+
 // Outside this file; names unknown.
 void NuVideoSetBrightnessPS(void);
 void NuLanguageSetPS(void);
@@ -674,7 +684,6 @@ void NuFileUnk006d9400(int id) {
 
 extern "C" __int64 NuPSFileLSeek(int fh, __int64 offset, int whence);
 extern "C" int NuPSFileClose(int fh);
-void Unk006d24b0(void);
 
 // STUB: LEGOBATMAN 0x006d9540
 // The 0x2000 branch indexes through esi (orig: lea eax, keeps esi).
@@ -1417,6 +1426,26 @@ int NuFileRead(int file, void *buf, int size) {
   return NuPSFileRead(file, buf, size);
 }
 
+typedef struct nufpar_s {
+  int pad0;
+  int file_handle;       // 0x04
+  char file_name[0x100]; // 0x08
+  unsigned char pad108[0x924 - 0x108];
+  int char_pos; // 0x924
+  int pad928;
+  int buf_end; // 0x92c
+} NUFPAR;
+
+// FUNCTION: LEGOBATMAN 0x006dd570
+void NuFParSuspend(NUFPAR *parser) {
+  if (parser->file_handle >= 0x400 && parser->file_handle < 0x800)
+    return;
+  if (parser->file_name[0] == '\0' || parser->file_handle == 0)
+    Unk006d24b0();
+  NuFileClose(parser->file_handle);
+  parser->file_handle = 0;
+}
+
 struct NuPadRec {
   int mode;                 // 0x0
   unsigned char *buf_start; // 0x4
@@ -1454,6 +1483,32 @@ extern int nufile_buffering_enabled;
 int NuDatFileFindTree(void *dat, char *path);
 __int64 NuFileSeek(int file, __int64 offset, int whence);
 
+// STUB: LEGOBATMAN 0x006dd990
+// Same base/index swap as NuFileSize on the dat file_info load.
+int NuFileExistQuiet(char *filepath) {
+  int file;
+  int buffering;
+  NUDATHDR *dat;
+
+  if (filepath == 0 || *filepath == '\0')
+    return 0;
+  buffering = nufile_buffering_enabled;
+  dat = (NUDATHDR *)g_unk00b03884;
+  nufile_buffering_enabled = 0;
+  if (dat != 0) {
+    int index = NuDatFileFindTree(dat, filepath);
+    if (index >= 0) {
+      nufile_buffering_enabled = buffering;
+      return dat->file_info[index].len;
+    }
+  }
+  file = NuFileOpenUnk006dd7a0(filepath, 0, (int)dat, 1);
+  if (file != 0)
+    NuFileClose(file);
+  nufile_buffering_enabled = buffering;
+  return file != 0;
+}
+
 // STUB: LEGOBATMAN 0x006dda10
 // One addressing diff: [file_info + idx*16 + 8] base/index order swapped.
 __int64 NuFileSize(char *filepath) {
@@ -1486,7 +1541,6 @@ __int64 NuFileSize(char *filepath) {
 }
 int NuFileReadUnk006de860(int file, void *dst, int size);
 extern "C" void *NuMemAllocFn(int size, const char *file, int line);
-void Unk006d24b0(void);
 
 static inline int NuFileReadInt(int file) {
   int v;
@@ -2113,4 +2167,17 @@ u8 NuToLower(u8 c) {
   }
 
   return c;
+}
+
+// FUNCTION: LEGOBATMAN 0x006ddb90
+void NuFParResume(NUFPAR *parser) {
+  if (parser->file_handle >= 0x400 && parser->file_handle < 0x800)
+    return;
+  if (parser->file_name[0] == '\0')
+    Unk006d24b0();
+  parser->file_handle = NuFileOpen(parser->file_name, 0);
+  if (parser->file_handle == 0)
+    Unk006d24b0();
+  NuFileSeek(parser->file_handle, parser->char_pos, 0);
+  parser->buf_end = parser->char_pos - 1;
 }
