@@ -210,7 +210,6 @@
 0061f370 CharScenes_LevelLoad: calls CharScene_Load (ebx arg puzzle)
 0061f4f0 CharScene_FindHSpecial: block order of the world branch, 4 forms tried
 00491a90 GizTorp_Update: x87 0.5 constant kept as dword in st0 across the loop, ours qword
-0040be20 Attractos_StoreProgress: or eax,-1 scheduled one slot later, 4 forms tried
 004854e0 GizBombGens_SetResetFlag: bitfield insert layout differs, 5 forms tried
 00485d90 GizBombGen_FindByName: null checks before the pushes in ours, 4 forms tried
 0066f6f0 edGizShadow_Load: our cl inlines one SetPreset(shadow, 1) call the original keeps
@@ -230,4 +229,3 @@
 005a9390 Grapple_Reset: depends on Grapple_ResetShadow's convention
 005a9520 Grapples_Reset: progress bit insert / dynamic loop register allocation
 0048f120 GizPanels_Load: body matches, gizpanel_sys check-then-reload/shrink-wrap prologue not reproduced
-00490850 GizPanels_StoreProgress: or eax,-1 scheduled before the first clear store (as 0040be20)

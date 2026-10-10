@@ -531,15 +531,15 @@ void Attractos_ClearProgress(void *world, void *data) {
   }
 }
 
-// STUB: LEGOBATMAN 0x0040be20
-// only the inlined clear's `or eax, -1` is scheduled after `push ebp` in ours
-// (call, open-coded, wrapped and break-loop forms tried).
+// FUNCTION: LEGOBATMAN 0x0040be20
 void Attractos_StoreProgress(void *context, void *unused, void *data) {
   WORLDINFO_s *world = (WORLDINFO_s *)context;
   ATTRACTOPROGRESS *progress = (ATTRACTOPROGRESS *)data;
   if (progress == NULL)
     return;
-  Attractos_ClearProgress(NULL, progress);
+  memset(progress->counts, 0, sizeof(progress->counts));
+  memset(progress->visible, 0xff, 8);
+  progress->filled[0] = 0;
   if (world != NULL && world->attractos != NULL) {
     ATTRACTO *attracto = world->attractos;
     for (i32 i = 0; i < world->attracto_count; i++, attracto++) {

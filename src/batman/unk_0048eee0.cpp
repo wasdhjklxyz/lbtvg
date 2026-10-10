@@ -241,17 +241,14 @@ void *GizPanels_ReserveBufferSpace(void *world);
 // GLOBAL: LEGOBATMAN 0x0093e710
 i32 panel_gizmotype_id = -1;
 
-// STUB: LEGOBATMAN 0x00490850
-// only `or eax, -1` is scheduled before the `progress[0] = 0` store in the
-// original (same as Attractos_StoreProgress; clear call/order/type tried).
+// FUNCTION: LEGOBATMAN 0x00490850
 void GizPanels_StoreProgress(void *world_ptr, void *unused, void *data) {
   WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
   u32 *progress = (u32 *)data;
   if (progress == NULL)
     return;
   progress[0] = 0;
-  progress[1] = -1;
-  progress[2] = -1;
+  memset(&progress[1], 0xff, 8);
   if (world == NULL || world->gizpanel_sys == NULL ||
       world->gizpanel_sys->panels == NULL)
     return;

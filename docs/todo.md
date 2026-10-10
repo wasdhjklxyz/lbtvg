@@ -39,7 +39,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Tag](#tag) | 2 | 2 |
 | [Text](#text) | 3 | 2 |
 | [Areas](#areas) | 2 | 1 |
-| [Attractos](#attractos) | 1 | 1 |
 | [Bolt](#bolt) | 1 | 1 |
 | [BoltSys](#boltsys) | 1 | 1 |
 | [BoltTypes](#bolttypes) | 1 | 1 |
@@ -497,10 +496,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `005fad40` 787 B `Areas_ConfigurePlayersAndResidents(variptr_u*, variptr_u*)`
 - [ ] `005fa1c0` 2813 B `Areas_ConfigureList(char*, variptr_u*, variptr_u*, int, int*)`  **saga** `legoapi/world/areas.cpp`
-
-## Attractos
-
-- [ ] `0040be20` 172 B `Attractos_StoreProgress(void*, void*, void*)`  **stub** · **saga** `legoapi/gizmos/traps/attracto.cpp`
 
 ## Bolt
 
