@@ -1405,6 +1405,56 @@ int NuPadWideToAnsi(char *dst, const unsigned short *src) {
    (unsigned char)((c) + 0x40) <= 0x1f)
 
 // Register choice only (cl/dl swapped in the inner loop); logic verified.
+// STUB: LEGOBATMAN 0x006dc1d0
+// Second compare loop: the original keeps the pattern char in cl and
+// folds through al; ours swaps the two (2 bytes longer).
+int NuStrICmpWC(char *pattern, char *text, char *wildcard) {
+  int index;
+  char a, b;
+  int suffix_length, text_length, wildcard_length;
+  if (pattern == NULL)
+    return -1;
+  if (text == NULL)
+    return 1;
+  while (*pattern != '\0' && *pattern != '*') {
+    a = NuToUpper((unsigned char)*pattern);
+    b = NuToUpper((unsigned char)*text);
+    if (a > b)
+      return 1;
+    if (a < b)
+      return -1;
+    ++pattern;
+    ++text;
+  }
+  if (*pattern == '*') {
+    ++pattern;
+    suffix_length = NuStrLen(pattern);
+    text_length = NuStrLen(text);
+    wildcard_length = text_length - suffix_length;
+    if (wildcard_length < 0)
+      return 1;
+    if (wildcard != NULL) {
+      for (index = 0; index < wildcard_length; ++index)
+        wildcard[index] = text[index];
+      wildcard[index] = '\0';
+    }
+    text += text_length - suffix_length;
+  } else if (wildcard != NULL) {
+    *wildcard = '\0';
+  }
+  while (*pattern != '\0') {
+    b = NuToUpper((unsigned char)*text);
+    a = NuToUpper((unsigned char)*pattern);
+    if (a > b)
+      return 1;
+    if (a < b)
+      return -1;
+    ++pattern;
+    ++text;
+  }
+  return 0;
+}
+
 // STUB: LEGOBATMAN 0x006dc300
 char *NuStrIStr(char *str, const char *sub) {
   const char *p;

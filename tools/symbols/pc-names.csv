@@ -3806,6 +3806,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006dc080,001923de,_ImplodeDecodeC,_ImplodeDecodeC,confirmed,0
 006dc120,,NuPadUnk006d7400::SetPool,NuPadUnk006d7400::SetPool,confirmed,0
 006dc1a0,,NuPadUnk006d7400::NuPadUnk006d7400,NuPadUnk006d7400::NuPadUnk006d7400,confirmed,0
+006dc1d0,0018bd78,_NuStrICmpWC,_NuStrICmpWC,confirmed,0
 006dc300,0018bea6,_NuStrIStr,_NuStrIStr,calls,1
 006dc3a0,0018bf1a,_NuStrICmp,_NuStrICmp,confirmed,0
 006dc410,0018c3fe,_NuStrNICmp,_NuStrNICmp,gapfill,1
