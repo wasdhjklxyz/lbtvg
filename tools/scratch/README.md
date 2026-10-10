@@ -37,3 +37,8 @@ are not lost. Run inside `nix develop` from the repo root.
   with match.py and reverting on any regression; the second creates
   `unk_<addr>.cpp` TU files for clusters with no annotated neighbour. Add a
   family to `F` (prefix bytes, exact length) and to the FN/USE tables.
+- `tugaps.py [MAXBYTES]`: for each placeholder TU file (one with an
+  `Unk_InlineUser_*`), the unannotated functions between its copies and the
+  next annotated function of another file, smallest first.
+- `rng.py LO HI`: every function start in a range with size, annotation state,
+  our name/file and the pc-names.csv Mac pairing.

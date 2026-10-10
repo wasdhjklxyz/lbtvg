@@ -3,6 +3,10 @@
 #include "../nu2api/numath/nutrig_unk.h"
 
 // Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00588d80
+static void NuVecZeroInline(f32 *v);
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
 // FUNCTION: LEGOBATMAN 0x00589050
 static void NuMtxCopyInline(f32 *dst, f32 *src);
 
@@ -72,4 +76,10 @@ void Unk_InlineUser_unk_0058b6d0(f32 *v, f32 a, i32 i) {
 // matched.
 void Unk_InlineUser_2_unk_0058b6d0(f32 *v, f32 a, i32 i) {
   NuMtxCopyInline(v + 32, v + 16);
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_3_unk_0058b6d0(f32 *v, f32 a, i32 i) {
+  NuVecZeroInline(v + 80);
 }

@@ -9,6 +9,8 @@
 static f32 NuFabs(f32 f);
 // FUNCTION: LEGOBATMAN 0x00665a40
 static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
+// FUNCTION: LEGOBATMAN 0x00665a30
+static void NuVecZeroInline(f32 *v);
 // FUNCTION: LEGOBATMAN 0x00665ad0
 static void NuVecScaleInline(f32 *dst, f32 *src, f32 s);
 
@@ -36,4 +38,5 @@ void Unk_InlineUser_gizflock_unk(f32 *v, f32 a, i32 i) {
   v[2] = NuFabs(a);
   NuVec4Set(v, a, a, a, a);
   NuVecScaleInline(v + 8, v, a);
+  NuVecZeroInline(v + 80);
 }

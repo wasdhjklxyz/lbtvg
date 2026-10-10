@@ -58,3 +58,6 @@ f32 NuFsqrt(f32 f);
 static f32 NuVecMagInline(f32 *v) {
   return NuFsqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
 }
+
+// 11 bytes, v in eax; name unproven.
+static void NuVecZeroInline(f32 *v) { v[0] = v[1] = v[2] = 0.0f; }

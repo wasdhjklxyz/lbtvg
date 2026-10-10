@@ -8,6 +8,10 @@
 #include "../numath/nutrig_unk.h"
 
 // Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x006fd1d0
+static void NuVecZeroInline(f32 *v);
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
 // FUNCTION: LEGOBATMAN 0x006fd700
 static f32 NuVecMagInline(f32 *v);
 
@@ -142,4 +146,10 @@ void Unk_InlineUser_2_numainfilter_gen_unk(f32 *v, f32 a, i32 i) {
 // matched.
 void Unk_InlineUser_3_numainfilter_gen_unk(f32 *v, f32 a, i32 i) {
   v[48] = NuVecMagInline(v);
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_4_numainfilter_gen_unk(f32 *v, f32 a, i32 i) {
+  NuVecZeroInline(v + 80);
 }
