@@ -3729,6 +3729,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d8340,0018adf2,_NuStrToLW,_NuStrToLW,confirmed,0
 006d8420,00187cae,_NuToLower,_NuToLower,confirmed,0
 006d8440,00187e42,_NuUnicodeToAscii,_NuUnicodeToAscii,gapfill,2
+006d8560,0018aade,_NuAsciiToUnicode,_NuAsciiToUnicode,confirmed,0
 006d85a0,0018af6c,_NuUTF8ToUnicode,_NuUTF8ToUnicode,confirmed,0
 006d8650,0018affc,_NuUnicodeCharFromUTF8,_NuUnicodeCharFromUTF8,confirmed,0
 006d8750,0018b0cc,_NuStringTableSetFormat,_NuStringTableSetFormat,confirmed,0
@@ -3803,6 +3804,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006dc4b0,0018c88e,_NuStrUpr,_NuStrUpr,confirmed,0
 006dc4f0,0018d9fe,_NuStrLwr,_NuStrLwr,gapfill,1
 006dc540,0018c8c2,_NuHexStringToI,_NuHexStringToI,confirmed,0
+006dc5a0,00191328,_NuSPrintfW,_NuSPrintfW,confirmed,0
 006dc630,0018c08c,_NuStringTok,_NuStringTok,confirmed,0
 006dc670,0018da36,_NuStrToLower,_NuStrToLower,confirmed,0
 006dc6b0,0018c016,_NuStringTableGetIdByName,_NuStringTableGetIdByName,confirmed,0

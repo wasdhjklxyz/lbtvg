@@ -263,3 +263,4 @@
 006d2680 NuHeapBlock_SplitFreeBlock: register convention (orig block on stack, allocated/remainder in eax/edx)
 006d2810 NuHeapAllocAlignedNamed: follows SplitFreeBlock convention
 0x006deec0 NuDatOpenEx: block layout (failure tail inside retry loop) + ebp zero hoist; same size
+0x006dc5a0 NuSPrintfW: our cl inlines NuAsciiToUnicode, original calls it; buffer order swapped

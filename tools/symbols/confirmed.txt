@@ -3595,3 +3595,5 @@
 006d7460 NuPadUnk006d7400::setExternalMemoryPool Mac VirtualStackAllocator::setExternalMemoryPool body
 006dc120 NuPadUnk006d7400::SetPool aligned carve from a caller cursor then setExternalMemoryPool (name invented)
 006dc1a0 NuPadUnk006d7400::NuPadUnk006d7400 ctor(pool, size): clear + SetPool
+006d8560 NuAsciiToUnicode saga nustring_c.cpp loop shape
+006dc5a0 NuSPrintfW saga nustring_c.cpp body (stub)

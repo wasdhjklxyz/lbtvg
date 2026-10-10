@@ -526,17 +526,33 @@ char *NuStrRChr(char *s, char c) {
   return 0;
 }
 
-// STUB: LEGOBATMAN 0x006d8560
+int NuPadWideToAnsi(char *dst, const unsigned short *src);
+int NuAsciiToUnicode(unsigned short *dst, const char *src);
+int NuStrLenW(const unsigned short *s);
+
+// STUB: LEGOBATMAN 0x006dc5a0
+// Ours inlines NuAsciiToUnicode (the original calls it) and swaps the two
+// buffers.
+int NuSPrintfW(NUWCHAR *dest, NUWCHAR *format, ...) {
+  int length = 0;
+  va_list args;
+  char text[256];
+  char ascii_format[256];
+  NuPadWideToAnsi(ascii_format, format);
+  va_start(args, format);
+  vsprintf(text, ascii_format, args);
+  va_end(args);
+  NuAsciiToUnicode(dest, text);
+  return NuStrLenW(dest);
+}
+
+// FUNCTION: LEGOBATMAN 0x006d8560
 int NuAsciiToUnicode(unsigned short *dst, const char *src) {
   int n = 0;
   *dst = 0;
   if (src) {
-    unsigned char c = *src;
-    while (c) {
-      dst[n] = c;
-      c = src[1 + n];
-      n++;
-    }
+    for (; src[n] != 0; n++)
+      dst[n] = (unsigned char)src[n];
     dst[n] = 0;
   }
   return n;
