@@ -2549,3 +2549,8 @@
 005a3e50 StillScreen::GetFadeType       vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
 006762c0 PlayerIdToGameObj      id <= 1 ? Player[id] if its 0x1fc bit 7 is set : NULL, same body as the Mac's
 00680d60 SockSys_Configure      "socks"/"sock_start"/"sock_end" strings, saga socksysall.cpp body; Mac string pairing
+0061fe10 GameLoadCharacterModels  same body as the Mac's (CutScenePlayer_Active, area flag 0x40, load=0 strip, tail call); after SetMoveAndAnimateFunctions as on the Mac
+0061fea0 Ability_InModelList    GCDATA+0x140 ability mask and Collection_Got per list entry, index out: the Mac's body; next in Mac order
+0061ff20 CharVariants_Init      stores the variant array and count if both valid, as on the Mac
+0061ff40 CharVariant_Find       NuStrICmp over the variant names; follows CharVariants_Init as on the Mac
+0061ffc0 ExtraModels_MakeList   the Mac's EXTRAMODEL walk (required model or movement type), -1 terminated output
