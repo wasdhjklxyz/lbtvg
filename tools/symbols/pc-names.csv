@@ -3840,6 +3840,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006e0830,00194ee2,_NuFileLoad,_NuFileLoad,confirmed,0
 006e08b0,00194fa2,_NuFileLoadBuffer,_NuFileLoadBuffer,confirmed,0
 006e0a10,00195eba,_NuFileLoadBufferVP,_NuFileLoadBufferVP,confirmed,0
+006e0a40,001962da,_NuFileCopyEx,_NuFileCopyEx,confirmed,0
+006e0b10,001963d4,_NuFileCopy,_NuFileCopy,confirmed,0
 006e0b60,00195ee8,_NuFilePakLoadKeyPrePad,_NuFilePakLoadKeyPrePad,confirmed,0
 006e0d90,0019621a,_NuFilePakLoadKey,_NuFilePakLoadKey,confirmed,0
 006e0dc0,001961da,_NuFilePakLoad,_NuFilePakLoad,confirmed,0

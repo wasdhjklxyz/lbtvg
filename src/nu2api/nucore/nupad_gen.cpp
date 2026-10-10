@@ -5495,6 +5495,43 @@ int NuFileLoadBufferVP(char *filepath, VARIPTR *buf, VARIPTR *buf_end) {
   return len;
 }
 
+// FUNCTION: LEGOBATMAN 0x006e0a40
+int NuFileCopyEx(char *dst, char *src, void *buf, int buf_size) {
+  int in;
+  int out;
+  int size;
+  int n;
+  int total;
+
+  total = 0;
+  in = NuFileOpen(src, 0);
+  out = NuFileOpen(dst, 1);
+  if (in != 0) {
+    if (out != 0) {
+      size = (int)NuFileOpenSize(in);
+      if (size != 0) {
+        do {
+          n = NuFileRead(in, buf, size < buf_size ? size : buf_size);
+          NuFileWrite(out, buf, n);
+          total += n;
+          size -= n;
+        } while (size != 0);
+      }
+    }
+    NuFileClose(in);
+  }
+  if (out != 0)
+    NuFileClose(out);
+  return total;
+}
+
+// FUNCTION: LEGOBATMAN 0x006e0b10
+int NuFileCopy(char *dst, char *src) {
+  char buf[0x400];
+
+  return NuFileCopyEx(dst, src, buf, 0x400);
+}
+
 int NuFileStatus(int file);
 
 // STUB: LEGOBATMAN 0x006decb0

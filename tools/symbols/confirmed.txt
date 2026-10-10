@@ -3570,3 +3570,5 @@
 006d2a10 NuHeapGetFreeBlockCount saga nuheap.cpp body inside a critical section
 006d2a50 NuHeapGetTotalAllocated saga nuheap.cpp body
 006d2a60 NuHeapGetTotalFree saga nuheap.cpp body inside a critical section
+006e0a40 NuFileCopyEx Mac order after NuFileLoadBufferVP/NuFilePakLoad*, open src read + dst write, copy loop
+006e0b10 NuFileCopy Mac order, only caller-wrapper of NuFileCopyEx with 0x400 stack buffer
