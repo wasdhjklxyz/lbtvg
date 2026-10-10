@@ -4,9 +4,22 @@
 
 #include <math.h>
 
+#include "./nuinline_unk.h"
 #include "numath.h"
 #include "nuplane.h"
 #include "nutrig_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00683fc0
+static f32 NuFdiv(f32 a, f32 b);
+// FUNCTION: LEGOBATMAN 0x00683f70
+static f32 NuFabs(f32 f);
+// FUNCTION: LEGOBATMAN 0x00684000
+static f32 NuFsign(f32 f);
+// FUNCTION: LEGOBATMAN 0x00684230
+static f32 NuCosApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x00684330
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 float NuFsqrt(float f);
 
@@ -725,14 +738,6 @@ void NuMtxInvRSS(numtx_s *inv, numtx_s *T) {
   *inv = gm;
 }
 
-static inline f32 NuFdiv(f32 a, f32 b) {
-  if (a == 0.0f || b == 0.0f) {
-    return 0.0f;
-  }
-
-  return a / b;
-}
-
 void NuMtxAlignX(numtx_s *m, nuvec_s *v);
 void NuMtxAlignY(numtx_s *m, nuvec_s *v);
 void NuMtxAlignZ(numtx_s *m, nuvec_s *v);
@@ -1083,4 +1088,13 @@ void NuPlnEqn(nuplane_s *out, nuvec_s *pnt0, nuvec_s *pnt1, nuvec_s *pnt2) {
   normal.z = v1.x * v2.y - v1.y * v2.x;
   NuVecNorm((nuvec_s *)out, &normal);
   out->d = -(out->a * pnt0->x + out->b * pnt0->y + out->c * pnt0->z);
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_nuvec_unk(f32 *v, f32 a, i32 i) {
+  v[2] = NuFabs(a);
+  v[5] = NuFsign(a);
+  v[1] = NuCosApprox(i);
+  NuVec4Set(v, a, a, a, a);
 }

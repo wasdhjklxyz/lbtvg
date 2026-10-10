@@ -1,7 +1,17 @@
 // batman/shop_unk.cpp: placed by tools/new.py; file name unproven.
 
 #include "../nu2api/nucore/common.h"
+#include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
 #include <stddef.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x004e5520
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x004e55e0
+static f32 NuCosApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x004e5630
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 // STUB: LEGOBATMAN 0x004e8190
 // long; u64 bit set via __allshl and many shop/menu fields; not attempted
@@ -53,3 +63,11 @@ i32 BuyShopItem(shopitem_s *items, i32 index, i32 charge) {
     return 1;
 }
 #endif
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_shop_unk(f32 *v, f32 a, i32 i) {
+  v[0] = NuSinApprox(i);
+  v[1] = NuCosApprox(i);
+  NuVec4Set(v, a, a, a, a);
+}

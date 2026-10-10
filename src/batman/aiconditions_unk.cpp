@@ -4,8 +4,22 @@
 #include "../gameapi/ai/aisys_unk.h"
 #include "../nu2api/nucore/nulist.h"
 #include "../nu2api/nucore/nustring.h"
+#include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
 #include "worldinfo_unk.h"
 #include <stddef.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x0044c560
+static f32 NuFabs(f32 f);
+// FUNCTION: LEGOBATMAN 0x00443ba0
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x00443c60
+static f32 NuCosApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x00443c80
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
+// FUNCTION: LEGOBATMAN 0x0044c580
+static f32 NuFdiv(f32 a, f32 b);
 
 void NuVecSub(nuvec_s *out, nuvec_s *a, nuvec_s *b);
 void NuVecRotateY(nuvec_s *v, nuvec_s *v0, i32 a);
@@ -1058,11 +1072,6 @@ f32 Condition_OpponentPathPosRange(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                      &difference);
   }
   return 1.0e9f;
-}
-
-static inline f32 NuFabs(f32 f) {
-  u32 bits = *(u32 *)&f & 0x7fffffff;
-  return *(f32 *)&bits;
 }
 
 // FUNCTION: LEGOBATMAN 0x00451e70
@@ -3958,4 +3967,13 @@ void *Condition_GotCnxCapabilityInit(AISYS_s *sys, char *name,
   if (name != NULL)
     return (void *)Unk00461220(name);
   return NULL;
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_aiconditions_unk(f32 *v, f32 a, i32 i) {
+  v[0] = NuSinApprox(i);
+  v[1] = NuCosApprox(i);
+  NuVec4Set(v, a, a, a, a);
+  v[3] = NuFdiv(a, v[4]);
 }

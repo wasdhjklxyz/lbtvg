@@ -3,7 +3,14 @@
 
 #include "../nu2api/nucore/common.h"
 #include "../nu2api/nucore/nustring.h"
+#include "../nu2api/numath/nuinline_unk.h"
 #include <string.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00600050
+static f32 NuFabs(f32 f);
+// FUNCTION: LEGOBATMAN 0x00600070
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 struct WORLDINFO_s;
 struct nuvec_s;
@@ -184,12 +191,6 @@ extern u32 g_unk0095f778;
 // GLOBAL: LEGOBATMAN 0x0095f77c
 extern u32 g_unk0095f77c;
 
-static inline f32 NuFabs(f32 f) {
-  f32 r;
-  *(u32 *)&r = *(u32 *)&f & 0x7fffffff;
-  return r;
-}
-
 // STUB: LEGOBATMAN 0x006001c0
 // x87 constant stack order differs (orig keeps -1.0 on top, fxch to 0.3)
 void InteractiveDisplayManager::UpdateInputs() {
@@ -364,4 +365,10 @@ void InteractiveDisplayManager::InitializePerm(variptr_u *buf, variptr_u *end) {
   m_oSingleton.i60 = 0;
   HiresTextureManager::InitializePerm(buf, end);
   DynamicMaterialManager::InitializePerm(buf, end);
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_unk_006000c0(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
 }

@@ -1,7 +1,17 @@
 // batman/gameobjects_unk.cpp: placed by tools/new.py; file name unproven.
 
 #include "../nu2api/nucore/common.h"
+#include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/nutrig_unk.h"
 #include <stddef.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x004a33f0
+static f32 NuSinApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x004a34b0
+static f32 NuCosApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x004a34d0
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 // STUB: LEGOBATMAN 0x004a3630
 // skipped: esi/edi register arguments (static helper of a same-TU caller);
@@ -356,3 +366,11 @@ static void TakeOver_SetAction(GameObject_s *rider, GameObject_s *vehicle) {
     rider->context_animation = rider->apiobj.character_model->model_data_b[action] != NULL ? action : 0x6c;
 }
 #endif
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_gameobjects_unk(f32 *v, f32 a, i32 i) {
+  v[0] = NuSinApprox(i);
+  v[1] = NuCosApprox(i);
+  NuVec4Set(v, a, a, a, a);
+}

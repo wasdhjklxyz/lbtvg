@@ -3,6 +3,13 @@
 
 #include "../nu2api/nucore/common.h"
 #include "../nu2api/nucore/nustring.h"
+#include "../nu2api/numath/nuinline_unk.h"
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00618710
+static f32 NuFabs(f32 f);
+// FUNCTION: LEGOBATMAN 0x00618730
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 typedef struct nufpar_s NUFPAR;
 
@@ -445,11 +452,6 @@ extern CS_WORLDINFO_s *CS_worldinfo;
 
 i32 NuSpecialFind(struct nugscn_s *scene, void *out, char *name, i32 a);
 
-static inline f32 NuFabs(f32 f) {
-  u32 bits = *(u32 *)&f & 0x7fffffff;
-  return *(f32 *)&bits;
-}
-
 // GLOBAL: LEGOBATMAN 0x00acb768
 extern VARIPTR *CS_buffptr;
 
@@ -525,3 +527,9 @@ void CS_fadescreen(NUFPAR *parser) { CS_fade(parser, 0); }
 
 // FUNCTION: LEGOBATMAN 0x00619740
 void CS_fadefog(NUFPAR *parser) { CS_fade(parser, 1); }
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_cutscene_unk(f32 *v, f32 a, i32 i) {
+  NuVec4Set(v, a, a, a, a);
+}

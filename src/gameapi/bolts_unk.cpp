@@ -1,11 +1,24 @@
 // gameapi/bolts_unk.cpp: placed by tools/new.py; file name unproven.
 
 #include "../nu2api/nucore/common.h"
+#include "../nu2api/numath/nuinline_unk.h"
 #include "../nu2api/numath/nutrig_unk.h"
 #include "../nu2api/numath/nuvec.h"
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x005e7b10
+static f32 NuFabs(f32 f);
+// FUNCTION: LEGOBATMAN 0x005e7b30
+static f32 NuFdiv(f32 a, f32 b);
+// FUNCTION: LEGOBATMAN 0x005e7c10
+static f32 NuCosApprox(i32 angle);
+// FUNCTION: LEGOBATMAN 0x005e7c40
+static void NuVec4Copy(f32 *dst, f32 *src);
+// FUNCTION: LEGOBATMAN 0x005e7c60
+static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
 // STUB: LEGOBATMAN 0x005e9790
 // two-pass bolttype parser with default fn pointers to same-TU statics; not
@@ -216,11 +229,6 @@ struct BoltTypeKw_s {
 
 // GLOBAL: LEGOBATMAN 0x00ac7598
 static BoltTypeKw_s *BT_bolttype;
-
-static inline f32 NuFabs(f32 f) {
-  u32 bits = *(u32 *)&f & 0x7fffffff;
-  return *(f32 *)&bits;
-}
 
 // FUNCTION: LEGOBATMAN 0x005e8790
 void BT_speed(NUFPAR *parser) { BT_bolttype->speed = NuFParGetFloat(parser); }
@@ -805,4 +813,13 @@ void NetMessage::PopFront(const void *dst, i32 size, i32 count) {
     }
   }
   read += total;
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_bolts_unk(f32 *v, f32 a, i32 i) {
+  v[3] = NuFdiv(a, v[4]);
+  v[1] = NuCosApprox(i);
+  NuVec4Copy(v + 4, v);
+  NuVec4Set(v, a, a, a, a);
 }
