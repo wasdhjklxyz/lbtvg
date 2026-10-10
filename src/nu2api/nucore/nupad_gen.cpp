@@ -720,8 +720,9 @@ extern "C" __int64 NuPSFileLSeek(int fh, __int64 offset, int whence);
 extern "C" int NuPSFileClose(int fh);
 
 struct NUFILEDEVICE {
-  int id; // 0x0
-  unsigned char pad4[0x10 - 0x4];
+  int id;      // 0x0
+  int unit_id; // 0x4
+  unsigned char pad8[0x10 - 0x8];
   char separator; // 0x10
   unsigned char pad11[0x34 - 0x11];
   char name[16]; // 0x34
@@ -730,9 +731,9 @@ struct NUFILEDEVICE {
   unsigned char pad4c[0xac - 0x4c];
   char app_dir[0x100]; // 0xac
   unsigned char pad1ac[0x22c - 0x1ac];
-  void (*format_name_fn)(NUFILEDEVICE *device, char *dst, char *path,
-                         int size); // 0x22c
-  void *interrogate_fn;             // 0x230
+  int (*format_name_fn)(NUFILEDEVICE *device, char *dst, char *path,
+                        int size);             // 0x22c
+  int (*interrogate_fn)(NUFILEDEVICE *device); // 0x230
 };
 // GLOBAL: LEGOBATMAN 0x0099f288
 extern NUFILEDEVICE *g_unk0099f288;
@@ -764,6 +765,87 @@ NUFILEDEVICE *NuFileGetDeviceFromPath(char *path) {
     }
   }
   return device;
+}
+
+// GLOBAL: LEGOBATMAN 0x00af41c0
+extern NUFILEDEVICE enum_devices[];
+// GLOBAL: LEGOBATMAN 0x00b00850
+int enum_numdevices;
+extern int nufile_lasterror;
+
+// FUNCTION: LEGOBATMAN 0x006d2cc0
+extern "C" int NuFileGetLastError(void) { return nufile_lasterror; }
+
+// FUNCTION: LEGOBATMAN 0x006d2cd0
+NUFILEDEVICE *NuFileFindDevice(int id, int unit) {
+  if (id == -3)
+    return g_unk0099f288;
+  if (id == 1 || id == 3)
+    id = 2;
+  for (int index = 0; index < numdevices; ++index) {
+    if (devices[index].id == id && (unit < 0 || unit == devices[index].unit_id))
+      return &devices[index];
+  }
+  return NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d2d40
+int NuFileEnumerateDevices(NUFILEDEVICE **result) {
+  int count = 0;
+  for (int index = 0; index < numdevices; ++index) {
+    if ((devices[index].interrogate_fn(&devices[index]) & 2) != 0)
+      continue;
+    enum_devices[count] = devices[index];
+    ++count;
+  }
+  *result = enum_devices;
+  enum_numdevices = count;
+  return count;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d2dc0
+int NuFileGetDevices(NUFILEDEVICE **result) {
+  if (result != NULL)
+    *result = enum_devices;
+  return enum_numdevices;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d2de0
+int NuFileRefreshDevices(NUFILEDEVICE **result) {
+  for (int index = 0; index < numdevices; ++index) {
+    if (devices[index].id == 1)
+      devices[index].id = -1;
+  }
+  if (result != NULL)
+    *result = devices;
+  return numdevices;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d2e40
+NUFILEDEVICE *NuFileGetCurrentDevice(void) { return g_unk0099f288; }
+
+// FUNCTION: LEGOBATMAN 0x006d2e50
+void NuFileSetCurrentDevice(NUFILEDEVICE *device) { g_unk0099f288 = device; }
+
+// FUNCTION: LEGOBATMAN 0x006d2e60
+int NuFileGetCurrentPath(char *dest) {
+  return g_unk0099f288->format_name_fn(g_unk0099f288, dest, "", 0x7fff);
+}
+
+// FUNCTION: LEGOBATMAN 0x006d2e90
+int NuFileGetCurrentSysPath(char *dest) {
+  return g_unk0099f288->format_name_fn(g_unk0099f288, dest, "", 0x7fff);
+}
+
+// FUNCTION: LEGOBATMAN 0x006d2ec0
+int NuFileFormatName(char *dest, char *name, int capacity) {
+  return g_unk0099f288->format_name_fn(g_unk0099f288, dest, name, capacity);
+}
+
+// FUNCTION: LEGOBATMAN 0x006d2ef0
+int NuMemFileOpenSize(int file) {
+  file -= 0x400;
+  return g_nuFileUnk0afa0a8[file].end - g_nuFileUnk0afa0a8[file].start;
 }
 
 // FUNCTION: LEGOBATMAN 0x006d9130

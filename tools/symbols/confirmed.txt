@@ -3519,3 +3519,14 @@
 006d37f0 NuFileIsNewer saga nufile_plain.cpp body
 006ddac0 NuDatGetFileInfo saga nufile_plain.cpp body (nufile_lsn_allowed 0x99f284)
 006de9e0 Unk006de9e0 seek+read at an offset unless an LSN file and both sector aligned (then 0)
+006d2cc0 NuFileGetLastError saga nufile.cpp body (nufile_lasterror 0xb038a0)
+006d2cd0 NuFileFindDevice saga nufile.cpp shape (PC maps ids 1 and 3 to 2)
+006d2d40 NuFileEnumerateDevices saga nufile.cpp body (enum_devices 0xaf41c0)
+006d2dc0 NuFileGetDevices saga nufile.cpp body (enum_numdevices 0xb00850)
+006d2de0 NuFileRefreshDevices saga nufile.cpp shape without memory-card calls
+006d2e40 NuFileGetCurrentDevice saga nufile_plain.cpp body
+006d2e50 NuFileSetCurrentDevice Mac _NuFileSetCurrentDevice (stores default_device)
+006d2e60 NuFileGetCurrentPath saga nufile_plain.cpp body
+006d2e90 NuFileGetCurrentSysPath saga nufile_plain.cpp body
+006d2ec0 NuFileFormatName saga nufile_plain.cpp body
+006d2ef0 NuMemFileOpenSize saga nufile.cpp body
