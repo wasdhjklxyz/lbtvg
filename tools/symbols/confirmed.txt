@@ -2875,3 +2875,24 @@
 005ca810 Shards_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Shard"
 005ca930 Shard_Collect Mac order (right after Shards_RegisterGizmo), Shard_Collect(SHARD_s*, GameObject_s*)
 005ca9d0 Shards_HandleLostObj Mac order (after Shard_Collect), clears shards collected by a lost object
+005cc1a0 ReleaseBuildIt Mac order and body (clears the build-it special move, blends the camera back)
+005cc200 GizBuildIts_PostLoad x26 (post_load) slot of the "GizBuildit" ADDGIZMOTYPE
+005cc260 GizBuildIts_ReserveBufferSpace reserve_buffer_space slot of the "GizBuildit" ADDGIZMOTYPE
+005cc340 GizBuildit_SetVisibility Mac GizBuildit_SetVisibility(GIZBUILDIT_s*, int), called by the set_visibility slot
+005cc380 GizmoBuildit_SetVisibility set_visibility slot of the "GizBuildit" ADDGIZMOTYPE
+005cc3c0 GizmoBuildit_GetPos get_pos slot of the "GizBuildit" ADDGIZMOTYPE
+005cc7e0 GizBuildIts_Reset reset slot of the "GizBuildit" ADDGIZMOTYPE
+005cc8c0 GizBuildIts_EarlyUpdate early_update slot of the "GizBuildit" ADDGIZMOTYPE
+005ccc30 GizBuildIts_GetMaxGizmos get_max_gizmos slot of the "GizBuildit" ADDGIZMOTYPE
+005ccc50 GizBuildIts_AddGizmos add_gizmos slot of the "GizBuildit" ADDGIZMOTYPE
+005cccb0 GizmoBuildit_GetGizmoName get_gizmo_name slot of the "GizBuildit" ADDGIZMOTYPE
+005cccc0 GizmoBuildit_GetOutput get_output slot of the "GizBuildit" ADDGIZMOTYPE
+005cccf0 GizmoBuildit_GetOutputName get_output_name slot of the "GizBuildit" ADDGIZMOTYPE
+005ccd00 GizmoBuildit_GetNumOutputs get_num_outputs slot of the "GizBuildit" ADDGIZMOTYPE
+005ccd10 GizBuildIts_AllocateProgressData allocate_progress_data slot of the "GizBuildit" ADDGIZMOTYPE
+005ccd30 GizBuildIts_ClearProgress clear_progress slot of the "GizBuildit" ADDGIZMOTYPE
+005ccd70 GizBuildIts_StoreProgress store_progress slot of the "GizBuildit" ADDGIZMOTYPE
+005cce30 GizBuildIts_TotalScore saga body (sums completion_score of WORLDINFO giz_buildit_sys)
+005cce70 GizBuildIt_Finish saga body (build_state = complete, optional turn-off, GizBuildIt_FinishFn)
+005cceb0 GizBuildIt_SetStepTime saga body (0.3 / GizBuildItMul)
+005ce220 GizBuildIts_RegisterGizmo copies Default_ADDGIZMOTYPE, name "GizBuildit"

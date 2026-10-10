@@ -1737,7 +1737,28 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005ca810,003313fc,__Z20Shards_RegisterGizmoi,Shards_RegisterGizmo(int),confirmed,0
 005ca930,0033158e,__Z13Shard_CollectP7SHARD_sP12GameObject_s,"Shard_Collect(SHARD_s*, GameObject_s*)",confirmed,0
 005ca9d0,00331662,__Z20Shards_HandleLostObjP11WORLDINFO_sP12GameObject_s,"Shards_HandleLostObj(WORLDINFO_s*, GameObject_s*)",confirmed,0
+005cc1a0,002b61d6,__Z14ReleaseBuildItP12GameObject_si,"ReleaseBuildIt(GameObject_s*, int)",confirmed,0
+005cc200,002b6240,__Z20GizBuildIts_PostLoadPvS_,"GizBuildIts_PostLoad(void*, void*)",confirmed,0
+005cc260,002b6296,__Z30GizBuildIts_ReserveBufferSpacePv,GizBuildIts_ReserveBufferSpace(void*),confirmed,0
+005cc340,002b63ac,__Z24GizBuildit_SetVisibilityP12GIZBUILDIT_si,"GizBuildit_SetVisibility(GIZBUILDIT_s*, int)",confirmed,0
+005cc380,002b7c7a,__Z26GizmoBuildit_SetVisibilityP7GIZMO_si,"GizmoBuildit_SetVisibility(GIZMO_s*, int)",confirmed,0
+005cc3c0,002b63f2,__Z19GizmoBuildit_GetPosP7GIZMO_s,GizmoBuildit_GetPos(GIZMO_s*),confirmed,0
+005cc7e0,002b7950,__Z17GizBuildIts_ResetPvS_S_,"GizBuildIts_Reset(void*, void*, void*)",confirmed,0
+005cc8c0,002b640c,__Z23GizBuildIts_EarlyUpdatePvS_f,"GizBuildIts_EarlyUpdate(void*, void*, float)",confirmed,0
+005ccc30,002b686a,__Z24GizBuildIts_GetMaxGizmosPv,GizBuildIts_GetMaxGizmos(void*),confirmed,0
+005ccc50,002b6880,__Z21GizBuildIts_AddGizmosP10GIZMOSYS_siPvS1_,"GizBuildIts_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+005cccb0,002b68e2,__Z25GizmoBuildit_GetGizmoNameP7GIZMO_s,GizmoBuildit_GetGizmoName(GIZMO_s*),confirmed,0
+005cccc0,002b68f2,__Z22GizmoBuildit_GetOutputP7GIZMO_sii,"GizmoBuildit_GetOutput(GIZMO_s*, int, int)",confirmed,0
+005cccf0,002b6926,__Z26GizmoBuildit_GetOutputNameP7GIZMO_si,"GizmoBuildit_GetOutputName(GIZMO_s*, int)",confirmed,0
+005ccd00,002b6938,__Z26GizmoBuildit_GetNumOutputsP7GIZMO_s,GizmoBuildit_GetNumOutputs(GIZMO_s*),confirmed,0
+005ccd10,002b6942,__Z32GizBuildIts_AllocateProgressDataP9variptr_uS0_,"GizBuildIts_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+005ccd30,002b6964,__Z25GizBuildIts_ClearProgressPvS_,"GizBuildIts_ClearProgress(void*, void*)",confirmed,0
+005ccd70,002b69e4,__Z25GizBuildIts_StoreProgressPvS_S_,"GizBuildIts_StoreProgress(void*, void*, void*)",confirmed,0
+005cce30,002b6ab4,__Z22GizBuildIts_TotalScorePv,GizBuildIts_TotalScore(void*),confirmed,0
+005cce70,002b7cc6,__Z17GizBuildIt_FinishP12GIZBUILDIT_s,GizBuildIt_Finish(GIZBUILDIT_s*),confirmed,0
+005cceb0,002b5f26,__Z22GizBuildIt_SetStepTimeP12GIZBUILDIT_sP12GameObject_s,"GizBuildIt_SetStepTime(GIZBUILDIT_s*, GameObject_s*)",confirmed,0
 005cd170,002b7664,__Z16GizBuildIts_LoadPvS_,"GizBuildIts_Load(void*, void*)",strings,0
+005ce220,002b6aee,__Z25GizBuildIts_RegisterGizmoi,GizBuildIts_RegisterGizmo(int),confirmed,0
 005ce730,00283b88,__Z13CheatSys_InitP9CHEATLIST,CheatSys_Init(CHEATLIST*),confirmed,0
 005ce780,00283bdc,__Z20Cheats_CountUpgradesPi,Cheats_CountUpgrades(int*),confirmed,0
 005ce7e0,00283c4a,__Z16Cheat_FindByNamePc,Cheat_FindByName(char*),confirmed,0

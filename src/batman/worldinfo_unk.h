@@ -101,8 +101,8 @@ struct WORLDINFO_s {
   struct TUBE_s *tubes;         // 0x47a0
   i32 tube_count;               // 0x47a4
   u8 pad47a8[0x47b4 - 0x47a8];
-  struct GIZOBSTACLESYS_s *giz_obstacle_sys; // 0x47b4
-  u8 pad47b8[0x47bc - 0x47b8];
+  struct GIZOBSTACLESYS_s *giz_obstacle_sys;         // 0x47b4
+  struct GIZBUILDITSYS_s *giz_buildit_sys;           // 0x47b8
   struct GIZFORCESYS_s *giz_force_sys;               // 0x47bc
   struct GIZDIGSYS_s *giz_dig_sys;                   // 0x47c0
   struct EQUIVALENTOBJECTGROUP_s *equivalent_groups; // 0x47c4
