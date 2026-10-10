@@ -80,6 +80,18 @@ i32 NuMemBlkSize(i32 element_size, i32 count, i32 alignment_mask) {
   return stride * count + header_size;
 }
 
+// FUNCTION: LEGOBATMAN 0x006daca0
+NUMEMBLK *NuMemBlkCreateVari(i32 element_size, i32 count, u32 alignment_mask,
+                             VARIPTR *buffer) {
+  NUMEMBLK *pool;
+
+  buffer->addr = (buffer->addr + alignment_mask) & ~alignment_mask;
+  pool =
+      NuMemBlkCreateEx(element_size, count, alignment_mask, buffer->void_ptr);
+  buffer->addr += NuMemBlkSize(element_size, count, alignment_mask);
+  return pool;
+}
+
 // FUNCTION: LEGOBATMAN 0x006d4370
 void NuMemBlkDestroy(NUMEMBLK *pool) {
   if (!(pool->flags & 1))

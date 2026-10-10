@@ -3600,3 +3600,6 @@
 006dbda0 decode_start saga implode.cpp static, out-of-line copy emitted because ExplodeBufferNoHeader references it
 006dbd30 NuRDPIVar Mac order between i_expr and NuRDPI, NuRDPI body with get_var_fn
 006db2d0 NuMemFileUnk006db2d0 memory-file self-relative pointer fixup (name unknown)
+006da6b0 NuFilePakCondense Mac order after NuFilePakCondenseTo; LB condenses in place via CondenseTo
+006daca0 NuMemBlkCreateVari saga numem.cpp body
+006daba0 NuFParGetOptionalFloat2 Mac body (digit check, NuAToF, else unget)

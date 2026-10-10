@@ -76,6 +76,15 @@ void NuFParGetOptionalFloat(NUFPAR *parser, f32 *value) {
   }
 }
 
+// FUNCTION: LEGOBATMAN 0x006daba0
+void NuFParGetOptionalFloat2(NUFPAR *parser, f32 *value) {
+  NuFParGetWord(parser);
+  if (value != 0 && parser->word_buf[0] >= '0' && parser->word_buf[0] <= '9')
+    *value = NuAToF(parser->word_buf);
+  else
+    parser->line_pos = old_line_pos;
+}
+
 // FUNCTION: LEGOBATMAN 0x006dabf0
 void NuFParGetOptionalInt(NUFPAR *parser, i32 *value) {
   char buf[64];

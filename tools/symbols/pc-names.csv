@@ -3777,11 +3777,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006da580,0018d9dc,_NuFileExtGetType,_NuFileExtGetType,confirmed,0
 006da5a0,0018d92e,_NuFileExtConvert,_NuFileExtConvert,confirmed,0
 006da650,0018d8de,_NuFileExtRemove,_NuFileExtRemove,confirmed,0
+006da6b0,0018caaa,_NuFilePakCondense,_NuFilePakCondense,confirmed,0
 006da710,0018d2e2,_NuFParGetWordW,_NuFParGetWordW,confirmed,0
 006da8d0,0018d4c2,_NuFParGetWord,_NuFParGetWord,confirmed,0
 006daa40,0018d694,_NuFParGetFloat,_NuFParGetFloat,confirmed,0
 006daae0,0018d740,_NuFParGetOptionalFloat,_NuFParGetOptionalFloat,confirmed,0
+006daba0,0018d7ec,_NuFParGetOptionalFloat2,_NuFParGetOptionalFloat2,confirmed,0
 006dabf0,0018ffe2,_NuFParGetOptionalInt,_NuFParGetOptionalInt,confirmed,0
+006daca0,0018f75e,_NuMemBlkCreateVari,_NuMemBlkCreateVari,confirmed,0
 006dacf0,,GetMultiCharToken,GetMultiCharToken,confirmed,0
 006db120,0018f434,_prim_rdpf,_prim_rdpf,confirmed,0
 006db1c0,0018f4dc,_term_rdpf,_term_rdpf,confirmed,0

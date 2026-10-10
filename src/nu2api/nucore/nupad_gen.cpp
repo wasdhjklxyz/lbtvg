@@ -5802,6 +5802,23 @@ i32 NuFilePakCondenseTo(void *hdr_ptr, VARIPTR *buf) {
   return 1;
 }
 
+// FUNCTION: LEGOBATMAN 0x006da6b0
+i32 NuFilePakCondense(void *hdr_ptr) {
+  NUFILEPAKHDR *hdr = (NUFILEPAKHDR *)hdr_ptr;
+  VARIPTR buf;
+  i32 size;
+  i32 removed;
+
+  if (hdr->item_count == 0)
+    return 0;
+  buf.addr = (u32)hdr + GetItems(hdr)->data_offset;
+  NuFilePakCondenseTo(hdr, &buf);
+  size = buf.addr - (u32)hdr;
+  removed = hdr->file_size - size;
+  hdr->file_size = size;
+  return removed;
+}
+
 // FUNCTION: LEGOBATMAN 0x006d3d10
 i32 NuFilePakGetItemInfo(void *hdr_ptr, i32 item_handle, void **addr,
                          i32 *size) {
