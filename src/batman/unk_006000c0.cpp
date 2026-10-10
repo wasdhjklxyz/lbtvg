@@ -67,6 +67,7 @@ public:
   static IDISPLAY *IsDisplayOfClassPresent(char const *name);
   static void Render(i32 scene);
   static void InitializePerm(variptr_u *buf, variptr_u *end);
+  static IDISPLAY *IsDisplayOfClassRegistered(char const *name);
 
   // GLOBAL: LEGOBATMAN 0x00aca638
   static InteractiveDisplayManager m_oSingleton;
@@ -365,6 +366,12 @@ void InteractiveDisplayManager::InitializePerm(variptr_u *buf, variptr_u *end) {
   m_oSingleton.i60 = 0;
   HiresTextureManager::InitializePerm(buf, end);
   DynamicMaterialManager::InitializePerm(buf, end);
+}
+
+// FUNCTION: LEGOBATMAN 0x00600780
+IDISPLAY *
+InteractiveDisplayManager::IsDisplayOfClassRegistered(char const *name) {
+  return GetDisplayOfClass(name, 0);
 }
 
 // Keeps the header-static copies above alive until their real callers are

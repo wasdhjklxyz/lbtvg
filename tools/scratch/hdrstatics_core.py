@@ -25,7 +25,7 @@ def flen(o):
     return e-o
 copies=[]
 for o in range(0,lim,16):
-    if o and d[o-1]!=0xcc: continue
+    if o and d[o-1] not in (0xcc,0xc3): continue  # c3: previous function ended on the boundary
     for n,(p,L) in F.items():
         if d[o:o+len(p)//2]==bytes.fromhex(p) and flen(o)==L: copies.append((va+o,n)); break
 copies.sort()

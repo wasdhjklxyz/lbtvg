@@ -1757,6 +1757,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006006d0,002f2b68,__ZN22DynamicMaterialManager14InitializePermEP9variptr_uS1_,"DynamicMaterialManager::InitializePerm(variptr_u*, variptr_u*)",confirmed,0
 00600710,002f2b4a,__ZN19HiresTextureManager14InitializePermEP9variptr_uS1_,"HiresTextureManager::InitializePerm(variptr_u*, variptr_u*)",confirmed,0
 00600730,002f2882,__ZN25InteractiveDisplayManager14InitializePermEP9variptr_uS1_,"InteractiveDisplayManager::InitializePerm(variptr_u*, variptr_u*)",confirmed,0
+00600780,002f2712,__ZN25InteractiveDisplayManager26IsDisplayOfClassRegisteredEPKc,InteractiveDisplayManager::IsDisplayOfClassRegistered(char const*),confirmed,0
 006009e0,002df46e,__Z11Grab_radiusP8nufpar_s,Grab_radius(nufpar_s*),confirmed,0
 00600a00,002df4a0,__Z10Grab_speedP8nufpar_s,Grab_speed(nufpar_s*),confirmed,0
 00600a20,002df4d2,__Z11Grab_rotateP8nufpar_s,Grab_rotate(nufpar_s*),confirmed,0

@@ -4,6 +4,10 @@
 #include "../batman/worldinfo_unk.h"
 #include "../nu2api/nucore/common.h"
 
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00600790
+static f32 NuSinApprox(i32 angle);
+
 struct GRABBERSYS_s {
   u8 pad000[0x692];
   u8 active; // 0x692
@@ -219,4 +223,10 @@ void Unk_InlineUser_grabber_unk(f32 *v, f32 a, i32 i) {
   v[1] = NuCosApprox(i);
   NuVec4Copy(v + 4, v);
   NuVec4Set(v, a, a, a, a);
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_2_grabber_unk(f32 *v, f32 a, i32 i) {
+  v[0] = NuSinApprox(i);
 }
