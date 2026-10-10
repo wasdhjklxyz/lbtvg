@@ -2699,3 +2699,16 @@
 00663660 GizAIMessage_GetNumOutputs get_num_outputs slot of the "Message" ADDGIZMOTYPE
 006635b0 GizAIMessage_GetName saga body (msg ? msg->name : NULL), between AddGizmos and GetGizmoName
 00663680 GizAIMessage_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Message", prefix gizaimessage_prefix
+0066f180 Portal_GetMaxGizmos get_max_gizmos slot of the "Portal" ADDGIZMOTYPE
+0066f1a0 Portal_AddGizmos add_gizmos slot of the "Portal" ADDGIZMOTYPE
+0066f200 Portal_GetGizmoName get_gizmo_name slot of the "Portal" ADDGIZMOTYPE
+0066f240 Portal_GetOutput get_output slot of the "Portal" ADDGIZMOTYPE
+0066f260 Portal_GetNumOutputs get_num_outputs slot of the "Portal" ADDGIZMOTYPE
+0066f270 Portal_GetOutputName get_output_name slot of the "Portal" ADDGIZMOTYPE
+0066f280 Portal_Activate activate slot of the "Portal" ADDGIZMOTYPE
+0066f2a0 Portal_ActivateRev activate_rev slot of the "Portal" ADDGIZMOTYPE
+0066f2f0 Portals_Reset reset slot of the "Portal" ADDGIZMOTYPE
+0066f3a0 Portals_AllocateProgressData allocate_progress_data slot of the "Portal" ADDGIZMOTYPE
+0066f3c0 Portals_ClearProgress clear_progress slot of the "Portal" ADDGIZMOTYPE
+0066f3d0 Portals_StoreProgress store_progress slot of the "Portal" ADDGIZMOTYPE
+0066f460 Portal_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Portal"

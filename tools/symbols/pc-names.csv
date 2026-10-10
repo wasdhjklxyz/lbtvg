@@ -2508,6 +2508,19 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00665f60,002b9214,__Z26GizFlock_Config_anim_speedP8nufpar_s,GizFlock_Config_anim_speed(nufpar_s*),confirmed,0
 00665f80,002b9242,__Z24GizFlock_ConfigureExtrasP11WORLDINFO_sPKcj,"GizFlock_ConfigureExtras(WORLDINFO_s*, char const*, unsigned int)",strings,0
 0066b400,002bc674,__Z20GizFlock_UpdateBoidsP12sGizFlockSysP9sGizFlock,"GizFlock_UpdateBoids(sGizFlockSys*, sGizFlock*)",strings,0
+0066f180,002d4924,__Z19Portal_GetMaxGizmosPv,Portal_GetMaxGizmos(void*),confirmed,0
+0066f1a0,002d4942,__Z16Portal_AddGizmosP10GIZMOSYS_siPvS1_,"Portal_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+0066f200,002d49a4,__Z19Portal_GetGizmoNameP7GIZMO_s,Portal_GetGizmoName(GIZMO_s*),confirmed,0
+0066f240,002d49fc,__Z16Portal_GetOutputP7GIZMO_sii,"Portal_GetOutput(GIZMO_s*, int, int)",confirmed,0
+0066f260,002d4a1c,__Z20Portal_GetNumOutputsP7GIZMO_s,Portal_GetNumOutputs(GIZMO_s*),confirmed,0
+0066f270,002d4a26,__Z20Portal_GetOutputNameP7GIZMO_si,"Portal_GetOutputName(GIZMO_s*, int)",confirmed,0
+0066f280,002d4a38,__Z15Portal_ActivateP7GIZMO_si,"Portal_Activate(GIZMO_s*, int)",confirmed,0
+0066f2a0,002d4a54,__Z18Portal_ActivateRevP7GIZMO_sii,"Portal_ActivateRev(GIZMO_s*, int, int)",confirmed,0
+0066f2f0,002d4aa2,__Z13Portals_ResetPvS_S_,"Portals_Reset(void*, void*, void*)",confirmed,0
+0066f3a0,002d4b84,__Z28Portals_AllocateProgressDataP9variptr_uS0_,"Portals_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+0066f3c0,002d4ba6,__Z21Portals_ClearProgressPvS_,"Portals_ClearProgress(void*, void*)",confirmed,0
+0066f3d0,002d4d60,__Z21Portals_StoreProgressPvS_S_,"Portals_StoreProgress(void*, void*, void*)",confirmed,0
+0066f460,002d4bce,__Z20Portal_RegisterGizmoi,Portal_RegisterGizmo(int),confirmed,0
 0066f590,002a3240,__Z24edGizShadow_GetMaxGizmosPv,edGizShadow_GetMaxGizmos(void*),confirmed,0
 0066f5a0,002a324a,__Z21edGizShadow_AddGizmosP10GIZMOSYS_siPvS1_,"edGizShadow_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
 0066f5c0,002a3266,__Z24edGizShadow_GetGizmoNameP7GIZMO_s,edGizShadow_GetGizmoName(GIZMO_s*),confirmed,0
