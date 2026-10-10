@@ -426,8 +426,8 @@ void NuMtxRotateY(numtx_s *m, i32 a) {
   m->m32 = m->m32 * cosx - m30 * sinx;
 }
 
-// saga body; x87 operand order differs in one or two rows.
-// STUB: LEGOBATMAN 0x00686340
+// saga body; the m00 row written as -(m20 * sin) + cos * m00 (x87 order).
+// FUNCTION: LEGOBATMAN 0x00686180
 void NuMtxPreRotateY(numtx_s *m, i32 a) {
   f32 cosx = NuSinApprox(a + 0x4000);
   f32 sinx = NuSinApprox(a);
@@ -435,7 +435,7 @@ void NuMtxPreRotateY(numtx_s *m, i32 a) {
   f32 m01 = m->m01;
   f32 m02 = m->m02;
 
-  m->m00 = cosx * m00 - m->m20 * sinx;
+  m->m00 = -(m->m20 * sinx) + cosx * m00;
   m->m01 = cosx * m01 - m->m21 * sinx;
   m->m02 = cosx * m02 - m->m22 * sinx;
   m->m20 = sinx * m00 + m->m20 * cosx;
@@ -463,8 +463,8 @@ void NuMtxRotateZ(numtx_s *m, i32 a) {
   m->m31 = m30 * sinx + m->m31 * cosx;
 }
 
-// saga body; x87 operand order differs in one or two rows.
-// STUB: LEGOBATMAN 0x00686180
+// saga body; m01/m11 rows load m->m11 before sinx in ours (x87).
+// STUB: LEGOBATMAN 0x00686340
 void NuMtxPreRotateZ(numtx_s *m, i32 a) {
   f32 cosx = NuSinApprox(a + 0x4000);
   f32 sinx = NuSinApprox(a);

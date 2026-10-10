@@ -163,8 +163,7 @@
 006e39f0 NuIsCriticalSectionLocked: setne cl + mov al, cl not reproduced (bool/u8/ternary tried)
 006d4440 NuAllocHigh: register swap (freep/previous) + flag reuse, saga and K&R loops tried
 00684d30 NuVecCross: fmul operand order of two products, saga and swapped forms tried
-00686180 NuMtxPreRotateZ: saga body tentative (size 174 vs 170), operand order
-00686340 NuMtxPreRotateY: saga body tentative (size 168 vs 172), operand order
+00686340 NuMtxPreRotateZ: saga body; the m01/m11 rows load m->m11 before sinx (x87), +/- forms and row orders tried
 00686620 NuMtxMul: saga body (size fits), x87 product operand order differs per term; both operand orders tried
 006868f0 NuMtxMulR: saga body (size fits), same operand-order issue as NuMtxMul
 00686d80 NuMtxInvRSS: saga body (size fits), operand order + a jp/jnp compare flip
