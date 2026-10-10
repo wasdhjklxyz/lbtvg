@@ -2651,6 +2651,22 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006486e0,00264012,__Z19Arcade_PlayerKilledii,"Arcade_PlayerKilled(int, int)",confirmed,0
 00648970,002a4b3a,__Z22Episodes_ConfigureListPcP9variptr_uS1_iPi,"Episodes_ConfigureList(char*, variptr_u*, variptr_u*, int, int*)",strings,0
 00648f60,002a50cc,__Z22Episode_CountOpenAreasii,"Episode_CountOpenAreas(int, int)",confirmed,0
+006499d0,003435ae,__Z29TightRopes_ReserveBufferSpacePv,TightRopes_ReserveBufferSpace(void*),confirmed,0
+00649ac0,0034360a,__Z17TightRope_ReleaseP12GameObject_s,TightRope_Release(GameObject_s*),confirmed,0
+0064a000,00343924,__Z22TightRopes_EarlyUpdatePvS_f,"TightRopes_EarlyUpdate(void*, void*, float)",confirmed,0
+0064a9d0,00344380,__Z18TightRope_ActivateP7GIZMO_si,"TightRope_Activate(GIZMO_s*, int)",confirmed,0
+0064aa10,003443ea,__Z23TightRope_SetVisibilityP7GIZMO_si,"TightRope_SetVisibility(GIZMO_s*, int)",confirmed,0
+0064aa30,00344414,__Z23TightRopes_GetMaxGizmosPv,TightRopes_GetMaxGizmos(void*),confirmed,0
+0064aa50,00344430,__Z20TightRopes_AddGizmosP10GIZMOSYS_siPvS1_,"TightRopes_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+0064aac0,00344498,__Z22TightRope_GetGizmoNameP7GIZMO_s,TightRope_GetGizmoName(GIZMO_s*),confirmed,0
+0064aae0,003444ac,__Z19TightRope_GetOutputP7GIZMO_sii,"TightRope_GetOutput(GIZMO_s*, int, int)",confirmed,0
+0064ab00,003444ca,__Z23TightRope_GetOutputNameP7GIZMO_si,"TightRope_GetOutputName(GIZMO_s*, int)",confirmed,0
+0064ab10,003444dc,__Z23TightRope_GetNumOutputsP7GIZMO_s,TightRope_GetNumOutputs(GIZMO_s*),confirmed,0
+0064ab20,003444e6,__Z31TightRopes_AllocateProgressDataP9variptr_uS0_,"TightRopes_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+0064ab40,00344508,__Z24TightRopes_ClearProgressPvS_,"TightRopes_ClearProgress(void*, void*)",confirmed,0
+0064ab60,00344550,__Z24TightRopes_StoreProgressPvS_S_,"TightRopes_StoreProgress(void*, void*, void*)",confirmed,0
+0064abe0,003445f2,__Z22TightRopes_AddLevelSfxPvS_PiS0_i,"TightRopes_AddLevelSfx(void*, void*, int*, int*, int)",confirmed,0
+0064ac10,00344644,__Z24TightRopes_RegisterGizmoi,TightRopes_RegisterGizmo(int),confirmed,0
 0064ce30,002fa184,__Z19NewStatusRumbleBuzziffi,"NewStatusRumbleBuzz(int, float, float, int)",gapfill,2
 00652260,00338224,__Z24SuperCounterConfig_ResetP12SUPERCOUNTER,SuperCounterConfig_Reset(SUPERCOUNTER*),confirmed,0
 00652290,00338262,__Z28SuperCounterConfig_ParseLineP12SUPERCOUNTERP8nufpar_s,"SuperCounterConfig_ParseLine(SUPERCOUNTER*, nufpar_s*)",strings,0

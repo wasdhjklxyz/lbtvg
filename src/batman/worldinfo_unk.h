@@ -122,11 +122,13 @@ struct WORLDINFO_s {
   u8 pad8b2[0x51bc - 0x51b0];
   struct PORTALDOOR_s *portal_doors; // 0x51bc
   i32 portal_door_count;             // 0x51c0
-  u8 pad8c[0x51d4 - 0x51c4];
-  struct SIGNAL_s *signals; // 0x51d4
-  i32 signal_count;         // 0x51d8
-  struct LEVER_s *levers;   // 0x51dc
-  i32 lever_count;          // 0x51e0
+  u8 pad51c4[0x51cc - 0x51c4];
+  struct TIGHTROPE_s *tightropes; // 0x51cc
+  i32 tightrope_count;            // 0x51d0
+  struct SIGNAL_s *signals;       // 0x51d4
+  i32 signal_count;               // 0x51d8
+  struct LEVER_s *levers;         // 0x51dc
+  i32 lever_count;                // 0x51e0
   u8 pad51e4[0x51ec - 0x51e4];
   struct TECHNO_s *technos;                   // 0x51ec
   i32 techno_count;                           // 0x51f0

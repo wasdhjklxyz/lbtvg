@@ -3005,3 +3005,19 @@
 0063c6b0 GizDigs_FindDig Mac GizDigs_FindDig(WORLDINFO_s*, char*), NuStrICmp walk
 0063c710 GizDig_TotalScore Mac GizDig_TotalScore(void*), sums score
 0063c750 GizDig_RegisterGizmo copies Default_ADDGIZMOTYPE, name "GizDig"
+006499d0 TightRopes_ReserveBufferSpace reserve_buffer_space slot of the "TightRope" ADDGIZMOTYPE
+00649ac0 TightRope_Release Mac order (after ReserveBufferSpace), drops the rope's user count for the three tightrope moves
+0064a000 TightRopes_EarlyUpdate early_update slot of the "TightRope" ADDGIZMOTYPE
+0064a9d0 TightRope_Activate activate slot of the "TightRope" ADDGIZMOTYPE
+0064aa10 TightRope_SetVisibility set_visibility slot of the "TightRope" ADDGIZMOTYPE
+0064aa30 TightRopes_GetMaxGizmos get_max_gizmos slot of the "TightRope" ADDGIZMOTYPE
+0064aa50 TightRopes_AddGizmos add_gizmos slot of the "TightRope" ADDGIZMOTYPE
+0064aac0 TightRope_GetGizmoName get_gizmo_name slot of the "TightRope" ADDGIZMOTYPE
+0064aae0 TightRope_GetOutput get_output slot of the "TightRope" ADDGIZMOTYPE
+0064ab00 TightRope_GetOutputName get_output_name slot of the "TightRope" ADDGIZMOTYPE
+0064ab10 TightRope_GetNumOutputs get_num_outputs slot of the "TightRope" ADDGIZMOTYPE
+0064ab20 TightRopes_AllocateProgressData allocate_progress_data slot of the "TightRope" ADDGIZMOTYPE
+0064ab40 TightRopes_ClearProgress clear_progress slot of the "TightRope" ADDGIZMOTYPE
+0064ab60 TightRopes_StoreProgress store_progress slot of the "TightRope" ADDGIZMOTYPE
+0064abe0 TightRopes_AddLevelSfx x27 (add_level_sfx) slot of the "TightRope" ADDGIZMOTYPE
+0064ac10 TightRopes_RegisterGizmo copies Default_ADDGIZMOTYPE, name "TightRope"
