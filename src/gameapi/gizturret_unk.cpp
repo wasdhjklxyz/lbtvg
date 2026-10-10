@@ -13,18 +13,47 @@ typedef struct GIZTURRET_s {
   void *parts;     // 0x18
   u8 pad1c[0x24 - 0x1c];
   nuvec_s position; // 0x24
-  u8 pad30[0x124 - 0x30];
-  i16 s124;   // 0x124, resolved in PostLoad when flags bit 8 is set
-  i16 sfx126; // 0x126
-  u8 pad128[0x12a - 0x128];
-  i16 sfx12a; // 0x12a
-  u8 pad12c[0x12e - 0x12c];
-  u8 b12e; // 0x12e
-  u8 b12f; // 0x12f
-  u8 pad130;
-  u8 shots; // 0x131
-  u8 fired; // 0x132
-  u8 pad133[0x138 - 0x133];
+  nuvec_s v30;      // 0x30
+  nuvec_s v3c;      // 0x3c
+  nuvec_s v48;      // 0x48
+  u8 pad54[0x58 - 0x54];
+  i32 i58; // 0x58
+  i32 i5c; // 0x5c
+  u8 pad60[0x64 - 0x60];
+  i32 i64;        // 0x64
+  i32 i68;        // 0x68
+  i32 i6c;        // 0x6c
+  i32 i70;        // 0x70
+  nuvec_s v74[6]; // 0x74
+  u8 padbc[0xec - 0xbc];
+  f32 fec; // 0xec
+  f32 ff0; // 0xf0
+  f32 ff4; // 0xf4
+  u8 padf8[0xfc - 0xf8];
+  f32 ffc;      // 0xfc
+  f32 f100;     // 0x100
+  f32 f104;     // 0x104
+  u32 flags108; // 0x108
+  i16 s10c;     // 0x10c
+  u8 pad10e[0x110 - 0x10e];
+  i16 s110;     // 0x110
+  i16 s112;     // 0x112
+  nuvec_s v114; // 0x114
+  f32 f120;     // 0x120
+  i16 s124;     // 0x124, resolved in PostLoad when flags bit 8 is set
+  i16 sfx126;   // 0x126
+  i16 s128;     // 0x128
+  i16 sfx12a;   // 0x12a
+  u8 pad12c;
+  char b12d; // 0x12d
+  u8 b12e;   // 0x12e
+  u8 b12f;   // 0x12f
+  u8 b130;   // 0x130
+  u8 shots;  // 0x131
+  u8 fired;  // 0x132
+  u8 pad133;
+  i16 s134; // 0x134
+  u8 pad136[0x138 - 0x136];
   i16 sfx138; // 0x138
   u16 b0 : 1;
   u16 active : 1;  // 0x13a bit 1
@@ -35,6 +64,9 @@ typedef struct GIZTURRET_s {
   u16 b6 : 1;
   u16 b7 : 1;
   u16 b8 : 1;
+  u16 b9 : 1;
+  u16 b10 : 1;
+  u16 b11 : 1;
 } GIZTURRET_s;
 
 typedef struct GIZTURRETSYS_s {
@@ -67,6 +99,164 @@ extern "C" int sprintf(char *buf, const char *fmt, ...);
 
 // GLOBAL: LEGOBATMAN 0x00ad1fec
 extern char GizTurret_OutputNameBuf[];
+
+typedef struct TURRETANIMOBJ_s {
+  struct TURRETANIMOBJ_s *next; // 0x00
+  u8 pad4[0x24 - 4];
+  u8 *object_data; // 0x24
+} TURRETANIMOBJ;
+
+typedef struct TURRETANIMSET_s {
+  u8 pad0[0x24];
+  TURRETANIMOBJ *objects; // 0x24
+} TURRETANIMSET;
+
+struct AREADATA_s {
+  u8 pad0[0x7c];
+  u32 flags7c; // 0x7c
+};
+
+// GLOBAL: LEGOBATMAN 0x00967a18
+extern u8 g_unk00967a18; // turret file version
+
+i32 EdFileReadInt();
+char EdFileReadChar();
+i16 EdFileReadShort();
+f32 EdFileReadFloat();
+void EdFileRead(void *buf, i32 len);
+void EdFileReadNuVec(nuvec_s *v);
+void GizmoFileReadGameAnimSet(void *set, void *world,
+                              void (*fn)(TURRETANIMOBJ *, u8), u8 version,
+                              char *type_name, char *name);
+i32 GizmoBlowupGetNameTableId(char *name);
+i32 GizmoFileReadName(char *name);
+extern "C" i32 GetSfxId(char *name);
+i32 BoltType_FindIDByName(char *name, void *world);
+
+// FUNCTION: LEGOBATMAN 0x0065fac0
+static void GizTurret_ClearUnk0065fac0(GIZTURRET_s *turret) {
+  if (turret == NULL)
+    return;
+  void *parts = turret->parts;
+  memset(turret, 0, sizeof(GIZTURRET_s));
+  turret->flags108 |= 0x802;
+  turret->ffc = 1.0f;
+  turret->f100 = 8.0f;
+  turret->f104 = 8.0f;
+  turret->b0 = 0;
+  turret->b11 = 0;
+  turret->parts = parts;
+  turret->b12f = 1;
+  turret->shots = 1;
+  turret->sfx12a = -1;
+  turret->sfx126 = -1;
+  turret->sfx138 = -1;
+  turret->b130 = 1;
+  turret->s124 = -1;
+  turret->b12d = -1;
+  if (g_unk00960894->area != NULL && (g_unk00960894->area->flags7c & 1))
+    turret->f120 = 12.0f;
+  else
+    turret->f120 = 1.75f;
+}
+
+// FUNCTION: LEGOBATMAN 0x0065fb80
+static void edgizturret_ReadAnimSetData(TURRETANIMOBJ *object, u8 version) {
+  if (object == NULL || version <= 2)
+    return;
+  u32 fallback;
+  u8 *data = object->object_data;
+  if (data == NULL)
+    data = (u8 *)&fallback;
+  if (g_unk00967a18 > 4) {
+    data[0] = EdFileReadChar();
+    data[1] = EdFileReadChar();
+  } else {
+    data[0] = (u8)EdFileReadShort();
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x0065fbc0
+i32 GizTurrets_Load(void *world_ptr, void *sys_ptr) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  GIZTURRETSYS_s *sys = (GIZTURRETSYS_s *)sys_ptr;
+  char name[0x100];
+  u8 version = EdFileReadChar();
+  sys->count = EdFileReadShort();
+  if (sys->count == 0)
+    return 1;
+  GIZTURRET_s *turret = sys->turrets;
+  for (i32 i = 0; i < sys->count; i++, turret++) {
+    GizTurret_ClearUnk0065fac0(turret);
+    EdFileRead(turret->name, 0x10);
+    GizmoFileReadGameAnimSet(turret->parts, world, edgizturret_ReadAnimSetData,
+                             version, "GizTurret", turret->name);
+    EdFileReadNuVec(&turret->position);
+    EdFileReadNuVec(&turret->v30);
+    EdFileReadNuVec(&turret->v3c);
+    EdFileReadNuVec(&turret->v48);
+    turret->i58 = EdFileReadInt();
+    turret->i5c = EdFileReadInt();
+    turret->i64 = EdFileReadInt();
+    turret->i68 = EdFileReadInt();
+    turret->i6c = EdFileReadInt();
+    turret->i70 = EdFileReadInt();
+    if (version > 1)
+      turret->flags108 = EdFileReadInt();
+    turret->b130 = EdFileReadChar();
+    for (i32 k = 0; k < turret->b130; k++)
+      EdFileReadNuVec(&turret->v74[k]);
+    turret->fec = EdFileReadFloat();
+    turret->ff0 = EdFileReadFloat();
+    turret->ff4 = EdFileReadFloat();
+    turret->ffc = EdFileReadFloat();
+    turret->f100 = EdFileReadFloat();
+    turret->f104 = EdFileReadFloat();
+    turret->s10c = EdFileReadShort();
+    turret->s110 = EdFileReadShort();
+    turret->s112 = EdFileReadShort();
+    EdFileReadNuVec(&turret->v114);
+    if (version >= 6)
+      turret->f120 = EdFileReadFloat();
+    else if (world->area != NULL && (world->area->flags7c & 1))
+      turret->f120 = 12.0f;
+    else
+      turret->f120 = 1.75f;
+    turret->b12f = EdFileReadChar();
+    if (version > 3) {
+      turret->shots = EdFileReadChar();
+      turret->s128 = EdFileReadShort();
+    }
+    if (GizmoFileReadName(name))
+      turret->b12d = BoltType_FindIDByName(name, world);
+    if (GizmoFileReadName(name))
+      turret->sfx12a = GetSfxId(name);
+    if (GizmoFileReadName(name))
+      turret->sfx126 = GetSfxId(name);
+    if (version >= 7 && GizmoFileReadName(name))
+      turret->sfx138 = GetSfxId(name);
+    if (GizmoFileReadName(name)) {
+      turret->s124 = GizmoBlowupGetNameTableId(name);
+      if (turret->s124 != -1)
+        turret->b8 = 1;
+    }
+    turret->s134 = EdFileReadShort();
+    if (version <= 4) {
+      i32 j = 0;
+      for (TURRETANIMOBJ *obj = ((TURRETANIMSET *)turret->parts)->objects;
+           obj != NULL; obj = obj->next, j++) {
+        u8 *d = obj->object_data;
+        if (j == 0)
+          d[1] = 1;
+        else if (j == 1)
+          d[1] = 2;
+        else if (d[0] & 1)
+          d[1] = 3;
+      }
+    }
+  }
+  return 1;
+}
 
 // FUNCTION: LEGOBATMAN 0x0065ff20
 void GizTurrets_PostLoad(void *world, void *sys_ptr) {

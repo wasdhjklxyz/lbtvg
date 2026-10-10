@@ -2920,6 +2920,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00659110,00346fb6,__Z24TrafficAnimSys_ConfigureP11WORLDINFO_sPc,"TrafficAnimSys_Configure(WORLDINFO_s*, char*)",strings,0
 0065c320,002ea63c,__Z7LoseHatP12GameObject_s,LoseHat(GameObject_s*),confirmed,0
 0065e780,002a38f0,__Z17LoadEditorSplinesP11WORLDINFO_sPcP9variptr_uS3_,"LoadEditorSplines(WORLDINFO_s*, char*, variptr_u*, variptr_u*)",strings,0
+0065fb80,,edgizturret_ReadAnimSetData,edgizturret_ReadAnimSetData,confirmed,0
+0065fbc0,002da690,__Z15GizTurrets_LoadPvS_,"GizTurrets_Load(void*, void*)",confirmed,0
 0065ff20,002dabd6,__Z19GizTurrets_PostLoadPvS_,"GizTurrets_PostLoad(void*, void*)",confirmed,0
 006600f0,,GizTurret_Activate,GizTurret_Activate,confirmed,0
 00660150,,GizTurret_ActivateRev,GizTurret_ActivateRev,confirmed,0

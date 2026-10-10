@@ -3291,3 +3291,5 @@
 005e4f80 Tubes_Load Tubes_RegisterGizmo load slot
 005fd160 ZipUps_Load ZipUps_RegisterGizmo load slot
 004f0100 Signals_Load Signals_RegisterGizmo load slot
+0065fb80 edgizturret_ReadAnimSetData passed by GizTurrets_Load to the anim-set reader
+0065fbc0 GizTurrets_Load GizTurrets_RegisterGizmo load slot
