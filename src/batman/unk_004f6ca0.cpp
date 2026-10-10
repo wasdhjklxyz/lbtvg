@@ -10,6 +10,23 @@
 struct WORLDINFO_s;
 union variptr_u;
 
+f32 NuFsqrt(f32 f);
+
+// Mac: class VuVec (16 bytes, the display corners and axes).
+struct VuVec {
+  f32 x, y, z, w;
+  f32 LengthSq() const { return x * x + y * y + z * z; }
+  f32 Length() const { return NuFsqrt(LengthSq()); }
+};
+
+// Mac: WorldMapInfo (0x554 bytes on both), constructed in WorldMapBase.
+struct WorldMapInfo {
+  WorldMapInfo();
+  u8 pad000[0x528];
+  f32 pointer_radius; // 0x528
+  u8 pad52c[0x554 - 0x52c];
+};
+
 // Slot order from the PC vtable at 0x0085d75c; names of the inline ones from
 // the Mac emission order (ActivateLevel, GetDoesLevelLoadRender,
 // GetUsesStrobePattern, GetUsesWhiteNoise, GetUsesInterlacePattern,
@@ -19,6 +36,8 @@ union variptr_u;
 class InteractiveDisplay {
 public:
   InteractiveDisplay();
+  char *Unk004f7000();
+  i32 Unk004f6d40() const;
   f32 Unk005c6270() const;
 
   virtual void InitializePerm(char *name, variptr_u *buf, variptr_u *end); // 0
@@ -33,12 +52,12 @@ public:
   virtual i32 GetUsesOverlayTexture() const;                               // 9
   virtual void Vfn10();                                                    // 10
   virtual void Vfn11();                                                    // 11
-  virtual i32 IsVisible() const;                                           // 12
-  virtual i32 ShouldUpdate() const;                                        // 13
+  virtual i32 ShouldUpdate() const;                                        // 12
+  virtual i32 IsVisible() const;                                           // 13
   virtual i32 RenderWhenPaused() const;                                    // 14
   virtual i32 IsCameraTarget() const;                                      // 15
   virtual i32 IsInteractiveMode() const;                                   // 16
-  virtual void Vfn17();                                                    // 17
+  virtual f32 GetDisplayAspectRatio() const;                               // 17
   virtual void LoadSettings(char *name);                                   // 18
   virtual f32 GetTextScaleMultiplier() const;                              // 19
   virtual void Vfn20();                                                    // 20
@@ -47,9 +66,14 @@ public:
   u8 pad004[0x10 - 4];
   char level_name[0x40];      // 0x010
   char transition_name[0x40]; // 0x050
-  u8 pad090[0x220 - 0x90];
+  u8 pad090[0x1c0 - 0x90];
+  VuVec v1c0; // 0x1c0
+  VuVec v1d0; // 0x1d0
+  u8 pad1e0[0x220 - 0x1e0];
   f32 f220; // 0x220
-  u8 pad224[0x230 - 0x224];
+  u8 pad224[0x228 - 0x224];
+  i32 i228; // 0x228
+  u8 pad22c[0x230 - 0x22c];
   i32 i230; // 0x230
   f32 f234; // 0x234
   u8 pad238[0x338 - 0x238];
@@ -67,10 +91,16 @@ public:
   virtual f32 GetPointerRadiusWithMaxScale() const;
   virtual f32 GetPointerRadiusWithScale() const;
 
-  u8 pad33c[0x348 - 0x33c];
+  f32 Unk004f6fb0() const;
+  i32 Unk004f7070() const;
+
+  u8 pad33c[0x340 - 0x33c];
+  i32 i340; // 0x340
+  i32 i344; // 0x344
   i32 mode; // 0x348, 1 = interactive, 2 = playback
-  u8 pad34c[0x888 - 0x34c];
-  f32 pointer_radius; // 0x888
+  u8 pad34c[0x360 - 0x34c];
+  WorldMapInfo info; // 0x360
+  f32 f8b4;          // 0x8b4
 };
 
 // vtable 0x0085d874.
@@ -87,8 +117,9 @@ public:
   virtual f32 GetPointerRadiusWithMaxScale() const;
   virtual f32 GetPointerRadiusWithScale() const;
   virtual f32 GetTextScaleMultiplier() const;
+  virtual i32 IsVisible() const;
 
-  u8 pad88c[0x984 - 0x88c];
+  u8 pad8b8[0x984 - 0x8b8];
   f32 pointer_scale; // 0x984
   u8 pad988[0x990 - 0x988];
   i32 i990; // 0x990
@@ -135,11 +166,12 @@ extern i32 g_unk009cf570; // security camera type the camera follows
 
 char *NuStrIStr(char *str, const char *sub);
 
-// vtable 0x0085d9f4: overrides slots 12 and 13 (Mac inline order
-// GetClassNameA, IsVisible, ShouldUpdate).
+// vtable 0x0085d9f4: overrides slots 12 (ShouldUpdate) and 13 (IsVisible);
+// the bodies are identical, the base vtable fixes which is which.
 class LightFlickerOverlay : public InteractiveDisplay {
 public:
   LightFlickerOverlay();
+  i32 Unk004f74d0() const;
   virtual const char *GetClassNameA() const;
   virtual i32 IsVisible() const;
   virtual i32 ShouldUpdate() const;
@@ -202,6 +234,14 @@ i32 InteractiveDisplay::IsCameraTarget() const {
 // FUNCTION: LEGOBATMAN 0x004f6d30
 i32 InteractiveDisplay::IsInteractiveMode() const { return 0; }
 
+// FUNCTION: LEGOBATMAN 0x004f6d40
+i32 InteractiveDisplay::Unk004f6d40() const { return i228; }
+
+// FUNCTION: LEGOBATMAN 0x004f6d50
+f32 InteractiveDisplay::GetDisplayAspectRatio() const {
+  return v1d0.LengthSq() != 0.0f ? v1c0.Length() / v1d0.Length() : 1.0f;
+}
+
 // FUNCTION: LEGOBATMAN 0x004f6e60
 void InteractiveDisplay::LoadSettings(char *name) {}
 
@@ -213,6 +253,20 @@ i32 InteractiveDisplay::IsCameraTransitioning() const {
   if (transition < 1.0f)
     return 1;
   return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x004f6ea0
+i32 InteractiveDisplay::ShouldUpdate() const {
+  if (i228 && !NuStrICmp((char *)WORLD, level_name))
+    return 1;
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x004f6ee0
+WorldMapBase::WorldMapBase() {
+  f8b4 = 0.0f;
+  i344 = -1;
+  i340 = 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x004f6f70
@@ -230,16 +284,27 @@ char *WorldMapBase::GetPointerSpecialName(WORLDINFO_s *world,
   return "";
 }
 
+// FUNCTION: LEGOBATMAN 0x004f6fb0
+f32 WorldMapBase::Unk004f6fb0() const { return info.pointer_radius; }
+
 // FUNCTION: LEGOBATMAN 0x004f6fc0
 f32 WorldMapBase::GetPointerRadiusWithMaxScale() const {
-  return pointer_radius;
+  return info.pointer_radius;
 }
 
 // FUNCTION: LEGOBATMAN 0x004f6fd0
-f32 WorldMapBase::GetPointerRadiusWithScale() const { return pointer_radius; }
+f32 WorldMapBase::GetPointerRadiusWithScale() const {
+  return info.pointer_radius;
+}
 
 // FUNCTION: LEGOBATMAN 0x004f6fe0
 WorldMap::WorldMap() {}
+
+// FUNCTION: LEGOBATMAN 0x004f7000
+char *InteractiveDisplay::Unk004f7000() { return level_name; }
+
+// FUNCTION: LEGOBATMAN 0x004f7010
+i32 Unk004f7010() { return 0; }
 
 // FUNCTION: LEGOBATMAN 0x004f7020
 i32 WorldMap::GetDoesLevelLoadRender() const { return 0; }
@@ -255,6 +320,9 @@ i32 WorldMap::GetUsesOverlayTexture() const { return 1; }
 
 // FUNCTION: LEGOBATMAN 0x004f7060
 i32 WorldMap::GetUsesWhiteNoise() const { return 1; }
+
+// FUNCTION: LEGOBATMAN 0x004f7070
+i32 WorldMapBase::Unk004f7070() const { return mode == 2; }
 
 // FUNCTION: LEGOBATMAN 0x004f7080
 i32 WorldMap::IsCameraTransitioning() const {
@@ -272,17 +340,42 @@ i32 WorldMap::IsCameraTarget() const {
 
 // FUNCTION: LEGOBATMAN 0x004f70f0
 f32 WorldMap::GetPointerRadiusWithMaxScale() const {
-  return pointer_radius * 1.5f;
+  return info.pointer_radius * 1.5f;
 }
 
 // FUNCTION: LEGOBATMAN 0x004f7110
 f32 WorldMap::GetPointerRadiusWithScale() const {
-  return pointer_scale * pointer_radius;
+  return pointer_scale * info.pointer_radius;
 }
 
 // FUNCTION: LEGOBATMAN 0x004f7130
 f32 WorldMap::GetTextScaleMultiplier() const {
   return NuStrIStr((char *)level_name, "batcave_f") ? 2.75f : 4.5f;
+}
+
+struct Unk00acb71c {
+  u8 pad00[0x54];
+  f32 f54; // 0x54
+};
+
+// GLOBAL: LEGOBATMAN 0x00acb71c
+extern Unk00acb71c *g_unk00acb71c;
+
+// FUNCTION: LEGOBATMAN 0x004f7170
+i32 Unk004f7170() {
+  if (g_unk00acb71c && g_unk00acb71c->f54 > 0.0f)
+    return 1;
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x004f71a0
+i32 WorldMap::IsVisible() const {
+  if (g_unk00acb71c && g_unk00acb71c->f54 > 0.0f)
+    return 0;
+  if (InteractiveDisplay::IsVisible() &&
+      (IsInteractiveMode() || mode == 2 || IsCameraTransitioning()))
+    return 1;
+  return 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x004f72e0
@@ -342,8 +435,16 @@ const char *LightFlickerOverlay::GetClassNameA() const {
   return "LightFlickerOverlay";
 }
 
+// FUNCTION: LEGOBATMAN 0x004f74d0
+i32 LightFlickerOverlay::Unk004f74d0() const {
+  if (WORLD != 0 && ((LFO_WORLD *)WORLD)->area != 0 &&
+      (((LFO_WORLD *)WORLD)->area->flags & 0x40))
+    return 1;
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x004f7500
-i32 LightFlickerOverlay::IsVisible() const {
+i32 LightFlickerOverlay::ShouldUpdate() const {
   if (WORLD != 0 && ((LFO_WORLD *)WORLD)->area != 0 &&
       (((LFO_WORLD *)WORLD)->area->flags & 0x40))
     return 1;
@@ -351,7 +452,7 @@ i32 LightFlickerOverlay::IsVisible() const {
 }
 
 // FUNCTION: LEGOBATMAN 0x004f7530
-i32 LightFlickerOverlay::ShouldUpdate() const {
+i32 LightFlickerOverlay::IsVisible() const {
   if (WORLD != 0 && ((LFO_WORLD *)WORLD)->area != 0 &&
       (((LFO_WORLD *)WORLD)->area->flags & 0x40))
     return 1;

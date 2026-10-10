@@ -1741,8 +1741,8 @@
 004f7420 SecurityCamera::GetUsesWhiteNoise slot 7, Mac inline order; matched
 004f7430 SecurityCamera::IsCameraTarget slot 15, Mac inline order; matched
 004f7450 SecurityCamera::RenderWhenPaused slot 14, Mac inline order; matched
-004f7500 LightFlickerOverlay::IsVisible vtable 0x85d9f4 slot 12, Mac inline order (GetClassNameA, IsVisible, ShouldUpdate); matched
-004f7530 LightFlickerOverlay::ShouldUpdate slot 13, Mac inline order; byte-identical to 0x4f7500 and 0x4f74d0; matched
+004f7500 LightFlickerOverlay::ShouldUpdate vtable 0x85d9f4 slot 12 (base slot 12 is ShouldUpdate: 0x4f6ea0 = Mac InteractiveDisplay::ShouldUpdate body); was IsVisible, swapped; matched
+004f7530 LightFlickerOverlay::IsVisible slot 13 (base slot 13 = 0x5c64e0, called non-virtually by WorldMap::IsVisible as on the Mac); byte-identical to 0x4f7500 and 0x4f74d0; matched
 004f72e0 ShopComputer::IsVillainMode vtable 0x85d8f4 slot 22, Mac inline order (first of the ShopComputer inlines); matched
 004f72f0 ShopComputer::IsInteractiveMode slot 16, Mac inline order; matched
 004f7330 ShopComputer::GetClassNameA slot 5, returns "ShopComputer"; matched
@@ -1824,3 +1824,8 @@
 00687f90 NuMtxSubR              saga body; matched
 00688010 NuMtxSkewSymmetric     saga body; matched
 00688290 NuMtxDet3              saga body; matched
+004f6d50 InteractiveDisplay::GetDisplayAspectRatio vtable 0x85d75c slot 17; same body as Mac (len(0x1b0)/len(0x1c0), Mac offsets +0x10 on PC); matched
+004f6ea0 InteractiveDisplay::ShouldUpdate vtable 0x85d75c slot 12; Mac body (field 0x218 != 0 && !NuStrICmp(WORLD, name)); matched
+004f6ee0 WorldMapBase::WorldMapBase called from WorldMap ctor; Mac C2 body (WorldMapInfo at 0x350, -1/0 stores); matched
+004f71a0 WorldMap::IsVisible vtable 0x85d874 slot 13; Mac body (calls InteractiveDisplay::IsVisible, vfn 0x40/0x54, mode == 2); matched
+005c64e0 InteractiveDisplay::IsVisible vtable 0x85d75c slot 13; called non-virtually from WorldMap::IsVisible as on the Mac

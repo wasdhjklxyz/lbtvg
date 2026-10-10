@@ -679,9 +679,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004f6cf0,000c9fca,__ZNK18InteractiveDisplay16RenderWhenPausedEv,InteractiveDisplay::RenderWhenPaused() const,confirmed,0
 004f6d00,000c9fd2,__ZNK18InteractiveDisplay14IsCameraTargetEv,InteractiveDisplay::IsCameraTarget() const,confirmed,0
 004f6d30,000ca004,__ZNK18InteractiveDisplay17IsInteractiveModeEv,InteractiveDisplay::IsInteractiveMode() const,confirmed,0
+004f6d50,000ca09a,__ZNK18InteractiveDisplay21GetDisplayAspectRatioEv,InteractiveDisplay::GetDisplayAspectRatio() const,confirmed,0
 004f6e60,000ca00c,__ZN18InteractiveDisplay12LoadSettingsEPc,InteractiveDisplay::LoadSettings(char*),confirmed,0
 004f6e70,000ca012,__ZNK18InteractiveDisplay22GetTextScaleMultiplierEv,InteractiveDisplay::GetTextScaleMultiplier() const,confirmed,0
 004f6e80,000ca01e,__ZNK18InteractiveDisplay21IsCameraTransitioningEv,InteractiveDisplay::IsCameraTransitioning() const,confirmed,0
+004f6ea0,000fc2ae,__ZNK18InteractiveDisplay12ShouldUpdateEv,InteractiveDisplay::ShouldUpdate() const,confirmed,0
+004f6ee0,00110d9a,__ZN12WorldMapBaseC2Ev,WorldMapBase::WorldMapBase(),confirmed,0
 004f6f70,00350d48,__ZNK12WorldMapBase13GetClassNameAEv,WorldMapBase::GetClassNameA() const,strings,0
 004f6f80,00350d5a,__ZNK12WorldMapBase23GetUsesInterlacePatternEv,WorldMapBase::GetUsesInterlacePattern() const,confirmed,0
 004f6f90,0011b036,__ZNK12WorldMapBase17IsInteractiveModeEv,WorldMapBase::IsInteractiveMode() const,confirmed,0
@@ -699,6 +702,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004f70f0,0011b0d8,__ZNK8WorldMap28GetPointerRadiusWithMaxScaleEv,WorldMap::GetPointerRadiusWithMaxScale() const,confirmed,0
 004f7110,0011b0fc,__ZNK8WorldMap25GetPointerRadiusWithScaleEv,WorldMap::GetPointerRadiusWithScale() const,confirmed,0
 004f7130,0011b120,__ZNK8WorldMap22GetTextScaleMultiplierEv,WorldMap::GetTextScaleMultiplier() const,confirmed,0
+004f71a0,0011b150,__ZNK8WorldMap9IsVisibleEv,WorldMap::IsVisible() const,confirmed,0
 004f72e0,00108f56,__ZNK12ShopComputer13IsVillainModeEv,ShopComputer::IsVillainMode() const,confirmed,0
 004f72f0,00108f64,__ZNK12ShopComputer17IsInteractiveModeEv,ShopComputer::IsInteractiveMode() const,confirmed,0
 004f7330,00108f9e,__ZNK12ShopComputer13GetClassNameAEv,ShopComputer::GetClassNameA() const,confirmed,0
@@ -716,8 +720,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004f7450,000fc32a,__ZNK14SecurityCamera16RenderWhenPausedEv,SecurityCamera::RenderWhenPaused() const,confirmed,0
 004f7460,,LightFlickerOverlay::LightFlickerOverlay,LightFlickerOverlay::LightFlickerOverlay,confirmed,0
 004f74c0,000ca03c,__ZNK19LightFlickerOverlay13GetClassNameAEv,LightFlickerOverlay::GetClassNameA() const,strings,0
-004f7500,000ca046,__ZNK19LightFlickerOverlay9IsVisibleEv,LightFlickerOverlay::IsVisible() const,confirmed,0
-004f7530,000ca070,__ZNK19LightFlickerOverlay12ShouldUpdateEv,LightFlickerOverlay::ShouldUpdate() const,confirmed,0
+004f7500,000ca070,__ZNK19LightFlickerOverlay12ShouldUpdateEv,LightFlickerOverlay::ShouldUpdate() const,confirmed,0
+004f7530,000ca046,__ZNK19LightFlickerOverlay9IsVisibleEv,LightFlickerOverlay::IsVisible() const,confirmed,0
 004f7560,0010dab6,__Z9LoadPerm2v,LoadPerm2(),strings,0
 004f9a60,00110fdc,__Z18Text_DecodeButtonsPcS_,"Text_DecodeButtons(char*, char*)",strings,0
 004f9ab0,0011101e,__Z16Text_LoadStringsP9variptr_uS0_,"Text_LoadStrings(variptr_u*, variptr_u*)",confirmed,0
@@ -1094,6 +1098,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005c3310,0031a934,__Z13LoseHitPointsP12GameObject_si,"LoseHitPoints(GameObject_s*, int)",gapfill,2
 005c4080,002ecc00,__ZN18InteractiveDisplay23GetFirstSpecialMaterialEP8nugscn_sPc,"InteractiveDisplay::GetFirstSpecialMaterial(nugscn_s*, char*)",gapfill,1
 005c4c30,002f0934,__ZNK18InteractiveDisplay12RenderSquareERK5VuVecfRKjP7numtl_sf,"InteractiveDisplay::RenderSquare(VuVec const&, float, unsigned int const&, numtl_s*, float) const",confirmed,0
+005c64e0,002ecf4c,__ZNK18InteractiveDisplay9IsVisibleEv,InteractiveDisplay::IsVisible() const,confirmed,0
 005c71d0,002ed046,__ZN18InteractiveDisplay14InitializePermEPcP9variptr_uS2_,"InteractiveDisplay::InitializePerm(char*, variptr_u*, variptr_u*)",gapfill,1
 005c7300,002ecd9c,__ZN18InteractiveDisplay15InitializeLevelEP11WORLDINFO_s,InteractiveDisplay::InitializeLevel(WORLDINFO_s*),gapfill,1
 005c8060,0034d4b6,_NuSinApprox,_NuSinApprox,gapfill,2
