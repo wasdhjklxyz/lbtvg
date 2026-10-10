@@ -258,3 +258,4 @@
 006db510 get_tok_rdpi: switch-char register, hex-loop shift in register, unrotated digit loop
 006d9160 NuFileSetAppDirectory: inlined copy peels the empty case differently
 006d8ed0 NuDatFileDecodeNext: 64-bit pos update reloads unpack_file_info per half (volatile/static variants tried)
+006dad60 get_tok_rdpf: identifier loop spills p across GetMultiCharToken, ours rematerializes buf+pos (callers match)

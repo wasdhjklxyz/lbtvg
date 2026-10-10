@@ -12,6 +12,10 @@
 // FUNCTION: LEGOBATMAN 0x006d24b0
 static void Unk006d24b0(...) {}
 
+// Second empty debug hook (get_tok_rdpf's unknown-character report).
+// FUNCTION: LEGOBATMAN 0x006d24c0
+static void Unk006d24c0(...) {}
+
 // Stands in for the TU's first real caller (0x006dad60 passes it a pointer),
 // which is what keeps the calls to the empty hook and tells the compiler it
 // clobbers nothing.
@@ -308,6 +312,34 @@ int NuStrCmp(const char *a, const char *b) {
     a++;
     b++;
   } while (ca && cb);
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d77b0
+int NuStrNCmp(const char *a, const char *b, int n) {
+  if (!a)
+    return -1;
+  if (!b)
+    return 1;
+  char ca;
+  char cb;
+  if (n) {
+    if (n == -1)
+      n = NuStrLen(a);
+    else if (n == -2)
+      n = NuStrLen(b);
+    do {
+      ca = *a;
+      cb = *b;
+      if (ca > cb)
+        return 1;
+      if (ca < cb)
+        return -1;
+      a++;
+      b++;
+      n--;
+    } while (ca && cb && n);
+  }
   return 0;
 }
 
@@ -847,6 +879,78 @@ extern "C" int NuSPrintf(char *buf, char *fmt, ...) {
   va_start(args, fmt);
   vsprintf(buf, fmt, args);
   return NuStrLen(buf);
+}
+
+// FUNCTION: LEGOBATMAN 0x006d7df0
+int NuIsAlNum(char c) {
+  switch (c) {
+  case '0':
+  case '1':
+  case '2':
+  case '3':
+  case '4':
+  case '5':
+  case '6':
+  case '7':
+  case '8':
+  case '9':
+  case 'A':
+  case 'B':
+  case 'C':
+  case 'D':
+  case 'E':
+  case 'F':
+  case 'G':
+  case 'H':
+  case 'I':
+  case 'J':
+  case 'K':
+  case 'L':
+  case 'M':
+  case 'N':
+  case 'O':
+  case 'P':
+  case 'Q':
+  case 'R':
+  case 'S':
+  case 'T':
+  case 'U':
+  case 'V':
+  case 'W':
+  case 'X':
+  case 'Y':
+  case 'Z':
+  case '_':
+  case 'a':
+  case 'b':
+  case 'c':
+  case 'd':
+  case 'e':
+  case 'f':
+  case 'g':
+  case 'h':
+  case 'i':
+  case 'j':
+  case 'k':
+  case 'l':
+  case 'm':
+  case 'n':
+  case 'o':
+  case 'p':
+  case 'q':
+  case 'r':
+  case 's':
+  case 't':
+  case 'u':
+  case 'v':
+  case 'w':
+  case 'x':
+  case 'y':
+  case 'z':
+    return 1;
+  default:
+    return 0;
+  }
 }
 
 // FUNCTION: LEGOBATMAN 0x006d84e0
@@ -2685,6 +2789,291 @@ void NuFParResume(NUFPAR *parser) {
 // Integer expression parser (saga nu2api/nucore/nurdpi.cpp).
 typedef int nurdpgetvarfn(char *name, float *fvalue, int *ivalue);
 
+// Float expression parser (saga nu2api/nucore/nurdpf.cpp).
+typedef struct rdpfctxt_s {
+  int cur_tok;
+  float cur_val;
+  char *buf;
+  int pos;
+  nurdpgetvarfn *get_var_fn;
+} RDPFCTXT;
+
+// Multi-character token list (double-NUL terminated), set by
+// NuRDPSetMultiCharTokens.
+// GLOBAL: LEGOBATMAN 0x0099f290
+extern char *rdp_multichar_tokens;
+
+static int GetMultiCharToken(char *s);
+
+static int isnumordot(char c) {
+  if ((c >= '0' && c <= '9') || c == '.')
+    return 1;
+  return 0;
+}
+
+// STUB: LEGOBATMAN 0x006dad60
+// Identifier loop only: the original spills p = &buf[pos] across the
+// GetMultiCharToken call; ours recomputes it from ctx->buf.
+static void get_tok_rdpf(RDPFCTXT *ctx) {
+  char var_name_buf[256];
+  float multiplier;
+  int var_name_pos;
+  int len;
+  char *p;
+
+  while (1) {
+    if (ctx->buf[ctx->pos] == '\0') {
+      ctx->cur_tok = 6;
+      return;
+    }
+    if (ctx->buf[ctx->pos] == ' ') {
+      ctx->buf[ctx->pos]++;
+      continue;
+    }
+    if (ctx->buf[ctx->pos] == '\t') {
+      ctx->buf[ctx->pos]++;
+      continue;
+    }
+    break;
+  }
+
+  switch (ctx->buf[ctx->pos]) {
+  case ';':
+    ctx->cur_tok = 6;
+    break;
+  case '+':
+    ctx->cur_tok = 0;
+    ctx->pos++;
+    break;
+  case '-':
+    ctx->cur_tok = 1;
+    ctx->pos++;
+    break;
+  case '*':
+    ctx->cur_tok = 2;
+    ctx->pos++;
+    break;
+  case '/':
+    ctx->cur_tok = 3;
+    ctx->pos++;
+    break;
+  case '(':
+    ctx->cur_tok = 4;
+    ctx->pos++;
+    break;
+  case ')':
+    ctx->cur_tok = 5;
+    ctx->pos++;
+    break;
+  case '.':
+  case '0':
+  case '1':
+  case '2':
+  case '3':
+  case '4':
+  case '5':
+  case '6':
+  case '7':
+  case '8':
+  case '9':
+    ctx->cur_tok = 7;
+    ctx->cur_val = 0.0f;
+    multiplier = 0.0f;
+    while (isnumordot(ctx->buf[ctx->pos])) {
+      if (ctx->buf[ctx->pos] == '.') {
+        if (multiplier != 0.0f)
+          Unk006d24b0();
+        multiplier = 0.1f;
+      } else if (multiplier != 0.0f) {
+        ctx->cur_val += (float)(ctx->buf[ctx->pos] - 0x30) * multiplier;
+        multiplier /= 10.0f;
+      } else {
+        ctx->cur_val *= 10.0f;
+        ctx->cur_val += (float)(ctx->buf[ctx->pos] - 0x30);
+      }
+      ctx->pos++;
+    }
+    break;
+  case 'A':
+  case 'B':
+  case 'C':
+  case 'D':
+  case 'E':
+  case 'F':
+  case 'G':
+  case 'H':
+  case 'I':
+  case 'J':
+  case 'K':
+  case 'L':
+  case 'M':
+  case 'N':
+  case 'O':
+  case 'P':
+  case 'Q':
+  case 'R':
+  case 'S':
+  case 'T':
+  case 'U':
+  case 'V':
+  case 'W':
+  case 'X':
+  case 'Y':
+  case 'Z':
+  case '_':
+  case 'a':
+  case 'b':
+  case 'c':
+  case 'd':
+  case 'e':
+  case 'f':
+  case 'g':
+  case 'h':
+  case 'i':
+  case 'j':
+  case 'k':
+  case 'l':
+  case 'm':
+  case 'n':
+  case 'o':
+  case 'p':
+  case 'q':
+  case 'r':
+  case 's':
+  case 't':
+  case 'u':
+  case 'v':
+  case 'w':
+  case 'x':
+  case 'y':
+  case 'z':
+    var_name_pos = 0;
+    while (1) {
+      p = &ctx->buf[ctx->pos];
+      len = GetMultiCharToken(p);
+      if (len != 0) {
+        NuStrNCpy(&var_name_buf[var_name_pos], p, len + 1);
+        ctx->pos += len;
+        var_name_pos += len;
+      } else if (NuIsAlNum(*p)) {
+        var_name_buf[var_name_pos] = *p;
+        ctx->pos++;
+        var_name_pos++;
+      } else {
+        break;
+      }
+    }
+    var_name_buf[var_name_pos] = '\0';
+    if (ctx->get_var_fn == NULL)
+      Unk006d24b0(var_name_buf);
+    ctx->cur_tok = 7;
+    ctx->cur_val = 0.0f;
+    ctx->get_var_fn(var_name_buf, &ctx->cur_val, NULL);
+    return;
+  default:
+    Unk006d24c0(ctx->buf);
+    break;
+  }
+}
+
+// Length of the multi-character token that s starts with, or 0.
+// FUNCTION: LEGOBATMAN 0x006dacf0
+static int GetMultiCharToken(char *s) {
+  char *tok = rdp_multichar_tokens;
+
+  while (*tok) {
+    int len = NuStrLen(tok);
+    if (NuStrNCmp(tok, s, len) == 0)
+      return len;
+    tok += NuStrLen(tok) + 1;
+  }
+  return 0;
+}
+
+static float f_expr(RDPFCTXT *ctx);
+
+// FUNCTION: LEGOBATMAN 0x006db120
+static float prim_rdpf(RDPFCTXT *ctx) {
+  float expr;
+
+  switch (ctx->cur_tok) {
+  case 8:
+    Unk006d24b0();
+  case 7:
+    get_tok_rdpf(ctx);
+    return ctx->cur_val;
+  case 1:
+    get_tok_rdpf(ctx);
+    return -prim_rdpf(ctx);
+  case 4:
+    get_tok_rdpf(ctx);
+    expr = f_expr(ctx);
+    if (ctx->cur_tok != 5)
+      Unk006d24b0();
+    get_tok_rdpf(ctx);
+    return expr;
+  case 6:
+    return 1.0f;
+  default:
+    Unk006d24b0();
+    return 0.0f;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006db1c0
+static float term_rdpf(RDPFCTXT *ctx) {
+  float term = prim_rdpf(ctx);
+
+  while (1) {
+    switch (ctx->cur_tok) {
+    case 2:
+      get_tok_rdpf(ctx);
+      term *= prim_rdpf(ctx);
+      break;
+    case 3:
+      get_tok_rdpf(ctx);
+      term /= prim_rdpf(ctx);
+      break;
+    default:
+      return term;
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006db210
+static float f_expr(RDPFCTXT *ctx) {
+  float expr = term_rdpf(ctx);
+
+  while (1) {
+    switch (ctx->cur_tok) {
+    case 0:
+      get_tok_rdpf(ctx);
+      expr += term_rdpf(ctx);
+      break;
+    case 1:
+      get_tok_rdpf(ctx);
+      expr -= term_rdpf(ctx);
+      break;
+    default:
+      return expr;
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006db270
+float NuRDPFVar(char *input, nurdpgetvarfn *get_var_fn) {
+  RDPFCTXT ctx;
+
+  ctx.buf = input;
+  ctx.pos = 0;
+  ctx.get_var_fn = get_var_fn;
+  get_tok_rdpf(&ctx);
+  return f_expr(&ctx);
+}
+
+// FUNCTION: LEGOBATMAN 0x006db2a0
+float NuRDPF(char *input) { return NuRDPFVar(input, NULL); }
+
 typedef struct rdpictxt_s {
   int cur_tok;
   int cur_val;
@@ -3104,6 +3493,34 @@ int NuRDPI(char *input) {
   ctx.get_var_fn = 0;
   get_tok_rdpi(&ctx);
   return i_expr(&ctx);
+}
+
+// FUNCTION: LEGOBATMAN 0x006dd150
+int NuFParGetIntRDP(NUFPAR *parser) {
+  char buf[64];
+
+  NuFParGetWord(parser);
+  if (parser->is_utf16)
+    NuPadWideToAnsi(buf, (unsigned short *)parser->word_buf);
+  else
+    NuStrCpy(buf, parser->word_buf);
+  if (buf[0] != '\0')
+    return NuRDPI(buf);
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006dd210
+float NuFParGetFloatRDP(NUFPAR *parser) {
+  char buf[64];
+
+  NuFParGetWord(parser);
+  if (parser->is_utf16)
+    NuPadWideToAnsi(buf, (unsigned short *)parser->word_buf);
+  else
+    NuStrCpy(buf, parser->word_buf);
+  if (buf[0] != '\0')
+    return NuRDPF(buf);
+  return 0.0f;
 }
 
 // FUNCTION: LEGOBATMAN 0x006deb50

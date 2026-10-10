@@ -3484,6 +3484,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006c6480,00221f50,_DrawMenuEntryEx,_DrawMenuEntryEx,gapfill,3
 006cd280,001e56a2,_NuScriptLoadCommands,_NuScriptLoadCommands,strings,0
 006d24b0,,Unk006d24b0,Unk006d24b0,confirmed,0
+006d24c0,,Unk006d24c0,Unk006d24c0,confirmed,0
 006d2800,00186f9a,_NuHeapDestroy,_NuHeapDestroy,confirmed,0
 006d2810,0018dc44,_NuHeapAllocAlignedNamed,_NuHeapAllocAlignedNamed,confirmed,0
 006d30c0,,AquireFileBuffer,AquireFileBuffer,confirmed,0
@@ -3612,6 +3613,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d75c0,001886a4,_NuStrNCpy,_NuStrNCpy,gapfill,1
 006d7670,0018703e,_NuStrLen,_NuStrLen,gapfill,1
 006d7770,00187b7e,_NuStrCmp,_NuStrCmp,gapfill,2
+006d77b0,0018b94e,_NuStrNCmp,_NuStrNCmp,confirmed,0
 006d7820,0018a8a2,_NuToUpperW,_NuToUpperW,confirmed,0
 006d7840,0018a8cc,_NuToLowerW,_NuToLowerW,confirmed,0
 006d7860,0018a8f6,_NuStrCatW,_NuStrCatW,confirmed,0
@@ -3625,6 +3627,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d7bf0,0018bbd8,_NuStrNCmpW,_NuStrNCmpW,confirmed,0
 006d7c60,0018ce14,_NuStrNICmpW,_NuStrNICmpW,confirmed,0
 006d7dc0,0018b9d4,_NuSPrintf,_NuSPrintf,confirmed,0
+006d7df0,001886e0,_NuIsAlNum,_NuIsAlNum,confirmed,0
 006d7ee0,0018ab32,_NuIToA,_NuIToA,confirmed,0
 006d7f60,00187f1a,_NuAToF,_NuAToF,calls,1
 006d8020,00187ec6,_NuAToI,_NuAToI,confirmed,0
@@ -3662,6 +3665,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006daa40,0018d694,_NuFParGetFloat,_NuFParGetFloat,confirmed,0
 006daae0,0018d740,_NuFParGetOptionalFloat,_NuFParGetOptionalFloat,confirmed,0
 006dabf0,0018ffe2,_NuFParGetOptionalInt,_NuFParGetOptionalInt,confirmed,0
+006dacf0,,GetMultiCharToken,GetMultiCharToken,confirmed,0
+006db120,0018f434,_prim_rdpf,_prim_rdpf,confirmed,0
+006db1c0,0018f4dc,_term_rdpf,_term_rdpf,confirmed,0
+006db210,0018f53c,_f_expr,_f_expr,confirmed,0
+006db270,0018f598,_NuRDPFVar,_NuRDPFVar,confirmed,0
+006db2a0,0018f5d2,_NuRDPF,_NuRDPF,confirmed,0
 006db510,0018df74,_get_tok_rdpi,_get_tok_rdpi,confirmed,0
 006dba10,0018e5e6,_prim,_prim,confirmed,0
 006dbae0,0018e6cc,_term,_term,confirmed,0
@@ -3683,6 +3692,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006dcbc0,00190be0,_NuDatFileFindTree,_NuDatFileFindTree,confirmed,0
 006dcf10,0018cb08,_NuFilePakGetItem,_NuFilePakGetItem,confirmed,0
 006dd060,0018ff0a,_NuFParGetInt,_NuFParGetInt,confirmed,0
+006dd150,001905e8,_NuFParGetIntRDP,_NuFParGetIntRDP,confirmed,0
+006dd210,0019065c,_NuFParGetFloatRDP,_NuFParGetFloatRDP,confirmed,0
 006dd2d0,0018c2d6,_NuFParInterpretWord,_NuFParInterpretWord,gapfill,1
 006dd430,0018c1a8,_NuFParInterpretWordCTX,_NuFParInterpretWordCTX,gapfill,1
 006dd570,001911e4,_NuFParSuspend,_NuFParSuspend,confirmed,0

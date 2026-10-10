@@ -3444,3 +3444,14 @@
 006da710 NuFParGetWordW saga nufpar.cpp body (static old_line_pos 0xae4344)
 006d3e20 NuFParUnGetWord saga nufpar.cpp body (line_pos = old_line_pos)
 006da8d0 NuFParGetWord saga nufpar.cpp body plus an empty "" giving a single space word
+006d7df0 NuIsAlNum switch on 0-9 A-Z _ a-z (Mac _NuIsAlNum); called by get_tok_rdpf
+006d77b0 NuStrNCmp NuStrNICmp shape without case folding; called by the rdp token matcher
+006dacf0 GetMultiCharToken rdp static: length of the rdp_multichar_tokens (0x99f290) entry the input starts with
+006db120 prim_rdpf saga nurdpf.cpp body (Mac _prim_rdpf)
+006db1c0 term_rdpf saga nurdpf.cpp body (Mac _term_rdpf), ctx in esi
+006db210 f_expr saga nurdpf.cpp body (rdpf)
+006db270 NuRDPFVar saga nurdpf.cpp body
+006db2a0 NuRDPF saga nurdpf.cpp body (NuRDPFVar inlined)
+006dd150 NuFParGetIntRDP Mac _NuFParGetIntRDP: word to ascii, NuRDPI
+006dd210 NuFParGetFloatRDP saga nufpar.cpp body (NuRDPF inlined)
+006d24c0 Unk006d24c0 empty debug hook, get_tok_rdpf's unknown-character report
