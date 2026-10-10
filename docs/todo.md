@@ -98,7 +98,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [PartImpact](#partimpact) | 3 | 1 |
 | [Player](#player) | 1 | 1 |
 | [Players](#players) | 1 | 1 |
-| [PowerUp](#powerup) | 1 | 1 |
 | [Pulses](#pulses) | 1 | 1 |
 | [SpecialMiniKits](#specialminikits) | 1 | 1 |
 | [SpecialMove](#specialmove) | 1 | 1 |
@@ -780,10 +779,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## Players
 
 - [ ] `005c12a0` 1028 B `Players_InitPositions(WORLDINFO_s*)`  **saga** `legoapi/characters/core/players.cpp`
-
-## PowerUp
-
-- [ ] `0048d650` 163 B `PowerUp_ImpactPart(PART_s*)`  **stub** · **saga** `legoapi/render/fx/parts.cpp`
 
 ## Pulses
 

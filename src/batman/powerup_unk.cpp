@@ -18,9 +18,9 @@ static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 // GLOBAL: LEGOBATMAN 0x009652cc
 extern f32 AreaPickupScale;
 
-// STUB: LEGOBATMAN 0x0048d650
-// x87 compare spelling differs (original tests hi<=mag / lo<=mag with
-// test ah,0x41; jp and keeps hi/lo on the stack)
+// FUNCTION: LEGOBATMAN 0x0048d650
+// The early returns are written as !(mag >= lo) / !(vol > 0.0f): the
+// NaN-aware `test ah, 0x41/5; jp` forms.
 void PowerUp_ImpactPart(PART_s *part) {
   f32 lo = AreaPickupScale * 0.1f;
   f32 hi = AreaPickupScale * 2.5f;
@@ -29,10 +29,10 @@ void PowerUp_ImpactPart(PART_s *part) {
   if (mag >= hi) {
     vol = 1.0f;
   } else {
-    if (mag < lo)
+    if (!(mag >= lo))
       return;
     vol = (mag - lo) / (hi - lo);
-    if (vol <= 0.0f)
+    if (!(vol > 0.0f))
       return;
   }
   PlaySfxAndSetVolume("Gungan_BlueOrbBounce", &part->pos, vol);
