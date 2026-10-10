@@ -3487,6 +3487,15 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d2800,00186f9a,_NuHeapDestroy,_NuHeapDestroy,confirmed,0
 006d2810,0018dc44,_NuHeapAllocAlignedNamed,_NuHeapAllocAlignedNamed,confirmed,0
 006d30c0,,AquireFileBuffer,AquireFileBuffer,confirmed,0
+006d3b90,,GetItems,GetItems,confirmed,0
+006d3bb0,,CalcChecksum,CalcChecksum,confirmed,0
+006d3be0,,DecryptData,DecryptData,confirmed,0
+006d3c20,00187d38,_NuFilePakGetLastError,_NuFilePakGetLastError,confirmed,0
+006d3c30,0018c9d8,_NuFilePakCondenseTo,_NuFilePakCondenseTo,confirmed,0
+006d3ce0,00187d4a,_NuFilePakRelocate,_NuFilePakRelocate,confirmed,0
+006d3d10,0018cc70,_NuFilePakGetItemInfo,_NuFilePakGetItemInfo,confirmed,0
+006d3d90,00187d80,_NuFilePakSetItemRequired,_NuFilePakSetItemRequired,confirmed,0
+006d3e00,00187de8,_NuFilePakGetSize,_NuFilePakGetSize,confirmed,0
 006d3fc0,0018810e,_NuFParPopCom,_NuFParPopCom,confirmed,0
 006d4020,,NuAllocFPar,NuAllocFPar,confirmed,0
 006d40b0,,NuFreeFPar,NuFreeFPar,confirmed,0
@@ -3701,7 +3710,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006dfc20,00194048,_NuFParCreateGivenFH,_NuFParCreateGivenFH,confirmed,0
 006dfc60,00193f7a,_NuFParCreateMem,_NuFParCreateMem,confirmed,0
 006e0530,00196e5e,_NuPadRecordLoad,_NuPadRecordLoad,strings,0
-006e0b60,00195ee8,_NuFilePakLoadKeyPrePad,_NuFilePakLoadKeyPrePad,gapfill,2
+006e0b60,00195ee8,_NuFilePakLoadKeyPrePad,_NuFilePakLoadKeyPrePad,confirmed,0
 006e0dc0,001961da,_NuFilePakLoad,_NuFilePakLoad,confirmed,0
 006e1be0,001973d4,_NuMemSetHeap,_NuMemSetHeap,confirmed,0
 006e1bf0,001973ee,_NuMemSetDiscardable,_NuMemSetDiscardable,confirmed,0

@@ -3427,3 +3427,13 @@
 006d9f00 NuDatFileFindHash saga nudatfile.cpp shape (FNV-style hash, linear index search, then the name table)
 006dd7a0 NuFileOpenDF saga nufile.cpp body (Mac _NuFileOpenDF_IJ), plus the .txt small-file check first
 006dc990 NuFileIsTxt returns NuStrICmp(NuStrRChr(path, '.'), ".txt") == 0; gates the small-file open in NuFileOpenDF
+006d3c20 NuFilePakGetLastError saga nufilepak.cpp body (returns fpk_err 0xb038b4)
+006d3e00 NuFilePakGetSize saga nufilepak.cpp body
+006d3ce0 NuFilePakRelocate saga nufilepak.cpp shape (NuMemCpy of file_size)
+006d3bb0 CalcChecksum nufilepak static (ecx/edx), called by NuFilePakLoadKeyPrePad
+006d3be0 DecryptData nufilepak static (eax/edx/edi), called by NuFilePakLoadKeyPrePad
+006d3b90 GetItems nufilepak static (ecx), called by NuFilePakLoadKeyPrePad
+006d3c30 NuFilePakCondenseTo matches Mac _NuFilePakCondenseTo (buf compaction with NuMemCpy)
+006d3d10 NuFilePakGetItemInfo saga nufilepak.cpp body
+006d3d90 NuFilePakSetItemRequired saga nufilepak.cpp body
+006e0b60 NuFilePakLoadKeyPrePad Mac _NuFilePakLoadKeyPrePad shape; called by NuFilePakLoad

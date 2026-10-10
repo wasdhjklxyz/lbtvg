@@ -3143,3 +3143,266 @@ NUFPAR *NuFParCreateGivenFH(char *filename, int file_handle) {
   }
   return 0;
 }
+
+// --- nufilepak (saga nufilepak.cpp) -----------------------------------------
+
+typedef struct nufilepakhdr_s {
+  u32 type;
+  u32 item_count;
+  u32 file_size;
+  u32 checksum;
+  u32 flags;
+  u32 decrypted_checksum;
+} NUFILEPAKHDR;
+typedef struct nufilepakitemattr_s {
+  u32 required : 1;
+  u32 removed : 1;
+} NUFILEPAKITEMATTR;
+typedef struct nufilepakitem_s {
+  i32 name_offset;
+  i32 data_offset;
+  i32 size;
+  i32 alignment;
+  NUFILEPAKITEMATTR attr;
+  void *pre_move_fn;
+  void *post_move_fn;
+} NUFILEPAKITEM;
+
+// GLOBAL: LEGOBATMAN 0x00b038b4
+static i32 fpk_err;
+
+void NuMemCpy(unsigned char *dst, unsigned char *src, int n);
+i32 NuFileLoadBuffer(char *name, void *buffer, i32 size);
+
+// FUNCTION: LEGOBATMAN 0x006d3c20
+i32 NuFilePakGetLastError(void) { return fpk_err; }
+
+// FUNCTION: LEGOBATMAN 0x006d3e00
+u32 NuFilePakGetSize(void *hdr_ptr) {
+  fpk_err = 0;
+  NUFILEPAKHDR *hdr = (NUFILEPAKHDR *)hdr_ptr;
+  return hdr->file_size;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3ce0
+void NuFilePakRelocate(void *hdr_ptr, void *dest) {
+  fpk_err = 0;
+  NUFILEPAKHDR *hdr = (NUFILEPAKHDR *)hdr_ptr;
+  NuMemCpy((unsigned char *)dest, (unsigned char *)hdr_ptr, hdr->file_size);
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3bb0
+static u32 CalcChecksum(void *data, i32 len) {
+  unsigned char *bytes;
+  u32 sum;
+
+  sum = 0x12345678;
+  bytes = (unsigned char *)data;
+  while (len != 0) {
+    len--;
+    sum += *(bytes++);
+  }
+  return sum;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3be0
+static void DecryptData(NUFILEPAKHDR *hdr, u32 data_len, unsigned char *key,
+                        i32 key_len) {
+  unsigned char *bytes;
+  i32 i;
+
+  data_len -= sizeof(NUFILEPAKHDR);
+  i = 0;
+  bytes = (unsigned char *)(hdr + 1);
+  while (data_len != 0) {
+    data_len--;
+    *bytes = *bytes - key[i++];
+    if (i >= key_len)
+      i = 0;
+    bytes++;
+  }
+  hdr->flags &= ~1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3b90
+static NUFILEPAKITEM *GetItems(NUFILEPAKHDR *hdr) {
+  switch (hdr->type) {
+  case 0x12345678:
+    return (NUFILEPAKITEM *)((char *)hdr + 0xc);
+  default:
+    return (NUFILEPAKITEM *)((char *)hdr + 0x14);
+  case 0x1234567a:
+    return (NUFILEPAKITEM *)(hdr + 1);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3c30
+i32 NuFilePakCondenseTo(void *hdr_ptr, VARIPTR *buf) {
+  NUFILEPAKHDR *hdr = (NUFILEPAKHDR *)hdr_ptr;
+  NUFILEPAKITEM *items;
+  u32 i;
+
+  if (hdr->item_count == 0)
+    return 0;
+  items = GetItems(hdr);
+  fpk_err = 0;
+  for (i = 0; i < hdr->item_count; i++) {
+    if (!items[i].attr.removed) {
+      if (items[i].attr.required) {
+        if (items[i].alignment != 0)
+          buf->addr =
+              (buf->addr + items[i].alignment - 1) & ~(items[i].alignment - 1);
+        if (buf->addr != (u32)items[i].data_offset) {
+          NuMemCpy(buf->u8_ptr, (unsigned char *)hdr + items[i].data_offset,
+                   items[i].size);
+          items[i].data_offset = buf->addr - (u32)hdr;
+        }
+        buf->addr += items[i].size;
+      } else {
+        items[i].attr.removed = 1;
+      }
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3d10
+i32 NuFilePakGetItemInfo(void *hdr_ptr, i32 item_handle, void **addr,
+                         i32 *size) {
+  NUFILEPAKHDR *hdr;
+  NUFILEPAKITEM *item;
+
+  fpk_err = 0;
+  hdr = (NUFILEPAKHDR *)hdr_ptr;
+  item_handle -= 1;
+  if (item_handle >= 0 && item_handle < hdr->item_count) {
+    item = GetItems(hdr);
+    item = &item[item_handle];
+    if (!item->attr.removed) {
+      if (addr != NULL)
+        *addr = (void *)((char *)hdr_ptr + item->data_offset);
+      if (size != NULL)
+        *size = item->size;
+      return 1;
+    }
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3d90
+i32 NuFilePakSetItemRequired(void *hdr_ptr, i32 item_handle, i32 required) {
+  fpk_err = 0;
+  NUFILEPAKHDR *hdr = (NUFILEPAKHDR *)hdr_ptr;
+  --item_handle;
+  if (item_handle >= 0 && item_handle < hdr->item_count) {
+    NUFILEPAKITEM *items = GetItems(hdr);
+    items = &items[item_handle];
+    if (!items->attr.removed)
+      items->attr.required = required;
+    return 1;
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006e0b60
+void *NuFilePakLoadKeyPrePad(char *filepath, VARIPTR *buf, VARIPTR buf_end,
+                             i32 alignment, unsigned char *key, u32 key_len,
+                             i32 pre_pad) {
+  NUFILEPAKHDR *hdr;
+  i32 len;
+  u32 stored_sum;
+
+  fpk_err = 0;
+  if (alignment > 0x2000) {
+    Unk006d24d0();
+    fpk_err = 5;
+    return NULL;
+  }
+  alignment = alignment > 4 ? alignment : 4;
+  buf->addr = (buf->addr + alignment - 1) & ~(alignment - 1);
+  hdr = (NUFILEPAKHDR *)buf->void_ptr;
+  len = NuFileLoadBuffer(filepath, hdr, buf_end.addr - buf->addr);
+  buf->addr += len;
+  if (len == 0) {
+    fpk_err = 1;
+    return NULL;
+  }
+  if (len != hdr->file_size) {
+    Unk006d24d0();
+    fpk_err = 5;
+    return NULL;
+  }
+
+  switch (hdr->type) {
+  case 0x12345678:
+    break;
+  case 0x12345679:
+    stored_sum = hdr->checksum;
+    hdr->checksum = 0;
+    if (stored_sum != CalcChecksum(hdr, len)) {
+      Unk006d24d0();
+      fpk_err = 3;
+      return NULL;
+    }
+    break;
+  case 0x1234567a:
+    stored_sum = hdr->checksum;
+    hdr->checksum = 0;
+    if (stored_sum != CalcChecksum(hdr, len)) {
+      Unk006d24d0();
+      fpk_err = 3;
+      return NULL;
+    }
+    if ((hdr->flags & 1) != 0) {
+      if (key != NULL) {
+        DecryptData(hdr, len, key, key_len);
+        stored_sum = hdr->decrypted_checksum;
+        hdr->decrypted_checksum = 0;
+        if (stored_sum == CalcChecksum(hdr, len))
+          break;
+      }
+      Unk006d24d0();
+      fpk_err = 6;
+      return NULL;
+    }
+    break;
+  default:
+    Unk006d24d0(hdr->type);
+    fpk_err = 4;
+    return NULL;
+  }
+
+  if (pre_pad != 0) {
+    NUFILEPAKITEM *items = GetItems(hdr);
+    u32 end;
+    u32 i;
+
+    end =
+        (((u32)hdr + items[0].data_offset + pre_pad + items[0].alignment - 1) &
+         ~(items[0].alignment - 1)) +
+        items[0].size;
+    for (i = 1; i < hdr->item_count; i++) {
+      end = ((end + pre_pad + items[i].alignment - 1) &
+             ~(items[i].alignment - 1)) +
+            items[i].size;
+    }
+    if (end >= buf_end.addr) {
+      fpk_err = 7;
+      return NULL;
+    }
+    buf->addr = end;
+    for (i = hdr->item_count; i != 0;) {
+      unsigned char *src;
+      unsigned char *dst;
+
+      i--;
+      src = (unsigned char *)hdr + items[i].data_offset;
+      dst =
+          (unsigned char *)((end - items[i].size) & ~(items[i].alignment - 1));
+      NuMemCpy(dst, src, items[i].size);
+      items[i].data_offset += dst - src;
+      end = (u32)dst - pre_pad;
+    }
+  }
+  return hdr;
+}
