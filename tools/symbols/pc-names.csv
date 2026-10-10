@@ -2523,6 +2523,21 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00665f60,002b9214,__Z26GizFlock_Config_anim_speedP8nufpar_s,GizFlock_Config_anim_speed(nufpar_s*),confirmed,0
 00665f80,002b9242,__Z24GizFlock_ConfigureExtrasP11WORLDINFO_sPKcj,"GizFlock_ConfigureExtras(WORLDINFO_s*, char const*, unsigned int)",strings,0
 0066b400,002bc674,__Z20GizFlock_UpdateBoidsP12sGizFlockSysP9sGizFlock,"GizFlock_UpdateBoids(sGizFlockSys*, sGizFlock*)",strings,0
+0066c640,0033fb7e,__Z28Teleports_ReserveBufferSpacePv,Teleports_ReserveBufferSpace(void*),confirmed,0
+0066c690,0033fbdc,__Z30Teleports_AllocateProgressDataP9variptr_uS0_,"Teleports_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+0066c6b0,0033fbfe,__Z23Teleports_ClearProgressPvS_,"Teleports_ClearProgress(void*, void*)",confirmed,0
+0066c6d0,0033fc46,__Z23Teleports_StoreProgressPvS_S_,"Teleports_StoreProgress(void*, void*, void*)",confirmed,0
+0066dad0,003405a8,__Z20Teleport_ActivateRevP7GIZMO_sii,"Teleport_ActivateRev(GIZMO_s*, int, int)",confirmed,0
+0066db30,00340608,__Z17Teleport_ActivateP7GIZMO_si,"Teleport_Activate(GIZMO_s*, int)",confirmed,0
+0066db60,00340634,__Z21Teleport_GetMaxGizmosPv,Teleport_GetMaxGizmos(void*),confirmed,0
+0066db80,00340650,__Z18Teleport_AddGizmosP10GIZMOSYS_siPvS1_,"Teleport_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+0066dbe0,003406b4,__Z21Teleport_GetGizmoNameP7GIZMO_s,Teleport_GetGizmoName(GIZMO_s*),confirmed,0
+0066dc00,003406c8,__Z18Teleport_GetOutputP7GIZMO_sii,"Teleport_GetOutput(GIZMO_s*, int, int)",confirmed,0
+0066dc40,00340702,__Z22Teleport_GetOutputNameP7GIZMO_si,"Teleport_GetOutputName(GIZMO_s*, int)",confirmed,0
+0066dc60,0034071e,__Z22Teleport_GetNumOutputsP7GIZMO_s,Teleport_GetNumOutputs(GIZMO_s*),confirmed,0
+0066dc70,00340728,__Z22Teleport_SetVisibilityP7GIZMO_si,"Teleport_SetVisibility(GIZMO_s*, int)",confirmed,0
+0066dc90,0034074a,__Z22Teleport_GetVisibilityP7GIZMO_s,Teleport_GetVisibility(GIZMO_s*),confirmed,0
+0066dcb0,0034076a,__Z22Teleport_RegisterGizmoi,Teleport_RegisterGizmo(int),confirmed,0
 0066f180,002d4924,__Z19Portal_GetMaxGizmosPv,Portal_GetMaxGizmos(void*),confirmed,0
 0066f1a0,002d4942,__Z16Portal_AddGizmosP10GIZMOSYS_siPvS1_,"Portal_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
 0066f200,002d49a4,__Z19Portal_GetGizmoNameP7GIZMO_s,Portal_GetGizmoName(GIZMO_s*),confirmed,0

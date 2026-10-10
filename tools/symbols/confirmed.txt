@@ -2727,3 +2727,18 @@
 00662c20 GizSpecial_GetName Mac global (returns special->name at 0), inlined into GetGizmoName
 00662c30 GizSpecial_FindByName Mac global (char*, WORLDINFO_s*), NuStrICmp over giz_special_sys
 006631c0 GizSpecial_RegisterGizmo copies Default_ADDGIZMOTYPE, name "NuSpecial", prefix gizSpec_prefix "qaz_"
+0066c640 Teleports_ReserveBufferSpace reserve_buffer_space slot of the "Teleport" ADDGIZMOTYPE
+0066c690 Teleports_AllocateProgressData allocate_progress_data slot of the "Teleport" ADDGIZMOTYPE
+0066c6b0 Teleports_ClearProgress clear_progress slot of the "Teleport" ADDGIZMOTYPE
+0066c6d0 Teleports_StoreProgress store_progress slot of the "Teleport" ADDGIZMOTYPE
+0066dad0 Teleport_ActivateRev activate_rev slot of the "Teleport" ADDGIZMOTYPE
+0066db30 Teleport_Activate activate slot of the "Teleport" ADDGIZMOTYPE
+0066db60 Teleport_GetMaxGizmos get_max_gizmos slot of the "Teleport" ADDGIZMOTYPE
+0066db80 Teleport_AddGizmos add_gizmos slot of the "Teleport" ADDGIZMOTYPE
+0066dbe0 Teleport_GetGizmoName get_gizmo_name slot of the "Teleport" ADDGIZMOTYPE
+0066dc00 Teleport_GetOutput get_output slot of the "Teleport" ADDGIZMOTYPE
+0066dc40 Teleport_GetOutputName get_output_name slot of the "Teleport" ADDGIZMOTYPE
+0066dc60 Teleport_GetNumOutputs get_num_outputs slot of the "Teleport" ADDGIZMOTYPE
+0066dc70 Teleport_SetVisibility set_visibility slot of the "Teleport" ADDGIZMOTYPE
+0066dc90 Teleport_GetVisibility get_visibility slot of the "Teleport" ADDGIZMOTYPE
+0066dcb0 Teleport_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Teleport", prefix "TLT_"

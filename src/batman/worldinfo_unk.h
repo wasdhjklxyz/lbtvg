@@ -93,7 +93,10 @@ struct WORLDINFO_s {
   void *ai_path_cnx_control_sys;  // 0x4780
   void *ai_path_cnx_helper_sys;   // 0x4784
   struct AITRIGGERSETSYS_s *ai_trigger_set_sys; // 0x4788
-  u8 pad8[0x47b4 - 0x478c];
+  u8 pad478c[0x4790 - 0x478c];
+  struct TELEPORT_s *teleports; // 0x4790
+  i32 teleport_count;           // 0x4794
+  u8 pad8[0x47b4 - 0x4798];
   struct GIZOBSTACLESYS_s *giz_obstacle_sys; // 0x47b4
   u8 pad47b8[0x47bc - 0x47b8];
   struct GIZFORCESYS_s *giz_force_sys;               // 0x47bc
