@@ -3628,7 +3628,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d8e70,0018ddf4,_NuHeapAlloc,_NuHeapAlloc,confirmed,0
 006d8e90,0018ddca,_NuHeapAllocNamed,_NuHeapAllocNamed,confirmed,0
 006d8eb0,0018dda0,_NuHeapAllocAligned,_NuHeapAllocAligned,confirmed,0
+006d9fe0,,MatchExtension,MatchExtension,confirmed,0
+006da040,0018b1a8,_AddExtension,_AddExtension,confirmed,0
 006da090,0018b224,_NuFileExtInitEx,_NuFileExtInitEx,strings,0
+006da500,0018b868,_NuFileExtInit,_NuFileExtInit,confirmed,0
+006da520,0018d848,_NuFileExtGetInfo,_NuFileExtGetInfo,confirmed,0
+006da580,0018d9dc,_NuFileExtGetType,_NuFileExtGetType,confirmed,0
+006da5a0,0018d92e,_NuFileExtConvert,_NuFileExtConvert,confirmed,0
+006da650,0018d8de,_NuFileExtRemove,_NuFileExtRemove,confirmed,0
 006da8d0,0018d4c2,_NuFParGetWord,_NuFParGetWord,gapfill,1
 006daa40,0018d694,_NuFParGetFloat,_NuFParGetFloat,confirmed,0
 006daae0,0018d740,_NuFParGetOptionalFloat,_NuFParGetOptionalFloat,confirmed,0

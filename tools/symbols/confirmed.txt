@@ -3381,3 +3381,10 @@
 0066bc70 GizFlock_Load GizFlock_RegisterGizmo load slot (fns[24]); reads flocks with EdFile*
 006daae0 NuFParGetOptionalFloat saga nufpar.cpp body (NuStrCpy and UnGetWord inlined); calls GetWord, NuAToF
 006dabf0 NuFParGetOptionalInt saga nufpar.cpp body (NuStrCpy and UnGetWord inlined); calls GetWord, NuAToI
+006d9fe0 MatchExtension saga nufile.cpp static (reverse ext vs lowered path tail); called by NuFileExtGetInfo
+006da040 AddExtension saga nufile.cpp static (reversed extension copy into the 16-byte table)
+006da500 NuFileExtInit NuFileExtInitEx(Unk00524cf0() == 0)
+006da520 NuFileExtGetInfo saga nufile.cpp static; walks the extension table with MatchExtension
+006da580 NuFileExtGetType saga nufile.cpp body matches
+006da5a0 NuFileExtConvert saga nufile.cpp shape (PC platform 4); called from loaders with (dest, path)
+006da650 NuFileExtRemove saga nufile.cpp body matches

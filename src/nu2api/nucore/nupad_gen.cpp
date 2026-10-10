@@ -962,6 +962,208 @@ void NuStrLwr(char *dst, const char *src) {
   *dst = *src;
 }
 
+// File extension table (saga nu2api/nufile/nufile.cpp, PC order).
+typedef struct fileextinfo_s {
+  char extension[13];
+  char type;
+  char platform;
+  char len;
+} FILEEXTINFO;
+
+// GLOBAL: LEGOBATMAN 0x00aecb88
+static FILEEXTINFO extensions[0x60];
+// GLOBAL: LEGOBATMAN 0x00ad7630
+static int num_extensions;
+// GLOBAL: LEGOBATMAN 0x0099f270
+extern int g_unk0099f270;
+
+int Unk00524cf0(void);
+
+// FUNCTION: LEGOBATMAN 0x006d9fe0
+static int MatchExtension(char *extension, char *path_end, int path_len) {
+  while (*extension != '\0') {
+    --path_end;
+    if (path_len == 0)
+      return 0;
+    char c = *path_end;
+    if (NU_IS_UPPER(c))
+      c += 0x20;
+    if (*extension != c)
+      return 0;
+    ++extension;
+    --path_len;
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006da040
+static void AddExtension(char *extension, int type, int platform) {
+  FILEEXTINFO *next = &extensions[num_extensions];
+  int len = NuStrLen(extension);
+  next->len = len;
+  char *ext = next->extension;
+  while (len != 0) {
+    len--;
+    *ext = extension[len];
+    ext++;
+  }
+  *ext = '\0';
+  next->type = type;
+  next->platform = platform;
+  num_extensions++;
+}
+
+// FUNCTION: LEGOBATMAN 0x006da090
+extern "C" void NuFileExtInitEx(int flags) {
+  memset(extensions, 0, sizeof(extensions));
+  num_extensions = 0;
+  if (flags != 0)
+    flags = g_unk0099f270;
+  AddExtension("_360.an3", 0, 6);
+  AddExtension(".cbs", 1, 6);
+  AddExtension("_360.ghg", 2, 6);
+  AddExtension("_360.gsc", 3, 6);
+  AddExtension("_360.tex", 4, 6);
+  AddExtension("_360.cu2", 5, 6);
+  AddExtension(".wavx", 6, 6);
+  AddExtension(".wavm", 7, 6);
+  AddExtension(".wmv", 8, 6);
+  AddExtension("_ps3.an3", 0, 5);
+  AddExtension(".cbs", 1, 5);
+  AddExtension("_ps3.ghg", 2, 5);
+  AddExtension("_ps3.gsc", 3, 5);
+  AddExtension("_ps3.tex", 4, 5);
+  AddExtension("_ps3.cu2", 5, 5);
+  AddExtension(".msf", 6, 5);
+  AddExtension(".mib", 7, 5);
+  AddExtension(".pam", 8, 5);
+  if (flags & 1)
+    AddExtension("_lr_pc.an3", 0, 4);
+  else
+    AddExtension("_pc.an3", 0, 4);
+  if (flags & 2)
+    AddExtension("_lr_pc.cu2", 5, 4);
+  else
+    AddExtension("_pc.cu2", 5, 4);
+  if (flags & 4)
+    AddExtension("_lr_pc.gsc", 3, 4);
+  else
+    AddExtension("_pc.gsc", 3, 4);
+  if (flags & 8)
+    AddExtension("_lr_pc.ghg", 2, 4);
+  else
+    AddExtension("_pc.ghg", 2, 4);
+  AddExtension(".bsa", 1, 4);
+  AddExtension("_pc.dds", 4, 4);
+  AddExtension(".wav", 6, 4);
+  AddExtension(".mib", 7, 4);
+  AddExtension(".bik", 8, 4);
+  AddExtension("_ngc.an3", 0, 7);
+  AddExtension(".cbs", 1, 7);
+  AddExtension("_wii.ghg", 2, 7);
+  AddExtension("_wii.gsc", 3, 7);
+  AddExtension("_wii.tex", 4, 7);
+  AddExtension("_ngc.cu2", 5, 7);
+  AddExtension(".dsp", 6, 7);
+  AddExtension(".gcm", 7, 7);
+  AddExtension(".h4m", 8, 7);
+  AddExtension("_xbx.an3", 0, 1);
+  AddExtension(".bsa", 1, 1);
+  AddExtension(".hx2", 2, 1);
+  AddExtension(".nx2", 3, 1);
+  AddExtension(".dds", 4, 1);
+  AddExtension(".cu2", 5, 1);
+  AddExtension(".wavx", 6, 1);
+  AddExtension(".wavm", 7, 1);
+  AddExtension(".wmv", 8, 1);
+  AddExtension("_psp.an3", 0, 3);
+  AddExtension(".bsa", 1, 3);
+  AddExtension("_psp.ghg", 2, 3);
+  AddExtension("_psp.gsc", 3, 3);
+  AddExtension("_psp.tex", 4, 3);
+  AddExtension("_psp.cu2", 5, 3);
+  AddExtension(".vag", 6, 3);
+  AddExtension(".at3", 7, 3);
+  AddExtension(".pss", 8, 3);
+  AddExtension("_ps2.an3", 0, 0);
+  AddExtension(".bsa", 1, 0);
+  AddExtension(".ghg", 2, 0);
+  AddExtension(".gsc", 3, 0);
+  AddExtension(".pnt", 4, 0);
+  AddExtension("_ps2.cu2", 5, 0);
+  AddExtension(".vag", 6, 0);
+  AddExtension(".mib", 7, 0);
+  AddExtension(".pss", 8, 0);
+  AddExtension(".an3", 0, -1);
+  AddExtension(".ca3", 0, -1);
+  AddExtension(".cu2", 5, -1);
+  AddExtension(".cc2", 5, -1);
+  AddExtension(".hgo", 2, -1);
+  AddExtension(".nus", 3, -1);
+  AddExtension(".rcu", 5, -1);
+  AddExtension(".ran", 0, -1);
+}
+
+// FUNCTION: LEGOBATMAN 0x006da500
+extern "C" void NuFileExtInit(void) { NuFileExtInitEx(Unk00524cf0() == 0); }
+
+// FUNCTION: LEGOBATMAN 0x006da520
+static FILEEXTINFO *NuFileExtGetInfo(char *path, int path_len) {
+  if (path_len == 0)
+    path_len = NuStrLen(path);
+  char *path_end = path + path_len;
+  FILEEXTINFO *info = extensions;
+  while (info->extension[0] != '\0') {
+    if (MatchExtension(info->extension, path_end, path_len) != 0)
+      return info;
+    ++info;
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006da580
+extern "C" int NuFileExtGetType(char *path, int path_len) {
+  FILEEXTINFO *info = NuFileExtGetInfo(path, path_len);
+  if (info != 0)
+    return info->type;
+  return -1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006da5a0
+extern "C" int NuFileExtConvert(char *dest, char *path) {
+  int path_len = NuStrCpy(dest, path);
+  FILEEXTINFO *source = NuFileExtGetInfo(path, path_len);
+  if (source != 0) {
+    int source_type = source->type;
+    if (source->platform == 4)
+      return 1;
+    FILEEXTINFO *target;
+    for (target = extensions; target != 0; target++) {
+      if (target->platform == 4 && target->type == source_type) {
+        char *out = &dest[path_len - source->len];
+        char *ext = &target->extension[target->len - 1];
+        int i;
+        for (i = 0; i < target->len; i++)
+          *out++ = *ext--;
+        *out = '\0';
+        return 1;
+      }
+    }
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006da650
+extern "C" int NuFileExtRemove(char *dest, char *path) {
+  int length = NuStrCpy(dest, path);
+  FILEEXTINFO *info = NuFileExtGetInfo(path, length);
+  if (info != 0) {
+    dest[length - info->len] = '\0';
+    return info->type;
+  }
+  return -1;
+}
+
 struct NuPadRec {
   int mode;                 // 0x0
   unsigned char *buf_start; // 0x4
