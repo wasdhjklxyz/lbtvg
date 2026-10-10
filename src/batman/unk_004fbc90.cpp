@@ -6,6 +6,10 @@
 #include "../nu2api/numath/nutrig_unk.h"
 
 // Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x004fc0e0
+static void NuMtxSetRotationYInline(f32 *m, i32 a);
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
 // FUNCTION: LEGOBATMAN 0x004fc060
 static void NuMtxCopyInline(f32 *dst, f32 *src);
 // FUNCTION: LEGOBATMAN 0x004fc1a0
@@ -43,4 +47,10 @@ void Unk_InlineUser_004fbc90(f32 *v, f32 a, i32 i) {
 void Unk_InlineUser_unk_004fbc90(f32 *v, f32 a, i32 i) {
   NuMtxCopyInline(v + 32, v + 16);
   NuMtxRotateYInline(v + 16, i);
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_2_unk_004fbc90(f32 *v, f32 a, i32 i) {
+  NuMtxSetRotationYInline(v + 64, i);
 }

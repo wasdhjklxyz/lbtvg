@@ -7,11 +7,11 @@ FN={'sin':('NuSinApprox','static f32 NuSinApprox(i32 angle);'),'cos':('NuCosAppr
     'sign':('NuFsign','static f32 NuFsign(f32 f);'),'v4set':('NuVec4Set','static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);'),
     'v4copy':('NuVec4Copy','static void NuVec4Copy(f32 *dst, f32 *src);'),'vscale':('NuVecScaleInline','static void NuVecScaleInline(f32 *dst, f32 *src, f32 s);'),
     'mroty':('NuMtxRotateYInline','static void NuMtxRotateYInline(f32 *m, i32 a);'),'mcopy':('NuMtxCopyInline','static void NuMtxCopyInline(f32 *dst, f32 *src);'),
-    'vmag':('NuVecMagInline','static f32 NuVecMagInline(f32 *v);')}
+    'vmag':('NuVecMagInline','static f32 NuVecMagInline(f32 *v);'),'msroty':('NuMtxSetRotationYInline','static void NuMtxSetRotationYInline(f32 *m, i32 a);')}
 USE={'sin':'v[0] = NuSinApprox(i);','cos':'v[1] = NuCosApprox(i);','fabs':'v[2] = NuFabs(a);','fdiv':'v[3] = NuFdiv(a, v[4]);',
      'sign':'v[5] = NuFsign(a);','v4set':'NuVec4Set(v, a, a, a, a);','v4copy':'NuVec4Copy(v + 4, v);','vscale':'NuVecScaleInline(v + 8, v, a);',
      'mroty':'NuMtxRotateYInline(v + 16, i);','mcopy':'NuMtxCopyInline(v + 32, v + 16);',
-     'vmag':'v[48] = NuVecMagInline(v);'}
+     'vmag':'v[48] = NuVecMagInline(v);','msroty':'NuMtxSetRotationYInline(v + 64, i);'}
 def match(f):
     r=subprocess.run(['python3','tools/match.py',f],capture_output=True,text=True)
     out=re.sub(r'\x1b\[[0-9;]*m','',r.stdout+r.stderr)
@@ -32,7 +32,7 @@ def edit(path,orig,fams):
     add=''
     if any(n in ('sin','cos') for _,n in fams) and 'nutrig_unk.h' not in s: add+='#include "%s/nutrig_unk.h"\n'%rel
     if any(n not in ('sin','cos','mroty','mcopy') for _,n in fams) and 'nuinline_unk.h' not in s: add+='#include "%s/nuinline_unk.h"\n'%rel
-    if any(n in ('mroty','mcopy') for _,n in fams) and 'numtx_inline_unk.h' not in s: add+='#include "%s/numtx_inline_unk.h"\n'%rel
+    if any(n in ('mroty','mcopy','msroty') for _,n in fams) and 'numtx_inline_unk.h' not in s: add+='#include "%s/numtx_inline_unk.h"\n'%rel
     block='\n// Header statics: this TU\'s copies (bodies in nuinline_unk.h/nutrig_unk.h).\n'
     for a,n in fams: block+='// FUNCTION: LEGOBATMAN 0x%08x\n%s\n'%(a,FN[n][1])
     s=s[:pos]+add+block+s[pos:]

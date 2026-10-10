@@ -42,3 +42,28 @@ static void NuMtxCopyInline(f32 *dst, f32 *src) {
   dst[14] = src[14];
   dst[15] = src[15];
 }
+
+extern struct numtx_s numtx_identity;
+
+// saga NuMtxSetRotationYInline; rows 1 and 3 come from numtx_identity.
+static void NuMtxSetRotationYInline(f32 *m, i32 a) {
+  f32 *id = (f32 *)&numtx_identity;
+  f32 c = NuCosApprox(a);
+  f32 s = NuSinApprox(a);
+  m[0] = c;
+  m[1] = 0.0f;
+  m[2] = -s;
+  m[3] = 0.0f;
+  m[4] = id[4];
+  m[5] = id[5];
+  m[6] = id[6];
+  m[7] = id[7];
+  m[8] = s;
+  m[9] = 0.0f;
+  m[11] = 0.0f;
+  m[10] = c;
+  m[12] = id[12];
+  m[13] = id[13];
+  m[14] = id[14];
+  m[15] = id[15];
+}

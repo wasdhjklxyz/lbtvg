@@ -2,11 +2,16 @@
 
 #include "../nu2api/nucore/common.h"
 #include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/numtx_inline_unk.h"
 #include "../nu2api/numath/nutrig_unk.h"
 #include "../nu2api/numath/nuvec.h"
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x005e7c80
+static void NuMtxSetRotationYInline(f32 *m, i32 a);
 
 // Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
 // FUNCTION: LEGOBATMAN 0x005e7b10
@@ -822,4 +827,10 @@ void Unk_InlineUser_bolts_unk(f32 *v, f32 a, i32 i) {
   v[1] = NuCosApprox(i);
   NuVec4Copy(v + 4, v);
   NuVec4Set(v, a, a, a, a);
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_2_bolts_unk(f32 *v, f32 a, i32 i) {
+  NuMtxSetRotationYInline(v + 64, i);
 }
