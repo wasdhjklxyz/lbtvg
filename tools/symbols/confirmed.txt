@@ -3110,3 +3110,19 @@
 00701bf0 NuSpeedBlurFilterGen::NuSpeedBlurFilterGen sets the NuSpeedBlurFilterGen vtable 0x897cd4
 00701c20 NuSpeedBlurFilterGen::initResources slot 1 of the NuSpeedBlurFilterGen vtable 0x897cd4
 00701c30 NuSpeedBlurFilterGen::destroyResources slot 2 of the NuSpeedBlurFilterGen vtable
+00702160 NuEdgeAAFilterGen::NuEdgeAAFilterGen sets the NuEdgeAAFilterGen vtable 0x897d7c
+00702190 NuEdgeAAFilterGen::initResources slot 1 of the NuEdgeAAFilterGen vtable 0x897d7c
+007021a0 NuEdgeAAFilterGen::destroyResources slot 2 of the NuEdgeAAFilterGen vtable
+007021b0 NuEdgeAAFilterGen::initTextureResources slot 3 of the NuEdgeAAFilterGen vtable
+007021c0 NuEdgeAAFilterGen::destroyTextureResources slot 4 of the NuEdgeAAFilterGen vtable
+007021d0 NuEdgeAAFilterGen::render slot 5 of the NuEdgeAAFilterGen vtable
+00701e40 NuProcessColourFilterGen::NuProcessColourFilterGen sets the NuProcessColourFilterGen vtable 0x897cfc
+00701e70 NuProcessColourFilterGen::destroyResources slot 2 of the NuProcessColourFilterGen vtable 0x897cfc
+00701fe0 NuProcessColourFilterGen::initTextureResources slot 3 of the NuProcessColourFilterGen vtable
+00701ff0 NuProcessColourFilterGen::destroyTextureResources slot 4 of the NuProcessColourFilterGen vtable
+007040c0 NuSSAOFilterGen::NuSSAOFilterGen sets the NuSSAOFilterGen vtable 0x897dc4
+007040f0 NuSSAOFilterGen::initResources slot 1 of the NuSSAOFilterGen vtable 0x897dc4
+00704100 NuSSAOFilterGen::destroyResources slot 2 of the NuSSAOFilterGen vtable
+00704110 NuSSAOFilterGen::initTextureResources slot 3 of the NuSSAOFilterGen vtable
+00704120 NuSSAOFilterGen::destroyTextureResources slot 4 of the NuSSAOFilterGen vtable
+00704130 NuSSAOFilterGen::render slot 5 of the NuSSAOFilterGen vtable

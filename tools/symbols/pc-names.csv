@@ -3559,11 +3559,23 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00701c30,001385d0,__ZN20NuSpeedBlurFilterGen16destroyResourcesEv,NuSpeedBlurFilterGen::destroyResources(),confirmed,0
 00701c40,00142b48,__ZN20NuSpeedBlurFilterGen20initTextureResourcesEii,"NuSpeedBlurFilterGen::initTextureResources(int, int)",confirmed,0
 00701c90,001250be,__ZN20NuSpeedBlurFilterGen23destroyTextureResourcesEv,NuSpeedBlurFilterGen::destroyTextureResources(),confirmed,0
+00701e40,001492d6,__ZN24NuProcessColourFilterGenC2Ev,NuProcessColourFilterGen::NuProcessColourFilterGen(),confirmed,0
 00701e60,0013859e,__ZN24NuProcessColourFilterGen13initResourcesEv,NuProcessColourFilterGen::initResources(),confirmed,0
+00701e70,001385d6,__ZN24NuProcessColourFilterGen16destroyResourcesEv,NuProcessColourFilterGen::destroyResources(),confirmed,0
+00701fe0,001253a0,__ZN24NuProcessColourFilterGen20initTextureResourcesEii,"NuProcessColourFilterGen::initTextureResources(int, int)",confirmed,0
+00701ff0,001253a6,__ZN24NuProcessColourFilterGen23destroyTextureResourcesEv,NuProcessColourFilterGen::destroyTextureResources(),confirmed,0
+00702160,0014929e,__ZN17NuEdgeAAFilterGenC2Ev,NuEdgeAAFilterGen::NuEdgeAAFilterGen(),confirmed,0
 00702190,001385a4,__ZN17NuEdgeAAFilterGen13initResourcesEv,NuEdgeAAFilterGen::initResources(),confirmed,0
+007021a0,001385dc,__ZN17NuEdgeAAFilterGen16destroyResourcesEv,NuEdgeAAFilterGen::destroyResources(),confirmed,0
 007021b0,001253ac,__ZN17NuEdgeAAFilterGen20initTextureResourcesEii,"NuEdgeAAFilterGen::initTextureResources(int, int)",confirmed,0
 007021c0,001253b2,__ZN17NuEdgeAAFilterGen23destroyTextureResourcesEv,NuEdgeAAFilterGen::destroyTextureResources(),confirmed,0
+007021d0,001253b8,__ZN17NuEdgeAAFilterGen6renderEv,NuEdgeAAFilterGen::render(),confirmed,0
+007040c0,00149266,__ZN15NuSSAOFilterGenC2Ev,NuSSAOFilterGen::NuSSAOFilterGen(),confirmed,0
 007040f0,001385aa,__ZN15NuSSAOFilterGen13initResourcesEv,NuSSAOFilterGen::initResources(),confirmed,0
+00704100,001385e2,__ZN15NuSSAOFilterGen16destroyResourcesEv,NuSSAOFilterGen::destroyResources(),confirmed,0
+00704110,0012686e,__ZN15NuSSAOFilterGen20initTextureResourcesEii,"NuSSAOFilterGen::initTextureResources(int, int)",confirmed,0
+00704120,00126874,__ZN15NuSSAOFilterGen23destroyTextureResourcesEv,NuSSAOFilterGen::destroyTextureResources(),confirmed,0
+00704130,0012687a,__ZN15NuSSAOFilterGen6renderEv,NuSSAOFilterGen::render(),confirmed,0
 00708100,0016af82,__ZN19NuDeferredFilterGen9isEnabledEv,NuDeferredFilterGen::isEnabled(),confirmed,0
 00708140,001385b0,__ZN19NuDeferredFilterGen13initResourcesEv,NuDeferredFilterGen::initResources(),confirmed,0
 00708160,00145284,__ZN19NuDeferredFilterGen20initTextureResourcesEii,"NuDeferredFilterGen::initTextureResources(int, int)",confirmed,0
