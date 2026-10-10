@@ -13,9 +13,9 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [near rtleditor.cpp](#near-rtleditorcpp) | 47 | 38 |
 | [Action](#action) | 49 | 37 |
 | [near pcbatman.cpp](#near-pcbatmancpp) | 42 | 37 |
+| [near rtleditor.cpp](#near-rtleditorcpp) | 46 | 37 |
 | [near terrain.c](#near-terrainc) | 24 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 10 | 6 |
 | [Condition](#condition) | 6 | 4 |
@@ -71,6 +71,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Hint](#hint) | 1 | 1 |
 | [Levels](#levels) | 1 | 1 |
 | [LevelSplines](#levelsplines) | 1 | 1 |
+| [Levers](#levers) | 1 | 1 |
 | [MiniKit](#minikit) | 2 | 1 |
 | [Missions](#missions) | 1 | 1 |
 | [near apisave.c](#near-apisavec) | 6 | 1 |
@@ -200,56 +201,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [WorldMap](#worldmap) | 7 | 0 |
 | [WorldMapBase](#worldmapbase) | 9 | 0 |
 
-## near rtleditor.cpp
-
-- [ ] `0059d410` 21 B `_EdFileReadUnsignedChar`  **saga** `gameapi/edtools/edfile.cpp`
-- [ ] `0063fb40` 33 B `EnableShadowMapRendering(int)`  **saga** `legoapi/render/light/shadow.cpp`
-- [ ] `0059d3c0` 44 B `_EdFileReadUnsignedShort`  **saga** `gameapi/edtools/edfile.cpp`
-- [ ] `005d3f60` 105 B `FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)`  **stub** · **hint** name (gapfill)
-- [ ] `0059c4b0` 127 B `_ActionFromName`  **stub** · **hint** name (gapfill)
-- [ ] `005b00d0` 153 B `LineIntersectCircle(nuvec_s*, nuvec_s*, nuvec_s*, float)`  **stub** · **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
-- [ ] `005b0f90` 169 B `EvalAnim(nuhspecial_s*, float, numtx_s*, int)`  **saga** `legoapi/characters/motion/gameanim.cpp`
-- [ ] `0059f8d0` 185 B `PlayJumpSfx(GameObject_s*, int)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
-- [ ] `00656130` 203 B `AddRipple(ripple_set_s*, numtx_s*, float, float, float, float, RGBA, RGBA, int, numtl_s*, nuvec_s*)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/items/fx/ripples.cpp`
-- [ ] `005a3020` 212 B `ConstantRumble(GameObject_s*, float, float)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/misc/legoapi_misc.cpp`
-- [ ] `00639580` 229 B `ObjOpponentStillThere(GameObject_s*, GameObject_s*, float)`  **stub** · **hint** name (order) · **saga** `legoapi/actions/character/speederchase.cpp`
-- [ ] `00620b30` 249 B `RedirectTextFile(char*, char*, int, int*)`  **stub** · **saga** `legoapi/characters/core/charconfig.cpp`
-- [ ] `005aed70` 257 B `MatrixReflection(numtx_s*, int, float, float, numtx_s*)`  **saga** `legoapi/misc/utilities.cpp`
-- [ ] `0063e030` 257 B `SetLevelLights(void*, float)`  **saga** `legoapi/render/light/lighting.cpp`
-- [ ] `005fb300` 291 B `AddToModelList(APICHARACTERMODELLIST_s*, int*, int, int, int, EXTRAMODEL*, unsigned char)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
-- [ ] `005b0e00` 317 B `VecRotateAxis(nuvec_s*, unsigned short, nuvec_s*)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
-- [ ] `0064ce30` 321 B `NewStatusRumbleBuzz(int, float, float, int)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/menus/screens/gamestatus_lsw.cpp`
-- [ ] `006633c0` 324 B `CheckGizAIMessage(GIZAIMESSAGESYS_s*, char const*, GIZAIMESSAGE_s*)`  **stub** · **saga** `legoapi/gizmo/base/gizmessage.cpp`
-- [ ] `006397b0` 329 B `SlowWeaponOut(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
-- [ ] `0059a110` 338 B `_AnimDuration`  **hint** name (gapfill)
-- [ ] `005b0510` 374 B `InitSplinePosition(SPLINEPOS_s*, nugspline_s*, float, int)`  **stub** · **hint** name (order) · **saga** `legoapi/render/fx/edsplines.cpp`
-- [ ] `005af8c0` 380 B `LineIntersectXY(nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
-- [ ] `005bd2d0` 423 B `LoadGizmoSys(GIZMOSYS_s*, void*, char*)`  **stub** · **saga** `legoapi/gizmo/base/gizmo_sys.cpp`
-- [ ] `005a5dc0` 482 B `DrawFadeScreenWipe()`  **saga** `legoapi/render/core/render.cpp`
-- [ ] `00632800` 499 B `DrawRailSparks(RAILSYS_s*, int, GameObject_s*)`
-- [ ] `005cfa30` 501 B `StartBigJump(GameObject_s*, nuvec_s*, int, float, float, int, int)`  **hint** name (gapfill) · **saga** `legoapi/actions/movement/jumping.cpp`
-- [ ] `005c2ed0` 510 B `AvailableToPlayer(unsigned int, unsigned int, unsigned int, int, int (*)(GAMECHARACTERDATA_s*), int)`  **saga** `legoapi/characters/core/players.cpp`
-- [ ] `00639900` 516 B `WeaponOutCode(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
-- [ ] `00620160` 521 B `DrawHoseEx(GAMECHARACTERDATA_s*, numtx_s*, numtl_s*, float)`  **hint** name (gapfill)
-- [ ] `0067b270` 575 B `PCSaveSlot(int, void*, int, unsigned int)`  **saga** `gameframework/saveload.cpp`
-- [ ] `005b0690` 619 B `GetNearestSplinePos(nuvec_s*, SPLINEPOS_s*, nugspline_s*, int, short, short)`  **hint** name (order) · **saga** `legoapi/render/fx/edsplines.cpp`
-- [ ] `005c3310` 670 B `LoseHitPoints(GameObject_s*, int)`  **hint** name (gapfill)
-- [ ] `005a5510` 681 B `DrawPauseScreenWipe()`  **saga** `legoapi/render/core/screen.cpp`
-- [ ] `005da440` 790 B `UpdateMidPos(GIZMOBLOWUP_s*)`  **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
-- [ ] `0059fb60` 796 B `PlayFootStepSfx(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/audio/sfx.cpp`
-- [ ] `006716d0` 829 B `DrawSpinScreen(int, float)`
-- [ ] `0059c5a0` 876 B `_ConfigureCharacterList`
-- [ ] `005b0170` 915 B `MoveSplinePosition(SPLINEPOS_s*, float)`  **hint** name (order) · **saga** `legoapi/characters/motion/move.cpp`
-- [ ] `0063e5d0` 991 B `LightGameObject(GameObject_s*, void*)`  **hint** name (gapfill) · **saga** `legoapi/render/light/lighting.cpp`
-- [ ] `005d3210` 1055 B `AddGameMsg(ADDGAMEMSG*)`  **saga** `legoapi/menus/core/gamemessages.cpp`
-- [ ] `005fc730` 1112 B `DrawGoToArea(MENU_s*, int)`
-- [ ] `0065e780` 1217 B `LoadEditorSplines(WORLDINFO_s*, char*, variptr_u*, variptr_u*)`  **saga** `gameapi/edtools/edtoolsall.cpp`
-- [ ] `005b0900` 1269 B `OutSideSplineArea(nuvec_s*, nugspline_s*, nuvec_s*, nuvec_s*, int)`  **hint** name (order) · **saga** `legoapi/render/fx/edsplines.cpp`
-- [ ] `005b1940` 1286 B `DrawObjectOnCharacter(WORLDINFO_s*, GameObject_s*, int, nuhspecial_s*, int, int, numtx_s*, int, unsigned int, numtx_s*, nuvec_s*, float, float, int, numtx_s*)`  **hint** name (gapfill) · **saga** `legoapi/render/core/render.cpp`
-- [ ] `00633910` 1303 B `AddPickups(int, int, int, int, nuvec_s*, nuvec_s*, float, int, float, float, GameObject_s*, int, int)`  **hint** name (gapfill) · **saga** `legoapi/gizmo/object/gizmopickups.cpp`
-- [ ] `005d9e20` 1500 B `GizmoBlowupBlowup(GIZMOBLOWUP_s*, int, int, int, GameObject_s*, int)`  **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
-- [ ] `005df0d0` 2096 B `GizmoBlowupBurstDraw(void*, void*, float)`  **stub** · **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
-
 ## Action
 
 - [ ] `006b47e0` 189 B `_Action_ClearInterrupt`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
@@ -346,6 +297,55 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0042ad10` 6298 B `DrawGameObjectsDraw(int)`  **saga** `legoapi/render/core/render.cpp`
 - [ ] `004375e0` 6466 B `InitGameAfterConfig()`  **saga** `legogame/game.cpp`
 - [ ] `00441740` 7415 B `UpdateGameObjects(WORLDINFO_s*)`  **saga** `legoapi/items/objects/gameobjects.cpp`
+
+## near rtleditor.cpp
+
+- [ ] `0059d410` 21 B `_EdFileReadUnsignedChar`  **saga** `gameapi/edtools/edfile.cpp`
+- [ ] `0063fb40` 33 B `EnableShadowMapRendering(int)`  **saga** `legoapi/render/light/shadow.cpp`
+- [ ] `0059d3c0` 44 B `_EdFileReadUnsignedShort`  **saga** `gameapi/edtools/edfile.cpp`
+- [ ] `005d3f60` 105 B `FindGameMsgs(int, int, int, int, GAMEMESSAGE_s*, GAMEMESSAGE_s**)`  **stub** · **hint** name (gapfill)
+- [ ] `0059c4b0` 127 B `_ActionFromName`  **stub** · **hint** name (gapfill)
+- [ ] `005b00d0` 153 B `LineIntersectCircle(nuvec_s*, nuvec_s*, nuvec_s*, float)`  **stub** · **hint** name (order) · **saga** `legoapi/misc/utilities.cpp`
+- [ ] `005b0f90` 169 B `EvalAnim(nuhspecial_s*, float, numtx_s*, int)`  **saga** `legoapi/characters/motion/gameanim.cpp`
+- [ ] `0059f8d0` 185 B `PlayJumpSfx(GameObject_s*, int)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/audio/sfx.cpp`
+- [ ] `00656130` 203 B `AddRipple(ripple_set_s*, numtx_s*, float, float, float, float, RGBA, RGBA, int, numtl_s*, nuvec_s*)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/items/fx/ripples.cpp`
+- [ ] `005a3020` 212 B `ConstantRumble(GameObject_s*, float, float)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/misc/legoapi_misc.cpp`
+- [ ] `00639580` 229 B `ObjOpponentStillThere(GameObject_s*, GameObject_s*, float)`  **stub** · **hint** name (order) · **saga** `legoapi/actions/character/speederchase.cpp`
+- [ ] `00620b30` 249 B `RedirectTextFile(char*, char*, int, int*)`  **stub** · **saga** `legoapi/characters/core/charconfig.cpp`
+- [ ] `005aed70` 257 B `MatrixReflection(numtx_s*, int, float, float, numtx_s*)`  **saga** `legoapi/misc/utilities.cpp`
+- [ ] `0063e030` 257 B `SetLevelLights(void*, float)`  **saga** `legoapi/render/light/lighting.cpp`
+- [ ] `005fb300` 291 B `AddToModelList(APICHARACTERMODELLIST_s*, int*, int, int, int, EXTRAMODEL*, unsigned char)`  **hint** name (order) · **saga** `legoapi/world/areas.cpp`
+- [ ] `005b0e00` 317 B `VecRotateAxis(nuvec_s*, unsigned short, nuvec_s*)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
+- [ ] `0064ce30` 321 B `NewStatusRumbleBuzz(int, float, float, int)`  **stub** · **hint** name (gapfill) · **saga** `legoapi/menus/screens/gamestatus_lsw.cpp`
+- [ ] `006633c0` 324 B `CheckGizAIMessage(GIZAIMESSAGESYS_s*, char const*, GIZAIMESSAGE_s*)`  **stub** · **saga** `legoapi/gizmo/base/gizmessage.cpp`
+- [ ] `006397b0` 329 B `SlowWeaponOut(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
+- [ ] `0059a110` 338 B `_AnimDuration`  **hint** name (gapfill)
+- [ ] `005b0510` 374 B `InitSplinePosition(SPLINEPOS_s*, nugspline_s*, float, int)`  **stub** · **hint** name (order) · **saga** `legoapi/render/fx/edsplines.cpp`
+- [ ] `005af8c0` 380 B `LineIntersectXY(nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*, nuvec_s*)`  **hint** name (gapfill) · **saga** `legoapi/misc/utilities.cpp`
+- [ ] `005bd2d0` 423 B `LoadGizmoSys(GIZMOSYS_s*, void*, char*)`  **stub** · **saga** `legoapi/gizmo/base/gizmo_sys.cpp`
+- [ ] `005a5dc0` 482 B `DrawFadeScreenWipe()`  **saga** `legoapi/render/core/render.cpp`
+- [ ] `00632800` 499 B `DrawRailSparks(RAILSYS_s*, int, GameObject_s*)`
+- [ ] `005cfa30` 501 B `StartBigJump(GameObject_s*, nuvec_s*, int, float, float, int, int)`  **hint** name (gapfill) · **saga** `legoapi/actions/movement/jumping.cpp`
+- [ ] `005c2ed0` 510 B `AvailableToPlayer(unsigned int, unsigned int, unsigned int, int, int (*)(GAMECHARACTERDATA_s*), int)`  **saga** `legoapi/characters/core/players.cpp`
+- [ ] `00639900` 516 B `WeaponOutCode(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/characters/core/playeritems.cpp`
+- [ ] `00620160` 521 B `DrawHoseEx(GAMECHARACTERDATA_s*, numtx_s*, numtl_s*, float)`  **hint** name (gapfill)
+- [ ] `0067b270` 575 B `PCSaveSlot(int, void*, int, unsigned int)`  **saga** `gameframework/saveload.cpp`
+- [ ] `005b0690` 619 B `GetNearestSplinePos(nuvec_s*, SPLINEPOS_s*, nugspline_s*, int, short, short)`  **hint** name (order) · **saga** `legoapi/render/fx/edsplines.cpp`
+- [ ] `005c3310` 670 B `LoseHitPoints(GameObject_s*, int)`  **hint** name (gapfill)
+- [ ] `005a5510` 681 B `DrawPauseScreenWipe()`  **saga** `legoapi/render/core/screen.cpp`
+- [ ] `0059fb60` 796 B `PlayFootStepSfx(GameObject_s*)`  **hint** name (order) · **saga** `legoapi/audio/sfx.cpp`
+- [ ] `006716d0` 829 B `DrawSpinScreen(int, float)`
+- [ ] `0059c5a0` 876 B `_ConfigureCharacterList`
+- [ ] `005b0170` 915 B `MoveSplinePosition(SPLINEPOS_s*, float)`  **hint** name (order) · **saga** `legoapi/characters/motion/move.cpp`
+- [ ] `0063e5d0` 991 B `LightGameObject(GameObject_s*, void*)`  **hint** name (gapfill) · **saga** `legoapi/render/light/lighting.cpp`
+- [ ] `005d3210` 1055 B `AddGameMsg(ADDGAMEMSG*)`  **saga** `legoapi/menus/core/gamemessages.cpp`
+- [ ] `005fc730` 1112 B `DrawGoToArea(MENU_s*, int)`
+- [ ] `0065e780` 1217 B `LoadEditorSplines(WORLDINFO_s*, char*, variptr_u*, variptr_u*)`  **saga** `gameapi/edtools/edtoolsall.cpp`
+- [ ] `005b0900` 1269 B `OutSideSplineArea(nuvec_s*, nugspline_s*, nuvec_s*, nuvec_s*, int)`  **hint** name (order) · **saga** `legoapi/render/fx/edsplines.cpp`
+- [ ] `005b1940` 1286 B `DrawObjectOnCharacter(WORLDINFO_s*, GameObject_s*, int, nuhspecial_s*, int, int, numtx_s*, int, unsigned int, numtx_s*, nuvec_s*, float, float, int, numtx_s*)`  **hint** name (gapfill) · **saga** `legoapi/render/core/render.cpp`
+- [ ] `00633910` 1303 B `AddPickups(int, int, int, int, nuvec_s*, nuvec_s*, float, int, float, float, GameObject_s*, int, int)`  **hint** name (gapfill) · **saga** `legoapi/gizmo/object/gizmopickups.cpp`
+- [ ] `005d9e20` 1500 B `GizmoBlowupBlowup(GIZMOBLOWUP_s*, int, int, int, GameObject_s*, int)`  **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
+- [ ] `005df0d0` 2096 B `GizmoBlowupBurstDraw(void*, void*, float)`  **stub** · **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
 
 ## near terrain.c
 
@@ -653,6 +653,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## LevelSplines
 
 - [ ] `0060e6d0` 509 B `LevelSplines_InitForLevel(WORLDINFO_s*)`  **saga** `legoapi/render/fx/edsplines.cpp`
+
+## Levers
+
+- [ ] `005ba620` 1420 B `Levers_Draw(void*, void*, float)`  **stub** · **saga** `legoapi/gizmos/object/lever.cpp`
 
 ## MiniKit
 

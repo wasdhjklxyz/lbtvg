@@ -3272,3 +3272,4 @@
 00649880 TightRopes_Load TightRopes_RegisterGizmo load slot (fns[24]); Mac TightRopes_Load reads with EdFileReadUnsignedShort/UnsignedChar where PC calls 0x59d3c0/0x59d410
 0059d3c0 EdFileReadUnsignedShort Mac TightRopes_Load calls _EdFileReadUnsignedShort four times at the same point
 0059d410 EdFileReadUnsignedChar Mac TightRopes_Load calls _EdFileReadUnsignedChar twice at the same point
+005ba620 Levers_Draw Levers_RegisterGizmo fns[4] (draw slot)

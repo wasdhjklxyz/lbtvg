@@ -683,6 +683,71 @@ void EvalAnim(nuhspecial_s *special, f32 frame, numtx_s *m, i32 flag);
 void NuMtxMulVU0(numtx_s *m, numtx_s *m0, numtx_s *m1);
 void NuMtxTranslate(numtx_s *m, nuvec_s *v);
 
+extern "C" void NuSpecialGetBounds(nuhspecial_s *special, nuvec_s *min,
+                                   nuvec_s *max);
+void NuVecMtxTransform(nuvec_s *out, nuvec_s *v, numtx_s *m);
+f32 NuFsqrt(f32 f);
+
+// FUNCTION: LEGOBATMAN 0x005da440
+void UpdateMidPos(GIZMOBLOWUP_s *blowup) {
+  nuvec_s min = v000;
+  nuvec_s max = v000;
+  if (blowup->draw_flags & 0x1000)
+    blowup->f58 = blowup->position;
+  if (blowup->antinode == NULL || !(blowup->draw_flags & 0x1000)) {
+    NuSpecialGetBounds(&blowup->type->animated_special, &min, &max);
+    nuvec_s corners[8] = {
+        {min.x, min.y, min.z}, {max.x, min.y, min.z}, {max.x, min.y, max.z},
+        {min.x, min.y, max.z}, {min.x, max.y, min.z}, {max.x, max.y, min.z},
+        {max.x, max.y, max.z}, {min.x, max.y, max.z},
+    };
+    NuVecMtxTransform(&min, &min, (numtx_s *)blowup);
+    NuVecMtxTransform(&max, &max, (numtx_s *)blowup);
+    nuvec_s lo;
+    nuvec_s hi;
+    lo.x = 1000000000.0f;
+    lo.y = 1000000000.0f;
+    lo.z = 1000000000.0f;
+    hi.x = -1000000000.0f;
+    hi.y = -1000000000.0f;
+    hi.z = -1000000000.0f;
+    for (i32 i = 0; i < 8; i++) {
+      NuVecMtxTransform(&corners[i], &corners[i], (numtx_s *)blowup);
+      f32 x = corners[i].x;
+      f32 y = corners[i].y;
+      f32 z = corners[i].z;
+      if (x < lo.x)
+        lo.x = x;
+      if (x > hi.x)
+        hi.x = x;
+      if (y < lo.y)
+        lo.y = y;
+      if (y > hi.y)
+        hi.y = y;
+      if (z < lo.z)
+        lo.z = z;
+      if (z > hi.z)
+        hi.z = z;
+    }
+    blowup->bounds_min = lo;
+    blowup->bounds_max = hi;
+    if (!(blowup->draw_flags & 0x1000)) {
+      blowup->f58.x = (max.x - min.x) * 0.5f + min.x;
+      blowup->f58.y = (max.y - min.y) * 0.5f + min.y;
+      blowup->f58.z = (max.z - min.z) * 0.5f + min.z;
+    }
+  }
+  nuvec_s d;
+  d.x = max.x - blowup->f58.x;
+  d.y = max.y - blowup->f58.y;
+  d.z = max.z - blowup->f58.z;
+  if (!(blowup->draw_flags & 0x1000)) {
+    f32 m = d.x * d.x + d.y * d.y + d.z * d.z;
+    blowup->fb4 = NuFsqrt(m);
+  }
+  blowup->b16 = 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x005da760
 void EvaluateBlowupAnimToMtx(GIZMOBLOWUP_s *blowup, GIZMOBLOWUPTYPE_s *type,
                              f32 base_frame, numtx_s *m, NUINSTANIM_UNK *anim,

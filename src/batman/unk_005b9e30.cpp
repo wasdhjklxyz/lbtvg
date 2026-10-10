@@ -302,7 +302,200 @@ LEVER *Lever_FindNearest(WORLDINFO_s *world, nuvec_s *pos, GameObject_s *obj,
   return nearest;
 }
 
-void Levers_Draw(void *world, void *unused, f32 dt);
+typedef struct LEVOBJ_s {
+  nuhspecial_s special; // 0x00
+  u8 padc[2];
+  u8 active; // 0x0e
+  u8 padf;
+} LEVOBJ;
+
+// GLOBAL: LEGOBATMAN 0x009631f4
+extern i32 g_unk009631f4; // lever animated special ids
+// GLOBAL: LEGOBATMAN 0x009631f8
+extern i32 g_unk009631f8;
+// GLOBAL: LEGOBATMAN 0x009631fc
+extern i32 g_unk009631fc; // base
+// GLOBAL: LEGOBATMAN 0x00963224
+extern i32 g_unk00963224; // ready
+// GLOBAL: LEGOBATMAN 0x00963228
+extern i32 g_unk00963228; // complete
+// GLOBAL: LEGOBATMAN 0x0096322c
+extern i32 g_unk0096322c; // incomplete
+// GLOBAL: LEGOBATMAN 0x0096661c
+extern i32 g_unk0096661c; // debris type
+// GLOBAL: LEGOBATMAN 0x00a96020
+extern f32 g_unk00a96020;
+// GLOBAL: LEGOBATMAN 0x00a96028
+extern f32 g_unk00a96028;
+// GLOBAL: LEGOBATMAN 0x00a95fe0
+extern f32 FRAMETIME;
+// GLOBAL: LEGOBATMAN 0x009cabf4
+extern i32 g_unk009cabf4;
+
+f32 NuFmod(f32 a, f32 b);
+void EnableShadowMapRendering(i32 enable);
+void ResetShadowMapRendering(void);
+nuinstanim_s *NuSpecialGetInstAnim(nuhspecial_s *sp);
+f32 Unk_AnimEndFrame0070b990(void *anim);
+void EvalAnim(nuhspecial_s *sp, f32 frame, numtx_s *m, i32 a);
+void NuMtxMulVU0(numtx_s *m, numtx_s *m0, numtx_s *m1);
+i32 NuSpecialDrawAt(nuhspecial_s *sp, numtx_s *mtx);
+void Unk_SpecialDrawAtAlpha006edd70(nuhspecial_s *sp, numtx_s *mtx, f32 alpha);
+void NuMtxSetRotationX(numtx_s *m, i32 a);
+void NuMtxSetRotationY(numtx_s *m, i32 a);
+void NuMtxRotateY(numtx_s *m, i32 a);
+void NuMtxTranslate(numtx_s *m, nuvec_s *v);
+i32 NuSpecialGetVisibilityFn(nuhspecial_s *sp);
+i32 qrand(void);
+i32 ParticlesPerSecond(f32 particles_per_second, f32 frame_time);
+i32 AddGameDebris(void *system, i32 type, nuvec_s *position);
+void Unk_005b2480(WORLDINFO_s *world, nuvec_s *pos, i32 rx, i32 rz, f32 scale,
+                  f32 alpha, i32 a, i32 b);
+
+// STUB: LEGOBATMAN 0x005ba620
+// code matches; frame layout differs (orig 0x14c: frames[] at 0x2c apart from
+// the f74 temp; ours 0x148 shares them)
+void Levers_Draw(void *world_ptr, void *unused, f32 dt) {
+  static i32 anim_ids[2] = {g_unk009631f4, g_unk009631f8};
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  nuhspecial_s *special[2];
+  nuinstanim_s *ia[2];
+  f32 frames[2];
+  numtx_s mtx_a;
+  numtx_s mtx_b;
+  numtx_s mtx_c;
+  numtx_s mtx_d;
+  i32 i;
+
+  if (!((LEVOBJ *)world->p2b04)[anim_ids[0]].active)
+    return;
+  LEVER *lever = world->levers;
+  if (lever == NULL)
+    return;
+
+  NuFmod(g_unk00a96020, 5.0f);
+  NuFmod(g_unk00a96028, 0.5f);
+  f32 ready_alpha =
+      NuSinApprox((i32)(NuFmod(g_unk00a96028, 0.5f) * 2.0f * 65536.0f)) *
+          0.15f +
+      0.85f;
+
+  EnableShadowMapRendering(0);
+
+  for (i = 0; i < 2; i++) {
+    frames[i] = 0.0f;
+    if (((LEVOBJ *)world->p2b04)[anim_ids[i]].active) {
+      special[i] = &((LEVOBJ *)world->p2b04)[anim_ids[i]].special;
+      ia[i] = NuSpecialGetInstAnim(special[i]);
+      if (special[i] != NULL && ia[i] != NULL)
+        frames[i] = Unk_AnimEndFrame0070b990(
+            special[i]->scene->instance_animation_data[ia[i]->anim_ix]);
+    } else {
+      special[i] = NULL;
+      ia[i] = NULL;
+    }
+  }
+
+  for (i = 0; i < world->lever_count; i++, lever++) {
+    if (g_unk009cabf4 == 0) {
+      if (NuSpecialExistsFn(&lever->special)) {
+        if (!NuSpecialGetVisibilityFn(&lever->special))
+          continue;
+      } else if (!(lever->state & 0x10)) {
+        continue;
+      }
+    }
+
+    if (special[0] != NULL) {
+      if (ia[0] != NULL) {
+        f32 frame;
+        if (lever->pull > 0.0f) {
+          if (lever->f7c > 0.0f)
+            frame = 17.0f;
+          else
+            frame = lever->pull;
+        } else {
+          frame = 0.0f;
+          if (lever->active && !(lever->state & 3)) {
+            if (lever->f74 > 0.0f) {
+              lever->f74 -= FRAMETIME;
+              if (lever->f74 < 0.0f) {
+                lever->f74 = 0.0f;
+              } else {
+                frame = (1.0f -
+                         NuFabs(NuSinApprox(
+                             0x4000 - (i32)(lever->f74 / 0.15f * -32768.0f)))) *
+                            1.5f +
+                        1.0f;
+              }
+            } else if (qrand() < 0x800) {
+              lever->f74 = 0.15f;
+            }
+          }
+        }
+        EvalAnim(special[0], frame, &mtx_a, 0);
+        NuMtxMulVU0(&mtx_a, &mtx_a, (numtx_s *)lever);
+        NuSpecialDrawAt(special[0], &mtx_a);
+        if (special[1] != NULL && ia[1] != NULL) {
+          nuvec_s v;
+          v.x = 0.0f;
+          v.y = 0.0f;
+          v.z = 0.1143f;
+          EvalAnim(special[1], frame, &mtx_b, 0);
+          NuMtxTranslate(&mtx_b, &v);
+          NuMtxMulVU0(&mtx_b, &mtx_b, (numtx_s *)lever);
+          NuSpecialDrawAt(special[1], &mtx_b);
+        }
+      } else {
+        NuMtxSetRotationX(&mtx_a, lever->s8e);
+        NuMtxRotateY(&mtx_a, lever->rot_y);
+        NuMtxTranslate(&mtx_a, &lever->pos68);
+        NuSpecialDrawAt(special[0], &mtx_a);
+      }
+    }
+
+    mtx_c = mtx_a;
+    NuMtxSetRotationY(&mtx_d, lever->rot_y);
+    NuMtxTranslate(&mtx_d, &lever->pos68);
+
+    if (((LEVOBJ *)world->p2b04)[(i16)lever->colour].active)
+      NuSpecialDrawAt(&((LEVOBJ *)world->p2b04)[(i16)lever->colour].special,
+                      &mtx_a);
+
+    if (((LEVOBJ *)world->p2b04)[g_unk009631fc].active && !lever->b8)
+      NuSpecialDrawAt(&((LEVOBJ *)world->p2b04)[g_unk009631fc].special,
+                      (numtx_s *)lever);
+
+    i32 status;
+    if (lever->active) {
+      status = g_unk00963228;
+      if (!(lever->pull >= 0.6f))
+        status = g_unk0096322c;
+      if (!(lever->state & 3) && lever->pull == 0.0f) {
+        if (((LEVOBJ *)world->p2b04)[g_unk00963224].active)
+          Unk_SpecialDrawAtAlpha006edd70(
+              &((LEVOBJ *)world->p2b04)[g_unk00963224].special, &mtx_c,
+              ready_alpha);
+      }
+    } else {
+      status = g_unk0096322c;
+      if (lever->pull == 0.0f && ParticlesPerSecond(0.5f, FRAMETIME) > 0)
+        AddGameDebris(g_unk00960894->p138, g_unk0096661c, &lever->pos68);
+    }
+
+    if (((LEVOBJ *)world->p2b04)[status].active && !lever->b8)
+      NuSpecialDrawAt(&((LEVOBJ *)world->p2b04)[status].special, &mtx_d);
+
+    if (lever->fac > 0.0f) {
+      nuvec_s pos;
+      Lever_GetAbsTargetPos(lever, &pos);
+      Unk_005b2480(world, &pos, lever->s90, lever->s92, lever->fac, 1.0f, -1,
+                   -1);
+    }
+  }
+
+  ResetShadowMapRendering();
+}
 
 // FUNCTION: LEGOBATMAN 0x005babb0
 i32 Levers_GetMaxGizmos(void *world_ptr) {
@@ -496,11 +689,6 @@ void Levers_Reset(void *world_ptr, void *unused, void *progress_ptr) {
     }
   }
 }
-
-// GLOBAL: LEGOBATMAN 0x00a95fe0
-extern f32 FRAMETIME;
-// GLOBAL: LEGOBATMAN 0x009cabf4
-extern i32 g_unk009cabf4;
 
 nuvec_s *NuSpecialGetDrawPos(nuhspecial_s *sp);
 void GameAudio_PlaySfx(i32 sfx, nuvec_s *position, i32 flags, i32 volume);
