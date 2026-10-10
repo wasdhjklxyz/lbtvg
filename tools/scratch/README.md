@@ -49,3 +49,8 @@ are not lost. Run inside `nix develop` from the repo root.
   order, which names PC thunk targets.
 - `thk.py ADDR...`: resolve incremental-link `jmp` thunks to their target and
   name.
+- `gizreg.py`: every gizmo `*_RegisterGizmo` (a copy of Default_ADDGIZMOTYPE
+  0x960118 plus callback stores) with each callback slot, its address and
+  annotation state. The callbacks are statics, referenced directly, so the
+  slot names them (GizTorp in `batman/unk_004916c0.cpp` is the worked
+  example).
