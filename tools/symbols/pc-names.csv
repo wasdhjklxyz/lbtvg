@@ -10,6 +10,11 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0041d020,000497e4,__Z10CC_variantP8nufpar_s,CC_variant(nufpar_s*),confirmed,0
 0041d090,0004984e,__Z17CC_security_guardP8nufpar_s,CC_security_guard(nufpar_s*),confirmed,0
 0041d110,000498c4,__Z18CC_security_accessP8nufpar_s,CC_security_access(nufpar_s*),confirmed,0
+0041d190,0004993a,__Z15InitDefaultGamev,InitDefaultGame(),confirmed,0
+0041d7a0,00049a04,__Z32Collection_CheckDrivingVehicleFni,Collection_CheckDrivingVehicleFn(int),confirmed,0
+0041d7d0,00049a2c,__Z33Collection_CheckFloatingVehicleFni,Collection_CheckFloatingVehicleFn(int),confirmed,0
+0041d800,00049a50,__Z31Collection_CheckFlyingVehicleFni,Collection_CheckFlyingVehicleFn(int),confirmed,0
+0041d830,00049a74,__Z25VehicleArea_GetCollectionP10AREADATA_s,VehicleArea_GetCollection(AREADATA_s*),confirmed,0
 00428a60,00057a20,__Z16ResetAICreaturesP7AISYS_s,ResetAICreatures(AISYS_s*),strings,0
 0042ad10,00053cd6,__Z19DrawGameObjectsDrawi,DrawGameObjectsDraw(int),strings,0
 0042ffd0,0005b598,__Z22ElectricShock_MoveCodeP12GameObject_sii,"ElectricShock_MoveCode(GameObject_s*, int, int)",strings,0
@@ -1491,6 +1496,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005a9390,002e4af0,__Z13Grapple_ResetP9GRAPPLE_sP7nuvec_s,"Grapple_Reset(GRAPPLE_s*, nuvec_s*)",gapfill,1
 005a9520,002e4c4e,__Z14Grapples_ResetPvS_S_,"Grapples_Reset(void*, void*, void*)",strings,0
 005aa1f0,002e58ac,__Z15InitGrappleMtlsP9variptr_uS0_,"InitGrappleMtls(variptr_u*, variptr_u*)",strings,0
+005ae180,00354d2c,__Z8getqseedv,getqseed(),confirmed,0
+005ae190,00354d3e,__Z10ResetSeedsv,ResetSeeds(),confirmed,0
 005ae1d0,00354daa,__Z11SeekLinearFfff,"SeekLinearF(float, float, float)",confirmed,0
 005ae240,00354de8,__Z8SeekValFfff,"SeekValF(float, float, float)",confirmed,0
 005ae5c0,00355164,__Z12FindAnglesZXP7nuvec_sPtS1_,"FindAnglesZX(nuvec_s*, unsigned short*, unsigned short*)",confirmed,0
@@ -2533,6 +2540,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006903d0,001a67bc,_NuVecMag,_NuVecMag,calls,1
 00690410,001a69e4,_NuVecDist,_NuVecDist,gapfill,1
 00691b30,001ac16c,_NuFsqrt,_NuFsqrt,gapfill,1
+00691b60,001ac1ce,_NuFrsqrt,_NuFrsqrt,confirmed,0
+00691b90,001ac1b4,_NuFmax,_NuFmax,confirmed,0
+00691bc0,001ac19a,_NuFmin,_NuFmin,confirmed,0
 00691db0,001ac30c,_NuVec4MtxTransformVU0,_NuVec4MtxTransformVU0,gapfill,5
 00693340,001c9bf6,__ZN19ShaderMtlDescFilterC2EPK17nushadermtldesc_sPK7numtl_sii,"ShaderMtlDescFilter::ShaderMtlDescFilter(nushadermtldesc_s const*, numtl_s const*, int, int)",confirmed,0
 006943f0,0019b8bc,__Z19Create_Bink_shadersPN9IndirectX16IDirect3DDevice9E,Create_Bink_shaders(IndirectX::IDirect3DDevice9*),strings,0

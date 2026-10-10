@@ -18,6 +18,24 @@ f32 NuFsqrt(f32 f) {
   return sqrtf(f);
 }
 
+// Mac order: NuFsqrt, NuFmin, NuFmax, NuFrsqrt; here NuFrsqrt comes first.
+// FUNCTION: LEGOBATMAN 0x00691b60
+f32 NuFrsqrt(f32 f) {
+  if (f <= 0.0f)
+    return 0.0f;
+  return 1.0f / sqrtf(f);
+}
+
+// FUNCTION: LEGOBATMAN 0x00691b90
+f32 NuFmax(f32 a, f32 b) { return a > b ? a : b; }
+
+// FUNCTION: LEGOBATMAN 0x00691bc0
+f32 NuFmin(f32 a, f32 b) { return a < b ? a : b; }
+
+// Plain sqrtf; no Mac counterpart (inlined there).
+// FUNCTION: LEGOBATMAN 0x00691bf0
+f32 SqrtfUnk00691bf0(f32 f) { return sqrtf(f); }
+
 // Keeps the header-static copies above alive until their real callers are
 // matched.
 void Unk_InlineUser_nufloat_unk(f32 *v, f32 a, i32 i) {

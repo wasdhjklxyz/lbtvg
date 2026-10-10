@@ -32,6 +32,32 @@ i32 qrand(void) {
   return qseed;
 }
 
+// FUNCTION: LEGOBATMAN 0x005ae180
+i32 getqseed(void) { return qseed; }
+
+typedef struct nurand_s NURAND;
+
+// GLOBAL: LEGOBATMAN 0x0095fd58
+extern i32 GAMERAND;
+
+extern "C" void srand(unsigned int seed);
+void NuRandSeed(unsigned int seed);
+void DebrisSetSeed(i32 seed);
+void NuRandSetSeed(NURAND *rand, int seed);
+void NuPartSetSeed(i32 seed);
+
+// from saga legoapi/misc/utilities.cpp (srand48 on PC is srand)
+// FUNCTION: LEGOBATMAN 0x005ae190
+void ResetSeeds(void) {
+  srand(0);
+  qseed = 0x3039;
+  GAMERAND = 0x1f3ad27f;
+  NuRandSeed(0);
+  DebrisSetSeed(0);
+  NuRandSetSeed(NULL, 0);
+  NuPartSetSeed(0);
+}
+
 // Keeps the header-static copies above alive until their real callers are
 // matched.
 void Unk_InlineUser_qrand_unk(f32 *v, f32 a, i32 i) {

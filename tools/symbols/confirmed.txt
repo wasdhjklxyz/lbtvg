@@ -2502,3 +2502,13 @@
 006183e0 HubEpisodeInfo_FindNearestMapToPlayers  Mac order after FindFromEpisodeIndex, (u32 players) signature
 005e7b70 NuSinApprox  bolts TU's copy of the static (called by Bolt_GetShootDirection_Default); matched
 00670f20 FadeSystem::Update  todo saga legoapi/render/light/fade.cpp; between FadeSystem::Init and the fade classes; matched
+00691b60 NuFrsqrt               f <= 0 ? 0 : 1/sqrtf(f), saga body; follows NuFsqrt as on the Mac
+00691b90 NuFmax                 returns the larger float, saga's NuFmax; NuFsqrt's file on the Mac
+00691bc0 NuFmin                 returns the smaller float, saga's NuFmin; NuFsqrt's file on the Mac
+005ae180 getqseed               returns qseed; follows qrand as on the Mac
+005ae190 ResetSeeds             srand(0), qseed=0x3039, GAMERAND=0x1f3ad27f, NuRandSeed...: saga utilities.cpp body; after getqseed as on the Mac
+0041d190 InitDefaultGame        Mac order (after CC_security_access, before the next TU's NuSinApprox); same three stores and return shape on the Mac
+0041d7a0 Collection_CheckDrivingVehicleFn  neither flag bit 13 nor 14 of CHARACTERDATA+0x14c; Mac order after InitDefaultGame, same test there
+0041d7d0 Collection_CheckFloatingVehicleFn bit 13 of CHARACTERDATA+0x14c, identical on the Mac
+0041d800 Collection_CheckFlyingVehicleFn   bit 14 of CHARACTERDATA+0x14c, next in Mac order
+0041d830 VehicleArea_GetCollection         AREADATA+0x7c flags 4 / 0x80001 / 0x100001 pick one of four globals, same on the Mac

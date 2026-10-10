@@ -62,6 +62,27 @@ void CC_security_access(NUFPAR *parser) {
   }
 }
 
+// GLOBAL: LEGOBATMAN 0x00936e38
+extern i32 g_unk00936e38;
+// GLOBAL: LEGOBATMAN 0x00936e34
+extern i32 g_unk00936e34;
+// GLOBAL: LEGOBATMAN 0x009c5a04
+extern i32 g_unk009c5a04;
+extern i32 g_unk009c5a00;
+
+// Name from the Mac order (after CC_security_access); same shape there.
+// FUNCTION: LEGOBATMAN 0x0041d190
+i32 InitDefaultGame(void) {
+  i32 ok = 0;
+  if (g_unk00936e38 == 0) {
+    g_unk009c5a04 = 0;
+    g_unk00936e34 = 1;
+    g_unk009c5a00 = 0;
+    ok = 1;
+  }
+  return ok;
+}
+
 // Keeps the header-static copies above alive until their real callers are
 // matched.
 void Unk_InlineUser_charconfig_batman_unk(f32 *v, f32 a, i32 i) {
