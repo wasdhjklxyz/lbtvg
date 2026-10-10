@@ -3510,6 +3510,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d2f80,,Unk006d2f80,Unk006d2f80,confirmed,0
 006d2fe0,,Unk006d2fe0,Unk006d2fe0,confirmed,0
 006d3060,,Unk006d3060,Unk006d3060,confirmed,0
+006d3080,00194348,_NuFileStatus,_NuFileStatus,confirmed,0
 006d30c0,,AquireFileBuffer,AquireFileBuffer,confirmed,0
 006d3160,00187626,_NuMemFileOpen,_NuMemFileOpen,confirmed,0
 006d31f0,00187712,_NuMemFileAddr,_NuMemFileAddr,confirmed,0

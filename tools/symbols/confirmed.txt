@@ -3547,3 +3547,4 @@
 006d9970 NuFileExtractFilename saga nufile_plain.cpp shape, PC also splits on '/'
 006d99e0 NuFileExtractExt saga nufile_plain.cpp body
 006d95e0 NuFileEOF saga nufile_plain.cpp body
+006d3080 NuFileStatus saga nufile.cpp body (always 0 on PC; recursion through dat files unreachable)

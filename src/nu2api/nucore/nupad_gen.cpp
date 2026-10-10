@@ -2596,7 +2596,22 @@ int NuFileSmallFileOpen(char *path);
 int NuDatFileOpen(NUDATHDR *hdr, char *filepath, int mode);
 extern "C" int NuPSFileOpen(char *path, int mode);
 void Unk006d24d0(...);
-int NuFileStatus(int file);
+// FUNCTION: LEGOBATMAN 0x006d3080
+int NuFileStatus(int file) {
+  int _unused = 0;
+
+  if (file >= 0x400)
+    return 0;
+  if (file >= 0x800) {
+    file -= 0x800;
+    NuFileUnk0ae3f80 *info = g_nuFileUnk0ae3f80 + file;
+    NUDATOPENFILEINFO *open_info =
+        &((NUDATOPENFILEINFO *)info->p0)[info->i20 + 3];
+    return NuFileStatus(open_info->dat_file);
+  }
+  file -= 1;
+  return _unused;
+}
 
 // FUNCTION: LEGOBATMAN 0x006dd7a0
 int NuFileOpenDF(char *filepath, int mode, NUDATHDR *header, int quiet) {
