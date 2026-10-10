@@ -1878,7 +1878,13 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00684be0,0019cf60,_NuVecAdd,_NuVecAdd,gapfill,1
 00684c10,0019cf98,_NuVecSub,_NuVecSub,calls,1
 00684c40,0019cfd0,_NuVecScale,_NuVecScale,calls,1
+00684c70,0019d002,_NuVecAddScale,_NuVecAddScale,confirmed,0
+00684cb0,0019d046,_NuVecScaleAccum,_NuVecScaleAccum,confirmed,0
+00684ce0,0019d086,_NuVecInvScale,_NuVecInvScale,confirmed,0
 00684df0,0019d166,_NuVecDot,_NuVecDot,calls,1
+00684e20,0019d1d6,_NuVecMagXZ,_NuVecMagXZ,confirmed,0
+00684e50,0019c952,_NuVecMax,_NuVecMax,confirmed,0
+00684ed0,0019c91a,_NuVecMin,_NuVecMin,confirmed,0
 00684f50,0019d1a0,_NuVecMagSqr,_NuVecMagSqr,gapfill,1
 00684f80,001a6a5c,_NuVecNorm,_NuVecNorm,calls,1
 00685000,001a73ec,_NuVecSurfaceNormal,_NuVecSurfaceNormal,gapfill,2

@@ -45,9 +45,67 @@ void NuVecScale(nuvec_s *out, nuvec_s *v, float s) {
   out->z = s * v->z;
 }
 
+// FUNCTION: LEGOBATMAN 0x00684c70
+void NuVecAddScale(nuvec_s *v, nuvec_s *v0, nuvec_s *v1, f32 k) {
+  v->x = v0->x + v1->x * k;
+  v->y = v0->y + v1->y * k;
+  v->z = v0->z + v1->z * k;
+}
+
+// FUNCTION: LEGOBATMAN 0x00684cb0
+void NuVecScaleAccum(nuvec_s *v, nuvec_s *v0, f32 k) {
+  v->x += v0->x * k;
+  v->y += v0->y * k;
+  v->z += v0->z * k;
+}
+
+// FUNCTION: LEGOBATMAN 0x00684ce0
+void NuVecInvScale(nuvec_s *v, nuvec_s *v0, f32 k) {
+  f32 ki;
+
+  if (k == 0.0f) {
+    ki = 0.0f;
+  } else {
+    ki = 1.0f / k;
+  }
+
+  v->x = v0->x * ki;
+  v->y = v0->y * ki;
+  v->z = v0->z * ki;
+}
+
+// x87 operand order of two products differs; VC ignores source operand order.
+// STUB: LEGOBATMAN 0x00684d30
+void NuVecCross(nuvec_s *v, nuvec_s *v0, nuvec_s *v1) {
+  f32 y, z;
+  y = v0->z * v1->x - v1->z * v0->x;
+  z = v0->x * v1->y - v1->x * v0->y;
+  v->x = v0->y * v1->z - v1->y * v0->z;
+
+  v->y = y;
+  v->z = z;
+}
+
 // FUNCTION: LEGOBATMAN 0x00684df0
 float NuVecDot(nuvec_s *a, nuvec_s *b) {
   return a->x * b->x + a->y * b->y + a->z * b->z;
+}
+
+// FUNCTION: LEGOBATMAN 0x00684e20
+f32 NuVecMagXZ(nuvec_s *v0) { return NuFsqrt(v0->x * v0->x + v0->z * v0->z); }
+
+// FUNCTION: LEGOBATMAN 0x00684e50
+void NuVecMax(nuvec_s *v, nuvec_s *v0, nuvec_s *v1) {
+  v->x = (v0->x > v1->x) ? v0->x : v1->x;
+  v->y = (v0->y > v1->y) ? v0->y : v1->y;
+  v->z = (v0->z > v1->z) ? v0->z : v1->z;
+}
+
+// FUNCTION: LEGOBATMAN 0x00684ed0
+void NuVecMin(nuvec_s *v, nuvec_s *v0, nuvec_s *v1) {
+  v->x = (v0->x < v1->x) ? v0->x : v1->x;
+  v->y = (v0->y < v1->y) ? v0->y : v1->y;
+  v->z = (v0->z < v1->z) ? v0->z : v1->z;
 }
 
 // FUNCTION: LEGOBATMAN 0x00684f50

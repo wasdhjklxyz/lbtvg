@@ -1780,3 +1780,9 @@
 006d8770 NuStringTableSetBank   saga body (bank < 3), Mac order (was NuPadUnk006d8770); matched
 006d8780 NuStringTableUnload    saga body, Mac order; matched
 006d87b0 NuStringTableGetById   saga body (bank in the top byte), Mac order; matched
+00684c70 NuVecAddScale          saga nuvec.cpp body, Mac order after NuVecScale; matched
+00684cb0 NuVecScaleAccum        saga body, Mac order; matched
+00684ce0 NuVecInvScale          saga body, Mac order; matched
+00684e20 NuVecMagXZ             saga body (NuFsqrt of x*x + z*z), Mac order after NuVecDot/NuVecMagSqr; matched
+00684e50 NuVecMax               saga order (after Dot), per-component ternary; matched
+00684ed0 NuVecMin               saga order, per-component ternary; matched

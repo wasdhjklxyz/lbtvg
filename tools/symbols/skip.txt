@@ -162,3 +162,4 @@
 006e2530 NuMemCreateDiscardable: esi/edi swap between size and the saved discardbuff, 3 tries
 006e39f0 NuIsCriticalSectionLocked: setne cl + mov al, cl not reproduced (bool/u8/ternary tried)
 006d4440 NuAllocHigh: register swap (freep/previous) + flag reuse, saga and K&R loops tried
+00684d30 NuVecCross: fmul operand order of two products, saga and swapped forms tried
