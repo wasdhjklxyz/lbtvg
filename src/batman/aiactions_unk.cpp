@@ -1924,6 +1924,172 @@ struct AIAreaOwner_s {
   AIAREA_s *areas; // 0x244
 };
 
+i32 KillGameObject(GameObject_s *obj, i32 a, i32 b);
+void KillParts(GameObject_s *obj, i32 a, i32 b, i32 terrain, f32 c, i32 d,
+               u16 *e, f32 f);
+void ReleaseTakeOver(GameObject_s *obj, i32 a);
+i32 GizmoBlowupTypeGetIndexFromName(WORLDINFO_s *world, char *name);
+void GizmoBlowUpTypeBlowUp(WORLDINFO_s *world, i32 type, nuvec_s *pos);
+
+// STUB: LEGOBATMAN 0x00454d10
+// Only diff: the prologue. The original keeps obj (NULL) in ebx and uses it
+// as the zero for every local init (pushing esi later); ours shares the zero
+// with the argument loop index in esi. Declaration orders/loop shapes tried.
+i32 Action_Kill(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
+                char **args, int argc, int flags, f32 time) {
+  GameObject_s *obj = NULL;
+  GameObject_s *excluded = NULL;
+  GameObject_s *takeover = NULL;
+  i32 respawn = 0;
+  i32 respawn_at_origin = 0;
+  i32 all_ai = 0;
+  i32 explosion = 0;
+  i32 debris = 0;
+  i32 parts_on = 0;
+  i32 creature_set = 0;
+  i32 check_if_dead = 0;
+  i32 terrain_parts = 1;
+  AIAREA_s *area = NULL;
+  if (flags == 0)
+    return 1;
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL)
+    obj = packet->pd0->obj;
+  for (i32 i = 0; i < argc; i++) {
+    char *value = NuStrIStr(args[i], "character");
+    if (value != NULL) {
+      obj = GetNamedGameObjectInl(sys, value + 10);
+    } else if (NuStrIStr(args[i], "opponent") != NULL) {
+      if (packet->pe4 != NULL)
+        obj = packet->pe4->obj;
+    } else if (NuStrIStr(args[i], "player1") != NULL ||
+               NuStrIStr(args[i], "player") != NULL) {
+      if (sys != NULL) {
+        Unk_AIPacketObj *p = *(Unk_AIPacketObj **)((u8 *)sys + 0x1698);
+        if (p != NULL)
+          obj = p->obj;
+      }
+    } else if (NuStrIStr(args[i], "player2") != NULL) {
+      if (sys != NULL) {
+        Unk_AIPacketObj *p = *(Unk_AIPacketObj **)((u8 *)sys + 0x169c);
+        if (p != NULL)
+          obj = p->obj;
+      }
+    } else if (NuStrIStr(args[i], "lastTakeOverObject") != NULL) {
+      if (obj != NULL)
+        takeover = obj->last_takeover;
+    } else if (NuStrICmp(args[i], "respawn") == 0) {
+      respawn = 1;
+    } else if (NuStrICmp(args[i], "respawn_at_origin") == 0) {
+      respawn = 1;
+      respawn_at_origin = 1;
+    } else if ((value = NuStrIStr(args[i], "all_ai_except")) != NULL) {
+      excluded = GetNamedGameObject(sys, value + 14);
+      all_ai = 1;
+    } else if (NuStrICmp(args[i], "all_ai") == 0) {
+      all_ai = 1;
+    } else if (NuStrICmp(args[i], "check_if_dead") == 0) {
+      check_if_dead = 1;
+    } else if (NuStrICmp(args[i], "debris") == 0) {
+      debris = 1;
+    } else if (NuStrICmp(args[i], "parts_on") == 0) {
+      parts_on = 1;
+    } else if (NuStrICmp(args[i], "dont_terrain_parts") == 0) {
+      terrain_parts = 0;
+    } else if ((value = NuStrIStr(args[i], "explosion")) != NULL) {
+      explosion = GizmoBlowupTypeGetIndexFromName(g_unk00960894, value + 10);
+    } else if ((value = NuStrIStr(args[i], "set=")) != NULL) {
+      creature_set = (i32)AIParamToFloat(process, value + 4);
+      if (creature_set < 0 || creature_set > 16)
+        creature_set = 0;
+    } else if ((value = NuStrIStr(args[i], "area=")) != NULL) {
+      area = AISysFindArea(g_unk00960894->aiSys2bf8, value + 5);
+    }
+  }
+  if (all_ai) {
+    GameObject_s *candidate = Obj;
+    for (i32 i = 0; i < HIGHGAMEOBJECT; i++, candidate++) {
+      if ((candidate->flags1fc & 1) && (candidate->flags1fc & 0x1000) &&
+          (candidate->flags1f8 & 0x400) && candidate != excluded &&
+          (!check_if_dead ||
+           (candidate->b257 == 0 && candidate->f1544 <= 0.0f))) {
+        candidate->respawnable = respawn;
+        candidate->respawn_at_origin = respawn_at_origin;
+        if (parts_on)
+          KillParts(candidate, -1, -1, terrain_parts, 0.0f, 0, NULL, 0.0f);
+        if (debris)
+          KillGameObject(candidate, 2, 0);
+        else
+          KillGameObject(candidate, 4, 0);
+      }
+    }
+    return 1;
+  }
+  if (takeover != NULL) {
+    if (takeover->p1158 != NULL) {
+      takeover->p1158->last_takeover = NULL;
+      ReleaseTakeOver(takeover, 0);
+    }
+    if (parts_on)
+      KillParts(takeover, -1, -1, terrain_parts, 0.0f, 0, NULL, 0.0f);
+    if (explosion)
+      GizmoBlowUpTypeBlowUp(g_unk00960894, explosion, &takeover->v80);
+    KillGameObject(takeover, 5, 0);
+    return 1;
+  }
+  if (creature_set != 0) {
+    GameObject_s *candidate = Obj;
+    for (i32 i = 0; i < HIGHGAMEOBJECT; i++, candidate++) {
+      if ((candidate->flags1fc & 1) && (candidate->flags1fc & 0x1000) &&
+          ((AISCRIPTPROCESS_s *)candidate->process290)->creature_set ==
+              creature_set &&
+          (!check_if_dead ||
+           (candidate->b257 == 0 && candidate->f1544 <= 0.0f))) {
+        candidate->respawnable = respawn;
+        candidate->respawn_at_origin = respawn_at_origin;
+        if (parts_on)
+          KillParts(candidate, -1, -1, terrain_parts, 0.0f, 0, NULL, 0.0f);
+        if (debris)
+          KillGameObject(candidate, 2, 0);
+        else
+          KillGameObject(candidate, 4, 0);
+      }
+    }
+    return 1;
+  }
+  if (area != NULL) {
+    GameObject_s *candidate = Obj;
+    for (i32 i = 0; i < HIGHGAMEOBJECT; i++, candidate++) {
+      if (candidate != NULL && (candidate->flags1fc & 1) &&
+          (candidate->flags1fc & 0x1000) && area->owner == NULL &&
+          (candidate->area_mask & (1 << (area - area->owner->areas))) &&
+          (!check_if_dead ||
+           (candidate->b257 == 0 && candidate->f1544 <= 0.0f))) {
+        candidate->respawnable = respawn;
+        candidate->respawn_at_origin = respawn_at_origin;
+        if (parts_on)
+          KillParts(candidate, -1, -1, terrain_parts, 0.0f, 0, NULL, 0.0f);
+        if (!debris)
+          KillGameObject(candidate, 4, 0);
+        else
+          KillGameObject(candidate, 2, 0);
+      }
+    }
+    return 1;
+  }
+  if (obj != NULL &&
+      (!check_if_dead || (obj->b257 == 0 && obj->f1544 <= 0.0f))) {
+    obj->respawnable = respawn;
+    obj->respawn_at_origin = respawn_at_origin;
+    if (parts_on)
+      KillParts(obj, -1, -1, terrain_parts, 0.0f, 0, NULL, 0.0f);
+    if (!debris)
+      KillGameObject(obj, 4, 0);
+    else
+      KillGameObject(obj, 2, 0);
+  }
+  return 1;
+}
+
 // GLOBAL: LEGOBATMAN 0x00ab3988
 extern i32 g_unk00ab3988; // player count
 
@@ -5047,9 +5213,6 @@ i32 Action_IgnoreTriggerSet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 1;
 }
-
-i32 GizmoBlowupTypeGetIndexFromName(WORLDINFO_s *world, char *name);
-void GizmoBlowUpTypeBlowUp(WORLDINFO_s *world, i32 type, nuvec_s *pos);
 
 // FUNCTION: LEGOBATMAN 0x0045edf0
 i32 Action_AddExplosion(AISYS_s *sys, AISCRIPTPROCESS_s *process,

@@ -280,3 +280,4 @@
 0x004541f0 Action_SetSide: only the creature lookup in both inlined ActionApplySide copies (add ecx,[esi+0x224] vs load + [ecx+esi+0x50])
 0x00457750 Action_SnapToPosition: only x/y/z AIParamToFloat argument register order (process load vs lea [len+value+1])
 0x00456e00 Action_BigJump: only the radius fadd operand order (target->p4 vs obj->p4 loaded first)
+0x00454d10 Action_Kill: only the prologue zero register (orig obj=NULL in ebx feeds the inits; ours shares esi with the loop index)

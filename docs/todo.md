@@ -334,7 +334,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0046ad50` 1364 B `Action_UseLedge(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `00457ff0` 1413 B `Action_SnapToSockPosition(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `004541f0` 1469 B `Action_SetSide(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00454d10` 1961 B `Action_Kill(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00454d10` 1961 B `Action_Kill(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00465d60` 2215 B `Action_CameraCut(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizactions.cpp`
 - [ ] `00459330` 2559 B `Action_EngageOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 
