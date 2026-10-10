@@ -685,6 +685,40 @@ void NuFileUnk006d9400(int id) {
 extern "C" __int64 NuPSFileLSeek(int fh, __int64 offset, int whence);
 extern "C" int NuPSFileClose(int fh);
 
+struct NUFILEDEVICE {
+  unsigned char pad0[0x10];
+  char separator; // 0x10
+  unsigned char pad11[0xac - 0x11];
+  char app_dir[0x100]; // 0xac
+};
+// GLOBAL: LEGOBATMAN 0x0099f288
+extern NUFILEDEVICE *g_unk0099f288;
+
+// FUNCTION: LEGOBATMAN 0x006d9130
+void NuFileGetAppDirectory(char *dest) {
+  NuStrCpy(dest, g_unk0099f288->app_dir);
+}
+
+static inline int NuFileCopyStr(char *dst, char *src) {
+  char *start = dst;
+  while (*src)
+    *dst++ = *src++;
+  *dst = *src;
+  return dst - start;
+}
+
+// STUB: LEGOBATMAN 0x006d9160
+// The original peels the empty-path case and copies without a null check.
+void NuFileSetAppDirectory(char *path) {
+  char sep[2] = "\\";
+  int len = NuFileCopyStr(g_unk0099f288->app_dir, path);
+
+  if (len != 0 && path[len - 1] != '\\' && path[len - 1] != '/') {
+    sep[0] = g_unk0099f288->separator;
+    NuStrCat(g_unk0099f288->app_dir, sep);
+  }
+}
+
 // STUB: LEGOBATMAN 0x006d9540
 // The 0x2000 branch indexes through esi (orig: lea eax, keeps esi).
 __int64 NuFilePos(int file) {

@@ -256,3 +256,4 @@
 006dca60 NuFileInitEx: NuDatFileDecodeInit store order (-1 before NULLs)
 006dd990 NuFileExistQuiet: base/index order of the dat file_info load (1 line), as NuFileSize
 006db510 get_tok_rdpi: switch-char register, hex-loop shift in register, unrotated digit loop
+006d9160 NuFileSetAppDirectory: inlined copy peels the empty case differently

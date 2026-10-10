@@ -3421,3 +3421,5 @@
 006dfab0 NuFParOpen saga nufpar.cpp body (BOM sniffing, NuFileReadWChar inlined)
 006dfbc0 NuFParCreate saga nufpar.cpp body
 006dfc20 NuFParCreateGivenFH saga nufpar.cpp body
+006d9130 NuFileGetAppDirectory copies the default device app dir (Mac _NuFileGetAppDirectory)
+006d9160 NuFileSetAppDirectory copies into the default device app dir and appends its separator (Mac _NuFileSetAppDirectory)
