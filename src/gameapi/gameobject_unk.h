@@ -139,7 +139,9 @@ struct GameObject_s {
   u8 b24f; // 0x24f, 9 = in swamp (Condition_InSwamp)
   u8 pad250[0x251 - 0x250];
   i8 surface; // 0x251, TerSurface index (Hub_CanStartMenu)
-  u8 pad4[0x257 - 0x252];
+  u8 pad4[0x254 - 0x252];
+  u8 b254; // 0x254, Action_FollowDirection: drawn (fire only if set)
+  u8 pad255[0x257 - 0x255];
   char b257; // 0x257
   u8 pad5[0x259 - 0x258];
   u8 b259; // 0x259
@@ -323,7 +325,8 @@ struct GameObject_s {
   void *movement_spline; // 0x137c
   u8 pad1380[0x1383 - 0x1380];
   u8 movement_spline_finished; // 0x1383
-  u8 pad14d[0x13bc - 0x1384];
+  u8 pad14d[0x13b8 - 0x1384];
+  GameObject_s *fire_target13b8; // 0x13b8, Action_FollowDirection
   GameObject_s *takeover_target; // 0x13bc
   u8 pad13c0[0x13e0 - 0x13c0];
   f32 current_speed_mul; // 0x13e0

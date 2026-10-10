@@ -40,6 +40,10 @@ struct Unk_AIPacketObj {
   f32 minviewheight; // 0x23c
   u8 pad240[0x24c - 0x240];
   char b24c; // 0x24c, Action_SetLocator "indexed" suffix (0xff = none)
+  u8 pad24d[0x257 - 0x24d];
+  char b257; // 0x257
+  u8 pad258[0x259 - 0x258];
+  u8 b259; // 0x259, line-of-sight index
 };
 
 struct AIPACKET_s {
@@ -203,6 +207,7 @@ typedef struct AISCRIPTPROCESS_s {
   union {
     AIAREA_s *unknown_a0;
     f32 face_timer; // Action_FaceCharacter
+    f32 timer_a0;   // Batman's action_timer (its path info is 0x1c bytes)
   };
   union {
     AILOCATOR_s *unknown_a4;

@@ -15,7 +15,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 |---|---|---|
 | [near pcbatman.cpp](#near-pcbatmancpp) | 42 | 37 |
 | [near rtleditor.cpp](#near-rtleditorcpp) | 43 | 34 |
-| [Action](#action) | 42 | 30 |
+| [Action](#action) | 41 | 29 |
 | [near terrain.c](#near-terrainc) | 24 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 10 | 6 |
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 6 | 6 |
@@ -322,7 +322,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0046e4e0` 680 B `Action_ThrowDetonator(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `0045c1d0` 686 B `Action_CreateRailCreature(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `004741c0` 720 B `Action_ZipDown(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `0045a990` 765 B `Action_FollowDirection(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00473140` 773 B `Action_CoupleVehicles(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `00472a70` 800 B `Action_SetHeadlights(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `0045dc80` 819 B `Action_SetHitPoints(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`

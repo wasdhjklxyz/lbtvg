@@ -328,6 +328,88 @@ i32 Action_BigJumpToLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return obj->b9db != 0x1f;
 }
 
+struct Unk_WorldApiObjSys {
+  u8 pad0[8];
+  unsigned __int64 line_of_sight[64]; // 0x8, bit per object index
+  u8 pad208[0x210 - 0x208];
+  u32 flags210; // 0x210
+};
+// GLOBAL: LEGOBATMAN 0x0095f72c
+extern u32 g_unk0095f72c;
+// GLOBAL: LEGOBATMAN 0x0093b11c
+extern f32 direction_scale;
+
+f32 NuVecNorm(nuvec_s *out, nuvec_s *v);
+f32 NuRandFloat(void);
+void NuVecAdd(nuvec_s *out, nuvec_s *a, nuvec_s *b);
+void NuVecScale(nuvec_s *out, nuvec_s *v, f32 s);
+
+// FUNCTION: LEGOBATMAN 0x0045a990
+i32 Action_FollowDirection(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char **params, i32 param_count,
+                           i32 first_time, f32 dt) {
+  AILOCATOR_s *start = NULL;
+  AILOCATOR_s *end = NULL;
+  GameObject_s *obj;
+  f32 random;
+  nuvec_s dest;
+  nuvec_s diff;
+  if (packet == NULL || packet->pd0 == NULL || packet->pd0->obj == NULL)
+    return 1;
+  obj = packet->pd0->obj;
+  if (first_time) {
+    process->action_pos.x = 0.0f;
+    process->action_pos.y = 0.0f;
+    process->action_pos.z = 1.0f;
+    random = NuRandFloat();
+    for (i32 i = 0; i < param_count; i++) {
+      char *value;
+      if ((value = NuStrIStr(params[i], "start=")) != NULL)
+        start = AIPathFindLocator(sys, value + 6);
+      else if ((value = NuStrIStr(params[i], "end=")) != NULL)
+        end = AIPathFindLocator(sys, value + 4);
+      else if ((value = NuStrIStr(params[i], "firerange")) != NULL)
+        process->follow_direction_fire_range =
+            AIParamToFloat(process, value + 10);
+      else if ((value = NuStrIStr(params[i], "fireinterval")) != NULL)
+        process->follow_direction_fire_interval =
+            AIParamToFloat(process, value + 13);
+    }
+    if (start != NULL && end != NULL) {
+      NuVecSub(&process->action_pos, (nuvec_s *)((u8 *)end + 0x10),
+               (nuvec_s *)((u8 *)start + 0x10));
+      NuVecNorm(&process->action_pos, &process->action_pos);
+    }
+    process->timer_a0 = process->follow_direction_fire_interval * random;
+    NuVecScale(&process->action_pos, &process->action_pos, direction_scale);
+  }
+  NuVecAdd(&dest, &obj->position, &process->action_pos);
+  AIMoveInstruction(packet, &dest, 0.0f, NULL, 1, 0.0f);
+  if (process->follow_direction_fire_range > 0.0f) {
+    Unk_AIPacketObj *opp = packet->pe4;
+    if (opp != NULL && opp->ai != NULL && opp->obj != NULL) {
+      f32 dist = NuVecDistSqr(&packet->pd0->pos5c, &opp->pos5c, &diff);
+      if ((g_unk00960894->api_object_sys->line_of_sight[obj->b259] &
+           ((unsigned __int64)1 << packet->pe4->b259)) != 0 &&
+          obj->b254 != 0 &&
+          dist < process->follow_direction_fire_range *
+                     process->follow_direction_fire_range) {
+        if (packet->pe4->b257 == 0 || packet->pe4->obj->f1544 > 0.0f) {
+          process->timer_a0 -= dt;
+          if (packet->pe4->b257 == 0 && process->timer_a0 <= 0.0f) {
+            process->timer_a0 =
+                process->follow_direction_fire_interval * 0.5 +
+                NuRandFloat() * process->follow_direction_fire_interval;
+            obj->p112c->buttons8 |= g_unk0095f72c;
+            obj->fire_target13b8 = packet->pe4->obj;
+          }
+        }
+      }
+    }
+  }
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x0045af10
 i32 Action_SetIgnorePlayerItemsTargetting(AISYS_s *sys,
                                           AISCRIPTPROCESS_s *process,
@@ -2382,8 +2464,6 @@ i32 Action_AnimTimeRandom(AISYS_s *sys, AISCRIPTPROCESS_s *process,
 // Pad button bits ORed into the AI pad (+0x112c, +8).
 // GLOBAL: LEGOBATMAN 0x0095f734
 extern u32 g_unk0095f734;
-// GLOBAL: LEGOBATMAN 0x0095f72c
-extern u32 g_unk0095f72c;
 // GLOBAL: LEGOBATMAN 0x0095f728
 extern u32 g_unk0095f728;
 
@@ -2669,11 +2749,6 @@ i32 Action_DeflectPlayersPart(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 1;
 }
-
-struct Unk_WorldApiObjSys {
-  u8 pad0[0x210];
-  u32 flags210; // 0x210
-};
 
 // FUNCTION: LEGOBATMAN 0x00467eb0
 i32 Action_DontRaycastLOS(AISYS_s *sys, AISCRIPTPROCESS_s *process,
