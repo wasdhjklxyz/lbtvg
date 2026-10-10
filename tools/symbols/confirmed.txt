@@ -3668,3 +3668,6 @@
 006e2b10 bgPostRequestV saga bgproc_android.cpp body (varargs BGVAR list, END=7) matches byte for byte
 006e3080 DEV_FormatName Mac order NuFileExists, DEV_FormatName, DEVCDDVDROM_Interrogate; saga nufile.c body (plus a ':' NuStrStr check) matches
 0044c930 GetNamedGameObject Mac 't' GetNamedGameObject directly before PartyMemberInWay (PC 0x44c960); body = GetNamedAPIObjectFn(sys,name)->obj
+006e3430 NuSysDirOpen  nufile_pc.cpp __FILE__ anchor; Mac _NuSysDirOpen body (16 slots, "\\" + "*.*", FindFirstFile, names[i-1]=0 bug) matches
+006e3610 NuSysDirClose  Mac order Open, Close, Read; frees the name, FindClose, count-- (same names[i-1]=0 bug)
+006e3660 NuSysDirRead  Mac order; fills an entry from the WIN32_FIND_DATA slot then FindNextFile, returns strlen(name)
