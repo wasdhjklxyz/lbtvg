@@ -3603,3 +3603,5 @@
 006da6b0 NuFilePakCondense Mac order after NuFilePakCondenseTo; LB condenses in place via CondenseTo
 006daca0 NuMemBlkCreateVari saga numem.cpp body
 006daba0 NuFParGetOptionalFloat2 Mac body (digit check, NuAToF, else unget)
+006dfd20 NuPPGetSize saga nufile.cpp body
+006dfde0 NuPPLoadBuffer saga nufile.cpp body (stub)

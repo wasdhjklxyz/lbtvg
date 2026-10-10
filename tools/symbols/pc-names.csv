@@ -3867,6 +3867,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006dfbc0,00196488,_NuFParCreate,_NuFParCreate,confirmed,0
 006dfc20,00194048,_NuFParCreateGivenFH,_NuFParCreateGivenFH,confirmed,0
 006dfc60,00193f7a,_NuFParCreateMem,_NuFParCreateMem,confirmed,0
+006dfd20,00193372,_NuPPGetSize,_NuPPGetSize,confirmed,0
+006dfde0,00193218,_NuPPLoadBuffer,_NuPPLoadBuffer,confirmed,0
 006e0530,00196e5e,_NuPadRecordLoad,_NuPadRecordLoad,strings,0
 006e0830,00194ee2,_NuFileLoad,_NuFileLoad,confirmed,0
 006e08b0,00194fa2,_NuFileLoadBuffer,_NuFileLoadBuffer,confirmed,0

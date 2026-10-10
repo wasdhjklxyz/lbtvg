@@ -264,3 +264,4 @@
 006d2810 NuHeapAllocAlignedNamed: follows SplitFreeBlock convention
 0x006deec0 NuDatOpenEx: block layout (failure tail inside retry loop) + ebp zero hoist; same size
 0x006dc5a0 NuSPrintfW: our cl inlines NuAsciiToUnicode, original calls it; buffer order swapped
+0x006dfde0 NuPPLoadBuffer: inlined bounds-checked seek retry loops, layout differs (see NuDatOpenEx)

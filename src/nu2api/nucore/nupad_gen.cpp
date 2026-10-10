@@ -6019,7 +6019,79 @@ int nufile_lasterror;
 // GLOBAL: LEGOBATMAN 0x00b03890
 extern int nufile_try_packed;
 int NuDatFileLoadBuffer(NUDATHDR *dat, char *name, void *dest, int buf_size);
-int NuPPLoadBuffer(int file, void *buf, int buf_size);
+struct NUPPHEADER {
+  unsigned int magic;
+  unsigned int unpacked_size;
+  unsigned int packed_size;
+};
+
+#define NUPP_SWAP32(value)                                                     \
+  (((value) >> 24) | (((value) & 0x00ff0000) >> 8) |                           \
+   (((value) & 0x0000ff00) << 8) | ((value) << 24))
+
+// FUNCTION: LEGOBATMAN 0x006dfd20
+extern "C" int NuPPGetSize(int file) {
+  int size;
+  int original_position;
+  NUPPHEADER header;
+  original_position = (int)NuFileSeek(file, 0, 1);
+  NuFileSeek(file, 0, 0);
+  NuFileRead(file, &header, sizeof(header));
+  if (header.magic == 0x02434e52) {
+    header.unpacked_size = NUPP_SWAP32(header.unpacked_size);
+    header.packed_size = NUPP_SWAP32(header.packed_size) + 6;
+    size = header.unpacked_size;
+  } else {
+    size = (int)NuFileOpenSize(file);
+  }
+  NuFileSeek(file, original_position, 0);
+  return size;
+}
+
+extern "C" void NuPPUnpack(void *source, void *destination);
+
+// STUB: LEGOBATMAN 0x006dfde0
+// saga body with the bounds-checked seek; the original lays the small-file
+// seek path out of line and its retry loops differ (ours 1182 B).
+int NuPPLoadBuffer(int file, void *buf, int buf_size) {
+  int size;
+  int loaded;
+  unsigned char *source;
+  NUPPHEADER header;
+  do {
+    while (NuFileSeekStart(file, 0) < 0)
+      Unk006d24d0();
+    loaded = NuFileRead(file, &header, sizeof(header));
+    if (loaded < 0)
+      Unk006d24d0();
+  } while (loaded < 0);
+  if (header.magic == 0x02434e52) {
+    header.unpacked_size = NUPP_SWAP32(header.unpacked_size);
+    header.packed_size = NUPP_SWAP32(header.packed_size) + 18;
+    source = (unsigned char *)buf;
+    source += header.unpacked_size + 256;
+    source -= header.packed_size;
+    do {
+      while (NuFileSeekStart(file, 4) < 0)
+        Unk006d24d0();
+      loaded = NuFileRead(file, source, header.packed_size - 4);
+      if (loaded < 0)
+        Unk006d24d0();
+    } while (loaded < 0);
+    NuPPUnpack(source - 4, buf);
+    size = header.unpacked_size;
+  } else {
+    size = (int)NuFileOpenSize(file);
+    do {
+      while (NuFileSeekStart(file, 0) < 0)
+        Unk006d24d0();
+      loaded = NuFileRead(file, buf, size);
+      if (loaded < 0)
+        Unk006d24d0();
+    } while (loaded < 0);
+  }
+  return size;
+}
 
 // FUNCTION: LEGOBATMAN 0x006e0830
 void *NuFileLoad(char *filepath) {
