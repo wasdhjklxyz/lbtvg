@@ -217,8 +217,21 @@ extern i32 g_unk00960048; // gizmo type id of levers
 class InteractiveDisplayBase {
 public:
   void InitializePerm(char *name, variptr_u *buffer, variptr_u *buffer_end);
+  void InitializeLevel(WORLDINFO_s *world);
   void DumpLevel(WORLDINFO_s *world);
 };
+
+struct nuhspecial_s {
+  void *scene;
+  void *special;
+  void *display_special;
+};
+
+struct ANIMPACKET_s {
+  u8 pad[0x48];
+};
+
+void ResetAnimPacket(ANIMPACKET_s *packet, i32 animation);
 
 class DynamicMaterialManager {
 public:
@@ -239,6 +252,7 @@ public:
 
   enum SecurityCameraType {};
   void ActivateLevel(WORLDINFO_s *world);
+  void InitializeLevel(WORLDINFO_s *world);
   void DumpLevel(WORLDINFO_s *world);
   static i32 AllowPlayerDropOut();
   static i32 AreVillainLevelsAvailable();
@@ -246,19 +260,26 @@ public:
                       variptr_u *buffer_end);
 
   u8 pad0[0x10];
-  char level_name[0x40];              // 0x010
-  char transition_name[0x23c - 0x50]; // 0x050
-  char background_name[0x40];         // 0x23c
-  char frame_name[0x40];              // 0x27c
-  u8 pad2bc[0x3d0 - 0x2bc];
-  u8 *p3d0; // 0x3d0
-  u8 pad3d4[0x3ec - 0x3d4];
+  char level_name[0x40];      // 0x010
+  char transition_name[0x40]; // 0x050
+  nuhspecial_s screen;        // 0x090
+  u8 pad09c[0x23c - 0x9c];
+  char background_name[0x40]; // 0x23c
+  char frame_name[0x40];      // 0x27c
+  u8 pad2bc[0x340 - 0x2bc];
+  ANIMPACKET_s anim340; // 0x340
+  ANIMPACKET_s anim388; // 0x388
+  u8 *p3d0;             // 0x3d0
+  u8 pad3d4[0x3e4 - 0x3d4];
+  f32 f3e4;     // 0x3e4
+  f32 f3e8;     // 0x3e8
   i32 kind;     // 0x3ec, 1 = hologram
   void *mtl3f0; // 0x3f0
   void *mtl3f4; // 0x3f4
   u8 b3f8;      // 0x3f8
   u8 pad3f9[3];
   GIZMO_s *lever; // 0x3fc
+  i32 i400;       // 0x400
 };
 
 // FUNCTION: LEGOBATMAN 0x00513430
@@ -299,11 +320,47 @@ void SecurityCamera::ActivateLevel(WORLDINFO_s *world) {
 }
 
 struct SCMTL_s {
-  u8 pad0[0x74];
+  u8 pad0[0x40];
+  u32 flags; // 0x40
+  u8 pad44[0x74 - 0x44];
   u16 tid; // 0x74
 };
 
 void NuMtlUpdate(SCMTL_s *mtl);
+extern "C" SCMTL_s *NuSpecialGetMtl(nuhspecial_s *special, int index);
+
+class HiresTextureManager {
+public:
+  i32 GetTexture_Internal(char *name, WORLDINFO_s *world);
+
+  // GLOBAL: LEGOBATMAN 0x00ad2d78
+  static HiresTextureManager m_oSingleton;
+};
+
+// FUNCTION: LEGOBATMAN 0x00513580
+void SecurityCamera::InitializeLevel(WORLDINFO_s *world) {
+  InteractiveDisplayBase::InitializeLevel(world);
+  if (NuStrICmp((char *)world, level_name) == 0) {
+    SCMTL_s *mtl = NuSpecialGetMtl(&screen, 0);
+    if (mtl != NULL) {
+      mtl->flags |= 0xc000;
+      NuMtlUpdate(mtl);
+    }
+    if (mtl3f4 != NULL) {
+      ((SCMTL_s *)mtl3f4)->tid =
+          HiresTextureManager::m_oSingleton.GetTexture_Internal(
+              "Stuff\\interactivedisplay\\securitycamera\\icon_play", world);
+      NuMtlUpdate((SCMTL_s *)mtl3f4);
+    }
+    ResetAnimPacket(&anim340, 1);
+    ResetAnimPacket(&anim388, 1);
+    f3e4 = f3e8 = 1.0f;
+    b3f8 = 0;
+    lever = NULL;
+    m_noFocusCameraTime = 1000.0f;
+    i400 = 0;
+  }
+}
 
 class InteractiveDisplay;
 

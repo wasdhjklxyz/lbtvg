@@ -2087,3 +2087,4 @@
 005948a0 NuFmvStreamPCBink::CreateTextures called (true) from RestoreVideoResources as on the Mac
 005949b0 NuFmvStreamPCBink::RestoreVideoResources Mac order after CreateTextures; matched
 005949d0 PCFMVRestoreVideoResources Mac name/order; matched
+00513580 SecurityCamera::InitializeLevel vtable 0x85d96c slot 1 (RTTI) + body (icon_play hires texture, anim packets reset); matched
