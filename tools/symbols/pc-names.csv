@@ -1938,11 +1938,15 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005dbd80,002c9caa,__Z16gizmoblowup_LoadPvS_,"gizmoblowup_Load(void*, void*)",confirmed,0
 005dd9f0,002cb982,__Z26GizmoBlowUp_FindFromPlatIDP11WORLDINFO_si,"GizmoBlowUp_FindFromPlatID(WORLDINFO_s*, int)",confirmed,0
 005dda30,002cb9c0,__Z22GizmoBlowUp_FindByNameP11WORLDINFO_sPc,"GizmoBlowUp_FindByName(WORLDINFO_s*, char*)",calls,1
+005de530,002cc324,__Z30GizmoBlowupVisibilityOverridesP11WORLDINFO_s,GizmoBlowupVisibilityOverrides(WORLDINFO_s*),confirmed,0
 005de5d0,002cc3c6,__Z23GizmoBlowupTypeGetCountP11WORLDINFO_s,GizmoBlowupTypeGetCount(WORLDINFO_s*),confirmed,0
+005de5f0,002cc3de,__Z31GizmoBlowupTypeGetNameFromIndexP11WORLDINFO_si,"GizmoBlowupTypeGetNameFromIndex(WORLDINFO_s*, int)",confirmed,0
 005de630,002cc42c,__Z31GizmoBlowupTypeGetIndexFromNameP11WORLDINFO_sPc,"GizmoBlowupTypeGetIndexFromName(WORLDINFO_s*, char*)",confirmed,0
 005de790,002cc498,__Z25GizmoBlowupResetNameTablev,GizmoBlowupResetNameTable(),confirmed,0
 005de7b0,002cc4d4,__Z25GizmoBlowupGetNameTableIdPc,GizmoBlowupGetNameTableId(char*),confirmed,0
 005de820,002cc554,__Z33GizmoBlowupGetTypeFromNameTableIdP11WORLDINFO_si,"GizmoBlowupGetTypeFromNameTableId(WORLDINFO_s*, int)",confirmed,0
+005ded50,002cc76e,__Z22RegisterTransformTypesP16TRANSFORM_TYPE_si,"RegisterTransformTypes(TRANSFORM_TYPE_s*, int)",confirmed,0
+005deda0,002cc7c4,__Z20RegisterTorpedoTypesP14TORPEDO_TYPE_si,"RegisterTorpedoTypes(TORPEDO_TYPE_s*, int)",confirmed,0
 005dedf0,002c5a2e,__Z15Blowup_ActivateP7GIZMO_si,"Blowup_Activate(GIZMO_s*, int)",confirmed,0
 005deed0,002c5b30,__Z18Blowup_ActivateRevP7GIZMO_sii,"Blowup_ActivateRev(GIZMO_s*, int, int)",confirmed,0
 005def20,002ccdfe,__Z13Blowups_ResetPvS_S_,"Blowups_Reset(void*, void*, void*)",confirmed,0

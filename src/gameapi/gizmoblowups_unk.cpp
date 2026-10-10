@@ -294,7 +294,9 @@ struct GIZMOBLOWUPTYPE_s {
   nuhspecial_s decal_special;    // 0x3c
   u8 pad48[0x54 - 0x48];
   nuhspecial_s burst_special; // 0x54
-  u8 pad60[0xa4 - 0x60];
+  u8 pad60[0x7c - 0x60];
+  u32 animation_flags; // 0x7c
+  u8 pad80[0xa4 - 0x80];
   i16 particle_types[4]; // 0xa4
   u8 padac[0xdc - 0xac];
   char name[0x20]; // 0xdc
@@ -682,6 +684,21 @@ void gizmoblowup_PreLoad(void *world_ptr) {
   ((WORLDINFO_s *)world_ptr)->f525c = 100.0f;
 }
 
+// FUNCTION: LEGOBATMAN 0x005de530
+void GizmoBlowupVisibilityOverrides(WORLDINFO_s *world) {
+  GIZMOBLOWUP_s *blowup = world->gizmo_blowups;
+  for (i32 i = 0; i < world->gizmo_blowup_count; i++, blowup++) {
+    if ((blowup->type->animation_flags & 0x2000) &&
+        !(blowup->draw_flags & 0x800000))
+      NuSpecialSetVisibility(&blowup->type->animated_special, 0);
+  }
+  for (i32 i = 0; i < world->gizmo_blowup_type_count; i++) {
+    GIZMOBLOWUPTYPE_s *type = &world->gizmo_blowup_types[i];
+    if (NuSpecialExistsFn(&type->decal_special))
+      NuSpecialSetVisibility(&type->decal_special, 0);
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x005de5d0
 i32 GizmoBlowupTypeGetCount(WORLDINFO_s *world) {
   if (world == NULL)
@@ -689,15 +706,12 @@ i32 GizmoBlowupTypeGetCount(WORLDINFO_s *world) {
   return world->gizmo_blowup_type_count;
 }
 
-// STUB: LEGOBATMAN 0x005de5f0
-// the original adds the type base from memory after the imul (world stays in
-// ecx); ours loads the base first and folds 0xdc into one lea (5 forms).
+// FUNCTION: LEGOBATMAN 0x005de5f0
 char *GizmoBlowupTypeGetNameFromIndex(WORLDINFO_s *world, i32 index) {
   if (world == NULL || index == -1 || index > world->gizmo_blowup_type_count)
     return NULL;
   GIZMOBLOWUPTYPE_s *type = &world->gizmo_blowup_types[index];
-  char *name = type->name;
-  return NuStrLen(name) != 0 ? name : NULL;
+  return NuStrLen(type->name) != 0 ? type->name : NULL;
 }
 
 // FUNCTION: LEGOBATMAN 0x005de630
@@ -753,6 +767,49 @@ i32 GizmoBlowupGetTypeFromNameTableId(WORLDINFO_s *world, i32 name_id) {
     }
   }
   return -1;
+}
+
+typedef struct TRANSFORM_TYPE_s {
+  char *name; // 0x00
+  u8 *id;     // 0x04
+} TRANSFORM_TYPE_s;
+
+typedef struct TORPEDO_TYPE_s {
+  char *name; // 0x00
+  u8 *id;     // 0x04
+} TORPEDO_TYPE_s;
+
+// GLOBAL: LEGOBATMAN 0x00ac73b8
+TRANSFORM_TYPE_s *TransformTypes;
+// GLOBAL: LEGOBATMAN 0x00ac73bc
+i32 NumTransformTypes;
+// GLOBAL: LEGOBATMAN 0x00ac73c0
+TORPEDO_TYPE_s *TorpedoTypes;
+// GLOBAL: LEGOBATMAN 0x00ac73c4
+i32 NumTorpedoTypes;
+
+// FUNCTION: LEGOBATMAN 0x005ded50
+void RegisterTransformTypes(TRANSFORM_TYPE_s *types, i32 count) {
+  NumTransformTypes = 0;
+  if (types != NULL && count >= 1 && count <= 3) {
+    TransformTypes = types;
+    for (; types->name != NULL; types++) {
+      NumTransformTypes++;
+      *types->id = NumTransformTypes;
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x005deda0
+void RegisterTorpedoTypes(TORPEDO_TYPE_s *types, i32 count) {
+  NumTorpedoTypes = 0;
+  if (types != NULL && count >= 1 && count <= 7) {
+    TorpedoTypes = types;
+    for (; types->name != NULL; types++) {
+      NumTorpedoTypes++;
+      *types->id = NumTorpedoTypes;
+    }
+  }
 }
 
 // FUNCTION: LEGOBATMAN 0x005dedf0

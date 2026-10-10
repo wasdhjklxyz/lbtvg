@@ -3211,3 +3211,7 @@
 005de790 GizmoBlowupResetNameTable saga body (memset 0x400, numids = 0)
 005de7b0 GizmoBlowupGetNameTableId saga body
 005de820 GizmoBlowupGetTypeFromNameTableId saga body
+005de530 GizmoBlowupVisibilityOverrides Mac order after GizmoBlowupCheckProximity, saga body
+005de5f0 GizmoBlowupTypeGetNameFromIndex Mac order, saga body
+005ded50 RegisterTransformTypes Mac order before RegisterTorpedoTypes; {name, id*} table numbering, max 3
+005deda0 RegisterTorpedoTypes Mac order; same shape, max 7
