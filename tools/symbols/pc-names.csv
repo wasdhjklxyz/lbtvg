@@ -1500,7 +1500,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006152f0,002a186a,__Z21Door_DestinationLevelP6DOOR_s,Door_DestinationLevel(DOOR_s*),confirmed,0
 00615390,002a1924,__Z18StartDoorPositionsv,StartDoorPositions(),gapfill,2
 006163b0,00307916,__Z19Minicam_AddSubtitlePK21MINICAM_ADDSUBTITLE_s,Minicam_AddSubtitle(MINICAM_ADDSUBTITLE_s const*),gapfill,1
-006180c0,002ec36e,__Z16HubAreaInfo_InitP11WORLDINFO_s,HubAreaInfo_Init(WORLDINFO_s*),strings,0
+006180a0,002ec348,__Z15HubAreaInfo_SetP11HUBAREAINFO,HubAreaInfo_Set(HUBAREAINFO*),confirmed,0
+006180b0,002ec35c,__Z15HubAreaInfo_Getv,HubAreaInfo_Get(),confirmed,0
+006180c0,002ec36e,__Z16HubAreaInfo_InitP11WORLDINFO_s,HubAreaInfo_Init(WORLDINFO_s*),confirmed,0
+006181e0,002ec4cc,__Z29HubAreaInfo_FindFromAreaIndexi,HubAreaInfo_FindFromAreaIndex(int),confirmed,0
+00618210,002ec508,__Z22HubAreaInfo_IsAreaOpenP11WORLDINFO_sP11HUBAREAINFO,"HubAreaInfo_IsAreaOpen(WORLDINFO_s*, HUBAREAINFO*)",confirmed,0
+00618270,002ec57e,__Z18HubEpisodeInfo_SetP14HUBEPISODEINFO,HubEpisodeInfo_Set(HUBEPISODEINFO*),confirmed,0
+00618280,002ec592,__Z18HubEpisodeInfo_Getv,HubEpisodeInfo_Get(),confirmed,0
+00618380,002ec6d2,__Z35HubEpisodeInfo_FindFromEpisodeIndexi,HubEpisodeInfo_FindFromEpisodeIndex(int),confirmed,0
 006188c0,00293cb4,__Z23CutScenes_ConfigureListPcP9variptr_uS0_,"CutScenes_ConfigureList(char*, variptr_u*, variptr_u)",strings,0
 00618d00,00294126,__Z8CS_fpsecP8nufpar_s,CS_fpsec(nufpar_s*),confirmed,0
 00618d20,00294154,__Z9CS_no_fogP8nufpar_s,CS_no_fog(nufpar_s*),confirmed,0

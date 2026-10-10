@@ -2133,3 +2133,11 @@
 006c1d40 TriggerAutoSave called from Customiser::MenuSaveAndExit as on the Mac
 006bf620 NewMenuBatte called (1000,-1,-1) from Customiser::MenuSaveAndExit as on the Mac
 00610160 Customiser::MenuEnd Mac body (MenuRememberCursor, MenuReset, ResetTimer); matched
+006180a0 HubAreaInfo_Set Mac order (Set, Get, Init, FindFromAreaIndex, IsAreaOpen) + body; matched
+006180b0 HubAreaInfo_Get Mac order after HubAreaInfo_Set; matched
+006180c0 HubAreaInfo_Init Mac order + ghidra name; GizmoFindByName/"cam_%s"/NuSplineFind/Area_FindByName/NuSpecialFind
+006181e0 HubAreaInfo_FindFromAreaIndex Mac order after HubAreaInfo_Init + body; matched
+00618210 HubAreaInfo_IsAreaOpen Mac order + body (area progress, gizmo state); matched
+00618270 HubEpisodeInfo_Set Mac order after HubAreaInfo_IsAreaOpen; matched
+00618280 HubEpisodeInfo_Get Mac order after HubEpisodeInfo_Set; matched
+00618380 HubEpisodeInfo_FindFromEpisodeIndex Mac order after HubEpisodeInfo_Init + body

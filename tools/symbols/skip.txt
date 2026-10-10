@@ -190,3 +190,5 @@
 00708160 NuDeferredFilterGen::initTextureResources: (width/2 == width) bool computed via xor/sete cl in original; 10 spellings tried
 0053a990 WavReader::Read: register assignment of size/bytes/blocks differs, frame 4 bytes short; 6 variants tried
 0060ffc0 Customiser::HasChangedSinceSave: inlined memcmp register assignment differs; 5 forms tried
+006180c0 HubAreaInfo_Init: loop pointer biased by +4 in the original; 4 loop forms tried
+00618380 HubEpisodeInfo_FindFromEpisodeIndex: original reloads the s16 episode per use, ours CSEs it; 3 forms tried
