@@ -3951,6 +3951,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006e2ac0,00197dd4,_NuVideoSetBrightnessPS,_NuVideoSetBrightnessPS,confirmed,0
 006e2ae0,00197dfc,_NuVideoGetRetraceRatePS,_NuVideoGetRetraceRatePS,confirmed,0
 006e2af0,00197e0e,_bgGetProcActive,_bgGetProcActive,gapfill,1
+006e2c30,00197f72,_bgPostRequest,_bgPostRequest,confirmed,0
 006e2e40,001992ce,_bgProcInit,_bgProcInit,strings,0
 006e2f70,0019827a,_bgprocFreeze,_bgprocFreeze,confirmed,0
 006e2fa0,001982b4,_bgprocUnFreeze,_bgprocUnFreeze,confirmed,0

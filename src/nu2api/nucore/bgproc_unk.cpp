@@ -35,6 +35,41 @@ extern HANDLE g_bgProcThread;
 // GLOBAL: LEGOBATMAN 0x00b058c8
 extern DWORD g_bgProcThreadId;
 
+struct BGPROCREQ {
+  void *fn;              // 0x000
+  void *param;           // 0x004
+  unsigned int done : 1; // 0x008
+  unsigned int abort : 1;
+  unsigned int pad00c;
+  char data[0x200]; // 0x010
+  int result;       // 0x210
+  int unk214;       // 0x214
+};
+
+nulstnode_s *NuLstAllocTail(nulst_s *list);
+
+// FUNCTION: LEGOBATMAN 0x006e2c30
+BGPROCREQ *bgPostRequest(void *fn, void *param, void *data, int size) {
+  BGPROCREQ *req;
+
+  EnterCriticalSection(&g_bgCritSec);
+  req = (BGPROCREQ *)NuLstAllocTail(bgProcList);
+  if (req != 0) {
+    req->fn = fn;
+    req->param = param;
+    req->done = 0;
+    req->abort = 0;
+    req->result = 0;
+    req->unk214 = 0;
+    if (data != 0 && size != 0)
+      memcpy(req->data, data, size);
+  }
+  LeaveCriticalSection(&g_bgCritSec);
+  if (req != 0)
+    SetEvent(g_bgWorkToDoEvent);
+  return req;
+}
+
 // FUNCTION: LEGOBATMAN 0x006e2e40
 void bgProcInit(void) {
   if (!bgProcInitialised) {

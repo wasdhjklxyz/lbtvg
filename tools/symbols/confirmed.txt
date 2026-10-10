@@ -3637,3 +3637,4 @@
 006e2440 NuMemFlushFn frees every block on alloc_list (Mac order NuMemDumpFn, NuMemFlushFn)
 006e23d0 NuMemDumpFn reports blocks >= size, checks 0xfefefefe links (stub)
 006e1f30 NuMemReAllocFn Mac order after NuMemFree; realloc the debug block and relink it
+006e2c30 bgPostRequest Mac order after bgPostRequestV; queue a job node and signal the worker
