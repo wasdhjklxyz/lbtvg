@@ -194,7 +194,8 @@ struct BoltTypeKw_s {
   u8 damage;                  // 0x3a
   u8 pad3b[0x3c - 0x3b];
   i32 rand_angle; // 0x3c
-  u8 pad40[0x58 - 0x40];
+  void *fn[5];    // 0x40, callbacks (BoltSys_FixUpBoltTypes)
+  u8 pad54[0x58 - 0x54];
   unsigned __int64 flags; // 0x58
   i16 sfx_shoot;          // 0x60
   i16 sfx_hit;            // 0x62
@@ -563,11 +564,31 @@ void BT_flags(NUFPAR *parser) {
 }
 
 // The bolt system's view used by the BoltType lookups.
+// One BoltTypeFixUp_* entry: callbacks patched into a named bolt type.
+struct BTFixUp_s {
+  char *name;  // 0x00
+  i32 *id;     // 0x04, receives the type id
+  void *fn[5]; // 0x08, copied to the type at 0x40
+};
+
 struct BTSys_s {
   BoltTypeKw_s *types; // 0x0
-  u8 pad4[8 - 4];
-  i32 count; // 0x8
+  BTFixUp_s *fixups;   // 0x4
+  i32 count;           // 0x8
 };
+
+// Raw view of the per-character runtime data (0x240 bytes).
+struct BTCharData_s {
+  u8 pad000[0x1c4];
+  i16 bolt_type;        // 0x1c4, resolved id
+  i16 bolt_type_config; // 0x1c6
+  u8 pad1c8[0x240 - 0x1c8];
+};
+
+// GLOBAL: LEGOBATMAN 0x00acb820
+extern i32 CHARCOUNT;
+// GLOBAL: LEGOBATMAN 0x00acb82c
+extern BTCharData_s *g_unk00acb82c;
 
 // GLOBAL: LEGOBATMAN 0x00962094
 extern BTSys_s *BoltSys;
@@ -634,6 +655,31 @@ i32 BoltType_FindIDByName(char *name, BTWorld_s *world) {
 // FUNCTION: LEGOBATMAN 0x005e92b0
 void Bolt_GetShootOrigin_Default(BTObject_s *object, BTVec_s *position) {
   *position = object->collision_position;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e9670
+void BoltSys_FixUpBoltTypes(BTWorld_s *world) {
+  if (BoltSys == 0)
+    return;
+  for (BTFixUp_s *fix = BoltSys->fixups; fix != 0 && fix->name != 0; fix++) {
+    BoltTypeKw_s *type = BoltType_FindByName(fix->name, world);
+    if (type != 0) {
+      if (fix->id != 0)
+        *fix->id = BoltType_FindIDByName(fix->name, world);
+      type->fn[0] = fix->fn[0];
+      type->fn[1] = fix->fn[1];
+      type->fn[2] = fix->fn[2];
+      type->fn[3] = fix->fn[3];
+      type->fn[4] = fix->fn[4];
+    }
+  }
+  for (i32 i = 0; i < CHARCOUNT; i++) {
+    g_unk00acb82c[i].bolt_type = g_unk00acb82c[i].bolt_type_config;
+    if (world != 0 && g_unk00acb82c[i].bolt_type_config != -1)
+      g_unk00acb82c[i].bolt_type = BoltType_FindIDByName(
+          BoltType_FindByID(g_unk00acb82c[i].bolt_type_config, world)->name,
+          world);
+  }
 }
 
 // STUB: LEGOBATMAN 0x005e9330

@@ -2032,3 +2032,4 @@
 005e92b0 Bolt_GetShootOrigin_Default Mac order + saga body (copies collision_position); matched
 005e92e0 Bolt_GetShootDirection_Default Mac order + saga body (facing angle 0x5a, returns it)
 005e9330 Bolt_ObjTargetPosYAdjust Mac order + saga body (qrand * 2h / 65535 - h)
+005e9670 BoltSys_FixUpBoltTypes Mac order (between Bolt_Debris_Default and BoltSys_Init), uses BoltSys fixup table + FindByName/FindIDByName; matched
