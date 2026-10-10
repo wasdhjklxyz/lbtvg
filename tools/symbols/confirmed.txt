@@ -3099,3 +3099,14 @@
 004906d0 GizPanels_GetMaxGizmos get_max_gizmos slot of the "Panel" ADDGIZMOTYPE
 004906f0 GizPanels_AddGizmos add_gizmos slot of the "Panel" ADDGIZMOTYPE
 00491540 GizPanel_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Panel"
+00701300 NuMotionAccumFilterGen::NuMotionAccumFilterGen sets the NuMotionAccumFilterGen vtable 0x897cac (saga ctor)
+006e46b0 NuPostFilterGen::~NuPostFilterGen sets the NuPostFilterGen vtable 0x89766c
+006e46c0 NuPostFilterGen::initTextureResources slot 3 of the NuPostFilterGen vtable 0x89766c
+006e46d0 NuPostFilterGen::destroyTextureResources slot 4 of the NuPostFilterGen vtable
+006e46e0 NuPostFilterGen::render slot 5 of the NuPostFilterGen vtable
+006e4710 NuPostFilterGen::reset slot 6 of the NuPostFilterGen vtable
+006e4720 NuPostFilterGen::resetAll slot 7 of the NuPostFilterGen vtable
+006e4730 NuPostFilterGen::isEnabled slot 8 of the NuPostFilterGen vtable
+00701bf0 NuSpeedBlurFilterGen::NuSpeedBlurFilterGen sets the NuSpeedBlurFilterGen vtable 0x897cd4
+00701c20 NuSpeedBlurFilterGen::initResources slot 1 of the NuSpeedBlurFilterGen vtable 0x897cd4
+00701c30 NuSpeedBlurFilterGen::destroyResources slot 2 of the NuSpeedBlurFilterGen vtable

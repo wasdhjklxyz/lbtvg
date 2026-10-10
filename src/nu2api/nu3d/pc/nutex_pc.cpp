@@ -54,6 +54,47 @@ void *g_nutex_029dcbf0;
 // GLOBAL: LEGOBATMAN 0x00b0ba90
 D3DVIEWPORT9 g_nutex_viewport;
 
+// NuPostFilterGen's inline members (saga NuPostFilterGen.h), emitted in this
+// TU in class order.
+struct NuPostFilterGen {
+  NuPostFilterGen() : enabled(false) {}
+  virtual ~NuPostFilterGen();
+  virtual void initResources();
+  virtual void destroyResources();
+  virtual void initTextureResources(int width, int height);
+  virtual void destroyTextureResources();
+  virtual void render();
+  virtual void reset();
+  virtual void resetAll();
+  virtual bool isEnabled();
+
+  bool enabled; // 0x04
+  int program;  // 0x08
+};
+
+// FUNCTION: LEGOBATMAN 0x006e46b0
+NuPostFilterGen::~NuPostFilterGen() {}
+
+// FUNCTION: LEGOBATMAN 0x006e46c0
+void NuPostFilterGen::initTextureResources(int width, int height) {}
+
+// FUNCTION: LEGOBATMAN 0x006e46d0
+void NuPostFilterGen::destroyTextureResources() {}
+
+// FUNCTION: LEGOBATMAN 0x006e46e0
+void NuPostFilterGen::render() {}
+
+// SYNTHETIC: LEGOBATMAN 0x006e46f0 NuPostFilterGen::`scalar deleting destructor'
+
+// FUNCTION: LEGOBATMAN 0x006e4710
+void NuPostFilterGen::reset() { enabled = false; }
+
+// FUNCTION: LEGOBATMAN 0x006e4720
+void NuPostFilterGen::resetAll() {}
+
+// FUNCTION: LEGOBATMAN 0x006e4730
+bool NuPostFilterGen::isEnabled() { return enabled; }
+
 // FUNCTION: LEGOBATMAN 0x006e6170
 void NuTexUpdateSize(NuTex *tex) {
   D3DSURFACE_DESC desc;

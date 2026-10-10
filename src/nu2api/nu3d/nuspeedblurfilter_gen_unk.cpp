@@ -13,7 +13,8 @@ void Unk006e4b90(nueffecttex_s *tex, i32 a, i32 b);        // address mode
 void Unk006e47f0(nueffecttex_s *tex); // releases the effect texture
 
 struct NuPostFilterGen {
-  virtual ~NuPostFilterGen();
+  NuPostFilterGen() : enabled(false) {}
+  virtual ~NuPostFilterGen() {}
   virtual void initResources();
   virtual void destroyResources();
   virtual void initTextureResources(i32 width, i32 height);
@@ -28,12 +29,26 @@ struct NuPostFilterGen {
 };
 
 struct NuSpeedBlurFilterGen : NuPostFilterGen {
+  NuSpeedBlurFilterGen();
+  virtual void initResources();
+  virtual void destroyResources();
   virtual void initTextureResources(i32 width, i32 height);
   virtual void destroyTextureResources();
 
   u8 pad0c[0x14 - 0xc];
   nueffecttex_s *texture; // 0x14
 };
+
+// FUNCTION: LEGOBATMAN 0x00701bf0
+NuSpeedBlurFilterGen::NuSpeedBlurFilterGen() {}
+
+// SYNTHETIC: LEGOBATMAN 0x00701c00 NuSpeedBlurFilterGen::`scalar deleting destructor'
+
+// FUNCTION: LEGOBATMAN 0x00701c20
+void NuSpeedBlurFilterGen::initResources() {}
+
+// FUNCTION: LEGOBATMAN 0x00701c30
+void NuSpeedBlurFilterGen::destroyResources() {}
 
 // FUNCTION: LEGOBATMAN 0x00701c40
 void NuSpeedBlurFilterGen::initTextureResources(i32 width, i32 height) {
