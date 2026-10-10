@@ -103,6 +103,23 @@ unsigned int ImplodeGetBits(int count) {
   return value;
 }
 
+// GLOBAL: LEGOBATMAN 0x00af41b4
+static int g_implodeUnk00af41b4; // bytes left in implode_inbuffer
+extern unsigned int implode_origsize;
+
+// Reads up to size bytes from implode_inbuffer.
+// FUNCTION: LEGOBATMAN 0x006d6ab0
+int Unk006d6ab0(void *buf, int size) {
+  int n = size;
+  if (n >= g_implodeUnk00af41b4)
+    n = g_implodeUnk00af41b4;
+  memcpy(buf, implode_inbuffer, n);
+  implode_inbuffer += n;
+  implode_origsize += n;
+  g_implodeUnk00af41b4 -= n;
+  return n;
+}
+
 // FUNCTION: LEGOBATMAN 0x006d6af0
 void ImplodeInitGetBits(void) {
   implode_bitbuf = 0;
