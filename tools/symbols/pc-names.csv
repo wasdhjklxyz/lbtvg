@@ -1947,6 +1947,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0061d990,0029880c,__Z22CutScenePlayer_GetTextiPcS_i,"CutScenePlayer_GetText(int, char*, char*, int)",strings,0
 0061dd40,00298baa,__Z29CutScenes_LoadLevelCharactersP11WORLDINFO_sPcPi,"CutScenes_LoadLevelCharacters(WORLDINFO_s*, char*, int*)",strings,0
 0061f190,00278b52,__Z14CharIDFromNamePc,CharIDFromName(char*),confirmed,0
+0061f1e0,00278ba0,__Z13CDataFromNamePc,CDataFromName(char*),confirmed,0
+0061f230,00278bfe,__Z12RedirectAnimPcP12ANIMREDIRECTP10ANIMLIST_sS_,"RedirectAnim(char*, ANIMREDIRECT*, ANIMLIST_s*, char*)",confirmed,0
+0061f2a0,00278c6e,__Z15CharScenes_InitP9variptr_uS0_,"CharScenes_Init(variptr_u*, variptr_u*)",confirmed,0
 0061f2d0,00278cbc,__Z14CharScene_LoadiP9CHARSCENEP9variptr_uS1_,"CharScene_Load(int, CHARSCENE*, variptr_u*, variptr_u)",strings,0
 0061fc20,002793a6,__Z13LayerFromNameP19GAMECHARACTERDATA_sPc,"LayerFromName(GAMECHARACTERDATA_s*, char*)",confirmed,0
 0061fc90,00279408,__Z18MakeLayerList_NameP16CHARACTERMODEL_sPsj,"MakeLayerList_Name(CHARACTERMODEL_s*, short*, unsigned int)",confirmed,0

@@ -4,6 +4,7 @@
 #include "../nu2api/nucore/nustring.h"
 #include "../nu2api/numath/nuinline_unk.h"
 #include <stddef.h>
+#include <string.h>
 
 // Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
 // FUNCTION: LEGOBATMAN 0x0061f0e0
@@ -36,6 +37,66 @@ i32 CharIDFromName(char *name) {
   }
 
   return -1;
+}
+
+// from saga legoapi/characters/core/characters.cpp
+// FUNCTION: LEGOBATMAN 0x0061f1e0
+CHARACTERDATA *CDataFromName(char *name) {
+  for (i32 i = 0; i < CHARCOUNT; i++) {
+    if (NuStrICmp(CDataList[i].file, name) == 0)
+      return &CDataList[i];
+  }
+  return NULL;
+}
+
+typedef struct ANIMREDIRECT_s {
+  char *name;
+  i16 animation_id; // 0x04
+} ANIMREDIRECT;
+
+typedef struct ANIMLIST_s {
+  char *name;       // 0x00
+  u32 flags;        // 0x04, 8 = BSA
+  i16 animation_id; // 0x08
+} ANIMLIST;
+
+// saga legoapi/characters/core/characters.cpp, plus a NULL check; the path
+// is built in the last argument here.
+// FUNCTION: LEGOBATMAN 0x0061f230
+i32 RedirectAnim(char *directory, ANIMREDIRECT *redirects, ANIMLIST *animation,
+                 char *path) {
+  char *name;
+
+  if (redirects == NULL)
+    return 0;
+  for (ANIMREDIRECT *redirect = redirects; (name = redirect->name) != NULL;
+       ++redirect) {
+    if (redirect->animation_id == animation->animation_id &&
+        NuStrICmp(name, animation->name) == 0) {
+      NuStrCpy(path, directory);
+      NuStrCat(path, animation->name);
+      animation->flags &= ~8;
+      return 1;
+    }
+  }
+  return 0;
+}
+
+typedef struct CHARSCENE_s {
+  u32 pad[4];
+} CHARSCENE;
+
+// GLOBAL: LEGOBATMAN 0x00acb824
+static CHARSCENE *CharScene_Area;
+
+// from saga legoapi/characters/core/characters.cpp
+// FUNCTION: LEGOBATMAN 0x0061f2a0
+void CharScenes_Init(VARIPTR *buf, VARIPTR *buf_end) {
+  i32 size = CHARCOUNT * sizeof(CHARSCENE);
+  CHARSCENE *area = (CHARSCENE *)((buf->addr + 3) & ~3);
+  CharScene_Area = area;
+  buf->addr = (u32)area + size;
+  memset(area, 0, size);
 }
 
 typedef struct CHARLAYER_s {

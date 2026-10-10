@@ -2557,3 +2557,6 @@
 006200e0 initHose               NuMtlCreate x2 into the hose materials, colour/alpha setup: the Mac's initHose
 0061fc20 LayerFromName          NuStrICmp over GCDATA layers (0x1c each), returns mask_bit: saga charconfig.cpp; before MakeLayerList_Name as on the Mac
 0061fc90 MakeLayerList_Name     32-bit layer mask to hierarchy layers: saga charconfig.cpp; before SetMoveAndAnimateFunctions as on the Mac
+0061f1e0 CDataFromName          NuStrICmp over CDataList file names returning the entry: saga characters.cpp; after CharIDFromName as on the Mac
+0061f230 RedirectAnim           ANIMREDIRECT walk, NuStrCpy/NuStrCat, clears anim flag 8: saga characters.cpp; next in Mac order
+0061f2a0 CharScenes_Init        CHARCOUNT * 0x10 zeroed from the buffer into the CharScene global: saga characters.cpp; next in Mac order
