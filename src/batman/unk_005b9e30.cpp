@@ -25,6 +25,7 @@ void Unk_InlineUser_005b9e30(f32 *v, f32 a, i32 i) {
 // The rest of this TU is the Mac's Lever file (.. Levers_RegisterGizmo
 // 0x5bb4f0, Lever_MoveCode); callbacks named by their RegisterGizmo slot.
 
+#include "../nu2api/nu3d/nuspecial.h"
 #include "leveldata_unk.h"
 #include "worldinfo_unk.h"
 #include <stddef.h>
@@ -32,16 +33,15 @@ void Unk_InlineUser_005b9e30(f32 *v, f32 a, i32 i) {
 
 typedef struct LEVER_s {
   u8 pad0[0x40];
-  nuvec_s v40; // 0x40
-  u8 pad4c[0x50 - 0x4c];
-  f32 f50; // 0x50
-  u8 pad54[0x58 - 0x54];
+  nuvec_s v40;     // 0x40
+  nuvec_s v4c;     // 0x4c
   char name[0x10]; // 0x58
   nuvec_s pos68;   // 0x68
   u8 pad74[0x78 - 0x74];
-  f32 pull; // 0x78
-  f32 f7c;  // 0x7c
-  u8 pad80[0x88 - 0x80];
+  f32 pull;   // 0x78
+  f32 f7c;    // 0x7c
+  f32 f80;    // 0x80
+  f32 f84;    // 0x84
   u16 rot_y;  // 0x88
   u16 colour; // 0x8a
   i16 plat;   // 0x8c, -1 = none
@@ -58,13 +58,20 @@ typedef struct LEVER_s {
       u16 b5 : 1;
       u16 b6 : 1;
       u16 active : 1; // 0x94 bit 7
+      u16 b8 : 1;
+      u16 b9 : 1;
+      u16 b10 : 1;
+      u16 b11 : 1;
+      u16 b12 : 1;
+      u16 b13 : 1;
     };
     u16 state; // 0x94
   };
-  u8 pad96[0x98 - 0x96];
+  i16 s96;          // 0x96
   char colour_code; // 0x98
-  u8 pad99[0xac - 0x99];
-  f32 fac; // 0xac
+  u8 pad99[0xa0 - 0x99];
+  nuhspecial_s special; // 0xa0
+  f32 fac;              // 0xac
 } LEVER;
 
 typedef struct LEVERPROGRESS_s {
@@ -94,7 +101,6 @@ void AddGizmo(GIZMOSYS_s *gizmo_sys, i32 type_id, void *a, void *object);
 void *GameBufferAllocProgressUnk005bbaf0(VARIPTR *buf, VARIPTR *buf_end,
                                          i32 size);
 extern "C" void PlatOnOff(i32 index, i32 enabled);
-i32 Levers_Load(void *world, void *unused);
 
 // GLOBAL: LEGOBATMAN 0x00963200
 extern i32 g_unk00963200[9]; // lever colour ids: y o r b g p w u l
@@ -119,6 +125,79 @@ static void Lever_SetColour(LEVER *lever) {
     lever->colour = g_unk00963200[7];
   else if (lever->colour_code == 'l')
     lever->colour = g_unk00963200[8];
+}
+
+// GLOBAL: LEGOBATMAN 0x00960044
+extern f32 g_unk00960044;
+
+i32 EdFileReadInt();
+char EdFileReadChar();
+i16 EdFileReadShort();
+f32 EdFileReadFloat();
+void EdFileRead(void *buf, i32 len);
+void EdFileReadNuVec(nuvec_s *v);
+int NuSpecialExistsFn(nuhspecial_s *sp);
+
+// FUNCTION: LEGOBATMAN 0x005b9fd0
+i32 Levers_Load(void *world_ptr, void *unused) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  char name[0x100];
+  if (world->lever_count == 0) {
+    i32 version = EdFileReadInt();
+    world->lever_count = EdFileReadInt();
+    for (i32 i = 0; i < world->lever_count; i++) {
+      EdFileRead(world->levers[i].name, 0x10);
+      EdFileReadNuVec(&world->levers[i].pos68);
+      world->levers[i].rot_y = EdFileReadShort();
+      world->levers[i].colour_code = EdFileReadChar();
+      if (version >= 2)
+        world->levers[i].b5 = EdFileReadChar() & 1;
+      if (version >= 3)
+        world->levers[i].f80 = EdFileReadFloat();
+      else
+        world->levers[i].f80 = 2.0f;
+      if (version >= 4)
+        world->levers[i].b8 = EdFileReadChar() & 1;
+      else
+        world->levers[i].b8 = 0;
+      if (version >= 5) {
+        EdFileReadNuVec(&world->levers[i].v4c);
+        world->levers[i].f84 = EdFileReadFloat();
+      } else {
+        world->levers[i].v4c.x = world->levers[i].v4c.y = 0.0f;
+        world->levers[i].v4c.z = -g_unk00960044;
+        world->levers[i].f84 = 1.0f;
+      }
+      if (version >= 6)
+        world->levers[i].b9 = EdFileReadChar() & 1;
+      else
+        world->levers[i].b9 = 0;
+      if (version >= 7) {
+        i32 len = EdFileReadChar();
+        if (len != 0) {
+          memset(name, 0, sizeof(name));
+          EdFileRead(name, len);
+          NuSpecialFind(world->scn140, &world->levers[i].special, name, 0);
+          if (!NuSpecialExistsFn(&world->levers[i].special))
+            memset(&world->levers[i].special, 0, sizeof(nuhspecial_s));
+        }
+      }
+      if (version >= 8)
+        world->levers[i].b13 = EdFileReadChar() & 1;
+      else
+        world->levers[i].b13 = 0;
+      if (version >= 9) {
+        world->levers[i].s96 = EdFileReadChar();
+        if (EdFileReadChar())
+          world->levers[i].s96 |= 0x40;
+      } else {
+        world->levers[i].s96 = 0;
+      }
+      world->levers[i].plat = -1;
+    }
+    return 1;
+  }
+  return 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x005ba3b0
@@ -265,8 +344,6 @@ i32 Levers_UpdateHint(void *hint) {
   return 0;
 }
 
-// GLOBAL: LEGOBATMAN 0x00960044
-extern f32 g_unk00960044;
 // GLOBAL: LEGOBATMAN 0x009f7a44
 extern nuvec_s g_unk009f7a44;
 
@@ -294,9 +371,9 @@ static void Lever_NewPos(LEVER *lever, nuvec_s *pos) {
   Lever_GetAbsTargetPos(lever, &p);
   p.y = lever->pos68.y;
   lever->v40.y = GameShadow(NULL, &lever->v40, 0.2f, -1);
-  lever->f50 = GameShadow(NULL, &p, 0.2f, -1);
-  if (lever->f50 != 2000000.0) {
-    lever->f50 += 0.005f;
+  lever->v4c.y = GameShadow(NULL, &p, 0.2f, -1);
+  if (lever->v4c.y != 2000000.0) {
+    lever->v4c.y += 0.005f;
     FindAnglesZX(&g_unk009f7a44, &lever->s90, &lever->s92);
   }
   NuMtxSetRotationY((numtx_s *)lever, lever->rot_y);
