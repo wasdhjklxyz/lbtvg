@@ -3488,3 +3488,5 @@
 006d3880 NuDatFilePos saga nufile.cpp body
 006d3970 NuDatFileClose saga nufile.cpp body
 006d3ad0 NuDatFileOpenSize saga nufile.cpp body
+006d3b10 NuDatSet saga nufile.cpp body (swaps curr_dat 0xb03884); called by NuWin32SetDFS
+006d3b20 NuDatGet saga nufile.cpp body

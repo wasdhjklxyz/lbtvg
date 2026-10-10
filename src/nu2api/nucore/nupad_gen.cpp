@@ -2215,6 +2215,16 @@ int NuFileOpen(char *path, int mode) {
   return NuFileOpenDF(path, mode, (NUDATHDR *)g_unk00b03884, 0);
 }
 
+// FUNCTION: LEGOBATMAN 0x006d3b10
+extern "C" NUDATHDR *NuDatSet(NUDATHDR *header) {
+  NUDATHDR *dat = (NUDATHDR *)g_unk00b03884;
+  g_unk00b03884 = (int)header;
+  return dat;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3b20
+extern "C" NUDATHDR *NuDatGet(void) { return (NUDATHDR *)g_unk00b03884; }
+
 struct NUDATFILEINFO {
   int i0;
   int i4;
@@ -2330,8 +2340,6 @@ int NuFileOpenDF(char *filepath, int mode, NUDATHDR *header, int quiet) {
   return file_index + 1;
 }
 
-// Opens through the current data file system (the global swapped by
-// NuWin32SetDFS).
 // FUNCTION: LEGOBATMAN 0x006d3940
 static unsigned int NameToHash(char *name) {
   unsigned int hash = 0x811c9dc5;
