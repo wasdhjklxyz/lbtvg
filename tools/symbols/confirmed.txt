@@ -3079,3 +3079,10 @@
 005b4c10 Spinners_AllocateProgressData allocate_progress_data slot of the "Spinner" ADDGIZMOTYPE
 005b4c30 Spinners_ClearProgress clear_progress slot of the "Spinner" ADDGIZMOTYPE
 005b6b00 Spinners_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Spinner"
+00670b20 GizMiniCut_RegisterGizmo copies Default_ADDGIZMOTYPE, name "MiniCut"
+00449ba0 AIProcessor_GetMaxGizmos get_max_gizmos slot of the "AIProcessor" ADDGIZMOTYPE
+00449dd0 AIProcessor_GetOutput get_output slot of the "AIProcessor" ADDGIZMOTYPE
+00449e00 AIProcessor_GetNumOutputs get_num_outputs slot of the "AIProcessor" ADDGIZMOTYPE
+00449e10 AIProcessor_GetOutputName get_output_name slot of the "AIProcessor" ADDGIZMOTYPE (via thunk 0x401e8d)
+00449e20 AIProcessor_Activate activate slot of the "AIProcessor" ADDGIZMOTYPE (via thunk 0x40245f)
+00449e50 AIProcessor_RegisterGizmo copies Default_ADDGIZMOTYPE, name "AIProcessor", prefix "ai_"

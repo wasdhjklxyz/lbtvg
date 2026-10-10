@@ -154,3 +154,63 @@ void GizMiniCut_ResetAll(void *world_ptr, void *a, void *b) {
   for (i32 i = 0; i < world->minicut_count; i++)
     GizMiniCut_Reset(&world->minicuts[i], world);
 }
+
+typedef struct ADDGIZMOTYPE_s {
+  char *name;        // 0x00
+  char *prefix;      // 0x04
+  u16 progress_size; // 0x08
+  void *fns[0x1c];   // 0x0c
+} ADDGIZMOTYPE;
+
+// GLOBAL: LEGOBATMAN 0x00960118
+extern ADDGIZMOTYPE Default_ADDGIZMOTYPE;
+
+i32 GizMiniCut_Load(void *world, void *unused);
+void GizMiniCut_Update(void *world, void *unused, f32 dt);
+void GizMiniCut_Activate(GIZMO *gizmo, i32 active);
+i32 GizMiniCut_ActivateRev(GIZMO *gizmo, i32 value, i32 query);
+i32 GizMiniCut_UsingSpecial(void);
+
+// GLOBAL: LEGOBATMAN 0x009683e4
+i32 minicut_gizmotype_id = -1;
+
+// FUNCTION: LEGOBATMAN 0x00670b20
+ADDGIZMOTYPE *GizMiniCut_RegisterGizmo(i32 type_id) {
+  // GLOBAL: LEGOBATMAN 0x00ad2970
+  static ADDGIZMOTYPE addtype;
+
+  addtype = Default_ADDGIZMOTYPE;
+  addtype.progress_size = 0;
+  addtype.fns[2] = NULL;
+  addtype.fns[4] = NULL;
+  addtype.fns[5] = NULL;
+  addtype.fns[12] = NULL;
+  addtype.fns[13] = NULL;
+  addtype.fns[16] = NULL;
+  addtype.fns[17] = NULL;
+  addtype.fns[18] = NULL;
+  addtype.fns[19] = NULL;
+  addtype.fns[20] = NULL;
+  addtype.fns[21] = NULL;
+  addtype.fns[25] = NULL;
+  addtype.fns[26] = NULL;
+  addtype.fns[27] = NULL;
+  minicut_gizmotype_id = type_id;
+  addtype.name = "MiniCut";
+  addtype.prefix = "";
+  addtype.fns[0] = (void *)GizMiniCut_GetMaxGizmos;
+  addtype.fns[1] = (void *)GizMiniCut_AddGizmos;
+  addtype.fns[3] = (void *)GizMiniCut_Update;
+  addtype.fns[6] = (void *)GizMiniCut_GetGizmoName;
+  addtype.fns[7] = (void *)GizMiniCut_GetOutput;
+  addtype.fns[8] = (void *)GizMiniCut_GetOutputName;
+  addtype.fns[9] = (void *)GizMiniCut_GetNumOutputs;
+  addtype.fns[10] = (void *)GizMiniCut_Activate;
+  addtype.fns[11] = (void *)GizMiniCut_ActivateRev;
+  addtype.fns[14] = (void *)GizMiniCut_GetPos;
+  addtype.fns[15] = (void *)GizMiniCut_UsingSpecial;
+  addtype.fns[22] = (void *)GizMiniCut_ResetAll;
+  addtype.fns[23] = (void *)GizMiniCut_ReserveBufferSpace;
+  addtype.fns[24] = (void *)GizMiniCut_Load;
+  return &addtype;
+}

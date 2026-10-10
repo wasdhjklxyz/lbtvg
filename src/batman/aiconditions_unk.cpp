@@ -147,6 +147,97 @@ extern i32 g_unk0093b104;
 // GLOBAL: LEGOBATMAN 0x0093b108
 extern i32 g_unk0093b108;
 
+// AIProcessor gizmo callbacks (RegisterGizmo 0x449e50, prefix "ai_"): one
+// gizmo per level script processor.
+
+struct GIZMO_s {
+  void *object;
+};
+
+typedef struct AIPROCESSORGIZMO_s {
+  u8 pad0[0x60];
+  u32 b0 : 1;
+  u32 disabled : 1; // 0x60 bit 1
+} AIPROCESSORGIZMO;
+
+typedef struct ADDGIZMOTYPE_s {
+  char *name;        // 0x00
+  char *prefix;      // 0x04
+  u16 progress_size; // 0x08
+  void *fns[0x1c];   // 0x0c
+} ADDGIZMOTYPE;
+
+// GLOBAL: LEGOBATMAN 0x00960118
+extern ADDGIZMOTYPE Default_ADDGIZMOTYPE;
+// GLOBAL: LEGOBATMAN 0x0093b0a8
+extern char AIProcessor_OutputName[];
+
+void AddGizmo(GIZMOSYS_s *gizmo_sys, i32 type_id, void *a, void *object);
+
+// FUNCTION: LEGOBATMAN 0x00449ba0
+static i32 AIProcessor_GetMaxGizmos(void *world) { return 0x20; }
+
+// STUB: LEGOBATMAN 0x00449bb0
+// esi/edi swapped between the loop counter and the process pointer.
+static void AIProcessor_AddGizmos(GIZMOSYS_s *gizmo_sys, i32 type_id,
+                                  void *world_ptr, void *unused) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  i32 i;
+  LEVELSCRIPTPROCESS_s *process = (LEVELSCRIPTPROCESS_s *)world->processors;
+  if (process != NULL) {
+    for (i = 0; i < world->processor_count; i++, process++)
+      AddGizmo(gizmo_sys, type_id, NULL, process);
+  }
+}
+
+char *AIProcessor_GetGizmoName(GIZMO_s *gizmo);
+
+// FUNCTION: LEGOBATMAN 0x00449dd0
+static i32 AIProcessor_GetOutput(GIZMO_s *gizmo, i32 a, i32 b) {
+  if (gizmo != NULL && gizmo->object != NULL)
+    return !((AIPROCESSORGIZMO *)gizmo->object)->disabled;
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00449e00
+static i32 AIProcessor_GetNumOutputs(GIZMO_s *gizmo) { return 1; }
+
+// FUNCTION: LEGOBATMAN 0x00449e10
+char *AIProcessor_GetOutputName(GIZMO_s *gizmo, i32 output) {
+  return AIProcessor_OutputName;
+}
+
+// FUNCTION: LEGOBATMAN 0x00449e20
+void AIProcessor_Activate(GIZMO_s *gizmo, i32 active) {
+  if (gizmo != NULL && gizmo->object != NULL)
+    ((AIPROCESSORGIZMO *)gizmo->object)->disabled = active == 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00449e50
+ADDGIZMOTYPE *AIProcessor_RegisterGizmo(i32 type_id) {
+  // GLOBAL: LEGOBATMAN 0x009c6130
+  static ADDGIZMOTYPE addtype;
+
+  addtype = Default_ADDGIZMOTYPE;
+  addtype.progress_size = 0;
+  addtype.fns[2] = NULL;
+  addtype.fns[3] = NULL;
+  addtype.fns[4] = NULL;
+  addtype.fns[5] = NULL;
+  for (i32 i = 11; i < 28; i++)
+    addtype.fns[i] = NULL;
+  addtype.name = "AIProcessor";
+  addtype.prefix = "ai_";
+  addtype.fns[0] = (void *)AIProcessor_GetMaxGizmos;
+  addtype.fns[1] = (void *)AIProcessor_AddGizmos;
+  addtype.fns[6] = (void *)AIProcessor_GetGizmoName;
+  addtype.fns[7] = (void *)AIProcessor_GetOutput;
+  addtype.fns[8] = (void *)AIProcessor_GetOutputName;
+  addtype.fns[9] = (void *)AIProcessor_GetNumOutputs;
+  addtype.fns[10] = (void *)AIProcessor_Activate;
+  return &addtype;
+}
+
 // from saga legoapi/items/objects/gameobjects.cpp
 // FUNCTION: LEGOBATMAN 0x0044bf50
 void GameAISysReset(AISYS_s *system) {

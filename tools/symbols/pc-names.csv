@@ -54,6 +54,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00441740,0006afe8,__Z17UpdateGameObjectsP11WORLDINFO_s,UpdateGameObjects(WORLDINFO_s*),strings,0
 00447370,0006f4ea,__Z22GameAIActionParseSpeedPcPh,"GameAIActionParseSpeed(char*, unsigned char*)",strings,0
 00447560,0006f664,__Z17GetNamedAPIObjectP7AISYS_sPc,"GetNamedAPIObject(AISYS_s*, char*)",strings,0
+00449ba0,,AIProcessor_GetMaxGizmos,AIProcessor_GetMaxGizmos,confirmed,0
+00449dd0,,AIProcessor_GetOutput,AIProcessor_GetOutput,confirmed,0
+00449e00,,AIProcessor_GetNumOutputs,AIProcessor_GetNumOutputs,confirmed,0
+00449e10,,AIProcessor_GetOutputName,AIProcessor_GetOutputName,confirmed,0
+00449e20,,AIProcessor_Activate,AIProcessor_Activate,confirmed,0
+00449e50,,AIProcessor_RegisterGizmo,AIProcessor_RegisterGizmo,confirmed,0
 0044bf50,0006fe0c,__Z14GameAISysResetP7AISYS_s,GameAISysReset(AISYS_s*),strings,0
 0044c960,0007503e,__Z16PartyMemberInWayP12GameObject_sS0_,"PartyMemberInWay(GameObject_s*, GameObject_s*)",gapfill,1
 0044d1d0,00075348,__Z18Condition_GlynTestP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPcPv,"Condition_GlynTest(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)",confirmed,0
@@ -2907,6 +2913,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006705a0,002c2d74,__Z29GizMiniCut_ReserveBufferSpacePv,GizMiniCut_ReserveBufferSpace(void*),confirmed,0
 006708b0,002c3166,__Z18GizMiniCut_GetGuidP7GIZMO_s,GizMiniCut_GetGuid(GIZMO_s*),confirmed,0
 006709b0,002c332a,__Z19GizMiniCut_ResetAllPvS_S_,"GizMiniCut_ResetAll(void*, void*, void*)",confirmed,0
+00670b20,,GizMiniCut_RegisterGizmo,GizMiniCut_RegisterGizmo,confirmed,0
 00670d20,002a6904,__Z15SetFramesToWaitj,SetFramesToWait(unsigned int),confirmed,0
 00670d30,002a6918,__Z22FadeSystem_PlayWipeSfxv,FadeSystem_PlayWipeSfx(),confirmed,0
 00670d80,002a6996,__Z24DrawStillScreenWithAlphaif,"DrawStillScreenWithAlpha(int, float)",confirmed,0
