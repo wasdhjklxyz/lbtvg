@@ -67,12 +67,24 @@ def die(msg):
     print("match: " + msg, file=sys.stderr); sys.exit(2)
 
 STUB_ANNOT = re.compile(r"//\s*STUB:\s*" + MODULE + r"\s+0x([0-9a-fA-F]+)")
+# reccmp style, for compiler-generated functions with no source line: the
+# name is on the annotation, as llvm-undname prints it, e.g.
+#   // SYNTHETIC: LEGOBATMAN 0x005a3c30 FadeBase::`scalar deleting destructor'
+SYNTH_ANNOT = re.compile(r"//\s*SYNTHETIC:\s*" + MODULE + r"\s+0x([0-9a-fA-F]+)\s+(\S.*?)\s*$")
+UNDNAME = {"destructor'": "dtor'"}  # reccmp spelling -> llvm-undname spelling
 
 def annotations(path, stubs=False):
     """[(addr, 'Class::name' or 'name')] in file order (STUBs instead, if asked)."""
     lines = path.read_text().splitlines()
     out = []
     for i, line in enumerate(lines):
+        sm = None if stubs else SYNTH_ANNOT.search(line)
+        if sm:
+            name = sm.group(2)
+            for a, b in UNDNAME.items():
+                name = name.replace(a, b)
+            out.append((int(sm.group(1), 16), name))
+            continue
         m = (STUB_ANNOT if stubs else ANNOT).search(line)
         if not m:
             continue

@@ -26,6 +26,8 @@ FadeBase::FadeBase() : info(NULL) {}
 // FUNCTION: LEGOBATMAN 0x005a3c20
 FadeBase::~FadeBase() {}
 
+// SYNTHETIC: LEGOBATMAN 0x005a3c30 FadeBase::`scalar deleting destructor'
+
 // FUNCTION: LEGOBATMAN 0x005a3c50
 Fade::Fade() {}
 

@@ -10,3 +10,4 @@
 004aac20 112 B static building demo_<lang>, not ResetStatusScreen
 006013b0 170 B esi-argument static (Player_ClearContext, rumble), not Grabber_GetGrabPos
 00533810 OA static helper (UTF-8 to wide, loads the OA module), called by oaInit at 0x533a80; not oaInit
+006c9ca0 register-convention static (args in edi/ecx); instNuGCutSceneCreate is global (Mac T, called from saga cutscene.cpp), so not instNuGCutSceneCreate

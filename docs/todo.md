@@ -138,7 +138,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [MemoryManager](#memorymanager) | 2 | 0 |
 | [MovePlayer](#moveplayer) | 1 | 0 |
 | [near d3dCalls.cpp](#near-d3dcallscpp) | 1 | 0 |
-| [near gcutscn.cpp](#near-gcutscncpp) | 1 | 0 |
 | [near listman_gen.cpp](#near-listman_gencpp) | 1 | 0 |
 | [near nugraph_gen.cpp](#near-nugraph_gencpp) | 1 | 0 |
 | [near numtl_dlist.cpp](#near-numtl_dlistcpp) | 1 | 0 |
@@ -939,10 +938,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## near d3dCalls.cpp
 
 - [ ] `00533a80` 358 B `_oaInit`  **stub**
-
-## near gcutscn.cpp
-
-- [ ] `006c9ca0` 159 B `_instNuGCutSceneCreate`
 
 ## near listman_gen.cpp
 

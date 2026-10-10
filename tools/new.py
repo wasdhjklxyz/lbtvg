@@ -32,7 +32,7 @@ import saga   # noqa: E402
 
 SRC = ROOT / "src"
 NEAR = 0x4000                     # a neighbour this close is probably the same file
-ANNOT = re.compile(r"//\s*(FUNCTION|STUB):\s*LEGOBATMAN\s+0x([0-9a-fA-F]+)")
+ANNOT = re.compile(r"//\s*(FUNCTION|STUB|SYNTHETIC):\s*LEGOBATMAN\s+0x([0-9a-fA-F]+)")
 
 
 def annotated():

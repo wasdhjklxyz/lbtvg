@@ -20,7 +20,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 TEXT_LO, TEXT_HI = 0x00401000, 0x0073C8FB  # game region of .text (docs/recon.md)
-ANNOT = re.compile(r"//\s*(FUNCTION|STUB):\s*LEGOBATMAN\s+0x([0-9a-fA-F]+)")
+ANNOT = re.compile(r"//\s*(FUNCTION|STUB|SYNTHETIC):\s*LEGOBATMAN\s+0x([0-9a-fA-F]+)")
 
 MATCHED, STUB, NAMED, UNKNOWN = "matched", "stub", "named", "unknown"
 METHOD = {}                   # addr -> how its name was paired (tools/macnames.py)
@@ -45,7 +45,7 @@ def load():
         for kind, a in ANNOT.findall(f.read_text(errors="ignore")):
             a = int(a, 16)
             if state.get(a) != MATCHED:
-                state[a] = MATCHED if kind == "FUNCTION" else STUB
+                state[a] = STUB if kind == "STUB" else MATCHED
     # functions annotated in src/ that ghidra never found: size them from the exe
     # (linear disassembly up to the first int3 or the next known start; the
     # next start alone can swallow other functions ghidra missed)

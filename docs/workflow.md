@@ -384,3 +384,21 @@ enough matched code for the percentage to mean something.
 - **Not matchable from C**: the NVIDIA PerfKit `nvpmapi` loader stub at
   0x532820..~0x5329b7 (hand-written asm, `pushal`). OpenAutomate SDK 0.5.0.7
   is at 0x533490..0x533be6 (`batman/pc/openautomate_unk.cpp`).
+- **Compiler-generated functions** (scalar/vector deleting destructors) have
+  no source line: annotate them reccmp-style with the name on the line,
+  next to the class's other methods:
+  ``// SYNTHETIC: LEGOBATMAN 0x005a3c30 FadeBase::`scalar deleting destructor'``
+  (the class needs a `virtual ~X()`; slot 0 of its vtable is the address).
+- **A search whose miss returns directly** is
+  `for (...) if (c) goto found; return; found:`.
+- **A static global with an explicit `p = G;` after a call** keeps the
+  reload; `static` also lets `buf->addr` be stored once.
+- **`list += i`** reuses the cached pointer's register; `p = &list[i]` does
+  not.
+- **Jump-table switches can match**: write the case bodies in jump-target
+  address order.
+- **Gizmo callbacks are statics** referenced by `*_RegisterGizmo`; the
+  ADDGIZMOTYPE slot order names them (`tools/scratch/gizreg.py`).
+- **A register-convention function can't carry a global's name**: if the
+  Mac symbol is global (`T`) and called from another file, the pairing is
+  wrong (rejected.txt).
