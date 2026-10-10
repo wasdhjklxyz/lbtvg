@@ -1030,6 +1030,40 @@ int NuFileEOF(int file) {
   return position >= size;
 }
 
+// FUNCTION: LEGOBATMAN 0x006d8f90
+void FixFilenamePath(char *path) {
+  char *p;
+  char *q;
+
+  while (NuStrStr(path, "../") == path || NuStrStr(path, "..\\") == path)
+    path += NuStrLen("../");
+  for (;;) {
+    p = NuStrStr(path, "../");
+    if (p == NULL) {
+      p = NuStrStr(path, "..\\");
+      if (p == NULL)
+        return;
+    }
+    q = p - 1;
+    if (*q == '\\' || *q == '/')
+      q--;
+    while (*q != '\\' && *q != '/' && q > path)
+      q--;
+    q[1] = '\0';
+    NuStrCat(path, p + 3);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006d9060
+NUFILEDEVICE *AddDevice(NUFILEDEVICE *device) {
+  devices[numdevices] = *device;
+  NuStrCpy(devices[numdevices].app_dir, g_unk0099f288->app_dir);
+  NuStrCpy(devices[numdevices].sys_dir, g_unk0099f288->sys_dir);
+  NuStrCpy(devices[numdevices].dll_dir, g_unk0099f288->dll_dir);
+  ++numdevices;
+  return &devices[numdevices - 1];
+}
+
 // FUNCTION: LEGOBATMAN 0x006d9130
 void NuFileGetAppDirectory(char *dest) {
   NuStrCpy(dest, g_unk0099f288->app_dir);

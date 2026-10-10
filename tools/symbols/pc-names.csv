@@ -3749,6 +3749,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d8e70,0018ddf4,_NuHeapAlloc,_NuHeapAlloc,confirmed,0
 006d8e90,0018ddca,_NuHeapAllocNamed,_NuHeapAllocNamed,confirmed,0
 006d8eb0,0018dda0,_NuHeapAllocAligned,_NuHeapAllocAligned,confirmed,0
+006d8f90,0018eaf2,_FixFilenamePath,_FixFilenamePath,confirmed,0
+006d9060,0018ba08,_AddDevice,_AddDevice,confirmed,0
 006d9130,00198810,_NuFileGetAppDirectory,_NuFileGetAppDirectory,confirmed,0
 006d9160,001987e8,_NuFileSetAppDirectory,_NuFileSetAppDirectory,confirmed,0
 006d91d0,001909d8,_NuFileSetCurrentSysDirectory,_NuFileSetCurrentSysDirectory,confirmed,0

@@ -3605,3 +3605,5 @@
 006daba0 NuFParGetOptionalFloat2 Mac body (digit check, NuAToF, else unget)
 006dfd20 NuPPGetSize saga nufile.cpp body
 006dfde0 NuPPLoadBuffer saga nufile.cpp body (stub)
+006d8f90 FixFilenamePath Mac body shape (strip ../ prefixes, collapse dir/../)
+006d9060 AddDevice saga nufile.cpp body
