@@ -179,7 +179,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [ShopComputer](#shopcomputer) | 2 | 0 |
 | [SlumsB](#slumsb) | 1 | 0 |
 | [SlumsD](#slumsd) | 1 | 0 |
-| [SockSys](#socksys) | 1 | 0 |
 | [Status](#status) | 1 | 0 |
 | [StreetsChase](#streetschase) | 1 | 0 |
 | [SuperCounter](#supercounter) | 2 | 0 |
@@ -1129,10 +1128,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## SlumsD
 
 - [ ] `0050d450` 463 B `SlumsD_Update(WORLDINFO_s*)`
-
-## SockSys
-
-- [ ] `00680d60` 254 B `_SockSys_Configure`
 
 ## Status
 

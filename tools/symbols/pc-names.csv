@@ -2491,7 +2491,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0067dd00,00120208,_NuLstCreate,_NuLstCreate,strings,0
 0067e110,00120648,_NuLstGetNext,_NuLstGetNext,gapfill,2
 0067e6d0,0025da6a,_SockSysFindInScene,_SockSysFindInScene,strings,0
-00680d60,0025bfec,_SockSys_Configure,_SockSys_Configure,strings,0
+00680d60,0025bfec,_SockSys_Configure,_SockSys_Configure,confirmed,0
 00684190,0019c7be,_NuSinApprox,_NuSinApprox,calls,3
 00684480,0019c98a,_NuVecMtxTransform,_NuVecMtxTransform,gapfill,6
 00684650,0019cc08,_NuVecMtxRotate,_NuVecMtxRotate,gapfill,2

@@ -2548,3 +2548,4 @@
 005a3e40 StillScreen::~StillScreen      vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
 005a3e50 StillScreen::GetFadeType       vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
 006762c0 PlayerIdToGameObj      id <= 1 ? Player[id] if its 0x1fc bit 7 is set : NULL, same body as the Mac's
+00680d60 SockSys_Configure      "socks"/"sock_start"/"sock_end" strings, saga socksysall.cpp body; Mac string pairing
