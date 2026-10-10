@@ -3205,3 +3205,9 @@
 005dba80 GizmoBlowupUpdateMatrix Mac order after GizBlowup_DeleteTerrain, saga body
 005dbb40 GizmoBlowupGenDecalMatrix Mac order, saga body
 005dbc10 GizmoBlowupGenShadowMatrix Mac order, saga body
+005dd9f0 GizmoBlowUp_FindFromPlatID Mac order before GizmoBlowUp_FindByName; platform_id search
+005de5d0 GizmoBlowupTypeGetCount Mac order, saga body
+005de630 GizmoBlowupTypeGetIndexFromName Mac order, NuStrICmp over type names
+005de790 GizmoBlowupResetNameTable saga body (memset 0x400, numids = 0)
+005de7b0 GizmoBlowupGetNameTableId saga body
+005de820 GizmoBlowupGetTypeFromNameTableId saga body

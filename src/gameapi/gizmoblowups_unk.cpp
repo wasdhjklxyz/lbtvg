@@ -457,6 +457,18 @@ void Blowup_ResetAtMtx(GIZMOBLOWUP_s *blowup, numtx_s *mtx) {
   }
 }
 
+// FUNCTION: LEGOBATMAN 0x005dd9f0
+GIZMOBLOWUP_s *GizmoBlowUp_FindFromPlatID(WORLDINFO_s *world, i32 platform_id) {
+  GIZMOBLOWUP_s *blowup = world->gizmo_blowups;
+  if (blowup != NULL) {
+    for (i32 i = 0; i < world->gizmo_blowup_count; i++, blowup++) {
+      if (blowup->platform_id == platform_id)
+        return blowup;
+    }
+  }
+  return NULL;
+}
+
 // FUNCTION: LEGOBATMAN 0x005dda30
 GIZMOBLOWUP_s *GizmoBlowUp_FindByName(WORLDINFO_s *world, char *name) {
   GIZMOBLOWUP_s *blowup = world->gizmo_blowups;
@@ -668,6 +680,79 @@ GIZMOBLOWUPTYPE_s *GizmoBlowup_FindType(char *name, WORLDINFO_s *world) {
 // FUNCTION: LEGOBATMAN 0x005dbd60
 void gizmoblowup_PreLoad(void *world_ptr) {
   ((WORLDINFO_s *)world_ptr)->f525c = 100.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x005de5d0
+i32 GizmoBlowupTypeGetCount(WORLDINFO_s *world) {
+  if (world == NULL)
+    return -1;
+  return world->gizmo_blowup_type_count;
+}
+
+// STUB: LEGOBATMAN 0x005de5f0
+// the original adds the type base from memory after the imul (world stays in
+// ecx); ours loads the base first and folds 0xdc into one lea (5 forms).
+char *GizmoBlowupTypeGetNameFromIndex(WORLDINFO_s *world, i32 index) {
+  if (world == NULL || index == -1 || index > world->gizmo_blowup_type_count)
+    return NULL;
+  GIZMOBLOWUPTYPE_s *type = &world->gizmo_blowup_types[index];
+  char *name = type->name;
+  return NuStrLen(name) != 0 ? name : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x005de630
+i32 GizmoBlowupTypeGetIndexFromName(WORLDINFO_s *world, char *name) {
+  if (name == NULL || world == NULL)
+    return -1;
+  GIZMOBLOWUPTYPE_s *type = world->gizmo_blowup_types;
+  for (i32 i = 0; i < world->gizmo_blowup_type_count; i++, type++) {
+    if (NuStrICmp(name, type->name) == 0)
+      return i;
+  }
+  return -1;
+}
+
+void NuStrNCpy(char *dst, const char *src, i32 n);
+
+// GLOBAL: LEGOBATMAN 0x00ac6f70
+static i32 gizmoblowupnametable_numids;
+// GLOBAL: LEGOBATMAN 0x00ac6f80
+static char gizmoblowupnametable[32][32];
+
+// FUNCTION: LEGOBATMAN 0x005de790
+void GizmoBlowupResetNameTable() {
+  memset(gizmoblowupnametable, 0, sizeof(gizmoblowupnametable));
+  gizmoblowupnametable_numids = 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x005de7b0
+i32 GizmoBlowupGetNameTableId(char *name) {
+  for (i32 id = 0; id < gizmoblowupnametable_numids; id++) {
+    if (NuStrICmp(gizmoblowupnametable[id], name) == 0)
+      return id;
+  }
+  if (gizmoblowupnametable_numids < 32) {
+    NuStrNCpy(gizmoblowupnametable[gizmoblowupnametable_numids], name,
+              sizeof(gizmoblowupnametable[0]));
+    gizmoblowupnametable_numids++;
+    return gizmoblowupnametable_numids - 1;
+  }
+  return -1;
+}
+
+// FUNCTION: LEGOBATMAN 0x005de820
+i32 GizmoBlowupGetTypeFromNameTableId(WORLDINFO_s *world, i32 name_id) {
+  if (name_id >= 0 && name_id < gizmoblowupnametable_numids) {
+    char *name = gizmoblowupnametable[name_id];
+    if (name != NULL) {
+      GIZMOBLOWUPTYPE_s *type = world->gizmo_blowup_types;
+      for (i32 i = 0; i < world->gizmo_blowup_type_count; i++, type++) {
+        if (NuStrICmp(type->name, name) == 0)
+          return i;
+      }
+    }
+  }
+  return -1;
 }
 
 // FUNCTION: LEGOBATMAN 0x005dedf0
