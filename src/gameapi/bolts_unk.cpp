@@ -562,6 +562,87 @@ void BT_flags(NUFPAR *parser) {
   }
 }
 
+// The bolt system's view used by the BoltType lookups.
+struct BTSys_s {
+  BoltTypeKw_s *types; // 0x0
+  u8 pad4[8 - 4];
+  i32 count; // 0x8
+};
+
+// GLOBAL: LEGOBATMAN 0x00962094
+extern BTSys_s *BoltSys;
+
+struct BTVec_s {
+  i32 x, y, z;
+};
+
+// Raw view of GameObject_s for the default shoot origin.
+struct BTObject_s {
+  u8 pad00[0x80];
+  BTVec_s collision_position; // 0x80
+  u8 pad8c[0xb0 - 0x8c];
+  f32 collision_height; // 0xb0
+};
+
+i32 qrand();
+
+// FUNCTION: LEGOBATMAN 0x005e90e0
+BoltTypeKw_s *BoltType_FindByID(i32 id, BTWorld_s *world) {
+  if (id >= 0 && id < BoltSys->count)
+    return &BoltSys->types[id];
+  if (world != 0 && id >= BoltSys->count && id < BoltSys->count + 8)
+    return &world->bolt_types[id - BoltSys->count];
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e9130
+BoltTypeKw_s *BoltType_FindByName(char *name, BTWorld_s *world) {
+  if (NuStrLen(name) != 0) {
+    if (world != 0) {
+      for (i32 i = 7; i >= 0; i--) {
+        if (NuStrICmp(name, world->bolt_types[i].name) == 0)
+          return &world->bolt_types[i];
+      }
+    }
+    for (i32 i = BoltSys->count + 7; i >= 0; i--) {
+      if (BoltSys->types == 0)
+        return 0;
+      if (NuStrICmp(name, BoltSys->types[i].name) == 0)
+        return &BoltSys->types[i];
+    }
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e91f0
+i32 BoltType_FindIDByName(char *name, BTWorld_s *world) {
+  if (NuStrLen(name) != 0) {
+    if (world != 0) {
+      for (i32 i = 7; i >= 0; i--) {
+        if (NuStrICmp(name, world->bolt_types[i].name) == 0)
+          return BoltSys->count + i;
+      }
+    }
+    for (i32 i = BoltSys->count + 7; i >= 0; i--) {
+      if (NuStrICmp(name, BoltSys->types[i].name) == 0)
+        return i;
+    }
+  }
+  return -1;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e92b0
+void Bolt_GetShootOrigin_Default(BTObject_s *object, BTVec_s *position) {
+  *position = object->collision_position;
+}
+
+// STUB: LEGOBATMAN 0x005e9330
+// ours hoists (h + h) / 65535.0 above the qrand call as a double
+f32 Bolt_ObjTargetPosYAdjust(BTObject_s *object) {
+  f32 height = object->collision_height;
+  return (f32)qrand() * ((height + height) / 65535.0f) - height;
+}
+
 // STUB: LEGOBATMAN 0x005eabf0
 // orig keeps reading_type and the parser in stack slots; ours uses edi
 void BoltTypes_Configure(BTWorld_s *world, char *config) {

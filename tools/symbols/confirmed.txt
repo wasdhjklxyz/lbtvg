@@ -2026,3 +2026,9 @@
 0079f720 EdRefKnot::GetMemberData vtable 0x90b25c slot 1 (RTTI)
 0079f850 EdRefKnot::SetMemberData vtable 0x90b25c slot 2 (RTTI)
 0079d510 EdRef::CheckType called first from every EdRef*::Get/SetMemberData as in saga; matched
+005e90e0 BoltType_FindByID Mac order after BoltTypes_Reset/BoltType_FindByName region + saga body (count at BoltSys+8); matched
+005e9130 BoltType_FindByName Mac order (BT_flags, BoltTypes_Reset, FindByName, FindIDByName), name lookup returning the type; matched
+005e91f0 BoltType_FindIDByName Mac order + saga body (returns id, -1); matched
+005e92b0 Bolt_GetShootOrigin_Default Mac order + saga body (copies collision_position); matched
+005e92e0 Bolt_GetShootDirection_Default Mac order + saga body (facing angle 0x5a, returns it)
+005e9330 Bolt_ObjTargetPosYAdjust Mac order + saga body (qrand * 2h / 65535 - h)
