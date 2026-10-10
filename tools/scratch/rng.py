@@ -6,7 +6,7 @@ pe=pefile.PE('orig/LEGOBatman.exe');img=pe.get_memory_mapped_image()
 ann={}
 for f in glob.glob('src/**/*.c*',recursive=True):
     t=open(f,errors='ignore').read()
-    for m in re.finditer(r'//\s*(FUNCTION|STUB):\s*LEGOBATMAN\s+0x([0-9a-fA-F]+)\s*\n(?:[^\n]*\n){0,2}?[^\n]*?([A-Za-z_][\w:~]*)\s*\(',t):
+    for m in re.finditer(r'//\s*(FUNCTION|STUB|SYNTHETIC):\s*LEGOBATMAN\s+0x([0-9a-fA-F]+)[^\n]*\n(?:[^\n]*\n){0,2}?[^\n]*?([A-Za-z_][\w:~]*)\s*\(',t):
         ann[int(m.group(2),16)]=(m.group(1)[0],m.group(3),f.split('/')[-1])
 nm={}
 for r in csv.DictReader(open('tools/symbols/pc-names.csv')):

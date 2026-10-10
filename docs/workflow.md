@@ -402,3 +402,19 @@ enough matched code for the percentage to mean something.
 - **A register-convention function can't carry a global's name**: if the
   Mac symbol is global (`T`) and called from another file, the pairing is
   wrong (rejected.txt).
+- **Annotation comments are never reflowed** (`CommentPragmas` in
+  `.clang-format`): no `// clang-format off` needed around long `SYNTHETIC`
+  lines.
+- **Progress-bit loops** that matched four times:
+  `if (!p) return; Clear(NULL, p); for (...; i++, obj++) { if (i >= N) break;
+  i32 word = i / 32; u32 bit = 1 << (i & 31); ... }`; use `i % 32` where the
+  original has `and 0x8000001f; jns`.
+- **Gizmo name/prefix strings are often `static char *` globals**
+  (`mov eax, [g]`).
+- **RegisterGizmo**: write only the `fns[k] = NULL` stores the original makes.
+- **Assigning a whole byte to a bitfield** gives the add/xor/and insert.
+- **`if (!g) return 0; obj = g->object; if (!obj) return 0;`** puts the first
+  `return 0` early.
+- **Drop a pointer local for `arr[i].f`** to get `cmp [mem]` instead of `lea`.
+- **Deleting destructors can sit far from their class's dtor** (BaseThing's
+  at 0x5923a0); `tools/scratch/sdd.py` lists slot 0 of every RTTI vtable.

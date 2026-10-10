@@ -59,9 +59,7 @@ StillScreenWipe::~StillScreenWipe() {}
 // FUNCTION: LEGOBATMAN 0x005a3d10
 i32 StillScreenWipe::GetFadeType() const { return 2; }
 
-// clang-format off
 // SYNTHETIC: LEGOBATMAN 0x005a3d20 StillScreenWipe::`scalar deleting destructor'
-// clang-format on
 
 // FUNCTION: LEGOBATMAN 0x005a3d40
 CrossFade::CrossFade() {}

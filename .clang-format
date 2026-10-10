@@ -1,1 +1,3 @@
 BasedOnStyle: LLVM
+# never reflow annotation comments (reccmp style)
+CommentPragmas: '^ (FUNCTION|STUB|SYNTHETIC|GLOBAL):'

@@ -6,7 +6,7 @@ import re,glob,bisect,pefile
 pe=pefile.PE('orig/LEGOBatman.exe');img=pe.get_memory_mapped_image()
 ann={}
 for f in glob.glob('src/**/*.c*',recursive=True):
-    for m in re.finditer(r'//\s*(?:FUNCTION|STUB):\s*LEGOBATMAN\s+0x([0-9a-fA-F]+)',open(f,errors='ignore').read()):
+    for m in re.finditer(r'//\s*(?:FUNCTION|STUB|SYNTHETIC):\s*LEGOBATMAN\s+0x([0-9a-fA-F]+)',open(f,errors='ignore').read()):
         ann[int(m.group(1),16)]=f
 A=sorted(ann)
 def starts(lo,hi):
