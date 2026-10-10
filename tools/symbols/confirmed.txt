@@ -3179,3 +3179,13 @@
 005d8d40 GizmoBlowup_GetPos NewBlowup_RegisterGizmo get_pos slot
 005d8d50 Blowup_AllocateProgressData NewBlowup_RegisterGizmo allocate_progress_data slot
 005d8d70 Blowup_ClearProgress NewBlowup_RegisterGizmo clear_progress slot
+005d8de0 Blowup_StoreProgress NewBlowup_RegisterGizmo store_progress slot (fns[21])
+005d9190 GizmoBlowups_AddLevelSfx NewBlowup_RegisterGizmo slot 27 (Mac name order after GizmoBlowups_TotalScore)
+005deed0 Blowup_ActivateRev NewBlowup_RegisterGizmo activate_rev slot (fns[11])
+005df900 NewBlowup_RegisterGizmo stores blowup_gizmotype_id 0x961104 and the "blowup" name, saga body
+005da880 GizmoBlowupEarlyUpdate NewBlowup_RegisterGizmo early_update slot (fns[2])
+005db050 GizmoBlowupLateUpdate NewBlowup_RegisterGizmo late_update slot (fns[3])
+005df0d0 GizmoBlowupBurstDraw NewBlowup_RegisterGizmo draw slot (fns[4]), saga name
+005dedf0 Blowup_Activate NewBlowup_RegisterGizmo activate slot (fns[10])
+005def20 Blowups_Reset NewBlowup_RegisterGizmo reset slot (fns[22])
+005dbd80 gizmoblowup_Load NewBlowup_RegisterGizmo load slot (fns[24])

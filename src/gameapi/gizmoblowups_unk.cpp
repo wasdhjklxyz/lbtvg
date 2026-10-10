@@ -23,7 +23,9 @@ struct GIZMOBLOWUP_s {
   u32 punched : 1;   // 0xa0 bit 1
   u32 bits2 : 12;    // 0xa0 bits 2-13
   u32 visible : 1;   // 0xa0 bit 14
-  u32 bits15 : 13;   // 0xa0 bits 15-27
+  u32 bits15 : 8;    // 0xa0 bits 15-22
+  u32 activated : 1; // 0xa0 bit 23
+  u32 bits24 : 4;    // 0xa0 bits 24-27
   u32 secondary : 1; // 0xa0 bit 28
   u32 bits29 : 3;    // 0xa0 bits 29-31
   u8 pada4[0xfe - 0xa4];
@@ -31,6 +33,8 @@ struct GIZMOBLOWUP_s {
   i16 platform_id; // 0x10e
   u8 pad110[0x122 - 0x110];
   u8 b122_0 : 1; // 0x122
+  u8 b122_1 : 4; // 0x122 bits 1-4
+  u8 b122_5 : 1; // 0x122 bit 5
   u8 pad123[0x128 - 0x123];
   f32 scale; // 0x128
 };
@@ -214,6 +218,56 @@ void Blowup_ClearProgress(void *world, void *progress_ptr) {
   }
 }
 
+// FUNCTION: LEGOBATMAN 0x005d8de0
+void Blowup_StoreProgress(void *world_ptr, void *unused, void *progress_ptr) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  BLOWUPPROGRESS *progress = (BLOWUPPROGRESS *)progress_ptr;
+  Blowup_ClearProgress(world, progress);
+  if (progress == NULL || world == NULL || world->gizmo_blowups == NULL)
+    return;
+  GIZMOBLOWUP_s *blowup = world->gizmo_blowups;
+  for (i32 i = 0; i < world->gizmo_blowup_count; i++, blowup++) {
+    if (i >= 512)
+      break;
+    i32 word = i / 32;
+    u32 bit = 1 << (i & 31);
+    if (blowup->blown_up)
+      progress->blown_up[word] |= bit;
+    if (!blowup->visible)
+      progress->visible[word] &= ~bit;
+    if (!blowup->activated)
+      progress->activated[word] &= ~bit;
+    if (blowup->secondary)
+      progress->secondary[word] |= bit;
+    if (blowup->b122_0)
+      progress->b122[word] |= bit;
+    if (blowup->b122_5)
+      progress->f140[word] |= bit;
+  }
+}
+
+struct GIZMOBLOWUPTYPE_s {
+  u8 pad0[0x102];
+  i16 sfx0; // 0x102
+  i16 sfx1; // 0x104
+  u8 pad106[0x10c - 0x106];
+};
+
+void AddLevelSfxFromId(i32 sfx_id, i32 *sfx_ids, i32 *sfx_count, i32 max_sfx);
+
+// FUNCTION: LEGOBATMAN 0x005d9190
+void GizmoBlowups_AddLevelSfx(void *world_ptr, void *unused, i32 *sfx_ids,
+                              i32 *sfx_count, i32 max_sfx) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  GIZMOBLOWUPTYPE_s *type = world->gizmo_blowup_types;
+  for (i32 i = 0; i < world->gizmo_blowup_type_count; i++, type++) {
+    if (type->sfx0 != -1)
+      AddLevelSfxFromId(type->sfx0, sfx_ids, sfx_count, max_sfx);
+    if (type->sfx1 != -1)
+      AddLevelSfxFromId(type->sfx1, sfx_ids, sfx_count, max_sfx);
+  }
+}
+
 // GLOBAL: LEGOBATMAN 0x00966624
 extern i32 g_unk00966624; // default explosion debris type, -1 = none
 
@@ -235,6 +289,88 @@ GIZMOBLOWUP_s *GizmoBlowUp_FindByName(WORLDINFO_s *world, char *name) {
     }
   }
   return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x005dbd60
+void Blowups_SetUnk525c(void *world_ptr) {
+  ((WORLDINFO_s *)world_ptr)->f525c = 100.0f;
+}
+
+void Blowup_Activate(GIZMO *gizmo, i32 enabled);
+
+// FUNCTION: LEGOBATMAN 0x005deed0
+i32 Blowup_ActivateRev(GIZMO *gizmo, i32 active, i32 flags) {
+  if (gizmo == NULL || gizmo->object == NULL)
+    return 1;
+  GIZMOBLOWUP_s *blowup = (GIZMOBLOWUP_s *)gizmo->object;
+  if (flags & 1) {
+    if (blowup->activated)
+      return active;
+    return active == 0;
+  }
+  Blowup_Activate(gizmo, active == 0);
+  return 1;
+}
+
+typedef struct ADDGIZMOTYPE_s {
+  char *name;        // 0x00
+  char *prefix;      // 0x04
+  u16 progress_size; // 0x08
+  void *fns[0x1c];   // 0x0c
+} ADDGIZMOTYPE;
+
+// GLOBAL: LEGOBATMAN 0x00960118
+extern ADDGIZMOTYPE Default_ADDGIZMOTYPE;
+// GLOBAL: LEGOBATMAN 0x00961104
+extern i32 blowup_gizmotype_id;
+
+void GizmoBlowupEarlyUpdate(void *world_ptr, void *unused, f32 dt);
+void GizmoBlowupLateUpdate(void *world_ptr, void *unused, f32 dt);
+void GizmoBlowupBurstDraw(void *world_ptr, void *unused, f32 dt);
+void Blowups_Reset(void *world_ptr, void *unused, void *progress_ptr);
+i32 gizmoblowup_Load(void *world_ptr, void *unused);
+
+// FUNCTION: LEGOBATMAN 0x005df900
+ADDGIZMOTYPE *NewBlowup_RegisterGizmo(i32 type_id) {
+  // GLOBAL: LEGOBATMAN 0x009612d0
+  static char *name = "blowup";
+  // GLOBAL: LEGOBATMAN 0x00ac73c8
+  static ADDGIZMOTYPE addtype;
+
+  addtype = Default_ADDGIZMOTYPE;
+  addtype.name = name;
+  addtype.prefix = "";
+  addtype.progress_size = sizeof(BLOWUPPROGRESS);
+  addtype.fns[2] = (void *)GizmoBlowupEarlyUpdate;
+  addtype.fns[5] = NULL;
+  addtype.fns[13] = (void *)Blowup_GetVisibility;
+  addtype.fns[0] = (void *)Blowup_GetMaxGizmos;
+  addtype.fns[14] = (void *)GizmoBlowup_GetPos;
+  addtype.fns[15] = NULL;
+  addtype.fns[1] = (void *)Blowup_AddGizmos;
+  addtype.fns[16] = NULL;
+  addtype.fns[17] = NULL;
+  addtype.fns[3] = (void *)GizmoBlowupLateUpdate;
+  addtype.fns[18] = NULL;
+  addtype.fns[4] = (void *)GizmoBlowupBurstDraw;
+  addtype.fns[6] = (void *)Blowup_GetGizmoName;
+  addtype.fns[7] = (void *)Blowup_GetOutput;
+  addtype.fns[8] = (void *)Blowup_GetOutputName;
+  addtype.fns[9] = (void *)Blowup_GetNumOutputs;
+  addtype.fns[10] = (void *)Blowup_Activate;
+  addtype.fns[11] = (void *)Blowup_ActivateRev;
+  addtype.fns[12] = (void *)Blowup_SetVisibility;
+  addtype.fns[19] = (void *)Blowup_AllocateProgressData;
+  addtype.fns[20] = (void *)Blowup_ClearProgress;
+  addtype.fns[21] = (void *)Blowup_StoreProgress;
+  addtype.fns[22] = (void *)Blowups_Reset;
+  addtype.fns[23] = (void *)gizmoblowup_reservebuffers;
+  addtype.fns[24] = (void *)gizmoblowup_Load;
+  addtype.fns[25] = (void *)Blowups_SetUnk525c;
+  addtype.fns[26] = NULL;
+  addtype.fns[27] = (void *)GizmoBlowups_AddLevelSfx;
+  blowup_gizmotype_id = type_id;
+  return &addtype;
 }
 
 i32 Techno_FindOperator(void *object, void **pad, GameObject_s **out);

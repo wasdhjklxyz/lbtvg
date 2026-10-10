@@ -1913,9 +1913,19 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005d8d40,002c5bf0,__Z18GizmoBlowup_GetPosP7GIZMO_s,GizmoBlowup_GetPos(GIZMO_s*),confirmed,0
 005d8d50,002c5c04,__Z27Blowup_AllocateProgressDataP9variptr_uS0_,"Blowup_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
 005d8d70,002c5c26,__Z20Blowup_ClearProgressPvS_,"Blowup_ClearProgress(void*, void*)",confirmed,0
+005d8de0,002c5cba,__Z20Blowup_StoreProgressPvS_S_,"Blowup_StoreProgress(void*, void*, void*)",confirmed,0
+005d9190,002c5fe0,__Z24GizmoBlowups_AddLevelSfxPvS_PiS0_i,"GizmoBlowups_AddLevelSfx(void*, void*, int*, int*, int)",confirmed,0
 005d9810,002c684e,__Z36GizmoBlowupAddDefaultExplosionDebrisP7nuvec_s,GizmoBlowupAddDefaultExplosionDebris(nuvec_s*),confirmed,0
 005d9e20,002c6fce,__Z17GizmoBlowupBlowupP13GIZMOBLOWUP_siiiP12GameObject_si,"GizmoBlowupBlowup(GIZMOBLOWUP_s*, int, int, int, GameObject_s*, int)",confirmed,0
+005da880,002c7916,__Z22GizmoBlowupEarlyUpdatePvS_f,"GizmoBlowupEarlyUpdate(void*, void*, float)",confirmed,0
+005db050,002c8240,__Z21GizmoBlowupLateUpdatePvS_f,"GizmoBlowupLateUpdate(void*, void*, float)",confirmed,0
+005dbd80,002c9caa,__Z16gizmoblowup_LoadPvS_,"gizmoblowup_Load(void*, void*)",confirmed,0
 005dda30,002cb9c0,__Z22GizmoBlowUp_FindByNameP11WORLDINFO_sPc,"GizmoBlowUp_FindByName(WORLDINFO_s*, char*)",calls,1
+005dedf0,002c5a2e,__Z15Blowup_ActivateP7GIZMO_si,"Blowup_Activate(GIZMO_s*, int)",confirmed,0
+005deed0,002c5b30,__Z18Blowup_ActivateRevP7GIZMO_sii,"Blowup_ActivateRev(GIZMO_s*, int, int)",confirmed,0
+005def20,002ccdfe,__Z13Blowups_ResetPvS_S_,"Blowups_Reset(void*, void*, void*)",confirmed,0
+005df0d0,002c8f86,__Z20GizmoBlowupBurstDrawPvS_f,"GizmoBlowupBurstDraw(void*, void*, float)",confirmed,0
+005df900,002c6064,__Z23NewBlowup_RegisterGizmoi,NewBlowup_RegisterGizmo(int),confirmed,0
 005dfa60,002ec12c,__Z15ObjHitObj_FlagsP12GameObject_s,ObjHitObj_Flags(GameObject_s*),gapfill,1
 005dfec0,002f7356,__Z25Ledges_ReserveBufferSpacePv,Ledges_ReserveBufferSpace(void*),confirmed,0
 005dff10,002f73ba,__Z11Ledge_ResetP7LEDGE_s,Ledge_Reset(LEDGE_s*),confirmed,0
