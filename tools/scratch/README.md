@@ -19,3 +19,6 @@ are not lost. Run inside `nix develop` from the repo root.
 - `scan.py LO HI [MAXSZ]`: unannotated, unskipped small functions in an
   address range, including ones ghidra missed; good for sweeping a file's
   neighbourhood.
+- `vtable.py ADDR`: find the vtable(s) holding ADDR (directly or through an
+  incremental-link `jmp` thunk) and print every slot resolved. Pair slots
+  with the Mac binary's inline emission order to name inline virtuals.

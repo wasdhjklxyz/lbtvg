@@ -312,3 +312,18 @@ enough matched code for the percentage to mean something.
   goes elsewhere; one broke a commit.
 - **clang-format sorts `<shellapi.h>` above `<windows.h>`**: keep a comment
   line between them.
+- **Vtables point at incremental-link `jmp` thunks**: a plain pointer search
+  finds nothing; `tools/scratch/vtable.py ADDR` resolves them. Pair the
+  slots with the Mac inline emission order to name a class's inline
+  virtuals.
+- **`while (n--)` vs `for (; n != 0; n--)`**, and `count > bitcount` vs
+  `bitcount < count`, compile differently.
+- **`volatile` flags** give register loads (`neg/sbb/neg` for `!= 0`).
+- **`int r = 0; if (f() == x) r = 1; return r;`** gives `xor esi, esi` before
+  the call and `lea eax, [esi+1]`.
+- **Comparing a saved BOOL after a store** gives `sete`.
+- **A float ternary assignment** goes through a stack temp.
+- **`sign ? v * sign : v` vs `if (sign) return sign * v; return v;`**
+  allocate registers differently.
+- **x87 commutative operand order** (`fld a; fmul b`) did not follow source
+  order in numtx (NuMtxMul, RotateX/Z...); unsolved, stubbed.
