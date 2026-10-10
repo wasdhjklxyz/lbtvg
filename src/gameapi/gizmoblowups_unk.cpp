@@ -54,7 +54,9 @@ struct GIZMOBLOWUP_s {
   u8 padaa[0xac - 0xaa];
   i32 score;                      // 0xac
   struct GIZMOBLOWUPTYPE_s *type; // 0xb0
-  u8 padb4[0xc8 - 0xb4];
+  u8 padb4[0xbc - 0xb4];
+  f32 fbc; // 0xbc
+  u8 padc0[0xc8 - 0xc0];
   f32 fc8;         // 0xc8
   f32 decal_scale; // 0xcc
   u8 padd0[0xe8 - 0xd0];
@@ -447,6 +449,26 @@ extern i32 g_unk00966624; // default explosion debris type, -1 = none
 
 i32 AddGameDebris(void *system, i32 type, nuvec_s *position);
 
+// GLOBAL: LEGOBATMAN 0x009ca98c
+extern f32 g_unk009ca98c;
+
+f32 GameShadow(GameObject_s *object, nuvec_s *position, f32 probe_height,
+               i32 flags);
+
+// FUNCTION: LEGOBATMAN 0x005d94f0
+f32 GizmoBlowup_SetAutoSetReflectY(GIZMOBLOWUP_s *blowup, nuvec_s *position) {
+  if (blowup == NULL)
+    return 0.0f;
+  if (blowup->platform_id)
+    PlatOnOff(blowup->platform_id, 0);
+  f32 ground = GameShadow(NULL, position, g_unk009ca98c, -1);
+  if (blowup->platform_id)
+    PlatOnOff(blowup->platform_id, 1);
+  if (ground != 2000000.0)
+    return ground - 0.0f;
+  return 0.0f;
+}
+
 // FUNCTION: LEGOBATMAN 0x005d9750
 void BlowupObjEmit_Stop(void *part) {}
 
@@ -748,6 +770,28 @@ i32 GizmoBlowupTypeGetIndexFromName(WORLDINFO_s *world, char *name) {
       return i;
   }
   return -1;
+}
+
+void GizmoBlowUp_AddEffects(nuvec_s *position, GIZMOBLOWUP_s *blowup, i32 count,
+                            i32 flags, GameObject_s *object);
+
+// FUNCTION: LEGOBATMAN 0x005de6a0
+void GizmoBlowUpTypeBlowUp(WORLDINFO_s *world, i32 type_index,
+                           nuvec_s *position) {
+  char *name = GizmoBlowupTypeGetNameFromIndex(world, type_index);
+  if (name != NULL) {
+    GIZMOBLOWUPTYPE_s *type = GizmoBlowup_FindType(name, world);
+    if (type != NULL) {
+      GIZMOBLOWUP_s blowup;
+      memset(&blowup, 0, sizeof(blowup));
+      blowup.type = type;
+      i32 flags = 7;
+      if (blowup.fbc > 0.0f)
+        flags = 15;
+      GizmoBlowUp_AddEffects(position, &blowup, 0, flags, NULL);
+      GameAudio_PlaySfx(0x46, position, 0, 0);
+    }
+  }
 }
 
 void NuStrNCpy(char *dst, const char *src, i32 n);

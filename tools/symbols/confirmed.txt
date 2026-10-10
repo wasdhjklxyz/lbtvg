@@ -3216,3 +3216,5 @@
 005ded50 RegisterTransformTypes Mac order before RegisterTorpedoTypes; {name, id*} table numbering, max 3
 005deda0 RegisterTorpedoTypes Mac order; same shape, max 7
 005d9760 GizmoBlowUp_PlaySfx Mac order between BlowupObjEmit_Stop and GizmoBlowupAddDefaultExplosionDebris
+005de6a0 GizmoBlowUpTypeBlowUp Mac signature (WORLDINFO_s*, int, nuvec_s*): inlines TypeGetNameFromIndex, FindType, AddEffects on a zeroed local blowup, sfx 0x46
+005d94f0 GizmoBlowup_SetAutoSetReflectY Mac order (after GizmoBlowupTypeRemove, before EvaluateBlowupAnimToMtx); GameShadow under the blowup with its platform off

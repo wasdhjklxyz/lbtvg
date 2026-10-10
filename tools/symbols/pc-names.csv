@@ -1918,6 +1918,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005d8fd0,002c5dde,__Z17GizBlowup_RespawnP13GIZMOBLOWUP_s,GizBlowup_Respawn(GIZMOBLOWUP_s*),confirmed,0
 005d9150,002c5fa0,__Z23GizmoBlowups_TotalScorePv,GizmoBlowups_TotalScore(void*),confirmed,0
 005d9190,002c5fe0,__Z24GizmoBlowups_AddLevelSfxPvS_PiS0_i,"GizmoBlowups_AddLevelSfx(void*, void*, int*, int*, int)",confirmed,0
+005d94f0,002c6518,__Z30GizmoBlowup_SetAutoSetReflectYP13GIZMOBLOWUP_sP7nuvec_s,"GizmoBlowup_SetAutoSetReflectY(GIZMOBLOWUP_s*, nuvec_s*)",confirmed,0
 005d9750,002c6774,__Z18BlowupObjEmit_StopP6PART_s,BlowupObjEmit_Stop(PART_s*),confirmed,0
 005d9760,002c677a,__Z19GizmoBlowUp_PlaySfxP13GIZMOBLOWUP_sP7nuvec_s,"GizmoBlowUp_PlaySfx(GIZMOBLOWUP_s*, nuvec_s*)",confirmed,0
 005d9810,002c684e,__Z36GizmoBlowupAddDefaultExplosionDebrisP7nuvec_s,GizmoBlowupAddDefaultExplosionDebris(nuvec_s*),confirmed,0
@@ -1943,6 +1944,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005de5d0,002cc3c6,__Z23GizmoBlowupTypeGetCountP11WORLDINFO_s,GizmoBlowupTypeGetCount(WORLDINFO_s*),confirmed,0
 005de5f0,002cc3de,__Z31GizmoBlowupTypeGetNameFromIndexP11WORLDINFO_si,"GizmoBlowupTypeGetNameFromIndex(WORLDINFO_s*, int)",confirmed,0
 005de630,002cc42c,__Z31GizmoBlowupTypeGetIndexFromNameP11WORLDINFO_sPc,"GizmoBlowupTypeGetIndexFromName(WORLDINFO_s*, char*)",confirmed,0
+005de6a0,002ccc76,__Z21GizmoBlowUpTypeBlowUpP11WORLDINFO_siP7nuvec_s,"GizmoBlowUpTypeBlowUp(WORLDINFO_s*, int, nuvec_s*)",confirmed,0
 005de790,002cc498,__Z25GizmoBlowupResetNameTablev,GizmoBlowupResetNameTable(),confirmed,0
 005de7b0,002cc4d4,__Z25GizmoBlowupGetNameTableIdPc,GizmoBlowupGetNameTableId(char*),confirmed,0
 005de820,002cc554,__Z33GizmoBlowupGetTypeFromNameTableIdP11WORLDINFO_si,"GizmoBlowupGetTypeFromNameTableId(WORLDINFO_s*, int)",confirmed,0
