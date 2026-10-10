@@ -2747,8 +2747,23 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00659110,00346fb6,__Z24TrafficAnimSys_ConfigureP11WORLDINFO_sPc,"TrafficAnimSys_Configure(WORLDINFO_s*, char*)",strings,0
 0065c320,002ea63c,__Z7LoseHatP12GameObject_s,LoseHat(GameObject_s*),confirmed,0
 0065e780,002a38f0,__Z17LoadEditorSplinesP11WORLDINFO_sPcP9variptr_uS3_,"LoadEditorSplines(WORLDINFO_s*, char*, variptr_u*, variptr_u*)",strings,0
+0065ff20,002dabd6,__Z19GizTurrets_PostLoadPvS_,"GizTurrets_PostLoad(void*, void*)",confirmed,0
+006600f0,,GizTurret_Activate,GizTurret_Activate,confirmed,0
+00660150,,GizTurret_ActivateRev,GizTurret_ActivateRev,confirmed,0
+006601c0,,GizTurret_SetVisible,GizTurret_SetVisible,confirmed,0
+006601f0,,GizTurret_SetVisibility,GizTurret_SetVisibility,confirmed,0
+00660230,,GizTurret_GetPos,GizTurret_GetPos,confirmed,0
+00661a70,002db7b8,__Z23GizTurrets_GetMaxGizmosPv,GizTurrets_GetMaxGizmos(void*),confirmed,0
+00661a90,002db7d4,__Z20GizTurrets_AddGizmosP10GIZMOSYS_siPvS1_,"GizTurrets_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+00661af0,,GizTurret_GetGizmoName,GizTurret_GetGizmoName,confirmed,0
+00661b10,,GizTurret_GetOutput,GizTurret_GetOutput,confirmed,0
+00661b60,,GizTurret_GetOutputName,GizTurret_GetOutputName,confirmed,0
+00661bb0,,GizTurret_GetNumOutputs,GizTurret_GetNumOutputs,confirmed,0
+00661bc0,002db90e,__Z31GizTurrets_AllocateProgressDataP9variptr_uS0_,"GizTurrets_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+00661be0,002db930,__Z24GizTurrets_ClearProgressPvS_,"GizTurrets_ClearProgress(void*, void*)",confirmed,0
 00661c30,002dba26,__Z20GizTurret_FindByNameP14GIZTURRETSYS_sPc,"GizTurret_FindByName(GIZTURRETSYS_s*, char*)",confirmed,0
 00661d60,002dbb98,__Z14GizTurrets_HitPvP11GIZTURRET_sP7nuvec_sii,"GizTurrets_Hit(void*, GIZTURRET_s*, nuvec_s*, int, int)",confirmed,0
+006628b0,002dc858,__Z24GizTurrets_RegisterGizmoi,GizTurrets_RegisterGizmo(int),confirmed,0
 00662a30,002d5252,__Z23GizSpecial_GetMaxGizmosPv,GizSpecial_GetMaxGizmos(void*),confirmed,0
 00662a50,002d5268,__Z20GizSpecial_AddGizmosP10GIZMOSYS_siPvS1_,"GizSpecial_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
 00662c20,002d5480,__Z18GizSpecial_GetNameP12GIZSPECIAL_s,GizSpecial_GetName(GIZSPECIAL_s*),confirmed,0

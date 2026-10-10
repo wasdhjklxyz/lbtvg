@@ -3031,3 +3031,18 @@
 006346c0 GizmoPickups_ClearProgress clear_progress slot of the "GizmoPickup" ADDGIZMOTYPE
 00634710 GizmoPickups_StoreProgress store_progress slot of the "GizmoPickup" ADDGIZMOTYPE
 00636d40 GizmoPickups_RegisterGizmo copies Default_ADDGIZMOTYPE, name "GizmoPickup"
+0065ff20 GizTurrets_PostLoad x26 (post_load) slot of the "GizTurret" ADDGIZMOTYPE
+006600f0 GizTurret_Activate activate slot of the "GizTurret" ADDGIZMOTYPE
+00660150 GizTurret_ActivateRev activate_rev slot of the "GizTurret" ADDGIZMOTYPE
+006601c0 GizTurret_SetVisible static copy inlined into the set_visibility slot (esi/edi convention)
+006601f0 GizTurret_SetVisibility set_visibility slot of the "GizTurret" ADDGIZMOTYPE
+00660230 GizTurret_GetPos get_pos slot of the "GizTurret" ADDGIZMOTYPE
+00661a70 GizTurrets_GetMaxGizmos get_max_gizmos slot of the "GizTurret" ADDGIZMOTYPE
+00661a90 GizTurrets_AddGizmos add_gizmos slot of the "GizTurret" ADDGIZMOTYPE
+00661af0 GizTurret_GetGizmoName get_gizmo_name slot of the "GizTurret" ADDGIZMOTYPE
+00661b10 GizTurret_GetOutput get_output slot of the "GizTurret" ADDGIZMOTYPE
+00661b60 GizTurret_GetOutputName get_output_name slot of the "GizTurret" ADDGIZMOTYPE
+00661bb0 GizTurret_GetNumOutputs get_num_outputs slot of the "GizTurret" ADDGIZMOTYPE
+00661bc0 GizTurrets_AllocateProgressData allocate_progress_data slot of the "GizTurret" ADDGIZMOTYPE
+00661be0 GizTurrets_ClearProgress clear_progress slot of the "GizTurret" ADDGIZMOTYPE
+006628b0 GizTurrets_RegisterGizmo copies Default_ADDGIZMOTYPE, name "GizTurret"
