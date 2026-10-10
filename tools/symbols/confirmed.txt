@@ -2807,3 +2807,17 @@
 00615670 Door_GetOutputName get_output_name slot of the "Door" ADDGIZMOTYPE
 00615680 Door_Activate activate slot of the "Door" ADDGIZMOTYPE
 006156a0 Door_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Door"
+005e5140 Tubes_ReserveBufferSpace reserve_buffer_space slot of the "Tube" ADDGIZMOTYPE
+005e5190 Tube_Activate activate slot of the "Tube" ADDGIZMOTYPE
+005e51b0 Tube_ActivateRev activate_rev slot of the "Tube" ADDGIZMOTYPE
+005e5210 Tube_SetVisibility set_visibility slot of the "Tube" ADDGIZMOTYPE
+005e5300 Tubes_Draw draw slot of the "Tube" ADDGIZMOTYPE
+005e5330 Tubes_AddGizmos add_gizmos slot of the "Tube" ADDGIZMOTYPE
+005e53a0 Tube_GetGizmoName get_gizmo_name slot of the "Tube" ADDGIZMOTYPE
+005e53b0 Tube_GetOutput get_output slot of the "Tube" ADDGIZMOTYPE
+005e53d0 Tube_GetOutputName get_output_name slot of the "Tube" ADDGIZMOTYPE
+005e53e0 Tube_GetNumOutputs get_num_outputs slot of the "Tube" ADDGIZMOTYPE
+005e53f0 Tubes_AllocateProgressData allocate_progress_data slot of the "Tube" ADDGIZMOTYPE
+005e5410 Tubes_ClearProgress clear_progress slot of the "Tube" ADDGIZMOTYPE
+005e5430 Tubes_StoreProgress store_progress slot of the "Tube" ADDGIZMOTYPE
+005e54b0 Tube_GetPos get_pos slot of the "Tube" ADDGIZMOTYPE

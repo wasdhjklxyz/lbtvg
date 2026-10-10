@@ -1756,6 +1756,20 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005d9e20,002c6fce,__Z17GizmoBlowupBlowupP13GIZMOBLOWUP_siiiP12GameObject_si,"GizmoBlowupBlowup(GIZMOBLOWUP_s*, int, int, int, GameObject_s*, int)",confirmed,0
 005dda30,002cb9c0,__Z22GizmoBlowUp_FindByNameP11WORLDINFO_sPc,"GizmoBlowUp_FindByName(WORLDINFO_s*, char*)",calls,1
 005dfa60,002ec12c,__Z15ObjHitObj_FlagsP12GameObject_s,ObjHitObj_Flags(GameObject_s*),gapfill,1
+005e5140,00347ade,__Z24Tubes_ReserveBufferSpacePv,Tubes_ReserveBufferSpace(void*),confirmed,0
+005e5190,00347b3c,__Z13Tube_ActivateP7GIZMO_si,"Tube_Activate(GIZMO_s*, int)",confirmed,0
+005e51b0,00347b60,__Z16Tube_ActivateRevP7GIZMO_sii,"Tube_ActivateRev(GIZMO_s*, int, int)",confirmed,0
+005e5210,00347bb6,__Z18Tube_SetVisibilityP7GIZMO_si,"Tube_SetVisibility(GIZMO_s*, int)",confirmed,0
+005e5300,00347cfe,__Z10Tubes_DrawPvS_f,"Tubes_Draw(void*, void*, float)",confirmed,0
+005e5330,00347d20,__Z15Tubes_AddGizmosP10GIZMOSYS_siPvS1_,"Tubes_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+005e53a0,00347d84,__Z17Tube_GetGizmoNameP7GIZMO_s,Tube_GetGizmoName(GIZMO_s*),confirmed,0
+005e53b0,00347d94,__Z14Tube_GetOutputP7GIZMO_sii,"Tube_GetOutput(GIZMO_s*, int, int)",confirmed,0
+005e53d0,00347dae,__Z18Tube_GetOutputNameP7GIZMO_si,"Tube_GetOutputName(GIZMO_s*, int)",confirmed,0
+005e53e0,00347dc0,__Z18Tube_GetNumOutputsP7GIZMO_s,Tube_GetNumOutputs(GIZMO_s*),confirmed,0
+005e53f0,00347dca,__Z26Tubes_AllocateProgressDataP9variptr_uS0_,"Tubes_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+005e5410,00347dec,__Z19Tubes_ClearProgressPvS_,"Tubes_ClearProgress(void*, void*)",confirmed,0
+005e5430,00347e34,__Z19Tubes_StoreProgressPvS_S_,"Tubes_StoreProgress(void*, void*, void*)",confirmed,0
+005e54b0,00347ed0,__Z11Tube_GetPosP7GIZMO_s,Tube_GetPos(GIZMO_s*),confirmed,0
 005e7b70,000298fa,_NuSinApprox,_NuSinApprox,confirmed,0
 005e8750,0026b032,__Z7BT_nameP8nufpar_s,BT_name(nufpar_s*),confirmed,0
 005e8790,0026b086,__Z8BT_speedP8nufpar_s,BT_speed(nufpar_s*),confirmed,0
