@@ -1810,3 +1810,13 @@
 00686b90 NuMtxTranspose         saga body; matched
 00686c30 NuMtxInv               saga body, after Transpose as in saga; matched
 00686d10 NuMtxInvR              saga body (size 110 B fits); matched
+00687d30 NuMtxLookAtX           saga numtx.cpp body (NuVecNorm + NuMtxAlignX), saga order; matched
+00687d80 NuMtxLookAtY           saga body and order; matched
+00687dd0 NuMtxLookAtZ           saga body and order; matched
+00687e20 NuMtxInvLookAtX        saga body and order; matched
+00687e70 NuMtxInvLookAtY        saga body and order; matched
+00687ec0 NuMtxInvLookAtZ        saga body and order; matched
+006881b0 NuMtxGetXAxis          saga body; Mac order (GetXAxis, GetYAxis, GetZAxis); matched
+006881d0 NuMtxGetYAxis          saga body and order; matched
+006881f0 NuMtxGetZAxis          saga body and order; matched
+00688210 NuMtxGetTranslation    saga body, after GetZAxis as in saga; matched

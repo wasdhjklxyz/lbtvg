@@ -725,6 +725,110 @@ void NuMtxInvRSS(numtx_s *inv, numtx_s *T) {
   *inv = gm;
 }
 
+void NuMtxAlignX(numtx_s *m, nuvec_s *v);
+void NuMtxAlignY(numtx_s *m, nuvec_s *v);
+void NuMtxAlignZ(numtx_s *m, nuvec_s *v);
+
+// FUNCTION: LEGOBATMAN 0x00687d30
+void NuMtxLookAtX(numtx_s *m, nuvec_s *pnt) {
+  nuvec_s v;
+
+  v.x = pnt->x - m->m30;
+  v.y = pnt->y - m->m31;
+  v.z = pnt->z - m->m32;
+
+  NuVecNorm(&v, &v);
+  NuMtxAlignX(m, &v);
+}
+
+// FUNCTION: LEGOBATMAN 0x00687d80
+void NuMtxLookAtY(numtx_s *m, nuvec_s *pnt) {
+  nuvec_s v;
+
+  v.x = pnt->x - m->m30;
+  v.y = pnt->y - m->m31;
+  v.z = pnt->z - m->m32;
+
+  NuVecNorm(&v, &v);
+  NuMtxAlignY(m, &v);
+}
+
+// FUNCTION: LEGOBATMAN 0x00687dd0
+void NuMtxLookAtZ(numtx_s *m, nuvec_s *pnt) {
+  nuvec_s v;
+
+  v.x = pnt->x - m->m30;
+  v.y = pnt->y - m->m31;
+  v.z = pnt->z - m->m32;
+
+  NuVecNorm(&v, &v);
+  NuMtxAlignZ(m, &v);
+}
+
+// FUNCTION: LEGOBATMAN 0x00687e20
+void NuMtxInvLookAtX(numtx_s *m, nuvec_s *pnt) {
+  nuvec_s v;
+
+  v.x = m->m30 - pnt->x;
+  v.y = m->m31 - pnt->y;
+  v.z = m->m32 - pnt->z;
+
+  NuVecNorm(&v, &v);
+  NuMtxAlignX(m, &v);
+}
+
+// FUNCTION: LEGOBATMAN 0x00687e70
+void NuMtxInvLookAtY(numtx_s *m, nuvec_s *pnt) {
+  nuvec_s v;
+
+  v.x = m->m30 - pnt->x;
+  v.y = m->m31 - pnt->y;
+  v.z = m->m32 - pnt->z;
+
+  NuVecNorm(&v, &v);
+  NuMtxAlignY(m, &v);
+}
+
+// FUNCTION: LEGOBATMAN 0x00687ec0
+void NuMtxInvLookAtZ(numtx_s *m, nuvec_s *pnt) {
+  nuvec_s v;
+
+  v.x = m->m30 - pnt->x;
+  v.y = m->m31 - pnt->y;
+  v.z = m->m32 - pnt->z;
+
+  NuVecNorm(&v, &v);
+  NuMtxAlignZ(m, &v);
+}
+
+// FUNCTION: LEGOBATMAN 0x006881b0
+void NuMtxGetXAxis(numtx_s *m, nuvec_s *x) {
+  x->x = m->m00;
+  x->y = m->m01;
+  x->z = m->m02;
+}
+
+// FUNCTION: LEGOBATMAN 0x006881d0
+void NuMtxGetYAxis(numtx_s *m, nuvec_s *y) {
+  y->x = m->m10;
+  y->y = m->m11;
+  y->z = m->m12;
+}
+
+// FUNCTION: LEGOBATMAN 0x006881f0
+void NuMtxGetZAxis(numtx_s *m, nuvec_s *z) {
+  z->x = m->m20;
+  z->y = m->m21;
+  z->z = m->m22;
+}
+
+// FUNCTION: LEGOBATMAN 0x00688210
+void NuMtxGetTranslation(numtx_s *m, nuvec_s *t) {
+  t->x = m->m30;
+  t->y = m->m31;
+  t->z = m->m32;
+}
+
 // FUNCTION: LEGOBATMAN 0x00689100
 float NuFmod(float a, float b) { return a - b * (int)(a / b); }
 
