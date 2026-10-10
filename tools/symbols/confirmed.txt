@@ -3495,3 +3495,13 @@
 006e0df0 NuFilePakLoadPrePad Mac _NuFilePakLoadPrePad wrapper over NuFilePakLoadKeyPrePad
 006d4be0 isnumordot nurdpf static (al), out-of-line copy of the test inlined in get_tok_rdpf
 006d4c00 NuRDPSetMultiCharTokens Mac _NuRDPSetMultiCharTokens (default list 0xb038c8)
+006d4510 ElOverlaps saga nuqt.cpp static (ecx/edx)
+006d4560 InsertData saga nuqt.cpp static (esi/eax); PC tests target <= end
+006d4620 RemoveData saga nuqt.cpp static
+006d4650 AddNode saga nuqt.cpp static (ecx)
+006d46a0 AddElementR saga nuqt.cpp body
+006d4a70 NuQTAddElement saga nuqt.cpp body
+006d4ae0 NuQTCreate saga nuqt.cpp body, bounds passed as floats
+006d4b70 NuQTUnfixAddress saga nuqt.cpp static (eax), called by NuQTWrite
+006d4bb0 NuQTFixAddress saga nuqt.cpp static (eax), out-of-line copy of the inlined fixup
+006ddc00 NuQTWrite saga nuqt.cpp body (NuFileOpen/Write/Close inlined)

@@ -3552,6 +3552,15 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d43e0,0018842a,_NuMemBlkFree,_NuMemBlkFree,confirmed,0
 006d4410,00188466,_NuAllocHighInit,_NuAllocHighInit,confirmed,0
 006d44a0,001884f4,_NuFreeHigh,_NuFreeHigh,confirmed,0
+006d4510,,ElOverlaps,ElOverlaps,confirmed,0
+006d4560,00191af4,_InsertData,_InsertData,confirmed,0
+006d4620,,RemoveData,RemoveData,confirmed,0
+006d4650,0018856c,_AddNode,_AddNode,confirmed,0
+006d46a0,00191c80,_AddElementR,_AddElementR,confirmed,0
+006d4a70,0019218a,_NuQTAddElement,_NuQTAddElement,confirmed,0
+006d4ae0,001885d4,_NuQTCreate,_NuQTCreate,confirmed,0
+006d4b70,,NuQTUnfixAddress,NuQTUnfixAddress,confirmed,0
+006d4bb0,,NuQTFixAddress,NuQTFixAddress,confirmed,0
 006d4be0,,isnumordot,isnumordot,confirmed,0
 006d4c00,00188686,_NuRDPSetMultiCharTokens,_NuRDPSetMultiCharTokens,confirmed,0
 006d4fe0,00188cee,_NuTimeStartFrame,_NuTimeStartFrame,confirmed,0
@@ -3739,6 +3748,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006dd990,00194dba,_NuFileExistQuiet,_NuFileExistQuiet,confirmed,0
 006dda10,00190f44,_NuFileSize,_NuFileSize,confirmed,0
 006ddb90,00196404,_NuFParResume,_NuFParResume,confirmed,0
+006ddc00,0019651a,_NuQTWrite,_NuQTWrite,confirmed,0
 006ddd70,001927ac,_ExplodeBufferNoHeader,_ExplodeBufferNoHeader,confirmed,0
 006de270,001929be,_NuDatFileRead,_NuDatFileRead,confirmed,0
 006de7a0,001928f4,_ExplodeBuffer,_ExplodeBuffer,confirmed,0
