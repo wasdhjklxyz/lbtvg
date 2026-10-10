@@ -121,7 +121,8 @@ struct WORLDINFO_s {
   struct RIPPLEEFFECT_s *ripple_effects; // 0x4808
   i32 ripple_effect_count;               // 0x480c
   i32 ripple_effect_indices[2];          // 0x4810
-  u8 pad8b1[0x51a8 - 0x4818];
+  struct sGizFlockSys *gizflock_sys;     // 0x4818
+  u8 pad8b1[0x51a8 - 0x481c];
   struct FADER_s *faders; // 0x51a8
   i32 fader_count;        // 0x51ac
   u8 pad8b2[0x51bc - 0x51b0];

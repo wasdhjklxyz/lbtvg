@@ -2828,7 +2828,17 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00663680,002c28aa,__Z26GizAIMessage_RegisterGizmoi,GizAIMessage_RegisterGizmo(int),confirmed,0
 00665f60,002b9214,__Z26GizFlock_Config_anim_speedP8nufpar_s,GizFlock_Config_anim_speed(nufpar_s*),confirmed,0
 00665f80,002b9242,__Z24GizFlock_ConfigureExtrasP11WORLDINFO_sPKcj,"GizFlock_ConfigureExtras(WORLDINFO_s*, char const*, unsigned int)",strings,0
+00666400,002b9728,__Z21GizFlock_GetMaxGizmosPv,GizFlock_GetMaxGizmos(void*),confirmed,0
+00666420,002b973e,__Z18GizFlock_AddGizmosP10GIZMOSYS_siPvS1_,"GizFlock_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+00666560,002ba56e,__Z21GizFlock_GetGizmoNameP7GIZMO_s,GizFlock_GetGizmoName(GIZMO_s*),confirmed,0
+00666570,002b97b6,__Z18GizFlock_GetOutputP7GIZMO_sii,"GizFlock_GetOutput(GIZMO_s*, int, int)",confirmed,0
+006665c0,002b9804,__Z22GizFlock_GetOutputNameP7GIZMO_si,"GizFlock_GetOutputName(GIZMO_s*, int)",confirmed,0
+006665e0,002b982a,__Z22GizFlock_GetNumOutputsP7GIZMO_s,GizFlock_GetNumOutputs(GIZMO_s*),confirmed,0
+006665f0,002b9834,__Z15GizFlock_GetPosP7GIZMO_s,GizFlock_GetPos(GIZMO_s*),confirmed,0
+00667300,002b98d6,__Z29GizFlock_AllocateProgressDataP9variptr_uS0_,"GizFlock_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+00667320,002b98f8,__Z22GizFlock_ClearProgressPvS_,"GizFlock_ClearProgress(void*, void*)",confirmed,0
 0066b400,002bc674,__Z20GizFlock_UpdateBoidsP12sGizFlockSysP9sGizFlock,"GizFlock_UpdateBoids(sGizFlockSys*, sGizFlock*)",strings,0
+0066c150,002b9c9c,__Z22GizFlock_RegisterGizmoi,GizFlock_RegisterGizmo(int),confirmed,0
 0066c640,0033fb7e,__Z28Teleports_ReserveBufferSpacePv,Teleports_ReserveBufferSpace(void*),confirmed,0
 0066c690,0033fbdc,__Z30Teleports_AllocateProgressDataP9variptr_uS0_,"Teleports_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
 0066c6b0,0033fbfe,__Z23Teleports_ClearProgressPvS_,"Teleports_ClearProgress(void*, void*)",confirmed,0

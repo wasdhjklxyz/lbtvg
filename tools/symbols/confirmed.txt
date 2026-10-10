@@ -3086,3 +3086,13 @@
 00449e10 AIProcessor_GetOutputName get_output_name slot of the "AIProcessor" ADDGIZMOTYPE (via thunk 0x401e8d)
 00449e20 AIProcessor_Activate activate slot of the "AIProcessor" ADDGIZMOTYPE (via thunk 0x40245f)
 00449e50 AIProcessor_RegisterGizmo copies Default_ADDGIZMOTYPE, name "AIProcessor", prefix "ai_"
+00666400 GizFlock_GetMaxGizmos Mac GizFlock_GetMaxGizmos, get_max_gizmos slot of the "GizFlock" ADDGIZMOTYPE
+00666420 GizFlock_AddGizmos Mac GizFlock_AddGizmos, add_gizmos slot of the "GizFlock" ADDGIZMOTYPE
+00666560 GizFlock_GetGizmoName get_gizmo_name slot of the "GizFlock" ADDGIZMOTYPE
+00666570 GizFlock_GetOutput Mac GizFlock_GetOutput, get_output slot of the "GizFlock" ADDGIZMOTYPE
+006665c0 GizFlock_GetOutputName Mac GizFlock_GetOutputName, get_output_name slot of the "GizFlock" ADDGIZMOTYPE
+006665e0 GizFlock_GetNumOutputs Mac GizFlock_GetNumOutputs, get_num_outputs slot of the "GizFlock" ADDGIZMOTYPE
+006665f0 GizFlock_GetPos Mac GizFlock_GetPos, get_pos slot of the "GizFlock" ADDGIZMOTYPE
+00667300 GizFlock_AllocateProgressData Mac GizFlock_AllocateProgressData, allocate_progress_data slot
+00667320 GizFlock_ClearProgress Mac GizFlock_ClearProgress, clear_progress slot of the "GizFlock" ADDGIZMOTYPE
+0066c150 GizFlock_RegisterGizmo copies Default_ADDGIZMOTYPE, name "GizFlock"
