@@ -2171,6 +2171,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00603bc0,002ab5ca,__Z18GameAnimSet_CreateP9variptr_uS0_P17GAMEANIMOBJPOOL_sP13GAMEANIMSYS_s,"GameAnimSet_Create(variptr_u*, variptr_u*, GAMEANIMOBJPOOL_s*, GAMEANIMSYS_s*)",confirmed,0
 00603cf0,002ab74e,__Z25GameAnimSet_EvaluateStateP13GAMEANIMSET_s,GameAnimSet_EvaluateState(GAMEANIMSET_s*),confirmed,0
 00603df0,002ab814,__Z28GameAnimSet_CreateObjectPoolP9variptr_uS0_ii,"GameAnimSet_CreateObjectPool(variptr_u*, variptr_u*, int, int)",confirmed,0
+00605760,0034992a,__Z13Whippers_LoadPvS_,"Whippers_Load(void*, void*)",confirmed,0
 00605950,00349b54,__Z27Whippers_ReserveBufferSpacePv,Whippers_ReserveBufferSpace(void*),confirmed,0
 00605b20,00349db6,__Z16Whipper_ActivateP7GIZMO_si,"Whipper_Activate(GIZMO_s*, int)",confirmed,0
 00605b40,00349de0,__Z19Whipper_ActivateRevP7GIZMO_sii,"Whipper_ActivateRev(GIZMO_s*, int, int)",confirmed,0

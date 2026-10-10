@@ -43,13 +43,17 @@ typedef struct WHIPPER_s {
   u8 b72;           // 0x72, 3 = silent
   u8 pad73[0x74 - 0x73];
   f32 f74; // 0x74
-  u8 pad78[0x8c - 0x78];
-  void *p8c; // 0x8c
+  u8 pad78[0x7c - 0x78];
+  char name7c[0x10]; // 0x7c
+  void *p8c;         // 0x8c
 
 } WHIPPER;
 
 typedef struct WHIPPERSTATE_s {
-  u8 pad0[0x28];
+  u8 pad0[4];
+  f32 f4; // 0x04
+  f32 f8; // 0x08
+  u8 pad0c[0x28 - 0xc];
   i16 sfx; // 0x28
 } WHIPPERSTATE;
 
@@ -87,7 +91,6 @@ void *GameBufferAllocProgressUnk005bbaf0(VARIPTR *buf, VARIPTR *buf_end,
                                          i32 size);
 i16 Unk00573e30(numtx_s *mtx, i32 sfx);
 void Unk00574270(i32 handle);
-i32 Whippers_Load(void *world, void *unused);
 
 // FUNCTION: LEGOBATMAN 0x00605710
 static void Whipper_RestartSfx(WHIPPER *whipper) {
@@ -97,6 +100,48 @@ static void Whipper_RestartSfx(WHIPPER *whipper) {
   }
   if (Whipper_State->sfx != -1 && whipper->b72 != 3)
     whipper->sfx = Unk00573e30(&whipper->mtx, Whipper_State->sfx);
+}
+
+i32 EdFileReadInt();
+char EdFileReadChar();
+i16 EdFileReadShort();
+f32 EdFileReadFloat();
+void EdFileRead(void *buf, i32 len);
+void EdFileReadNuVec(nuvec_s *v);
+
+// FUNCTION: LEGOBATMAN 0x00605760
+i32 Whippers_Load(void *world_ptr, void *unused) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  if (world->whipper_count == 0) {
+    i32 version = EdFileReadInt();
+    world->whipper_count = EdFileReadInt();
+    for (i32 i = 0; i < world->whipper_count; i++) {
+      EdFileRead(world->whippers[i].name, 0x10);
+      EdFileReadNuVec(&world->whippers[i].position);
+      world->whippers[i].f68 = EdFileReadFloat();
+      world->whippers[i].angle = EdFileReadShort();
+      world->whippers[i].b6e = EdFileReadChar();
+      if (version >= 2)
+        world->whippers[i].b72 = EdFileReadChar();
+      else
+        world->whippers[i].b72 = 0;
+      if (version >= 3)
+        world->whippers[i].f74 = EdFileReadFloat();
+      else
+        world->whippers[i].f74 = 0.0f;
+      if (version >= 4)
+        EdFileRead(world->whippers[i].name7c, 0x10);
+      else
+        world->whippers[i].name7c[0] = 0;
+      world->whippers[i].sfx = -1;
+      if (world->whippers[i].f68 < Whipper_State->f4)
+        world->whippers[i].f68 = Whipper_State->f4;
+      else if (world->whippers[i].f68 > Whipper_State->f8)
+        world->whippers[i].f68 = Whipper_State->f8;
+    }
+    return 1;
+  }
+  return 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x006058c0
