@@ -603,6 +603,21 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004862f0,000a5dcc,__Z21GizForceSFX_returnsfxP8nufpar_s,GizForceSFX_returnsfx(nufpar_s*),confirmed,0
 00486350,000a5e1a,__Z21GizForceSFX_ConfigureP11WORLDINFO_sPc,"GizForceSFX_Configure(WORLDINFO_s*, char*)",strings,0
 00486610,000a5f58,__Z14GizForces_LoadPvS_,"GizForces_Load(void*, void*)",strings,0
+004869f0,000a63cc,__Z18GizForces_PostLoadPvS_,"GizForces_PostLoad(void*, void*)",confirmed,0
+00486b30,000a64e4,__Z28GizForces_ReserveBufferSpacePv,GizForces_ReserveBufferSpace(void*),confirmed,0
+00486c60,000a661e,__Z22GizForce_SetVisibilityP10GIZFORCE_si,"GizForce_SetVisibility(GIZFORCE_s*, int)",confirmed,0
+00486cb0,000a7d68,__Z24GizmoForce_SetVisibilityP7GIZMO_si,"GizmoForce_SetVisibility(GIZMO_s*, int)",confirmed,0
+00486d00,000a6666,__Z17GizmoForce_GetPosP7GIZMO_s,GizmoForce_GetPos(GIZMO_s*),confirmed,0
+00487810,000a6de8,__Z22GizForces_GetMaxGizmosPv,GizForces_GetMaxGizmos(void*),confirmed,0
+00487830,000a6e04,__Z19GizForces_AddGizmosP10GIZMOSYS_siPvS1_,"GizForces_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+004878b0,000a6e64,__Z23GizmoForce_GetGizmoNameP7GIZMO_s,GizmoForce_GetGizmoName(GIZMO_s*),confirmed,0
+004879f0,000a6e74,__Z24GizmoForce_GetOutputNameP7GIZMO_si,"GizmoForce_GetOutputName(GIZMO_s*, int)",confirmed,0
+00487a70,000a6ec0,__Z24GizmoForce_GetNumOutputsP7GIZMO_s,GizmoForce_GetNumOutputs(GIZMO_s*),confirmed,0
+00487a80,000a6eca,__Z30GizForces_AllocateProgressDataP9variptr_uS0_,"GizForces_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+00487aa0,000a6eec,__Z23GizForces_ClearProgressPvS_,"GizForces_ClearProgress(void*, void*)",confirmed,0
+00488710,000a74e8,__Z19GizForces_FindForceP11WORLDINFO_sPc,"GizForces_FindForce(WORLDINFO_s*, char*)",confirmed,0
+00488750,000a751c,__Z19GizForce_TotalScorePv,GizForce_TotalScore(void*),confirmed,0
+0048a620,000a755c,__Z22GizForce_RegisterGizmoi,GizForce_RegisterGizmo(int),confirmed,0
 0048c2e0,000aae98,__Z23GizmoPickup_CollectCoinP11WORLDINFO_sP7nuvec_siiP12GameObject_si,"GizmoPickup_CollectCoin(WORLDINFO_s*, nuvec_s*, int, int, GameObject_s*, int)",strings,0
 0048d650,000ac170,__Z18PowerUp_ImpactPartP6PART_s,PowerUp_ImpactPart(PART_s*),strings,0
 0048f750,000ad826,__Z15GizPanel_UpdatePvS_f,"GizPanel_Update(void*, void*, float)",strings,0

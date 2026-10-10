@@ -3046,3 +3046,18 @@
 00661bc0 GizTurrets_AllocateProgressData allocate_progress_data slot of the "GizTurret" ADDGIZMOTYPE
 00661be0 GizTurrets_ClearProgress clear_progress slot of the "GizTurret" ADDGIZMOTYPE
 006628b0 GizTurrets_RegisterGizmo copies Default_ADDGIZMOTYPE, name "GizTurret"
+004869f0 GizForces_PostLoad x26 (post_load) slot of the "GizForce" ADDGIZMOTYPE
+00486b30 GizForces_ReserveBufferSpace reserve_buffer_space slot of the "GizForce" ADDGIZMOTYPE
+00486c60 GizForce_SetVisibility Mac GizForce_SetVisibility(GIZFORCE_s*, int), inlined into the set_visibility slot
+00486cb0 GizmoForce_SetVisibility set_visibility slot of the "GizForce" ADDGIZMOTYPE
+00486d00 GizmoForce_GetPos get_pos slot of the "GizForce" ADDGIZMOTYPE
+00487810 GizForces_GetMaxGizmos get_max_gizmos slot of the "GizForce" ADDGIZMOTYPE
+00487830 GizForces_AddGizmos add_gizmos slot of the "GizForce" ADDGIZMOTYPE
+004878b0 GizmoForce_GetGizmoName get_gizmo_name slot of the "GizForce" ADDGIZMOTYPE
+004879f0 GizmoForce_GetOutputName get_output_name slot of the "GizForce" ADDGIZMOTYPE
+00487a70 GizmoForce_GetNumOutputs get_num_outputs slot of the "GizForce" ADDGIZMOTYPE
+00487a80 GizForces_AllocateProgressData allocate_progress_data slot of the "GizForce" ADDGIZMOTYPE
+00487aa0 GizForces_ClearProgress clear_progress slot of the "GizForce" ADDGIZMOTYPE
+00488710 GizForces_FindForce Mac GizForces_FindForce(WORLDINFO_s*, char*), GizmoFindByName with the force type id
+00488750 GizForce_TotalScore Mac GizForce_TotalScore(void*), sums score
+0048a620 GizForce_RegisterGizmo copies Default_ADDGIZMOTYPE, name "GizForce"

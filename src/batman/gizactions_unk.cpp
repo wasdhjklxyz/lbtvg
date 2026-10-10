@@ -122,19 +122,35 @@ struct GAMEANIMSET_s {
 };
 
 struct GIZFORCE_s {
-  u8 pad0[0x28];
+  char name[0x10]; // 0x00
+  u8 pad10[0x1c - 0x10];
+  nuvec_s position;        // 0x1c
   GAMEANIMSET_s *anim_set; // 0x28
   u8 pad2c[0x82 - 0x2c];
   i16 sfx_process;  // 0x82
   i16 sfx_complete; // 0x84
   i16 sfx_return;   // 0x86
-  u8 pad88[0xa4 - 0x88];
+  i16 s88;          // 0x88, resolved in PostLoad when flags bit 10 is set
+  u16 score;        // 0x8a
+  u8 pad8c[0xa0 - 0x8c];
+  union {
+    u32 flags; // 0xa0
+    struct {
+      u32 active : 1;  // bit 0
+      u32 visible : 1; // bit 1
+    };
+  };
 };
 
 struct GIZFORCESYS_s {
   GIZFORCE_s *forces; // 0x00
-  u8 pad4[0xe - 4];
-  u16 count; // 0x0e
+  void *p4;           // 0x04
+  void *p8;           // 0x08
+  u16 max;            // 0x0c
+  u16 count;          // 0x0e
+  u8 pad10[0x14 - 0x10];
+  void *pool; // 0x14
+  u8 pad18[0x158 - 0x18];
 };
 
 typedef struct nufpar_s {
@@ -308,4 +324,250 @@ void Unk_InlineUser_gizactions_unk(f32 *v, f32 a, i32 i) {
   v[0] = NuSinApprox(i);
   v[1] = NuCosApprox(i);
   NuVec4Set(v, a, a, a, a);
+}
+
+// The gizmo callbacks (Mac GizForces_* / GizmoForce_*), named by their
+// RegisterGizmo 0x48a620 slot.
+
+#include "leveldata_unk.h"
+#include <string.h>
+
+typedef struct GIZFORCEPROGRESS_s {
+  u32 a0[4];    // 0x00
+  u32 a10[4];   // 0x10
+  u32 a20[4];   // 0x20
+  u32 a30[4];   // 0x30
+  u32 a40[4];   // 0x40
+  u32 a50[4];   // 0x50
+  u32 a60[4];   // 0x60
+  u8 a70[0x40]; // 0x70
+} GIZFORCEPROGRESS;
+
+typedef struct ADDGIZMOTYPE_s {
+  char *name;        // 0x00
+  char *prefix;      // 0x04
+  u16 progress_size; // 0x08
+  void *fns[0x1c];   // 0x0c
+} ADDGIZMOTYPE;
+
+// GLOBAL: LEGOBATMAN 0x00960118
+extern ADDGIZMOTYPE Default_ADDGIZMOTYPE;
+
+void AddGizmo(GIZMOSYS_s *gizmo_sys, i32 type_id, void *a, void *object);
+void *GameBufferAlloc(variptr_u *buf, variptr_u *buf_end, i32 size);
+void *GameBufferAllocProgressUnk005bbaf0(VARIPTR *buf, VARIPTR *buf_end,
+                                         i32 size);
+void Unk00604f10(void *parts, i32 visible);
+void *Unk00603df0(variptr_u *buf, variptr_u *buf_end, i32 a, i32 count);
+void *Unk00603bc0(variptr_u *buf, variptr_u *buf_end, void *pool,
+                  struct GAMEANIMSYS_s *anim_sys);
+i16 Unk005de820(void *world, i32 id);
+
+// FUNCTION: LEGOBATMAN 0x004869f0
+void GizForces_PostLoad(void *world, void *sys_ptr) {
+  GIZFORCESYS_s *sys = (GIZFORCESYS_s *)sys_ptr;
+  if (sys == NULL)
+    return;
+  GIZFORCE_s *force = sys->forces;
+  for (i32 i = 0; i < sys->count; i++, force++) {
+    if (force->flags & 0x400) {
+      force->s88 = Unk005de820(world, force->s88);
+      force->flags &= ~0x400;
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00486b30
+void *GizForces_ReserveBufferSpace(void *world_ptr) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  GIZFORCESYS_s *sys = (GIZFORCESYS_s *)GameBufferAlloc(
+      &world->buf104, &world->bufEnd108, sizeof(GIZFORCESYS_s));
+  sys->max = world->current_level->max_force;
+  sys->forces = (GIZFORCE_s *)GameBufferAlloc(&world->buf104, &world->bufEnd108,
+                                              sys->max * sizeof(GIZFORCE_s));
+  sys->p8 = GameBufferAlloc(&world->buf104, &world->bufEnd108, sys->max * 4);
+  sys->p4 = GameBufferAlloc(&world->buf104, &world->bufEnd108, sys->max * 4);
+  sys->pool = Unk00603df0(&world->buf104, &world->bufEnd108, 8,
+                          (u16)world->current_level->max_force_objects);
+  for (i32 i = 0; i < sys->max; i++)
+    sys->forces[i].anim_set = (GAMEANIMSET_s *)Unk00603bc0(
+        &world->buf104, &world->bufEnd108, sys->pool, world->game_anim_sys);
+  world->giz_force_sys = sys;
+  return sys;
+}
+
+// FUNCTION: LEGOBATMAN 0x00486c60
+void GizForce_SetVisibility(GIZFORCE_s *force, i32 visible) {
+  if (force != NULL) {
+    Unk00604f10(force->anim_set, visible);
+    force->visible = visible != 0;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00486cb0
+void GizmoForce_SetVisibility(GIZMO_s *gizmo, i32 visible) {
+  if (gizmo != NULL)
+    GizForce_SetVisibility((GIZFORCE_s *)gizmo->object, visible);
+}
+
+// FUNCTION: LEGOBATMAN 0x00486d00
+nuvec_s *GizmoForce_GetPos(GIZMO_s *gizmo) {
+  if (gizmo != NULL && gizmo->object != NULL)
+    return &((GIZFORCE_s *)gizmo->object)->position;
+  return NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x00487810
+i32 GizForces_GetMaxGizmos(void *world_ptr) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  if (world != NULL)
+    return world->current_level->max_force;
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00487830
+void GizForces_AddGizmos(GIZMOSYS_s *gizmo_sys, i32 type_id, void *world,
+                         void *sys_ptr) {
+  GIZFORCESYS_s *sys = (GIZFORCESYS_s *)sys_ptr;
+  if (sys == NULL)
+    return;
+  for (i32 i = 0; i < sys->count; i++) {
+    if (NuStrLen(sys->forces[i].name) != 0)
+      AddGizmo(gizmo_sys, type_id, NULL, &sys->forces[i]);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x004878b0
+char *GizmoForce_GetGizmoName(GIZMO_s *gizmo) {
+  return gizmo != NULL ? ((GIZFORCE_s *)gizmo->object)->name : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x004879f0
+char *GizmoForce_GetOutputName(GIZMO_s *gizmo, i32 output) {
+  switch (output) {
+  case 0:
+    return "AtEnd";
+  case 1:
+    return "NotAtStart";
+  case 2:
+    return "AtStart";
+  case 3:
+    return "StackComplete";
+  case 4:
+    return "StackCompleteInOrder";
+  case 5:
+    return "Destroyed/Thrown";
+  case 6:
+    return "Complete";
+  case 7:
+    return "BeingUsed";
+  }
+  return NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x00487a70
+i32 GizmoForce_GetNumOutputs(GIZMO_s *gizmo) { return 8; }
+
+// FUNCTION: LEGOBATMAN 0x00487a80
+void *GizForces_AllocateProgressData(VARIPTR *buf, VARIPTR *buf_end) {
+  return GameBufferAllocProgressUnk005bbaf0(buf, buf_end,
+                                            sizeof(GIZFORCEPROGRESS));
+}
+
+// FUNCTION: LEGOBATMAN 0x00487aa0
+void GizForces_ClearProgress(void *world, void *progress_ptr) {
+  GIZFORCEPROGRESS *progress = (GIZFORCEPROGRESS *)progress_ptr;
+  if (progress != NULL) {
+    memset(progress->a0, 0xff, sizeof(progress->a0));
+    memset(progress->a10, 0xff, sizeof(progress->a10));
+    memset(progress->a20, 0, sizeof(progress->a20));
+    memset(progress->a30, 0, sizeof(progress->a30));
+    memset(progress->a40, 0, sizeof(progress->a40));
+    memset(progress->a50, 0, sizeof(progress->a50));
+    memset(progress->a60, 0, sizeof(progress->a60));
+    memset(progress->a70, -1, sizeof(progress->a70));
+  }
+}
+
+// GLOBAL: LEGOBATMAN 0x0093e144
+i32 force_gizmotype_id = -1;
+
+// FUNCTION: LEGOBATMAN 0x00488710
+GIZFORCE_s *GizForces_FindForce(WORLDINFO_s *world, char *name) {
+  GIZMO_s *gizmo =
+      GizmoFindByName(world->gizmoSys2b0c, force_gizmotype_id, name);
+  if (gizmo != NULL)
+    return (GIZFORCE_s *)gizmo->object;
+  return NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x00488750
+u32 GizForce_TotalScore(void *world) {
+  u32 total = 0;
+  GIZFORCESYS_s *sys = ((WORLDINFO_s *)world)->giz_force_sys;
+  if (sys != NULL) {
+    GIZFORCE_s *force = sys->forces;
+    if (force != NULL) {
+      for (i32 i = 0; i < sys->count; i++, force++)
+        total += force->score;
+    }
+  }
+  return total;
+}
+
+i32 GizForces_Load(void *world, void *sys);
+void GizForces_AddLevelSfx(void *world, void *sys, i32 *sfx_ids, i32 *sfx_count,
+                           i32 max_sfx);
+void GizForces_Update(void *world, void *sys, f32 dt);
+void GizForces_Draw(void *world, void *sys, f32 dt);
+i32 GizmoForce_GetOutput(GIZMO_s *gizmo, i32 output, i32 b);
+void GizmoForce_Activate(GIZMO_s *gizmo, i32 active);
+i32 GizmoForce_ActivateRev(GIZMO_s *gizmo, i32 value, i32 query);
+void GizForces_BoltHitPlat(void);
+void GizForces_GetBestBoltTarget(void);
+void GizForces_BoltHit(void);
+void GizForces_StoreProgress(void *world, void *sys, void *progress);
+void GizForces_Reset(void *world, void *sys, void *progress);
+
+// FUNCTION: LEGOBATMAN 0x0048a620
+ADDGIZMOTYPE *GizForce_RegisterGizmo(i32 type_id) {
+  // GLOBAL: LEGOBATMAN 0x0093e250
+  static char *name = "GizForce";
+  // GLOBAL: LEGOBATMAN 0x009c8e90
+  static ADDGIZMOTYPE addtype;
+
+  addtype = Default_ADDGIZMOTYPE;
+  addtype.name = name;
+  addtype.prefix = "";
+  addtype.progress_size = sizeof(GIZFORCEPROGRESS);
+  addtype.fns[0] = (void *)GizForces_GetMaxGizmos;
+  addtype.fns[1] = (void *)GizForces_AddGizmos;
+  addtype.fns[2] = NULL;
+  addtype.fns[3] = (void *)GizForces_Update;
+  addtype.fns[4] = (void *)GizForces_Draw;
+  addtype.fns[5] = NULL;
+  addtype.fns[6] = (void *)GizmoForce_GetGizmoName;
+  addtype.fns[7] = (void *)GizmoForce_GetOutput;
+  addtype.fns[8] = (void *)GizmoForce_GetOutputName;
+  addtype.fns[9] = (void *)GizmoForce_GetNumOutputs;
+  addtype.fns[10] = (void *)GizmoForce_Activate;
+  addtype.fns[11] = (void *)GizmoForce_ActivateRev;
+  addtype.fns[12] = (void *)GizmoForce_SetVisibility;
+  addtype.fns[13] = NULL;
+  addtype.fns[14] = (void *)GizmoForce_GetPos;
+  addtype.fns[15] = NULL;
+  addtype.fns[16] = (void *)GizForces_BoltHitPlat;
+  addtype.fns[17] = (void *)GizForces_GetBestBoltTarget;
+  addtype.fns[18] = (void *)GizForces_BoltHit;
+  addtype.fns[19] = (void *)GizForces_AllocateProgressData;
+  addtype.fns[20] = (void *)GizForces_ClearProgress;
+  addtype.fns[21] = (void *)GizForces_StoreProgress;
+  addtype.fns[22] = (void *)GizForces_Reset;
+  addtype.fns[23] = (void *)GizForces_ReserveBufferSpace;
+  addtype.fns[24] = (void *)GizForces_Load;
+  addtype.fns[25] = NULL;
+  addtype.fns[26] = (void *)GizForces_PostLoad;
+  addtype.fns[27] = (void *)GizForces_AddLevelSfx;
+  force_gizmotype_id = type_id;
+  return &addtype;
 }
