@@ -2,7 +2,7 @@ import sys,subprocess,re
 p=sys.argv[1]; addr=sys.argv[2]; start=sys.argv[3]; end=sys.argv[4]
 variants=open(sys.argv[5]).read().split("\n====\n")
 s=open(p).read()
-i=s.index(start); j=s.index(end,i)
+i=s.index(start); j=len(s) if end=="EOF" else s.index(end,i)
 orig=s[i:j]
 best=None
 for k,v in enumerate(variants):
