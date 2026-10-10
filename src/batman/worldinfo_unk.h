@@ -36,9 +36,13 @@ struct Unk_WorldInfo5220Entry { // GIZMOPICKUP_s
 };
 
 struct Unk_WorldInfo5220 {
-  Unk_WorldInfo5220Entry *list; // 0x00
-  u8 pad0[4];
-  i32 count; // 0x08
+  Unk_WorldInfo5220Entry *list;      // 0x00
+  Unk_WorldInfo5220Entry *temp_list; // 0x04
+  i32 count;                         // 0x08
+  u8 padc[0x14 - 0xc];
+  f32 draw_distance; // 0x14
+  f32 pickup_scale;  // 0x18
+  f32 gravity;       // 0x1c
 };
 
 struct Unk_WorldInfo2b04 {
@@ -58,8 +62,9 @@ struct WORLDINFO_s {
   i32 config_count;       // 0x10c
   u8 pad1[0x11c - 0x110];
   u8 reset_flags; // 0x11c, bit 0 kill bombs on reset
-  u8 pad11d[0x124 - 0x11d];
-  i32 i124; // 0x124, SuperCounter_AreaCheck area
+  u8 pad11d[0x120 - 0x11d];
+  i32 level_idx; // 0x120
+  i32 i124;      // 0x124, SuperCounter_AreaCheck area
   u8 pad128[0x12c - 0x128];
   struct LEVELDATA_s *current_level; // 0x12c
   struct AREADATA_s *area;           // 0x130

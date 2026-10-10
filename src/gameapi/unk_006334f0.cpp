@@ -167,6 +167,68 @@ void GizmoPickups_StoreProgress(void *world_ptr, void *unused,
 void GizmoPickups_Draw(void *world, void *unused, f32 dt);
 void GizmoPickups_Update(void *world, void *unused, f32 dt);
 void GizmoPickup_Activate(GIZMO *gizmo, i32 active);
+typedef struct AREADATA_s {
+  u8 pad0[0x7c];
+  u32 flags; // 0x7c
+  u8 pad80[0xbc - 0x80];
+} AREADATA;
+
+// GLOBAL: LEGOBATMAN 0x00aca554
+extern AREADATA *ADataList;
+// GLOBAL: LEGOBATMAN 0x00aca560
+extern i32 AREACOUNT;
+// GLOBAL: LEGOBATMAN 0x00aca894
+extern LEVELDATA_s *LDataList;
+// GLOBAL: LEGOBATMAN 0x00aca578
+extern i32 BonusArea;
+
+// FUNCTION: LEGOBATMAN 0x00634940
+void *GizmoPickups_ReserveBufferSpace(void *world_ptr) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  world->buf104.addr = (world->buf104.addr + 3) & ~3;
+  world->p5220 = (Unk_WorldInfo5220 *)world->buf104.addr;
+  world->buf104.addr += sizeof(Unk_WorldInfo5220);
+  memset(world->p5220, 0, sizeof(Unk_WorldInfo5220));
+  world->p5220->draw_distance =
+      world->area != NULL && (world->area->flags & 1) ? 100.0f : 10.0f;
+  f32 scale;
+  if (world->i124 >= 0 && world->i124 < AREACOUNT) {
+    u32 flags = ADataList[world->i124].flags;
+    if (flags & 0x200)
+      scale = 6.0f;
+    else if (flags & 1)
+      scale = BonusArea != 0 ? 3.0f : 5.0f;
+    else
+      scale = 1.0f;
+  } else {
+    scale = 1.0f;
+  }
+  world->p5220->pickup_scale = scale;
+  f32 gravity;
+  if (world->i124 >= 0 && world->i124 < AREACOUNT) {
+    u32 flags = ADataList[world->i124].flags;
+    if ((flags & 0x200) && !(LDataList[world->level_idx].flags & 0x400000))
+      gravity = 0.0f;
+    else if (flags & 1)
+      gravity = -20.0f;
+    else
+      gravity = -6.0f;
+  } else {
+    gravity = -6.0f;
+  }
+  world->p5220->gravity = gravity;
+  if ((u16)world->current_level->max_pickups > 0) {
+    world->buf104.addr = (world->buf104.addr + 3) & ~3;
+    world->p5220->list = (Unk_WorldInfo5220Entry *)world->buf104.addr;
+    world->buf104.addr +=
+        (u16)world->current_level->max_pickups * sizeof(Unk_WorldInfo5220Entry);
+  }
+  world->buf104.addr = (world->buf104.addr + 3) & ~3;
+  world->p5220->temp_list = (Unk_WorldInfo5220Entry *)world->buf104.addr;
+  world->buf104.addr += 0x40 * sizeof(Unk_WorldInfo5220Entry);
+  return world->p5220;
+}
+
 // FUNCTION: LEGOBATMAN 0x00634af0
 void GizmoPickup_SetVisibility(GIZMO *gizmo, i32 visible) {
   if (gizmo != NULL)
@@ -181,7 +243,6 @@ nuvec_s *GizmoPickup_GetPos(GIZMO *gizmo) {
 }
 
 void GizmoPickups_Reset(void *world, void *unused, void *progress);
-void *GizmoPickups_ReserveBufferSpace(void *world);
 i32 GizmoPickups_Load(void *world, void *unused);
 void GizmoPickups_PostLoad(void *a, void *b);
 

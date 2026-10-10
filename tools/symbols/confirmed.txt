@@ -3225,3 +3225,4 @@
 005b5090 Spinner_SetVisibility Spinners_RegisterGizmo set_visibility slot (fns[12]); tail-calls the per-spinner setter 0x5b4e40
 00634af0 GizmoPickup_SetVisibility GizmoPickups_RegisterGizmo set_visibility slot (fns[12])
 00634ee0 GizmoPickup_GetPos GizmoPickups_RegisterGizmo get_pos slot (fns[14]); position at 0x08 as saga GIZMOPICKUP_s
+00634940 GizmoPickups_ReserveBufferSpace GizmoPickups_RegisterGizmo reserve_buffer_space slot (fns[23]); saga shape plus Batman gravity
