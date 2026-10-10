@@ -214,6 +214,39 @@ void NuLanguageSet(int value) {
   NuLanguageSetPS();
 }
 
+void NuLanguageInitPS(void);
+int NuLanguageConsoleSelectable(int *available);
+
+// FUNCTION: LEGOBATMAN 0x006d6870
+void NuLanguageInitFromConsole(int *available) {
+  int i;
+
+  g_nuPadUnk0adf648 = 2;
+  g_nuPadUnk0adf64c = 0;
+  NuLanguageInitPS();
+  if (g_nuPadUnk0adf648 == 2) {
+    if (!available[2] && available[3]) {
+      g_nuPadUnk0adf648 = 3;
+      NuLanguageSetPS();
+    }
+  } else if (g_nuPadUnk0adf648 == 3) {
+    if (!available[3] && available[2]) {
+      g_nuPadUnk0adf648 = 2;
+      NuLanguageSetPS();
+    }
+  }
+  if (!available[g_nuPadUnk0adf648]) {
+    for (i = 0; i < 20; i++) {
+      if (available[i]) {
+        g_nuPadUnk0adf648 = i;
+        NuLanguageSetPS();
+        break;
+      }
+    }
+  }
+  NuLanguageConsoleSelectable(available);
+}
+
 // FUNCTION: LEGOBATMAN 0x006d6850
 int NuRegionGet(void) { return g_nuPadUnk0adf64c; }
 
@@ -4534,6 +4567,41 @@ int g_nuapiScreenHeight;
 // nuapi.fps
 // GLOBAL: LEGOBATMAN 0x00adf664
 float g_nuapiFps;
+
+float NuVideoGetRetraceRatePS(void);
+void NuVideoSetSwapModePS(int mode);
+
+// FUNCTION: LEGOBATMAN 0x006d6550
+int NuVideoSetSwapMode(int video_swap_mode) {
+  int swap_mode = g_nuPadUnk0adf654;
+  g_nuPadUnk0adf654 = video_swap_mode;
+
+  switch (video_swap_mode) {
+  case 1:
+    g_nuapiFps = NuVideoGetRetraceRatePS();
+    break;
+  case 2:
+    g_nuapiFps = NuVideoGetRetraceRatePS();
+    break;
+  case 3:
+    g_nuapiFps = NuVideoGetRetraceRatePS() * 0.5f;
+    break;
+  case 4:
+    g_nuapiFps = NuVideoGetRetraceRatePS() * 0.5f;
+    break;
+  case 5:
+    g_nuapiFps = NuVideoGetRetraceRatePS();
+    break;
+  case 6:
+    g_nuapiFps = NuVideoGetRetraceRatePS() * 0.5f;
+    break;
+  default:
+    break;
+  }
+
+  NuVideoSetSwapModePS(video_swap_mode);
+  return swap_mode;
+}
 
 // FUNCTION: LEGOBATMAN 0x006d6510
 int NuVideoGetMode(void) { return g_nuapiVideoMode; }

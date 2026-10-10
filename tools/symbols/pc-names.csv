@@ -3655,6 +3655,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d6510,00189c98,_NuVideoGetMode,_NuVideoGetMode,confirmed,0
 006d6520,00189caa,_NuVideoSetMode,_NuVideoSetMode,confirmed,0
 006d6530,00189cbe,_NuVideoSetResolution,_NuVideoSetResolution,confirmed,0
+006d6550,00189cdc,_NuVideoSetSwapMode,_NuVideoSetSwapMode,confirmed,0
 006d65d0,00189d6c,_NuVideoGetSwapMode,_NuVideoGetSwapMode,confirmed,0
 006d65e0,00189d7e,_NuVideoRollingFrameRateReset,_NuVideoRollingFrameRateReset,confirmed,0
 006d65f0,00189d84,_NuVideoSetBrightness,_NuVideoSetBrightness,confirmed,0
@@ -3682,6 +3683,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d6840,00189e4a,_NuLanguageSet,_NuLanguageSet,confirmed,0
 006d6850,0018a1a4,_NuRegionGet,_NuRegionGet,confirmed,0
 006d6860,0018a1b6,_NuRegionSet,_NuRegionSet,confirmed,0
+006d6870,00190852,_NuLanguageInitFromConsole,_NuLanguageInitFromConsole,confirmed,0
 006d6910,0018a1ce,_ImplodeError,_ImplodeError,confirmed,0
 006d6960,0018a244,_ImplodeGetI,_ImplodeGetI,confirmed,0
 006d6990,0018a27c,_ImplodePutI,_ImplodePutI,confirmed,0

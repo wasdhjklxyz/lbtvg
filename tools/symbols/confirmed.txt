@@ -3620,3 +3620,5 @@
 006dde30 NuStringTableSaveCharacterList saga nustring_c.cpp body
 006e05d0 NuPadRecordInit saga nupad.cpp body
 006e0650 GetLineW saga nustring_c.cpp body (stub)
+006d6550 NuVideoSetSwapMode saga nuvideo.cpp shape (LB: fps from NuVideoGetRetraceRatePS)
+006d6870 NuLanguageInitFromConsole Mac name (Mac order after NuVideoScreenSwap), language init with availability table
