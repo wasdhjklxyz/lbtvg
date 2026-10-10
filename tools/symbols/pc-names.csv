@@ -677,6 +677,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004dc8e0,000f41bc,__Z21DrawPlayerIconPromptsiifiiiiiifiiii,"DrawPlayerIconPrompts(int, int, float, int, int, int, int, int, int, float, int, int, int, int)",strings,0
 004e0d90,000f6108,__Z9DrawPanelv,DrawPanel(),strings,0
 004e34b0,000fa63e,__Z12UpdateRadiosv,UpdateRadios(),strings,0
+004e36b0,000fa832,__Z9PlayRadioPcS_i,"PlayRadio(char*, char*, int)",confirmed,0
 004e38a0,000fc37a,__Z15SetLevelSfxBitsP11WORLDINFO_s,SetLevelSfxBits(WORLDINFO_s*),strings,0
 004e5e80,00100240,__Z9Shop_InitP11WORLDINFO_s,Shop_Init(WORLDINFO_s*),strings,0
 004e8190,000fe7c2,__Z11BuyShopItemP10LEGOSHOP_sP10shopitem_sii,"BuyShopItem(LEGOSHOP_s*, shopitem_s*, int, int)",strings,0

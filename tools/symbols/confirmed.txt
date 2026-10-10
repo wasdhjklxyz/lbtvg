@@ -2580,3 +2580,4 @@
 0059d840 Text_GetMaxOverallStrings returns Text_MaxStrings_Overall, same as the Mac's; Mac order
 004f9880 Text_SetLanguage_Game  INTROTEXT_Y/SCALE per language: saga text.cpp values; Mac order before Text_InitDefaultStrings
 004f9980 Text_InitDefaultStrings TTab[tNULL]=txt_NULL... eight entries: saga text.cpp; before Text_DecodeButtons as on the Mac
+004e36b0 PlayRadio              radios[8] play/stop by special or blowup name: saga radio.cpp; after UpdateRadios as on the Mac
