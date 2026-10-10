@@ -297,12 +297,22 @@ struct GIZMOBLOWUPTYPE_s {
   u8 pad48[0x54 - 0x48];
   nuhspecial_s burst_special; // 0x54
   u8 pad60[0x7c - 0x60];
-  u32 animation_flags; // 0x7c
-  u8 pad80[0xa4 - 0x80];
-  i16 particle_types[4]; // 0xa4
-  u8 padac[0xdc - 0xac];
-  char name[0x20]; // 0xdc
-  u8 padfc[0x102 - 0xfc];
+  u32 animation_flags;       // 0x7c
+  i32 effect_flags;          // 0x80
+  f32 f84;                   // 0x84
+  f32 animation_start_frame; // 0x88
+  f32 animation_end_frame;   // 0x8c
+  f32 animation_base_frame;  // 0x90
+  u8 pad94[0x9c - 0x94];
+  f32 f9c; // 0x9c
+  u8 pada0[0xa4 - 0xa0];
+  i16 particle_types[7]; // 0xa4
+  u8 padb2[0xb8 - 0xb2];
+  u8 anti_node_data[0xdc - 0xb8]; // 0xb8
+  char name[0x20];                // 0xdc
+  u8 padfc[0xff - 0xfc];
+  u8 bff; // 0xff
+  u8 pad100[0x102 - 0x100];
   i16 sfx0; // 0x102
   i16 sfx1; // 0x104
   i8 b106;  // 0x106
@@ -317,6 +327,8 @@ typedef struct NUINSTANIM_UNK_s {
   u32 bits1 : 2;     // 0x50 bits 1-2
   u32 repeating : 1; // 0x50 bit 3
   f32 fparam1;       // 0x54
+  u8 pad58[0x5c - 0x58];
+  u16 anim_ix; // 0x5c
 } NUINSTANIM_UNK;
 
 NUINSTANIM_UNK *NuSpecialGetInstAnim(nuhspecial_s *sp);
@@ -448,6 +460,58 @@ void GizmoBlowups_AddLevelSfx(void *world_ptr, void *unused, i32 *sfx_ids,
 extern i32 g_unk00966624; // default explosion debris type, -1 = none
 
 i32 AddGameDebris(void *system, i32 type, nuvec_s *position);
+
+i32 NuSpecialCompare(nuhspecial_s *a, nuhspecial_s *b);
+char *NuSpecialGetName(nuhspecial_s *sp);
+f32 NuAnimEndFrameOld(void *anim);
+void GameAntiNodeData_Init(void *data, nuhspecial_s *special);
+
+// STUB: LEGOBATMAN 0x005d9210
+// stores right; the original reloads `special` each loop pass, keeps -1 in
+// ebx for every store and shares the `return NULL` epilogue.
+GIZMOBLOWUPTYPE_s *GizmoBlowupTypeAdd(WORLDINFO_s *world, nuhspecial_s *special,
+                                      i32 flags, i32 *result) {
+  for (i32 i = 0; i < world->gizmo_blowup_type_count; i++) {
+    if (NuSpecialCompare(&world->gizmo_blowup_types[i].animated_special,
+                         special) != 0 &&
+        ((world->gizmo_blowup_types[i].animation_flags & 0x2000) ||
+         flags != 0)) {
+      *result = 0;
+      return NULL;
+    }
+  }
+  if (world->gizmo_blowup_type_count >=
+      world->current_level->max_gizmoblowuptypes)
+    return NULL;
+  GIZMOBLOWUPTYPE_s *type =
+      &world->gizmo_blowup_types[world->gizmo_blowup_type_count];
+  if (special != NULL && NuSpecialExistsFn(special)) {
+    type->animated_special = *special;
+    NuStrCpy(type->name, NuSpecialGetName(&type->animated_special));
+  }
+  memset(type->particle_types, 0xff, sizeof(type->particle_types));
+  type->effect_flags = 100;
+  type->bff = 1;
+  type->animation_flags = 0xc000;
+  type->b106 = -1;
+  if (flags != 0)
+    type->animation_flags = 0xe000;
+  type->animation_start_frame = 1.0f;
+  NUINSTANIM_UNK *anim = NuSpecialGetInstAnim(&type->animated_special);
+  if (anim != NULL)
+    type->animation_end_frame = NuAnimEndFrameOld((
+        *(void ***)((u8 *)type->animated_special.scene + 0x54))[anim->anim_ix]);
+  else
+    type->animation_end_frame = 1.0f;
+  type->animation_base_frame = 1.0f;
+  type->f9c = 0.0f;
+  type->sfx0 = -1;
+  type->f84 = 1.0f;
+  type->sfx1 = -1;
+  GameAntiNodeData_Init(type->anti_node_data, special);
+  world->gizmo_blowup_type_count++;
+  return type;
+}
 
 // STUB: LEGOBATMAN 0x005d93c0
 // the original keeps `moved` in ebp and spills `last` to the world slot; ours
