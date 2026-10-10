@@ -213,3 +213,4 @@
 0040be20 Attractos_StoreProgress: or eax,-1 scheduled one slot later, 4 forms tried
 004854e0 GizBombGens_SetResetFlag: bitfield insert layout differs, 5 forms tried
 00485d90 GizBombGen_FindByName: null checks before the pushes in ours, 4 forms tried
+0066f6f0 edGizShadow_Load: our cl inlines one SetPreset(shadow, 1) call the original keeps

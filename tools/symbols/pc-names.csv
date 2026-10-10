@@ -2500,6 +2500,16 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00665f60,002b9214,__Z26GizFlock_Config_anim_speedP8nufpar_s,GizFlock_Config_anim_speed(nufpar_s*),confirmed,0
 00665f80,002b9242,__Z24GizFlock_ConfigureExtrasP11WORLDINFO_sPKcj,"GizFlock_ConfigureExtras(WORLDINFO_s*, char const*, unsigned int)",strings,0
 0066b400,002bc674,__Z20GizFlock_UpdateBoidsP12sGizFlockSysP9sGizFlock,"GizFlock_UpdateBoids(sGizFlockSys*, sGizFlock*)",strings,0
+0066f590,002a3240,__Z24edGizShadow_GetMaxGizmosPv,edGizShadow_GetMaxGizmos(void*),confirmed,0
+0066f5a0,002a324a,__Z21edGizShadow_AddGizmosP10GIZMOSYS_siPvS1_,"edGizShadow_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+0066f5c0,002a3266,__Z24edGizShadow_GetGizmoNameP7GIZMO_s,edGizShadow_GetGizmoName(GIZMO_s*),confirmed,0
+0066f5d0,002a3278,__Z21edGizShadow_GetOutputP7GIZMO_sii,"edGizShadow_GetOutput(GIZMO_s*, int, int)",confirmed,0
+0066f5e0,002a3280,__Z25edGizShadow_GetOutputNameP7GIZMO_si,"edGizShadow_GetOutputName(GIZMO_s*, int)",confirmed,0
+0066f5f0,002a3292,__Z25edGizShadow_GetNumOutputsP7GIZMO_s,edGizShadow_GetNumOutputs(GIZMO_s*),confirmed,0
+0066f600,,edGizShadow_SetPreset,edGizShadow_SetPreset,confirmed,0
+0066f6f0,002a34ca,__Z16edGizShadow_LoadPvS_,"edGizShadow_Load(void*, void*)",confirmed,0
+0066f8b0,002a3408,__Z30edGizShadow_ReserveBufferSpacePv,edGizShadow_ReserveBufferSpace(void*),confirmed,0
+0066f990,002a329c,__Z32EdGizShadowMachine_RegisterGizmoi,EdGizShadowMachine_RegisterGizmo(int),confirmed,0
 0066fab0,002d4e2e,__Z22GizRandom_GetMaxGizmosPv,GizRandom_GetMaxGizmos(void*),confirmed,0
 0066fad0,002d4e50,__Z19GizRandom_AddGizmosP10GIZMOSYS_siPvS1_,"GizRandom_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
 0066fb40,002d4eb4,__Z22GizRandom_GetGizmoNameP7GIZMO_s,GizRandom_GetGizmoName(GIZMO_s*),confirmed,0

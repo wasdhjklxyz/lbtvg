@@ -2681,3 +2681,13 @@
 0066fc10 GizRandom_ReserveBufferSpace reserve_buffer_space slot of the "GizRandom" ADDGIZMOTYPE
 0066fc90 createGizRandom saga body (weights copy, NuStrNCpy 0x10, AddGizmo with gizrandom_gizmotype_id)
 0066fd30 GizRandom_RegisterGizmo copies Default_ADDGIZMOTYPE, name "GizRandom", prefix "rnd_"
+0066f590 edGizShadow_GetMaxGizmos get_max_gizmos slot of the "ShadowEditor" ADDGIZMOTYPE
+0066f5a0 edGizShadow_AddGizmos add_gizmos slot of the "ShadowEditor" ADDGIZMOTYPE
+0066f5c0 edGizShadow_GetGizmoName get_gizmo_name slot of the "ShadowEditor" ADDGIZMOTYPE
+0066f5d0 edGizShadow_GetOutput get_output slot of the "ShadowEditor" ADDGIZMOTYPE
+0066f5e0 edGizShadow_GetOutputName get_output_name slot of the "ShadowEditor" ADDGIZMOTYPE
+0066f5f0 edGizShadow_GetNumOutputs get_num_outputs slot of the "ShadowEditor" ADDGIZMOTYPE
+0066f8b0 edGizShadow_ReserveBufferSpace reserve_buffer_space slot of the "ShadowEditor" ADDGIZMOTYPE
+0066f6f0 edGizShadow_Load load slot of the "ShadowEditor" ADDGIZMOTYPE
+0066f600 edGizShadow_SetPreset register-convention static (eax shadow, ecx preset) called by edGizShadow_Load; Batman merges saga SetPreset1/2 into a switch
+0066f990 EdGizShadowMachine_RegisterGizmo copies Default_ADDGIZMOTYPE, name "ShadowEditor"

@@ -126,7 +126,8 @@ struct WORLDINFO_s {
   i32 giz_timer_count;           // 0x5270
   u8 pad5274[0x5278 - 0x5274];
   struct GIZRANDOMSYS_s *giz_randoms; // 0x5278
-  u8 pad527c[0x5288 - 0x527c];
+  u8 pad527c[0x5284 - 0x527c];
+  struct EDGIZSHADOW_s *shadow_editor;     // 0x5284
   struct GIZBOMBGENSYS_s *giz_bombgen_sys; // 0x5288
 };
 
