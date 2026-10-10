@@ -1828,4 +1828,7 @@
 004f6ea0 InteractiveDisplay::ShouldUpdate vtable 0x85d75c slot 12; Mac body (field 0x218 != 0 && !NuStrICmp(WORLD, name)); matched
 004f6ee0 WorldMapBase::WorldMapBase called from WorldMap ctor; Mac C2 body (WorldMapInfo at 0x350, -1/0 stores); matched
 004f71a0 WorldMap::IsVisible vtable 0x85d874 slot 13; Mac body (calls InteractiveDisplay::IsVisible, vfn 0x40/0x54, mode == 2); matched
-005c64e0 InteractiveDisplay::IsVisible vtable 0x85d75c slot 13; called non-virtually from WorldMap::IsVisible as on the Mac
+005c64e0 InteractiveDisplay::IsVisible vtable 0x85d75c slot 13; called non-virtually from WorldMap::IsVisible as on the Mac; matched
+005c3ff0 InteractiveDisplay::DumpLevel vtable 0x85d75c slot 3; Mac body (mirror of InitializeLevel, clears tids); matched
+005c7fa0 InteractiveDisplay::Update vtable 0x85d75c slot 10; Mac body (UpdateInGameSurfaceData, UpdateWhiteNoise, strobe, interactive timer); matched
+005c7480 InteractiveDisplay::Render vtable 0x85d75c slot 11; Mac body (RenderWhiteNoise(1.0f)); matched

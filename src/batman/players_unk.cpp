@@ -574,21 +574,50 @@ struct IDMTL_s {
 struct VuVec;
 struct numtl_s;
 
+struct IDVEC_s {
+  f32 x, y, z, w;
+};
+
 struct InteractiveDisplay {
   static void *GetFirstSpecialMaterial(nugscn_s *scene, char *name);
   void RenderRectangle(VuVec const &pos, f32 width, f32 height,
                        u32 const &colour, numtl_s *mtl, f32 depth) const;
   void RenderSquare(VuVec const &pos, f32 size, u32 const &colour, numtl_s *mtl,
                     f32 depth) const;
-  void InitializeLevel(WORLDINFO_s *world);
   i32 Unk005c3ed0(WORLDINFO_s *world);
+  void UpdateWhiteNoise(f32 dt);
+  void RenderWhiteNoise(f32 alpha) const;
+  void UpdateInGameSurfaceData();
 
-  void **vtable;
+  // vtable 0x0085d75c, see src/batman/unk_004f6ca0.cpp
+  virtual void InitializePerm(char *name, variptr_u *buf, variptr_u *end); // 0
+  virtual void InitializeLevel(WORLDINFO_s *world);                        // 1
+  virtual void ActivateLevel(WORLDINFO_s *world);                          // 2
+  virtual void DumpLevel(WORLDINFO_s *world);                              // 3
+  virtual i32 GetDoesLevelLoadRender() const;                              // 4
+  virtual const char *GetClassNameA() const;                               // 5
+  virtual i32 GetUsesStrobePattern() const;                                // 6
+  virtual i32 GetUsesWhiteNoise() const;                                   // 7
+  virtual i32 GetUsesInterlacePattern() const;                             // 8
+  virtual i32 GetUsesOverlayTexture() const;                               // 9
+  virtual void Update(f32 dt);                                             // 10
+  virtual void Render();                                                   // 11
+  virtual i32 ShouldUpdate() const;                                        // 12
+  virtual i32 IsVisible() const;                                           // 13
+  virtual i32 RenderWhenPaused() const;                                    // 14
+  virtual i32 IsCameraTarget() const;                                      // 15
+  virtual i32 IsInteractiveMode() const;                                   // 16
+
   u8 pad4[0x10 - 4];
-  char level_name[0x224 - 0x10]; // 0x010
-  i32 i224;                      // 0x224
-  i32 i228;                      // 0x228
-  u8 pad22c[0x23c - 0x22c];
+  char level_name[0x200 - 0x10]; // 0x010
+  IDVEC_s v200;                  // 0x200
+  IDVEC_s v210;                  // 0x210
+  u8 pad220[0x224 - 0x220];
+  i32 i224; // 0x224
+  i32 i228; // 0x228
+  u8 pad22c[0x234 - 0x22c];
+  f32 f234;                  // 0x234
+  f32 f238;                  // 0x238, strobe phase
   char texture_name_a[0x40]; // 0x23c
   char texture_name_b[0x40]; // 0x27c
   IDMTL_s *mtl_a;            // 0x2bc
@@ -617,12 +646,48 @@ extern DynamicTextureManager g_unk00ad2d78;
 
 void NuMtlUpdate(IDMTL_s *mtl);
 
-typedef i32(__thiscall *InteractiveDisplayBoolFn)(InteractiveDisplay *);
+// FUNCTION: LEGOBATMAN 0x005c3ff0
+void InteractiveDisplay::DumpLevel(WORLDINFO_s *world) {
+  if (NuStrICmp((char *)world, level_name) == 0) {
+    if (GetUsesInterlacePattern() && interlace_mtl != 0) {
+      interlace_mtl->tid = 0;
+      NuMtlUpdate(interlace_mtl);
+    }
+    if (mtl_a != 0) {
+      mtl_a->tid = 0;
+      NuMtlUpdate(mtl_a);
+    }
+    if (mtl_b != 0) {
+      mtl_b->tid = 0;
+      NuMtlUpdate(mtl_b);
+    }
+    i228 = 0;
+  }
+}
+
+extern WORLDINFO_s *WORLD;
+
+// FUNCTION: LEGOBATMAN 0x005c64e0
+i32 InteractiveDisplay::IsVisible() const {
+  if (WORLD == 0)
+    return 0;
+  if (NuStrICmp(level_name, (char *)WORLD) != 0)
+    return 0;
+  if (i228 == 0)
+    return 0;
+  if (i224 == 0)
+    return 0;
+  if ((v200.x < -1.0f && v210.x < -1.0f) || (v200.x > 1.0f && v210.x > 1.0f) ||
+      (v200.y < -1.0f && v210.y < -1.0f) || (v200.y > 1.0f && v210.y > 1.0f) ||
+      (v200.z < 0.0f && v210.z < 0.0f) || (v200.z > 1.0f && v210.z > 1.0f))
+    return 0;
+  return 1;
+}
 
 // FUNCTION: LEGOBATMAN 0x005c7300
 void InteractiveDisplay::InitializeLevel(WORLDINFO_s *world) {
   if (NuStrICmp((char *)world, level_name) == 0) {
-    if (((InteractiveDisplayBoolFn)vtable[8])(this) && interlace_mtl != 0) {
+    if (GetUsesInterlacePattern() && interlace_mtl != 0) {
       interlace_mtl->tid = g_unk00ad2d78.Unk0067aae0(
           "stuff/interactivedisplay/common/interlacepattern", world);
       NuMtlUpdate(interlace_mtl);
@@ -640,6 +705,26 @@ void InteractiveDisplay::InitializeLevel(WORLDINFO_s *world) {
     f338 = 1000.0f;
     i33c = 0;
     f334 = 1.0f;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x005c7480
+void InteractiveDisplay::Render() { RenderWhiteNoise(1.0f); }
+
+// FUNCTION: LEGOBATMAN 0x005c7fa0
+void InteractiveDisplay::Update(f32 dt) {
+  UpdateInGameSurfaceData();
+  f234 = 1.0f;
+  UpdateWhiteNoise(dt);
+  if (GetUsesStrobePattern()) {
+    f238 += dt * 0.2f;
+    f238 = f238 > 0.2f ? 0.0f : f238;
+  }
+  if (IsInteractiveMode() != i33c) {
+    f338 = 0.0f;
+    i33c = IsInteractiveMode();
+  } else {
+    f338 += dt;
   }
 }
 
