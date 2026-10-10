@@ -9,7 +9,10 @@
 struct ThingRemoveData;
 struct ThingLevelData;
 struct ThingResetData;
-struct ThingProcessData;
+struct ThingProcessData {
+  u32 u00;
+  i32 paused; // 0x04
+};
 struct ThingRenderData;
 
 class BaseThing {
@@ -27,9 +30,11 @@ public:
   virtual void Display(ThingRenderData *data);                // 10
   virtual void Effects(ThingRenderData *data);                // 11
 
-  u32 u04;   // 0x04
-  u32 flags; // 0x08, bit 0 no RemoveDependancies, 1 no EnterLevel, 2 no
-             // ExitLevel
+  u32 u04; // 0x04
+  // 0x08: bit 0 no RemoveDependancies, 1 no EnterLevel, 2 no ExitLevel,
+  // 3 no Reset
+  u32 flags; // 0x08
+  i32 timed; // 0x0c, wrap the calls in timing bars
 };
 
 class ThingManager {
@@ -42,12 +47,20 @@ public:
   virtual void ResetThings(ThingResetData *data);
   virtual void EnterLevelThings(ThingLevelData *data);
   virtual void ExitLevelThings(ThingLevelData *data);
+  virtual void ProcessThings(ThingProcessData *data);
+  virtual void RenderThings(ThingRenderData *data);
+  virtual void DisplayThings(ThingRenderData *data);
+  virtual void EffectsThings(ThingRenderData *data);
 
   BaseThing *things[0x40]; // 0x004
   i32 count;               // 0x104
-  i32 i108;                // 0x108
+  i32 permanent;           // 0x108, things below this survive
   i32 pending;             // 0x10c
+  i32 timer;               // 0x110
 };
+
+void Unk00717840(i32 timer, i32 colour, const char *label);
+void Unk00717880(i32 timer, i32 colour);
 
 // FUNCTION: LEGOBATMAN 0x005912b0
 i32 BaseThing::RemoveDependancies(ThingRemoveData *data) { return 1; }
@@ -102,6 +115,15 @@ BaseThing *ThingManager::AddThingAfterThis(BaseThing *thing) {
   return 0;
 }
 
+// FUNCTION: LEGOBATMAN 0x005914c0
+void ThingManager::RemoveTemporaryThings() {
+  for (i32 i = count - 1; i >= permanent; i--) {
+    delete things[i];
+    things[i] = 0;
+  }
+  count = permanent;
+}
+
 // FUNCTION: LEGOBATMAN 0x00591530
 i32 ThingManager::RemoveDependanciesThings(ThingRemoveData *data) {
   i32 ok = 1;
@@ -110,6 +132,19 @@ i32 ThingManager::RemoveDependanciesThings(ThingRemoveData *data) {
       ok &= things[i]->RemoveDependancies(data);
   }
   return ok;
+}
+
+// FUNCTION: LEGOBATMAN 0x00591580
+void ThingManager::ResetThings(ThingResetData *data) {
+  for (i32 i = 0; i < count; i++) {
+    if (things[i] != 0 && (~(things[i]->flags >> 3) & 1)) {
+      if (things[i]->timed)
+        Unk00717840(timer, 4, "Res");
+      things[i]->Reset(data);
+      if (things[i]->timed)
+        Unk00717880(timer, 4);
+    }
+  }
 }
 
 // FUNCTION: LEGOBATMAN 0x00591600
@@ -125,5 +160,79 @@ void ThingManager::ExitLevelThings(ThingLevelData *data) {
   for (i32 i = 0; i < count; i++) {
     if (things[i] != 0 && (~(things[i]->flags >> 2) & 1))
       things[i]->ExitLevel(data);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x005916a0
+void ThingManager::ProcessThings(ThingProcessData *data) {
+  i32 i;
+  for (i = 0; i < count; i++) {
+    if (things[i] != 0 && (~(things[i]->flags >> 5) & 1)) {
+      if (things[i]->timed)
+        Unk00717840(timer, 0, "PROC");
+      things[i]->ProcessEvenWhenPaused(data);
+      if (things[i]->timed)
+        Unk00717880(timer, 0);
+    }
+  }
+  if (data->paused) {
+    for (i = 0; i < count; i++) {
+      if (things[i] != 0 && (~(things[i]->flags >> 6) & 1)) {
+        if (things[i]->timed)
+          Unk00717840(timer, 0, "PROC");
+        things[i]->ProcessOnlyWhenPaused(data);
+        if (things[i]->timed)
+          Unk00717880(timer, 0);
+      }
+    }
+  } else {
+    for (i = 0; i < count; i++) {
+      if (things[i] != 0 && (~(things[i]->flags >> 4) & 1)) {
+        if (things[i]->timed)
+          Unk00717840(timer, 0, "PROC");
+        things[i]->Process(data);
+        if (things[i]->timed)
+          Unk00717880(timer, 0);
+      }
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00591810
+void ThingManager::RenderThings(ThingRenderData *data) {
+  for (i32 i = 0; i < count; i++) {
+    if (things[i] != 0 && (~(things[i]->flags >> 7) & 1)) {
+      if (things[i]->timed)
+        Unk00717840(timer, 1, "Rnd");
+      things[i]->Render(data);
+      if (things[i]->timed)
+        Unk00717880(timer, 1);
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00591890
+void ThingManager::DisplayThings(ThingRenderData *data) {
+  for (i32 i = 0; i < count; i++) {
+    if (things[i] != 0 && (~(things[i]->flags >> 8) & 1)) {
+      if (things[i]->timed)
+        Unk00717840(timer, 3, "Dis");
+      things[i]->Display(data);
+      if (things[i]->timed)
+        Unk00717880(timer, 3);
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00591910
+void ThingManager::EffectsThings(ThingRenderData *data) {
+  for (i32 i = 0; i < count; i++) {
+    if (things[i] != 0 && (~(things[i]->flags >> 9) & 1)) {
+      if (things[i]->timed)
+        Unk00717840(timer, 5, "Fx");
+      things[i]->Effects(data);
+      if (things[i]->timed)
+        Unk00717880(timer, 5);
+    }
   }
 }

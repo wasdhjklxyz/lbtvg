@@ -1974,8 +1974,9 @@
 00591530 ThingManager::RemoveDependanciesThings slot 4, calls BaseThing slot 2; matched
 00591600 ThingManager::EnterLevelThings slot 6, calls BaseThing slot 3; matched
 00591650 ThingManager::ExitLevelThings slot 7, calls BaseThing slot 4; matched
-00591580 ThingManager::ResetThings slot 5, calls BaseThing slot 5
-005916a0 ThingManager::ProcessThings slot 8, calls BaseThing slots 6..8
-00591810 ThingManager::RenderThings slot 9, calls BaseThing slot 9
-00591890 ThingManager::DisplayThings slot 10, calls BaseThing slot 10
-00591910 ThingManager::EffectsThings slot 11, calls BaseThing slot 11
+00591580 ThingManager::ResetThings slot 5, calls BaseThing slot 5; matched
+005916a0 ThingManager::ProcessThings slot 8, calls BaseThing slots 6..8; matched
+00591810 ThingManager::RenderThings slot 9, calls BaseThing slot 9; matched
+00591890 ThingManager::DisplayThings slot 10, calls BaseThing slot 10; matched
+00591910 ThingManager::EffectsThings slot 11, calls BaseThing slot 11; matched
+005914c0 ThingManager::RemoveTemporaryThings slot 3, Mac order (deletes things above the permanent count); matched
