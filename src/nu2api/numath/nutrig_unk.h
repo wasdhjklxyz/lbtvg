@@ -29,3 +29,6 @@ static f32 NuSinApprox(i32 angle) {
   return x + (x3 * -0.16666657f) + (x5 * 0.0083330255f) +
          (x7 * -0.00019807414f) + (x9 * 2.601887e-06f);
 }
+
+// 15 bytes, angle in eax (saga: NuCosApprox2).
+static f32 NuCosApprox(i32 angle) { return NuSinApprox(angle + 0x4000); }

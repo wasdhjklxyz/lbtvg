@@ -202,3 +202,5 @@
 00618580 Hub_CanStartMenu: register allocation (flags/mask swapped), 10 variants tried
 00639580 ObjOpponentStillThere: x87 facing test (dot kept on stack per arm), 16 spellings tried
 005a9520 Grapples_Reset: needs same-TU register-arg static Grapple_Reset 0x5a9390 (esi) and the 0x19c GRAPPLE_s bitfields
+006dd2d0 NuFParInterpretWord: check-then-reload of jump_ctx2[pos] (as 0x6dd430), 7 forms tried
+005af8c0 LineIntersectXY: heavy x87 (unordered compares on a 5-deep stack), saga form far off

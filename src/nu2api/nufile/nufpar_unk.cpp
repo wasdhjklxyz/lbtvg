@@ -214,6 +214,59 @@ typedef struct nufpcomjump_s {
 // GLOBAL: LEGOBATMAN 0x00b038c0
 extern nufpcomfn *fnInterpreterError;
 
+// STUB: LEGOBATMAN 0x006dd2d0
+// close: the same check-then-reload of jump_ctx2[pos] as the CTX version
+// below (orig cmp [mem],0 then reload; ours loads once and tests)
+i32 NuFParInterpretWord(NUFPAR *parser) {
+  char buf[64];
+  i32 i;
+
+  if (parser->is_utf16) {
+    NuUnicodeToAscii(buf, (NUWCHAR16 *)parser->word_buf);
+  } else {
+    char *dst = buf;
+    char *src = parser->word_buf;
+    if (src != 0) {
+      while (*src != '\0') {
+        *dst++ = *src++;
+      }
+    }
+    *dst = '\0';
+  }
+
+  if (buf[0] == '\0')
+    return 0;
+  if (buf[0] == ';')
+    return 0;
+
+  i32 pos = parser->command_pos;
+  if (pos >= 0) {
+    NUFPCOMJUMP *jump = parser->jump_ctx[pos];
+    char *name;
+    for (i = 0; (name = jump[i].fn_name) != 0; i++) {
+      if (NuStrICmp(name, buf) == 0) {
+        ((nufpcomfn *)jump[i].fn)(parser);
+        return 1;
+      }
+    }
+
+    if (parser->jump_ctx2[pos] == 0)
+      goto error;
+    jump = parser->jump_ctx2[pos];
+    for (i = 0; (name = jump[i].fn_name) != 0; i++) {
+      if (NuStrICmp(name, buf) == 0) {
+        ((nufpcomfn *)jump[i].fn)(parser);
+        return 1;
+      }
+    }
+  }
+error:
+
+  if (fnInterpreterError != 0)
+    (*fnInterpreterError)(parser);
+  return 0;
+}
+
 // STUB: LEGOBATMAN 0x006dd430
 // close: orig tests jump_ctx2[pos] with cmp [mem],0 then reloads it (same
 // unsolved check-then-reload as FastWeaponOut); ours keeps it in edi
