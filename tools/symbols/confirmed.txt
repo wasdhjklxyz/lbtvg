@@ -2560,3 +2560,9 @@
 0061f1e0 CDataFromName          NuStrICmp over CDataList file names returning the entry: saga characters.cpp; after CharIDFromName as on the Mac
 0061f230 RedirectAnim           ANIMREDIRECT walk, NuStrCpy/NuStrCat, clears anim flag 8: saga characters.cpp; next in Mac order
 0061f2a0 CharScenes_Init        CHARCOUNT * 0x10 zeroed from the buffer into the CharScene global: saga characters.cpp; next in Mac order
+0061f540 CharScene_Draw         FindHSpecial then NuSpecialDrawAt for both matrices: saga characters.cpp; Mac order
+0061f580 CharScenes_LevelDump   NuGScnRemove over world+0x29c4 scenes: saga characters.cpp; Mac order
+0061f5e0 CharScenes_AreaDump    NuGScnRemove over the CharScene global: saga characters.cpp; Mac order
+0061f4f0 CharScene_FindHSpecial CharScene global or world scenes then NuSpecialExistsFn: saga characters.cpp; Mac order
+0061f2d0 CharScene_Load         "chars\%s\%s.gsc" NuGScnRead + NuSpecialFind; Mac string pairing
+0061f370 CharScenes_LevelLoad   CharScene_Load per flagged character in world+0x29c4: saga characters.cpp; Mac order

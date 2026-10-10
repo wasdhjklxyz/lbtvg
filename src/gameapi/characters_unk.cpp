@@ -13,14 +13,38 @@ static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 typedef struct CHARACTERDATA_s {
   u32 pad0;
   u32 model_flags; // 0x04
-  u32 pad8;
-  char *file; // 0x0c
+  char *dir;       // 0x08
+  char *file;      // 0x0c
   u32 pad10[2];
   void *move_fn;    // 0x18
   void *animate_fn; // 0x1c
   void *draw_fn;    // 0x20
   u32 pad24[(0x48 - 0x24) / 4];
 } CHARACTERDATA;
+
+typedef struct CHARLAYER_s {
+  char name[0x18];
+  i16 mask_bit;        // 0x18
+  i16 hierarchy_layer; // 0x1a
+} CHARLAYER;
+
+typedef struct GCDATA_s {
+  u32 pad0;
+  CHARLAYER *layers;  // 0x04
+  char *layer_lookup; // 0x08
+  u8 pad0c[0x13c - 0xc];
+  u32 flags13c;  // 0x13c
+  u32 abilities; // 0x140
+  u32 flags144;  // 0x144, 0x400: has a character scene
+  u8 pad148[0x22b - 0x148];
+  i8 movement_type; // 0x22b
+  u8 pad22c[0x23c - 0x22c];
+  u8 layer_count; // 0x23c
+  u8 pad23d[0x240 - 0x23d];
+} GCDATA;
+
+// GLOBAL: LEGOBATMAN 0x00acb82c
+extern GCDATA *GCDataList;
 
 // GLOBAL: LEGOBATMAN 0x00acb820
 extern i32 CHARCOUNT;
@@ -82,8 +106,15 @@ i32 RedirectAnim(char *directory, ANIMREDIRECT *redirects, ANIMLIST *animation,
   return 0;
 }
 
+typedef struct nugscn_s NUGSCN;
+
+typedef struct nuhspecial_s {
+  u32 pad[3];
+} NUHSPECIAL;
+
 typedef struct CHARSCENE_s {
-  u32 pad[4];
+  NUGSCN *scene;      // 0x00
+  NUHSPECIAL special; // 0x04
 } CHARSCENE;
 
 // GLOBAL: LEGOBATMAN 0x00acb824
@@ -99,28 +130,114 @@ void CharScenes_Init(VARIPTR *buf, VARIPTR *buf_end) {
   memset(area, 0, size);
 }
 
-typedef struct CHARLAYER_s {
-  char name[0x18];
-  i16 mask_bit;        // 0x18
-  i16 hierarchy_layer; // 0x1a
-} CHARLAYER;
+extern "C" NUGSCN *NuGScnRead(VARIPTR *buf, VARIPTR buf_end, char *path);
+i32 NuSpecialFind(NUGSCN *scene, NUHSPECIAL *out, char *name, i32 flags);
 
-typedef struct GCDATA_s {
-  u32 pad0;
-  CHARLAYER *layers;  // 0x04
-  char *layer_lookup; // 0x08
-  u8 pad0c[0x13c - 0xc];
-  u32 flags13c;  // 0x13c
-  u32 abilities; // 0x140
-  u8 pad144[0x22b - 0x144];
-  i8 movement_type; // 0x22b
-  u8 pad22c[0x23c - 0x22c];
-  u8 layer_count; // 0x23c
-  u8 pad23d[0x240 - 0x23d];
-} GCDATA;
+// Static here (scene in ecx); the Mac name.
+// STUB: LEGOBATMAN 0x0061f2d0
+// body right; our cl passes buf in ebx as well as scene in ecx (custom
+// convention puzzle, see AIScriptCopyString).
+static void CharScene_Load(i32 id, CHARSCENE *scene, VARIPTR *buf,
+                           VARIPTR buf_end) {
+  char path[128];
+  NUGSCN *gscn;
 
-// GLOBAL: LEGOBATMAN 0x00acb82c
-extern GCDATA *GCDataList;
+  NuSPrintf(path, "chars\\%s\\%s.gsc", CDataList[id].dir, CDataList[id].file);
+  gscn = NuGScnRead(buf, buf_end, path);
+  scene->scene = gscn;
+  if (gscn != NULL)
+    NuSpecialFind(gscn, &scene->special, CDataList[id].file, 1);
+}
+
+typedef struct CUTSCENESYS_s {
+  u8 pad0[8];
+  u32 *character_flags; // 0x08, bit per character
+} CUTSCENESYS;
+
+typedef struct CSWORLD_s {
+  u8 pad0[0x104];
+  VARIPTR giz_buffer;     // 0x104
+  VARIPTR giz_buffer_end; // 0x108
+  u8 pad10c[0x29c4 - 0x10c];
+  CHARSCENE *character_scenes; // 0x29c4
+  u8 pad29c8[0x2af0 - 0x29c8];
+  CUTSCENESYS *cutscene_sys; // 0x2af0
+} CSWORLD;
+
+// Batman's form of saga legoapi/characters/core/characters.cpp
+// STUB: LEGOBATMAN 0x0061f370
+// matches but for CharScene_Load's ebx argument.
+void CharScenes_LevelLoad(CSWORLD *world) {
+  for (i32 i = 0; i < CHARCOUNT; i++) {
+    world->character_scenes[i].scene = NULL;
+    if ((CharScene_Area == NULL || CharScene_Area[i].scene == NULL) &&
+        (GCDataList[i].flags144 & 0x400) && world->cutscene_sys != NULL &&
+        (world->cutscene_sys->character_flags[i / 32] & (1 << (i & 31))))
+      CharScene_Load(i, &world->character_scenes[i], &world->giz_buffer,
+                     world->giz_buffer_end);
+  }
+}
+
+i32 NuSpecialExistsFn(NUHSPECIAL *sp);
+i32 NuSpecialDrawAt(NUHSPECIAL *sp, struct numtx_s *mtx);
+extern "C" void NuGScnRemove(NUGSCN *scene);
+
+// from saga legoapi/characters/core/characters.cpp
+// STUB: LEGOBATMAN 0x0061f4f0
+// right but for block order: the original puts the world branch after the
+// NuSpecialExistsFn test; the saga form gets inlined into CharScene_Draw.
+NUHSPECIAL *CharScene_FindHSpecial(CSWORLD *world, i32 id) {
+  NUHSPECIAL *sp;
+
+  if (CharScene_Area != NULL && CharScene_Area[id].scene != NULL)
+    sp = &CharScene_Area[id].special;
+  else if (world->character_scenes[id].scene != NULL)
+    sp = &world->character_scenes[id].special;
+  else
+    return NULL;
+  if (sp != NULL && NuSpecialExistsFn(sp) == 0)
+    return NULL;
+  return sp;
+}
+
+// from saga legoapi/characters/core/characters.cpp
+// FUNCTION: LEGOBATMAN 0x0061f540
+void CharScene_Draw(CSWORLD *world, i32 id, struct numtx_s *mtx,
+                    struct numtx_s *reflection_mtx) {
+  NUHSPECIAL *special = CharScene_FindHSpecial(world, id);
+  if (special != NULL) {
+    if (mtx != NULL)
+      NuSpecialDrawAt(special, mtx);
+    if (reflection_mtx != NULL)
+      NuSpecialDrawAt(special, reflection_mtx);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x0061f580
+void CharScenes_LevelDump(CSWORLD *world) {
+  if (world->character_scenes != NULL) {
+    for (i32 i = 0; i < CHARCOUNT; i++) {
+      if (world->character_scenes[i].scene != NULL)
+        NuGScnRemove(world->character_scenes[i].scene);
+      world->character_scenes[i].scene = NULL;
+    }
+  }
+}
+
+// from saga legoapi/characters/core/characters.cpp
+// FUNCTION: LEGOBATMAN 0x0061f5e0
+void CharScenes_AreaDump() {
+  CHARSCENE *area = CharScene_Area;
+  if (area == NULL)
+    return;
+  for (i32 i = 0; i < CHARCOUNT; ++i) {
+    if (area[i].scene != NULL) {
+      NuGScnRemove(area[i].scene);
+      area = CharScene_Area;
+    }
+    area[i].scene = NULL;
+  }
+}
 
 // from saga legoapi/characters/core/charconfig.cpp
 // FUNCTION: LEGOBATMAN 0x0061fc20
