@@ -7687,6 +7687,73 @@ int NuStringTableLoad(char *filepath, VARIPTR *buf, VARIPTR buf_end) {
   }
 }
 
+void NuPadWStrCpyLower(unsigned short *dst, const unsigned short *src);
+// GLOBAL: LEGOBATMAN 0x00b0392c
+static int NumBadWords;
+
+// FUNCTION: LEGOBATMAN 0x006e18a0
+void NuStringFilterLoad(char *path, VARIPTR *buf, VARIPTR buf_end) {
+  int count;
+  int i;
+  int length;
+  int j;
+  void *mem_buf;
+  int bytes_read;
+  int file;
+  NUFPAR *parser;
+  NUWCHAR word[128];
+
+  if ((unsigned int)(buf_end.addr - buf->addr) < 0x100000)
+    Unk006d24b0(path);
+  mem_buf = (void *)(buf_end.addr - 0x100000);
+  bytes_read = NuFileLoadBuffer(path, mem_buf, 0x100000);
+  count = 0;
+  file = NuMemFileOpen(mem_buf, bytes_read, 0);
+  if (file != 0) {
+    parser = NuFParOpen(file);
+    if (parser != NULL) {
+      do {
+        if (NuFParGetWord(parser) > 0)
+          count++;
+      } while (NuFParGetLine(parser) != 0);
+      NuFParClose(parser);
+    }
+    NuFileClose(file);
+  }
+  BadWords = (NUWCHAR **)((buf->addr + 3) & ~3);
+  buf->addr = (buf->addr + 3) & ~3;
+  buf->addr += (count + 1) * sizeof(NUWCHAR *);
+  memset(BadWords, 0, (count + 1) * sizeof(NUWCHAR *));
+  i = 0;
+  file = NuMemFileOpen(mem_buf, bytes_read, 0);
+  if (file != 0) {
+    parser = NuFParOpen(file);
+    if (parser != NULL) {
+      do {
+        if (NuFParGetWord(parser) > 0) {
+          NuUTF8ToUnicode(word, (unsigned char *)parser->word_buf);
+          length = NuStrLenW(word);
+          if (length < 4) {
+            for (j = length; j >= 0; j--)
+              word[j + 1] = word[j];
+            word[0] = '!';
+            length++;
+          }
+          length++;
+          BadWords[i] = (NUWCHAR *)((buf->addr + 1) & ~1);
+          buf->addr = (buf->addr + 1) & ~1;
+          buf->addr += length * 2;
+          NuPadWStrCpyLower(BadWords[i], word);
+          i++;
+        }
+      } while (NuFParGetLine(parser) != 0 && i < count);
+      NuFParClose(parser);
+    }
+    NuFileClose(file);
+  }
+  NumBadWords = i;
+}
+
 // FUNCTION: LEGOBATMAN 0x006ddc00
 extern "C" i32 NuQTWrite(char *path, nuqthdr_s *header) {
   int file = NuFileOpen(path, 1);
