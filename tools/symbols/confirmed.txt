@@ -2821,3 +2821,21 @@
 005e5410 Tubes_ClearProgress clear_progress slot of the "Tube" ADDGIZMOTYPE
 005e5430 Tubes_StoreProgress store_progress slot of the "Tube" ADDGIZMOTYPE
 005e54b0 Tube_GetPos get_pos slot of the "Tube" ADDGIZMOTYPE
+005fd100 ZipUp_ActivateRev activate_rev slot of the "ZipUp" ADDGIZMOTYPE
+005fd440 ZipUps_InitTerrain Mac order (after ZipUps_Load, before ReserveBufferSpace), takes WORLDINFO and restarts each zipup's sfx
+005fd490 ZipUps_ReserveBufferSpace reserve_buffer_space slot of the "ZipUp" ADDGIZMOTYPE
+005fd6e0 ZipUps_Reset reset slot of the "ZipUp" ADDGIZMOTYPE
+005feb80 ZipUps_Update late_update slot of the "ZipUp" ADDGIZMOTYPE
+005fed80 ZipUp_Release Mac order (after UpdateHint), clears the occupant's zipup
+005ff4c0 ZipUp_Activate activate slot of the "ZipUp" ADDGIZMOTYPE
+005ff5e0 ZipUp_SetVisibility set_visibility slot of the "ZipUp" ADDGIZMOTYPE
+005ff600 ZipUps_GetMaxGizmos get_max_gizmos slot of the "ZipUp" ADDGIZMOTYPE
+005ff620 ZipUps_AddGizmos add_gizmos slot of the "ZipUp" ADDGIZMOTYPE
+005ff690 ZipUp_GetGizmoName get_gizmo_name slot of the "ZipUp" ADDGIZMOTYPE
+005ff6b0 ZipUps_AllocateProgressData allocate_progress_data slot of the "ZipUp" ADDGIZMOTYPE
+005ff6d0 ZipUps_ClearProgress clear_progress slot of the "ZipUp" ADDGIZMOTYPE
+005ff6f0 ZipUps_StoreProgress store_progress slot of the "ZipUp" ADDGIZMOTYPE
+005ff780 ZipUp_GetOutputName get_output_name slot of the "ZipUp" ADDGIZMOTYPE
+005ff7a0 ZipUp_GetNumOutputs get_num_outputs slot of the "ZipUp" ADDGIZMOTYPE
+005ff7b0 ZipUp_GetOutput get_output slot of the "ZipUp" ADDGIZMOTYPE
+005ff7f0 ZipUps_RegisterGizmo copies Default_ADDGIZMOTYPE, name "ZipUp"

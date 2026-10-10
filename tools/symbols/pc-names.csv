@@ -1847,6 +1847,24 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005fc2b0,0026699c,__Z12DumpAreaDataii,"DumpAreaData(int, int)",confirmed,0
 005fc350,00266a4e,__Z17AreaFromMiniKitIDi,AreaFromMiniKitID(int),gapfill,4
 005fc730,00266d2e,__Z12DrawGoToAreaP6MENU_si,"DrawGoToArea(MENU_s*, int)",strings,0
+005fd100,0035116e,__Z17ZipUp_ActivateRevP7GIZMO_sii,"ZipUp_ActivateRev(GIZMO_s*, int, int)",confirmed,0
+005fd440,003514ee,__Z18ZipUps_InitTerrainP11WORLDINFO_s,ZipUps_InitTerrain(WORLDINFO_s*),confirmed,0
+005fd490,003515f4,__Z25ZipUps_ReserveBufferSpacePv,ZipUps_ReserveBufferSpace(void*),confirmed,0
+005fd6e0,00351656,__Z12ZipUps_ResetPvS_S_,"ZipUps_Reset(void*, void*, void*)",confirmed,0
+005feb80,00351bfc,__Z13ZipUps_UpdatePvS_f,"ZipUps_Update(void*, void*, float)",confirmed,0
+005fed80,00351e5a,__Z13ZipUp_ReleaseP12GameObject_s,ZipUp_Release(GameObject_s*),confirmed,0
+005ff4c0,003527c2,__Z14ZipUp_ActivateP7GIZMO_si,"ZipUp_Activate(GIZMO_s*, int)",confirmed,0
+005ff5e0,,ZipUp_SetVisibility,ZipUp_SetVisibility,confirmed,0
+005ff600,003528f4,__Z19ZipUps_GetMaxGizmosPv,ZipUps_GetMaxGizmos(void*),confirmed,0
+005ff620,00352910,__Z16ZipUps_AddGizmosP10GIZMOSYS_siPvS1_,"ZipUps_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+005ff690,0035297a,__Z18ZipUp_GetGizmoNameP7GIZMO_s,ZipUp_GetGizmoName(GIZMO_s*),confirmed,0
+005ff6b0,0035298e,__Z27ZipUps_AllocateProgressDataP9variptr_uS0_,"ZipUps_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+005ff6d0,003529b0,__Z20ZipUps_ClearProgressPvS_,"ZipUps_ClearProgress(void*, void*)",confirmed,0
+005ff6f0,003529f8,__Z20ZipUps_StoreProgressPvS_S_,"ZipUps_StoreProgress(void*, void*, void*)",confirmed,0
+005ff780,00352a9c,__Z19ZipUp_GetOutputNameP7GIZMO_si,"ZipUp_GetOutputName(GIZMO_s*, int)",confirmed,0
+005ff7a0,00352ab8,__Z19ZipUp_GetNumOutputsP7GIZMO_s,ZipUp_GetNumOutputs(GIZMO_s*),confirmed,0
+005ff7b0,00352ac2,__Z15ZipUp_GetOutputP7GIZMO_sii,"ZipUp_GetOutput(GIZMO_s*, int, int)",confirmed,0
+005ff7f0,00352af6,__Z20ZipUps_RegisterGizmoi,ZipUps_RegisterGizmo(int),confirmed,0
 006000c0,,InteractiveDisplayManager::InteractiveDisplayManager,InteractiveDisplayManager::InteractiveDisplayManager,confirmed,0
 006000e0,002f23da,__ZN25InteractiveDisplayManager10AddDisplayEP18InteractiveDisplay,InteractiveDisplayManager::AddDisplay(InteractiveDisplay*),confirmed,0
 00600110,002f242a,__ZN25InteractiveDisplayManager15InitializeLevelEP11WORLDINFO_s,InteractiveDisplayManager::InitializeLevel(WORLDINFO_s*),confirmed,0

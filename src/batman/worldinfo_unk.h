@@ -96,9 +96,10 @@ struct WORLDINFO_s {
   u8 pad478c[0x4790 - 0x478c];
   struct TELEPORT_s *teleports; // 0x4790
   i32 teleport_count;           // 0x4794
-  u8 pad8[0x47a0 - 0x4798];
-  struct TUBE_s *tubes; // 0x47a0
-  i32 tube_count;       // 0x47a4
+  struct ZIPUP_s *zipups;       // 0x4798
+  i32 zipup_count;              // 0x479c
+  struct TUBE_s *tubes;         // 0x47a0
+  i32 tube_count;               // 0x47a4
   u8 pad47a8[0x47b4 - 0x47a8];
   struct GIZOBSTACLESYS_s *giz_obstacle_sys; // 0x47b4
   u8 pad47b8[0x47bc - 0x47b8];
