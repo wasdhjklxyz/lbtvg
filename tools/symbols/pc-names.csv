@@ -977,6 +977,26 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0058fe00,001dfac2,__ZN22NuStreamProcessManager10InitializeEj,NuStreamProcessManager::Initialize(unsigned int),strings,0
 00590320,001dfc02,__ZN22NuStreamProcessManager21DebugPrintCommandListEv,NuStreamProcessManager::DebugPrintCommandList(),strings,0
 00591040,00231cd8,__ZN13MemoryManager11RenderTypesEv,MemoryManager::RenderTypes(),strings,0
+005912b0,0023390c,__ZN9BaseThing18RemoveDependanciesEP15ThingRemoveData,BaseThing::RemoveDependancies(ThingRemoveData*),confirmed,0
+005912c0,00233916,__ZN9BaseThing10EnterLevelEP14ThingLevelData,BaseThing::EnterLevel(ThingLevelData*),confirmed,0
+005912d0,0023391c,__ZN9BaseThing9ExitLevelEP14ThingLevelData,BaseThing::ExitLevel(ThingLevelData*),confirmed,0
+005912e0,00233922,__ZN9BaseThing5ResetEP14ThingResetData,BaseThing::Reset(ThingResetData*),confirmed,0
+005912f0,00233928,__ZN9BaseThing7ProcessEP16ThingProcessData,BaseThing::Process(ThingProcessData*),confirmed,0
+00591300,0023392e,__ZN9BaseThing21ProcessEvenWhenPausedEP16ThingProcessData,BaseThing::ProcessEvenWhenPaused(ThingProcessData*),confirmed,0
+00591310,00233934,__ZN9BaseThing21ProcessOnlyWhenPausedEP16ThingProcessData,BaseThing::ProcessOnlyWhenPaused(ThingProcessData*),confirmed,0
+00591320,0023393a,__ZN9BaseThing6RenderEP15ThingRenderData,BaseThing::Render(ThingRenderData*),confirmed,0
+00591330,00233940,__ZN9BaseThing7DisplayEP15ThingRenderData,BaseThing::Display(ThingRenderData*),confirmed,0
+00591340,00233946,__ZN9BaseThing7EffectsEP15ThingRenderData,BaseThing::Effects(ThingRenderData*),confirmed,0
+005913d0,0023199e,__ZN12ThingManager8AddThingEP9BaseThing,ThingManager::AddThing(BaseThing*),confirmed,0
+00591410,002319e2,__ZN12ThingManager17AddThingAfterThisEP9BaseThing,ThingManager::AddThingAfterThis(BaseThing*),confirmed,0
+00591530,002324e6,__ZN12ThingManager24RemoveDependanciesThingsEP15ThingRemoveData,ThingManager::RemoveDependanciesThings(ThingRemoveData*),confirmed,0
+00591580,00232534,__ZN12ThingManager11ResetThingsEP14ThingResetData,ThingManager::ResetThings(ThingResetData*),confirmed,0
+00591600,002325ce,__ZN12ThingManager16EnterLevelThingsEP14ThingLevelData,ThingManager::EnterLevelThings(ThingLevelData*),confirmed,0
+00591650,00232610,__ZN12ThingManager15ExitLevelThingsEP14ThingLevelData,ThingManager::ExitLevelThings(ThingLevelData*),confirmed,0
+005916a0,00232652,__ZN12ThingManager13ProcessThingsEP16ThingProcessData,ThingManager::ProcessThings(ThingProcessData*),confirmed,0
+00591810,00232812,__ZN12ThingManager12RenderThingsEP15ThingRenderData,ThingManager::RenderThings(ThingRenderData*),confirmed,0
+00591890,002328ac,__ZN12ThingManager13DisplayThingsEP15ThingRenderData,ThingManager::DisplayThings(ThingRenderData*),confirmed,0
+00591910,0023244c,__ZN12ThingManager13EffectsThingsEP15ThingRenderData,ThingManager::EffectsThings(ThingRenderData*),confirmed,0
 00592080,00231fc8,__ZN13MemoryManager12RenderMemoryEv,MemoryManager::RenderMemory(),strings,0
 00594420,0019ae36,__ZN17NuFmvStreamPCBink14BlitSM1TextureEv,NuFmvStreamPCBink::BlitSM1Texture(),strings,0
 00594dc0,0019a89a,_NuFmvInitSubtitles,_NuFmvInitSubtitles,strings,0

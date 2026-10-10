@@ -1959,3 +1959,23 @@
 0053aef0 ovcb_tell Mac order; matched
 0053d650 ov_time_seek Mac dylib stub called from OggReader::SetOffset
 0053d850 ov_pcm_tell Mac dylib stub called from OggReader::SetOffset
+005912b0 BaseThing::RemoveDependancies vtable 0x86855c slot 2 (RTTI .?AVBaseThing@@); Mac order, returns 1 as on the Mac; matched
+005912c0 BaseThing::EnterLevel slot 3, Mac order (EnterLevelThings calls slot 3); matched
+005912d0 BaseThing::ExitLevel slot 4, Mac order (ExitLevelThings calls slot 4); matched
+005912e0 BaseThing::Reset slot 5, Mac order (ResetThings calls slot 5); matched
+005912f0 BaseThing::Process slot 6, Mac order (ProcessThings calls 6..8); matched
+00591300 BaseThing::ProcessEvenWhenPaused slot 7, Mac order; matched
+00591310 BaseThing::ProcessOnlyWhenPaused slot 8, Mac order; matched
+00591320 BaseThing::Render slot 9, Mac order (RenderThings calls slot 9); matched
+00591330 BaseThing::Display slot 10, Mac order (DisplayThings calls slot 10); matched
+00591340 BaseThing::Effects slot 11, Mac order (EffectsThings calls slot 11); matched
+005913d0 ThingManager::AddThing vtable 0x868590 slot 1 (RTTI), Mac order; matched
+00591410 ThingManager::AddThingAfterThis slot 2, Mac order; matched
+00591530 ThingManager::RemoveDependanciesThings slot 4, calls BaseThing slot 2; matched
+00591600 ThingManager::EnterLevelThings slot 6, calls BaseThing slot 3; matched
+00591650 ThingManager::ExitLevelThings slot 7, calls BaseThing slot 4; matched
+00591580 ThingManager::ResetThings slot 5, calls BaseThing slot 5
+005916a0 ThingManager::ProcessThings slot 8, calls BaseThing slots 6..8
+00591810 ThingManager::RenderThings slot 9, calls BaseThing slot 9
+00591890 ThingManager::DisplayThings slot 10, calls BaseThing slot 10
+00591910 ThingManager::EffectsThings slot 11, calls BaseThing slot 11
