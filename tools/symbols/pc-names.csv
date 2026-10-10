@@ -3897,6 +3897,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006e0d90,0019621a,_NuFilePakLoadKey,_NuFilePakLoadKey,confirmed,0
 006e0dc0,001961da,_NuFilePakLoad,_NuFilePakLoad,confirmed,0
 006e0df0,0019619a,_NuFilePakLoadPrePad,_NuFilePakLoadPrePad,confirmed,0
+006e0e20,00195e50,_NuQTRead,_NuQTRead,confirmed,0
+006e1820,00195dc0,_NuStringTableLoad,_NuStringTableLoad,confirmed,0
 006e1be0,001973d4,_NuMemSetHeap,_NuMemSetHeap,confirmed,0
 006e1bf0,001973ee,_NuMemSetDiscardable,_NuMemSetDiscardable,confirmed,0
 006e1c00,00197408,_NuMemFlushDiscardable,_NuMemFlushDiscardable,confirmed,0

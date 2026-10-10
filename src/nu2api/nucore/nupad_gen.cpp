@@ -7400,6 +7400,41 @@ static void NuQTFixAddress(nuqthdr_s *header) {
   }
 }
 
+int NuFileLoadBuffer(char *filepath, void *buf, int buf_size);
+
+// FUNCTION: LEGOBATMAN 0x006e0e20
+extern "C" nuqthdr_s *NuQTRead(char *path, u8 **cursor, u8 **end) {
+  nuqthdr_s *header = (nuqthdr_s *)(((unsigned int)*cursor + 15) & ~15u);
+  *cursor = (u8 *)header;
+  i32 size = NuFileLoadBuffer(path, *cursor, *end - *cursor);
+  if (size != 0) {
+    *cursor += size;
+    NuQTFixAddress(header);
+    return header;
+  }
+  return NULL;
+}
+
+int NuStringTableLoadCSV(char *filepath, VARIPTR *buf, VARIPTR buf_end,
+                         char *label, char *language);
+int NuStringTableLoadTXT(char *filepath, VARIPTR *buf, VARIPTR buf_end);
+
+// FUNCTION: LEGOBATMAN 0x006e1820
+int NuStringTableLoad(char *filepath, VARIPTR *buf, VARIPTR buf_end) {
+  int is_csv = 0;
+  char *extension;
+  if ((extension = NuStrRChr(filepath, '.')) != NULL) {
+    if (NuStrICmp(extension, ".csv") == 0) {
+      is_csv = 1;
+    }
+  }
+  if (is_csv) {
+    return NuStringTableLoadCSV(filepath, buf, buf_end, "LABEL", "ENGLISH");
+  } else {
+    return NuStringTableLoadTXT(filepath, buf, buf_end);
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x006ddc00
 extern "C" i32 NuQTWrite(char *path, nuqthdr_s *header) {
   int file = NuFileOpen(path, 1);
