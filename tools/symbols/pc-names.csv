@@ -668,6 +668,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004f5440,0010e86a,__Z12LoadPermDataP12bgprocinfo_s,LoadPermData(bgprocinfo_s*),strings,0
 004f5d90,0010d394,__Z13Legal_GetNamePc,Legal_GetName(char*),strings,0
 004f6230,0010d428,__Z9LoadPerm1v,LoadPerm1(),strings,0
+004f6b80,00110d34,__ZN18InteractiveDisplayC2Ev,InteractiveDisplay::InteractiveDisplay(),confirmed,0
 004f6c80,000c9f9a,__ZN18InteractiveDisplay13ActivateLevelEP11WORLDINFO_s,InteractiveDisplay::ActivateLevel(WORLDINFO_s*),confirmed,0
 004f6c90,000c9fa0,__ZNK18InteractiveDisplay22GetDoesLevelLoadRenderEv,InteractiveDisplay::GetDoesLevelLoadRender() const,confirmed,0
 004f6ca0,002f2334,__ZNK18InteractiveDisplay13GetClassNameAEv,InteractiveDisplay::GetClassNameA() const,strings,0
@@ -687,6 +688,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004f6fa0,00350d84,__ZNK12WorldMapBase21GetPointerSpecialNameEP11WORLDINFO_si,"WorldMapBase::GetPointerSpecialName(WORLDINFO_s*, int) const",confirmed,0
 004f6fc0,00350dec,__ZNK12WorldMapBase28GetPointerRadiusWithMaxScaleEv,WorldMapBase::GetPointerRadiusWithMaxScale() const,confirmed,0
 004f6fd0,00350d96,__ZNK12WorldMapBase25GetPointerRadiusWithScaleEv,WorldMapBase::GetPointerRadiusWithScale() const,confirmed,0
+004f6fe0,,WorldMap::WorldMap,WorldMap::WorldMap,confirmed,0
 004f7020,0011b04c,__ZNK8WorldMap22GetDoesLevelLoadRenderEv,WorldMap::GetDoesLevelLoadRender() const,confirmed,0
 004f7030,0011b054,__ZNK8WorldMap13GetClassNameAEv,WorldMap::GetClassNameA() const,confirmed,0
 004f7040,0011b05e,__ZNK8WorldMap23GetUsesInterlacePatternEv,WorldMap::GetUsesInterlacePattern() const,confirmed,0
@@ -705,12 +707,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004f7360,00108fbc,__ZNK12ShopComputer21GetUsesOverlayTextureEv,ShopComputer::GetUsesOverlayTexture() const,confirmed,0
 004f7370,00108fe6,__ZNK12ShopComputer16RenderWhenPausedEv,ShopComputer::RenderWhenPaused() const,confirmed,0
 004f7380,00108ff0,__ZNK12ShopComputer21IsCameraTransitioningEv,ShopComputer::IsCameraTransitioning() const,confirmed,0
+004f7390,,SecurityCamera::SecurityCamera,SecurityCamera::SecurityCamera,confirmed,0
 004f73f0,000fc2e8,__ZNK14SecurityCamera13GetClassNameAEv,SecurityCamera::GetClassNameA() const,strings,0
 004f7400,000fc2f2,__ZNK14SecurityCamera23GetUsesInterlacePatternEv,SecurityCamera::GetUsesInterlacePattern() const,confirmed,0
 004f7410,000fc2fc,__ZNK14SecurityCamera21GetUsesOverlayTextureEv,SecurityCamera::GetUsesOverlayTexture() const,confirmed,0
 004f7420,000fc306,__ZNK14SecurityCamera17GetUsesWhiteNoiseEv,SecurityCamera::GetUsesWhiteNoise() const,confirmed,0
 004f7430,000fc310,__ZNK14SecurityCamera14IsCameraTargetEv,SecurityCamera::IsCameraTarget() const,confirmed,0
 004f7450,000fc32a,__ZNK14SecurityCamera16RenderWhenPausedEv,SecurityCamera::RenderWhenPaused() const,confirmed,0
+004f7460,,LightFlickerOverlay::LightFlickerOverlay,LightFlickerOverlay::LightFlickerOverlay,confirmed,0
 004f74c0,000ca03c,__ZNK19LightFlickerOverlay13GetClassNameAEv,LightFlickerOverlay::GetClassNameA() const,strings,0
 004f7500,000ca046,__ZNK19LightFlickerOverlay9IsVisibleEv,LightFlickerOverlay::IsVisible() const,confirmed,0
 004f7530,000ca070,__ZNK19LightFlickerOverlay12ShouldUpdateEv,LightFlickerOverlay::ShouldUpdate() const,confirmed,0

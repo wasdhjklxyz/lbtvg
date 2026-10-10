@@ -1751,3 +1751,7 @@
 004f7360 ShopComputer::GetUsesOverlayTexture slot 9, Mac inline order; matched
 004f7370 ShopComputer::RenderWhenPaused slot 14, Mac inline order; matched
 004f7380 ShopComputer::IsCameraTransitioning slot 21, Mac inline order (return 0); matched
+004f6b80 InteractiveDisplay::InteractiveDisplay stores vtable 0x85d75c; Mac has the ctor; inlined into the derived ctors below; matched
+004f6fe0 WorldMap::WorldMap     calls the WorldMapBase ctor thunk, stores vtable 0x85d874; matched
+004f7390 SecurityCamera::SecurityCamera base ctor inlined, stores vtable 0x85d96c; matched
+004f7460 LightFlickerOverlay::LightFlickerOverlay base ctor inlined, stores vtable 0x85d9f4; matched

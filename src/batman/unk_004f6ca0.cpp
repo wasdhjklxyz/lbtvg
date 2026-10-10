@@ -2,6 +2,8 @@
 // emitted between 0x4f6c80 and 0x4f7530 (before LoadPerm2).
 
 #include "../nu2api/nucore/common.h"
+#include "../nu2api/nucore/nustring.h"
+#include <string.h>
 
 // The Mac names end in A: windows.h maps GetClassName to GetClassNameA.
 
@@ -16,6 +18,7 @@ union variptr_u;
 // emission order follows.
 class InteractiveDisplay {
 public:
+  InteractiveDisplay();
   f32 Unk005c6270() const;
 
   virtual void InitializePerm(char *name, variptr_u *buf, variptr_u *end); // 0
@@ -42,13 +45,21 @@ public:
   virtual i32 IsCameraTransitioning() const;                               // 21
 
   u8 pad004[0x10 - 4];
-  char level_name[0x338 - 0x10]; // 0x010
-  f32 transition;                // 0x338
+  char level_name[0x40];      // 0x010
+  char transition_name[0x40]; // 0x050
+  u8 pad090[0x220 - 0x90];
+  f32 f220; // 0x220
+  u8 pad224[0x230 - 0x224];
+  i32 i230; // 0x230
+  f32 f234; // 0x234
+  u8 pad238[0x338 - 0x238];
+  f32 transition; // 0x338
 };
 
 // vtable 0x0085d7e4: overrides slots 8 and 16, adds 22..24.
 class WorldMapBase : public InteractiveDisplay {
 public:
+  WorldMapBase();
   virtual const char *GetClassNameA() const;
   virtual i32 GetUsesInterlacePattern() const;
   virtual i32 IsInteractiveMode() const;
@@ -65,6 +76,7 @@ public:
 // vtable 0x0085d874.
 class WorldMap : public WorldMapBase {
 public:
+  WorldMap();
   virtual i32 GetDoesLevelLoadRender() const;
   virtual const char *GetClassNameA() const;
   virtual i32 GetUsesInterlacePattern() const;
@@ -85,6 +97,7 @@ public:
 // vtable 0x0085d96c.
 class SecurityCamera : public InteractiveDisplay {
 public:
+  SecurityCamera();
   virtual const char *GetClassNameA() const;
   virtual i32 GetUsesInterlacePattern() const;
   virtual i32 GetUsesOverlayTexture() const;
@@ -126,6 +139,7 @@ char *NuStrIStr(char *str, const char *sub);
 // GetClassNameA, IsVisible, ShouldUpdate).
 class LightFlickerOverlay : public InteractiveDisplay {
 public:
+  LightFlickerOverlay();
   virtual const char *GetClassNameA() const;
   virtual i32 IsVisible() const;
   virtual i32 ShouldUpdate() const;
@@ -142,6 +156,15 @@ struct LFO_WORLD {
 };
 
 extern WORLDINFO_s *WORLD; // 0x00960894
+
+// FUNCTION: LEGOBATMAN 0x004f6b80
+InteractiveDisplay::InteractiveDisplay() {
+  f220 = 1.0f;
+  NuStrCpy(level_name, "");
+  memset(transition_name, 0, sizeof(transition_name));
+  f234 = 0.0f;
+  i230 = 0;
+}
 
 // FUNCTION: LEGOBATMAN 0x004f6c80
 void InteractiveDisplay::ActivateLevel(WORLDINFO_s *world) {}
@@ -215,6 +238,9 @@ f32 WorldMapBase::GetPointerRadiusWithMaxScale() const {
 // FUNCTION: LEGOBATMAN 0x004f6fd0
 f32 WorldMapBase::GetPointerRadiusWithScale() const { return pointer_radius; }
 
+// FUNCTION: LEGOBATMAN 0x004f6fe0
+WorldMap::WorldMap() {}
+
 // FUNCTION: LEGOBATMAN 0x004f7020
 i32 WorldMap::GetDoesLevelLoadRender() const { return 0; }
 
@@ -287,6 +313,9 @@ i32 ShopComputer::RenderWhenPaused() const { return 1; }
 // FUNCTION: LEGOBATMAN 0x004f7380
 i32 ShopComputer::IsCameraTransitioning() const { return 0; }
 
+// FUNCTION: LEGOBATMAN 0x004f7390
+SecurityCamera::SecurityCamera() {}
+
 // FUNCTION: LEGOBATMAN 0x004f73f0
 const char *SecurityCamera::GetClassNameA() const { return "SecurityCamera"; }
 
@@ -304,6 +333,9 @@ i32 SecurityCamera::IsCameraTarget() const { return g_unk009cf570 == kind; }
 
 // FUNCTION: LEGOBATMAN 0x004f7450
 i32 SecurityCamera::RenderWhenPaused() const { return 1; }
+
+// FUNCTION: LEGOBATMAN 0x004f7460
+LightFlickerOverlay::LightFlickerOverlay() {}
 
 // FUNCTION: LEGOBATMAN 0x004f74c0
 const char *LightFlickerOverlay::GetClassNameA() const {
