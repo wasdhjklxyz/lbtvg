@@ -255,3 +255,4 @@
 006dda10 NuFileSize: base/index order of the dat file_info load (1 line)
 006dca60 NuFileInitEx: NuDatFileDecodeInit store order (-1 before NULLs)
 006dd990 NuFileExistQuiet: base/index order of the dat file_info load (1 line), as NuFileSize
+006db510 get_tok_rdpi: switch-char register, hex-loop shift in register, unrotated digit loop

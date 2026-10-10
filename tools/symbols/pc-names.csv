@@ -3570,6 +3570,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d66e0,00189e14,_NuOnlineSetDefaultContext,_NuOnlineSetDefaultContext,confirmed,0
 006d66f0,00189e1a,_NuOnlineSetProperty,_NuOnlineSetProperty,confirmed,0
 006d6700,00189e20,_NuOnlineSetPropertyEx,_NuOnlineSetPropertyEx,confirmed,0
+006d6730,,ishexnum,ishexnum,confirmed,0
+006d67a0,,hexcodetoint,hexcodetoint,confirmed,0
 006d6810,00189e26,_NuLanguageInit,_NuLanguageInit,confirmed,0
 006d6830,00189028,_NuLanguageGet,_NuLanguageGet,confirmed,0
 006d6840,00189e4a,_NuLanguageSet,_NuLanguageSet,confirmed,0
@@ -3645,6 +3647,11 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006daa40,0018d694,_NuFParGetFloat,_NuFParGetFloat,confirmed,0
 006daae0,0018d740,_NuFParGetOptionalFloat,_NuFParGetOptionalFloat,confirmed,0
 006dabf0,0018ffe2,_NuFParGetOptionalInt,_NuFParGetOptionalInt,confirmed,0
+006db510,0018df74,_get_tok_rdpi,_get_tok_rdpi,confirmed,0
+006dba10,0018e5e6,_prim,_prim,confirmed,0
+006dbae0,0018e6cc,_term,_term,confirmed,0
+006dbc40,0018e83e,_i_expr,_i_expr,confirmed,0
+006dbd70,0018e990,_NuRDPI,_NuRDPI,confirmed,0
 006dbdd0,00192290,_read_offset_len,_read_offset_len,confirmed,0
 006dbf10,,read_literal_len,read_literal_len,confirmed,0
 006dc080,001923de,_ImplodeDecodeC,_ImplodeDecodeC,confirmed,0

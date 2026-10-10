@@ -3407,3 +3407,10 @@
 006dd570 NuFParSuspend saga nufpar.cpp body (debug hook on bad state, NuFileClose)
 006ddb90 NuFParResume saga nufpar.cpp body (NuFileOpen inlined, seek to char_pos)
 006dd990 NuFileExistQuiet saga nufile.cpp shape (dat lookup, else open/close)
+006d6730 ishexnum saga nurdpi.cpp static (char in al)
+006d67a0 hexcodetoint saga nurdpi.cpp static (char in cl)
+006dba10 prim saga nurdpi.cpp static (Batman adds debug hook calls)
+006dbae0 term saga nurdpi.cpp static (ctx in eax)
+006dbc40 i_expr saga nurdpi.cpp static
+006dbd70 NuRDPI saga nurdpi.cpp (NuRDPIVar inlined with a NULL var callback)
+006db510 get_tok_rdpi saga nurdpi.cpp static tokenizer

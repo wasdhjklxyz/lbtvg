@@ -2181,3 +2181,427 @@ void NuFParResume(NUFPAR *parser) {
   NuFileSeek(parser->file_handle, parser->char_pos, 0);
   parser->buf_end = parser->char_pos - 1;
 }
+
+// Integer expression parser (saga nu2api/nucore/nurdpi.cpp).
+typedef int nurdpgetvarfn(char *name, float *fvalue, int *ivalue);
+
+typedef struct rdpictxt_s {
+  int cur_tok;
+  int cur_val;
+  char *buf;
+  int pos;
+  nurdpgetvarfn *get_var_fn;
+} RDPICTXT;
+
+int NuIsAlNum(char c);
+
+// FUNCTION: LEGOBATMAN 0x006d6730
+static int ishexnum(char c) {
+  switch (c) {
+  case '0':
+  case '1':
+  case '2':
+  case '3':
+  case '4':
+  case '5':
+  case '6':
+  case '7':
+  case '8':
+  case '9':
+  case 'A':
+  case 'B':
+  case 'C':
+  case 'D':
+  case 'E':
+  case 'F':
+  case 'a':
+  case 'b':
+  case 'c':
+  case 'd':
+  case 'e':
+  case 'f':
+    return 1;
+  default:
+    return 0;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006d67a0
+static int hexcodetoint(char c) {
+  switch (c) {
+  case '0':
+  case '1':
+  case '2':
+  case '3':
+  case '4':
+  case '5':
+  case '6':
+  case '7':
+  case '8':
+  case '9':
+    return c - 0x30;
+  case 'a':
+  case 'b':
+  case 'c':
+  case 'd':
+  case 'e':
+  case 'f':
+    return c - 0x57;
+  case 'A':
+  case 'B':
+  case 'C':
+  case 'D':
+  case 'E':
+  case 'F':
+    return c - 0x37;
+  default:
+    return 0;
+  }
+}
+
+static int isnum(char c) { return (unsigned char)(c - '0') <= 9; }
+
+// STUB: LEGOBATMAN 0x006db510
+// Close: switch char in dl/ecx (ours cl/edx), the hex loop shifts in ebx
+// (ours in memory), and the digit loop is not rotated in the original.
+static void get_tok_rdpi(RDPICTXT *ctx) {
+  char var_name_buf[256];
+  int var_name_pos;
+
+  while (1) {
+    if (ctx->buf[ctx->pos] == '\0') {
+      ctx->cur_tok = 7;
+      return;
+    }
+    if (ctx->buf[ctx->pos] == ' ') {
+      ctx->buf[ctx->pos]++;
+      continue;
+    }
+    if (ctx->buf[ctx->pos] == '\t') {
+      ctx->buf[ctx->pos]++;
+      continue;
+    }
+    break;
+  }
+  char c = ctx->buf[ctx->pos];
+  switch (c) {
+  case ';':
+    ctx->cur_tok = 7;
+    break;
+  case '+':
+    ctx->cur_tok = 0;
+    ctx->pos++;
+    break;
+  case '-':
+    ctx->cur_tok = 1;
+    ctx->pos++;
+    break;
+  case '*':
+    ctx->cur_tok = 2;
+    ctx->pos++;
+    break;
+  case '/':
+    ctx->cur_tok = 3;
+    ctx->pos++;
+    break;
+  case '%':
+    ctx->cur_tok = 4;
+    ctx->pos++;
+    break;
+  case '(':
+    ctx->cur_tok = 5;
+    ctx->pos++;
+    break;
+  case ')':
+    ctx->cur_tok = 6;
+    ctx->pos++;
+    break;
+  case '|':
+    ctx->cur_tok = 9;
+    ctx->pos++;
+    if (ctx->buf[ctx->pos] == '|') {
+      ctx->cur_tok = 13;
+      ctx->pos++;
+    }
+    return;
+  case '&':
+    ctx->cur_tok = 10;
+    ctx->pos++;
+    if (ctx->buf[ctx->pos] == '&') {
+      ctx->cur_tok = 14;
+      ctx->pos++;
+    }
+    return;
+  case '=':
+    ctx->cur_tok = 16;
+    ctx->pos++;
+    if (ctx->buf[ctx->pos] == '=')
+      ctx->pos++;
+    return;
+  case '>':
+    ctx->cur_tok = 19;
+    ctx->pos++;
+    if (ctx->buf[ctx->pos] == '=') {
+      ctx->pos++;
+      ctx->cur_tok = 21;
+    }
+    return;
+  case '<':
+    ctx->cur_tok = 18;
+    ctx->pos++;
+    if (ctx->buf[ctx->pos] == '=') {
+      ctx->pos++;
+      ctx->cur_tok = 20;
+    }
+    return;
+  case '^':
+    ctx->cur_tok = 12;
+    ctx->pos++;
+    break;
+  case '!':
+    ctx->cur_tok = 15;
+    ctx->pos++;
+    if (ctx->buf[ctx->pos] == '=') {
+      ctx->cur_tok = 17;
+      ctx->pos++;
+    }
+    return;
+  case '~':
+    ctx->cur_tok = 11;
+    ctx->pos++;
+    break;
+  case '$':
+    ctx->pos++;
+    ctx->cur_tok = 8;
+    ctx->cur_val = 0;
+    while (ishexnum(ctx->buf[ctx->pos])) {
+      ctx->cur_val <<= 4;
+      ctx->cur_val += hexcodetoint(ctx->buf[ctx->pos]);
+      ctx->pos++;
+    }
+    break;
+  case '0':
+  case '1':
+  case '2':
+  case '3':
+  case '4':
+  case '5':
+  case '6':
+  case '7':
+  case '8':
+  case '9':
+    ctx->cur_tok = 8;
+    ctx->cur_val = 0;
+    for (;;) {
+      if (!isnum(ctx->buf[ctx->pos]))
+        break;
+      ctx->cur_val *= 10;
+      ctx->cur_val += ctx->buf[ctx->pos] - 0x30;
+      ctx->pos++;
+    }
+    break;
+  case 'A':
+  case 'B':
+  case 'C':
+  case 'D':
+  case 'E':
+  case 'F':
+  case 'G':
+  case 'H':
+  case 'I':
+  case 'J':
+  case 'K':
+  case 'L':
+  case 'M':
+  case 'N':
+  case 'O':
+  case 'P':
+  case 'Q':
+  case 'R':
+  case 'S':
+  case 'T':
+  case 'U':
+  case 'V':
+  case 'W':
+  case 'X':
+  case 'Y':
+  case 'Z':
+  case 'a':
+  case 'b':
+  case 'c':
+  case 'd':
+  case 'e':
+  case 'f':
+  case 'g':
+  case 'h':
+  case 'i':
+  case 'j':
+  case 'k':
+  case 'l':
+  case 'm':
+  case 'n':
+  case 'o':
+  case 'p':
+  case 'q':
+  case 'r':
+  case 's':
+  case 't':
+  case 'u':
+  case 'v':
+  case 'w':
+  case 'x':
+  case 'y':
+  case 'z':
+    var_name_pos = 0;
+    while (NuIsAlNum(ctx->buf[ctx->pos])) {
+      var_name_buf[var_name_pos] = ctx->buf[ctx->pos];
+      ctx->pos++;
+      var_name_pos++;
+    }
+    var_name_buf[var_name_pos] = '\0';
+    if (ctx->get_var_fn == 0)
+      Unk006d24b0(var_name_buf);
+    ctx->cur_val = 0;
+    ctx->cur_tok = 8;
+    (*ctx->get_var_fn)(var_name_buf, 0, &ctx->cur_val);
+    break;
+  default:
+    break;
+  }
+}
+
+static int i_expr(RDPICTXT *ctx);
+
+// FUNCTION: LEGOBATMAN 0x006dba10
+static int prim(RDPICTXT *ctx) {
+  int expr;
+
+  switch (ctx->cur_tok) {
+  case 8:
+    get_tok_rdpi(ctx);
+    return ctx->cur_val;
+  case 1:
+    get_tok_rdpi(ctx);
+    return -prim(ctx);
+  case 11:
+    get_tok_rdpi(ctx);
+    return ~prim(ctx);
+  case 15:
+    get_tok_rdpi(ctx);
+    return !prim(ctx);
+  case 5:
+    get_tok_rdpi(ctx);
+    expr = i_expr(ctx);
+    if (ctx->cur_tok != 6)
+      Unk006d24b0();
+    get_tok_rdpi(ctx);
+    return expr;
+  case 7:
+    return 1;
+  default:
+    Unk006d24b0();
+    return 0;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006dbae0
+static int term(RDPICTXT *ctx) {
+  int term = prim(ctx);
+
+  while (1) {
+    switch (ctx->cur_tok) {
+    case 2:
+      get_tok_rdpi(ctx);
+      term *= prim(ctx);
+      break;
+    case 3:
+      get_tok_rdpi(ctx);
+      term /= prim(ctx);
+      break;
+    case 4:
+      get_tok_rdpi(ctx);
+      term %= prim(ctx);
+      break;
+    case 16:
+      get_tok_rdpi(ctx);
+      term = term == prim(ctx);
+      break;
+    case 17:
+      get_tok_rdpi(ctx);
+      term = term != prim(ctx);
+      break;
+    case 18:
+      get_tok_rdpi(ctx);
+      term = term < prim(ctx);
+      break;
+    case 19:
+      get_tok_rdpi(ctx);
+      term = term > prim(ctx);
+      break;
+    case 20:
+      get_tok_rdpi(ctx);
+      term = term <= prim(ctx);
+      break;
+    case 21:
+      get_tok_rdpi(ctx);
+      term = term >= prim(ctx);
+      break;
+    default:
+      return term;
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006dbc40
+static int i_expr(RDPICTXT *ctx) {
+  int rhs;
+  int expr = term(ctx);
+
+  while (1) {
+    switch (ctx->cur_tok) {
+    case 0:
+      get_tok_rdpi(ctx);
+      expr += term(ctx);
+      break;
+    case 1:
+      get_tok_rdpi(ctx);
+      expr -= term(ctx);
+      break;
+    case 10:
+      get_tok_rdpi(ctx);
+      expr &= term(ctx);
+      break;
+    case 9:
+      get_tok_rdpi(ctx);
+      expr |= term(ctx);
+      break;
+    case 12:
+      get_tok_rdpi(ctx);
+      expr ^= term(ctx);
+      break;
+    case 14:
+      get_tok_rdpi(ctx);
+      rhs = term(ctx);
+      expr = expr != 0 && rhs != 0;
+      break;
+    case 13:
+      get_tok_rdpi(ctx);
+      rhs = term(ctx);
+      expr = expr != 0 || rhs != 0;
+      break;
+    default:
+      return expr;
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006dbd70
+int NuRDPI(char *input) {
+  RDPICTXT ctx;
+
+  ctx.buf = input;
+  ctx.pos = 0;
+  ctx.get_var_fn = 0;
+  get_tok_rdpi(&ctx);
+  return i_expr(&ctx);
+}
