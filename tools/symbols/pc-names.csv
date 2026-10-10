@@ -1972,6 +1972,21 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00601fe0,002e0b50,__Z20Grabber_SetVictimPosP9GRABBER_s,Grabber_SetVictimPos(GRABBER_s*),gapfill,3
 00602270,002e111c,__Z13Grabber_ResetP11WORLDINFO_s,Grabber_Reset(WORLDINFO_s*),strings,0
 00602540,002e0da8,__Z12Grabber_DropP9GRABBER_sP7nuvec_s,"Grabber_Drop(GRABBER_s*, nuvec_s*)",strings,0
+00605950,00349b54,__Z27Whippers_ReserveBufferSpacePv,Whippers_ReserveBufferSpace(void*),confirmed,0
+00605b20,00349db6,__Z16Whipper_ActivateP7GIZMO_si,"Whipper_Activate(GIZMO_s*, int)",confirmed,0
+00605b40,00349de0,__Z19Whipper_ActivateRevP7GIZMO_sii,"Whipper_ActivateRev(GIZMO_s*, int, int)",confirmed,0
+00605bf0,00349e28,__Z21Whipper_SetVisibilityP9WHIPPER_si,"Whipper_SetVisibility(WHIPPER_s*, int)",confirmed,0
+00605c10,,Whippers_EarlyUpdate,Whippers_EarlyUpdate,confirmed,0
+00606060,0034a3ac,__Z21Whippers_GetMaxGizmosPv,Whippers_GetMaxGizmos(void*),confirmed,0
+00606080,0034a3c8,__Z18Whippers_AddGizmosP10GIZMOSYS_siPvS1_,"Whippers_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+006060f0,0034a430,__Z20Whipper_GetGizmoNameP7GIZMO_s,Whipper_GetGizmoName(GIZMO_s*),confirmed,0
+00606100,0034a440,__Z17Whipper_GetOutputP7GIZMO_sii,"Whipper_GetOutput(GIZMO_s*, int, int)",confirmed,0
+00606120,0034a454,__Z21Whipper_GetOutputNameP7GIZMO_si,"Whipper_GetOutputName(GIZMO_s*, int)",confirmed,0
+00606130,0034a46a,__Z21Whipper_GetNumOutputsP7GIZMO_s,Whipper_GetNumOutputs(GIZMO_s*),confirmed,0
+00606140,0034a474,__Z29Whippers_AllocateProgressDataP9variptr_uS0_,"Whippers_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+00606160,0034a496,__Z22Whippers_ClearProgressPvS_,"Whippers_ClearProgress(void*, void*)",confirmed,0
+00606180,0034a4e4,__Z22Whippers_StoreProgressPvS_S_,"Whippers_StoreProgress(void*, void*, void*)",confirmed,0
+00606240,0034a5be,__Z22Whippers_RegisterGizmoi,Whippers_RegisterGizmo(int),confirmed,0
 0060ba80,0031df80,__Z29PushBlocks_ReserveBufferSpacePv,PushBlocks_ReserveBufferSpace(void*),confirmed,0
 0060bad0,,PushBlocks_Reset,PushBlocks_Reset,confirmed,0
 0060baf0,,PushBlock_Activate,PushBlock_Activate,confirmed,0

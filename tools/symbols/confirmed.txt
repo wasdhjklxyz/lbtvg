@@ -2920,3 +2920,18 @@
 0062b370 SecurityDoors_StoreProgress store_progress slot of the "SecurityDoor" ADDGIZMOTYPE
 0062b400 SecurityDoor_GetPos get_pos slot of the "SecurityDoor" ADDGIZMOTYPE
 0062bd30 SecurityDoors_RegisterGizmo copies Default_ADDGIZMOTYPE, name "SecurityDoor"
+00605950 Whippers_ReserveBufferSpace reserve_buffer_space slot of the "Whipper" ADDGIZMOTYPE
+00605b20 Whipper_Activate activate slot of the "Whipper" ADDGIZMOTYPE
+00605b40 Whipper_ActivateRev activate_rev slot of the "Whipper" ADDGIZMOTYPE
+00605bf0 Whipper_SetVisibility set_visibility slot of the "Whipper" ADDGIZMOTYPE
+00605c10 Whippers_EarlyUpdate early_update slot of the "Whipper" ADDGIZMOTYPE
+00606060 Whippers_GetMaxGizmos get_max_gizmos slot of the "Whipper" ADDGIZMOTYPE
+00606080 Whippers_AddGizmos add_gizmos slot of the "Whipper" ADDGIZMOTYPE
+006060f0 Whipper_GetGizmoName get_gizmo_name slot of the "Whipper" ADDGIZMOTYPE
+00606100 Whipper_GetOutput get_output slot of the "Whipper" ADDGIZMOTYPE
+00606120 Whipper_GetOutputName get_output_name slot of the "Whipper" ADDGIZMOTYPE
+00606130 Whipper_GetNumOutputs get_num_outputs slot of the "Whipper" ADDGIZMOTYPE
+00606140 Whippers_AllocateProgressData allocate_progress_data slot of the "Whipper" ADDGIZMOTYPE
+00606160 Whippers_ClearProgress clear_progress slot of the "Whipper" ADDGIZMOTYPE
+00606180 Whippers_StoreProgress store_progress slot of the "Whipper" ADDGIZMOTYPE
+00606240 Whippers_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Whipper"

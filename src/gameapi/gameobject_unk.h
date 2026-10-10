@@ -224,7 +224,8 @@ struct GameObject_s {
   char special_move; // 0x9de, -1 = none
   u8 b9df;           // 0x9df
   u8 b9e0;           // 0x9e0
-  u8 pad9e1[0x9e4 - 0x9e1];
+  u8 b9e1;           // 0x9e1
+  u8 pad9e2[0x9e4 - 0x9e2];
   union {
     u32 flags9e4; // 0x9e4
     struct {
