@@ -13,11 +13,14 @@ pat=bytes.fromhex('be18019600bf')
 for m in re.finditer(re.escape(pat),img):
     o=m.start(); base=struct.unpack('<I',img[o+6:o+10])[0]
     fs=o
-    while img[fs-1]!=0xcc: fs-=1
+    # back to the start: int3 padding, or a 16-aligned start right after a ret
+    while img[fs-1]!=0xcc and not (fs%16==0 and img[fs-1]==0xc3): fs-=1
     fa=fs+0x400000
     end=o+0x200; slots={}
     i=o
     while i<end:
+        if img[i:i+3]==b'\x66\xc7\x05':   # word store (flags), not a slot
+            i+=9; continue
         if img[i:i+2]==b'\xc7\x05':
             dst,val=struct.unpack('<II',img[i+2:i+10])
             off=dst-base

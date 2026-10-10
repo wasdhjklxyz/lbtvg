@@ -418,3 +418,22 @@ enough matched code for the percentage to mean something.
 - **Drop a pointer local for `arr[i].f`** to get `cmp [mem]` instead of `lea`.
 - **Deleting destructors can sit far from their class's dtor** (BaseThing's
   at 0x5923a0); `tools/scratch/sdd.py` lists slot 0 of every RTTI vtable.
+- **`memset(p, 0xff, n)`** compiles to `or ecx, -1` (a second one right after
+  reuses it as `or ecx, ecx`); memsets of <= 0x20 bytes are inlined, 0x40 is
+  a call. If the original store function has a clear's stores inline where
+  ours calls Clear, write the memsets in the store function.
+- **Two-register statics** (esi = object, edi = world) match from plain C; a
+  static whose only callers inline it is still emitted out of line with the
+  custom convention.
+- **RegisterGizmo store order follows the source**: NULL stores, then
+  `id = type_id`, then name; a NULL-filling loop unrolls to the same bytes.
+- **In a ctor, a field store after the vptr** comes from the derived ctor
+  body; before the vptr, from a base-ctor initializer.
+- **A scalar deleting destructor is only emitted in TUs that use the vtable**
+  (a ctor or an out-of-line dtor); annotate it in the ctor's file even when
+  it sits far away (0x729ad0).
+- **`i != n` as a loop condition** gives `jne`.
+- **Open: an int arg in `ebx` (ours) vs on the stack (original)** for a
+  register-convention static, seen three times (AIScriptCopyString,
+  0x629e70, 0x629f60). Some unwritten caller, or a source shape we haven't
+  found, may decide it.

@@ -9,6 +9,9 @@ nm.sort()
 pc={int(r['mac_addr'],16):r['pc_addr'] for r in csv.DictReader(open('tools/symbols/pc-names.csv')) if r['mac_addr']}
 q=sys.argv[1];n=int(sys.argv[2]) if len(sys.argv)>2 else 12
 try: a=int(q,16); i=min(range(len(nm)),key=lambda k:abs(nm[k][0]-a))
-except ValueError: i=[k for k,(x,s) in enumerate(nm) if q in s][0]
+except ValueError:
+    hits=[k for k,(x,s) in enumerate(nm) if q in s]
+    if not hits: sys.exit(f'macnb: no Mac text symbol contains {q!r}')
+    i=hits[0]
 for k in range(max(0,i-n),min(len(nm),i+n+1)):
     x,s=nm[k]; print(('>' if k==i else ' ')+f'{x:08x} {pc.get(x,""):8} {s[:100]}')
