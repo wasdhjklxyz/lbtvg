@@ -98,7 +98,9 @@ struct GameObjectLight_s {
 struct GameObject_s {
   u8 pad0[4];
   struct Unk_GameObject4 *p4; // 0x04
-  u8 pad08[0x50 - 8];
+  u8 pad08[0x42 - 8];
+  i16 requested_anim; // 0x42, anim packet: animation to play
+  u8 pad44[0x50 - 0x44];
   Unk_GameObject50 *p50; // 0x50
   Unk_GameObject54 *p54; // 0x54
   u16 yaw58;             // 0x58, Action_SetCurrentSpeed rotates velocity by it

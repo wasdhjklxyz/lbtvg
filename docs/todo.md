@@ -37,7 +37,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [NuStr](#nustr) | 2 | 2 |
 | [Tag](#tag) | 2 | 2 |
 | [Text](#text) | 3 | 2 |
-| [Animate](#animate) | 1 | 1 |
 | [Areas](#areas) | 2 | 1 |
 | [Bolt](#bolt) | 1 | 1 |
 | [BoltSys](#boltsys) | 1 | 1 |
@@ -482,10 +481,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0059d7c0` 119 B `Text_InitStringTable(int, variptr_u*, variptr_u*)`  **stub** · **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
 - [ ] `0059d850` 169 B `Text_PlatformSpecificIgnore(nufpar_s*)`  **stub** · **hint** name (order)
 - [ ] `0059d900` 544 B `Text_LoadAndFixUpStrings(unsigned char*, unsigned char**, char**, int)`  **stub** · **hint** name (order) · **saga** `legoapi/menus/core/text.cpp`
-
-## Animate
-
-- [ ] `004cf7c0` 57 B `Animate_CANNON(GameObject_s*)`  **saga** `legoapi/characters/motion/gameanim.cpp`
 
 ## Areas
 

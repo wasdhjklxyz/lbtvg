@@ -25,6 +25,23 @@ void *AddGameMessage(char *text, nuvec_s *position, float scale,
                      unsigned char red, unsigned char green, unsigned char blue,
                      u32 flags, float duration);
 
+typedef struct CHARCONTEXTINFO_s {
+  u8 pad0[8];
+  unsigned __int64 flags; // 0x08, 0x10: the context owns the animation
+} CHARCONTEXTINFO;
+
+// GLOBAL: LEGOBATMAN 0x0094176c
+extern CHARCONTEXTINFO *CInfo;
+
+// from saga legoapi/characters/motion/gameanim.cpp
+// FUNCTION: LEGOBATMAN 0x004cf7c0
+void Animate_CANNON(GameObject_s *obj) {
+  if ((CInfo[obj->b9db].flags & 0x10) != 0)
+    obj->requested_anim = obj->s9d0;
+  else
+    obj->requested_anim = obj->s162c;
+}
+
 // FUNCTION: LEGOBATMAN 0x004cfe50
 void Cheat_SpecialHits(float damage, nuvec_s *position) {
   char *hits[14] = {"Pow!",   "Smack!", "Bing!",   "KaPow!", "Krakt!",
