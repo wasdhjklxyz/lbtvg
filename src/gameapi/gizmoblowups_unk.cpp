@@ -43,16 +43,20 @@ struct GIZMOBLOWUP_s {
   u32 bits30 : 2;       // 0xa0 bits 30-31
   u8 pada4[0xa8 - 0xa4];
   u16 sa8; // 0xa8
-  u8 padaa[0xb0 - 0xaa];
+  u8 padaa[0xac - 0xaa];
+  i32 score;                      // 0xac
   struct GIZMOBLOWUPTYPE_s *type; // 0xb0
-  u8 padb4[0xfe - 0xb4];
+  u8 padb4[0xc8 - 0xb4];
+  f32 fc8; // 0xc8
+  u8 padcc[0xfe - 0xcc];
   char name[0x10]; // 0xfe
   i16 platform_id; // 0x10e
-  u8 pad110[0x11a - 0x110];
-  u8 b11a; // 0x11a
-  u8 b11b; // 0x11b
-  u8 b11c; // 0x11c
-  u8 b11d; // 0x11d
+  u8 pad110[0x119 - 0x110];
+  i8 score_mult; // 0x119
+  u8 b11a;       // 0x11a
+  u8 b11b;       // 0x11b
+  u8 b11c;       // 0x11c
+  u8 b11d;       // 0x11d
   u8 pad11e[0x122 - 0x11e];
   u16 b122_0 : 1; // 0x122
   u16 b122_1 : 4; // 0x122 bits 1-4
@@ -328,6 +332,18 @@ void Blowup_Reset(GIZMOBLOWUP_s *blowup) {
 
 void AddLevelSfxFromId(i32 sfx_id, i32 *sfx_ids, i32 *sfx_count, i32 max_sfx);
 
+// FUNCTION: LEGOBATMAN 0x005d9150
+u32 GizmoBlowups_TotalScore(void *context) {
+  WORLDINFO_s *world = (WORLDINFO_s *)context;
+  GIZMOBLOWUP_s *blowup = world->gizmo_blowups;
+  u32 total = 0;
+  if (blowup != NULL) {
+    for (i32 i = 0; i < world->gizmo_blowup_count; i++, blowup++)
+      total += blowup->score_mult * blowup->score;
+  }
+  return total;
+}
+
 // FUNCTION: LEGOBATMAN 0x005d9190
 void GizmoBlowups_AddLevelSfx(void *world_ptr, void *unused, i32 *sfx_ids,
                               i32 *sfx_count, i32 max_sfx) {
@@ -410,6 +426,46 @@ i32 Blowup_ActivateRev(GIZMO *gizmo, i32 active, i32 flags) {
   return 1;
 }
 
+i32 GizBlowup_InitSingleTerrain(GIZMOBLOWUP_s *blowup);
+void GizBlowup_InitTerrain();
+void GizBlowup_DeleteSingleTerrain(GIZMOBLOWUP_s *blowup);
+void GizBlowup_DeleteTerrain();
+
+// FUNCTION: LEGOBATMAN 0x005def20
+void Blowups_Reset(void *world_ptr, void *unused, void *progress_ptr) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  BLOWUPPROGRESS *progress = (BLOWUPPROGRESS *)progress_ptr;
+  if (world == NULL)
+    return;
+  GIZMOBLOWUP_s *blowup = world->gizmo_blowups;
+  if (blowup != NULL) {
+    for (i32 i = 0; i < world->gizmo_blowup_count; i++, blowup++) {
+      Blowup_Reset(blowup);
+      if (progress != NULL && i < 512) {
+        i32 word = i / 32;
+        u32 bit = 1 << (i & 31);
+        blowup->blown_up = (progress->blown_up[word] & bit) != 0;
+        i32 was_visible = blowup->visible;
+        blowup->visible = (progress->visible[word] & bit) != 0;
+        if (!was_visible) {
+          if (blowup->visible)
+            GizBlowup_InitSingleTerrain(blowup);
+        } else if (!blowup->visible) {
+          GizBlowup_DeleteSingleTerrain(blowup);
+        }
+        blowup->activated = (progress->activated[word] & bit) != 0;
+        blowup->secondary = (progress->secondary[word] & bit) != 0;
+        blowup->b122_0 = (progress->b122[word] & bit) != 0;
+        blowup->b122_5 = (progress->f140[word] & bit) != 0;
+      }
+      if (blowup->blown_up)
+        blowup->fc8 = 0.0f;
+    }
+  }
+  GizBlowup_DeleteTerrain();
+  GizBlowup_InitTerrain();
+}
+
 typedef struct ADDGIZMOTYPE_s {
   char *name;        // 0x00
   char *prefix;      // 0x04
@@ -425,7 +481,6 @@ extern i32 blowup_gizmotype_id;
 void GizmoBlowupEarlyUpdate(void *world_ptr, void *unused, f32 dt);
 void GizmoBlowupLateUpdate(void *world_ptr, void *unused, f32 dt);
 void GizmoBlowupBurstDraw(void *world_ptr, void *unused, f32 dt);
-void Blowups_Reset(void *world_ptr, void *unused, void *progress_ptr);
 i32 gizmoblowup_Load(void *world_ptr, void *unused);
 
 // FUNCTION: LEGOBATMAN 0x005df900

@@ -3190,3 +3190,8 @@
 005def20 Blowups_Reset NewBlowup_RegisterGizmo reset slot (fns[22])
 005dbd80 gizmoblowup_Load NewBlowup_RegisterGizmo load slot (fns[24])
 005d8ed0 Blowup_Reset Mac name order (after Blowup_GetNumOutputs); called by Blowup_Activate and the reset loop
+005d9150 GizmoBlowups_TotalScore saga body (score multiplier byte times score), Mac order before AddLevelSfx
+005db7c0 GizBlowup_InitSingleTerrain Mac order of the four terrain helpers; Blowups_Reset calls it when a blowup becomes visible
+005db930 GizBlowup_InitTerrain Mac order; tail call of Blowups_Reset
+005db9a0 GizBlowup_DeleteSingleTerrain Mac order; Blowups_Reset calls it when a blowup becomes invisible
+005db9f0 GizBlowup_DeleteTerrain Mac order; called at the end of Blowups_Reset
