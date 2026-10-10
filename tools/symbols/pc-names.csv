@@ -1756,6 +1756,23 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005d9e20,002c6fce,__Z17GizmoBlowupBlowupP13GIZMOBLOWUP_siiiP12GameObject_si,"GizmoBlowupBlowup(GIZMOBLOWUP_s*, int, int, int, GameObject_s*, int)",confirmed,0
 005dda30,002cb9c0,__Z22GizmoBlowUp_FindByNameP11WORLDINFO_sPc,"GizmoBlowUp_FindByName(WORLDINFO_s*, char*)",calls,1
 005dfa60,002ec12c,__Z15ObjHitObj_FlagsP12GameObject_s,ObjHitObj_Flags(GameObject_s*),gapfill,1
+005dfec0,002f7356,__Z25Ledges_ReserveBufferSpacePv,Ledges_ReserveBufferSpace(void*),confirmed,0
+005dff10,002f73ba,__Z11Ledge_ResetP7LEDGE_s,Ledge_Reset(LEDGE_s*),confirmed,0
+005e0080,002f7556,__Z19Ledge_SetVisibilityP7GIZMO_si,"Ledge_SetVisibility(GIZMO_s*, int)",confirmed,0
+005e00a0,002f7580,__Z14Ledge_ActivateP7GIZMO_si,"Ledge_Activate(GIZMO_s*, int)",confirmed,0
+005e00c0,002f75aa,__Z12Ledges_ResetPvS_S_,"Ledges_Reset(void*, void*, void*)",confirmed,0
+005e0320,002f790c,__Z13Ledges_UpdatePvS_f,"Ledges_Update(void*, void*, float)",confirmed,0
+005e0450,002f7a6e,__Z11Ledges_DrawPvS_f,"Ledges_Draw(void*, void*, float)",confirmed,0
+005e0500,002f7b42,__Z19Ledges_GetMaxGizmosPv,Ledges_GetMaxGizmos(void*),confirmed,0
+005e0520,002f7b5e,__Z16Ledges_AddGizmosP10GIZMOSYS_siPvS1_,"Ledges_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+005e0590,002f7bc2,__Z18Ledge_GetGizmoNameP7GIZMO_s,Ledge_GetGizmoName(GIZMO_s*),confirmed,0
+005e05a0,002f7bd2,__Z19Ledge_GetNumOutputsP7GIZMO_s,Ledge_GetNumOutputs(GIZMO_s*),confirmed,0
+005e05b0,002f7bdc,__Z19Ledge_GetOutputNameP7GIZMO_si,"Ledge_GetOutputName(GIZMO_s*, int)",confirmed,0
+005e05d0,002f7bf8,__Z15Ledge_GetOutputP7GIZMO_sii,"Ledge_GetOutput(GIZMO_s*, int, int)",confirmed,0
+005e0640,002f7c8c,__Z27Ledges_AllocateProgressDataP9variptr_uS0_,"Ledges_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+005e0660,002f7cae,__Z20Ledges_ClearProgressPvS_,"Ledges_ClearProgress(void*, void*)",confirmed,0
+005e06a0,002f7cf6,__Z20Ledges_StoreProgressPvS_S_,"Ledges_StoreProgress(void*, void*, void*)",confirmed,0
+005e0750,002f7d9a,__Z20Ledges_RegisterGizmoi,Ledges_RegisterGizmo(int),confirmed,0
 005e5140,00347ade,__Z24Tubes_ReserveBufferSpacePv,Tubes_ReserveBufferSpace(void*),confirmed,0
 005e5190,00347b3c,__Z13Tube_ActivateP7GIZMO_si,"Tube_Activate(GIZMO_s*, int)",confirmed,0
 005e51b0,00347b60,__Z16Tube_ActivateRevP7GIZMO_sii,"Tube_ActivateRev(GIZMO_s*, int, int)",confirmed,0

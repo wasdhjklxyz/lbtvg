@@ -2839,3 +2839,20 @@
 005ff7a0 ZipUp_GetNumOutputs get_num_outputs slot of the "ZipUp" ADDGIZMOTYPE
 005ff7b0 ZipUp_GetOutput get_output slot of the "ZipUp" ADDGIZMOTYPE
 005ff7f0 ZipUps_RegisterGizmo copies Default_ADDGIZMOTYPE, name "ZipUp"
+005dfec0 Ledges_ReserveBufferSpace reserve_buffer_space slot of the "Ledge" ADDGIZMOTYPE
+005dff10 Ledge_Reset Mac Ledge_Reset(LEDGE_s*), only caller is Ledges_Reset and Ledges_Update
+005e0080 Ledge_SetVisibility set_visibility slot of the "Ledge" ADDGIZMOTYPE
+005e00a0 Ledge_Activate activate slot of the "Ledge" ADDGIZMOTYPE
+005e00c0 Ledges_Reset reset slot of the "Ledge" ADDGIZMOTYPE
+005e0320 Ledges_Update early_update slot of the "Ledge" ADDGIZMOTYPE
+005e0450 Ledges_Draw draw slot of the "Ledge" ADDGIZMOTYPE
+005e0500 Ledges_GetMaxGizmos get_max_gizmos slot of the "Ledge" ADDGIZMOTYPE
+005e0520 Ledges_AddGizmos add_gizmos slot of the "Ledge" ADDGIZMOTYPE
+005e0590 Ledge_GetGizmoName get_gizmo_name slot of the "Ledge" ADDGIZMOTYPE
+005e05a0 Ledge_GetNumOutputs get_num_outputs slot of the "Ledge" ADDGIZMOTYPE
+005e05b0 Ledge_GetOutputName get_output_name slot of the "Ledge" ADDGIZMOTYPE
+005e05d0 Ledge_GetOutput get_output slot of the "Ledge" ADDGIZMOTYPE
+005e0640 Ledges_AllocateProgressData allocate_progress_data slot of the "Ledge" ADDGIZMOTYPE
+005e0660 Ledges_ClearProgress clear_progress slot of the "Ledge" ADDGIZMOTYPE
+005e06a0 Ledges_StoreProgress store_progress slot of the "Ledge" ADDGIZMOTYPE
+005e0750 Ledges_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Ledge"
