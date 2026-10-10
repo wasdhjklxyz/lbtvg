@@ -21,14 +21,19 @@ struct Unk_WorldInfo5220Entry { // GIZMOPICKUP_s
   char type_code;               // 0x14
   u8 b15;                       // 0x15, bit 1: add as a gizmo
   u8 b16;
-  u8 b17;              // 0x17
-  u16 state_bit0 : 1;  // 0x18
-  u16 enabled : 1;     // bit 1
-  u16 visible : 1;     // bit 2
-  u16 collected : 1;   // bit 3
-  u16 state_bits4 : 3; //
-  u16 activated : 1;   // bit 7
-  u16 state_hi : 8;    //
+  u8 b17; // 0x17
+  union {
+    struct {
+      u16 state_bit0 : 1;  // 0x18
+      u16 enabled : 1;     // bit 1
+      u16 visible : 1;     // bit 2
+      u16 collected : 1;   // bit 3
+      u16 state_bits4 : 3; //
+      u16 activated : 1;   // bit 7
+      u16 state_hi : 8;    //
+    };
+    u16 state; // 0x18
+  };
   u8 pad1[0x24 - 0x1a];
   u8 b24;        // 0x24
   u8 type_index; // 0x25
@@ -39,7 +44,8 @@ struct Unk_WorldInfo5220 {
   Unk_WorldInfo5220Entry *list;      // 0x00
   Unk_WorldInfo5220Entry *temp_list; // 0x04
   i32 count;                         // 0x08
-  u8 padc[0x14 - 0xc];
+  u8 padc[0x10 - 0xc];
+  i32 f10;           // 0x10
   f32 draw_distance; // 0x14
   f32 pickup_scale;  // 0x18
   f32 gravity;       // 0x1c

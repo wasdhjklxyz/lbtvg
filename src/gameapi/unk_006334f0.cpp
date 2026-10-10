@@ -115,6 +115,83 @@ char *GizmoPickup_GetOutputName(GIZMO *gizmo, i32 output) {
 // FUNCTION: LEGOBATMAN 0x00634540
 i32 GizmoPickup_GetNumOutputs(GIZMO *gizmo) { return 1; }
 
+struct GIZMOPICKUPTYPE_s {
+  u8 pad0[4];
+  char *sfx; // 0x04
+  u8 pad8[0xe - 0x8];
+  u8 flags; // 0x0e
+  u8 padf[0x2c - 0xf];
+  i16 debris; // 0x2c
+  u8 pad2e[0x3c - 0x2e];
+};
+
+struct GIZMOPICKUPSYS_s {
+  GIZMOPICKUPTYPE_s *types; // 0x00
+  u8 pad4[0xc - 0x4];
+  i8 type_c; // 0x0c
+  u8 padd;
+  i8 type_e; // 0x0e
+};
+
+// GLOBAL: LEGOBATMAN 0x009652e4
+extern GIZMOPICKUPSYS_s *GizmoPickupSys;
+// GLOBAL: LEGOBATMAN 0x00ab084c
+extern i32 ChallengeMode;
+
+WORLDINFO_s *WorldInfo_CurrentlyActive(void);
+void SuperCounter_ActivateGizmoPickup(GIZMO *gizmo,
+                                      Unk_WorldInfo5220Entry *pickup);
+void *Mission_Active(void *ms);
+void PlaySfx(char *name, nuvec_s *position);
+i32 AddGameDebris(void *system, i32 type, nuvec_s *position);
+
+// FUNCTION: LEGOBATMAN 0x00634550
+void GizmoPickup_Activate(GIZMO *gizmo, i32 active) {
+  WORLDINFO_s *world = WorldInfo_CurrentlyActive();
+  if (gizmo == NULL)
+    return;
+  Unk_WorldInfo5220Entry *pickup = (Unk_WorldInfo5220Entry *)gizmo->object;
+  pickup->enabled = active != 0;
+  if (active) {
+    SuperCounter_ActivateGizmoPickup(gizmo, pickup);
+    if (pickup->state & 2) {
+      pickup->state |= 0x80;
+      GIZMOPICKUPSYS_s *sys = GizmoPickupSys;
+      i32 type;
+      if ((pickup->state & 0x40) && sys->type_c != -1)
+        type = sys->type_c;
+      else if ((pickup->state & 0x100) && sys->type_e != -1)
+        type = sys->type_e;
+      else
+        type = pickup->type_index;
+      GIZMOPICKUPTYPE_s *t = &sys->types[type];
+      if (ChallengeMode) {
+        if (!(t->flags & 0x20))
+          goto done;
+      } else if (t->flags & 0x20) {
+        goto done;
+      }
+      if (Mission_Active(NULL) == NULL) {
+        if (t->sfx != NULL)
+          PlaySfx(t->sfx, &pickup->position);
+        if (t->debris != -1)
+          AddGameDebris(world->p138, t->debris, &pickup->position);
+      }
+    done:;
+    }
+  }
+  if (pickup->b17 != 0) {
+    Unk_WorldInfo5220Entry *other = world->p5220->list;
+    for (i32 i = 0; i < world->p5220->count; i++, other++) {
+      if (other->b17 == pickup->b17) {
+        u32 on = active & 1;
+        other->enabled = on;
+        other->visible = on;
+      }
+    }
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x006346a0
 void *GizmoPickups_AllocateProgressData(VARIPTR *buf, VARIPTR *buf_end) {
   return GameBufferAllocProgressUnk005bbaf0(buf, buf_end,
@@ -166,7 +243,6 @@ void GizmoPickups_StoreProgress(void *world_ptr, void *unused,
 
 void GizmoPickups_Draw(void *world, void *unused, f32 dt);
 void GizmoPickups_Update(void *world, void *unused, f32 dt);
-void GizmoPickup_Activate(GIZMO *gizmo, i32 active);
 typedef struct AREADATA_s {
   u8 pad0[0x7c];
   u32 flags; // 0x7c
@@ -181,6 +257,61 @@ extern i32 AREACOUNT;
 extern LEVELDATA_s *LDataList;
 // GLOBAL: LEGOBATMAN 0x00aca578
 extern i32 BonusArea;
+
+// GLOBAL: LEGOBATMAN 0x009652cc
+extern f32 AreaPickupScale;
+// GLOBAL: LEGOBATMAN 0x009652d0
+extern f32 AreaPickupGravity;
+
+// FUNCTION: LEGOBATMAN 0x006347e0
+static f32 GizmoPickups_AreaScale(i32 area) {
+  if (area >= 0 && area < AREACOUNT) {
+    u32 flags = ADataList[area].flags;
+    if (flags & 0x200)
+      return 6.0f;
+    if (flags & 1) {
+      if (BonusArea != 0)
+        return 3.0f;
+      return 5.0f;
+    }
+  }
+  return 1.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00634830
+static f32 GizmoPickups_AreaGravity(i32 area, i32 level) {
+  if (area >= 0 && area < AREACOUNT) {
+    u32 flags = ADataList[area].flags;
+    if ((flags & 0x200) && !(LDataList[level].flags & 0x400000))
+      return 0.0f;
+    if (flags & 1)
+      return -20.0f;
+  }
+  return -6.0f;
+}
+
+// STUB: LEGOBATMAN 0x00634880
+// open register-arg problem: orig takes version on the stack, ours in eax.
+static void GizmoPickups_FixDrawDistance(i32 area, f32 *dist, i32 version) {
+  if (version > 6)
+    return;
+  if (version <= 5 && *dist < 10.0f)
+    *dist = 10.0f;
+  if (area >= 0 && area < AREACOUNT && (ADataList[area].flags & 1) &&
+      *dist < 100.0)
+    *dist = 100.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x006348e0
+void GizmoPickups_SetAreaGlobals(WORLDINFO_s *world) {
+  if (world->p5220 != NULL) {
+    AreaPickupScale = world->p5220->pickup_scale;
+    AreaPickupGravity = world->p5220->gravity;
+  } else {
+    AreaPickupScale = GizmoPickups_AreaScale(world->i124);
+    AreaPickupGravity = GizmoPickups_AreaGravity(world->i124, world->level_idx);
+  }
+}
 
 // FUNCTION: LEGOBATMAN 0x00634940
 void *GizmoPickups_ReserveBufferSpace(void *world_ptr) {
@@ -243,11 +374,52 @@ nuvec_s *GizmoPickup_GetPos(GIZMO *gizmo) {
 }
 
 void GizmoPickups_Reset(void *world, void *unused, void *progress);
-i32 GizmoPickups_Load(void *world, void *unused);
 void GizmoPickups_PostLoad(void *a, void *b);
 
 // GLOBAL: LEGOBATMAN 0x009652c4
 i32 pickup_gizmotype_id = -1;
+
+i32 EdFileReadInt();
+char EdFileReadChar();
+f32 EdFileReadFloat();
+void EdFileRead(void *buf, i32 len);
+void EdFileReadNuVec(nuvec_s *v);
+
+// STUB: LEGOBATMAN 0x00634ef0
+// only the GizmoPickups_FixDrawDistance call differs (push vs eax arg).
+i32 GizmoPickups_Load(void *world_ptr, void *unused) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  if (world->p5220->count == 0) {
+    i32 version = EdFileReadInt();
+    world->p5220->count = EdFileReadInt();
+    if (version >= 3)
+      world->p5220->f10 = EdFileReadInt();
+    if (version >= 5) {
+      world->p5220->draw_distance = EdFileReadFloat();
+      world->p5220->pickup_scale = EdFileReadFloat();
+      if (version == 5)
+        world->p5220->pickup_scale = GizmoPickups_AreaScale(world->i124);
+    } else {
+      world->p5220->pickup_scale = 1.0f;
+    }
+    GizmoPickups_FixDrawDistance(world->i124, &world->p5220->draw_distance,
+                                 version);
+    world->p5220->gravity =
+        GizmoPickups_AreaGravity(world->i124, world->level_idx);
+    Unk_WorldInfo5220Entry *pickup = world->p5220->list;
+    for (i32 i = 0; i < world->p5220->count; i++, pickup++) {
+      EdFileRead(pickup->name, 8);
+      EdFileReadNuVec(&pickup->position);
+      pickup->type_code = EdFileReadChar();
+      if (version >= 2)
+        pickup->b15 = EdFileReadChar();
+      if (version >= 4)
+        pickup->b17 = EdFileReadChar();
+    }
+    return 1;
+  }
+  return 0;
+}
 
 // FUNCTION: LEGOBATMAN 0x00636d40
 ADDGIZMOTYPE *GizmoPickups_RegisterGizmo(i32 type_id) {

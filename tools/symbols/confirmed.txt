@@ -3241,3 +3241,6 @@
 00691ed0 NuMtxMulVU0 Mac GizmoBlowupBurstDraw calls _NuMtxMulVU0 between EvalAnim and NuMtxTranslate
 005aed70 MatrixReflection Mac GizmoBlowupBurstDraw calls MatrixReflection(numtx_s*, int, float, float, numtx_s*) with (mtx, 2, ...)
 00713e40 NuRndrStartReflectionRender Mac GizmoBlowupBurstDraw: argument 0, paired with NuRndrEndReflectionRender
+00634550 GizmoPickup_Activate GizmoPickups_RegisterGizmo activate slot (fns[10]); Mac GizmoPickup_Activate calls SuperCounter_ActivateGizmoPickup, Mission_Active, PlaySfx, AddGameDebris in the same order
+006528c0 SuperCounter_ActivateGizmoPickup Mac GizmoPickup_Activate calls SuperCounter_ActivateGizmoPickup(GIZMO_s*, GIZMOPICKUP_s*) with (gizmo, pickup) at the same point
+00634ef0 GizmoPickups_Load GizmoPickups_RegisterGizmo load slot (fns[24])
