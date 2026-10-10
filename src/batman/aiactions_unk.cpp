@@ -258,6 +258,73 @@ i32 Action_SetLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+// Batman's path info is 0x1c bytes (copied with rep movsd 7); AIPATHINFO in
+// aisys_unk.h is saga's 0x18.
+struct AIPATHINFO1C {
+  u32 words[7];
+};
+
+i32 StartBigJump(GameObject_s *obj, nuvec_s *dest, i32 mode, f32 height_scale,
+                 f32 speed_scale, i32 anim, i32 flags);
+
+// FUNCTION: LEGOBATMAN 0x00456a90
+i32 Action_BigJumpToLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                            AIPACKET_s *packet, char **params, i32 param_count,
+                            i32 first_time, f32 dt) {
+  f32 jump_factor = 1.0f;
+  i32 personal = 0;
+  i32 indexed = 0;
+  i32 random_count = 0;
+  i32 slam = 0;
+  char *name = NULL;
+  char buf[64];
+  GameObject_s *obj;
+  if (packet == NULL || packet->pd0 == NULL || packet->pd0->obj == NULL)
+    return 1;
+  obj = packet->pd0->obj;
+  if (first_time) {
+    process->action_data_3 = ((AIPACKET_s *)process)->locator;
+    for (i32 index = 0; index < param_count; index++) {
+      char *value = NuStrIStr(params[index], "name");
+      if (value != NULL)
+        name = value + 5;
+      else if (NuStrICmp(params[index], "personal") == 0)
+        personal = 1;
+      else if (NuStrICmp(params[index], "indexed") == 0)
+        indexed = 1;
+      else if (NuStrICmp(params[index], "slam") == 0)
+        slam = 1;
+      else if ((value = NuStrIStr(params[index], "random")) != NULL)
+        random_count = (i32)AIParamToFloat(process, value + 7);
+      else if ((value = NuStrIStr(params[index], "jump_factor=")) != NULL) {
+        jump_factor = AIParamToFloat(process, value + 12);
+        if (jump_factor < 0.0f)
+          jump_factor = 0.0f;
+      }
+    }
+    if (name != NULL) {
+      if (indexed && obj != NULL && obj->b24c != -1)
+        sprintf(buf, "%s_%d", name, (i8)obj->b24c);
+      else if (personal && obj != NULL && obj->p54 != NULL)
+        sprintf(buf, "%s_%s", name, obj->p54->file);
+      else if (random_count != 0)
+        sprintf(buf, "%s_%d", name, NuRand(0) % random_count);
+      else
+        sprintf(buf, name);
+      process->action_data_3 = AIPathFindLocator(sys, buf);
+    }
+    AILOCATOR_s *loc = (AILOCATOR_s *)process->action_data_3;
+    if (loc != NULL) {
+      nuvec_s *pos = (nuvec_s *)((u8 *)loc + 0x10);
+      StartBigJump(obj, pos, slam, jump_factor, 1.0f, 0, 1);
+      *(AIPATHINFO1C *)((u8 *)obj + 0x3e8) =
+          *(AIPATHINFO1C *)((u8 *)loc + 0x20);
+      *(nuvec_s *)((u8 *)obj + 0x404) = *pos;
+    }
+  }
+  return obj->b9db != 0x1f;
+}
+
 // FUNCTION: LEGOBATMAN 0x0045af10
 i32 Action_SetIgnorePlayerItemsTargetting(AISYS_s *sys,
                                           AISCRIPTPROCESS_s *process,
