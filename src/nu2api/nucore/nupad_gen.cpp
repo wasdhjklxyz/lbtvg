@@ -4070,6 +4070,56 @@ int g_nuPadRecEndPlayButtons;
 // GLOBAL: LEGOBATMAN 0x00adf6b8
 int g_nuPadRecEndRecordButtons;
 
+// FUNCTION: LEGOBATMAN 0x006d6230
+void NuPadRecordPlay(NUGENERICPAD *pad) {
+  VARIPTR *record_ptr;
+
+  if (pad->is_valid && g_nuPadRecMode == 2 &&
+      (pad->digital_buttons & g_nuPadRecEndPlayButtons) != 0) {
+    g_nuPadRecMode = 0;
+  }
+
+  if (pad->is_valid && g_nuPadRecMode == 1 &&
+      (pad->digital_buttons & g_nuPadRecEndRecordButtons) != 0) {
+    g_nuPadRecUnk0adf6b4 = 1;
+  }
+
+  record_ptr = (VARIPTR *)&g_nuPadRecPos;
+
+  switch (g_nuPadRecMode) {
+  case 1:
+    *record_ptr->u32_ptr++ = pad->is_valid;
+    if (pad->is_valid) {
+      *record_ptr->u8_ptr++ = pad->analog_left_x;
+      *record_ptr->u8_ptr++ = pad->analog_left_y;
+      *record_ptr->u8_ptr++ = pad->analog_right_x;
+      *record_ptr->u8_ptr++ = pad->analog_right_y;
+      *record_ptr->u8_ptr++ = pad->analog_l1;
+      *record_ptr->u8_ptr++ = pad->analog_l2;
+      *record_ptr->u8_ptr++ = pad->analog_r1;
+      *record_ptr->u8_ptr++ = pad->analog_r2;
+      *record_ptr->u32_ptr++ = pad->digital_buttons;
+    }
+    break;
+  case 2:
+    pad->is_valid = *record_ptr->u32_ptr++;
+    if (pad->is_valid) {
+      pad->analog_left_x = *record_ptr->u8_ptr++;
+      pad->analog_left_y = *record_ptr->u8_ptr++;
+      pad->analog_right_x = *record_ptr->u8_ptr++;
+      pad->analog_right_y = *record_ptr->u8_ptr++;
+      pad->analog_l1 = *record_ptr->u8_ptr++;
+      pad->analog_l2 = *record_ptr->u8_ptr++;
+      pad->analog_r1 = *record_ptr->u8_ptr++;
+      pad->analog_r2 = *record_ptr->u8_ptr++;
+      pad->digital_buttons = *record_ptr->u32_ptr++;
+    }
+    break;
+  default:
+    break;
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x006d6430
 void NuPadRecordSetPlayEndButtons(int buttons) {
   g_nuPadRecEndPlayButtons = buttons;
