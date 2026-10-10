@@ -1878,3 +1878,18 @@
 005165e0 ShopComputer::LoadSettings vtable 0x85d8f4 slot 18; Mac body (NuFParCreate, keyword table 0x945d00); matched
 005163f0 ShopComputer::RenderWhiteNoise Mac body (white noise > 0.001 -> InteractiveDisplay::RenderWhiteNoise); matched
 005150f0 ShopComputer::IsMenuChanging Mac body (IsInteractiveMode, menu f1c/f8 like IsAnyMenuChanging); stub
+00679840 WorldMapBase::parse_worldmap_end Mac order of WorldMapBase parse_ callbacks (empty); matched
+00679850 WorldMapBase::parse_levelpath Mac order; matched
+006798a0 WorldMapBase::parse_reversedirection Mac order; matched
+006798b0 WorldMapBase::parse_zoomplaybackminmax Mac order (two floats); matched
+006798e0 WorldMapBase::parse_zoominteractiveminmax Mac order (two floats); matched
+00679910 WorldMapBase::parse_pointerradius Mac order (0x888, read by GetPointerRadius*); matched
+00679930 WorldMapBase::parse_magnificationfactor Mac order; matched
+00679950 WorldMapBase::parse_colour_mainline Mac order (3 floats / 255); stub
+006799c0 WorldMapBase::parse_colour_nextlocationnode Mac order; stub
+00679a30 WorldMapBase::parse_mapimagefilename Mac order; matched
+00679a80 WorldMapBase::parse_overlayimagefilename Mac order; matched
+00679ad0 WorldMapBase::parse_episodeid Mac order (int); matched
+00679af0 WorldMapBase::parse_specialobjectname Mac order; matched
+00679b40 WorldMapBase::parse_mapimageaspectratio Mac order; matched
+00679be0 WorldMapBase::LoadSettings vtable 0x85d7e4 slot 18; Mac body; matched

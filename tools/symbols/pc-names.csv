@@ -1908,6 +1908,21 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006754c0,00281f7e,__Z14CharPivot_InitPcP9variptr_uS0_,"CharPivot_Init(char*, variptr_u*, variptr_u)",strings,0
 006763f0,00324088,__Z14Puzzle_PreLoadPvS_,"Puzzle_PreLoad(void*, void*)",strings,0
 00678ef0,0034fab6,__ZN12WorldMapBase15InitializeLevelEP11WORLDINFO_s,WorldMapBase::InitializeLevel(WORLDINFO_s*),strings,0
+00679840,0034f3ca,__ZN12WorldMapBase18parse_worldmap_endEP8nufpar_s,WorldMapBase::parse_worldmap_end(nufpar_s*),confirmed,0
+00679850,0034f3d0,__ZN12WorldMapBase15parse_levelpathEP8nufpar_s,WorldMapBase::parse_levelpath(nufpar_s*),confirmed,0
+006798a0,0034f428,__ZN12WorldMapBase22parse_reversedirectionEP8nufpar_s,WorldMapBase::parse_reversedirection(nufpar_s*),confirmed,0
+006798b0,0034f444,__ZN12WorldMapBase24parse_zoomplaybackminmaxEP8nufpar_s,WorldMapBase::parse_zoomplaybackminmax(nufpar_s*),confirmed,0
+006798e0,0034f490,__ZN12WorldMapBase27parse_zoominteractiveminmaxEP8nufpar_s,WorldMapBase::parse_zoominteractiveminmax(nufpar_s*),confirmed,0
+00679910,0034f4dc,__ZN12WorldMapBase19parse_pointerradiusEP8nufpar_s,WorldMapBase::parse_pointerradius(nufpar_s*),confirmed,0
+00679930,0034f50e,__ZN12WorldMapBase25parse_magnificationfactorEP8nufpar_s,WorldMapBase::parse_magnificationfactor(nufpar_s*),confirmed,0
+00679950,0034f540,__ZN12WorldMapBase21parse_colour_mainlineEP8nufpar_s,WorldMapBase::parse_colour_mainline(nufpar_s*),confirmed,0
+006799c0,0034f5c0,__ZN12WorldMapBase29parse_colour_nextlocationnodeEP8nufpar_s,WorldMapBase::parse_colour_nextlocationnode(nufpar_s*),confirmed,0
+00679a30,0034f640,__ZN12WorldMapBase22parse_mapimagefilenameEP8nufpar_s,WorldMapBase::parse_mapimagefilename(nufpar_s*),confirmed,0
+00679a80,0034f69a,__ZN12WorldMapBase26parse_overlayimagefilenameEP8nufpar_s,WorldMapBase::parse_overlayimagefilename(nufpar_s*),confirmed,0
+00679ad0,0034f6f4,__ZN12WorldMapBase15parse_episodeidEP8nufpar_s,WorldMapBase::parse_episodeid(nufpar_s*),confirmed,0
+00679af0,0034f726,__ZN12WorldMapBase23parse_specialobjectnameEP8nufpar_s,WorldMapBase::parse_specialobjectname(nufpar_s*),confirmed,0
+00679b40,0034f784,__ZN12WorldMapBase25parse_mapimageaspectratioEP8nufpar_s,WorldMapBase::parse_mapimageaspectratio(nufpar_s*),confirmed,0
+00679be0,0034f7b6,__ZN12WorldMapBase12LoadSettingsEPc,WorldMapBase::LoadSettings(char*),confirmed,0
 00679ca0,0034f0e4,__ZN12WorldMapBase14InitializePermEPcP9variptr_uS2_,"WorldMapBase::InitializePerm(char*, variptr_u*, variptr_u*)",gapfill,1
 0067a590,0035009c,__ZN12WorldMapBase14parse_locationEP8nufpar_s,WorldMapBase::parse_location(nufpar_s*),strings,0
 0067a810,002a29e6,__ZN22DynamicMaterialManager12StringToHashEPKc,DynamicMaterialManager::StringToHash(char const*),confirmed,0

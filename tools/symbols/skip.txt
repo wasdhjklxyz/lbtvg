@@ -175,3 +175,5 @@
 006877e0 NuMtxAlignY: saga body, one fmul operand order (m12*m20), same as AlignX
 0067aae0 HiresTextureManager::GetTexture_Internal: ebx/edi register swap only (tried branch order, index/world local order, continue loop)
 005150f0 ShopComputer::IsMenuChanging: return-0 tail placement (3 forms tried; maybe the vtable-cast call)
+00679950 WorldMapBase::parse_colour_mainline: struct copy addressing (add eax, off vs [eax+off])
+006799c0 WorldMapBase::parse_colour_nextlocationnode: same as 0x679950
