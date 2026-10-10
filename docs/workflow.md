@@ -435,5 +435,18 @@ enough matched code for the percentage to mean something.
 - **`i != n` as a loop condition** gives `jne`.
 - **Open: an int arg in `ebx` (ours) vs on the stack (original)** for a
   register-convention static, seen three times (AIScriptCopyString,
-  0x629e70, 0x629f60). Some unwritten caller, or a source shape we haven't
-  found, may decide it.
+  0x629e70, 0x629f60, CC_ParseLayer* 0x621030/0x621090). Ruled out on the
+  CC_layers TU: writing every caller, and the out-of-line dispatcher static
+  0x6210f0 they all inline (whose own ecx/eax convention then matches),
+  leave the helpers' parser in `ebx`; the original callers never touch
+  `ebx`. Not the compiler version, not param order, not `__cdecl`.
+- **`variants.py`** (tools/scratch) tries a list of source variants against
+  one address and keeps the first full match.
+- **Progress clears with `or eax, -1` before the 0 store** are
+  `p[0] = 0; memset(&p[1], 0xff, 8)`.
+- **A flag re-tested where two branches join** is two identical tail-merged
+  calls: `if (a && !b) X; else if (a) Y; else X;`.
+- **`T *p = &arr[i]; f(&p->f)`** gives add + lea; `arr[i].f` folds into one
+  lea.
+- **`and word [m], imm8` (66 83)** needs an `i16` field; `u16` or bitfields
+  give 66 81.

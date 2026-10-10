@@ -132,7 +132,7 @@
 006b4470 Action_PathConnectionMaxLength: set/clear arm placement (epilogue puzzle), 3 tries
 00654bc0 xAction (gizflow): register allocation (previous/zero), 3 tries
 005a3020 ConstantRumble: 1.25f arg store scheduled before the phase add, 3 tries
-006212d0 CC_ride_layersoff: helpers 0x621030/0x621090 take the mask in esi (register convention)
+006212d0 CC_ride_layersoff: written (stub); blocked with the CC_ParseLayer* helpers on the parser-in-ebx convention
 006dd150 NuFPar string reader (BloomMethod etc.): passes a local struct to 0x6db510 in esi (register convention)
 0069a520 ShaderBuilderGen::printCgHlslProperty: value pointer arrives in eax (register convention)
 00533710 OA ReplaceAll static: register convention (str in eax), ours cdecl
@@ -231,3 +231,4 @@
 0048f120 GizPanels_Load: body matches, gizpanel_sys check-then-reload/shrink-wrap prologue not reproduced
 005d93c0 GizmoBlowupTypeRemove: moved/last register vs spill choice swapped (4 forms)
 005d9210 GizmoBlowupTypeAdd: register allocation (special reload, -1 in ebx) and shared return tail
+006210f0 CC_ParseLayers: dispatcher every CC_layers_* inlines; its own ecx/eax convention matches, blocked by the helpers' parser-in-ebx

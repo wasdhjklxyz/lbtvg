@@ -75,16 +75,16 @@ typedef struct CHARCONFIG_RUNTIME_s {
   f32 thrust_draw_scale;     // 0x138
   u32 gcdata_flags;          // 0x13c
   unsigned char pad140[0x144 - 0x140];
-  u32 flags144;           // 0x144
-  u32 flags148;           // 0x148
-  u32 flags;              // 0x14c
-  u32 flags150;           // 0x150
-  u32 layer_mask_special; // 0x154
-  u32 layer_mask;         // 0x158
-  u32 layer_mask_medium;  // 0x15c
-  u32 layer_mask_low;     // 0x160
-  u32 layer_mask_dead;    // 0x164
-  unsigned char pad168[0x16c - 0x168];
+  u32 flags144;              // 0x144
+  u32 flags148;              // 0x148
+  u32 flags;                 // 0x14c
+  u32 flags150;              // 0x150
+  u32 layer_mask_special;    // 0x154
+  u32 layer_mask;            // 0x158
+  u32 layer_mask_medium;     // 0x15c
+  u32 layer_mask_low;        // 0x160
+  u32 layer_mask_dead;       // 0x164
+  u32 ride_layers_off;       // 0x168
   f32 mediumres_swapdist;    // 0x16c
   f32 lowres_swapdist;       // 0x170
   u32 shadow_locators;       // 0x174, bit per locator
@@ -2110,13 +2110,19 @@ static i32 CC_ParseLayerNames(u32 *mask, NUFPAR *parser) {
   return count;
 }
 
+// STUB: LEGOBATMAN 0x006210f0
+// out-of-line copy of the dispatcher every CC_layers_* inlines
+static i32 CC_ParseLayers(u32 *mask, NUFPAR *parser) {
+  return charconfig.named_layers == 0 ? CC_ParseLayerNumbers(mask, parser)
+                                      : CC_ParseLayerNames(mask, parser);
+}
+
 // STUB: LEGOBATMAN 0x00621120
 // close: orig passes only mask in esi, parser on the stack; ours also puts
 // parser in ebx (param order and __cdecl tried).
 void CC_layers_special(NUFPAR *parser) {
   u32 *mask = &charconfig.runtime->layer_mask_special;
-  i32 count = charconfig.named_layers == 0 ? CC_ParseLayerNumbers(mask, parser)
-                                           : CC_ParseLayerNames(mask, parser);
+  i32 count = CC_ParseLayers(mask, parser);
   if (count != 0)
     charconfig.runtime->layer_mask = charconfig.runtime->layer_mask_medium =
         charconfig.runtime->layer_mask_low =
@@ -2129,8 +2135,7 @@ void CC_layers_special(NUFPAR *parser) {
 // parser in ebx (param order and __cdecl tried).
 void CC_layers_high(NUFPAR *parser) {
   u32 *mask = &charconfig.runtime->layer_mask;
-  i32 count = charconfig.named_layers == 0 ? CC_ParseLayerNumbers(mask, parser)
-                                           : CC_ParseLayerNames(mask, parser);
+  i32 count = CC_ParseLayers(mask, parser);
   if (count != 0)
     charconfig.runtime->layer_mask_medium = charconfig.runtime->layer_mask_low =
         charconfig.runtime->layer_mask;
@@ -2141,8 +2146,7 @@ void CC_layers_high(NUFPAR *parser) {
 // parser in ebx (param order and __cdecl tried).
 void CC_layers_medium(NUFPAR *parser) {
   u32 *mask = &charconfig.runtime->layer_mask_medium;
-  i32 count = charconfig.named_layers == 0 ? CC_ParseLayerNumbers(mask, parser)
-                                           : CC_ParseLayerNames(mask, parser);
+  i32 count = CC_ParseLayers(mask, parser);
   if (count != 0)
     charconfig.runtime->layer_mask_low = charconfig.runtime->layer_mask_medium;
 }
@@ -2152,10 +2156,7 @@ void CC_layers_medium(NUFPAR *parser) {
 // parser in ebx (param order and __cdecl tried).
 void CC_layers_low(NUFPAR *parser) {
   u32 *mask = &charconfig.runtime->layer_mask_low;
-  if (charconfig.named_layers == 0)
-    CC_ParseLayerNumbers(mask, parser);
-  else
-    CC_ParseLayerNames(mask, parser);
+  CC_ParseLayers(mask, parser);
 }
 
 // STUB: LEGOBATMAN 0x00621290
@@ -2163,10 +2164,13 @@ void CC_layers_low(NUFPAR *parser) {
 // parser in ebx (param order and __cdecl tried).
 void CC_layers_dead(NUFPAR *parser) {
   u32 *mask = &charconfig.runtime->layer_mask_dead;
-  if (charconfig.named_layers == 0)
-    CC_ParseLayerNumbers(mask, parser);
-  else
-    CC_ParseLayerNames(mask, parser);
+  CC_ParseLayers(mask, parser);
+}
+
+// STUB: LEGOBATMAN 0x006212d0
+void CC_ride_layersoff(NUFPAR *parser) {
+  u32 *mask = &charconfig.runtime->ride_layers_off;
+  CC_ParseLayers(mask, parser);
 }
 
 // FUNCTION: LEGOBATMAN 0x00621310
