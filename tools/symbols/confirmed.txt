@@ -2081,3 +2081,9 @@
 00594230 NuFmvStreamPCBink::TrackExists Mac order after SetVolume + body; matched
 00594270 NuFmvStreamPCBink::ReleaseTextures called (false) from Close as on the Mac
 00594690 NuFmvStreamPCBink::Close vtable 0x86873c slot 2 (RTTI) + Mac body; matched
+00594270 NuFmvStreamPCBink::ReleaseTextures Mac order + called (false) from Close; matched
+00594400 NuFmvStreamPCBink::ReleaseVideoResources Mac order (ReleaseTextures, ReleaseVideoResources, Close); ReleaseTextures(true); matched
+005945a0 PCFMVReleaseVideoResources Mac name/order; loops the two streams with ReleaseVideoResources inlined; matched
+005948a0 NuFmvStreamPCBink::CreateTextures called (true) from RestoreVideoResources as on the Mac
+005949b0 NuFmvStreamPCBink::RestoreVideoResources Mac order after CreateTextures; matched
+005949d0 PCFMVRestoreVideoResources Mac name/order; matched
