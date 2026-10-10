@@ -100,6 +100,8 @@ extern i32 g_unk00a97d34;
 extern i32 g_unk00a97da0;
 // GLOBAL: LEGOBATMAN 0x00968494
 extern i32 FRAMES_TO_WAIT;
+// GLOBAL: LEGOBATMAN 0x009684a8
+extern f32 SPINFADETIME;
 
 // FUNCTION: LEGOBATMAN 0x006710d0
 void Fade::Init(FADEINFO_s *info) { this->info = info; }
@@ -188,6 +190,28 @@ void StillScreenWipe::DrawFade() {
 // FUNCTION: LEGOBATMAN 0x00671350
 void CrossFade::Init(FADEINFO_s *info) { this->info = info; }
 
+// FUNCTION: LEGOBATMAN 0x00671360
+void CrossFade::InitFade() {
+  i32 old = info->mask;
+  if (info->flags & 1) {
+    info->f4 = 1.0f;
+    info->f8 = -1.3333334f;
+    FadeSystem_PlayWipeSfx();
+  } else {
+    g_unk00a97d34 = 0;
+    info->f4 = 1.0f;
+    info->f8 = 2.0f;
+    if (g_unk00a97da0)
+      NeedScreenGrab(1);
+    else
+      g_unk00a97da0 = 1;
+    wait_till_next_frame = FRAMES_TO_WAIT;
+  }
+  do {
+    info->mask = 1 << (qrand() / 0x4000);
+  } while (info->mask == old);
+}
+
 // FUNCTION: LEGOBATMAN 0x00671400
 void CrossFade::UpdateFade() {
   if (wait_till_next_frame > 0)
@@ -265,6 +289,28 @@ void StillScreen::DrawFade() {
 
 // FUNCTION: LEGOBATMAN 0x00671a10
 void SpinWipe::Init(FADEINFO_s *info) { this->info = info; }
+
+// FUNCTION: LEGOBATMAN 0x00671a20
+void SpinWipe::InitFade() {
+  i32 old = info->mask;
+  if (info->flags & 1) {
+    info->f4 = 1.0f;
+    info->f8 = -2.0f;
+    FadeSystem_PlayWipeSfx();
+  } else {
+    g_unk00a97d34 = 0;
+    info->f4 = 0.0f;
+    info->f8 = 1.0f / SPINFADETIME;
+    if (g_unk00a97da0)
+      NeedScreenGrab(1);
+    else
+      g_unk00a97da0 = 1;
+    wait_till_next_frame = FRAMES_TO_WAIT;
+  }
+  do {
+    info->mask = 1 << (qrand() / 0x4000);
+  } while (info->mask == old);
+}
 
 // FUNCTION: LEGOBATMAN 0x00671ad0
 void SpinWipe::UpdateFade() {

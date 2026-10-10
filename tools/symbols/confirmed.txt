@@ -1932,3 +1932,5 @@
 00670d30 FadeSystem_PlayWipeSfx called from the InitFade methods as on the Mac
 005a5990 NeedScreenGrab called with 1 from the InitFade methods as on the Mac
 006716d0 DrawSpinScreen called from SpinWipe::DrawFade as on the Mac
+00671360 CrossFade::InitFade vtable 0x869ddc slot 2, Mac body; matched
+00671a20 SpinWipe::InitFade vtable 0x869e14 slot 2, Mac body (1 / SPINFADETIME); matched

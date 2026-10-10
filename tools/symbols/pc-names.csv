@@ -1916,6 +1916,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006712f0,002a6df4,__ZN15StillScreenWipe10UpdateFadeEv,StillScreenWipe::UpdateFade(),confirmed,0
 00671320,002a6e32,__ZN15StillScreenWipe8DrawFadeEv,StillScreenWipe::DrawFade(),confirmed,0
 00671350,002a6e66,__ZN9CrossFade4InitEP10FADEINFO_s,CrossFade::Init(FADEINFO_s*),confirmed,0
+00671360,002a71e0,__ZN9CrossFade8InitFadeEv,CrossFade::InitFade(),confirmed,0
 00671400,002a6e74,__ZN9CrossFade10UpdateFadeEv,CrossFade::UpdateFade(),confirmed,0
 006714a0,002a6eb2,__ZN14BlackCrossFade4InitEP10FADEINFO_s,BlackCrossFade::Init(FADEINFO_s*),confirmed,0
 006714b0,002a72a8,__ZN14BlackCrossFade8InitFadeEv,BlackCrossFade::InitFade(),confirmed,0
@@ -1926,6 +1927,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006716a0,002a6fba,__ZN11StillScreen8DrawFadeEv,StillScreen::DrawFade(),confirmed,0
 006716d0,002a74f6,__Z14DrawSpinScreenif,"DrawSpinScreen(int, float)",confirmed,0
 00671a10,002a6ff6,__ZN8SpinWipe4InitEP10FADEINFO_s,SpinWipe::Init(FADEINFO_s*),confirmed,0
+00671a20,002a7004,__ZN8SpinWipe8InitFadeEv,SpinWipe::InitFade(),confirmed,0
 00671ad0,002a70da,__ZN8SpinWipe10UpdateFadeEv,SpinWipe::UpdateFade(),confirmed,0
 00671b00,002a78a2,__ZN8SpinWipe8DrawFadeEv,SpinWipe::DrawFade(),confirmed,0
 00672790,00290cb2,__ZN18CustomiserInternal15MenuGetItemNameE12MenuItemType,CustomiserInternal::MenuGetItemName(MenuItemType),strings,0
