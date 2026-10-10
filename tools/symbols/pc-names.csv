@@ -2565,6 +2565,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00701e60,0013859e,__ZN24NuProcessColourFilterGen13initResourcesEv,NuProcessColourFilterGen::initResources(),confirmed,0
 00702190,001385a4,__ZN17NuEdgeAAFilterGen13initResourcesEv,NuEdgeAAFilterGen::initResources(),confirmed,0
 007040f0,001385aa,__ZN15NuSSAOFilterGen13initResourcesEv,NuSSAOFilterGen::initResources(),confirmed,0
+00708100,0016af82,__ZN19NuDeferredFilterGen9isEnabledEv,NuDeferredFilterGen::isEnabled(),confirmed,0
+00708280,0014522a,__ZN19NuDeferredFilterGen23destroyTextureResourcesEv,NuDeferredFilterGen::destroyTextureResources(),confirmed,0
+007082d0,001274f2,__ZN19NuDeferredFilterGen8resetAllEv,NuDeferredFilterGen::resetAll(),confirmed,0
 00709080,001277c4,_NuMovieGrabBegin,_NuMovieGrabBegin,strings,0
 00709de0,00128314,__ZN14NuInstSurfGeom7DestroyEv,NuInstSurfGeom::Destroy(),strings,0
 0070b190,00129372,_NuAnimDataFindVersion,_NuAnimDataFindVersion,confirmed,0

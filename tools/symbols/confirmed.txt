@@ -2063,3 +2063,6 @@
 007013a0 NuMotionAccumFilterGen::destroyTextureResources vtable 0x897cac slot 4 (RTTI); matched
 00701c40 NuSpeedBlurFilterGen::initTextureResources vtable 0x897cd4 slot 3 (RTTI) + saga body; matched
 006f37b0 NuEffectTexCreate2D called from the *FilterGen::initTextureResources as in saga
+00708100 NuDeferredFilterGen::isEnabled vtable 0x897e34 slot 8 (RTTI) + saga (enabled && counts); matched
+00708280 NuDeferredFilterGen::destroyTextureResources vtable 0x897e34 slot 4 (RTTI); matched
+007082d0 NuDeferredFilterGen::resetAll vtable 0x897e34 slot 7 (RTTI); matched
