@@ -42,6 +42,9 @@ void Animate_CANNON(GameObject_s *obj) {
     obj->requested_anim = obj->s162c;
 }
 
+// FUNCTION: LEGOBATMAN 0x004cf810
+void Animate_DEFAULT(GameObject_s *obj) { obj->requested_anim = obj->s162c; }
+
 // FUNCTION: LEGOBATMAN 0x004cfe50
 void Cheat_SpecialHits(float damage, nuvec_s *position) {
   char *hits[14] = {"Pow!",   "Smack!", "Bing!",   "KaPow!", "Krakt!",

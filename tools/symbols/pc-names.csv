@@ -665,6 +665,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004ceac0,000e1974,__Z15Animate_VEHICLEP12GameObject_s,Animate_VEHICLE(GameObject_s*),confirmed,0
 004cf630,000e1304,__Z13Animate_BEASTP12GameObject_s,Animate_BEAST(GameObject_s*),confirmed,0
 004cf7c0,000dbefc,__Z14Animate_CANNONP12GameObject_s,Animate_CANNON(GameObject_s*),confirmed,0
+004cf810,000dbf48,__Z15Animate_DEFAULTP12GameObject_s,Animate_DEFAULT(GameObject_s*),confirmed,0
 004cf830,000e14e0,__Z12Animate_JEDIP12GameObject_s,Animate_JEDI(GameObject_s*),confirmed,0
 004cfe50,000db47a,__Z17Cheat_SpecialHitsfP7nuvec_s,"Cheat_SpecialHits(float, nuvec_s*)",strings,0
 004d7ae0,000ec444,__Z12Move_VEHICLEP12GameObject_s,Move_VEHICLE(GameObject_s*),confirmed,0

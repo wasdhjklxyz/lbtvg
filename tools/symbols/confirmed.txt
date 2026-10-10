@@ -2569,3 +2569,4 @@
 0061f630 IconScenes_Init        CHARCOUNT pointer table from the buffer, IconPath copy if < 64 chars: saga gamemenuall.cpp; Mac order after CharScenes_AreaDump
 0061f690 IconScene_FindById     bounds-checked IconScene[id]: saga gamemenuall.cpp; Mac order
 0061f890 IconScenes_Dump        NuGScnRemove over IconScene, clears GCDATA+0x14 special: saga gamemenuall.cpp; Mac order
+004cf810 Animate_DEFAULT        requested anim = idle (+0x162c), same as the Mac's; after Animate_CANNON as on the Mac
