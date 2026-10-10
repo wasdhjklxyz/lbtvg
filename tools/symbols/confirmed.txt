@@ -3069,3 +3069,13 @@
 004f1f10 Signals_GetMaxGizmos get_max_gizmos slot of the "Signal" ADDGIZMOTYPE
 004f2170 Signals_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Signal"
 00678a70 Puzzle_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Puzzle", prefix "PZL_"
+005b39b0 Spinners_ReserveBufferSpace reserve_buffer_space slot of the "Spinner" ADDGIZMOTYPE
+005b3fb0 Spinners_PanelDraw panel_draw slot of the "Spinner" ADDGIZMOTYPE (empty)
+005b3fc0 Spinners_GetMaxGizmos get_max_gizmos slot of the "Spinner" ADDGIZMOTYPE
+005b3fe0 Spinners_AddGizmos add_gizmos slot of the "Spinner" ADDGIZMOTYPE
+005b4070 Spinner_GetGizmoName get_gizmo_name slot of the "Spinner" ADDGIZMOTYPE
+005b4090 Spinner_GetOutputName get_output_name slot of the "Spinner" ADDGIZMOTYPE
+005b4140 Spinner_GetNumOutputs get_num_outputs slot of the "Spinner" ADDGIZMOTYPE
+005b4c10 Spinners_AllocateProgressData allocate_progress_data slot of the "Spinner" ADDGIZMOTYPE
+005b4c30 Spinners_ClearProgress clear_progress slot of the "Spinner" ADDGIZMOTYPE
+005b6b00 Spinners_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Spinner"

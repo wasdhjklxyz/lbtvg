@@ -1683,6 +1683,16 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005b0f40,00354cb2,__Z15GameBufferAllocP9variptr_uS0_i,"GameBufferAlloc(variptr_u*, variptr_u*, int)",confirmed,0
 005b1940,00357c9a,__Z21DrawObjectOnCharacterP11WORLDINFO_sP12GameObject_siP12nuhspecial_siiP7numtx_sijS6_P7nuvec_sffiS6_,"DrawObjectOnCharacter(WORLDINFO_s*, GameObject_s*, int, nuhspecial_s*, int, int, numtx_s*, int, unsigned int, numtx_s*, nuvec_s*, float, float, int, numtx_s*)",gapfill,1
 005b2a40,00358d26,__Z15LoadThingsScenev,LoadThingsScene(),strings,0
+005b39b0,,Spinners_ReserveBufferSpace,Spinners_ReserveBufferSpace,confirmed,0
+005b3fb0,,Spinners_PanelDraw,Spinners_PanelDraw,confirmed,0
+005b3fc0,,Spinners_GetMaxGizmos,Spinners_GetMaxGizmos,confirmed,0
+005b3fe0,,Spinners_AddGizmos,Spinners_AddGizmos,confirmed,0
+005b4070,,Spinner_GetGizmoName,Spinner_GetGizmoName,confirmed,0
+005b4090,,Spinner_GetOutputName,Spinner_GetOutputName,confirmed,0
+005b4140,,Spinner_GetNumOutputs,Spinner_GetNumOutputs,confirmed,0
+005b4c10,,Spinners_AllocateProgressData,Spinners_AllocateProgressData,confirmed,0
+005b4c30,,Spinners_ClearProgress,Spinners_ClearProgress,confirmed,0
+005b6b00,,Spinners_RegisterGizmo,Spinners_RegisterGizmo,confirmed,0
 005b6d60,002d1158,__Z17GizObstacles_LoadPvS_,"GizObstacles_Load(void*, void*)",strings,0
 005b7110,002d1534,__Z21GizObstacles_PostLoadPvS_,"GizObstacles_PostLoad(void*, void*)",confirmed,0
 005b7170,002d159a,__Z24GizObstacles_AddLevelSfxPvS_PiS0_i,"GizObstacles_AddLevelSfx(void*, void*, int*, int*, int)",confirmed,0

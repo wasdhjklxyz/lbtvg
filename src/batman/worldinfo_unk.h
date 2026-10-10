@@ -112,7 +112,10 @@ struct WORLDINFO_s {
   u8 pad47cc[0x47d0 - 0x47cc];
   struct PUSHBLOCK_s *pushblocks; // 0x47d0
   i32 pushblock_count;            // 0x47d4
-  u8 pad8b[0x4800 - 0x47d8];
+  u8 pad47d8[0x47f4 - 0x47d8];
+  struct SPINNER_s *spinners;       // 0x47f4
+  i32 spinner_count;                // 0x47f8
+  void *spinner_pool;               // 0x47fc
   struct GRABBERSYS_s *grabber_sys; // 0x4800
   u8 pad4804[0x4808 - 0x4804];
   struct RIPPLEEFFECT_s *ripple_effects; // 0x4808
