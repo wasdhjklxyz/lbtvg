@@ -3508,6 +3508,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d3570,001917d8,_NuFileWriteStringV,_NuFileWriteStringV,confirmed,0
 006d3640,,Unk006d3640,Unk006d3640,confirmed,0
 006d3690,,Unk006d3690,Unk006d3690,confirmed,0
+006d3700,,Unk006d3700,Unk006d3700,confirmed,0
+006d37a0,,Unk006d37a0,Unk006d37a0,confirmed,0
 006d3850,00187b36,_NuDatCalcPos,_NuDatCalcPos,confirmed,0
 006d3880,001876dc,_NuDatFilePos,_NuDatFilePos,confirmed,0
 006d38b0,0018781e,_NuDatFileSeek,_NuDatFileSeek,confirmed,0

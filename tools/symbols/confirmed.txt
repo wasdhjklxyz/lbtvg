@@ -3508,3 +3508,5 @@
 006d6ab0 Unk006d6ab0 implode read-from-memory: copies min(size, left) from implode_inbuffer (static left count 0xaf41b4)
 006ddca0 Unk006ddca0 saves a finished pad recording (size, data, 0xe0f) through NuFileOpen mode 1
 006ddd30 Unk006ddd30 ends pad recording (save to 0xadf6b0 name) or playback
+006d3700 Unk006d3700 reallocates two count*16 tables (0xb038ac/0xb038b0) with the nufile_gen.cpp __FILE__ lines 0xc5e..0xc64
+006d37a0 Unk006d37a0 frees the 0xb038ac/0xb038b0 tables (lines 0xc6e/0xc73)

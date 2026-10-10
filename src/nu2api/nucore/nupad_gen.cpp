@@ -1873,6 +1873,48 @@ int NuDatFileOpenSize(int file) {
   return info->i18;
 }
 
+// Two count * 16 byte tables (0xb038ac, 0xb038b0) reallocated when the count
+// changes; 0x006d37a0 frees them.
+// GLOBAL: LEGOBATMAN 0x00b038a8
+int g_nuFileUnk0b038a8;
+// GLOBAL: LEGOBATMAN 0x00b038ac
+void *g_nuFileUnk0b038ac;
+// GLOBAL: LEGOBATMAN 0x00b038b0
+void *g_nuFileUnk0b038b0;
+// GLOBAL: LEGOBATMAN 0x00b0085c
+int g_nuFileUnk0b0085c;
+// GLOBAL: LEGOBATMAN 0x00b03878
+int g_nuFileUnk0b03878;
+extern "C" void NuMemFreeFn(void *ptr, const char *file, int line);
+
+// FUNCTION: LEGOBATMAN 0x006d3700
+void Unk006d3700(int count) {
+  if (count != g_nuFileUnk0b038a8) {
+    if (g_nuFileUnk0b038ac != NULL)
+      NuMemFreeFn(g_nuFileUnk0b038ac, __FILE__, 0xc5e);
+    if (g_nuFileUnk0b038b0 != NULL)
+      NuMemFreeFn(g_nuFileUnk0b038b0, __FILE__, 0xc5f);
+    g_nuFileUnk0b038a8 = count;
+    g_nuFileUnk0b038ac = NuMemAllocFn(count * 16, __FILE__, 0xc63);
+    g_nuFileUnk0b038b0 = NuMemAllocFn(g_nuFileUnk0b038a8 * 16, __FILE__, 0xc64);
+  }
+  g_nuFileUnk0b0085c = 0;
+  g_nuFileUnk0b03878 = 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d37a0
+void Unk006d37a0(void) {
+  if (g_nuFileUnk0b038ac != NULL) {
+    NuMemFreeFn(g_nuFileUnk0b038ac, __FILE__, 0xc6e);
+    g_nuFileUnk0b038ac = NULL;
+  }
+  if (g_nuFileUnk0b038b0 != NULL) {
+    NuMemFreeFn(g_nuFileUnk0b038b0, __FILE__, 0xc73);
+    g_nuFileUnk0b038b0 = NULL;
+  }
+  g_nuFileUnk0b038a8 = 0;
+}
+
 // GLOBAL: LEGOBATMAN 0x00b0389c
 int NuFile_SwapEndianOnWrite;
 
