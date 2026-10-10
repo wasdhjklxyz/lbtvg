@@ -1985,6 +1985,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006151e0,002a177a,__Z14Door_SetCutCamP6DOOR_s,Door_SetCutCam(DOOR_s*),confirmed,0
 006152f0,002a186a,__Z21Door_DestinationLevelP6DOOR_s,Door_DestinationLevel(DOOR_s*),confirmed,0
 00615390,002a1924,__Z18StartDoorPositionsv,StartDoorPositions(),gapfill,2
+00615580,002a1fec,__Z17Door_GetMaxGizmosPv,Door_GetMaxGizmos(void*),confirmed,0
+006155a0,002a2008,__Z14Door_AddGizmosP10GIZMOSYS_siPvS1_,"Door_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+00615620,002a20b2,__Z17Door_GetGizmoNameP7GIZMO_s,Door_GetGizmoName(GIZMO_s*),confirmed,0
+00615640,002a20cc,__Z14Door_GetOutputP7GIZMO_sii,"Door_GetOutput(GIZMO_s*, int, int)",confirmed,0
+00615660,002a20f0,__Z18Door_GetNumOutputsP7GIZMO_s,Door_GetNumOutputs(GIZMO_s*),confirmed,0
+00615670,002a20fa,__Z18Door_GetOutputNameP7GIZMO_si,"Door_GetOutputName(GIZMO_s*, int)",confirmed,0
+00615680,002a210c,__Z13Door_ActivateP7GIZMO_si,"Door_Activate(GIZMO_s*, int)",confirmed,0
+006156a0,002a212a,__Z18Door_RegisterGizmoi,Door_RegisterGizmo(int),confirmed,0
 006163b0,00307916,__Z19Minicam_AddSubtitlePK21MINICAM_ADDSUBTITLE_s,Minicam_AddSubtitle(MINICAM_ADDSUBTITLE_s const*),gapfill,1
 006180a0,002ec348,__Z15HubAreaInfo_SetP11HUBAREAINFO,HubAreaInfo_Set(HUBAREAINFO*),confirmed,0
 006180b0,002ec35c,__Z15HubAreaInfo_Getv,HubAreaInfo_Get(),confirmed,0

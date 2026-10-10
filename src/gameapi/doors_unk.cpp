@@ -5,6 +5,7 @@
 #include "../nu2api/numath/nuinline_unk.h"
 #include "../nu2api/numath/nutrig_unk.h"
 #include "../nu2api/numath/nuvec.h"
+#include <stddef.h>
 
 // Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
 // FUNCTION: LEGOBATMAN 0x00614760
@@ -56,11 +57,15 @@ typedef struct WORLDINFO_s {
   VARIPTR buf104; // 0x104
   u8 pad108[0x120 - 0x108];
   i32 level_idx; // 0x120
-  u8 pad124[0x140 - 0x124];
+  u8 pad124[0x12c - 0x124];
+  struct LEVELDATA_s *current_level; // 0x12c
+  u8 pad130[0x140 - 0x130];
   struct nugscn_s *scn140; // 0x140
   u8 pad144[0x2af0 - 0x144];
   void *cutscene_sys; // 0x2af0
-  u8 pad2af4[0x47a8 - 0x2af4];
+  u8 pad2af4[0x2b0c - 0x2af4];
+  struct GIZMOSYS_s *gizmo_sys; // 0x2b0c
+  u8 pad2b10[0x47a8 - 0x2b10];
   DOOR_s *doors;  // 0x47a8
   i32 door_count; // 0x47ac
 } WORLDINFO_s;
@@ -242,7 +247,9 @@ typedef struct LEVELDATA_s {
   i8 area_index; // 0xab
   u8 padac[0xd8 - 0xac];
   i8 area_level_index; // 0xd8
-  u8 padd9[0x150 - 0xd9];
+  u8 padd9[0x113 - 0xd9];
+  u8 max_doors; // 0x113
+  u8 pad114[0x150 - 0x114];
 } LEVELDATA;
 
 // GLOBAL: LEGOBATMAN 0x00aca894
@@ -523,6 +530,116 @@ void Minicam_AddSubtitle(const MINICAM_ADDSUBTITLE_s *add) {
     sub->f10[5] = add->f10[5];
     Minicam.subtitle_count++;
   }
+}
+
+typedef struct GIZMO_s {
+  void *object;
+} GIZMO;
+
+typedef struct ADDGIZMOTYPE_s {
+  char *name;        // 0x00
+  char *prefix;      // 0x04
+  u16 progress_size; // 0x08
+  void *fns[0x1c];   // 0x0c
+} ADDGIZMOTYPE;
+
+// GLOBAL: LEGOBATMAN 0x00960118
+extern ADDGIZMOTYPE Default_ADDGIZMOTYPE;
+// GLOBAL: LEGOBATMAN 0x00963708
+i32 door_gizmotype_id = -1;
+
+void AddGizmo(struct GIZMOSYS_s *gizmo_sys, i32 type_id, void *a, void *object);
+void GizmoGetUniqueName(struct GIZMOSYS_s *gizmo_sys, char *prefix, char *name,
+                        char *out, i32 size);
+
+// FUNCTION: LEGOBATMAN 0x00615580
+i32 Door_GetMaxGizmos(void *door) {
+  WORLDINFO_s *world = (WORLDINFO_s *)door;
+  return world != NULL ? world->current_level->max_doors : 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006155a0
+void Door_AddGizmos(struct GIZMOSYS_s *gizmo_sys, i32 type_id, void *world_ptr,
+                    void *unused) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  if (world != NULL && world->doors != NULL) {
+    for (i32 i = 0; i < world->door_count; i++) {
+      GizmoGetUniqueName(world->gizmo_sys, "Door_", world->doors[i].name,
+                         &world->doors[i].name[0x40], 0x40);
+      AddGizmo(gizmo_sys, type_id, NULL, &world->doors[i]);
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00615620
+char *Door_GetGizmoName(GIZMO *gizmo) {
+  if (gizmo == NULL || gizmo->object == NULL)
+    return NULL;
+  DOOR_s *door = (DOOR_s *)gizmo->object;
+  return &door->name[0x40];
+}
+
+// FUNCTION: LEGOBATMAN 0x00615640
+i32 Door_GetOutput(GIZMO *gizmo, i32 a, i32 b) {
+  if (gizmo == NULL || gizmo->object == NULL)
+    return 0;
+  DOOR_s *door = (DOOR_s *)gizmo->object;
+  return door->active == 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00615660
+i32 Door_GetNumOutputs(GIZMO *gizmo) { return 1; }
+
+// FUNCTION: LEGOBATMAN 0x00615670
+char *Door_GetOutputName(GIZMO *gizmo, i32 output) { return "Active"; }
+
+// FUNCTION: LEGOBATMAN 0x00615680
+void Door_Activate(GIZMO *gizmo, i32 value) {
+  if (gizmo == NULL || gizmo->object == NULL)
+    return;
+  DOOR_s *door = (DOOR_s *)gizmo->object;
+  door->active = value == 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006156a0
+ADDGIZMOTYPE *Door_RegisterGizmo(i32 type_id) {
+  // GLOBAL: LEGOBATMAN 0x00acb088
+  static ADDGIZMOTYPE addtype;
+
+  addtype = Default_ADDGIZMOTYPE;
+  addtype.name = "Door";
+  addtype.prefix = "";
+  addtype.progress_size = 0;
+  addtype.fns[0] = (void *)Door_GetMaxGizmos;
+  addtype.fns[1] = (void *)Door_AddGizmos;
+  addtype.fns[2] = NULL;
+  addtype.fns[3] = NULL;
+  addtype.fns[4] = NULL;
+  addtype.fns[5] = NULL;
+  addtype.fns[6] = (void *)Door_GetGizmoName;
+  addtype.fns[7] = (void *)Door_GetOutput;
+  addtype.fns[8] = (void *)Door_GetOutputName;
+  addtype.fns[9] = (void *)Door_GetNumOutputs;
+  addtype.fns[10] = (void *)Door_Activate;
+  addtype.fns[11] = NULL;
+  addtype.fns[12] = NULL;
+  addtype.fns[13] = NULL;
+  addtype.fns[14] = NULL;
+  addtype.fns[15] = NULL;
+  addtype.fns[16] = NULL;
+  addtype.fns[17] = NULL;
+  addtype.fns[18] = NULL;
+  addtype.fns[19] = NULL;
+  addtype.fns[20] = NULL;
+  addtype.fns[21] = NULL;
+  addtype.fns[22] = NULL;
+  addtype.fns[23] = NULL;
+  addtype.fns[24] = NULL;
+  addtype.fns[25] = NULL;
+  addtype.fns[26] = NULL;
+  addtype.fns[27] = NULL;
+  door_gizmotype_id = type_id;
+  return &addtype;
 }
 
 // Keeps the header-static copies above alive until their real callers are

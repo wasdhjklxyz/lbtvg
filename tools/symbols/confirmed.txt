@@ -2799,3 +2799,11 @@
 005a7810 Technos_ClearProgress clear_progress slot of the "Techno" ADDGIZMOTYPE
 005a7830 Technos_StoreProgress store_progress slot of the "Techno" ADDGIZMOTYPE
 005a78d0 Techno_GetPos get_pos slot of the "Techno" ADDGIZMOTYPE
+00615580 Door_GetMaxGizmos get_max_gizmos slot of the "Door" ADDGIZMOTYPE
+006155a0 Door_AddGizmos add_gizmos slot of the "Door" ADDGIZMOTYPE
+00615620 Door_GetGizmoName get_gizmo_name slot of the "Door" ADDGIZMOTYPE
+00615640 Door_GetOutput get_output slot of the "Door" ADDGIZMOTYPE
+00615660 Door_GetNumOutputs get_num_outputs slot of the "Door" ADDGIZMOTYPE
+00615670 Door_GetOutputName get_output_name slot of the "Door" ADDGIZMOTYPE
+00615680 Door_Activate activate slot of the "Door" ADDGIZMOTYPE
+006156a0 Door_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Door"

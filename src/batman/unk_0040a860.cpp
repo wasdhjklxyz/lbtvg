@@ -153,25 +153,25 @@ void Attractos_ClearProgress(void *world, void *data) {
 // only the inlined clear's `or eax, -1` is scheduled after `push ebp` in ours
 // (call, open-coded, wrapped and break-loop forms tried).
 void Attractos_StoreProgress(void *context, void *unused, void *data) {
+  WORLDINFO_s *world = (WORLDINFO_s *)context;
   ATTRACTOPROGRESS *progress = (ATTRACTOPROGRESS *)data;
-  if (progress != NULL) {
-    Attractos_ClearProgress(NULL, progress);
-    WORLDINFO_s *world = (WORLDINFO_s *)context;
-    if (world != NULL && world->attractos != NULL) {
-      ATTRACTO *attracto = world->attractos;
-      for (i32 i = 0; i < world->attracto_count; i++, attracto++) {
-        if (i >= 32)
-          break;
-        progress->counts[i] = attracto->collected_count;
-        i32 word = i / 32;
-        u32 mask = 1 << (i & 31);
-        if (!attracto->visible)
-          progress->visible[word] &= ~mask;
-        if (!attracto->active)
-          progress->active[word] &= ~mask;
-        if (attracto->filled)
-          progress->filled[word] |= mask;
-      }
+  if (progress == NULL)
+    return;
+  Attractos_ClearProgress(NULL, progress);
+  if (world != NULL && world->attractos != NULL) {
+    ATTRACTO *attracto = world->attractos;
+    for (i32 i = 0; i < world->attracto_count; i++, attracto++) {
+      if (i >= 32)
+        break;
+      progress->counts[i] = attracto->collected_count;
+      i32 word = i / 32;
+      u32 mask = 1 << (i & 31);
+      if (!attracto->visible)
+        progress->visible[word] &= ~mask;
+      if (!attracto->active)
+        progress->active[word] &= ~mask;
+      if (attracto->filled)
+        progress->filled[word] |= mask;
     }
   }
 }
