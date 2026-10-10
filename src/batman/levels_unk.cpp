@@ -1,9 +1,14 @@
 // batman/, per-level files unknown: small level Init/Reset functions.
 
 #include "../nu2api/nucore/nustring.h"
+#include "../nu2api/numath/numtx_inline_unk.h"
 #include "worldinfo_unk.h"
 #include <stddef.h>
 #include <string.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x00512780
+static void NuMtxCopyInline(f32 *dst, f32 *src);
 
 // GLOBAL: LEGOBATMAN 0x009ca23c
 GIZMOBLOWUP_s *g_unk009ca23c;
@@ -1519,4 +1524,10 @@ void Unk_InlineUser_levels_unk(f32 *v, f32 a, i32 i) {
   v[0] = NuSinApprox(i);
   v[1] = NuCosApprox(i);
   NuVecScaleInline(v + 8, v, a);
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_2_levels_unk(f32 *v, f32 a, i32 i) {
+  NuMtxCopyInline(v + 32, v + 16);
 }

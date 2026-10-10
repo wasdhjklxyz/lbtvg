@@ -5,9 +5,11 @@ exec(open('tools/scratch/hdrstatics_core.py').read())   # defines plan: {file: [
 FN={'sin':('NuSinApprox','static f32 NuSinApprox(i32 angle);'),'cos':('NuCosApprox','static f32 NuCosApprox(i32 angle);'),
     'fabs':('NuFabs','static f32 NuFabs(f32 f);'),'fdiv':('NuFdiv','static f32 NuFdiv(f32 a, f32 b);'),
     'sign':('NuFsign','static f32 NuFsign(f32 f);'),'v4set':('NuVec4Set','static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);'),
-    'v4copy':('NuVec4Copy','static void NuVec4Copy(f32 *dst, f32 *src);'),'vscale':('NuVecScaleInline','static void NuVecScaleInline(f32 *dst, f32 *src, f32 s);')}
+    'v4copy':('NuVec4Copy','static void NuVec4Copy(f32 *dst, f32 *src);'),'vscale':('NuVecScaleInline','static void NuVecScaleInline(f32 *dst, f32 *src, f32 s);'),
+    'mroty':('NuMtxRotateYInline','static void NuMtxRotateYInline(f32 *m, i32 a);'),'mcopy':('NuMtxCopyInline','static void NuMtxCopyInline(f32 *dst, f32 *src);')}
 USE={'sin':'v[0] = NuSinApprox(i);','cos':'v[1] = NuCosApprox(i);','fabs':'v[2] = NuFabs(a);','fdiv':'v[3] = NuFdiv(a, v[4]);',
-     'sign':'v[5] = NuFsign(a);','v4set':'NuVec4Set(v, a, a, a, a);','v4copy':'NuVec4Copy(v + 4, v);','vscale':'NuVecScaleInline(v + 8, v, a);'}
+     'sign':'v[5] = NuFsign(a);','v4set':'NuVec4Set(v, a, a, a, a);','v4copy':'NuVec4Copy(v + 4, v);','vscale':'NuVecScaleInline(v + 8, v, a);',
+     'mroty':'NuMtxRotateYInline(v + 16, i);','mcopy':'NuMtxCopyInline(v + 32, v + 16);'}
 def match(f):
     r=subprocess.run(['python3','tools/match.py',f],capture_output=True,text=True)
     out=re.sub(r'\x1b\[[0-9;]*m','',r.stdout+r.stderr)
@@ -27,11 +29,15 @@ def edit(path,orig,fams):
     pos=incs[-1].end() if incs else 0
     add=''
     if any(n in ('sin','cos') for _,n in fams) and 'nutrig_unk.h' not in s: add+='#include "%s/nutrig_unk.h"\n'%rel
-    if any(n not in ('sin','cos') for _,n in fams): add+='#include "%s/nuinline_unk.h"\n'%rel
+    if any(n not in ('sin','cos','mroty','mcopy') for _,n in fams) and 'nuinline_unk.h' not in s: add+='#include "%s/nuinline_unk.h"\n'%rel
+    if any(n in ('mroty','mcopy') for _,n in fams) and 'numtx_inline_unk.h' not in s: add+='#include "%s/numtx_inline_unk.h"\n'%rel
     block='\n// Header statics: this TU\'s copies (bodies in nuinline_unk.h/nutrig_unk.h).\n'
     for a,n in fams: block+='// FUNCTION: LEGOBATMAN 0x%08x\n%s\n'%(a,FN[n][1])
     s=s[:pos]+add+block+s[pos:]
     stem=re.sub(r'\W','_',os.path.splitext(os.path.basename(path))[0])
+    k=1
+    while 'Unk_InlineUser_%s%s('%('%d_'%k if k>1 else '',stem) in s: k+=1
+    stem=('%d_'%k if k>1 else '')+stem
     s=s.rstrip('\n')+'\n\n// Keeps the header-static copies above alive until their real callers are\n// matched.\nvoid Unk_InlineUser_%s(f32 *v, f32 a, i32 i) {\n'%stem+''.join('  %s\n'%USE[n] for _,n in fams)+'}\n'
     return s
 for path,lst in plan.items():

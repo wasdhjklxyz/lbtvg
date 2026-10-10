@@ -15,7 +15,8 @@ lim=0x73c8fb-va
 F={'sin':('8b44240425ffff00003d00c00000',147),'cos':('050040000050e8',15),'fabs':('8b44240425ffffff7f89442404d9442404c3',18),
    'fdiv':('d9eed9c0d9442404dde1dfe0',54),'sign':('d9eed9442404d8d1dfe0f6c4',40),'v4set':('d9442404d918d9442408d95804d944240cd95808d9442410d9580cc3',28),
    'v4copy':('d900d919d94004d95904d94008d95908d9400cd9590cc3',23),'vscale':('d900d9442404d9c0decad9c9d919',29),
-   'vsub':('d9018b542404d820d91a',29),'vadd':('d9018b542404d800d91a',29)}
+   'vsub':('d9018b542404d820d91a',29),'vadd':('d9018b542404d800d91a',29),
+   'mroty':('83ec188d860040000050e8',205),'mcopy':('d900d919d94004d95904d94008d95908d9400cd9590cd94010d95910',95)}
 def flen(o):
     e=o+1
     while e<lim and not (e%16==0 and d[e-1]==0xcc): e+=1
@@ -35,5 +36,10 @@ for i,(a,n) in enumerate(copies):
     limit=copies[k][0] if k<len(copies) else 0x73c8fb
     j=bisect.bisect_right(keys,a)
     f=ann[keys[j]] if j<len(keys) and keys[j]<limit else None
+    # prefer the file that already holds an annotated copy of this cluster
+    k0=i
+    while k0>0 and copies[k0][0]-copies[k0-1][0]<0x300: k0-=1
+    same=[ann[c] for c,_ in copies[k0:k] if c in ann]
+    if same: f=same[-1] if any(c<a for c,_ in copies[k0:k] if c in ann) else same[0]
     res[f].append((a,n))
 plan={f:l for f,l in res.items() if f}

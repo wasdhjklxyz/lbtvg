@@ -2,8 +2,13 @@
 
 #include "../nu2api/nucore/common.h"
 #include "../nu2api/numath/nuinline_unk.h"
+#include "../nu2api/numath/numtx_inline_unk.h"
 #include "../nu2api/numath/nutrig_unk.h"
 #include <stddef.h>
+
+// Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
+// FUNCTION: LEGOBATMAN 0x005ae0d0
+static void NuMtxCopyInline(f32 *dst, f32 *src);
 
 // Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
 // FUNCTION: LEGOBATMAN 0x005adfa0
@@ -35,4 +40,10 @@ void Unk_InlineUser_qrand_unk(f32 *v, f32 a, i32 i) {
   v[0] = NuSinApprox(i);
   v[1] = NuCosApprox(i);
   NuVec4Set(v, a, a, a, a);
+}
+
+// Keeps the header-static copies above alive until their real callers are
+// matched.
+void Unk_InlineUser_2_qrand_unk(f32 *v, f32 a, i32 i) {
+  NuMtxCopyInline(v + 32, v + 16);
 }

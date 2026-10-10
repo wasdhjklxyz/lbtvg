@@ -2,9 +2,11 @@
 import re,os,sys,subprocess,bisect
 exec(open('tools/scratch/hdrstatics_core.py').read())
 FN={'sin':'static f32 NuSinApprox(i32 angle);','cos':'static f32 NuCosApprox(i32 angle);','fabs':'static f32 NuFabs(f32 f);','fdiv':'static f32 NuFdiv(f32 a, f32 b);',
-    'sign':'static f32 NuFsign(f32 f);','v4set':'static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);','v4copy':'static void NuVec4Copy(f32 *dst, f32 *src);','vscale':'static void NuVecScaleInline(f32 *dst, f32 *src, f32 s);'}
+    'sign':'static f32 NuFsign(f32 f);','v4set':'static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);','v4copy':'static void NuVec4Copy(f32 *dst, f32 *src);','vscale':'static void NuVecScaleInline(f32 *dst, f32 *src, f32 s);',
+    'mroty':'static void NuMtxRotateYInline(f32 *m, i32 a);','mcopy':'static void NuMtxCopyInline(f32 *dst, f32 *src);'}
 USE={'sin':'v[0] = NuSinApprox(i);','cos':'v[1] = NuCosApprox(i);','fabs':'v[2] = NuFabs(a);','fdiv':'v[3] = NuFdiv(a, v[4]);','sign':'v[5] = NuFsign(a);',
-     'v4set':'NuVec4Set(v, a, a, a, a);','v4copy':'NuVec4Copy(v + 4, v);','vscale':'NuVecScaleInline(v + 8, v, a);'}
+     'v4set':'NuVec4Set(v, a, a, a, a);','v4copy':'NuVec4Copy(v + 4, v);','vscale':'NuVecScaleInline(v + 8, v, a);',
+     'mroty':'NuMtxRotateYInline(v + 16, i);','mcopy':'NuMtxCopyInline(v + 32, v + 16);'}
 un=[(a,n) for a,n in copies if a not in ann and n in FN]
 clusters=[];cur=[]
 for a,n in un:
@@ -25,7 +27,7 @@ for cl in clusters:
     rel=os.path.relpath('src/nu2api',d).replace(os.sep,'/')
     def text(fams):
         s='// %s: TU of unknown name, found by its header-static copies (the\n// functions after them are not matched yet).\n\n'%path[4:]
-        s+='#include "%s/numath/nuinline_unk.h"\n#include "%s/numath/nutrig_unk.h"\n\n'%(rel,rel)
+        s+='#include "%s/numath/nuinline_unk.h"\n#include "%s/numath/numtx_inline_unk.h"\n#include "%s/numath/nutrig_unk.h"\n\n'%(rel,rel,rel)
         for a,n in fams: s+='// FUNCTION: LEGOBATMAN 0x%08x\n%s\n'%(a,FN[n])
         s+='\n// Keeps the header-static copies above alive until their real callers are\n// matched.\nvoid Unk_InlineUser_%08x(f32 *v, f32 a, i32 i) {\n'%a0+''.join('  %s\n'%USE[n] for _,n in fams)+'}\n'
         return s
