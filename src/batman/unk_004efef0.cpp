@@ -99,6 +99,14 @@ void Signals_EarlyUpdate(void *world_info, void *unused, f32 dt) {
     world->signals[i].f3d0 = 1.0f;
 }
 
+// FUNCTION: LEGOBATMAN 0x004f1f10
+i32 Signals_GetMaxGizmos(void *world_ptr) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  if (world != NULL)
+    return world->current_level->max_signals;
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x004f1f30
 void Signals_AddGizmos(GIZMOSYS_s *gizmo_sys, i32 type_id, void *world_info,
                        void *unused) {
@@ -142,4 +150,63 @@ void Signals_ClearProgress(void *world, void *progress_data) {
     progress->active_mask = 0xffffffff;
     progress->visible_mask = 0xffffffff;
   }
+}
+
+typedef struct ADDGIZMOTYPE_s {
+  char *name;        // 0x00
+  char *prefix;      // 0x04
+  u16 progress_size; // 0x08
+  void *fns[0x1c];   // 0x0c
+} ADDGIZMOTYPE;
+
+// GLOBAL: LEGOBATMAN 0x00960118
+extern ADDGIZMOTYPE Default_ADDGIZMOTYPE;
+
+void Signals_LateUpdate(void *world, void *unused, f32 dt);
+void Signals_Draw(void *world, void *unused, f32 dt);
+void Signal_SetVisibility(GIZMO *gizmo, i32 visible);
+void Signals_StoreProgress(void *world, void *unused, void *progress);
+void Signals_Reset(void *world, void *unused, void *progress);
+i32 Signals_Load(void *world, void *unused);
+
+// FUNCTION: LEGOBATMAN 0x004f2170
+ADDGIZMOTYPE *Signals_RegisterGizmo(i32 type_id) {
+  // GLOBAL: LEGOBATMAN 0x00943f64
+  static char *name = "Signal";
+  // GLOBAL: LEGOBATMAN 0x009ccdb8
+  static ADDGIZMOTYPE addtype;
+
+  addtype = Default_ADDGIZMOTYPE;
+  addtype.name = name;
+  addtype.prefix = "";
+  addtype.progress_size = sizeof(SIGNALPROGRESS);
+  addtype.fns[0] = (void *)Signals_GetMaxGizmos;
+  addtype.fns[1] = (void *)Signals_AddGizmos;
+  addtype.fns[2] = (void *)Signals_EarlyUpdate;
+  addtype.fns[3] = (void *)Signals_LateUpdate;
+  addtype.fns[4] = (void *)Signals_Draw;
+  addtype.fns[5] = NULL;
+  addtype.fns[6] = (void *)Signal_GetGizmoName;
+  addtype.fns[7] = (void *)Signal_GetOutput;
+  addtype.fns[8] = (void *)Signal_GetOutputName;
+  addtype.fns[9] = (void *)Signal_GetNumOutputs;
+  addtype.fns[10] = (void *)Signal_Activate;
+  addtype.fns[11] = (void *)Signal_ActivateRev;
+  addtype.fns[12] = (void *)Signal_SetVisibility;
+  addtype.fns[13] = NULL;
+  addtype.fns[14] = (void *)Signal_GetPos;
+  addtype.fns[15] = NULL;
+  addtype.fns[16] = NULL;
+  addtype.fns[17] = NULL;
+  addtype.fns[18] = NULL;
+  addtype.fns[19] = (void *)Signals_AllocateProgressData;
+  addtype.fns[20] = (void *)Signals_ClearProgress;
+  addtype.fns[21] = (void *)Signals_StoreProgress;
+  addtype.fns[22] = (void *)Signals_Reset;
+  addtype.fns[23] = (void *)Signals_ReserveBufferSpace;
+  addtype.fns[24] = (void *)Signals_Load;
+  addtype.fns[25] = NULL;
+  addtype.fns[26] = NULL;
+  addtype.fns[27] = NULL;
+  return &addtype;
 }

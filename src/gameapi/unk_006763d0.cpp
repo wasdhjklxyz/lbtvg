@@ -151,3 +151,63 @@ i32 Puzzle_GetVisibility(GIZMO *gizmo) {
     return 1;
   return 0;
 }
+
+typedef struct ADDGIZMOTYPE_s {
+  char *name;        // 0x00
+  char *prefix;      // 0x04
+  u16 progress_size; // 0x08
+  void *fns[0x1c];   // 0x0c
+} ADDGIZMOTYPE;
+
+// GLOBAL: LEGOBATMAN 0x00960118
+extern ADDGIZMOTYPE Default_ADDGIZMOTYPE;
+// GLOBAL: LEGOBATMAN 0x00968a64
+static char *Puzzle_Prefix = "PZL_";
+
+void Puzzles_Draw(void *world, void *unused, f32 dt);
+void Puzzles_Reset(void *world, void *unused, void *progress);
+void *Puzzles_ReserveBufferSpace(void *world);
+i32 Puzzles_Load(void *world, void *unused);
+void Puzzles_X25Unk006763f0(void);
+void Puzzles_PostLoadUnk006789c0(void *world, void *unused);
+
+// GLOBAL: LEGOBATMAN 0x00968a84
+i32 puzzle_gizmotype_id = -1;
+
+// FUNCTION: LEGOBATMAN 0x00678a70
+ADDGIZMOTYPE *Puzzle_RegisterGizmo(i32 type_id) {
+  // GLOBAL: LEGOBATMAN 0x00ad2a78
+  static ADDGIZMOTYPE addtype;
+
+  addtype = Default_ADDGIZMOTYPE;
+  addtype.prefix = Puzzle_Prefix;
+  addtype.progress_size = 0;
+  addtype.fns[2] = NULL;
+  addtype.fns[3] = NULL;
+  addtype.fns[5] = NULL;
+  addtype.fns[11] = NULL;
+  addtype.fns[14] = NULL;
+  addtype.fns[15] = NULL;
+  addtype.fns[27] = NULL;
+  addtype.name = "Puzzle";
+  addtype.fns[0] = (void *)Puzzle_GetMaxGizmos;
+  addtype.fns[1] = (void *)Puzzle_AddGizmos;
+  addtype.fns[4] = (void *)Puzzles_Draw;
+  addtype.fns[6] = (void *)Puzzle_GetGizmoName;
+  addtype.fns[7] = (void *)Puzzle_GetOutput;
+  addtype.fns[8] = (void *)Puzzle_GetOutputName;
+  addtype.fns[9] = (void *)Puzzle_GetNumOutputs;
+  addtype.fns[10] = (void *)Puzzle_Activate;
+  addtype.fns[12] = (void *)Puzzle_SetVisibility;
+  addtype.fns[13] = (void *)Puzzle_GetVisibility;
+  addtype.fns[19] = (void *)Puzzle_AllocateProgress;
+  addtype.fns[20] = (void *)Puzzle_ClearProgress;
+  addtype.fns[21] = (void *)Puzzle_StoreProgress;
+  addtype.fns[22] = (void *)Puzzles_Reset;
+  addtype.fns[23] = (void *)Puzzles_ReserveBufferSpace;
+  addtype.fns[24] = (void *)Puzzles_Load;
+  addtype.fns[25] = (void *)Puzzles_X25Unk006763f0;
+  addtype.fns[26] = (void *)Puzzles_PostLoadUnk006789c0;
+  puzzle_gizmotype_id = type_id;
+  return &addtype;
+}

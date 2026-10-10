@@ -758,6 +758,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004f0540,0010962c,__Z18Signal_ActivateRevP7GIZMO_sii,"Signal_ActivateRev(GIZMO_s*, int, int)",confirmed,0
 004f0630,00109714,__Z13Signal_GetPosP7GIZMO_s,Signal_GetPos(GIZMO_s*),confirmed,0
 004f0d60,00109da8,__Z19Signals_EarlyUpdatePvS_f,"Signals_EarlyUpdate(void*, void*, float)",confirmed,0
+004f1f10,0010ab3a,__Z20Signals_GetMaxGizmosPv,Signals_GetMaxGizmos(void*),confirmed,0
 004f1f30,0010ab56,__Z17Signals_AddGizmosP10GIZMOSYS_siPvS1_,"Signals_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
 004f1fb0,0010abbc,__Z19Signal_GetGizmoNameP7GIZMO_s,Signal_GetGizmoName(GIZMO_s*),confirmed,0
 004f1fd0,0010abd0,__Z16Signal_GetOutputP7GIZMO_sii,"Signal_GetOutput(GIZMO_s*, int, int)",confirmed,0
@@ -765,6 +766,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004f2000,0010abf8,__Z20Signal_GetNumOutputsP7GIZMO_s,Signal_GetNumOutputs(GIZMO_s*),confirmed,0
 004f2010,0010ac02,__Z28Signals_AllocateProgressDataP9variptr_uS0_,"Signals_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
 004f2030,0010ac24,__Z21Signals_ClearProgressPvS_,"Signals_ClearProgress(void*, void*)",confirmed,0
+004f2170,0010ad68,__Z21Signals_RegisterGizmoi,Signals_RegisterGizmo(int),confirmed,0
 004f5440,0010e86a,__Z12LoadPermDataP12bgprocinfo_s,LoadPermData(bgprocinfo_s*),strings,0
 004f5d90,0010d394,__Z13Legal_GetNamePc,Legal_GetName(char*),strings,0
 004f6230,0010d428,__Z9LoadPerm1v,LoadPerm1(),strings,0
@@ -2955,6 +2957,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00678840,00324768,__Z15Puzzle_ActivateP7GIZMO_si,"Puzzle_Activate(GIZMO_s*, int)",confirmed,0
 00678860,00324784,__Z20Puzzle_SetVisibilityP7GIZMO_si,"Puzzle_SetVisibility(GIZMO_s*, int)",confirmed,0
 00678880,003247a2,__Z20Puzzle_GetVisibilityP7GIZMO_s,Puzzle_GetVisibility(GIZMO_s*),confirmed,0
+00678a70,003247c0,__Z20Puzzle_RegisterGizmoi,Puzzle_RegisterGizmo(int),confirmed,0
 00678e00,0034f8ba,__ZN12WorldMapBase19SetAreaOpenCompleteEiii,"WorldMapBase::SetAreaOpenComplete(int, int, int)",confirmed,0
 00678e50,00350a4c,__ZN12WorldMapBase16GetTotalDistanceEii,"WorldMapBase::GetTotalDistance(int, int)",confirmed,0
 00678ef0,0034fab6,__ZN12WorldMapBase15InitializeLevelEP11WORLDINFO_s,WorldMapBase::InitializeLevel(WORLDINFO_s*),strings,0

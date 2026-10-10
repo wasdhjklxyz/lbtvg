@@ -3066,3 +3066,6 @@
 005e5d70 Tubes_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Tube"
 005a7710 Technos_GetMaxGizmos get_max_gizmos slot of the "Techno" ADDGIZMOTYPE
 005a82d0 Technos_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Techno"
+004f1f10 Signals_GetMaxGizmos get_max_gizmos slot of the "Signal" ADDGIZMOTYPE
+004f2170 Signals_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Signal"
+00678a70 Puzzle_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Puzzle", prefix "PZL_"
