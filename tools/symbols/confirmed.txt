@@ -2009,3 +2009,20 @@
 00679d90 WorldMapBase::ZoomFull Mac body (mode 4, 1/rate, copies camera position, GetDefaultCameraPosition); matched
 006795e0 WorldMapBase::GetDefaultCameraPosition called (hidden VuVec return) from ZoomFull as on the Mac
 00678e50 WorldMapBase::GetTotalDistance Mac body (sum of xy distances between path locations, type 2 skipped), called from ToggleInteractive
+007994c0 EdRef::GetMemberObject vtable 0x90af34 slot 0 (RTTI .?AVEdRef@@) + saga EdRef virtual order
+0079d600 EdRef::GetMemberData vtable 0x90af34 slot 1 (RTTI) + saga order; NuMemCpy out of the member
+0079d640 EdRef::SetMemberData vtable 0x90af34 slot 2 (RTTI) + saga order; NuMemCpy into the member
+0079d580 EdRef::GetTypeSize called (type, size) from EdRef::GetMemberData/SetMemberData as in saga
+0058f0b0 EdRefRTL::GetMemberData vtable 0x8681e4 slot 1 (RTTI)
+00589720 EdRefRTL::SetMemberData vtable 0x8681e4 slot 2 (RTTI)
+0058a470 EdRefFog::GetMemberData vtable 0x86835c slot 1 (RTTI)
+0058a5f0 EdRefFog::SetMemberData vtable 0x86835c slot 2 (RTTI)
+0079e2d0 EdRefSpecialObject::GetMemberData vtable 0x90b0c4 slot 1 (RTTI)
+0079e350 EdRefSpecialObject::SetMemberData vtable 0x90b0c4 slot 2 (RTTI)
+007a13e0 EdRefPlaceable::GetMemberData vtable 0x90b23c slot 1 (RTTI)
+007a14c0 EdRefPlaceable::SetMemberData vtable 0x90b23c slot 2 (RTTI)
+0079f590 EdRefSpline::GetMemberData vtable 0x90b24c slot 1 (RTTI)
+0079f650 EdRefSpline::SetMemberData vtable 0x90b24c slot 2 (RTTI)
+0079f720 EdRefKnot::GetMemberData vtable 0x90b25c slot 1 (RTTI)
+0079f850 EdRefKnot::SetMemberData vtable 0x90b25c slot 2 (RTTI)
+0079d510 EdRef::CheckType called first from every EdRef*::Get/SetMemberData as in saga; matched

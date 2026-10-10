@@ -981,7 +981,11 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00584e60,001ee92c,__Z17AddFiniteShotPARTiP7nuvec_si,"AddFiniteShotPART(int, nuvec_s*, int)",calls,1
 00585040,001ee63c,__Z21edpartSetParticlePagei,edpartSetParticlePage(int),confirmed,0
 00585fa0,001ed706,__Z7AddPartP9ADDPART_s,AddPart(ADDPART_s*),calls,1
+00589720,,EdRefRTL::SetMemberData,EdRefRTL::SetMemberData,confirmed,0
+0058a470,,EdRefFog::GetMemberData,EdRefFog::GetMemberData,confirmed,0
+0058a5f0,,EdRefFog::SetMemberData,EdRefFog::SetMemberData,confirmed,0
 0058b230,0022d592,_rtlDynamicFree,_rtlDynamicFree,calls,4
+0058f0b0,,EdRefRTL::GetMemberData,EdRefRTL::GetMemberData,confirmed,0
 0058f8a0,001b572a,__ZN22NuStreamProcessManager21DebugPrintJobStatusesEv,NuStreamProcessManager::DebugPrintJobStatuses(),strings,0
 0058fe00,001dfac2,__ZN22NuStreamProcessManager10InitializeEj,NuStreamProcessManager::Initialize(unsigned int),strings,0
 00590320,001dfc02,__ZN22NuStreamProcessManager21DebugPrintCommandListEv,NuStreamProcessManager::DebugPrintCommandList(),strings,0
@@ -2635,4 +2639,17 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0073ca3b,001911cc,_NuFParDestroy,_NuFParDestroy,gapfill,1
 0073cd6b,00359ff0,___eprintf,___eprintf,gapfill,1
 0075b591,001ad4f6,__ZN7NuMusic11ClassToNameEj,NuMusic::ClassToName(unsigned int),strings,0
+007994c0,,EdRef::GetMemberObject,EdRef::GetMemberObject,confirmed,0
+0079d510,,EdRef::CheckType,EdRef::CheckType,confirmed,0
+0079d580,,EdRef::GetTypeSize,EdRef::GetTypeSize,confirmed,0
+0079d600,,EdRef::GetMemberData,EdRef::GetMemberData,confirmed,0
+0079d640,,EdRef::SetMemberData,EdRef::SetMemberData,confirmed,0
+0079e2d0,,EdRefSpecialObject::GetMemberData,EdRefSpecialObject::GetMemberData,confirmed,0
+0079e350,,EdRefSpecialObject::SetMemberData,EdRefSpecialObject::SetMemberData,confirmed,0
+0079f590,,EdRefSpline::GetMemberData,EdRefSpline::GetMemberData,confirmed,0
+0079f650,,EdRefSpline::SetMemberData,EdRefSpline::SetMemberData,confirmed,0
+0079f720,,EdRefKnot::GetMemberData,EdRefKnot::GetMemberData,confirmed,0
+0079f850,,EdRefKnot::SetMemberData,EdRefKnot::SetMemberData,confirmed,0
+007a13e0,,EdRefPlaceable::GetMemberData,EdRefPlaceable::GetMemberData,confirmed,0
+007a14c0,,EdRefPlaceable::SetMemberData,EdRefPlaceable::SetMemberData,confirmed,0
 007a2310,00047d3c,__Z17EvilSlums_D_ResetP11WORLDINFO_s,EvilSlums_D_Reset(WORLDINFO_s*),strings,0
