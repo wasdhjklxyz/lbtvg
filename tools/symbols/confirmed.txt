@@ -1916,3 +1916,19 @@
 005a5dc0 DrawFadeScreenWipe tail-called from BlackWipe::DrawFade as on the Mac
 005a59b0 DrawStillScreen called with 1 from StillScreenWipe::DrawFade as on the Mac
 005a5510 DrawPauseScreenWipe tail-called from StillScreenWipe::DrawFade as on the Mac
+00671250 StillScreenWipe::InitFade vtable 0x869dc0 slot 2, Mac body (FadeSystem_PlayWipeSfx, NeedScreenGrab, FRAMES_TO_WAIT); matched
+00671350 CrossFade::Init vtable 0x869ddc slot 1 (RTTI); matched
+00671400 CrossFade::UpdateFade vtable 0x869ddc slot 3, Mac body; matched
+006714a0 BlackCrossFade::Init vtable 0x869df8 slot 1 (RTTI); matched
+006714b0 BlackCrossFade::InitFade vtable 0x869df8 slot 2, Mac body; matched
+00671530 BlackCrossFade::UpdateFade vtable 0x869df8 slot 3; matched
+00671600 StillScreen::Init vtable 0x869e30 slot 1 (RTTI); matched
+00671610 StillScreen::InitFade vtable 0x869e30 slot 2, Mac body; matched
+00671680 StillScreen::UpdateFade vtable 0x869e30 slot 3, Mac body; matched
+006716a0 StillScreen::DrawFade vtable 0x869e30 slot 4, Mac body; matched
+00671a10 SpinWipe::Init vtable 0x869e14 slot 1 (RTTI); matched
+00671ad0 SpinWipe::UpdateFade vtable 0x869e14 slot 3; matched
+00671b00 SpinWipe::DrawFade vtable 0x869e14 slot 4, Mac body (DrawSpinScreen / DrawFadeScreenWipe); matched
+00670d30 FadeSystem_PlayWipeSfx called from the InitFade methods as on the Mac
+005a5990 NeedScreenGrab called with 1 from the InitFade methods as on the Mac
+006716d0 DrawSpinScreen called from SpinWipe::DrawFade as on the Mac

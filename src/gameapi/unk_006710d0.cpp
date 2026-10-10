@@ -46,9 +46,46 @@ public:
 class StillScreenWipe : public Fade {
 public:
   virtual void Init(FADEINFO_s *info);
+  virtual void InitFade();
   virtual void UpdateFade();
   virtual void DrawFade();
 };
+
+class CrossFade : public Fade {
+public:
+  virtual void Init(FADEINFO_s *info);
+  virtual void InitFade();
+  virtual void UpdateFade();
+  virtual void DrawFade();
+};
+
+class BlackCrossFade : public Fade {
+public:
+  virtual void Init(FADEINFO_s *info);
+  virtual void InitFade();
+  virtual void UpdateFade();
+  virtual void DrawFade();
+};
+
+class StillScreen : public Fade {
+public:
+  virtual void Init(FADEINFO_s *info);
+  virtual void InitFade();
+  virtual void UpdateFade();
+  virtual void DrawFade();
+};
+
+class SpinWipe : public Fade {
+public:
+  virtual void Init(FADEINFO_s *info);
+  virtual void InitFade();
+  virtual void UpdateFade();
+  virtual void DrawFade();
+};
+
+void FadeSystem_PlayWipeSfx();
+void NeedScreenGrab(i32 a);
+void DrawSpinScreen(i32 a, f32 t);
 
 i32 qrand(void);
 void DrawFadeScreenWipe();
@@ -59,6 +96,10 @@ void DrawPauseScreenWipe();
 extern i32 wait_till_next_frame;
 // GLOBAL: LEGOBATMAN 0x00a97d34
 extern i32 g_unk00a97d34;
+// GLOBAL: LEGOBATMAN 0x00a97da0
+extern i32 g_unk00a97da0;
+// GLOBAL: LEGOBATMAN 0x00968494
+extern i32 FRAMES_TO_WAIT;
 
 // FUNCTION: LEGOBATMAN 0x006710d0
 void Fade::Init(FADEINFO_s *info) { this->info = info; }
@@ -104,6 +145,28 @@ void BlackWipe::DrawFade() { DrawFadeScreenWipe(); }
 // FUNCTION: LEGOBATMAN 0x00671240
 void StillScreenWipe::Init(FADEINFO_s *info) { this->info = info; }
 
+// FUNCTION: LEGOBATMAN 0x00671250
+void StillScreenWipe::InitFade() {
+  i32 old = info->mask;
+  if (info->flags & 1) {
+    info->f4 = 1.0f;
+    info->f8 = -1.3333334f;
+    FadeSystem_PlayWipeSfx();
+  } else {
+    g_unk00a97d34 = 0;
+    info->f4 = 1.0f;
+    info->f8 = 2.0f;
+    if (g_unk00a97da0)
+      NeedScreenGrab(1);
+    else
+      g_unk00a97da0 = 1;
+    wait_till_next_frame = FRAMES_TO_WAIT;
+  }
+  do {
+    info->mask = 1 << (qrand() / 0x4000);
+  } while (info->mask == old);
+}
+
 // FUNCTION: LEGOBATMAN 0x006712f0
 void StillScreenWipe::UpdateFade() {
   if (wait_till_next_frame > 0)
@@ -119,5 +182,104 @@ void StillScreenWipe::DrawFade() {
       DrawStillScreen(1);
     else
       DrawPauseScreenWipe();
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00671350
+void CrossFade::Init(FADEINFO_s *info) { this->info = info; }
+
+// FUNCTION: LEGOBATMAN 0x00671400
+void CrossFade::UpdateFade() {
+  if (wait_till_next_frame > 0)
+    wait_till_next_frame--;
+  if ((info->flags & 2) && wait_till_next_frame == 0)
+    g_unk00a97d34 = 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006714a0
+void BlackCrossFade::Init(FADEINFO_s *info) { this->info = info; }
+
+// FUNCTION: LEGOBATMAN 0x006714b0
+void BlackCrossFade::InitFade() {
+  if (info->flags & 1) {
+    info->f4 = 1.0f;
+    info->f8 = -1.3333334f;
+    FadeSystem_PlayWipeSfx();
+  } else {
+    g_unk00a97d34 = 0;
+    info->f4 = 0.0f;
+    info->f8 = 2.0f;
+    if (g_unk00a97da0)
+      NeedScreenGrab(1);
+    else
+      g_unk00a97da0 = 1;
+    wait_till_next_frame = FRAMES_TO_WAIT;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00671530
+void BlackCrossFade::UpdateFade() {
+  if (wait_till_next_frame > 0)
+    wait_till_next_frame--;
+  if ((info->flags & 2) && wait_till_next_frame == 0)
+    g_unk00a97d34 = 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00671600
+void StillScreen::Init(FADEINFO_s *info) { this->info = info; }
+
+// FUNCTION: LEGOBATMAN 0x00671610
+void StillScreen::InitFade() {
+  i32 old = info->mask;
+  if (info->flags & 1) {
+    info->f4 = 0.0f;
+    info->f8 = 0.0f;
+  } else {
+    info->f4 = 1.0f;
+    info->f8 = 2.0f;
+    NeedScreenGrab(1);
+    wait_till_next_frame = FRAMES_TO_WAIT;
+  }
+  do {
+    info->mask = 1 << (qrand() / 0x4000);
+  } while (info->mask == old);
+}
+
+// FUNCTION: LEGOBATMAN 0x00671680
+void StillScreen::UpdateFade() {
+  if (info->flags & 2)
+    g_unk00a97d34 = 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006716a0
+void StillScreen::DrawFade() {
+  if (wait_till_next_frame == 0) {
+    if (info->flags & 2)
+      DrawStillScreen(1);
+    else
+      DrawPauseScreenWipe();
+  } else {
+    wait_till_next_frame--;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00671a10
+void SpinWipe::Init(FADEINFO_s *info) { this->info = info; }
+
+// FUNCTION: LEGOBATMAN 0x00671ad0
+void SpinWipe::UpdateFade() {
+  if (wait_till_next_frame > 0)
+    wait_till_next_frame--;
+  if ((info->flags & 2) && wait_till_next_frame == 0)
+    g_unk00a97d34 = 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00671b00
+void SpinWipe::DrawFade() {
+  if (wait_till_next_frame == 0) {
+    if (info->flags & 2)
+      DrawSpinScreen(1, info->f4);
+    else
+      DrawFadeScreenWipe();
   }
 }

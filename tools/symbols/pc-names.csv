@@ -1057,6 +1057,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005a3020,002b3704,__Z14ConstantRumbleP12GameObject_sff,"ConstantRumble(GameObject_s*, float, float)",gapfill,5
 005a3940,002b2da8,__Z18GamePad_InputAngleP12GameObject_sP9GAMEPAD_s,"GamePad_InputAngle(GameObject_s*, GAMEPAD_s*)",confirmed,0
 005a5510,0032c5a4,__Z19DrawPauseScreenWipev,DrawPauseScreenWipe(),confirmed,0
+005a5990,0032c104,__Z14NeedScreenGrabi,NeedScreenGrab(int),confirmed,0
 005a59b0,0032c12e,__Z15DrawStillScreeni,DrawStillScreen(int),confirmed,0
 005a5dc0,0032c314,__Z18DrawFadeScreenWipev,DrawFadeScreenWipe(),confirmed,0
 005a6550,0033ca12,__Z29Technos_FindControllingTechnoP12GameObject_s,Technos_FindControllingTechno(GameObject_s*),confirmed,0
@@ -1902,6 +1903,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00665f60,002b9214,__Z26GizFlock_Config_anim_speedP8nufpar_s,GizFlock_Config_anim_speed(nufpar_s*),confirmed,0
 00665f80,002b9242,__Z24GizFlock_ConfigureExtrasP11WORLDINFO_sPKcj,"GizFlock_ConfigureExtras(WORLDINFO_s*, char const*, unsigned int)",strings,0
 0066b400,002bc674,__Z20GizFlock_UpdateBoidsP12sGizFlockSysP9sGizFlock,"GizFlock_UpdateBoids(sGizFlockSys*, sGizFlock*)",strings,0
+00670d30,002a6918,__Z22FadeSystem_PlayWipeSfxv,FadeSystem_PlayWipeSfx(),confirmed,0
 006710d0,002a6d0c,__ZN4Fade4InitEP10FADEINFO_s,Fade::Init(FADEINFO_s*),confirmed,0
 006710e0,002a6d1a,__ZN4Fade8InitFadeEv,Fade::InitFade(),confirmed,0
 00671110,002a6d50,__ZN4Fade10UpdateFadeEv,Fade::UpdateFade(),confirmed,0
@@ -1910,8 +1912,22 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00671220,002a6dd6,__ZN9BlackWipe10UpdateFadeEv,BlackWipe::UpdateFade(),confirmed,0
 00671230,002a6ddc,__ZN9BlackWipe8DrawFadeEv,BlackWipe::DrawFade(),confirmed,0
 00671240,002a6de6,__ZN15StillScreenWipe4InitEP10FADEINFO_s,StillScreenWipe::Init(FADEINFO_s*),confirmed,0
+00671250,002a7118,__ZN15StillScreenWipe8InitFadeEv,StillScreenWipe::InitFade(),confirmed,0
 006712f0,002a6df4,__ZN15StillScreenWipe10UpdateFadeEv,StillScreenWipe::UpdateFade(),confirmed,0
 00671320,002a6e32,__ZN15StillScreenWipe8DrawFadeEv,StillScreenWipe::DrawFade(),confirmed,0
+00671350,002a6e66,__ZN9CrossFade4InitEP10FADEINFO_s,CrossFade::Init(FADEINFO_s*),confirmed,0
+00671400,002a6e74,__ZN9CrossFade10UpdateFadeEv,CrossFade::UpdateFade(),confirmed,0
+006714a0,002a6eb2,__ZN14BlackCrossFade4InitEP10FADEINFO_s,BlackCrossFade::Init(FADEINFO_s*),confirmed,0
+006714b0,002a72a8,__ZN14BlackCrossFade8InitFadeEv,BlackCrossFade::InitFade(),confirmed,0
+00671530,002a6ec0,__ZN14BlackCrossFade10UpdateFadeEv,BlackCrossFade::UpdateFade(),confirmed,0
+00671600,002a6efe,__ZN11StillScreen4InitEP10FADEINFO_s,StillScreen::Init(FADEINFO_s*),confirmed,0
+00671610,002a6f0c,__ZN11StillScreen8InitFadeEv,StillScreen::InitFade(),confirmed,0
+00671680,002a6f96,__ZN11StillScreen10UpdateFadeEv,StillScreen::UpdateFade(),confirmed,0
+006716a0,002a6fba,__ZN11StillScreen8DrawFadeEv,StillScreen::DrawFade(),confirmed,0
+006716d0,002a74f6,__Z14DrawSpinScreenif,"DrawSpinScreen(int, float)",confirmed,0
+00671a10,002a6ff6,__ZN8SpinWipe4InitEP10FADEINFO_s,SpinWipe::Init(FADEINFO_s*),confirmed,0
+00671ad0,002a70da,__ZN8SpinWipe10UpdateFadeEv,SpinWipe::UpdateFade(),confirmed,0
+00671b00,002a78a2,__ZN8SpinWipe8DrawFadeEv,SpinWipe::DrawFade(),confirmed,0
 00672790,00290cb2,__ZN18CustomiserInternal15MenuGetItemNameE12MenuItemType,CustomiserInternal::MenuGetItemName(MenuItemType),strings,0
 00672c60,00290e88,__ZN18CustomiserInternal15FindSetFromNameEPc,CustomiserInternal::FindSetFromName(char*),strings,0
 00673420,002923be,__ZN18CustomiserInternal12MenuDrawItemER5VuVecf12MenuItemTypei,"CustomiserInternal::MenuDrawItem(VuVec&, float, MenuItemType, int)",strings,0
