@@ -36,17 +36,43 @@ struct WMAREA_s {
   i8 b8e; // 0x8e
 };
 
+f32 NuFsqrt(f32 f);
+
+// Mac: class VuVec.
+struct __declspec(align(16)) VuVec {
+  VuVec() {}
+  VuVec(f32 x, f32 y, f32 z) : x(x), y(y), z(z) {}
+  VuVec &operator=(const VuVec &v) {
+    x = v.x;
+    y = v.y;
+    z = v.z;
+    w = v.w;
+    return *this;
+  }
+  VuVec operator-(const VuVec &v) const {
+    return VuVec(x - v.x, y - v.y, z - v.z);
+  }
+  f32 LengthSq() const { return x * x + y * y + z * z; }
+  f32 Length() const { return NuFsqrt(LengthSq()); }
+  f32 x, y, z, w;
+};
+
 // Mac: WorldMapLocation (0x50 bytes, 16 of them in WorldMapInfo).
-struct WMLOCATION_s {
-  u8 pad00[0x20];
+struct WorldMapLocation {
+  WorldMapLocation &operator=(const WorldMapLocation &o);
+
+  VuVec pos;      // 0x00
+  VuVec v10;      // 0x10
   WMAREA_s *area; // 0x20
-  u8 pad24[0x30 - 0x24];
-  i32 open;     // 0x30
-  i32 complete; // 0x34
-  i32 id;       // 0x38
-  f32 scale;    // 0x3c
-  i32 scaling;  // 0x40
-  u8 pad44[0x50 - 0x44];
+  f32 f24;        // 0x24
+  i32 type;       // 0x28, 2 = not on the path
+  i32 i2c;        // 0x2c
+  i32 open;       // 0x30
+  i32 complete;   // 0x34
+  i32 id;         // 0x38
+  f32 scale;      // 0x3c
+  i32 scaling;    // 0x40
+  i32 i44;        // 0x44
 };
 
 struct WMCOLOUR_s {
@@ -73,12 +99,15 @@ public:
   static void parse_worldmap_start(NUFPAR *fp);
   i32 GetLocationId(int id) const;
   i32 GetLocationId(char *name) const;
-  WMLOCATION_s *GetLocation(WMAREA_s const *area);
+  WorldMapLocation *GetLocation(WMAREA_s const *area);
   i32 GetLastCompletedLocationId() const;
   void SetAreaOpenComplete(i32 area_id, i32 open, i32 complete);
   void FadeIn(f32 duration, f32 target);
   void FadeOut(f32 duration);
   void UpdateLocationNodesScale(f32 dt, i32 reset);
+  f32 GetTotalDistance(int from, int to);
+  VuVec GetDefaultCameraPosition() const;
+  void ZoomFull(f32 duration);
   void UpdatePointer(f32 dt);
   void Unk00679170(f32 dt);
   void Unk006792c0(f32 dt);
@@ -101,7 +130,7 @@ public:
   virtual i32 IsCameraTarget() const;
   virtual i32 IsInteractiveMode() const;
 
-  u8 pad004[0x10 - 4];
+  // members start at 0x10: the vfptr is padded to the 16-byte alignment
   char level_name[0x40];      // 0x010
   char transition_name[0x40]; // 0x050
   u8 pad090[0x230 - 0x90];
@@ -116,8 +145,8 @@ public:
   u8 pad34c[0x360 - 0x34c];
   i32 i360; // 0x360, WorldMapInfo starts here
   u8 pad364[0x370 - 0x364];
-  WMLOCATION_s locations[16]; // 0x370
-  i32 location_count;         // 0x870
+  WorldMapLocation locations[16]; // 0x370
+  i32 location_count;             // 0x870
   // 0x874..0x8a8 sit in the WorldMapInfo member at 0x360 (its defaults are
   // set in WorldMapInfo::WorldMapInfo, 0x4f4540).
   f32 map_aspect_ratio;           // 0x874
@@ -134,10 +163,17 @@ public:
   f32 f8b4;      // 0x8b4
   f32 fade_from; // 0x8b8
   f32 alpha;     // 0x8bc
-  u8 pad8c0[0x8f0 - 0x8c0];
+  u8 pad8c0[0x8c4 - 0x8c0];
+  f32 zoom_rate;     // 0x8c4
+  f32 zoom_scale;    // 0x8c8
+  VuVec zoom_from;   // 0x8d0
+  VuVec zoom_to;     // 0x8e0
   f32 fade_target;   // 0x8f0
   f32 fade_duration; // 0x8f4
-  u8 pad8f8[0x958 - 0x8f8];
+  u8 pad8f8[0x910 - 0x8f8];
+  VuVec camera_pos; // 0x910
+  f32 f920;         // 0x920
+  u8 pad924[0x958 - 0x924];
   nugscn_s *scene; // 0x958
   struct {
     i32 a, b, c;
@@ -169,6 +205,22 @@ void WorldMapBase::SetAreaOpenComplete(i32 area_id, i32 open, i32 complete) {
       locations[i].open = open;
     }
   }
+}
+
+// STUB: LEGOBATMAN 0x00678e50
+// only the min/max compare operand order differs (cmp from, to; jl)
+f32 WorldMapBase::GetTotalDistance(int from, int to) {
+  f32 total = 0.0f;
+  int lo = to > from ? from : to;
+  int hi = to < from ? from : to;
+  for (int i = lo; i < hi; i++) {
+    if (locations[i].type != 2) {
+      VuVec d = locations[i + 1].pos - locations[i].pos;
+      d.z = 0.0f;
+      total += d.Length();
+    }
+  }
+  return total;
 }
 
 // FUNCTION: LEGOBATMAN 0x00678fc0
@@ -237,7 +289,7 @@ void WorldMapBase::UpdateLocationNodesScale(f32 dt, i32 reset) {
 }
 
 // FUNCTION: LEGOBATMAN 0x006794c0
-WMLOCATION_s *WorldMapBase::GetLocation(WMAREA_s const *area) {
+WorldMapLocation *WorldMapBase::GetLocation(WMAREA_s const *area) {
   if (area == 0)
     return 0;
   for (u32 i = 0; i < (u32)location_count; i++) {
@@ -375,6 +427,25 @@ void WorldMapBase::parse_mapimageaspectratio(NUFPAR *fp) {
   g_unk00ad2af4->map_aspect_ratio = NuFParGetFloat(fp);
 }
 
+// STUB: LEGOBATMAN 0x00679b60
+// matches, but tools/match.py IDENT cannot parse "operator=": flip to
+// FUNCTION once it does (checked with IDENT patched to accept operator names)
+WorldMapLocation &WorldMapLocation::operator=(const WorldMapLocation &o) {
+  pos = o.pos;
+  v10 = o.v10;
+  area = o.area;
+  f24 = o.f24;
+  type = o.type;
+  i2c = o.i2c;
+  open = o.open;
+  complete = o.complete;
+  id = o.id;
+  scale = o.scale;
+  scaling = o.scaling;
+  i44 = o.i44;
+  return *this;
+}
+
 // FUNCTION: LEGOBATMAN 0x00679be0
 void WorldMapBase::LoadSettings(char *name) {
   NUFPAR *fp = NuFParCreate(name);
@@ -391,6 +462,17 @@ void WorldMapBase::LoadSettings(char *name) {
   }
   NuFParDestroy(fp);
   g_unk00ad2af4 = 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00679d90
+void WorldMapBase::ZoomFull(f32 duration) {
+  fade_duration = duration;
+  fade_mode = 4;
+  zoom_rate = 1.0f / f920;
+  zoom_scale = zoom_interactive_max;
+  fade_target = 0.0f;
+  zoom_from = camera_pos;
+  zoom_to = GetDefaultCameraPosition();
 }
 
 // FUNCTION: LEGOBATMAN 0x0067a360

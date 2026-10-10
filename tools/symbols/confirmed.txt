@@ -2006,3 +2006,6 @@
 005c6c80 InteractiveDisplay::RenderStrobePattern WorldMap::Render call order as on the Mac
 005c69c0 InteractiveDisplay::RenderOverlay tail call of WorldMap::Render; PC order of the four Render* helpers is the Mac order reversed
 00679580 WorldMapBase::GetLocationId (char* overload) matched
+00679d90 WorldMapBase::ZoomFull Mac body (mode 4, 1/rate, copies camera position, GetDefaultCameraPosition); matched
+006795e0 WorldMapBase::GetDefaultCameraPosition called (hidden VuVec return) from ZoomFull as on the Mac
+00678e50 WorldMapBase::GetTotalDistance Mac body (sum of xy distances between path locations, type 2 skipped), called from ToggleInteractive
