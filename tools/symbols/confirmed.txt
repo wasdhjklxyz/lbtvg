@@ -1986,3 +1986,23 @@
 005951d0 NuFmvStream::ReOpen vtable 0x868708 slot 1 (RTTI), Mac body (returns false); matched
 006d2800 NuHeapDestroy tail of NuFmvBuffer::Unlock as on the Mac
 006d8eb0 NuHeapAllocAligned called from NuFmvBuffer::Alloc as on the Mac
+0067a360 WorldMapBase::Update vtable 0x85d7e4 slot 10, Mac call order (InteractiveDisplay::Update, IsInteractiveMode, UpdatePointer, UpdateLocationNodesScale); matched
+006793f0 WorldMapBase::UpdateLocationNodesScale called (dt, 0) from WorldMapBase::Update as on the Mac
+00679e40 WorldMapBase::UpdatePointer first call from WorldMapBase::Update as on the Mac
+0067a3e0 WorldMapBase::ToggleInteractive called (1, 0) from WorldMap::UpdateOverallMode as on the Mac
+00679b60 WorldMapLocation::operator= member-wise copy of 0x48 bytes like the Mac one, called from parse_location
+00518880 WorldMap::ActivateLevel vtable 0x85d874 slot 2, Mac body; matched
+005188b0 WorldMap::DumpLevel vtable 0x85d874 slot 3, Mac body (four NuMtlUpdate, NuGScnRemove); matched
+005189c0 WorldMap::UpdateOverallMode Mac body (GetMenuID, Hub_SetLevelSelectedCutscene, ToggleInteractive, MenuHasParentWithId); matched
+00518aa0 UpdatePlayerCharacterIcons Mac order after UpdateOverallMode, "dummychar" body; matched
+00518b20 WorldMap::IsBeaconVisible Mac order, open/complete test on the location
+0051c580 WorldMap::Render vtable 0x85d874 slot 11, Mac call order; matched
+005c6840 InteractiveDisplay::RenderBackground first call of WorldMap::Render (0x66,0x66,0x66,0) as on the Mac
+00518b70 WorldMap::RenderLocations second call of WorldMap::Render as on the Mac
+0051b900 WorldMap::RenderSelectedLocationInfo WorldMap::Render call order as on the Mac
+005193e0 WorldMap::RenderPointer WorldMap::Render call order as on the Mac
+0051af00 WorldMap::RenderFadeLayer WorldMap::Render call order as on the Mac
+005c6b30 InteractiveDisplay::RenderInterlacePattern WorldMap::Render call order as on the Mac
+005c6c80 InteractiveDisplay::RenderStrobePattern WorldMap::Render call order as on the Mac
+005c69c0 InteractiveDisplay::RenderOverlay tail call of WorldMap::Render; PC order of the four Render* helpers is the Mac order reversed
+00679580 WorldMapBase::GetLocationId (char* overload) matched

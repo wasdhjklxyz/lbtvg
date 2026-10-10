@@ -180,3 +180,5 @@
 0053a580 WavReader::SetOffset: clamp register allocation (eax vs ecx), 4 spellings tried
 0053ae00 ovcb_read: register allocation (data pointer in ebp), 2 forms tried
 0053ae70 ovcb_seek: SEEK_END addition order, 4 spellings tried
+006001c0 InteractiveDisplayManager::UpdateInputs: x87 constant-cache order (0.3 vs -1.0 on top), rest matches
+00518b20 WorldMap::IsBeaconVisible: lea+mov [eax] element load vs folded mov; accessor/2D/ref tried

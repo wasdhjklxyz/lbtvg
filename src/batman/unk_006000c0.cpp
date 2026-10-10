@@ -144,6 +144,91 @@ void InteractiveDisplayManager::DumpLevel(WORLDINFO_s *world) {
     m_oSingleton.displays[i]->DumpLevel(world);
 }
 
+// Raw views for UpdateInputs.
+struct IDMPAD_s {
+  u8 pad00[0x70];
+  u32 held; // 0x70
+  u8 pad74[0x78 - 0x74];
+  u32 pressed; // 0x78
+  u8 pad7c[0x92 - 0x7c];
+  u8 analog_left_x; // 0x92
+  u8 analog_left_y; // 0x93
+};
+
+struct IDMPLAYERPAD_s {
+  IDMPAD_s *pad; // 0x00
+  u8 pad04[0x24 - 4];
+  u8 active; // 0x24
+  u8 pad25[0x60 - 0x25];
+};
+
+struct IDMPLAYER_s {
+  u8 pad000[0x1fc];
+  u8 flags1fc; // 0x1fc
+};
+
+// GLOBAL: LEGOBATMAN 0x00a96388
+extern IDMPLAYERPAD_s g_unk00a96388[2];
+// GLOBAL: LEGOBATMAN 0x00ab3960
+extern IDMPLAYER_s *g_unk00ab3960[2];
+// GLOBAL: LEGOBATMAN 0x0095f740
+extern u32 g_unk0095f740;
+// GLOBAL: LEGOBATMAN 0x0095f744
+extern u32 g_unk0095f744;
+// GLOBAL: LEGOBATMAN 0x0095f748
+extern u32 g_unk0095f748;
+// GLOBAL: LEGOBATMAN 0x0095f74c
+extern u32 g_unk0095f74c;
+// GLOBAL: LEGOBATMAN 0x0095f778
+extern u32 g_unk0095f778;
+// GLOBAL: LEGOBATMAN 0x0095f77c
+extern u32 g_unk0095f77c;
+
+static inline f32 NuFabs(f32 f) {
+  f32 r;
+  *(u32 *)&r = *(u32 *)&f & 0x7fffffff;
+  return r;
+}
+
+// STUB: LEGOBATMAN 0x006001c0
+// x87 constant stack order differs (orig keeps -1.0 on top, fxch to 0.3)
+void InteractiveDisplayManager::UpdateInputs() {
+  f4c = f50 = 0.0f;
+  i54 = i58 = 0;
+  for (i32 i = 0; i < 2; i++) {
+    if (g_unk00a96388[i].active && g_unk00ab3960[i] &&
+        (g_unk00ab3960[i]->flags1fc & 0x80)) {
+      if (g_unk00a96388[i].pad->pressed & g_unk0095f778) {
+        i54 = 1;
+      } else if (g_unk00a96388[i].pad->pressed & g_unk0095f77c) {
+        i58 = 1;
+      } else {
+        f32 x = g_unk00a96388[i].pad->analog_left_x * 0.0078125 - 1.0;
+        f32 y = g_unk00a96388[i].pad->analog_left_y * 0.0078125 - 1.0;
+        y *= -1.0f;
+        if (NuFabs(x) < 0.3f)
+          x = 0.0f;
+        if (NuFabs(y) < 0.3f)
+          y = 0.0f;
+        if (g_unk00a96388[i].pad->held & g_unk0095f740)
+          f50 = f50 + 1.0f;
+        else if (g_unk00a96388[i].pad->held & g_unk0095f744)
+          f50 = f50 - 1.0f;
+        else
+          f50 = y + f50;
+        if (g_unk00a96388[i].pad->held & g_unk0095f748)
+          f4c = f4c - 1.0f;
+        else if (g_unk00a96388[i].pad->held & g_unk0095f74c)
+          f4c = f4c + 1.0f;
+        else
+          f4c = f4c + x;
+      }
+      if (i54 || i58 || f4c != 0.0f || f50 != 0.0f)
+        f48 = time;
+    }
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x00600370
 void InteractiveDisplayManager::UpdateInternal(f32 dt) {
   if (Paused == 0) {

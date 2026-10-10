@@ -23,6 +23,7 @@ void Unk00678b90(char *name); // empty in the release build
 
 struct WORLDINFO_s;
 struct nugscn_s;
+union variptr_u;
 
 // Raw view of AREADATA_s.
 struct WMAREA_s {
@@ -43,7 +44,9 @@ struct WMLOCATION_s {
   i32 open;     // 0x30
   i32 complete; // 0x34
   i32 id;       // 0x38
-  u8 pad3c[0x50 - 0x3c];
+  f32 scale;    // 0x3c
+  i32 scaling;  // 0x40
+  u8 pad44[0x50 - 0x44];
 };
 
 struct WMCOLOUR_s {
@@ -68,15 +71,36 @@ public:
   static void parse_mapimageaspectratio(NUFPAR *fp);
   void LoadSettings(char *name);
   static void parse_worldmap_start(NUFPAR *fp);
-  void DumpLevel(WORLDINFO_s *world);
-  i32 GetLocationId(i32 id) const;
+  i32 GetLocationId(int id) const;
+  i32 GetLocationId(char *name) const;
   WMLOCATION_s *GetLocation(WMAREA_s const *area);
   i32 GetLastCompletedLocationId() const;
   void SetAreaOpenComplete(i32 area_id, i32 open, i32 complete);
   void FadeIn(f32 duration, f32 target);
   void FadeOut(f32 duration);
+  void UpdateLocationNodesScale(f32 dt, i32 reset);
+  void UpdatePointer(f32 dt);
+  void Unk00679170(f32 dt);
+  void Unk006792c0(f32 dt);
+  // Slots 0..16 as in InteractiveDisplay (src/batman/unk_006000c0.cpp).
+  virtual void InitializePerm(char *name, variptr_u *buf, variptr_u *end);
+  virtual void InitializeLevel(WORLDINFO_s *world);
+  virtual void ActivateLevel(WORLDINFO_s *world);
+  virtual void DumpLevel(WORLDINFO_s *world);
+  virtual i32 GetDoesLevelLoadRender() const;
+  virtual const char *GetClassNameA() const;
+  virtual i32 GetUsesStrobePattern() const;
+  virtual i32 GetUsesWhiteNoise() const;
+  virtual i32 GetUsesInterlacePattern() const;
+  virtual i32 GetUsesOverlayTexture() const;
+  virtual void Update(f32 dt);
+  virtual void Render();
+  virtual i32 ShouldUpdate() const;
+  virtual i32 IsVisible() const;
+  virtual i32 RenderWhenPaused() const;
+  virtual i32 IsCameraTarget() const;
+  virtual i32 IsInteractiveMode() const;
 
-  void *vtable;
   u8 pad004[0x10 - 4];
   char level_name[0x40];      // 0x010
   char transition_name[0x40]; // 0x050
@@ -85,7 +109,8 @@ public:
   u8 pad234[0x23c - 0x234];
   char map_name[0x40];     // 0x23c
   char overlay_name[0x40]; // 0x27c
-  u8 pad2bc[0x344 - 0x2bc];
+  u8 pad2bc[0x340 - 0x2bc];
+  i32 active;     // 0x340
   i32 episode_id; // 0x344
   i32 mode;       // 0x348, 1 = interactive, 2 = playback
   u8 pad34c[0x360 - 0x34c];
@@ -125,10 +150,13 @@ extern WorldMapBase *g_unk00ad2af4; // the world map being parsed
 extern u8 g_unk00968b38[]; // WorldMapBase keyword table
 // GLOBAL: LEGOBATMAN 0x009c5870
 extern i32 g_unk009c5870;
+// GLOBAL: LEGOBATMAN 0x00ab093c
+extern i32 Paused;
 
 class InteractiveDisplay {
 public:
   void DumpLevel(WORLDINFO_s *world);
+  void Update(f32 dt);
 };
 
 void NuGScnRemove(nugscn_s *scene);
@@ -190,6 +218,24 @@ i32 IsBonusArea(WMAREA_s *area) {
   return area->b8e < 0;
 }
 
+static inline f32 WMMin(f32 a, f32 b) { return a > b ? b : a; }
+static inline f32 WMMax(f32 a, f32 b) { return a < b ? b : a; }
+
+// STUB: LEGOBATMAN 0x006793f0
+// orig keeps separate x87 copies of the 1.0/0.0 clamp constants; ours merges
+void WorldMapBase::UpdateLocationNodesScale(f32 dt, i32 reset) {
+  for (i32 i = 0; i < location_count; i++) {
+    if (reset) {
+      locations[i].scale = 0.0f;
+      locations[i].scaling = 0;
+    } else if (locations[i].scaling != 0) {
+      locations[i].scale += dt / 0.075f;
+      locations[i].scale = WMMin(locations[i].scale, 1.0f);
+      locations[i].scale = WMMax(locations[i].scale, 0.0f);
+    }
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x006794c0
 WMLOCATION_s *WorldMapBase::GetLocation(WMAREA_s const *area) {
   if (area == 0)
@@ -202,12 +248,21 @@ WMLOCATION_s *WorldMapBase::GetLocation(WMAREA_s const *area) {
 }
 
 // FUNCTION: LEGOBATMAN 0x00679540
-i32 WorldMapBase::GetLocationId(i32 id) const {
+i32 WorldMapBase::GetLocationId(int id) const {
   for (i32 i = 0; i < location_count; i++) {
     if (locations[i].id == id)
       return i;
   }
   return i360;
+}
+
+// FUNCTION: LEGOBATMAN 0x00679580
+i32 WorldMapBase::GetLocationId(char *name) const {
+  for (i32 i = 0; i < location_count; i++) {
+    if (locations[i].area != 0 && NuStrICmp(name, locations[i].area->name) == 0)
+      return i;
+  }
+  return -1;
 }
 
 // FUNCTION: LEGOBATMAN 0x006797c0
@@ -336,4 +391,17 @@ void WorldMapBase::LoadSettings(char *name) {
   }
   NuFParDestroy(fp);
   g_unk00ad2af4 = 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x0067a360
+void WorldMapBase::Update(f32 dt) {
+  if (active == 0)
+    return;
+  ((InteractiveDisplay *)this)->Update(dt);
+  if (Paused && !IsInteractiveMode())
+    dt = 0.0f;
+  UpdatePointer(dt);
+  UpdateLocationNodesScale(dt, 0);
+  Unk00679170(dt);
+  Unk006792c0(dt);
 }

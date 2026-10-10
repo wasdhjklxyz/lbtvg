@@ -774,12 +774,21 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005165c0,001061ce,__ZN12ShopComputer17parse_villainmodeEP8nufpar_s,ShopComputer::parse_villainmode(nufpar_s*),confirmed,0
 005165e0,001061e2,__ZN12ShopComputer12LoadSettingsEPc,ShopComputer::LoadSettings(char*),confirmed,0
 005166a0,0010624c,__ZN12ShopComputer14InitializePermEPcP9variptr_uS2_,"ShopComputer::InitializePerm(char*, variptr_u*, variptr_u*)",strings,0
+00518880,00117bf8,__ZN8WorldMap13ActivateLevelEP11WORLDINFO_s,WorldMap::ActivateLevel(WORLDINFO_s*),confirmed,0
+005188b0,00117c28,__ZN8WorldMap9DumpLevelEP11WORLDINFO_s,WorldMap::DumpLevel(WORLDINFO_s*),confirmed,0
+005189c0,001175e0,__ZN8WorldMap17UpdateOverallModeEv,WorldMap::UpdateOverallMode(),confirmed,0
+00518aa0,001176ba,__Z26UpdatePlayerCharacterIconsv,UpdatePlayerCharacterIcons(),confirmed,0
+00518b20,00117d1c,__ZNK8WorldMap15IsBeaconVisibleEi,WorldMap::IsBeaconVisible(int) const,confirmed,0
+00518b70,00117f18,__ZN8WorldMap15RenderLocationsEv,WorldMap::RenderLocations(),confirmed,0
 00519370,00117740,__ZNK8WorldMap21GetPointerSpecialNameEP11WORLDINFO_si,"WorldMap::GetPointerSpecialName(WORLDINFO_s*, int) const",confirmed,0
+005193e0,0011a45e,__ZN8WorldMap13RenderPointerEv,WorldMap::RenderPointer(),confirmed,0
 00519f60,0011785e,__ZN8WorldMap18RenderTrueHeroInfoERK5VuVeciif,"WorldMap::RenderTrueHeroInfo(VuVec const&, int, int, float)",order,1
 0051a0e0,00117920,__ZN8WorldMap18RenderRedBrickInfoERK5VuVecif,"WorldMap::RenderRedBrickInfo(VuVec const&, int, float)",order,1
-0051ad50,00117c28,__ZN8WorldMap9DumpLevelEP11WORLDINFO_s,WorldMap::DumpLevel(WORLDINFO_s*),order,1
+0051af00,00118504,__ZN8WorldMap15RenderFadeLayerEv,WorldMap::RenderFadeLayer(),confirmed,0
 0051b0e0,00117d5c,__ZN8WorldMap14InitializePermEPcP9variptr_uS2_,"WorldMap::InitializePerm(char*, variptr_u*, variptr_u*)",strings,0
 0051b2b0,001179dc,__ZN8WorldMap15InitializeLevelEP11WORLDINFO_s,WorldMap::InitializeLevel(WORLDINFO_s*),strings,0
+0051b900,00119514,__ZN8WorldMap26RenderSelectedLocationInfoEv,WorldMap::RenderSelectedLocationInfo(),confirmed,0
+0051c580,0011af0c,__ZN8WorldMap6RenderEv,WorldMap::Render(),confirmed,0
 0051cda0,001d7bda,__ZN15InputRemapClass19DebugGenMappingTextEPcP19KNOWNJOYPADMAPPINGS,"InputRemapClass::DebugGenMappingText(char*, KNOWNJOYPADMAPPINGS*)",strings,0
 0051f540,001d9160,__Z27PcInput_GetCtrlStringPlayerv,PcInput_GetCtrlStringPlayer(),calls,1
 0051ffc0,001d8182,__ZN15InputRemapClass22DebugSaveMappingAsTextEPcP19KNOWNJOYPADMAPPINGS,"InputRemapClass::DebugSaveMappingAsText(char*, KNOWNJOYPADMAPPINGS*)",strings,0
@@ -1173,6 +1182,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005c5df0,002eccba,__ZNK18InteractiveDisplay16GetFrameMaterialEP11WORLDINFO_si,"InteractiveDisplay::GetFrameMaterial(WORLDINFO_s*, int) const",confirmed,0
 005c64e0,002ecf4c,__ZNK18InteractiveDisplay9IsVisibleEv,InteractiveDisplay::IsVisible() const,confirmed,0
 005c65f0,002ecd10,__ZN18InteractiveDisplay16UpdateWhiteNoiseEf,InteractiveDisplay::UpdateWhiteNoise(float),confirmed,0
+005c6840,002f0348,__ZN18InteractiveDisplay16RenderBackgroundEhhhP7numtl_s,"InteractiveDisplay::RenderBackground(unsigned char, unsigned char, unsigned char, numtl_s*)",confirmed,0
+005c69c0,002f0240,__ZN18InteractiveDisplay13RenderOverlayEv,InteractiveDisplay::RenderOverlay(),confirmed,0
+005c6b30,002f013e,__ZN18InteractiveDisplay22RenderInterlacePatternEv,InteractiveDisplay::RenderInterlacePattern(),confirmed,0
+005c6c80,002effda,__ZN18InteractiveDisplay19RenderStrobePatternEv,InteractiveDisplay::RenderStrobePattern(),confirmed,0
 005c6de0,002ecd8a,__ZN18InteractiveDisplay21UpdateBackgroundAlphaEf,InteractiveDisplay::UpdateBackgroundAlpha(float),confirmed,0
 005c71d0,002ed046,__ZN18InteractiveDisplay14InitializePermEPcP9variptr_uS2_,"InteractiveDisplay::InitializePerm(char*, variptr_u*, variptr_u*)",confirmed,0
 005c7300,002ecd9c,__ZN18InteractiveDisplay15InitializeLevelEP11WORLDINFO_s,InteractiveDisplay::InitializeLevel(WORLDINFO_s*),gapfill,1
@@ -1992,6 +2005,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00678fc0,0034f224,__ZN12WorldMapBase9DumpLevelEP11WORLDINFO_s,WorldMapBase::DumpLevel(WORLDINFO_s*),confirmed,0
 006790c0,0034f298,__ZN12WorldMapBase6FadeInEff,"WorldMapBase::FadeIn(float, float)",confirmed,0
 00679110,0034f2f2,__ZN12WorldMapBase7FadeOutEf,WorldMapBase::FadeOut(float),confirmed,0
+006793f0,0034f83a,__ZN12WorldMapBase24UpdateLocationNodesScaleEfi,"WorldMapBase::UpdateLocationNodesScale(float, int)",confirmed,0
 006794c0,0034f900,__ZN12WorldMapBase11GetLocationEPK10AREADATA_s,WorldMapBase::GetLocation(AREADATA_s const*),confirmed,0
 00679510,0034f350,__Z11IsBonusAreaP10AREADATA_s,IsBonusArea(AREADATA_s*),confirmed,0
 00679580,0034f938,__ZNK12WorldMapBase13GetLocationIdEPc,WorldMapBase::GetLocationId(char*) const,confirmed,0
@@ -2011,8 +2025,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00679ad0,0034f6f4,__ZN12WorldMapBase15parse_episodeidEP8nufpar_s,WorldMapBase::parse_episodeid(nufpar_s*),confirmed,0
 00679af0,0034f726,__ZN12WorldMapBase23parse_specialobjectnameEP8nufpar_s,WorldMapBase::parse_specialobjectname(nufpar_s*),confirmed,0
 00679b40,0034f784,__ZN12WorldMapBase25parse_mapimageaspectratioEP8nufpar_s,WorldMapBase::parse_mapimageaspectratio(nufpar_s*),confirmed,0
+00679b60,00350dfa,__ZN16WorldMapLocationaSERKS_,WorldMapLocation::operator=(WorldMapLocation const&),confirmed,0
 00679be0,0034f7b6,__ZN12WorldMapBase12LoadSettingsEPc,WorldMapBase::LoadSettings(char*),confirmed,0
 00679ca0,0034f0e4,__ZN12WorldMapBase14InitializePermEPcP9variptr_uS2_,"WorldMapBase::InitializePerm(char*, variptr_u*, variptr_u*)",gapfill,1
+00679e40,00350342,__ZN12WorldMapBase13UpdatePointerEf,WorldMapBase::UpdatePointer(float),confirmed,0
+0067a360,003509b4,__ZN12WorldMapBase6UpdateEf,WorldMapBase::Update(float),confirmed,0
+0067a3e0,00350b36,__ZN12WorldMapBase17ToggleInteractiveEii,"WorldMapBase::ToggleInteractive(int, int)",confirmed,0
 0067a590,0035009c,__ZN12WorldMapBase14parse_locationEP8nufpar_s,WorldMapBase::parse_location(nufpar_s*),strings,0
 0067a810,002a29e6,__ZN22DynamicMaterialManager12StringToHashEPKc,DynamicMaterialManager::StringToHash(char const*),confirmed,0
 0067a840,002a2a0a,__ZN22DynamicMaterialManager17IsDynamicMaterialEP7numtl_s,DynamicMaterialManager::IsDynamicMaterial(numtl_s*),confirmed,0
