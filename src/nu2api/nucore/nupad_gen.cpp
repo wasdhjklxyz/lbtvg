@@ -1258,6 +1258,35 @@ __int64 NuFileSeek(int file, __int64 offset, int whence) {
   return info->pos;
 }
 
+void NuPSFileInitDevices(int device_id, int reboot_iop, int eject);
+extern "C" int NuThreadCreateCriticalSection(void);
+// GLOBAL: LEGOBATMAN 0x00ad7640
+int file_criticalsection;
+// GLOBAL: LEGOBATMAN 0x00b00854
+void *g_unk00b00854;
+// GLOBAL: LEGOBATMAN 0x00af90b4
+void *g_unk00af90b4;
+// GLOBAL: LEGOBATMAN 0x00ad7638
+__int64 unpack_file_pos;
+
+static void NuDatFileDecodeInit(void) {
+  g_unk00b00854 = 0;
+  g_unk00af90b4 = 0;
+  unpack_file_pos = -1;
+}
+
+// STUB: LEGOBATMAN 0x006dca60
+// Store scheduling: ours writes unpack_file_pos (-1) before the two NULLs.
+int NuFileInitEx(int device_id, int reboot_iop, int eject) {
+  NuPSFileInitDevices(device_id, reboot_iop, eject);
+  memset(g_nuFileUnk0afa0a8, 0, 0x190);
+  memset(g_nuFileUnk0ae3f80, 0, 0x3c0);
+  file_criticalsection = NuThreadCreateCriticalSection();
+  NuFileExtInit();
+  NuDatFileDecodeInit();
+  return device_id;
+}
+
 // FUNCTION: LEGOBATMAN 0x006dcb00
 void NuFileClose(int file) {
   FILEINFO *info;

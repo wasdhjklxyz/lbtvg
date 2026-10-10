@@ -3402,3 +3402,4 @@
 006dd670 decode saga implode.cpp static (LZ copy loop, buf in edi)
 006ddd70 ExplodeBufferNoHeader saga implode.cpp body (decode_start and HufDecodeStart inlined)
 006de7a0 ExplodeBuffer saga implode.cpp body (LZ2K header, then ExplodeBufferNoHeader)
+006dca60 NuFileInitEx saga nufile.cpp body (NuFileExtInit and NuDatFileDecodeInit inlined)

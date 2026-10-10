@@ -3654,6 +3654,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006dc4f0,0018d9fe,_NuStrLwr,_NuStrLwr,gapfill,1
 006dc540,0018c8c2,_NuHexStringToI,_NuHexStringToI,confirmed,0
 006dc720,0018bf90,_NuStringTableGetByName,_NuStringTableGetByName,confirmed,0
+006dca60,0018b886,_NuFileInitEx,_NuFileInitEx,confirmed,0
 006dcb00,001910ea,_NuFileClose,_NuFileClose,confirmed,0
 006dd060,0018ff0a,_NuFParGetInt,_NuFParGetInt,confirmed,0
 006dd2d0,0018c2d6,_NuFParInterpretWord,_NuFParInterpretWord,gapfill,1
