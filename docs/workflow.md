@@ -530,3 +530,19 @@ enough matched code for the percentage to mean something.
 - `make new FUNC=0x... NAME=SagaName` uses that name when the address has no
   pairing yet; `tools/scratch/bytesearch.py` searches `.text` for a byte
   pattern.
+- **A field reloaded right after a store to it** means an opaque call (e.g.
+  `memset`) came between.
+- **A search loop VC8 rotates** (header duplicated) matches as
+  `do { ... } while (loc != NULL)`.
+- **Locals split into an inner block can share a stack slot** (NuFrameEnd).
+- **A `1` for the return value sitting in eax early**: give every
+  `return 1` exit one tail (wrap the body in `if (first_time) {}`).
+- **Batman's AIPATHINFO is 0x1c bytes, not saga's 0x18**: every
+  `AISCRIPTPROCESS_s` field after `path_info` is 4 bytes later than saga's
+  names (workarounds: `timer_a0`, `AIPATHINFO1C`). Fix the struct properly.
+- **nuapi is one `NUAPI` struct** (`nu2api/nucore/nuapi_unk.h`); Batman's
+  layout differs from saga's (`time` 0x28, `time2` 0x38, `frame_count`
+  0x44, `NUWIND *` 0x84).
+- **GetNamedGameObject 0x44c930 is global** (Mac says static): the 0x45xxxx
+  actions call it, the 0x467f50+ actions inline a copy
+  (`GetNamedGameObjectInl`).
