@@ -39,16 +39,32 @@ struct nuhspecial_s {
 typedef struct PUSHBLOCK_s {
   u8 pad0[0x24];
   nuhspecial_s special; // 0x24
-  u8 pad30[0x44 - 0x30];
+  u8 pad30[0x40 - 0x30];
+  f32 f40;         // 0x40
   char name[0x10]; // 0x44
   u8 pad54[0x5c - 0x54];
   nuhspecial_s parts[1]; // 0x5c, num_parts of them
-  u8 pad68[0xe4 - 0x68];
+  u8 pad68[0xe0 - 0x68];
+  f32 fe0; // 0xe0
   u32 flags_lo : 18;
   u32 visible : 1; // 0xe4 bit 18
-  u32 flags_mid : 5;
+  u32 b19 : 1;
+  u32 b20 : 1;
+  u32 b21 : 1;
+  u32 b22 : 1;
+  u32 b23 : 1;
   u32 active : 1; // 0xe4 bit 24
-  u8 pade8[0xec - 0xe8];
+  u32 b25 : 1;
+  u32 b26 : 1;
+  u32 b27 : 1;
+  u32 b28 : 1;
+  u32 b29 : 1;
+  u32 b30 : 1;
+  u32 b31 : 1;
+  u32 c0 : 1; // 0xe8
+  u32 c1 : 1;
+  u32 c2 : 1;
+  u32 c3 : 1;
   u8 complete;    // 0xec, bit n = target n reached
   u8 num_parts;   // 0xed
   u8 num_outputs; // 0xee
@@ -232,7 +248,125 @@ void PushBlocks_ClearProgress(void *world, void *progress_ptr) {
 
 void PushBlocks_StoreProgress(void *world, void *unused, void *progress);
 void PushBlock_BoltHitPlat(void);
-i32 PushBlocks_Load(void *world, void *unused);
+// GLOBAL: LEGOBATMAN 0x00963070
+extern i32 g_unk00963070; // pushblock file version
+
+i32 EdFileReadInt();
+char EdFileReadChar();
+f32 EdFileReadFloat();
+void EdFileRead(void *buf, i32 len);
+char *NuSpecialGetName(nuhspecial_s *sp);
+int NuStrCpy(char *dst, const char *src);
+i32 Unk_FindSpecial005bd230(nugscn_s *scene, nuhspecial_s *out, char *name,
+                            i32 a, GIZMOSYS_s *gizmo_sys, char *type_name,
+                            char *gizmo_name);
+
+// STUB: LEGOBATMAN 0x0060bfa0
+// body matches; register choice differs (orig world in ebx, never spilled;
+// ours world in ebp spilled to the stack, name pointer in ebx).
+i32 PushBlocks_Load(void *world_ptr, void *unused) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  char name[0x100];
+  i32 i = 0;
+  i32 count = 0;
+  if (world->pushblock_count == 0) {
+    g_unk00963070 = EdFileReadInt();
+    world->pushblock_count = EdFileReadInt();
+    for (i = 0; i < world->pushblock_count; i++) {
+      PUSHBLOCK *pb = &world->pushblocks[count];
+      i32 failed = 0;
+      memset(name, 0, sizeof(name));
+      EdFileRead(name, EdFileReadChar());
+      if (!Unk_FindSpecial005bd230(world->scn140, &pb->special, name, 1,
+                                   world->gizmoSys2b0c, "PushBlock", pb->name))
+        failed = 1;
+      else
+        NuStrCpy(pb->name, NuSpecialGetName(&pb->special));
+      if (g_unk00963070 >= 8) {
+        memset(name, 0, sizeof(name));
+        EdFileRead(name, EdFileReadChar());
+        NuStrCpy(pb->name, name);
+      }
+      pb->f40 = EdFileReadFloat();
+      pb->b26 = 0;
+      if (EdFileReadChar())
+        pb->b26 = 1;
+      pb->b27 = 0;
+      if (EdFileReadChar())
+        pb->b27 = 1;
+      pb->b20 = 0;
+      if (EdFileReadChar())
+        pb->b20 = 1;
+      pb->b21 = 0;
+      if (EdFileReadChar())
+        pb->b21 = 1;
+      if (g_unk00963070 >= 4) {
+        pb->b29 = 0;
+        if (EdFileReadChar())
+          pb->b29 = 1;
+        pb->b30 = 0;
+        if (EdFileReadChar())
+          pb->b30 = 1;
+      }
+      if (g_unk00963070 >= 5) {
+        pb->b22 = 0;
+        if (EdFileReadChar())
+          pb->b22 = 1;
+        pb->b23 = 0;
+        if (EdFileReadChar())
+          pb->b23 = 1;
+      }
+      pb->num_parts = 0;
+      if (g_unk00963070 >= 3) {
+        pb->num_parts = EdFileReadChar();
+        for (i32 j = 0; j < pb->num_parts; j++) {
+          memset(name, 0, sizeof(name));
+          EdFileRead(name, EdFileReadChar());
+          name[0x24] = 0;
+          if (!Unk_FindSpecial005bd230(world->scn140, &pb->parts[j], name, 1,
+                                       world->gizmoSys2b0c,
+                                       "PushBlockLinkObject", pb->name))
+            pb->num_parts--;
+        }
+      }
+      pb->b31 = 0;
+      if (g_unk00963070 >= 6) {
+        if (EdFileReadChar())
+          pb->b31 = 1;
+        pb->fe0 = EdFileReadFloat();
+      } else {
+        pb->fe0 = 1.0f;
+      }
+      if (g_unk00963070 >= 7) {
+        pb->c0 = 0;
+        if (EdFileReadChar())
+          pb->c0 = 1;
+        pb->c1 = 0;
+        if (EdFileReadChar())
+          pb->c1 = 1;
+        pb->c2 = 0;
+        if (EdFileReadChar())
+          pb->c2 = 1;
+        pb->c3 = 0;
+        if (EdFileReadChar())
+          pb->c3 = 1;
+      } else {
+        pb->c0 = 0;
+        pb->c1 = 0;
+        pb->c2 = 0;
+        pb->c3 = 1;
+      }
+      if (!failed) {
+        pb->active = 1;
+        count++;
+      }
+    }
+    world->pushblock_count = count;
+    return 1;
+  }
+  return 0;
+}
+
 void PushBlocks_PostLoad(void *world, void *unused);
 
 // GLOBAL: LEGOBATMAN 0x00aca758

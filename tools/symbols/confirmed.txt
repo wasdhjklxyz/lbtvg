@@ -3293,3 +3293,4 @@
 004f0100 Signals_Load Signals_RegisterGizmo load slot
 0065fb80 GizTurret_ReadAnimSetData passed by GizTurrets_Load to the anim-set reader; Mac order puts it right before GizTurrets_Load
 0065fbc0 GizTurrets_Load GizTurrets_RegisterGizmo load slot
+0060bfa0 PushBlocks_Load PushBlocks_RegisterGizmo load slot

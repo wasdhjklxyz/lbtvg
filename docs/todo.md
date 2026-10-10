@@ -178,6 +178,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [PlayerItemType](#playeritemtype) | 1 | 0 |
 | [PlayerItemTypeSys](#playeritemtypesys) | 2 | 0 |
 | [PreInterpretor](#preinterpretor) | 7 | 0 |
+| [PushBlocks](#pushblocks) | 1 | 0 |
 | [RailSys](#railsys) | 1 | 0 |
 | [ScoreMultiplier](#scoremultiplier) | 2 | 0 |
 | [ShaderBuilderGen](#shaderbuildergen) | 2 | 0 |
@@ -1151,6 +1152,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `00698550` 431 B `PreInterpretor::PreInterpretor(VirtualStackAllocator&, SFShaderLang)`
 - [ ] `00698c30` 798 B `PreInterpretor::printUniforms(StringBuffer&)`
 - [ ] `006990b0` 1616 B `PreInterpretor::printVaryings(StringBuffer&)`
+
+## PushBlocks
+
+- [ ] `0060bfa0` 967 B `PushBlocks_Load`  **stub**
 
 ## RailSys
 
