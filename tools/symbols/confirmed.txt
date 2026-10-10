@@ -1893,3 +1893,6 @@
 00679af0 WorldMapBase::parse_specialobjectname Mac order; matched
 00679b40 WorldMapBase::parse_mapimageaspectratio Mac order; matched
 00679be0 WorldMapBase::LoadSettings vtable 0x85d7e4 slot 18; Mac body; matched
+00678fc0 WorldMapBase::DumpLevel vtable 0x85d7e4 slot 3; Mac body (base DumpLevel, NuGScnRemove, clears 0x958..0x964); matched
+00679540 WorldMapBase::GetLocationId(int) Mac body (location ids at 0x3a8 stride 0x50, count 0x870); matched
+00679810 WorldMapBase::parse_worldmap_start Mac body (0x360 = 0x870 = 0, map name ""); matched

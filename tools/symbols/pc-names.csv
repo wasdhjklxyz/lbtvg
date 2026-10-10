@@ -1908,6 +1908,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006754c0,00281f7e,__Z14CharPivot_InitPcP9variptr_uS0_,"CharPivot_Init(char*, variptr_u*, variptr_u)",strings,0
 006763f0,00324088,__Z14Puzzle_PreLoadPvS_,"Puzzle_PreLoad(void*, void*)",strings,0
 00678ef0,0034fab6,__ZN12WorldMapBase15InitializeLevelEP11WORLDINFO_s,WorldMapBase::InitializeLevel(WORLDINFO_s*),strings,0
+00678fc0,0034f224,__ZN12WorldMapBase9DumpLevelEP11WORLDINFO_s,WorldMapBase::DumpLevel(WORLDINFO_s*),confirmed,0
+00679540,,WorldMapBase::GetLocationId(int),WorldMapBase::GetLocationId(int),confirmed,0
+00679810,003502fe,__ZN12WorldMapBase20parse_worldmap_startEP8nufpar_s,WorldMapBase::parse_worldmap_start(nufpar_s*),confirmed,0
 00679840,0034f3ca,__ZN12WorldMapBase18parse_worldmap_endEP8nufpar_s,WorldMapBase::parse_worldmap_end(nufpar_s*),confirmed,0
 00679850,0034f3d0,__ZN12WorldMapBase15parse_levelpathEP8nufpar_s,WorldMapBase::parse_levelpath(nufpar_s*),confirmed,0
 006798a0,0034f428,__ZN12WorldMapBase22parse_reversedirectionEP8nufpar_s,WorldMapBase::parse_reversedirection(nufpar_s*),confirmed,0

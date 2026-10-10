@@ -4,6 +4,7 @@
 
 #include "../nu2api/nucore/common.h"
 #include "../nu2api/nucore/nustring.h"
+#include <string.h>
 
 typedef struct nufpar_s {
   unsigned char pad0[0x910];
@@ -19,6 +20,16 @@ i32 NuFParGetLine(NUFPAR *parser);
 i32 NuFParInterpretWord(NUFPAR *parser);
 void NuFParDestroy(NUFPAR *parser);
 void Unk00678b90(char *name); // empty in the release build
+
+struct WORLDINFO_s;
+struct nugscn_s;
+
+// Mac: WorldMapLocation (0x50 bytes, 16 of them in WorldMapInfo).
+struct WMLOCATION_s {
+  u8 pad00[0x38];
+  i32 id; // 0x38
+  u8 pad3c[0x50 - 0x3c];
+};
 
 struct WMCOLOUR_s {
   f32 r, g, b;
@@ -41,6 +52,9 @@ public:
   static void parse_specialobjectname(NUFPAR *fp);
   static void parse_mapimageaspectratio(NUFPAR *fp);
   void LoadSettings(char *name);
+  static void parse_worldmap_start(NUFPAR *fp);
+  void DumpLevel(WORLDINFO_s *world);
+  i32 GetLocationId(i32 id) const;
 
   void *vtable;
   u8 pad004[0x10 - 4];
@@ -53,7 +67,11 @@ public:
   char overlay_name[0x40]; // 0x27c
   u8 pad2bc[0x344 - 0x2bc];
   i32 episode_id; // 0x344
-  u8 pad348[0x874 - 0x348];
+  u8 pad348[0x360 - 0x348];
+  i32 i360; // 0x360, WorldMapInfo starts here
+  u8 pad364[0x370 - 0x364];
+  WMLOCATION_s locations[16]; // 0x370
+  i32 location_count;         // 0x870
   // 0x874..0x8a8 sit in the WorldMapInfo member at 0x360 (its defaults are
   // set in WorldMapInfo::WorldMapInfo, 0x4f4540).
   f32 map_aspect_ratio;           // 0x874
@@ -65,6 +83,11 @@ public:
   f32 magnification;              // 0x88c
   WMCOLOUR_s colour_mainline;     // 0x890
   WMCOLOUR_s colour_nextlocation; // 0x89c
+  u8 pad8a8[0x958 - 0x8a8];
+  nugscn_s *scene; // 0x958
+  struct {
+    i32 a, b, c;
+  } v95c; // 0x95c
 };
 
 // GLOBAL: LEGOBATMAN 0x00ad2af4
@@ -73,6 +96,42 @@ extern WorldMapBase *g_unk00ad2af4; // the world map being parsed
 extern u8 g_unk00968b38[]; // WorldMapBase keyword table
 // GLOBAL: LEGOBATMAN 0x009c5870
 extern i32 g_unk009c5870;
+
+class InteractiveDisplay {
+public:
+  void DumpLevel(WORLDINFO_s *world);
+};
+
+void NuGScnRemove(nugscn_s *scene);
+
+// FUNCTION: LEGOBATMAN 0x00678fc0
+void WorldMapBase::DumpLevel(WORLDINFO_s *world) {
+  ((InteractiveDisplay *)this)->DumpLevel(world);
+  if (NuStrICmp((char *)world, level_name) == 0) {
+    if (scene != 0) {
+      NuGScnRemove(scene);
+      scene = 0;
+      memset(&v95c, 0, sizeof(v95c));
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00679540
+i32 WorldMapBase::GetLocationId(i32 id) const {
+  for (i32 i = 0; i < location_count; i++) {
+    if (locations[i].id == id)
+      return i;
+  }
+  return i360;
+}
+
+// FUNCTION: LEGOBATMAN 0x00679810
+void WorldMapBase::parse_worldmap_start(NUFPAR *fp) {
+  WorldMapBase *map = g_unk00ad2af4;
+  map->i360 = 0;
+  map->location_count = 0;
+  NuStrCpy(map->map_name, "");
+}
 
 // FUNCTION: LEGOBATMAN 0x00679840
 void WorldMapBase::parse_worldmap_end(NUFPAR *fp) {}
