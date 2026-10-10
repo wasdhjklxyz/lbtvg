@@ -41,7 +41,7 @@ typedef struct ATTRACTO_s {
   u8 capacity;             // 0x5e
   u8 collected_count;      // 0x5f
   i16 platform_id;         // 0x60
-  u8 f62;                  // 0x62
+  i8 f62;                  // 0x62
   u8 active : 1;           // 0x63
   u8 visible : 1;          // 0x63 bit 1
   u8 filled : 1;           // 0x63 bit 2
@@ -354,6 +354,113 @@ typedef struct GIZBUILDIT_s {
   u8 built_object_count; // 0x73
 } GIZBUILDIT;
 
+typedef struct LEVOBJ_s {
+  u8 special[0xc]; // 0x00, nuhspecial_s
+  u8 padc[2];
+  u8 active; // 0x0e
+  u8 padf;
+} LEVOBJ;
+
+// GLOBAL: LEGOBATMAN 0x00a96028
+extern f32 g_unk00a96028;
+// GLOBAL: LEGOBATMAN 0x00a96078
+extern f32 g_unk00a96078;
+struct VUFNT;
+// GLOBAL: LEGOBATMAN 0x00ab39cc
+extern VUFNT *InteractiveDisplayQFont3DZ;
+
+i32 NuSpecialDrawAt(void *special, numtx_s *mtx);
+void Unk005b2480(WORLDINFO_s *world, nuvec_s *pos, i32 angle_z, i32 angle_x,
+                 f32 scale, f32 alpha, i32 a, i32 b);
+extern "C" int NuSPrintf(char *buf, char *fmt, ...);
+void NuMtxPreRotateZ(numtx_s *m, i32 a);
+void NuMtxPreRotateY(numtx_s *m, i32 a);
+void NuMtxPreRotateX(numtx_s *m, i32 a);
+void NuMtxPreScale(numtx_s *m, nuvec_s *s);
+void NuVecScale(nuvec_s *out, nuvec_s *v, f32 s);
+void Unk006c3d00(VUFNT *font, char *text, f32 a, f32 b, f32 c, f32 d, f32 e,
+                 i32 f, u32 colour, numtx_s *mtx, i32 g);
+
+// FUNCTION: LEGOBATMAN 0x0040b3c0
+void Attractos_Draw(void *context, void *unused, f32 dt) {
+  WORLDINFO_s *world = (WORLDINFO_s *)context;
+  LEVOBJ *lev = (LEVOBJ *)world->p2b04;
+  if (lev[55].active == 0)
+    return;
+  ATTRACTO *attracto = world->attractos;
+  if (attracto == NULL)
+    return;
+  f32 spin = NuFmod(g_unk00a96020, 5.0f);
+  f32 phase = NuFmod(g_unk00a96028, 0.5f);
+  for (i32 i = 0; i < world->attracto_count; i++, attracto++) {
+    attracto->drawn = 0;
+    if (!attracto->visible)
+      continue;
+    numtx_s m = attracto->transform;
+    attracto->drawn =
+        NuSpecialDrawAt(&((LEVOBJ *)world->p2b04)[55].special, &m);
+    if (!attracto->filled && attracto->active && attracto->scale > 0.0f)
+      Unk005b2480(world, &attracto->active_position, attracto->ground_angle_z,
+                  attracto->ground_angle_x, attracto->scale, 1.0f, -1, -1);
+    if (attracto->visible && attracto->active && !attracto->filled) {
+      char text[16];
+      i32 remaining = attracto->capacity - attracto->collected_count;
+      if (remaining >= 10)
+        NuSPrintf(text, "%i", remaining);
+      else
+        NuSPrintf(text, "0%i", remaining);
+      numtx_s text_mtx = attracto->transform;
+      NuMtxPreRotateZ(&text_mtx, 0x8000);
+      Unk006c3d00(InteractiveDisplayQFont3DZ, text, 0.0002f, 0.52f, -0.35f,
+                  0.75f, 0.75f, 0,
+                  ((u8)((g_unk00a96078 * 0.2f + 0.6f) * 128.0f) << 24) |
+                      0xffffff,
+                  &text_mtx, 0);
+    }
+    f32 t = g_unk00a96020;
+    i32 shard = attracto->f62;
+    for (i32 k = 0; k < attracto->collected_count; k++) {
+      for (i32 j = 0; j < ShardSys->count; j++) {
+        if (((LEVOBJ *)world->p2b04)[ShardSys->list[shard]].active != 0)
+          break;
+        shard++;
+        if (shard == ShardSys->count)
+          shard = 0;
+      }
+      if (((LEVOBJ *)world->p2b04)[ShardSys->list[shard]].active != 0) {
+        nuvec_s pos;
+        pos.x = NuSinApprox((u16)(NuFmod(t, 2.0f) * 0.5f * 65536.0f)) * 0.14f *
+                (1.0f -
+                 NuSinApprox((u16)(NuFmod(t, 5.0f) / 5.0f * 65536.0f)) * 0.75f);
+        pos.y = NuSinApprox((u16)(NuFmod(t, 5.0f) / 5.0f * 65536.0f)) * 0.25f +
+                0.38f;
+        pos.z = NuCosApprox((u16)(NuFmod(t, 2.0f) * 0.5f * 65536.0f)) * 0.14f *
+                (1.0f -
+                 NuSinApprox((u16)(NuFmod(t, 5.0f) / 5.0f * 65536.0f)) * 0.75f);
+        nuvec_s scale;
+        scale.x = scale.y = scale.z = 0.7f;
+        if (k == attracto->collected_count - 1 && attracto->timer > 0.0f)
+          NuVecScale(
+              &scale, &scale,
+              1.0f - (NuCosApprox(
+                          (i32)(attracto->timer / 0.1f * 16384.0f + 32768.0f)) +
+                      1.0f));
+        m = attracto->transform;
+        NuMtxTranslate(&m, &pos);
+        NuMtxPreScale(&m, &scale);
+        NuMtxPreRotateY(&m, (u16)(NuFmod(t, 3.0f) / 3.0f * 65536.0f));
+        NuMtxPreRotateX(&m, (u16)(NuFmod(t, 4.0f) * 0.25f * 65536.0f));
+        NuSpecialDrawAt(
+            &((LEVOBJ *)world->p2b04)[ShardSys->list[shard]].special, &m);
+      }
+      t += 2.25f;
+      shard++;
+      if (shard == ShardSys->count)
+        shard = 0;
+    }
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x0040bbe0
 void Attracto_SetBuildItStepTime(GIZBUILDIT *buildit) {
   i32 total = buildit->anim_object_count;
@@ -465,8 +572,6 @@ void Attracto_GetPos_Top(ATTRACTO *attracto, nuvec_s *position) {
     position->y = 1.0f + position->y;
   }
 }
-
-void Attractos_Draw(void *context, void *unused, f32 dt);
 
 // FUNCTION: LEGOBATMAN 0x0040bf60
 ADDGIZMOTYPE *Attractos_RegisterGizmo(i32 type_id) {

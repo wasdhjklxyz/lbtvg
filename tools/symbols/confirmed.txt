@@ -3142,3 +3142,12 @@
 006f3d50 NuSSAOFilter::~NuSSAOFilter inlined base dtors leave the NuPostFilterGen vtable
 006fe5d0 NuPostFilter::NuPostFilter sets the NuPostFilter vtable 0x897c48
 00694890 ShaderBuilderGen::~ShaderBuilderGen sets the ShaderBuilderGen vtable 0x86f83c, called from both ShaderBuilder SDDs
+0040a9a0 Attractos_Load Attractos_RegisterGizmo load slot (fns[24])
+0040aab0 Attractos_InitTerrain Mac order after Load, NewPlatPickupInst(&transform, 4) loop as saga
+0040aba0 Attracto_SetVisibility Attractos_RegisterGizmo set_visibility slot (fns[12])
+0040adb0 Attractos_Reset Attractos_RegisterGizmo reset slot (fns[22])
+0040ae90 Attractos_Update Attractos_RegisterGizmo late_update slot (fns[3])
+0040b2e0 Attracto_FindNearest body as saga (state & 7 == 3 filter, NuVecDistSqr, 1e9 best)
+0040b3c0 Attractos_Draw Attractos_RegisterGizmo draw slot (fns[4])
+0040bbe0 Attracto_SetBuildItStepTime body as the Mac's (anim/built counts at 0x70/0x73, 0.3 step)
+0040bf20 Attracto_GetPos_Top body as saga (pos with y + 1.0)

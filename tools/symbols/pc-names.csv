@@ -1,8 +1,16 @@
 pc_addr,mac_addr,mac_name,demangled,method,round
 00408900,000f9178,__Z8InitOnceiPPc,"InitOnce(int, char**)",strings,0
 00408e60,000f8e4a,__Z23Text_ExpandButtonStringPcS_,"Text_ExpandButtonString(char*, char*)",strings,0
+0040a9a0,0002998c,__Z14Attractos_LoadPvS_,"Attractos_Load(void*, void*)",confirmed,0
+0040aab0,00029a3c,__Z21Attractos_InitTerrainP11WORLDINFO_s,Attractos_InitTerrain(WORLDINFO_s*),confirmed,0
 0040ab10,00029a82,__Z28Attractos_ReserveBufferSpacePv,Attractos_ReserveBufferSpace(void*),confirmed,0
 0040ab70,00029ade,__Z17Attracto_ActivateP7GIZMO_si,"Attracto_Activate(GIZMO_s*, int)",confirmed,0
+0040aba0,00029b08,__Z22Attracto_SetVisibilityP7GIZMO_si,"Attracto_SetVisibility(GIZMO_s*, int)",confirmed,0
+0040adb0,00029c4c,__Z15Attractos_ResetPvS_S_,"Attractos_Reset(void*, void*, void*)",confirmed,0
+0040ae90,0002a4b0,__Z16Attractos_UpdatePvS_f,"Attractos_Update(void*, void*, float)",confirmed,0
+0040b2e0,00029e34,__Z20Attracto_FindNearestP11WORLDINFO_sP7nuvec_sP12GameObject_sPf,"Attracto_FindNearest(WORLDINFO_s*, nuvec_s*, GameObject_s*, float*)",confirmed,0
+0040b3c0,0002a7f0,__Z14Attractos_DrawPvS_f,"Attractos_Draw(void*, void*, float)",confirmed,0
+0040bbe0,00029f1e,__Z27Attracto_SetBuildItStepTimeP12GIZBUILDIT_s,Attracto_SetBuildItStepTime(GIZBUILDIT_s*),confirmed,0
 0040bcc0,00029fa0,__Z22Attractos_GetMaxGizmosPv,Attractos_GetMaxGizmos(void*),confirmed,0
 0040bce0,00029fbc,__Z19Attractos_AddGizmosP10GIZMOSYS_siPvS1_,"Attractos_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
 0040bd60,0002a020,__Z21Attracto_GetGizmoNameP7GIZMO_s,Attracto_GetGizmoName(GIZMO_s*),confirmed,0
@@ -13,6 +21,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0040bde0,0002a07e,__Z23Attractos_ClearProgressPvS_,"Attractos_ClearProgress(void*, void*)",confirmed,0
 0040be20,0002a0e2,__Z23Attractos_StoreProgressPvS_S_,"Attractos_StoreProgress(void*, void*, void*)",confirmed,0
 0040bf00,0002a1b0,__Z15Attracto_GetPosP7GIZMO_s,Attracto_GetPos(GIZMO_s*),confirmed,0
+0040bf20,00029ee0,__Z19Attracto_GetPos_TopP10ATTRACTO_sP7nuvec_s,"Attracto_GetPos_Top(ATTRACTO_s*, nuvec_s*)",confirmed,0
 0040bf60,0002a1c4,__Z23Attractos_RegisterGizmoi,Attractos_RegisterGizmo(int),confirmed,0
 0040f6a0,0002c842,__Z19Batarang_UpdateHintP6HINT_s,Batarang_UpdateHint(HINT_s*),strings,0
 004154e0,00032d60,__Z20Batman_GameAISysInitv,Batman_GameAISysInit(),strings,0
