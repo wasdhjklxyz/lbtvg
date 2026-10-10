@@ -3695,6 +3695,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d7130,,downheap,downheap,confirmed,0
 006d71b0,,make_code,make_code,confirmed,0
 006d7270,001900b8,_ImplodeMakeTree,_ImplodeMakeTree,confirmed,0
+006d7440,,NuPadUnk006d7400::~NuPadUnk006d7400,NuPadUnk006d7400::~NuPadUnk006d7400,confirmed,0
+006d7460,,NuPadUnk006d7400::setExternalMemoryPool,NuPadUnk006d7400::setExternalMemoryPool,confirmed,0
 006d7500,00187052,_NuStrCat,_NuStrCat,gapfill,1
 006d7590,001871ae,_NuStrCpy,_NuStrCpy,gapfill,1
 006d75c0,001886a4,_NuStrNCpy,_NuStrNCpy,gapfill,1
@@ -3793,6 +3795,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006dbdd0,00192290,_read_offset_len,_read_offset_len,confirmed,0
 006dbf10,,read_literal_len,read_literal_len,confirmed,0
 006dc080,001923de,_ImplodeDecodeC,_ImplodeDecodeC,confirmed,0
+006dc120,,NuPadUnk006d7400::SetPool,NuPadUnk006d7400::SetPool,confirmed,0
+006dc1a0,,NuPadUnk006d7400::NuPadUnk006d7400,NuPadUnk006d7400::NuPadUnk006d7400,confirmed,0
 006dc300,0018bea6,_NuStrIStr,_NuStrIStr,calls,1
 006dc3a0,0018bf1a,_NuStrICmp,_NuStrICmp,confirmed,0
 006dc410,0018c3fe,_NuStrNICmp,_NuStrNICmp,gapfill,1

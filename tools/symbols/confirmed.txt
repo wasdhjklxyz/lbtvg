@@ -3591,3 +3591,7 @@
 006dc6b0 NuStringTableGetIdByName saga nustring_c.cpp body, Mac order before NuStringTok
 006dc7a0 NuStrFixExtPlatform saga body shape (LB returns int, skips already-suffixed names), Mac order
 006dc970 NuStrFixExt wrapper passing NULL platform, Mac order
+006d7440 NuPadUnk006d7400::~NuPadUnk006d7400 Mac VirtualStackAllocator dtor shape (free owned pool), used by unwind funclets
+006d7460 NuPadUnk006d7400::setExternalMemoryPool Mac VirtualStackAllocator::setExternalMemoryPool body
+006dc120 NuPadUnk006d7400::SetPool aligned carve from a caller cursor then setExternalMemoryPool (name invented)
+006dc1a0 NuPadUnk006d7400::NuPadUnk006d7400 ctor(pool, size): clear + SetPool

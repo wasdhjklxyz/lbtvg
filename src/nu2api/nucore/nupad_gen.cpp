@@ -193,6 +193,10 @@ struct NuPadUnk006d7400 {
 
   NuPadUnk006d7400 *Clear();
   NuPadUnk006d7400 *Set(int start, int length);
+  NuPadUnk006d7400(int *pool, int size);
+  ~NuPadUnk006d7400();
+  void setExternalMemoryPool(void *pool, unsigned long size);
+  void SetPool(int *pool, int size);
 };
 
 // FUNCTION: LEGOBATMAN 0x006d7400
@@ -202,6 +206,23 @@ NuPadUnk006d7400 *NuPadUnk006d7400::Clear() {
   i8 = 0;
   ic = 0;
   return this;
+}
+
+// Mac VirtualStackAllocator::~VirtualStackAllocator.
+// FUNCTION: LEGOBATMAN 0x006d7440
+NuPadUnk006d7400::~NuPadUnk006d7400() {
+  if (b0 && ic)
+    delete (char *)ic;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d7460
+void NuPadUnk006d7400::setExternalMemoryPool(void *pool, unsigned long size) {
+  if (b0 && ic)
+    delete (char *)ic;
+  i4 = (int)pool;
+  ic = (int)pool;
+  b0 = 0;
+  i8 = (int)pool + size;
 }
 
 // from saga nu2api/nucore/nustring_c.cpp
@@ -252,6 +273,24 @@ NuPadUnk006d7400 *NuPadUnk006d7400::Set(int start, int length) {
   b0 = 0;
   i8 = start + length;
   return this;
+}
+
+// FUNCTION: LEGOBATMAN 0x006dc120
+// pool[1] is the caller's allocation cursor (pool[0] unknown).
+void NuPadUnk006d7400::SetPool(int *pool, int size) {
+  int align = size < 0x10 ? size : 0x10;
+  int start = (pool[1] + align - 1) & ~(align - 1);
+  pool[1] = start + size;
+  setExternalMemoryPool((void *)start, size);
+}
+
+// FUNCTION: LEGOBATMAN 0x006dc1a0
+NuPadUnk006d7400::NuPadUnk006d7400(int *pool, int size) {
+  b0 = 0;
+  i4 = 0;
+  i8 = 0;
+  ic = 0;
+  SetPool(pool, size);
 }
 
 // FUNCTION: LEGOBATMAN 0x006d7500
