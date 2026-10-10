@@ -41,17 +41,18 @@ struct GIZMOBLOWUP_s {
   u32 secondary : 1;    // 0xa0 bit 28
   u32 b29 : 1;          // 0xa0 bit 29
   u32 bits30 : 2;       // 0xa0 bits 30-31
-  u8 pada4[0xa8 - 0xa4];
-  u16 sa8; // 0xa8
+  u32 draw_flags;       // 0xa4
+  u16 sa8;              // 0xa8
   u8 padaa[0xac - 0xaa];
   i32 score;                      // 0xac
   struct GIZMOBLOWUPTYPE_s *type; // 0xb0
   u8 padb4[0xc8 - 0xb4];
   f32 fc8; // 0xc8
   u8 padcc[0xfe - 0xcc];
-  char name[0x10]; // 0xfe
-  i16 platform_id; // 0x10e
-  u8 pad110[0x119 - 0x110];
+  char name[0x10];  // 0xfe
+  i16 platform_id;  // 0x10e
+  i16 platform_id2; // 0x110
+  u8 pad112[0x119 - 0x112];
   i8 score_mult; // 0x119
   u8 b11a;       // 0x11a
   u8 b11b;       // 0x11b
@@ -380,6 +381,47 @@ GIZMOBLOWUP_s *GizmoBlowUp_FindByName(WORLDINFO_s *world, char *name) {
   return 0;
 }
 
+i32 GizBlowup_InitSingleTerrain(GIZMOBLOWUP_s *blowup);
+void DeletePlatinst(i32 id);
+
+// FUNCTION: LEGOBATMAN 0x005db930
+void GizBlowup_InitTerrain() {
+  if (g_unk00960894->gizmo_blowups != NULL &&
+      g_unk00960894->gizmo_blowup_count > 0) {
+    GIZMOBLOWUP_s *blowup = g_unk00960894->gizmo_blowups;
+    for (i32 i = 0; i < g_unk00960894->gizmo_blowup_count; i++, blowup++) {
+      blowup->platform_id = -1;
+      blowup->platform_id2 = -1;
+      if (blowup->draw_flags & 4)
+        GizBlowup_InitSingleTerrain(blowup);
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x005db9a0
+void GizBlowup_DeleteSingleTerrain(GIZMOBLOWUP_s *blowup) {
+  if (blowup == NULL)
+    return;
+  if (blowup->platform_id != -1) {
+    DeletePlatinst(blowup->platform_id);
+    blowup->platform_id = -1;
+  }
+  if (blowup->platform_id2 != -1) {
+    DeletePlatinst(blowup->platform_id2);
+    blowup->platform_id2 = -1;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x005db9f0
+void GizBlowup_DeleteTerrain() {
+  if (g_unk00960894->gizmo_blowups != NULL &&
+      g_unk00960894->gizmo_blowup_count > 0) {
+    GIZMOBLOWUP_s *blowup = g_unk00960894->gizmo_blowups;
+    for (i32 i = 0; i < g_unk00960894->gizmo_blowup_count; i++, blowup++)
+      GizBlowup_DeleteSingleTerrain(blowup);
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x005dbd60
 void Blowups_SetUnk525c(void *world_ptr) {
   ((WORLDINFO_s *)world_ptr)->f525c = 100.0f;
@@ -425,11 +467,6 @@ i32 Blowup_ActivateRev(GIZMO *gizmo, i32 active, i32 flags) {
   Blowup_Activate(gizmo, active == 0);
   return 1;
 }
-
-i32 GizBlowup_InitSingleTerrain(GIZMOBLOWUP_s *blowup);
-void GizBlowup_InitTerrain();
-void GizBlowup_DeleteSingleTerrain(GIZMOBLOWUP_s *blowup);
-void GizBlowup_DeleteTerrain();
 
 // FUNCTION: LEGOBATMAN 0x005def20
 void Blowups_Reset(void *world_ptr, void *unused, void *progress_ptr) {

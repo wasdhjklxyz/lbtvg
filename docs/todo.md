@@ -20,7 +20,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 10 | 6 |
 | [Condition](#condition) | 6 | 4 |
 | [CRC](#crc) | 4 | 4 |
-| [GizBlowup](#gizblowup) | 4 | 4 |
 | [Grabber](#grabber) | 5 | 4 |
 | [Hub](#hub) | 7 | 4 |
 | [Move](#move) | 4 | 4 |
@@ -54,6 +53,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Faders](#faders) | 1 | 1 |
 | [GameCam](#gamecam) | 1 | 1 |
 | [GameMsg](#gamemsg) | 1 | 1 |
+| [GizBlowup](#gizblowup) | 1 | 1 |
 | [GizBombGen](#gizbombgen) | 1 | 1 |
 | [GizBombGens](#gizbombgens) | 1 | 1 |
 | [GizBuildIts](#gizbuildits) | 1 | 1 |
@@ -388,13 +388,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `005583f0` 67 B `_CRC_ProcessStringN`  **stub** · **saga** `gamelib/crc/crc.cpp`
 - [ ] `00558480` 77 B `_CRC_ProcessStringNIgnoreCase`  **stub** · **saga** `gamelib/crc/crc.cpp`
 
-## GizBlowup
-
-- [ ] `005db9a0` 79 B `GizBlowup_DeleteSingleTerrain(GIZMOBLOWUP_s*)`  **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
-- [ ] `005db930` 103 B `GizBlowup_InitTerrain()`  **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
-- [ ] `005db9f0` 138 B `GizBlowup_DeleteTerrain()`  **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
-- [ ] `005db7c0` 364 B `GizBlowup_InitSingleTerrain(GIZMOBLOWUP_s*)`  **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
-
 ## Grabber
 
 - [ ] `006012c0` 235 B `Grabber_Terrain(GRABBER_s*, nuvec_s*, int)`  **hint** name (order)
@@ -562,6 +555,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## GameMsg
 
 - [ ] `00635760` 841 B `GameMsg_Draw_MiniKitDetector(GAMEMESSAGE_s*, nuvec_s*, float)`  **hint** name (order) · **saga** `legoapi/menus/core/gamehint.cpp`
+
+## GizBlowup
+
+- [ ] `005db7c0` 364 B `GizBlowup_InitSingleTerrain(GIZMOBLOWUP_s*)`  **saga** `legoapi/gizmo/object/gizmoblowups.cpp`
 
 ## GizBombGen
 
