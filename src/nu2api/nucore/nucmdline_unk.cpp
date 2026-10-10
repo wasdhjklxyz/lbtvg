@@ -63,3 +63,44 @@ void NuAPISetCurrentGScene(void *gsc) { g_nuapiCurrentGScene = gsc; }
 
 // FUNCTION: LEGOBATMAN 0x006d55a0
 void NuPadUseCorrectDeadZoning(int state) { UseCorrectDeadZoning = state; }
+
+// GLOBAL: LEGOBATMAN 0x00adf6b0
+extern char *g_nuPadRecFilename;
+// GLOBAL: LEGOBATMAN 0x00adf69c
+extern int g_nuPadRecMode;
+int NuStrICmp(const char *a, const char *b);
+void Unk006d24b0(...);
+
+// Scans the command line for PADRECORD/PADPLAY <file> (name unknown). The
+// original reloads *argv after NuStrICmp, so it did not see that function's
+// body: it is not in nupad_gen.cpp's TU.
+// FUNCTION: LEGOBATMAN 0x006dd5d0
+void NuPadUnk006dd5d0(void) {
+  int argc = nucmdline.argc;
+  char **argv;
+
+  if (argc > 0) {
+    argv = nucmdline.argv;
+    do {
+      if (*argv == 0)
+        break;
+      if (NuStrICmp(*argv, "PADRECORD") == 0) {
+        argv++;
+        if (--argc == 0)
+          Unk006d24b0();
+        g_nuPadRecFilename = *argv;
+        g_nuPadRecMode = 1;
+      } else if (NuStrICmp(*argv, "PADPLAY") == 0) {
+        argv++;
+        if (--argc == 0)
+          Unk006d24b0();
+        g_nuPadRecFilename = *argv;
+        g_nuPadRecMode = 2;
+      }
+      argc--;
+      argv++;
+    } while (argc > 0);
+    nucmdline.argv = argv;
+    nucmdline.argc = argc;
+  }
+}
