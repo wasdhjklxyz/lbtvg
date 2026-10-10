@@ -3537,3 +3537,6 @@
 006d2c50 NuFileReldirFix saga nufile.cpp body
 006d2b60 NuFileSwapEndianOnWrite saga nufile_plain.cpp body
 006d2b70 NuFileGetEndianSwap saga nufile_plain.cpp body
+006d9a40 NuFileWriteAddress saga nufile_plain.cpp body (static pad 0xb03934; ref_count is 0xb03878)
+006d9ac0 NuFileSetAddress saga nufile_plain.cpp body (pos_count 0xb0085c)
+006d9b30 NuFilePatchAddress saga nufile_plain.cpp body (NuFileSeek/NuFileWrite inlined)

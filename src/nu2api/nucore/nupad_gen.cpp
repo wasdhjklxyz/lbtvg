@@ -1967,15 +1967,19 @@ int NuDatFileOpenSize(int file) {
 // NuFileInitAddress's address tables (saga nufile_plain.cpp); 0x006d37a0
 // frees them.
 // GLOBAL: LEGOBATMAN 0x00b038a8
-int MAX_FILE_ADDRESS;
+static int MAX_FILE_ADDRESS;
+struct NuFileAddress {
+  void *address;
+  __int64 position;
+};
 // GLOBAL: LEGOBATMAN 0x00b038ac
-void *addr_ref;
+static NuFileAddress *addr_ref;
 // GLOBAL: LEGOBATMAN 0x00b038b0
-void *addr_pos;
+static NuFileAddress *addr_pos;
 // GLOBAL: LEGOBATMAN 0x00b0085c
-int ref_count;
+static int pos_count;
 // GLOBAL: LEGOBATMAN 0x00b03878
-int pos_count;
+static int ref_count;
 extern "C" void NuMemFreeFn(void *ptr, const char *file, int line);
 
 // FUNCTION: LEGOBATMAN 0x006d3700
@@ -1986,11 +1990,12 @@ void NuFileInitAddress(int count) {
     if (addr_pos != NULL)
       NuMemFreeFn(addr_pos, __FILE__, 0xc5f);
     MAX_FILE_ADDRESS = count;
-    addr_ref = NuMemAllocFn(count * 16, __FILE__, 0xc63);
-    addr_pos = NuMemAllocFn(MAX_FILE_ADDRESS * 16, __FILE__, 0xc64);
+    addr_ref = (NuFileAddress *)NuMemAllocFn(count * 16, __FILE__, 0xc63);
+    addr_pos =
+        (NuFileAddress *)NuMemAllocFn(MAX_FILE_ADDRESS * 16, __FILE__, 0xc64);
   }
-  ref_count = 0;
   pos_count = 0;
+  ref_count = 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x006d37a0
@@ -2004,6 +2009,53 @@ void NuFileTidyAddress(void) {
     addr_pos = NULL;
   }
   MAX_FILE_ADDRESS = 0;
+}
+
+__int64 NuFilePos(int file);
+int NuFileWrite(int file, void *data, int size);
+
+// FUNCTION: LEGOBATMAN 0x006d9a40
+void NuFileWriteAddress(int file, void *address) {
+  // GLOBAL: LEGOBATMAN 0x00b03934
+  static int pad;
+  if (address != NULL) {
+    addr_ref[ref_count].address = address;
+    addr_ref[ref_count].position = NuFilePos(file);
+    ++ref_count;
+  }
+  NuFileWrite(file, &pad, 4);
+}
+
+// FUNCTION: LEGOBATMAN 0x006d9ac0
+void NuFileSetAddress(int file, void *address) {
+  int index;
+  if (address != NULL) {
+    for (index = 0; index < pos_count; ++index) {
+      if (addr_pos[index].address == address)
+        break;
+    }
+    if (index == pos_count)
+      ++pos_count;
+    addr_pos[index].address = address;
+    addr_pos[index].position = NuFilePos(file);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006d9b30
+void NuFilePatchAddress(int file) {
+  int ref;
+  int pos;
+  __int64 offset;
+  for (ref = 0; ref < ref_count; ++ref) {
+    for (pos = 0; pos < pos_count; ++pos) {
+      if (addr_ref[ref].address == addr_pos[pos].address) {
+        offset = addr_pos[pos].position - addr_ref[ref].position;
+        NuFileSeek(file, addr_ref[ref].position, 0);
+        NuFileWrite(file, &offset, 4);
+      }
+    }
+  }
+  NuFileSeek(file, 0, 2);
 }
 
 struct nufile_info_s {
