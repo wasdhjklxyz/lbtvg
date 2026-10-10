@@ -262,3 +262,4 @@
 006decb0 NuDatFileLoadBuffer: inlined seek chain uses a bounds-checked small-file seek we do not have
 006d2680 NuHeapBlock_SplitFreeBlock: register convention (orig block on stack, allocated/remainder in eax/edx)
 006d2810 NuHeapAllocAlignedNamed: follows SplitFreeBlock convention
+0x006deec0 NuDatOpenEx: block layout (failure tail inside retry loop) + ebp zero hoist; same size

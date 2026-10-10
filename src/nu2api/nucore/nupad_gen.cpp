@@ -3099,6 +3099,175 @@ static inline int NuFileReadInt(int file) {
   return v;
 }
 
+// The original's inlined seeks in functions after the first pointer-passing
+// call to Unk006d24b0 keep a small-file bounds check that the out-of-line
+// 0x006d2fe0 (and NuFilePatchAddress's inlined copy) lost; this copy of
+// NuFileSeek's whence 0 path carries it.
+static __forceinline int NuFileSmallSeekStart(int file, int offset) {
+  if (g_nuFileUnk0b038a4 == 0)
+    return 0;
+  if (offset > g_nuFileUnk0b00878[file - 0x2000].ic + 1)
+    Unk006d24b0();
+  g_nuFileUnk0b00878[file - 0x2000].i4 = offset;
+  return offset;
+}
+
+static __forceinline __int64 NuFileSeekStart(int file, __int64 offset) {
+  FILEINFO *info;
+
+  if (file >= 0x2000)
+    return NuFileSmallSeekStart(file, (int)offset);
+  if (file >= 0x1000)
+    return 0;
+  if (file >= 0x400)
+    return NuMemFileSeek(file, (int)offset, 0);
+  file -= 1;
+  info = &file_info[file];
+  if (info->use_buf) {
+    info->pos = offset;
+    return info->pos;
+  }
+  return NuPSFileLSeek(file, offset, 0);
+}
+
+// GLOBAL: LEGOBATMAN 0x00b03898
+int g_nuDatUnk0b03898;
+void NuFileClose(int file);
+
+// STUB: LEGOBATMAN 0x006deec0
+// Same size and instructions; the original places the buf == NULL failure
+// block and the epilogue inside the second retry loop, and keeps offset in
+// esi:ebp there (ours hoists a zero into ebp).
+NUDATHDR *NuDatOpenEx(char *filepath, VARIPTR *buf, int *size_out, short mode) {
+  char name[256];
+  int file;
+  int read_buf[2];
+  __int64 offset;
+  int size;
+  int len;
+  int i;
+  NUDATHDR *hdr;
+  VARIPTR p;
+  int buffering;
+
+  buffering = nufile_buffering_enabled;
+  file = NuFileOpenDF(filepath, mode, NULL, 0);
+  if (file != 0) {
+    if (mode == 3) {
+      while (NuFileStatus(file) != 0) {
+      }
+    }
+    if (g_nuDatUnk0b03898 != 0)
+      NuFileSeek(file, g_nuDatUnk0b03898, 0);
+    while (NuFileRead(file, read_buf, 8) < 0) {
+      Unk006d24d0();
+      while (NuFileSeekStart(file, g_nuDatUnk0b03898) < 0)
+        Unk006d24d0();
+    }
+    if (mode == 3) {
+      while (NuFileStatus(file) != 0) {
+      }
+    }
+    offset = read_buf[0];
+    if (offset < 0)
+      offset *= -0x100;
+    offset += g_nuDatUnk0b03898;
+    while (NuFileSeekStart(file, offset) < 0)
+      Unk006d24d0();
+    if (mode == 3) {
+      while (NuFileStatus(file) != 0) {
+      }
+    }
+    g_unk0099f288->format_name_fn(g_unk0099f288, name, filepath, 0x100);
+    len = (NuStrLen(name) + 0x10) & ~0xf;
+    size = read_buf[1] + len + sizeof(NUDATHDR);
+    if (buf != NULL) {
+      hdr = (NUDATHDR *)((buf->addr + 0xf) & ~0xf);
+      buf->addr += size;
+      if (size_out != NULL)
+        *size_out = size;
+      hdr->unknown = 0;
+      p.addr = (unsigned int)hdr + sizeof(NUDATHDR) + len;
+      hdr->name = (char *)(hdr + 1);
+      NuStrCpy(hdr->name, name);
+      while (NuFileRead(file, p.void_ptr, read_buf[1]) < 0) {
+        Unk006d24d0();
+        while (NuFileSeekStart(file, offset) < 0)
+          Unk006d24d0();
+      }
+      if (mode == 3) {
+        while (NuFileStatus(file) != 0) {
+        }
+      }
+      hdr->version = p.u32_ptr[0];
+      hdr->file_count = p.u32_ptr[1];
+      p.addr += 8;
+      hdr->file_info = (NUDATFILEINFO *)p.void_ptr;
+      p.addr += hdr->file_count * sizeof(NUDATFILEINFO);
+      hdr->tree_node_count = *p.u32_ptr;
+      p.addr += 4;
+      hdr->file_tree = (NUDFNODE *)p.void_ptr;
+      p.addr += hdr->tree_node_count * sizeof(NUDFNODE);
+      hdr->leaf_names_len = *p.u32_ptr;
+      p.addr += 4;
+      hdr->leaf_names = p.char_ptr;
+      for (i = 0; i < hdr->tree_node_count; i++)
+        hdr->file_tree[i].name += (unsigned int)p.addr;
+      hdr->file_tree[0].name = NULL;
+      p.addr += hdr->leaf_names_len;
+      hdr->hash_idxs = NULL;
+      hdr->hash_count = 0;
+      hdr->hashes_len = 0;
+      hdr->hashes = NULL;
+      if (hdr->version <= -2) {
+        hdr->hash_idxs = p.u32_ptr;
+        p.addr += hdr->file_count * 4;
+        hdr->hash_count = *p.u32_ptr;
+        p.addr += 4;
+        hdr->hashes_len = *p.u32_ptr;
+        p.addr += 4;
+        hdr->hashes = p.char_ptr;
+        for (i = 0; i < hdr->hash_count; i++) {
+          p.addr += NuStrLen(p.char_ptr) + 1;
+          if (p.addr & 1)
+            p.addr++;
+          p.addr += 2;
+        }
+        p.void_ptr = hdr->file_info;
+        NuMemCpy(p.u8_ptr, (unsigned char *)hdr->hash_idxs,
+                 hdr->file_count * 4);
+        hdr->hash_idxs = p.u32_ptr;
+        p.addr += hdr->file_count * 4;
+        if (hdr->hashes_len != 0) {
+          hdr->hashes = p.char_ptr;
+          NuMemCpy(p.u8_ptr, (unsigned char *)hdr->hashes, hdr->hashes_len);
+          p.addr += hdr->hashes_len;
+        }
+        buf->addr = p.addr;
+        hdr->file_info = NULL;
+        hdr->tree_node_count = 0;
+        hdr->leaf_names_len = 0;
+        hdr->leaf_names = NULL;
+      }
+      for (i = 0; i < 8; i++) {
+        hdr->open_files[i].info_idx = -1;
+        hdr->open_files[i].dat_file = 0;
+        hdr->open_files[i].pos = 0;
+      }
+      hdr->open_files[0].dat_file = file;
+      hdr->open_files[0].pos = 0;
+      hdr->mode = mode;
+      hdr->unknown2 = 0;
+      nufile_buffering_enabled = buffering;
+      return hdr;
+    }
+    Unk006d24b0();
+    NuFileClose(file);
+  }
+  nufile_buffering_enabled = buffering;
+  return NULL;
+}
+
 // FUNCTION: LEGOBATMAN 0x006e0530
 void NuPadRecordLoad(char *filepath, VARIPTR *buffer, VARIPTR end) {
   g_nuPadRec.mode = 0;
@@ -5329,8 +5498,10 @@ int NuFileLoadBufferVP(char *filepath, VARIPTR *buf, VARIPTR *buf_end) {
 int NuFileStatus(int file);
 
 // STUB: LEGOBATMAN 0x006decb0
-// The original inlines NuDatFileSeek -> NuFileSeek, with a small-file
-// (0x2000) seek that bounds-checks against the item size (not 0x006d2fe0).
+// Matches as is once 0x006d2fe0's case 0 reads
+// `if (offset > ic + 1) Unk006d24b0();`, but then 0x006d2fe0 and
+// NuFilePatchAddress's inlined copy keep that call too (the originals drop
+// it); string arguments drop it everywhere instead.
 int NuDatFileLoadBuffer(NUDATHDR *dat, char *name, void *dest, int buf_size) {
   int file;
   char *buf;

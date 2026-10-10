@@ -62,3 +62,4 @@ are not lost. Run inside `nix develop` from the repo root.
 - `variants_multi.py ADDR VARIANTS [FILE]`: variants made of several
   `old\n----\nnew` edits each (`%%%%` between edits, `#####` between
   variants); prints bytes/diff lines per variant and restores FILE.
+- `bytesearch.py HEX...`: every hit of a byte pattern (`??` wildcards) in .text with its containing function; finds inlined copies of a helper by its globals (e.g. `8408b000`).
