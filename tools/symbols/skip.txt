@@ -209,3 +209,4 @@
 0061f2d0 CharScene_Load: static custom convention, our cl adds an ebx arg
 0061f370 CharScenes_LevelLoad: calls CharScene_Load (ebx arg puzzle)
 0061f4f0 CharScene_FindHSpecial: block order of the world branch, 4 forms tried
+00491a90 GizTorp_Update: x87 0.5 constant kept as dword in st0 across the loop, ours qword

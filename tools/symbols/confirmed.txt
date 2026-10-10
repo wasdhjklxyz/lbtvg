@@ -2599,3 +2599,13 @@
 005116d0 Flight_C_Update        Flight_Update + boss chopper smoke/fire debris by hitpoints; Mac order
 005117b0 TurnOnCraneDirtyHack   WORLD area == crane area, same as the Mac's; after Flight_C_Update as on the Mac
 005117d0 CraneDirtyHackCheck    (a, b): b's type == id -> 1 else a+0x24d, same as the Mac's; Mac order
+00491900 GizTorp_SetVisibility  bit 1 of machine+0x2d: saga giztorpedo.cpp; PC order = Mac order in the GizTorp TU
+00491930 GizTorp_Activate       bit 0 of machine+0x2d: saga giztorpedo.cpp; Mac order
+00491a90 GizTorp_Update         activation_time += FRAMETIME capped at 0.5: saga giztorpedo.cpp; Mac order
+00491d70 GizTorp_GetMaxGizmos   current_level+0x116: saga giztorpedo.cpp; Mac order
+00491e10 GizTorp_GetGizmoName   machine name (offset 0) or NULL: saga giztorpedo.cpp; Mac order
+00491e30 GizTorp_GetOutput      returns 0: saga giztorpedo.cpp; Mac order
+00491e40 GizTorp_GetOutputName  "Ready" for output 0: saga giztorpedo.cpp; Mac order
+00491e60 GizTorp_GetNumOutputs  returns 1: saga giztorpedo.cpp; Mac order
+00491e70 GizTorpedo_AllocateProgressData 0x18 bytes from the buffer; Mac order
+00491e90 GizTorpedo_ClearProgress two 12-byte 0xff fills; Mac order

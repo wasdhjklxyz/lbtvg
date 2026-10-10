@@ -55,6 +55,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [GizmoPickup](#gizmopickup) | 1 | 1 |
 | [GizmoPickups](#gizmopickups) | 1 | 1 |
 | [GizObstacles](#gizobstacles) | 1 | 1 |
+| [GizTorp](#giztorp) | 1 | 1 |
 | [GizTurrets](#gizturrets) | 1 | 1 |
 | [Grapples](#grapples) | 1 | 1 |
 | [Levels](#levels) | 1 | 1 |
@@ -554,6 +555,10 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## GizObstacles
 
 - [ ] `005b6d60` 931 B `GizObstacles_Load(void*, void*)`  **saga** `legoapi/gizmos/object/gizobstacle.cpp`
+
+## GizTorp
+
+- [ ] `00491a90` 94 B `GizTorp_Update(void*, void*, float)`  **stub** · **saga** `legoapi/gizmo/object/giztorpedo.cpp`
 
 ## GizTurrets
 
