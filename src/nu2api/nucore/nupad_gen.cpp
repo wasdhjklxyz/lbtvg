@@ -959,23 +959,18 @@ void NuFileGetAppDirectory(char *dest) {
   NuStrCpy(dest, g_unk0099f288->app_dir);
 }
 
-static inline int NuFileCopyStr(char *dst, char *src) {
-  char *start = dst;
-  while (*src)
-    *dst++ = *src++;
-  *dst = *src;
-  return dst - start;
-}
-
-// STUB: LEGOBATMAN 0x006d9160
-// The original peels the empty-path case and copies without a null check.
+// FUNCTION: LEGOBATMAN 0x006d9160
 void NuFileSetAppDirectory(char *path) {
-  char sep[2] = "\\";
-  int len = NuFileCopyStr(g_unk0099f288->app_dir, path);
-
-  if (len != 0 && path[len - 1] != '\\' && path[len - 1] != '/') {
-    sep[0] = g_unk0099f288->separator;
-    NuStrCat(g_unk0099f288->app_dir, sep);
+  int length;
+  char separator[2] = "\\";
+  if (*path != '\0') {
+    length = NuStrCpy(g_unk0099f288->app_dir, path);
+    if (length != 0 && path[length - 1] != '\\' && path[length - 1] != '/') {
+      separator[0] = g_unk0099f288->separator;
+      NuStrCat(g_unk0099f288->app_dir, separator);
+    }
+  } else {
+    g_unk0099f288->app_dir[0] = '\0';
   }
 }
 

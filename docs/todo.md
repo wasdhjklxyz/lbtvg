@@ -18,12 +18,12 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [near rtleditor.cpp](#near-rtleditorcpp) | 43 | 34 |
 | [near terrain.c](#near-terrainc) | 24 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 10 | 6 |
-| [NuFile](#nufile) | 5 | 5 |
 | [Condition](#condition) | 6 | 4 |
 | [CRC](#crc) | 4 | 4 |
 | [Grabber](#grabber) | 5 | 4 |
 | [Hub](#hub) | 7 | 4 |
 | [Move](#move) | 4 | 4 |
+| [NuFile](#nufile) | 4 | 4 |
 | [GizmoPickups](#gizmopickups) | 3 | 3 |
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 3 | 3 |
 | [Plugs](#plugs) | 3 | 3 |
@@ -386,14 +386,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `006bc410` 1430 B `_AISysProcessCharacter`
 - [ ] `006b5000` 3215 B `_AISysLoadEx`
 
-## NuFile
-
-- [ ] `006d9160` 111 B `_NuFileSetAppDirectory`  **stub** · **saga** `nu2api/nufile/nufile.c`
-- [ ] `006dca60` 123 B `_NuFileInitEx`  **stub** · **saga** `nu2api/nufile/nufile.cpp`
-- [ ] `006dd990` 126 B `_NuFileExistQuiet`  **stub** · **saga** `nu2api/nufile/nufile.cpp`
-- [ ] `006d9540` 158 B `_NuFilePos`  **stub** · **saga** `nu2api/nufile/nufile.cpp`
-- [ ] `006dda10` 165 B `_NuFileSize`  **stub** · **saga** `nu2api/nufile/nufile.cpp`
-
 ## Condition
 
 - [ ] `0044fd60` 7 B `Condition_NumForceObjects(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char*, void*)`  **stub** · **saga** `legoapi/items/objects/gameobjects.cpp`
@@ -434,6 +426,13 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `004d87c0` 688 B `Move_DRAGBOMB(GameObject_s*)`  **saga** `legoapi/characters/motion/move.cpp`
 - [ ] `004d8b60` 1139 B `Move_JEDI(GameObject_s*)`  **saga** `legoapi/characters/motion/move.cpp`
 - [ ] `004d7ae0` 1761 B `Move_VEHICLE(GameObject_s*)`  **saga** `legoapi/characters/motion/move.cpp`
+
+## NuFile
+
+- [ ] `006dca60` 123 B `_NuFileInitEx`  **stub** · **saga** `nu2api/nufile/nufile.cpp`
+- [ ] `006dd990` 126 B `_NuFileExistQuiet`  **stub** · **saga** `nu2api/nufile/nufile.cpp`
+- [ ] `006d9540` 158 B `_NuFilePos`  **stub** · **saga** `nu2api/nufile/nufile.cpp`
+- [ ] `006dda10` 165 B `_NuFileSize`  **stub** · **saga** `nu2api/nufile/nufile.cpp`
 
 ## GizmoPickups
 
