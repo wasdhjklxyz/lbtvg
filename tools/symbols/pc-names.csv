@@ -739,6 +739,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004f7500,000ca070,__ZNK19LightFlickerOverlay12ShouldUpdateEv,LightFlickerOverlay::ShouldUpdate() const,confirmed,0
 004f7530,000ca046,__ZNK19LightFlickerOverlay9IsVisibleEv,LightFlickerOverlay::IsVisible() const,confirmed,0
 004f7560,0010dab6,__Z9LoadPerm2v,LoadPerm2(),strings,0
+004f9880,00110e44,__Z21Text_SetLanguage_Gamei,Text_SetLanguage_Game(int),confirmed,0
+004f9980,00110eea,__Z23Text_InitDefaultStringsv,Text_InitDefaultStrings(),confirmed,0
 004f9a60,00110fdc,__Z18Text_DecodeButtonsPcS_,"Text_DecodeButtons(char*, char*)",strings,0
 004f9ab0,0011101e,__Z16Text_LoadStringsP9variptr_uS0_,"Text_LoadStrings(variptr_u*, variptr_u*)",confirmed,0
 004f9c20,0011120a,_NuSinApprox,_NuSinApprox,order,1

@@ -2578,3 +2578,5 @@
 0059d700 Text_GetLanguagePath   language -> txtpath global switch: saga text.cpp; Mac order before Text_LoadFont
 0059d7b0 Text_IsFontLoaded      returns app_fnt, same as the Mac's; after Text_LoadFont as on the Mac
 0059d840 Text_GetMaxOverallStrings returns Text_MaxStrings_Overall, same as the Mac's; Mac order
+004f9880 Text_SetLanguage_Game  INTROTEXT_Y/SCALE per language: saga text.cpp values; Mac order before Text_InitDefaultStrings
+004f9980 Text_InitDefaultStrings TTab[tNULL]=txt_NULL... eight entries: saga text.cpp; before Text_DecodeButtons as on the Mac
