@@ -2778,3 +2778,15 @@
 004f2000 Signal_GetNumOutputs get_num_outputs slot of the "Signal" ADDGIZMOTYPE
 004f2010 Signals_AllocateProgressData allocate_progress_data slot of the "Signal" ADDGIZMOTYPE
 004f2030 Signals_ClearProgress clear_progress slot of the "Signal" ADDGIZMOTYPE
+006781b0 Puzzle_AllocateProgress allocate_progress_data slot of the "Puzzle" ADDGIZMOTYPE
+006781d0 Puzzle_ClearProgress clear_progress slot of the "Puzzle" ADDGIZMOTYPE
+006781f0 Puzzle_StoreProgress store_progress slot of the "Puzzle" ADDGIZMOTYPE
+00678740 Puzzle_GetMaxGizmos get_max_gizmos slot of the "Puzzle" ADDGIZMOTYPE
+00678760 Puzzle_AddGizmos add_gizmos slot of the "Puzzle" ADDGIZMOTYPE
+006787c0 Puzzle_GetGizmoName get_gizmo_name slot of the "Puzzle" ADDGIZMOTYPE
+006787e0 Puzzle_GetOutput get_output slot of the "Puzzle" ADDGIZMOTYPE
+00678810 Puzzle_GetOutputName get_output_name slot of the "Puzzle" ADDGIZMOTYPE
+00678830 Puzzle_GetNumOutputs get_num_outputs slot of the "Puzzle" ADDGIZMOTYPE
+00678840 Puzzle_Activate activate slot of the "Puzzle" ADDGIZMOTYPE
+00678860 Puzzle_SetVisibility set_visibility slot of the "Puzzle" ADDGIZMOTYPE
+00678880 Puzzle_GetVisibility get_visibility slot of the "Puzzle" ADDGIZMOTYPE

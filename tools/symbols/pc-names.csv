@@ -2667,6 +2667,18 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006754c0,00281f7e,__Z14CharPivot_InitPcP9variptr_uS0_,"CharPivot_Init(char*, variptr_u*, variptr_u)",strings,0
 006762c0,003510a8,__Z17PlayerIdToGameObji,PlayerIdToGameObj(int),confirmed,0
 006763f0,00324088,__Z14Puzzle_PreLoadPvS_,"Puzzle_PreLoad(void*, void*)",strings,0
+006781b0,00324310,__Z23Puzzle_AllocateProgressP9variptr_uS0_,"Puzzle_AllocateProgress(variptr_u*, variptr_u*)",confirmed,0
+006781d0,00324332,__Z20Puzzle_ClearProgressPvS_,"Puzzle_ClearProgress(void*, void*)",confirmed,0
+006781f0,0032434c,__Z20Puzzle_StoreProgressPvS_S_,"Puzzle_StoreProgress(void*, void*, void*)",confirmed,0
+00678740,00324686,__Z19Puzzle_GetMaxGizmosPv,Puzzle_GetMaxGizmos(void*),confirmed,0
+00678760,003246a2,__Z16Puzzle_AddGizmosP10GIZMOSYS_siPvS1_,"Puzzle_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+006787c0,0032470a,__Z19Puzzle_GetGizmoNameP7GIZMO_s,Puzzle_GetGizmoName(GIZMO_s*),confirmed,0
+006787e0,0032471e,__Z16Puzzle_GetOutputP7GIZMO_sii,"Puzzle_GetOutput(GIZMO_s*, int, int)",confirmed,0
+00678810,00324744,__Z20Puzzle_GetOutputNameP7GIZMO_si,"Puzzle_GetOutputName(GIZMO_s*, int)",confirmed,0
+00678830,0032475e,__Z20Puzzle_GetNumOutputsP7GIZMO_s,Puzzle_GetNumOutputs(GIZMO_s*),confirmed,0
+00678840,00324768,__Z15Puzzle_ActivateP7GIZMO_si,"Puzzle_Activate(GIZMO_s*, int)",confirmed,0
+00678860,00324784,__Z20Puzzle_SetVisibilityP7GIZMO_si,"Puzzle_SetVisibility(GIZMO_s*, int)",confirmed,0
+00678880,003247a2,__Z20Puzzle_GetVisibilityP7GIZMO_s,Puzzle_GetVisibility(GIZMO_s*),confirmed,0
 00678e00,0034f8ba,__ZN12WorldMapBase19SetAreaOpenCompleteEiii,"WorldMapBase::SetAreaOpenComplete(int, int, int)",confirmed,0
 00678e50,00350a4c,__ZN12WorldMapBase16GetTotalDistanceEii,"WorldMapBase::GetTotalDistance(int, int)",confirmed,0
 00678ef0,0034fab6,__ZN12WorldMapBase15InitializeLevelEP11WORLDINFO_s,WorldMapBase::InitializeLevel(WORLDINFO_s*),strings,0
