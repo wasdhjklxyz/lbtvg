@@ -491,3 +491,19 @@ enough matched code for the percentage to mean something.
   the .obj, e.g. a static nothing references, instead of aborting the file;
   `__declspec(...)` before a definition is skipped. `tools/disasm.py` now
   disassembles to the first int3 or next known start, not ghidra's size.
+- **Unity TUs**: 0x6d24b0..~0x6e0e16 is ONE translation unit holding what
+  saga splits into nufile, nufpar, nufilepak, nuqt, nurdp, nuheap and the pad
+  code (in our tree: `src/nu2api/nucore/nupad_gen.cpp`). Static helpers'
+  conventions only match with all their callers in that file. Expect more
+  engine code to be built this way: check `callers.py` before splitting a
+  range into saga's file layout.
+- **VC8 knows every function defined anywhere in the TU**, even later in the
+  file: it inlines them, knows which don't write memory
+  (`for (j < NuStrLen(s))` becomes one call before the loop), and drops
+  calls to empty bodies.
+- **`if (x) return true; return false;`** gives `sete`; `return x == 0;`
+  gives neg/sbb.
+- **`int r = 0; if (c) {} else r = f(); return r;`** parks the 0 in a
+  register also used for the compares.
+- **`idx = file - 0x2000`** gives `add -0x2000`; `file -= 0x2000` gives
+  `sub`.
