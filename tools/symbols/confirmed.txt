@@ -3443,3 +3443,4 @@
 006de270 NuDatFileRead saga nufile.cpp body, implode-only decode branch
 006da710 NuFParGetWordW saga nufpar.cpp body (static old_line_pos 0xae4344)
 006d3e20 NuFParUnGetWord saga nufpar.cpp body (line_pos = old_line_pos)
+006da8d0 NuFParGetWord saga nufpar.cpp body plus an empty "" giving a single space word

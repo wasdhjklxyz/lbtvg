@@ -1677,6 +1677,71 @@ int NuFParGetWordW(NUFPAR *parser) {
   return len;
 }
 
+#define CLAMP_LINE(pos) pos &(parser->line_buf_size - 1)
+#define CLAMP_WORD(pos) pos &(parser->word_buf_size - 1)
+
+// FUNCTION: LEGOBATMAN 0x006da8d0
+int NuFParGetWord(NUFPAR *parser) {
+  int len;
+  int in_quoted_text;
+  int found_quotes = 0;
+
+  if (parser->is_utf16)
+    return NuFParGetWordW(parser);
+  len = 0;
+  in_quoted_text = 0;
+  old_line_pos = parser->line_pos;
+  while (parser->line_buf[CLAMP_LINE(parser->line_pos)] != 0) {
+    char c = parser->line_buf[parser->line_pos];
+
+    if (parser->separator_tokens != NULL && !in_quoted_text) {
+      if (NuStrChr((char *)parser->separator_tokens, c) != NULL) {
+        if (len == 0) {
+          parser->word_buf[len] = c;
+          len++;
+          parser->line_pos++;
+        }
+        parser->word_buf[CLAMP_WORD(len)] = '\0';
+        return len;
+      }
+    }
+    if (parser->separator_list != NULL && !in_quoted_text) {
+      if (NuStrChr((char *)parser->separator_list, c) != NULL)
+        c = ' ';
+    }
+    switch (c) {
+    case ' ':
+    case ',':
+    case '\t':
+      if (!in_quoted_text) {
+        if (len != 0) {
+          parser->word_buf[CLAMP_WORD(len)] = '\0';
+          return len;
+        }
+        break;
+      }
+    default:
+      if (c == '"') {
+        if (in_quoted_text && len == 0) {
+          parser->word_buf[0] = ' ';
+          len = 1;
+        }
+        in_quoted_text = 1 - in_quoted_text;
+        found_quotes = 1;
+      } else {
+        parser->word_buf[CLAMP_WORD(len)] = c;
+        len++;
+      }
+      break;
+    }
+    parser->line_pos++;
+    if (found_quotes && in_quoted_text == 0 && len == 0)
+      break;
+  }
+  parser->word_buf[CLAMP_WORD(len)] = '\0';
+  return len;
+}
+
 // FUNCTION: LEGOBATMAN 0x006d3e20
 void NuFParUnGetWord(NUFPAR *parser) { parser->line_pos = old_line_pos; }
 

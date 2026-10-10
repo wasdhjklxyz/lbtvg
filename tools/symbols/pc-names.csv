@@ -3658,7 +3658,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006da5a0,0018d92e,_NuFileExtConvert,_NuFileExtConvert,confirmed,0
 006da650,0018d8de,_NuFileExtRemove,_NuFileExtRemove,confirmed,0
 006da710,0018d2e2,_NuFParGetWordW,_NuFParGetWordW,confirmed,0
-006da8d0,0018d4c2,_NuFParGetWord,_NuFParGetWord,gapfill,1
+006da8d0,0018d4c2,_NuFParGetWord,_NuFParGetWord,confirmed,0
 006daa40,0018d694,_NuFParGetFloat,_NuFParGetFloat,confirmed,0
 006daae0,0018d740,_NuFParGetOptionalFloat,_NuFParGetOptionalFloat,confirmed,0
 006dabf0,0018ffe2,_NuFParGetOptionalInt,_NuFParGetOptionalInt,confirmed,0

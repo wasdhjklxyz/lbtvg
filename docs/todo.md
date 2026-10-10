@@ -24,8 +24,8 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [Grabber](#grabber) | 5 | 4 |
 | [Hub](#hub) | 7 | 4 |
 | [Move](#move) | 4 | 4 |
-| [near nupad_gen.cpp](#near-nupad_gencpp) | 4 | 4 |
 | [GizmoPickups](#gizmopickups) | 3 | 3 |
+| [near nupad_gen.cpp](#near-nupad_gencpp) | 3 | 3 |
 | [Plugs](#plugs) | 3 | 3 |
 | [SuperCounter](#supercounter) | 5 | 3 |
 | [Arcade](#arcade) | 2 | 2 |
@@ -435,18 +435,17 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `004d8b60` 1139 B `Move_JEDI(GameObject_s*)`  **saga** `legoapi/characters/motion/move.cpp`
 - [ ] `004d7ae0` 1761 B `Move_VEHICLE(GameObject_s*)`  **saga** `legoapi/characters/motion/move.cpp`
 
-## near nupad_gen.cpp
-
-- [ ] `006dd430` 318 B `_NuFParInterpretWordCTX`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006dd2d0` 347 B `_NuFParInterpretWord`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006da8d0` 358 B `_NuFParGetWord`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
-- [ ] `006d7270` 397 B `_ImplodeMakeTree`  **stub** · **saga** `legoapi/render/fx/inflate.cpp`
-
 ## GizmoPickups
 
 - [ ] `00634ef0` 293 B `GizmoPickups_Load(void*, void*)`  **stub** · **saga** `legoapi/gizmos/fx/gizmopickups.cpp`
 - [ ] `00635620` 308 B `GizmoPickups_Collide(WORLDINFO_s*, GameObject_s*, int)`  **hint** name (gapfill) · **saga** `legoapi/gizmos/fx/gizmopickups.cpp`
 - [ ] `00634c70` 622 B `GizmoPickups_Reset(void*, void*, void*)`  **stub** · **saga** `legoapi/gizmos/fx/gizmopickups.cpp`
+
+## near nupad_gen.cpp
+
+- [ ] `006dd430` 318 B `_NuFParInterpretWordCTX`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006dd2d0` 347 B `_NuFParInterpretWord`  **stub** · **hint** name (gapfill) · **saga** `nu2api/nufile/nufpar.cpp`
+- [ ] `006d7270` 397 B `_ImplodeMakeTree`  **stub** · **saga** `legoapi/render/fx/inflate.cpp`
 
 ## Plugs
 
