@@ -3552,3 +3552,21 @@
 006d2b30 NuFileEndianSwap32 saga nufile_plain.cpp static (eax), out-of-line copy
 006d2ab0 NuDatFileDecodeInit saga nufile.cpp static, out-of-line copy (unpack_* globals are static)
 006d2ae0 NuDatFileDecodeNewFile saga nufile.cpp static (eax/ecx), out-of-line copy
+006d25c0 NuHeapBlock_SetInUse saga nuheap.cpp static (eax)
+006d25e0 NuHeapBlock_GetInUse saga nuheap.cpp static (eax)
+006d25f0 NuHeapBlock_SetSize saga nuheap.cpp static (eax)
+006d2600 NuHeapBlock_GetSize saga nuheap.cpp static (eax)
+006d2610 NuHeapBlock_SetNextFree saga nuheap.cpp static (ecx/eax)
+006d2620 NuHeapBlock_GetNextFree saga nuheap.cpp static (eax)
+006d2630 NuHeapBlock_SetPrevFree saga nuheap.cpp static
+006d2640 NuHeapBlock_GetUsableMemory saga nuheap.cpp static (eax)
+006d2650 NuHeapBlock_WriteFooter saga nuheap.cpp static (eax)
+006d2660 NuHeapBlock_RemoveFromFreeList saga nuheap.cpp static (eax)
+006d2740 NuHeapBlock_GetNext saga nuheap.cpp static (eax)
+006d2750 NuHeapBlock_GetPrev saga nuheap.cpp static (eax)
+006d2760 NuHeapCreate saga nuheap.cpp body plus NuThreadCreateCriticalSection
+006d28f0 NuHeapFree saga nuheap.cpp body inside a critical section
+006d2a00 NuHeapGetAllocatedBlockCount saga nuheap.cpp body
+006d2a10 NuHeapGetFreeBlockCount saga nuheap.cpp body inside a critical section
+006d2a50 NuHeapGetTotalAllocated saga nuheap.cpp body
+006d2a60 NuHeapGetTotalFree saga nuheap.cpp body inside a critical section

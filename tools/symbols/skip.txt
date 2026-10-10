@@ -260,3 +260,5 @@
 006dad60 get_tok_rdpf: identifier loop spills p across GetMultiCharToken, ours rematerializes buf+pos (callers match)
 006dccf0 NuDatFileOpen: file_idx kept in edi (original spills to the mode slot), start/pos store order
 006decb0 NuDatFileLoadBuffer: inlined seek chain uses a bounds-checked small-file seek we do not have
+006d2680 NuHeapBlock_SplitFreeBlock: register convention (orig block on stack, allocated/remainder in eax/edx)
+006d2810 NuHeapAllocAlignedNamed: follows SplitFreeBlock convention
