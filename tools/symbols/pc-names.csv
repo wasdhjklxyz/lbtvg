@@ -2575,6 +2575,15 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00632800,00327630,__Z14DrawRailSparksP9RAILSYS_siP12GameObject_s,"DrawRailSparks(RAILSYS_s*, int, GameObject_s*)",strings,0
 00632a00,003278e6,__Z16MovePlayer_RailsP12GameObject_s,MovePlayer_Rails(GameObject_s*),strings,0
 00633910,002d02dc,__Z10AddPickupsiiiiP7nuvec_sS0_fiffP12GameObject_sii,"AddPickups(int, int, int, int, nuvec_s*, nuvec_s*, float, int, float, float, GameObject_s*, int, int)",gapfill,2
+00634480,002cd480,__Z25GizmoPickups_GetMaxGizmosPv,GizmoPickups_GetMaxGizmos(void*),confirmed,0
+006344a0,002cd49c,__Z22GizmoPickups_AddGizmosP10GIZMOSYS_siPvS1_,"GizmoPickups_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+00634500,002cd4f4,__Z24GizmoPickup_GetGizmoNameP7GIZMO_s,GizmoPickup_GetGizmoName(GIZMO_s*),confirmed,0
+00634510,002cd504,__Z21GizmoPickup_GetOutputP7GIZMO_sii,"GizmoPickup_GetOutput(GIZMO_s*, int, int)",confirmed,0
+00634530,002cd518,__Z25GizmoPickup_GetOutputNameP7GIZMO_si,"GizmoPickup_GetOutputName(GIZMO_s*, int)",confirmed,0
+00634540,002cd52a,__Z25GizmoPickup_GetNumOutputsP7GIZMO_s,GizmoPickup_GetNumOutputs(GIZMO_s*),confirmed,0
+006346a0,002cd696,__Z33GizmoPickups_AllocateProgressDataP9variptr_uS0_,"GizmoPickups_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+006346c0,002cd6b8,__Z26GizmoPickups_ClearProgressPvS_,"GizmoPickups_ClearProgress(void*, void*)",confirmed,0
+00634710,002cd722,__Z26GizmoPickups_StoreProgressPvS_S_,"GizmoPickups_StoreProgress(void*, void*, void*)",confirmed,0
 00635020,002cdece,__Z23GizmoPickups_TotalScorePv,GizmoPickups_TotalScore(void*),confirmed,0
 00635070,002ce0cc,__Z24GizmoPickup_NumberOfTypeP11WORLDINFO_sic,"GizmoPickup_NumberOfType(WORLDINFO_s*, int, char)",confirmed,0
 006350d0,002ce136,__Z22GizmoPickup_FindByNameP11WORLDINFO_sPc,"GizmoPickup_FindByName(WORLDINFO_s*, char*)",confirmed,0
@@ -2590,6 +2599,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00635ca0,002cec56,__Z16UpdateCoinPacketP12COINPACKET_sii,"UpdateCoinPacket(COINPACKET_s*, int, int)",confirmed,0
 00635de0,002ced68,__Z18CoinsGoToMainTotalv,CoinsGoToMainTotal(),gapfill,2
 00636200,002cf1e8,__Z25SpecialMiniKits_ConfigureP11WORLDINFO_sPc,"SpecialMiniKits_Configure(WORLDINFO_s*, char*)",strings,0
+00636d40,002cdf2e,__Z26GizmoPickups_RegisterGizmoi,GizmoPickups_RegisterGizmo(int),confirmed,0
 00638f90,00282e9c,__Z23CharPlatforms_ConfigureP11WORLDINFO_sPc,"CharPlatforms_Configure(WORLDINFO_s*, char*)",strings,0
 00639400,002a7f56,__Z14SelectOpponentP12GameObject_sffiiP17CONTEXTOPPONENT_sj,"SelectOpponent(GameObject_s*, float, float, int, int, CONTEXTOPPONENT_s*, unsigned int)",confirmed,0
 006394f0,002a80d0,__Z12FaceOpponentP12GameObject_sP7nuvec_s,"FaceOpponent(GameObject_s*, nuvec_s*)",confirmed,0

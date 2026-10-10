@@ -3021,3 +3021,13 @@
 0064ab60 TightRopes_StoreProgress store_progress slot of the "TightRope" ADDGIZMOTYPE
 0064abe0 TightRopes_AddLevelSfx x27 (add_level_sfx) slot of the "TightRope" ADDGIZMOTYPE
 0064ac10 TightRopes_RegisterGizmo copies Default_ADDGIZMOTYPE, name "TightRope"
+00634480 GizmoPickups_GetMaxGizmos get_max_gizmos slot of the "GizmoPickup" ADDGIZMOTYPE
+006344a0 GizmoPickups_AddGizmos add_gizmos slot of the "GizmoPickup" ADDGIZMOTYPE
+00634500 GizmoPickup_GetGizmoName get_gizmo_name slot of the "GizmoPickup" ADDGIZMOTYPE
+00634510 GizmoPickup_GetOutput get_output slot of the "GizmoPickup" ADDGIZMOTYPE
+00634530 GizmoPickup_GetOutputName get_output_name slot of the "GizmoPickup" ADDGIZMOTYPE
+00634540 GizmoPickup_GetNumOutputs get_num_outputs slot of the "GizmoPickup" ADDGIZMOTYPE
+006346a0 GizmoPickups_AllocateProgressData allocate_progress_data slot of the "GizmoPickup" ADDGIZMOTYPE
+006346c0 GizmoPickups_ClearProgress clear_progress slot of the "GizmoPickup" ADDGIZMOTYPE
+00634710 GizmoPickups_StoreProgress store_progress slot of the "GizmoPickup" ADDGIZMOTYPE
+00636d40 GizmoPickups_RegisterGizmo copies Default_ADDGIZMOTYPE, name "GizmoPickup"

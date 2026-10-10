@@ -18,12 +18,14 @@ struct GAMECAMERA_s;
 struct Unk_WorldInfo5220Entry { // GIZMOPICKUP_s
   char name[0x14];
   char type_code; // 0x14
-  u8 pad15[2];
+  u8 b15;         // 0x15, bit 1: add as a gizmo
+  u8 b16;
   u8 b17;              // 0x17
   u16 state_bit0 : 1;  // 0x18
   u16 enabled : 1;     // bit 1
   u16 visible : 1;     // bit 2
-  u16 state_bits3 : 4; //
+  u16 collected : 1;   // bit 3
+  u16 state_bits4 : 3; //
   u16 activated : 1;   // bit 7
   u16 state_hi : 8;    //
   u8 pad1[0x24 - 0x1a];
