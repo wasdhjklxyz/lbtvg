@@ -134,6 +134,99 @@ i32 NuSysDirRead(i32 dir, NUSYSDIRENTRY_s *entry) {
   return strlen(entry->name);
 }
 
+// --- NuFile directory API over NuSysDir
+// ---------------------------------------
+
+// The fields of nupad_gen.cpp's NUFILEDEVICE these use.
+struct NUFILEDEVICE {
+  i32 id; // 0x0, 1 = no directories (NuFileOpenDir returns 0x1000), 2 = ";1"
+  u8 pad4[0x22c - 4];
+  i32 (*format_name_fn)(NUFILEDEVICE *device, char *dst, char *path,
+                        i32 size); // 0x22c
+};
+
+NUFILEDEVICE *NuFileGetDeviceFromPath(char *path);
+void Unk006e25b0(i32 error); // empty in the release build
+
+// GLOBAL: LEGOBATMAN 0x0099f6d4
+extern NUFILEDEVICE *nudir_default_device;
+
+// What NuFileReadDir returns (saga saveload reads it as raw bytes).
+struct NUFILEDIRTIME_s {
+  u8 second; // 0x0
+  u8 minute; // 0x1
+  u8 hour;   // 0x2
+  u8 day;    // 0x3
+  u8 month;  // 0x4
+  u8 pad5;
+  u16 year; // 0x6
+};
+
+struct NUFILEDIRENTRY_s {
+  u32 attrib;              // 0x00, 1 read, 2 write, 4 exec, 8 directory
+  u32 size;                // 0x04
+  NUFILEDIRTIME_s created; // 0x08
+  NUFILEDIRTIME_s written; // 0x10
+  char name[MAX_PATH];     // 0x18
+};
+
+// FUNCTION: LEGOBATMAN 0x006e3cc0
+i32 NuFileOpenDir(char *path) {
+  char buf[256];
+  NUFILEDEVICE *device = NuFileGetDeviceFromPath(path);
+  if (device == NULL)
+    device = nudir_default_device;
+  device->format_name_fn(device, buf, path, 0x100);
+  if (device->id == 2)
+    strcat(buf, ";1");
+  if (device->id == 1)
+    return 0x1000;
+  i32 dir = NuSysDirOpen(buf);
+  if (dir < 0)
+    return 0;
+  return dir + 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006e3da0
+void NuFileCloseDir(i32 file) {
+  if (file < 0x1000)
+    NuSysDirClose(file - 1);
+}
+
+// FUNCTION: LEGOBATMAN 0x006e3df0
+i32 NuFileReadDir(i32 file, NUFILEDIRENTRY_s *out) {
+  NUSYSDIRENTRY_s entry;
+  i32 len = 0;
+  if (file >= 0x1000)
+    return 0;
+  i32 result = NuSysDirRead(file - 1, &entry);
+  if (result > 0) {
+    out->attrib = ((((((entry.mode >> 2) & 0x800) | (entry.mode & 0x100)) >> 2 |
+                     (entry.mode & 0x80)) >>
+                        2 |
+                    (entry.mode & 0x40)) >>
+                   4);
+    out->size = entry.size;
+    out->created.second = entry.created.second;
+    out->created.minute = entry.created.minute;
+    out->created.hour = entry.created.hour;
+    out->created.day = entry.created.day;
+    out->created.month = entry.created.month;
+    out->created.year = entry.created.year + (entry.created.zero << 8);
+    out->written.second = entry.written.second;
+    out->written.minute = entry.written.minute;
+    out->written.hour = entry.written.hour;
+    out->written.day = entry.written.day;
+    out->written.month = entry.written.month;
+    out->written.year = entry.written.year + (entry.written.zero << 8);
+    strcpy(out->name, entry.name);
+    len = strlen(out->name);
+  } else if (result < 0) {
+    Unk006e25b0(result);
+  }
+  return len;
+}
+
 // FUNCTION: LEGOBATMAN 0x006e3820
 i32 NuFileCreateDir(char *path) {
   SECURITY_ATTRIBUTES sa;

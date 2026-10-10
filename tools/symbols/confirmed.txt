@@ -3671,3 +3671,6 @@
 006e3430 NuSysDirOpen  nufile_pc.cpp __FILE__ anchor; Mac _NuSysDirOpen body (16 slots, "\\" + "*.*", FindFirstFile, names[i-1]=0 bug) matches
 006e3610 NuSysDirClose  Mac order Open, Close, Read; frees the name, FindClose, count-- (same names[i-1]=0 bug)
 006e3660 NuSysDirRead  Mac order; fills an entry from the WIN32_FIND_DATA slot then FindNextFile, returns strlen(name)
+006e3cc0 NuFileOpenDir  Mac order after NuSysDirOpen; device format_name then NuSysDirOpen(buf)+1, 0x1000 for device id 1
+006e3da0 NuFileCloseDir  inlines NuSysDirClose (same __FILE__ line 0x23e) for handles below 0x1000
+006e3df0 NuFileReadDir  calls NuSysDirRead(file-1) and repacks the entry (dir bit 8, name at 0x18 as saga saveload reads it)
