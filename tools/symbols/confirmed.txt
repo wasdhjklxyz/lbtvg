@@ -3295,3 +3295,35 @@
 0065fbc0 GizTurrets_Load GizTurrets_RegisterGizmo load slot
 0060bfa0 PushBlocks_Load PushBlocks_RegisterGizmo load slot
 005b74e0 GizObstacles_Reset GizObstacles_RegisterGizmo reset slot
+0059cb90 EdFileSwapEndianess16 saga edfile.cpp body matches; PC edfile TU in saga source order 0x59cb90..0x59d664
+0059cba0 EdFileSwapEndianess32 saga edfile.cpp body matches (source order)
+0059cbc0 EdFileSetReadWrongEndianess saga edfile.cpp empty body (source order)
+0059cbd0 EdFileSetMedia saga edfile.cpp body matches (edfile_media store)
+0059cbe0 EdFileSetPakFile saga edfile.cpp body matches (edfile_pakfile store)
+0059cbf0 EdFileResetBuffers saga edfile.cpp body matches (memset buffer, pointer, lock[1], lock[0])
+0059cc30 EdFileFillBuffer saga edfile.cpp body matches (NuFileRead 0x1000 into edfile_buffer)
+0059cc80 EdFileOpen saga edfile.cpp body matches (pak item, NuMemFileOpen, NuFileOpen)
+0059cdb0 EdFileFlushBuffer saga edfile.cpp body matches (NuFileWrite of edfile_buffer)
+0059cdf0 EdFileClose saga edfile.cpp body matches
+0059ce50 EdFileWrite saga edfile.cpp body matches (buffered memcpy, flush at 0x1000)
+0059cee0 EdFileWriteFloat saga edfile.cpp body matches
+0059cf30 EdFileWriteInt saga edfile.cpp body matches
+0059cf70 EdFileWriteUnsignedInt saga edfile.cpp body matches
+0059cfb0 EdFileWriteShort saga edfile.cpp body matches
+0059cfe0 EdFileWriteUnsignedShort saga edfile.cpp body matches
+0059d010 EdFileWriteChar saga edfile.cpp body matches (source order)
+0059d020 EdFileWriteUnsignedChar saga edfile.cpp body matches (source order)
+0059d030 EdFileWriteNuVec saga edfile.cpp body matches (three inlined WriteFloats)
+0059d100 EdFileWriteString Mac _EdFileWriteString is strlen + EdFileWrite, same as PC
+0059d130 EdFileWriteStringV vsprintf into a 0x400 buffer then EdFileWrite; the other Mac WriteString
+0059d1a0 EdFileRead saga edfile.cpp body matches (buffered memcpy, refill at 0x1000)
+0059d250 EdFileMovePointer Mac _EdFileMovePointer between Read and ReadChar; advances the buffer pointer like EdFileRead without the copy
+0059d2d0 EdFileReadFloat saga edfile.cpp body matches
+0059d310 EdFileReadInt saga edfile.cpp body matches
+0059d350 EdFileReadUnsignedInt saga edfile.cpp body matches
+0059d390 EdFileReadShort saga edfile.cpp body matches
+0059d3f0 EdFileReadChar saga edfile.cpp body matches
+0059d430 EdFileReadNuVec saga edfile.cpp body matches (three inlined ReadFloats)
+0059d500 EdFileWriteMemCard saga edfile.cpp body; EdFileOpen inlined and folded for media 2
+0059d550 EdFileReadMemCard saga edfile.cpp body matches (tail jump to EdFileClose)
+0059d590 EdFileBackup saga edfile.cpp body matches (NuFileSize, copy loop through edfile_buffer)
