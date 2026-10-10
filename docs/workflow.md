@@ -546,3 +546,24 @@ enough matched code for the percentage to mean something.
 - **GetNamedGameObject 0x44c930 is global** (Mac says static): the 0x45xxxx
   actions call it, the 0x467f50+ actions inline a copy
   (`GetNamedGameObjectInl`).
+- **AIPATHINFO is 0x1c** (`u32 unk_0x18` at the end; Mac AISysGetPathPos2
+  copies 7 dwords); `AISCRIPTPROCESS_s` now has saga's names at Batman's
+  offsets (`action_timer` 0xa0, area 0xa4, `locator` 0xa8, `locator_set`
+  0xac, `creature_set` 0xb4). Use the fields, not `(u8 *)p + 0xa0` casts.
+- **`value += NuStrLen(key) + 1; f(value);`** gives `lea r, [value+len+1]`;
+  a helper returning the pointer gives the swapped form.
+- **`T *p = base; for (...; i++, p++)`** folds counter and pointer into one
+  register; `&Obj[i]` in the loop does not.
+- **`if (x) {...; return 1;} return 1;`** puts the early-out epilogue at the
+  end.
+- **`(dword & 0x80) != 0` in an `&&` chain** gives `test al, al; jns`.
+- **`f <= 0.0f`** gives `fcom; test ah, 1`; `!(f > 0.0f)` gives `test ah, 5`.
+- **An if/else with two calls in a loop** is tail-merged into one call with
+  the `push 0` hoisted (a ternary gives `sete`).
+- **Identical empty functions may be folded by the linker (ICF)**: declare
+  one extern (call kept) and define another in the TU (caller keeps its
+  registers); matched 0x6d07b0.
+- **`x *= m` vs `m * x`** flips the x87 load order depending on context.
+- **`nufile_pc.cpp` + `nufile_ps_unk.cpp` (+ probably `nutime_pc.cpp`) are
+  one TU**: getpointer and NuThreadCriticalSectionBegin inline into
+  NuPSFileOpen.
