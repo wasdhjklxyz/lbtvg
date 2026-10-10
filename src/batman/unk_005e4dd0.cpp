@@ -10,7 +10,13 @@ typedef struct TUBE_s {
   char name[0x10]; // 0x00
   u8 pad10[0x1c - 0x10];
   nuvec_s position; // 0x1c
-  u8 pad28[0x44 - 0x28];
+  u8 pad28[0x2c - 0x28];
+  f32 height; // 0x2c
+  f32 radius; // 0x30
+  u8 pad34[0x38 - 0x34];
+  f32 top;       // 0x38
+  f32 radius_sq; // 0x3c
+  u8 pad40[0x44 - 0x40];
   u8 active : 1;  // 0x44
   u8 visible : 1; // 0x44 bit 1
   u8 b2 : 1;
@@ -77,8 +83,39 @@ void Tube_SetVisibility(GIZMO *gizmo, i32 visible) {
     ((TUBE *)gizmo->object)->visible = visible != 0;
 }
 
+// FUNCTION: LEGOBATMAN 0x005e5250
+void Tubes_Reset(void *world_ptr, void *unused, void *progress_ptr) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  TUBEPROGRESS *progress = (TUBEPROGRESS *)progress_ptr;
+  if (world == NULL)
+    return;
+  TUBE *tube = world->tubes;
+  if (tube == NULL)
+    return;
+  for (i32 i = 0; i < world->tube_count; i++, tube++) {
+    tube->top = tube->height + tube->position.y;
+    tube->active = 1;
+    tube->visible = 1;
+    tube->radius_sq = tube->radius * tube->radius;
+    if (progress != NULL && i < 32) {
+      i32 word = i / 32;
+      u32 bit = 1 << (i & 31);
+      tube->visible = (progress->visible[word] & bit) != 0;
+      tube->active = (progress->active[word] & bit) != 0;
+    }
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x005e5300
 void Tubes_Draw(void *world, void *unused, f32 dt) {}
+
+// FUNCTION: LEGOBATMAN 0x005e5310
+i32 Tubes_GetMaxGizmos(void *world_ptr) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  if (world != NULL)
+    return world->current_level->max_tubes;
+  return 0;
+}
 
 // FUNCTION: LEGOBATMAN 0x005e5330
 void Tubes_AddGizmos(GIZMOSYS_s *gizmo_sys, i32 type_id, void *world_ptr,
@@ -150,4 +187,59 @@ nuvec_s *Tube_GetPos(GIZMO *gizmo) {
   if (gizmo == NULL)
     return NULL;
   return &((TUBE *)gizmo->object)->position;
+}
+
+typedef struct ADDGIZMOTYPE_s {
+  char *name;        // 0x00
+  char *prefix;      // 0x04
+  u16 progress_size; // 0x08
+  void *fns[0x1c];   // 0x0c
+} ADDGIZMOTYPE;
+
+// GLOBAL: LEGOBATMAN 0x00960118
+extern ADDGIZMOTYPE Default_ADDGIZMOTYPE;
+
+i32 Tubes_Load(void *world, void *unused);
+void Tubes_Update(void *world, void *unused, f32 dt);
+
+// FUNCTION: LEGOBATMAN 0x005e5d70
+ADDGIZMOTYPE *Tubes_RegisterGizmo(i32 type_id) {
+  // GLOBAL: LEGOBATMAN 0x00961890
+  static char *name = "Tube";
+  // GLOBAL: LEGOBATMAN 0x00ac7500
+  static ADDGIZMOTYPE addtype;
+
+  addtype = Default_ADDGIZMOTYPE;
+  addtype.name = name;
+  addtype.prefix = "";
+  addtype.progress_size = sizeof(TUBEPROGRESS);
+  addtype.fns[0] = (void *)Tubes_GetMaxGizmos;
+  addtype.fns[1] = (void *)Tubes_AddGizmos;
+  addtype.fns[2] = NULL;
+  addtype.fns[3] = (void *)Tubes_Update;
+  addtype.fns[4] = (void *)Tubes_Draw;
+  addtype.fns[5] = NULL;
+  addtype.fns[6] = (void *)Tube_GetGizmoName;
+  addtype.fns[7] = (void *)Tube_GetOutput;
+  addtype.fns[8] = (void *)Tube_GetOutputName;
+  addtype.fns[9] = (void *)Tube_GetNumOutputs;
+  addtype.fns[10] = (void *)Tube_Activate;
+  addtype.fns[11] = (void *)Tube_ActivateRev;
+  addtype.fns[12] = (void *)Tube_SetVisibility;
+  addtype.fns[13] = NULL;
+  addtype.fns[14] = (void *)Tube_GetPos;
+  addtype.fns[15] = NULL;
+  addtype.fns[16] = NULL;
+  addtype.fns[17] = NULL;
+  addtype.fns[18] = NULL;
+  addtype.fns[19] = (void *)Tubes_AllocateProgressData;
+  addtype.fns[20] = (void *)Tubes_ClearProgress;
+  addtype.fns[21] = (void *)Tubes_StoreProgress;
+  addtype.fns[22] = (void *)Tubes_Reset;
+  addtype.fns[23] = (void *)Tubes_ReserveBufferSpace;
+  addtype.fns[24] = (void *)Tubes_Load;
+  addtype.fns[25] = NULL;
+  addtype.fns[26] = NULL;
+  addtype.fns[27] = NULL;
+  return &addtype;
 }

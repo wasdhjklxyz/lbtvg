@@ -3061,3 +3061,8 @@
 00488710 GizForces_FindForce Mac GizForces_FindForce(WORLDINFO_s*, char*), GizmoFindByName with the force type id
 00488750 GizForce_TotalScore Mac GizForce_TotalScore(void*), sums score
 0048a620 GizForce_RegisterGizmo copies Default_ADDGIZMOTYPE, name "GizForce"
+005e5250 Tubes_Reset reset slot of the "Tube" ADDGIZMOTYPE
+005e5310 Tubes_GetMaxGizmos get_max_gizmos slot of the "Tube" ADDGIZMOTYPE
+005e5d70 Tubes_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Tube"
+005a7710 Technos_GetMaxGizmos get_max_gizmos slot of the "Techno" ADDGIZMOTYPE
+005a82d0 Technos_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Techno"

@@ -44,6 +44,14 @@ void Techno_Activate(GIZMO *gizmo, i32 active) {
     ((TECHNO *)gizmo->object)->active = active != 0;
 }
 
+// FUNCTION: LEGOBATMAN 0x005a7710
+i32 Technos_GetMaxGizmos(void *world_ptr) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  if (world != NULL)
+    return world->current_level->max_technos;
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x005a7730
 void Technos_AddGizmos(GIZMOSYS_s *gizmo_sys, i32 type_id, void *world_info,
                        void *unused) {
@@ -114,4 +122,69 @@ nuvec_s *Techno_GetPos(GIZMO *gizmo) {
   if (gizmo != NULL && gizmo->object != NULL)
     return &((TECHNO *)gizmo->object)->position;
   return NULL;
+}
+
+typedef struct ADDGIZMOTYPE_s {
+  char *name;        // 0x00
+  char *prefix;      // 0x04
+  u16 progress_size; // 0x08
+  void *fns[0x1c];   // 0x0c
+} ADDGIZMOTYPE;
+
+// GLOBAL: LEGOBATMAN 0x00960118
+extern ADDGIZMOTYPE Default_ADDGIZMOTYPE;
+
+void Technos_EarlyUpdate(void *world, void *unused, f32 dt);
+void Technos_LateUpdate(void *world, void *unused, f32 dt);
+void Technos_Draw(void *world, void *unused, f32 dt);
+i32 Techno_GetOutput(GIZMO *gizmo, i32 output, i32 b);
+void Techno_SetVisibility(GIZMO *gizmo, i32 visible);
+void Technos_Reset(void *world, void *unused, void *progress);
+void *Technos_ReserveBufferSpace(void *world);
+i32 Technos_Load(void *world, void *unused);
+
+// GLOBAL: LEGOBATMAN 0x0095fb5c
+i32 techno_gizmotype_id = -1;
+
+// FUNCTION: LEGOBATMAN 0x005a82d0
+ADDGIZMOTYPE *Technos_RegisterGizmo(i32 type_id) {
+  // GLOBAL: LEGOBATMAN 0x0095fc00
+  static char *name = "Techno";
+  // GLOBAL: LEGOBATMAN 0x00a97dc8
+  static ADDGIZMOTYPE addtype;
+
+  addtype = Default_ADDGIZMOTYPE;
+  addtype.name = name;
+  addtype.prefix = "";
+  addtype.progress_size = sizeof(TECHNOPROGRESS);
+  addtype.fns[0] = (void *)Technos_GetMaxGizmos;
+  addtype.fns[1] = (void *)Technos_AddGizmos;
+  addtype.fns[2] = (void *)Technos_EarlyUpdate;
+  addtype.fns[3] = (void *)Technos_LateUpdate;
+  addtype.fns[4] = (void *)Technos_Draw;
+  addtype.fns[5] = NULL;
+  addtype.fns[6] = (void *)Techno_GetGizmoName;
+  addtype.fns[7] = (void *)Techno_GetOutput;
+  addtype.fns[8] = (void *)Techno_GetOutputName;
+  addtype.fns[9] = (void *)Techno_GetNumOutputs;
+  addtype.fns[10] = (void *)Techno_Activate;
+  addtype.fns[11] = NULL;
+  addtype.fns[12] = (void *)Techno_SetVisibility;
+  addtype.fns[13] = NULL;
+  addtype.fns[14] = (void *)Techno_GetPos;
+  addtype.fns[15] = NULL;
+  addtype.fns[16] = NULL;
+  addtype.fns[17] = NULL;
+  addtype.fns[18] = NULL;
+  addtype.fns[19] = (void *)Technos_AllocateProgressData;
+  addtype.fns[20] = (void *)Technos_ClearProgress;
+  addtype.fns[21] = (void *)Technos_StoreProgress;
+  addtype.fns[22] = (void *)Technos_Reset;
+  addtype.fns[23] = (void *)Technos_ReserveBufferSpace;
+  addtype.fns[24] = (void *)Technos_Load;
+  addtype.fns[25] = NULL;
+  addtype.fns[26] = NULL;
+  addtype.fns[27] = NULL;
+  techno_gizmotype_id = type_id;
+  return &addtype;
 }
