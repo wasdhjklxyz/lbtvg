@@ -435,6 +435,47 @@ i32 GameAnimSet_ResetUnk00604730(GAMEANIMSET *set) {
   return 1;
 }
 
+// FUNCTION: LEGOBATMAN 0x006047b0
+i32 GameAnimSet_Play(GAMEANIMSET *set, f32 speed, i32 evaluate_state) {
+  GAMEANIMOBJ *obj;
+
+  if (set == NULL)
+    return 1;
+  if (evaluate_state != 0)
+    GameAnimSet_EvaluateState(set);
+  set->fc = 0.0f;
+  if (speed >= 0.0f) {
+    if (set->state == 2)
+      return 1;
+  } else if (speed < 0.0f) {
+    if (set->state == 0)
+      return 1;
+  }
+  if (set->animated_count == 0)
+    return 1;
+  for (obj = set->objects; obj != NULL; obj = obj->next) {
+    if (obj->instance_anim != NULL) {
+      obj->instance_anim->flags |= 1;
+      obj->instance_anim->flags &= ~4;
+      f32 direction = obj->start_frame > obj->end_frame ? -1.0f : 1.0f;
+      if (direction * obj->start_frame > obj->instance_anim->ltime * direction)
+        obj->instance_anim->ltime = obj->start_frame;
+      else if (direction * obj->end_frame <
+               obj->instance_anim->ltime * direction)
+        obj->instance_anim->ltime = obj->end_frame;
+      nuinstanim_s *animation = obj->instance_anim;
+      if (animation->fparam1 != 0.0f)
+        obj->instance_anim->tfactor =
+            obj->instance_anim->fparam1 * speed * direction;
+      else
+        animation->tfactor = direction * speed;
+    }
+  }
+  if (!(set->flags & 4))
+    GameAnimSet_AddToSystemList(set);
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x00604a80
 i32 GameAnimSet_StopUnk00604a80(GAMEANIMSET *set) {
   GAMEANIMOBJ *obj;
@@ -614,7 +655,7 @@ void GameAnimSet_EvalAnim(GAMEANIMSET *set) {
 }
 
 // STUB: LEGOBATMAN 0x00604b80
-// x87 operand order in the two clamp compares (ltime*dir loads first).
+// x87 operand order in the first clamp compare (orig loads ltime first).
 void GameAnimSet_JumpToAnimPos(GAMEANIMSET *set, f32 position) {
   GAMEANIMOBJ *obj;
 
@@ -628,7 +669,7 @@ void GameAnimSet_JumpToAnimPos(GAMEANIMSET *set, f32 position) {
         (obj->end_frame - obj->start_frame) * position + obj->start_frame;
     obj->instance_anim->ltime = frame;
     f32 direction = obj->start_frame > obj->end_frame ? -1.0f : 1.0f;
-    if (obj->instance_anim->ltime * direction > obj->end_frame * direction)
+    if (obj->end_frame * direction < obj->instance_anim->ltime * direction)
       obj->instance_anim->ltime = obj->end_frame;
     if (obj->instance_anim->ltime * direction < obj->start_frame * direction)
       obj->instance_anim->ltime = obj->start_frame;
@@ -667,4 +708,29 @@ f32 GameAnimSet_AutoSetReflectY(GAMEANIMSET *set, nuvec_s *position,
       return ground - height;
   }
   return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00604e30
+f32 GameAnimSet_GetCompletionRatio(GAMEANIMSET *set) {
+  GAMEANIMOBJ *obj;
+  f32 ratio = 0.0f;
+
+  if (set != NULL) {
+    for (obj = set->objects; obj != NULL; obj = obj->next) {
+      if (obj->instance_anim != NULL) {
+        if (obj->start_frame == obj->end_frame) {
+          ratio = 1.0f;
+        } else {
+          ratio = (obj->instance_anim->ltime - obj->start_frame) /
+                  (obj->end_frame - obj->start_frame);
+          if (ratio > 1.0f)
+            ratio = 1.0f;
+          else if (ratio < 0.0f)
+            ratio = 0.0f;
+        }
+        break;
+      }
+    }
+  }
+  return ratio;
 }

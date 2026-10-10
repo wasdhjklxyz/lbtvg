@@ -2218,6 +2218,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00604150,002ab932,__Z22GameAnimSet_SetTFactorP13GAMEANIMSET_sf,"GameAnimSet_SetTFactor(GAMEANIMSET_s*, float)",confirmed,0
 006041d0,002ab9a4,__Z24GameAnimSet_ScaleFParam1P13GAMEANIMSET_sf,"GameAnimSet_ScaleFParam1(GAMEANIMSET_s*, float)",confirmed,0
 00604690,002abe48,__Z28GameAnimSet_IsAnimationResetP13GAMEANIMSET_s,GameAnimSet_IsAnimationReset(GAMEANIMSET_s*),confirmed,0
+006047b0,002abec4,__Z16GameAnimSet_PlayP13GAMEANIMSET_sfi,"GameAnimSet_Play(GAMEANIMSET_s*, float, int)",confirmed,0
 00604ac0,002ac17a,__Z24GameAnimSet_SetRepeatingP13GAMEANIMSET_si,"GameAnimSet_SetRepeating(GAMEANIMSET_s*, int)",confirmed,0
 00604b00,002ac1b8,__Z21GameAnimSet_JumpToEndP13GAMEANIMSET_s,GameAnimSet_JumpToEnd(GAMEANIMSET_s*),confirmed,0
 00604b40,002ac1f8,__Z23GameAnimSet_JumpToStartP13GAMEANIMSET_s,GameAnimSet_JumpToStart(GAMEANIMSET_s*),confirmed,0
@@ -2225,6 +2226,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00604cd0,002ac380,__Z22GameAnimSet_GetAnimPosP13GAMEANIMOBJ_s,GameAnimSet_GetAnimPos(GAMEANIMOBJ_s*),confirmed,0
 00604d50,002ac3f6,__Z22GameAnimSet_SetAnimPosP13GAMEANIMOBJ_sf,"GameAnimSet_SetAnimPos(GAMEANIMOBJ_s*, float)",confirmed,0
 00604db0,002ac454,__Z21GameAnimSet_SetOffsetP13GAMEANIMSET_sP7nuvec_s,"GameAnimSet_SetOffset(GAMEANIMSET_s*, nuvec_s*)",confirmed,0
+00604e30,002ac53c,__Z30GameAnimSet_GetCompletionRatioP13GAMEANIMSET_s,GameAnimSet_GetCompletionRatio(GAMEANIMSET_s*),confirmed,0
 00604ec0,002ac5ba,__Z25GameAnimSet_GetVisibilityP13GAMEANIMSET_s,GameAnimSet_GetVisibility(GAMEANIMSET_s*),confirmed,0
 00604f10,002ac60c,__Z25GameAnimSet_SetVisibilityP13GAMEANIMSET_si,"GameAnimSet_SetVisibility(GAMEANIMSET_s*, int)",confirmed,0
 00604f40,002ac640,__Z20GameAnimSet_EvalAnimP13GAMEANIMSET_s,GameAnimSet_EvalAnim(GAMEANIMSET_s*),confirmed,0

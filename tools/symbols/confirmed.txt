@@ -3374,3 +3374,5 @@
 00604690 GameAnimSet_IsAnimationReset saga body shape (repeating/playing/ltime vs start)
 00604db0 GameAnimSet_SetOffset copies each object's mtx, adds the offset, NuSpecialSetDrawMtx (saga SetOffset)
 00604f80 GameAnimSet_AutoSetReflectY GameShadow ground minus mtx m31 (saga AutoSetReflectY)
+006047b0 GameAnimSet_Play saga Play shape (EvaluateState, state checks by speed sign, tfactor), Batman lists
+00604e30 GameAnimSet_GetCompletionRatio first animated object's (ltime - start) / (end - start), clamped (saga)
