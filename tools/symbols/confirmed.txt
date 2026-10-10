@@ -2742,3 +2742,17 @@
 0066dc70 Teleport_SetVisibility set_visibility slot of the "Teleport" ADDGIZMOTYPE
 0066dc90 Teleport_GetVisibility get_visibility slot of the "Teleport" ADDGIZMOTYPE
 0066dcb0 Teleport_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Teleport", prefix "TLT_"
+0066e800 Plug_Activate activate slot of the "Plug" ADDGIZMOTYPE
+0066e830 Plug_SetVisibility set_visibility slot of the "Plug" ADDGIZMOTYPE
+0066e850 Plug_ActivateRev activate_rev slot of the "Plug" ADDGIZMOTYPE
+0066ec30 Plugs_Draw draw slot of the "Plug" ADDGIZMOTYPE
+0066ec40 Plugs_GetMaxGizmos get_max_gizmos slot of the "Plug" ADDGIZMOTYPE
+0066ec60 Plugs_AddGizmos add_gizmos slot of the "Plug" ADDGIZMOTYPE
+0066ecd0 Plug_GetGizmoName get_gizmo_name slot of the "Plug" ADDGIZMOTYPE
+0066ece0 Plug_GetNumOutputs get_num_outputs slot of the "Plug" ADDGIZMOTYPE
+0066ecf0 Plug_GetOutputName get_output_name slot of the "Plug" ADDGIZMOTYPE
+0066eda0 Plugs_AllocateProgressData allocate_progress_data slot of the "Plug" ADDGIZMOTYPE
+0066edc0 Plugs_ClearProgress clear_progress slot of the "Plug" ADDGIZMOTYPE
+0066eef0 Plug_GetPos get_pos slot of the "Plug" ADDGIZMOTYPE
+0066e780 Plugs_ReserveBufferSpace reserve_buffer_space slot of the "Plug" ADDGIZMOTYPE
+0066f020 Plugs_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Plug"

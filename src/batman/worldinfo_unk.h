@@ -133,6 +133,8 @@ struct WORLDINFO_s {
   u8 pad5280[0x5284 - 0x5280];
   struct EDGIZSHADOW_s *shadow_editor;     // 0x5284
   struct GIZBOMBGENSYS_s *giz_bombgen_sys; // 0x5288
+  u8 pad528c[0x52f8 - 0x528c];
+  struct PLUGSYS_s *plug_sys; // 0x52f8
 };
 
 // GLOBAL: LEGOBATMAN 0x00960894

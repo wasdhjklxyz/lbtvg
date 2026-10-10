@@ -215,3 +215,5 @@
 00485d90 GizBombGen_FindByName: null checks before the pushes in ours, 4 forms tried
 0066f6f0 edGizShadow_Load: our cl inlines one SetPreset(shadow, 1) call the original keeps
 00662c30 GizSpecial_FindByName: register swap in the found-path address, 3 forms tried
+0066edc0 Plugs_ClearProgress: mask stores interleave with memset pushes differently, 3 forms tried
+0066e780 Plugs_ReserveBufferSpace: original has an 8-byte stack local with a dead store, unexplained

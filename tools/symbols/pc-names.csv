@@ -2538,6 +2538,20 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0066dc70,00340728,__Z22Teleport_SetVisibilityP7GIZMO_si,"Teleport_SetVisibility(GIZMO_s*, int)",confirmed,0
 0066dc90,0034074a,__Z22Teleport_GetVisibilityP7GIZMO_s,Teleport_GetVisibility(GIZMO_s*),confirmed,0
 0066dcb0,0034076a,__Z22Teleport_RegisterGizmoi,Teleport_RegisterGizmo(int),confirmed,0
+0066e780,0031bbbc,__Z24Plugs_ReserveBufferSpacePv,Plugs_ReserveBufferSpace(void*),confirmed,0
+0066e800,0031bc32,__Z13Plug_ActivateP7GIZMO_si,"Plug_Activate(GIZMO_s*, int)",confirmed,0
+0066e830,0031bc72,__Z18Plug_SetVisibilityP7GIZMO_si,"Plug_SetVisibility(GIZMO_s*, int)",confirmed,0
+0066e850,0031bc9c,__Z16Plug_ActivateRevP7GIZMO_sii,"Plug_ActivateRev(GIZMO_s*, int, int)",confirmed,0
+0066ec30,0031c292,__Z10Plugs_DrawPvS_f,"Plugs_Draw(void*, void*, float)",confirmed,0
+0066ec40,0031c298,__Z18Plugs_GetMaxGizmosPv,Plugs_GetMaxGizmos(void*),confirmed,0
+0066ec60,0031c2b4,__Z15Plugs_AddGizmosP10GIZMOSYS_siPvS1_,"Plugs_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+0066ecd0,0031c32c,__Z17Plug_GetGizmoNameP7GIZMO_s,Plug_GetGizmoName(GIZMO_s*),confirmed,0
+0066ece0,0031c33c,__Z18Plug_GetNumOutputsP7GIZMO_s,Plug_GetNumOutputs(GIZMO_s*),confirmed,0
+0066ecf0,0031c346,__Z18Plug_GetOutputNameP7GIZMO_si,"Plug_GetOutputName(GIZMO_s*, int)",confirmed,0
+0066eda0,0031c3d8,__Z26Plugs_AllocateProgressDataP9variptr_uS0_,"Plugs_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+0066edc0,0031c3fa,__Z19Plugs_ClearProgressPvS_,"Plugs_ClearProgress(void*, void*)",confirmed,0
+0066eef0,0031c562,__Z11Plug_GetPosP7GIZMO_s,Plug_GetPos(GIZMO_s*),confirmed,0
+0066f020,0031c576,__Z19Plugs_RegisterGizmoi,Plugs_RegisterGizmo(int),confirmed,0
 0066f180,002d4924,__Z19Portal_GetMaxGizmosPv,Portal_GetMaxGizmos(void*),confirmed,0
 0066f1a0,002d4942,__Z16Portal_AddGizmosP10GIZMOSYS_siPvS1_,"Portal_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
 0066f200,002d49a4,__Z19Portal_GetGizmoNameP7GIZMO_s,Portal_GetGizmoName(GIZMO_s*),confirmed,0
