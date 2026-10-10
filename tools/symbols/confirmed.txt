@@ -3396,3 +3396,6 @@
 006dda10 NuFileSize saga nufile.cpp shape (dat tree lookup, else open/seek end/pos/close)
 006d30c0 AquireFileBuffer saga nufile.cpp static (LRU of 4 file buffers); called from NuFileRead with info in edi, so 0x6d30c0 shares the nupad_gen TU
 006de860 NuFileRead saga nufile.cpp body (buffered read; MIN macro expanded)
+006d9620 NuFileSeek saga nufile.cpp body matches
+006d94a0 NuMemFileSeek saga nufile.cpp body matches (memfiles at 0xafa0a8)
+006de800 NuMemFileRead saga nufile.cpp body matches

@@ -1204,6 +1204,60 @@ extern "C" int NuFileExtRemove(char *dest, char *path) {
   return -1;
 }
 
+int Unk006d2fe0(int file, int offset, int whence);
+__int64 NuMemFileSeek(int file, __int64 offset, int whence);
+
+__int64 NuDatFileSeek(int file, __int64 offset, int whence);
+
+// FUNCTION: LEGOBATMAN 0x006d94a0
+__int64 NuMemFileSeek(int file, __int64 offset, int whence) {
+  if (file >= 0x800)
+    return NuDatFileSeek(file, offset, whence);
+  file -= 0x400;
+  switch (whence) {
+  default:
+    g_nuFileUnk0afa0a8[file].i8 = g_nuFileUnk0afa0a8[file].start + (int)offset;
+    break;
+  case 1:
+    g_nuFileUnk0afa0a8[file].i8 = g_nuFileUnk0afa0a8[file].i8 + (int)offset;
+    break;
+  case 2:
+    g_nuFileUnk0afa0a8[file].i8 = g_nuFileUnk0afa0a8[file].end - (int)offset;
+    break;
+  }
+  return g_nuFileUnk0afa0a8[file].i8 - g_nuFileUnk0afa0a8[file].start;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d9620
+__int64 NuFileSeek(int file, __int64 offset, int whence) {
+  FILEINFO *info;
+
+  if (file >= 0x2000)
+    return Unk006d2fe0(file, (int)offset, whence);
+  if (file >= 0x1000)
+    return 0;
+  if (file >= 0x400)
+    return NuMemFileSeek(file, (int)offset, whence);
+  file -= 1;
+  info = &file_info[file];
+  if (info->use_buf) {
+    switch (whence) {
+    default:
+      info->pos = offset;
+      break;
+    case 1:
+      info->pos += offset;
+      break;
+    case 2:
+      info->pos = info->file_len - offset;
+      break;
+    }
+  } else {
+    return NuPSFileLSeek(file, offset, whence);
+  }
+  return info->pos;
+}
+
 // FUNCTION: LEGOBATMAN 0x006dcb00
 void NuFileClose(int file) {
   FILEINFO *info;
@@ -1234,7 +1288,6 @@ void NuFileClose(int file) {
 
 extern "C" int NuPSFileRead(int fh, void *buf, int size);
 int Unk006d2f80(int file, void *buf, int size);
-int NuMemFileRead(int file, void *buf, int size);
 // GLOBAL: LEGOBATMAN 0x00af3190
 static FILEBUFINFO file_buff[4];
 // GLOBAL: LEGOBATMAN 0x00b03888
@@ -1265,6 +1318,23 @@ static void AquireFileBuffer(FILEINFO *info) {
     NuPSFileLSeek(info->handle, -info->buf_len, 1);
     NuPSFileRead(info->handle, buf->data, info->buf_len);
   }
+}
+
+int NuDatFileRead(int file, void *buf, int size);
+
+// FUNCTION: LEGOBATMAN 0x006de800
+int NuMemFileRead(int file, void *buf, int size) {
+  if (file >= 0x800)
+    return NuDatFileRead(file, buf, size);
+  file -= 0x400;
+  size = g_nuFileUnk0afa0a8[file].end - g_nuFileUnk0afa0a8[file].i8 + 1 < size
+             ? g_nuFileUnk0afa0a8[file].end - g_nuFileUnk0afa0a8[file].i8 + 1
+             : size;
+  if (size != 0) {
+    memcpy(buf, (void *)g_nuFileUnk0afa0a8[file].i8, size);
+    g_nuFileUnk0afa0a8[file].i8 = g_nuFileUnk0afa0a8[file].i8 + size;
+  }
+  return size;
 }
 
 // FUNCTION: LEGOBATMAN 0x006de860

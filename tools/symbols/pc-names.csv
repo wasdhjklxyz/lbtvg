@@ -3629,7 +3629,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d8e70,0018ddf4,_NuHeapAlloc,_NuHeapAlloc,confirmed,0
 006d8e90,0018ddca,_NuHeapAllocNamed,_NuHeapAllocNamed,confirmed,0
 006d8eb0,0018dda0,_NuHeapAllocAligned,_NuHeapAllocAligned,confirmed,0
+006d94a0,001878ce,_NuMemFileSeek,_NuMemFileSeek,confirmed,0
 006d9540,0018fce8,_NuFilePos,_NuFilePos,confirmed,0
+006d9620,0018772a,_NuFileSeek,_NuFileSeek,confirmed,0
 006d9fe0,,MatchExtension,MatchExtension,confirmed,0
 006da040,0018b1a8,_AddExtension,_AddExtension,confirmed,0
 006da090,0018b224,_NuFileExtInitEx,_NuFileExtInitEx,strings,0
@@ -3658,6 +3660,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006dd430,0018c1a8,_NuFParInterpretWordCTX,_NuFParInterpretWordCTX,gapfill,1
 006dd970,00194530,_NuFileOpen,_NuFileOpen,confirmed,0
 006dda10,00190f44,_NuFileSize,_NuFileSize,confirmed,0
+006de800,00192d9a,_NuMemFileRead,_NuMemFileRead,confirmed,0
 006de860,00192e78,_NuFileRead,_NuFileRead,confirmed,0
 006dea40,00193c44,_NuFileReadFloat,_NuFileReadFloat,confirmed,0
 006dea60,00193c1e,_NuFileReadInt,_NuFileReadInt,confirmed,0
