@@ -1903,3 +1903,16 @@
 006790c0 WorldMapBase::FadeIn(float, float) Mac body (duration 0 -> alpha 1, else fade mode 1, -target); matched
 00679110 WorldMapBase::FadeOut(float) Mac body (duration 0 -> alpha 0, mode 0, else fade mode 2); matched
 00679510 IsBonusArea(AREADATA_s*) Mac body (flags & 4, flags & 0x40, byte 0x8e sign), in the WorldMapBase file as on the Mac; matched
+006710d0 Fade::Init vtable 0x869d88 slot 1 (RTTI .?AVFade@@), Mac body; matched
+006710e0 Fade::InitFade vtable 0x869d88 slot 2, Mac body; matched
+00671110 Fade::UpdateFade vtable 0x869d88 slot 3, empty as on the Mac; matched
+006711b0 BlackWipe::Init vtable 0x869da4 slot 1 (RTTI); matched
+006711c0 BlackWipe::InitFade vtable 0x869da4 slot 2, Mac body (random wipe mask); matched
+00671220 BlackWipe::UpdateFade vtable 0x869da4 slot 3, empty; matched
+00671230 BlackWipe::DrawFade vtable 0x869da4 slot 4, tail call to DrawFadeScreenWipe as on the Mac; matched
+00671240 StillScreenWipe::Init vtable 0x869dc0 slot 1 (RTTI); matched
+006712f0 StillScreenWipe::UpdateFade vtable 0x869dc0 slot 3, Mac body (wait_till_next_frame); matched
+00671320 StillScreenWipe::DrawFade vtable 0x869dc0 slot 4, Mac body (DrawStillScreen / DrawPauseScreenWipe); matched
+005a5dc0 DrawFadeScreenWipe tail-called from BlackWipe::DrawFade as on the Mac
+005a59b0 DrawStillScreen called with 1 from StillScreenWipe::DrawFade as on the Mac
+005a5510 DrawPauseScreenWipe tail-called from StillScreenWipe::DrawFade as on the Mac
