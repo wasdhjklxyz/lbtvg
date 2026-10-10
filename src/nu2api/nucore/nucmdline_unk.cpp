@@ -2,6 +2,8 @@
 // nupad_gen.cpp (0x006d5700). The two globals are adjacent; saga keeps nuapi
 // state in one struct (ref/saga/src/nu2api/nucore/nuapi.h), so model it so.
 
+#include <stdarg.h>
+#include <stdio.h>
 #include <string.h>
 
 struct nucmdline_s {
@@ -146,6 +148,47 @@ void NuFrameBegin(void) {
 
 // FUNCTION: LEGOBATMAN 0x006d5420
 void NuFrameSetMinDelay(int delay) { nuapi_min_delay = delay; }
+
+// --- PrintStartupString: one line of the startup log on screen ------------
+void Unk007101d0(int mode);
+void Unk00710390(int mode);
+void Unk00710900(void *font);
+void Unk007109b0(void *font, int colour);
+void Unk00710930(void *font, float sx, float sy);
+void Unk00737a50(void *font, int x, int y, int size, char *text);
+void Unk00710210(void);
+void Unk007103c0(void);
+// GLOBAL: LEGOBATMAN 0x029f3f30
+extern void *g_unk029f3f30;
+// GLOBAL: LEGOBATMAN 0x00afa238
+int g_nuStartupStringY;
+
+// FUNCTION: LEGOBATMAN 0x006d5430
+void PrintStartupString(int colour, char *fmt, ...) {
+  char buf[256];
+  va_list args;
+
+  va_start(args, fmt);
+  vsprintf(buf, fmt, args);
+  Unk007101d0(2);
+  Unk00710390(1);
+  Unk00710900(g_unk029f3f30);
+  Unk007109b0(g_unk029f3f30, colour);
+  Unk00710930(g_unk029f3f30, 0.7f, 0.7f);
+  Unk00737a50(g_unk029f3f30, 0x140, g_nuStartupStringY * 8, 0x10, buf);
+  Unk00710210();
+  Unk007103c0();
+  g_nuStartupStringY += 0x14;
+}
+
+char *Unk00527ef0(void);
+
+// Prints a pending message on the startup screen (name unknown).
+// FUNCTION: LEGOBATMAN 0x006d5500
+void NuUnk006d5500(void) {
+  if (Unk00527ef0() != 0)
+    PrintStartupString(-1, Unk00527ef0());
+}
 
 // FUNCTION: LEGOBATMAN 0x006d5520
 void NuRegisterEndFrameCallBackFn(void (*callback)(void)) {

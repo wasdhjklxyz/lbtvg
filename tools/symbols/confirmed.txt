@@ -3640,3 +3640,5 @@
 006e2c30 bgPostRequest Mac order after bgPostRequestV; queue a job node and signal the worker
 006d3b30 NuFileExtGetExt Mac body (find PC-platform extension by type, copy reversed)
 006d52f0 NuFrameBegin Mac body (frame++, portal/water/mouse/keyboard/occlusion, frame lights reset)
+006d5430 PrintStartupString Mac order after NuFrameSetMinDelay; vsprintf + debug font line, y += 0x14
+006d5500 NuUnk006d5500 prints a pending message via PrintStartupString (name unknown)
