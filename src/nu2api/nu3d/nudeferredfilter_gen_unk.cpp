@@ -3,6 +3,7 @@
 // analogy with the nuprocesscolourfilter_gen.cpp anchor; unproven.
 
 #include "../nucore/common.h"
+#include "../nucore/nuapi_unk.h"
 
 struct nueffecttex_s;
 
@@ -38,8 +39,6 @@ extern nushaderprogram_s *g_unk029f3e48; // blur program
 
 // GLOBAL: LEGOBATMAN 0x029dcc08
 extern nueffecttex_s *g_unk029dcc08; // default effect texture
-// GLOBAL: LEGOBATMAN 0x00adf714
-extern i32 g_unk00adf714;
 
 struct NuPostFilterGen {
   virtual ~NuPostFilterGen() {}
@@ -122,7 +121,7 @@ void NuDeferredFilterGen::initTextureResources(i32 width, i32 height) {
     tex0c = g_unk029dcc08;
   else
     tex0c = NuEffectTexCreate2D(width, height, 1, 0x21, 2);
-  if (g_unk00adf714 != 0) {
+  if (nuapi.unkcc != 0) {
     i32 h = Unk006e4910(tex0c);
     i32 w = Unk006e4900(tex0c);
     i10 = NuEffectTexCreate2D(w, h, 1, 0x21, 2);

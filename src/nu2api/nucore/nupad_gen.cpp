@@ -2,7 +2,7 @@
 // __FILE__ anchors). The string helpers from ~0x006d7500 on may belong to a
 // neighbouring TU; see the report.
 
-#include "common.h"
+#include "nuapi_unk.h"
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
@@ -69,15 +69,7 @@ int g_nuPadUnk099f2dc;
 // GLOBAL: LEGOBATMAN 0x0099f308
 int g_nuPadUnk099f308;
 // GLOBAL: LEGOBATMAN 0x00adf648
-int g_nuPadUnk0adf648;
-// GLOBAL: LEGOBATMAN 0x00adf64c
-int g_nuPadUnk0adf64c;
-// GLOBAL: LEGOBATMAN 0x00adf654
-int g_nuPadUnk0adf654;
-// GLOBAL: LEGOBATMAN 0x00adf658
-int g_nuPadUnk0adf658;
-// GLOBAL: LEGOBATMAN 0x00adf6e0
-float g_nuPadUnk0adf6e0;
+NUAPI nuapi;
 // GLOBAL: LEGOBATMAN 0x00b03924
 short g_nuPadUnk0b03924; // CurrentStringBank
 
@@ -191,26 +183,26 @@ int NuPadUnk006d5e10(int pad) {
 }
 
 // FUNCTION: LEGOBATMAN 0x006d6500
-int NuVideoGetAspect(void) { return g_nuPadUnk0adf658; }
+int NuVideoGetAspect(void) { return nuapi.video_aspect; }
 
 // FUNCTION: LEGOBATMAN 0x006d65d0
-int NuVideoGetSwapMode(void) { return g_nuPadUnk0adf654; }
+int NuVideoGetSwapMode(void) { return nuapi.video_swap_mode; }
 
 // FUNCTION: LEGOBATMAN 0x006d65e0
 void NuVideoRollingFrameRateReset(void) {}
 
 // FUNCTION: LEGOBATMAN 0x006d65f0
 void NuVideoSetBrightness(float value) {
-  g_nuPadUnk0adf6e0 = value;
+  nuapi.video_brightness = value;
   NuVideoSetBrightnessPS();
 }
 
 // FUNCTION: LEGOBATMAN 0x006d6830
-int NuLanguageGet(void) { return g_nuPadUnk0adf648; }
+int NuLanguageGet(void) { return nuapi.language; }
 
 // FUNCTION: LEGOBATMAN 0x006d6840
 void NuLanguageSet(int value) {
-  g_nuPadUnk0adf648 = value;
+  nuapi.language = value;
   NuLanguageSetPS();
 }
 
@@ -221,24 +213,24 @@ int NuLanguageConsoleSelectable(int *available);
 void NuLanguageInitFromConsole(int *available) {
   int i;
 
-  g_nuPadUnk0adf648 = 2;
-  g_nuPadUnk0adf64c = 0;
+  nuapi.language = 2;
+  nuapi.unk04 = 0;
   NuLanguageInitPS();
-  if (g_nuPadUnk0adf648 == 2) {
+  if (nuapi.language == 2) {
     if (!available[2] && available[3]) {
-      g_nuPadUnk0adf648 = 3;
+      nuapi.language = 3;
       NuLanguageSetPS();
     }
-  } else if (g_nuPadUnk0adf648 == 3) {
+  } else if (nuapi.language == 3) {
     if (!available[3] && available[2]) {
-      g_nuPadUnk0adf648 = 2;
+      nuapi.language = 2;
       NuLanguageSetPS();
     }
   }
-  if (!available[g_nuPadUnk0adf648]) {
+  if (!available[nuapi.language]) {
     for (i = 0; i < 20; i++) {
       if (available[i]) {
-        g_nuPadUnk0adf648 = i;
+        nuapi.language = i;
         NuLanguageSetPS();
         break;
       }
@@ -248,11 +240,11 @@ void NuLanguageInitFromConsole(int *available) {
 }
 
 // FUNCTION: LEGOBATMAN 0x006d6850
-int NuRegionGet(void) { return g_nuPadUnk0adf64c; }
+int NuRegionGet(void) { return nuapi.unk04; }
 
 // FUNCTION: LEGOBATMAN 0x006d6860
 void NuRegionSet(int value) {
-  g_nuPadUnk0adf64c = value;
+  nuapi.unk04 = value;
   NuRegionSetPS();
 }
 
@@ -725,35 +717,24 @@ void NuPadUnk006d6150(int keep) {
   }
 }
 
-// Pad recording (1) / playback (2) of one float per frame.
-// GLOBAL: LEGOBATMAN 0x00adf688
-float g_nuPadRecValue;
-// GLOBAL: LEGOBATMAN 0x00adf69c
-int g_nuPadRecMode;
-// GLOBAL: LEGOBATMAN 0x00adf6a4
-float *g_nuPadRecEnd;
-// GLOBAL: LEGOBATMAN 0x00adf6a8
-float *g_nuPadRecPos;
-// GLOBAL: LEGOBATMAN 0x00adf6c0
-int g_nuPadUnk0adf6c0;
-
 // FUNCTION: LEGOBATMAN 0x006d61c0
 void NuPadRecStep(void) {
-  if (g_nuPadUnk0adf6c0)
-    g_nuPadUnk0adf6c0 = 0;
-  switch (g_nuPadRecMode) {
+  if (nuapi.pad_record.is_recording)
+    nuapi.pad_record.is_recording = 0;
+  switch (nuapi.pad_record.mode) {
   case 1:
-    *g_nuPadRecPos = g_nuPadRecValue;
-    g_nuPadRecPos++;
-    if (g_nuPadRecPos > g_nuPadRecEnd - 0x610)
-      g_nuPadRecMode = 0;
+    *nuapi.pad_record.record.f32_ptr = nuapi.frametime;
+    nuapi.pad_record.record.f32_ptr++;
+    if (nuapi.pad_record.record.f32_ptr >
+        ((f32 *)nuapi.pad_record.buf_end) - 0x610)
+      nuapi.pad_record.mode = 0;
     break;
   case 2:
-    if (g_nuPadRecPos == g_nuPadRecEnd) {
-      g_nuPadRecMode = 0;
+    if (nuapi.pad_record.record.f32_ptr == ((f32 *)nuapi.pad_record.buf_end)) {
+      nuapi.pad_record.mode = 0;
     } else {
-      g_nuPadRecValue = *g_nuPadRecPos;
-      g_nuPadRecPos++;
+      nuapi.frametime = *nuapi.pad_record.record.f32_ptr;
+      nuapi.pad_record.record.f32_ptr++;
     }
     break;
   }
@@ -2881,15 +2862,6 @@ void NuFParSuspend(NUFPAR *parser) {
   parser->file_handle = 0;
 }
 
-struct NuPadRec {
-  int mode;                 // 0x0
-  unsigned char *buf_start; // 0x4
-  unsigned char *buf_end;   // 0x8
-  unsigned char *record;    // 0xc
-};
-
-// GLOBAL: LEGOBATMAN 0x00adf69c
-extern NuPadRec g_nuPadRec;
 // GLOBAL: LEGOBATMAN 0x00b03884
 extern int g_unk00b03884;
 
@@ -3677,51 +3649,50 @@ NUDATHDR *NuDatOpenEx(char *filepath, VARIPTR *buf, int *size_out, short mode) {
 
 // FUNCTION: LEGOBATMAN 0x006e0530
 void NuPadRecordLoad(char *filepath, VARIPTR *buffer, VARIPTR end) {
-  g_nuPadRec.mode = 0;
+  nuapi.pad_record.mode = 0;
   if (filepath != 0) {
     int file = NuFileOpenDF(filepath, 0, (NUDATHDR *)g_unk00b03884, 0);
     if (file != 0) {
       int size = NuFileReadInt(file);
-      g_nuPadRec.record =
+      nuapi.pad_record.record.u8_ptr =
           (unsigned char *)NuMemAllocFn(size + 4, __FILE__, 0x433);
-      g_nuPadRec.record =
-          (unsigned char *)(((unsigned int)g_nuPadRec.record + 3) & ~3);
-      if (g_nuPadRec.record == 0) {
+      nuapi.pad_record.record.u8_ptr =
+          (unsigned char *)(((unsigned int)nuapi.pad_record.record.u8_ptr + 3) &
+                            ~3);
+      if (nuapi.pad_record.record.u8_ptr == 0) {
         Unk006d24b0();
         return;
       }
-      g_nuPadRec.buf_start = g_nuPadRec.record;
-      NuFileReadUnk006de860(file, g_nuPadRec.record, size);
+      nuapi.pad_record.buf_start = nuapi.pad_record.record.u8_ptr;
+      NuFileReadUnk006de860(file, nuapi.pad_record.record.u8_ptr, size);
       Unk006dcb00(file);
-      g_nuPadRec.buf_end = g_nuPadRec.record + size;
-      g_nuPadRec.mode = 2;
+      nuapi.pad_record.buf_end = nuapi.pad_record.record.u8_ptr + size;
+      nuapi.pad_record.mode = 2;
     }
   }
 }
-
-// GLOBAL: LEGOBATMAN 0x00adf6b0
-extern char *g_nuPadRecFilename;
 
 // FUNCTION: LEGOBATMAN 0x006e05d0
 void NuPadRecordInit(int mode, char *filepath, VARIPTR *buffer, VARIPTR end,
                      int size) {
   switch (mode) {
   default:
-    g_nuPadRec.mode = 0;
+    nuapi.pad_record.mode = 0;
     break;
   case 1:
-    g_nuPadRec.mode = 1;
-    g_nuPadRec.record =
+    nuapi.pad_record.mode = 1;
+    nuapi.pad_record.record.u8_ptr =
         (unsigned char *)NuMemAllocFn(size + 4, __FILE__, 0x462);
-    g_nuPadRec.record =
-        (unsigned char *)(((unsigned int)g_nuPadRec.record + 3) & ~3);
-    g_nuPadRec.buf_start = g_nuPadRec.record;
-    g_nuPadRec.buf_end = g_nuPadRec.record + size;
-    g_nuPadRecFilename = filepath;
+    nuapi.pad_record.record.u8_ptr =
+        (unsigned char *)(((unsigned int)nuapi.pad_record.record.u8_ptr + 3) &
+                          ~3);
+    nuapi.pad_record.buf_start = nuapi.pad_record.record.u8_ptr;
+    nuapi.pad_record.buf_end = nuapi.pad_record.record.u8_ptr + size;
+    nuapi.pad_record.filepath = filepath;
     break;
   case 2:
     NuPadRecordLoad(filepath, buffer, end);
-    g_nuPadRecFilename = filepath;
+    nuapi.pad_record.filepath = filepath;
     break;
   }
 }
@@ -3818,11 +3789,6 @@ int GetLineW(u16 *line, int file) {
   }
 }
 
-// GLOBAL: LEGOBATMAN 0x00adf6b0
-char *g_nuPadRecFilename;
-// GLOBAL: LEGOBATMAN 0x00adf6b4
-int g_nuPadRecUnk0adf6b4;
-
 int NuFileWriteInt(int file, int value);
 int NuFileWrite(int file, void *data, int size);
 unsigned int NuFileWriteUnsignedInt(int file, unsigned int value);
@@ -3830,36 +3796,37 @@ unsigned int NuFileWriteUnsignedInt(int file, unsigned int value);
 // Saves a finished pad recording (size, data, 0xe0f trailer) to filepath.
 // FUNCTION: LEGOBATMAN 0x006ddca0
 void Unk006ddca0(char *filepath) {
-  if (g_nuPadRec.mode == 1 && g_nuPadRec.record != g_nuPadRec.buf_start) {
+  if (nuapi.pad_record.mode == 1 &&
+      nuapi.pad_record.record.u8_ptr != nuapi.pad_record.buf_start) {
     if (filepath != 0) {
       int file = NuFileOpen(filepath, 1);
       if (file != 0) {
-        int size = g_nuPadRec.record - g_nuPadRec.buf_start;
-        unsigned char *start = g_nuPadRec.buf_start;
+        int size = nuapi.pad_record.record.u8_ptr - nuapi.pad_record.buf_start;
+        unsigned char *start = nuapi.pad_record.buf_start;
         NuFileWriteInt(file, size);
         NuFileWrite(file, start, size);
         NuFileWriteUnsignedInt(file, 0xe0f);
         Unk006dcb00(file);
       }
     }
-    g_nuPadRecUnk0adf6b4 = 0;
-    g_nuPadRec.mode = 0;
+    nuapi.pad_record.should_end = 0;
+    nuapi.pad_record.mode = 0;
   }
 }
 
 // Ends recording (saving it) or playback.
 // FUNCTION: LEGOBATMAN 0x006ddd30
 void Unk006ddd30(void) {
-  switch (g_nuPadRec.mode) {
+  switch (nuapi.pad_record.mode) {
   case 1:
-    Unk006ddca0(g_nuPadRecFilename);
+    Unk006ddca0(nuapi.pad_record.filepath);
     break;
   case 2:
-    g_nuPadRec.mode = 0;
-    g_nuPadRec.record = g_nuPadRec.buf_start;
+    nuapi.pad_record.mode = 0;
+    nuapi.pad_record.record.u8_ptr = nuapi.pad_record.buf_start;
     break;
   }
-  g_nuPadRecUnk0adf6b4 = 0;
+  nuapi.pad_record.should_end = 0;
 }
 
 int NuFileWrite(int file, void *data, int size);
@@ -4312,31 +4279,25 @@ void NuPadInit(void) {
 void NuPadSetDirectMappingState(int state) { g_nuPadUnk0b038f4 = state; }
 
 // FUNCTION: LEGOBATMAN 0x006d61b0
-void NuPadRecordStart(void) { g_nuPadUnk0adf6c0 = 1; }
-
-// nuapi.pad_record.end_play_buttons / end_record_buttons
-// GLOBAL: LEGOBATMAN 0x00adf6bc
-int g_nuPadRecEndPlayButtons;
-// GLOBAL: LEGOBATMAN 0x00adf6b8
-int g_nuPadRecEndRecordButtons;
+void NuPadRecordStart(void) { nuapi.pad_record.is_recording = 1; }
 
 // FUNCTION: LEGOBATMAN 0x006d6230
 void NuPadRecordPlay(NUGENERICPAD *pad) {
   VARIPTR *record_ptr;
 
-  if (pad->is_valid && g_nuPadRecMode == 2 &&
-      (pad->digital_buttons & g_nuPadRecEndPlayButtons) != 0) {
-    g_nuPadRecMode = 0;
+  if (pad->is_valid && nuapi.pad_record.mode == 2 &&
+      (pad->digital_buttons & nuapi.pad_record.end_play_buttons) != 0) {
+    nuapi.pad_record.mode = 0;
   }
 
-  if (pad->is_valid && g_nuPadRecMode == 1 &&
-      (pad->digital_buttons & g_nuPadRecEndRecordButtons) != 0) {
-    g_nuPadRecUnk0adf6b4 = 1;
+  if (pad->is_valid && nuapi.pad_record.mode == 1 &&
+      (pad->digital_buttons & nuapi.pad_record.end_record_buttons) != 0) {
+    nuapi.pad_record.should_end = 1;
   }
 
-  record_ptr = (VARIPTR *)&g_nuPadRecPos;
+  record_ptr = (VARIPTR *)&nuapi.pad_record.record.f32_ptr;
 
-  switch (g_nuPadRecMode) {
+  switch (nuapi.pad_record.mode) {
   case 1:
     *record_ptr->u32_ptr++ = pad->is_valid;
     if (pad->is_valid) {
@@ -4415,17 +4376,17 @@ void NuPadUpdatePads(void) {
     NuPadProcessReadData(SCANNED + i);
   }
 
-  if (g_nuPadRecUnk0adf6b4 == 1) {
-    switch (g_nuPadRecMode) {
+  if (nuapi.pad_record.should_end == 1) {
+    switch (nuapi.pad_record.mode) {
     case 1:
-      Unk006ddca0(g_nuPadRecFilename);
+      Unk006ddca0(nuapi.pad_record.filepath);
       break;
     case 2:
-      g_nuPadRecMode = 0;
-      g_nuPadRecPos = (float *)g_nuPadRec.buf_start;
+      nuapi.pad_record.mode = 0;
+      nuapi.pad_record.record.f32_ptr = (float *)nuapi.pad_record.buf_start;
       break;
     }
-    g_nuPadRecUnk0adf6b4 = 0;
+    nuapi.pad_record.should_end = 0;
   }
 
   for (i = 0; i < max_interface_devices; i++) {
@@ -4520,12 +4481,12 @@ void NuPadUpdatePads(void) {
 
 // FUNCTION: LEGOBATMAN 0x006d6430
 void NuPadRecordSetPlayEndButtons(int buttons) {
-  g_nuPadRecEndPlayButtons = buttons;
+  nuapi.pad_record.end_play_buttons = buttons;
 }
 
 // FUNCTION: LEGOBATMAN 0x006d6440
 void NuPadRecordSetRecordEndButtons(int buttons) {
-  g_nuPadRecEndRecordButtons = buttons;
+  nuapi.pad_record.end_record_buttons = buttons;
 }
 
 // FUNCTION: LEGOBATMAN 0x006d6450
@@ -4583,44 +4544,32 @@ void NuPtrBlockRelocate(void *block, unsigned int base) {
 
 // --- nuvideo.cpp (nuapi fields) ---------------------------------------------
 
-// nuapi.video_mode
-// GLOBAL: LEGOBATMAN 0x00adf650
-int g_nuapiVideoMode;
-// nuapi.screen_width / screen_height
-// GLOBAL: LEGOBATMAN 0x00adf65c
-int g_nuapiScreenWidth;
-// GLOBAL: LEGOBATMAN 0x00adf660
-int g_nuapiScreenHeight;
-// nuapi.fps
-// GLOBAL: LEGOBATMAN 0x00adf664
-float g_nuapiFps;
-
 float NuVideoGetRetraceRatePS(void);
 void NuVideoSetSwapModePS(int mode);
 
 // FUNCTION: LEGOBATMAN 0x006d6550
 int NuVideoSetSwapMode(int video_swap_mode) {
-  int swap_mode = g_nuPadUnk0adf654;
-  g_nuPadUnk0adf654 = video_swap_mode;
+  int swap_mode = nuapi.video_swap_mode;
+  nuapi.video_swap_mode = video_swap_mode;
 
   switch (video_swap_mode) {
   case 1:
-    g_nuapiFps = NuVideoGetRetraceRatePS();
+    nuapi.fps = NuVideoGetRetraceRatePS();
     break;
   case 2:
-    g_nuapiFps = NuVideoGetRetraceRatePS();
+    nuapi.fps = NuVideoGetRetraceRatePS();
     break;
   case 3:
-    g_nuapiFps = NuVideoGetRetraceRatePS() * 0.5f;
+    nuapi.fps = NuVideoGetRetraceRatePS() * 0.5f;
     break;
   case 4:
-    g_nuapiFps = NuVideoGetRetraceRatePS() * 0.5f;
+    nuapi.fps = NuVideoGetRetraceRatePS() * 0.5f;
     break;
   case 5:
-    g_nuapiFps = NuVideoGetRetraceRatePS();
+    nuapi.fps = NuVideoGetRetraceRatePS();
     break;
   case 6:
-    g_nuapiFps = NuVideoGetRetraceRatePS() * 0.5f;
+    nuapi.fps = NuVideoGetRetraceRatePS() * 0.5f;
     break;
   default:
     break;
@@ -4631,19 +4580,19 @@ int NuVideoSetSwapMode(int video_swap_mode) {
 }
 
 // FUNCTION: LEGOBATMAN 0x006d6510
-int NuVideoGetMode(void) { return g_nuapiVideoMode; }
+int NuVideoGetMode(void) { return nuapi.video_mode; }
 
 // FUNCTION: LEGOBATMAN 0x006d6520
-void NuVideoSetMode(int mode) { g_nuapiVideoMode = mode; }
+void NuVideoSetMode(int mode) { nuapi.video_mode = mode; }
 
 // FUNCTION: LEGOBATMAN 0x006d6530
 void NuVideoSetResolution(int width, int height) {
-  g_nuapiScreenWidth = width;
-  g_nuapiScreenHeight = height;
+  nuapi.screen_width = width;
+  nuapi.screen_height = height;
 }
 
 // FUNCTION: LEGOBATMAN 0x006d6600
-int NuVideoGetNativeFPS(void) { return (int)g_nuapiFps; }
+int NuVideoGetNativeFPS(void) { return (int)nuapi.fps; }
 
 // FUNCTION: LEGOBATMAN 0x006d6610
 void NuVideoWaitForVSync(void) {}
@@ -4654,8 +4603,8 @@ void NuLanguageInitPS(void);
 
 // FUNCTION: LEGOBATMAN 0x006d6810
 void NuLanguageInit(void) {
-  g_nuPadUnk0adf648 = 2;
-  g_nuPadUnk0adf64c = 0;
+  nuapi.language = 2;
+  nuapi.unk04 = 0;
   NuLanguageInitPS();
 }
 

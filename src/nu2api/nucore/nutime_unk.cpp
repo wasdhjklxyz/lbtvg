@@ -1,23 +1,10 @@
 // nu2api/nucore/nutime.cpp (saga), between the gcutscn.cpp and nupad_gen.cpp
 // anchors; identified by saga's bodies (no Mac symbols).
 
-#include "common.h"
-
-typedef struct nutime_s {
-  u32 low;
-  i32 high;
-} NUTIME;
+#include "nuapi_unk.h"
 
 void NuTimeGetTicksPS(u32 *low, u32 *high);
 void NuTimeGetTicksPerSecondPS(u32 *low, u32 *high);
-
-// nuapi.frametime
-// GLOBAL: LEGOBATMAN 0x00adf688
-extern f32 g_nuapiFrameTime;
-
-// nuapi.forced_frame_time
-// GLOBAL: LEGOBATMAN 0x00adf690
-extern f32 g_nuapiForcedFrameTime;
 
 // GLOBAL: LEGOBATMAN 0x00b038cc
 static u32 g_nuTimeStartFrame;
@@ -36,11 +23,11 @@ extern "C" u32 NuTimeGetSinceStartFrame(void) {
 }
 
 // FUNCTION: LEGOBATMAN 0x006d5010
-f32 NuTimeGetFrameTime(void) { return g_nuapiFrameTime; }
+f32 NuTimeGetFrameTime(void) { return nuapi.frametime; }
 
 // FUNCTION: LEGOBATMAN 0x006d5020
 void NuTimeForceFrameTime(f32 frame_time) {
-  g_nuapiForcedFrameTime = frame_time;
+  nuapi.forced_frame_time = frame_time;
 }
 
 // FUNCTION: LEGOBATMAN 0x006d5030
@@ -114,11 +101,6 @@ f32 NuTimeMicroSeconds(NUTIME *t) {
 // FUNCTION: LEGOBATMAN 0x006d51e0
 f32 NuTimeScanlines(NUTIME *t) { return NuTimeSeconds(t) * 272.0f * 60.0f; }
 
-// nuapi.time (frame start)
-// GLOBAL: LEGOBATMAN 0x00adf680
-extern NUTIME g_nuapiTime;
-// GLOBAL: LEGOBATMAN 0x00adf664
-extern f32 g_nuapiFps;
 void bgSuspendMain(int lines);
 
 // Scanlines left in this frame at the current refresh (name unknown):
@@ -133,16 +115,16 @@ int NuTimeUnk006d5320(int min_lines) {
   f32 x;
 
   NuTimeGet(&now);
-  NuTimeSub(&diff, &now, &g_nuapiTime);
+  NuTimeSub(&diff, &now, &nuapi.time);
   x = NuTimeSeconds(&diff) * 272.0f * 60.0f;
   lines = (int)x;
-  if (g_nuapiFps == 60.0f)
+  if (nuapi.fps == 60.0f)
     remaining = 0xff - lines;
-  else if (g_nuapiFps == 50.0f)
+  else if (nuapi.fps == 50.0f)
     remaining = 0x131 - lines;
-  else if (g_nuapiFps == 30.0f)
+  else if (nuapi.fps == 30.0f)
     remaining = 0x1e0 - lines;
-  else if (g_nuapiFps == 25.0f)
+  else if (nuapi.fps == 25.0f)
     remaining = 0x244 - lines;
   if (remaining >= min_lines) {
     bgSuspendMain(remaining);
