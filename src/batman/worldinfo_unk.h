@@ -125,7 +125,10 @@ struct WORLDINFO_s {
   u8 pad51dc[0x51ec - 0x51dc];
   struct TECHNO_s *technos; // 0x51ec
   i32 techno_count;         // 0x51f0
-  u8 pad51f4[0x520c - 0x51f4];
+  u8 pad51f4[0x51fc - 0x51f4];
+  struct SHARD_s *shards; // 0x51fc
+  i32 shard_count;        // 0x5200
+  u8 pad5204[0x520c - 0x5204];
   struct ATTRACTO_s *attractos; // 0x520c
   i32 attracto_count;           // 0x5210
   struct LEDGE_s *ledges;       // 0x5214

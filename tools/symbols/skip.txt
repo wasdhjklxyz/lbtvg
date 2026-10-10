@@ -218,3 +218,4 @@
 0066edc0 Plugs_ClearProgress: mask stores interleave with memset pushes differently, 3 forms tried
 0066e780 Plugs_ReserveBufferSpace: original has an 8-byte stack local with a dead store, unexplained
 005e0260 Ledge_FindNearest: float local vs dead param home slot swapped (best/rounding temp)
+005ca470 Shards_Draw: rot3a load hoisted above the spinning branch in the original, 3 forms tried

@@ -2856,3 +2856,22 @@
 005e0660 Ledges_ClearProgress clear_progress slot of the "Ledge" ADDGIZMOTYPE
 005e06a0 Ledges_StoreProgress store_progress slot of the "Ledge" ADDGIZMOTYPE
 005e0750 Ledges_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Ledge"
+005c9ae0 ShardSys_Init Mac order (first function of the Shard file), sets the ShardSys global 0x960964
+005c9b30 Shards_Load load slot of the "Shard" ADDGIZMOTYPE
+005c9be0 Shards_ReserveBufferSpace reserve_buffer_space slot of the "Shard" ADDGIZMOTYPE
+005c9ce0 Shards_Reset reset slot of the "Shard" ADDGIZMOTYPE
+005c9dc0 Shard_Activate activate slot of the "Shard" ADDGIZMOTYPE
+005c9de0 Shard_SetVisibility set_visibility slot of the "Shard" ADDGIZMOTYPE
+005c9e00 Shards_UpdateBeforeCharacters early_update slot of the "Shard" ADDGIZMOTYPE
+005ca610 Shards_GetMaxGizmos get_max_gizmos slot of the "Shard" ADDGIZMOTYPE
+005ca630 Shards_AddGizmos add_gizmos slot of the "Shard" ADDGIZMOTYPE
+005ca6a0 Shard_GetGizmoName get_gizmo_name slot of the "Shard" ADDGIZMOTYPE
+005ca6b0 Shard_GetOutput get_output slot of the "Shard" ADDGIZMOTYPE
+005ca6d0 Shard_GetOutputName get_output_name slot of the "Shard" ADDGIZMOTYPE
+005ca6e0 Shard_GetNumOutputs get_num_outputs slot of the "Shard" ADDGIZMOTYPE
+005ca6f0 Shards_AllocateProgressData allocate_progress_data slot of the "Shard" ADDGIZMOTYPE
+005ca710 Shards_ClearProgress clear_progress slot of the "Shard" ADDGIZMOTYPE
+005ca750 Shards_StoreProgress store_progress slot of the "Shard" ADDGIZMOTYPE
+005ca810 Shards_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Shard"
+005ca930 Shard_Collect Mac order (right after Shards_RegisterGizmo), Shard_Collect(SHARD_s*, GameObject_s*)
+005ca9d0 Shards_HandleLostObj Mac order (after Shard_Collect), clears shards collected by a lost object
