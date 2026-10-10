@@ -104,6 +104,8 @@ extern "C" void NuListAppend(NULISTHDR *list, NULISTLNK *node);
 extern "C" void NuListRemove(NULISTHDR *list, NULISTLNK *node);
 void NuSpecialSetNoVisiTest(nuhspecial_s *special, i32 enabled);
 i32 NuSpecialGetVisibilityFn(nuhspecial_s *sp);
+extern "C" void NuSpecialSetVisibility(nuhspecial_s *sp, i32 visible);
+void SetAnimFrame(nuhspecial_s *special, f32 frame);
 
 // FUNCTION: LEGOBATMAN 0x00603a50
 void GameAnimSys_AllocateLevelProgressData(variptr_u *buf, variptr_u *buf_end,
@@ -437,4 +439,123 @@ i32 GameAnimSet_JumpToStart(GAMEANIMSET *set) {
     GameAnimSet_EvaluateState(set);
   }
   return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00604c50
+i32 GameAnimSet_AllPlayingUnk00604c50(GAMEANIMSET *set) {
+  GAMEANIMOBJ *obj;
+
+  if (set != NULL) {
+    for (obj = set->objects; obj != NULL; obj = obj->next) {
+      if (obj->instance_anim != NULL && !(obj->instance_anim->flags & 1))
+        return 0;
+    }
+  }
+  return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x00604c80
+f32 GameAnimSet_GetCurrentFrame(GAMEANIMSET *set) {
+  GAMEANIMOBJ *obj;
+
+  if (set != NULL) {
+    for (obj = set->objects; obj != NULL; obj = obj->next) {
+      if (obj->instance_anim != NULL)
+        return obj->instance_anim->ltime;
+    }
+  }
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00604cb0
+f32 GameAnimSet_GetMinFrameUnk00604cb0(GAMEANIMSET *set) {
+  if (set != NULL)
+    return set->min_frame;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00604cc0
+f32 GameAnimSet_GetMaxFrameUnk00604cc0(GAMEANIMSET *set) {
+  if (set != NULL)
+    return set->max_frame;
+  return 0.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00604cd0
+f32 GameAnimSet_GetAnimPos(GAMEANIMOBJ *object) {
+  f32 position = 0.0f;
+
+  if (object != NULL && object->instance_anim != NULL &&
+      object->animation != NULL) {
+    if (object->start_frame == object->end_frame) {
+      position = 1.0f;
+    } else {
+      position = (object->instance_anim->ltime - object->start_frame) /
+                 (object->end_frame - object->start_frame);
+      if (position < 0.0f)
+        position = 0.0f;
+      else if (position > 1.0f)
+        position = 1.0f;
+    }
+  }
+  return position;
+}
+
+// FUNCTION: LEGOBATMAN 0x00604d50
+void GameAnimSet_SetAnimPos(GAMEANIMOBJ *object, f32 position) {
+  if (object == NULL || object->instance_anim == NULL ||
+      object->animation == NULL) {
+    return;
+  }
+
+  if (position < 0.0f) {
+    position = 0.0f;
+  }
+  if (position > 1.0f) {
+    position = 1.0f;
+  }
+  object->instance_anim->ltime =
+      (object->end_frame - object->start_frame) * position +
+      object->start_frame;
+}
+
+// FUNCTION: LEGOBATMAN 0x00604ec0
+i32 GameAnimSet_GetVisibility(GAMEANIMSET *set) {
+  GAMEANIMOBJ *obj;
+  i32 visible;
+
+  if (set != NULL) {
+    visible = 0;
+    for (obj = set->objects; obj != NULL; obj = obj->next) {
+      if (NuSpecialGetVisibilityFn(&obj->special))
+        visible++;
+    }
+    if (visible == set->object_count)
+      return 2;
+    if (visible > 0)
+      return 1;
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00604f10
+void GameAnimSet_SetVisibility(GAMEANIMSET *set, i32 visibility) {
+  GAMEANIMOBJ *obj;
+
+  if (set != NULL) {
+    for (obj = set->objects; obj != NULL; obj = obj->next)
+      NuSpecialSetVisibility(&obj->special, visibility);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x00604f40
+void GameAnimSet_EvalAnim(GAMEANIMSET *set) {
+  GAMEANIMOBJ *obj;
+
+  if (set != NULL) {
+    for (obj = set->objects; obj != NULL; obj = obj->next) {
+      if (obj->instance_anim != NULL)
+        SetAnimFrame(&obj->special, obj->instance_anim->ltime);
+    }
+  }
 }

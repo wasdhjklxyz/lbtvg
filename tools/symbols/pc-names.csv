@@ -2219,6 +2219,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00604ac0,002ac17a,__Z24GameAnimSet_SetRepeatingP13GAMEANIMSET_si,"GameAnimSet_SetRepeating(GAMEANIMSET_s*, int)",confirmed,0
 00604b00,002ac1b8,__Z21GameAnimSet_JumpToEndP13GAMEANIMSET_s,GameAnimSet_JumpToEnd(GAMEANIMSET_s*),confirmed,0
 00604b40,002ac1f8,__Z23GameAnimSet_JumpToStartP13GAMEANIMSET_s,GameAnimSet_JumpToStart(GAMEANIMSET_s*),confirmed,0
+00604c80,002ac332,__Z27GameAnimSet_GetCurrentFrameP13GAMEANIMSET_s,GameAnimSet_GetCurrentFrame(GAMEANIMSET_s*),confirmed,0
+00604cd0,002ac380,__Z22GameAnimSet_GetAnimPosP13GAMEANIMOBJ_s,GameAnimSet_GetAnimPos(GAMEANIMOBJ_s*),confirmed,0
+00604d50,002ac3f6,__Z22GameAnimSet_SetAnimPosP13GAMEANIMOBJ_sf,"GameAnimSet_SetAnimPos(GAMEANIMOBJ_s*, float)",confirmed,0
+00604ec0,002ac5ba,__Z25GameAnimSet_GetVisibilityP13GAMEANIMSET_s,GameAnimSet_GetVisibility(GAMEANIMSET_s*),confirmed,0
+00604f10,002ac60c,__Z25GameAnimSet_SetVisibilityP13GAMEANIMSET_si,"GameAnimSet_SetVisibility(GAMEANIMSET_s*, int)",confirmed,0
+00604f40,002ac640,__Z20GameAnimSet_EvalAnimP13GAMEANIMSET_s,GameAnimSet_EvalAnim(GAMEANIMSET_s*),confirmed,0
 00605760,0034992a,__Z13Whippers_LoadPvS_,"Whippers_Load(void*, void*)",confirmed,0
 00605950,00349b54,__Z27Whippers_ReserveBufferSpacePv,Whippers_ReserveBufferSpace(void*),confirmed,0
 00605b20,00349db6,__Z16Whipper_ActivateP7GIZMO_si,"Whipper_Activate(GIZMO_s*, int)",confirmed,0
