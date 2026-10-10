@@ -8,6 +8,8 @@
 
 struct nugspline_s {
   i16 len; // 0x00
+  u8 pad02[8 - 2];
+  nuvec_s *pts; // 0x08
 };
 
 // Raw view: only the area index is evidenced.
@@ -231,4 +233,17 @@ HUBEPISODEINFO *Unk006183e0(u32 players) {
     }
   }
   return best;
+}
+
+extern HUBEPISODEINFO *g_unk00acb6c8; // current hub episode (worldmap_unk.cpp)
+
+// FUNCTION: LEGOBATMAN 0x00618690
+i32 Unk00618690(nuvec_s *start, nuvec_s *next) {
+  if (g_unk00acb6c8 != NULL && g_unk00acb6c8->spline_ptr != NULL) {
+    if (start != NULL)
+      *start = g_unk00acb6c8->spline_ptr->pts[0];
+    if (next != NULL)
+      *next = g_unk00acb6c8->spline_ptr->pts[1];
+  }
+  return 1;
 }
