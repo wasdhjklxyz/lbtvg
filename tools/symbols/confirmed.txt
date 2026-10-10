@@ -2671,3 +2671,13 @@
 006700c0 GizTimer_Load load slot of the "GizTimer" ADDGIZMOTYPE
 00670030 createGizTimer saga body (WorldInfo_CurrentlyLoading, NuStrNCpy 0x10, AddGizmo with giztimer_gizmotype_id), Mac order before GizTimer_Load
 00670150 GizTimer_RegisterGizmo copies Default_ADDGIZMOTYPE, name "GizTimer"
+0066fab0 GizRandom_GetMaxGizmos get_max_gizmos slot of the "GizRandom" ADDGIZMOTYPE
+0066fad0 GizRandom_AddGizmos add_gizmos slot of the "GizRandom" ADDGIZMOTYPE
+0066fb40 GizRandom_GetGizmoName get_gizmo_name slot of the "GizRandom" ADDGIZMOTYPE
+0066fb50 GizRandom_GetOutput get_output slot of the "GizRandom" ADDGIZMOTYPE
+0066fb70 GizRandom_GetOutputName get_output_name slot of the "GizRandom" ADDGIZMOTYPE
+0066fb80 GizRandom_GetNumOutputs get_num_outputs slot of the "GizRandom" ADDGIZMOTYPE
+0066fb90 GizRandom_Activate activate slot of the "GizRandom" ADDGIZMOTYPE
+0066fc10 GizRandom_ReserveBufferSpace reserve_buffer_space slot of the "GizRandom" ADDGIZMOTYPE
+0066fc90 createGizRandom saga body (weights copy, NuStrNCpy 0x10, AddGizmo with gizrandom_gizmotype_id)
+0066fd30 GizRandom_RegisterGizmo copies Default_ADDGIZMOTYPE, name "GizRandom", prefix "rnd_"
