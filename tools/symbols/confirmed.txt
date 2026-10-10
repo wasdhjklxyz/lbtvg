@@ -3441,3 +3441,5 @@
 006dd740 NuFileSmallFileOpen pak lookup of a .txt path, returns id 0x2000; Mac NuFileOpenDF calls NuFileSmallFileManager::Open here
 006d38b0 NuDatFileSeek saga nufile.cpp body (dat_file_infos 0xae3f80)
 006de270 NuDatFileRead saga nufile.cpp body, implode-only decode branch
+006da710 NuFParGetWordW saga nufpar.cpp body (static old_line_pos 0xae4344)
+006d3e20 NuFParUnGetWord saga nufpar.cpp body (line_pos = old_line_pos)

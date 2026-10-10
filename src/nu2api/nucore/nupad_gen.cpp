@@ -1611,6 +1611,75 @@ typedef struct nufpar_s {
   void *separator_tokens; // 0x980
 } NUFPAR;
 
+// Static: NuFParGetWordW keeps line_pos in a register across the store. So
+// nufile/nufpar_unk.cpp (extern old_line_pos) belongs in this TU.
+// GLOBAL: LEGOBATMAN 0x00ae4344
+static int old_line_pos;
+
+#define CLAMP_WIDE_LINE(pos) pos &((parser->line_buf_size >> 1) - 1)
+#define CLAMP_WIDE_WORD(pos) pos &((parser->word_buf_size >> 1) - 1)
+
+// FUNCTION: LEGOBATMAN 0x006da710
+int NuFParGetWordW(NUFPAR *parser) {
+  unsigned short *line = (unsigned short *)parser->line_buf;
+  unsigned short *word = (unsigned short *)parser->word_buf;
+  int len = 0;
+  int in_quoted_text = 0;
+  unsigned short c;
+
+  old_line_pos = parser->line_pos;
+  while (line[CLAMP_WIDE_LINE(parser->line_pos)] != 0) {
+    c = line[parser->line_pos];
+    if (parser->separator_tokens != NULL && !in_quoted_text) {
+      if (NuStrChr((char *)parser->separator_tokens, c) != NULL) {
+        if (len == 0) {
+          word[len] = c;
+          len++;
+          parser->line_pos++;
+        }
+        word[CLAMP_WIDE_WORD(len)] = '\0';
+        return len;
+      }
+    }
+    if (parser->separator_list != NULL && !in_quoted_text) {
+      if (NuStrChr((char *)parser->separator_list, c) != NULL)
+        c = ' ';
+    }
+    switch (c & 0xff) {
+    case ' ':
+    case ',':
+    case '\t':
+      if (!in_quoted_text) {
+        if (len != 0) {
+          word[CLAMP_WIDE_WORD(len)] = '\0';
+          return len;
+        }
+        break;
+      }
+    default:
+      if (c == '"') {
+        if (in_quoted_text && line[parser->line_pos + 1] == '"') {
+          word[CLAMP_WIDE_WORD(len)] = c;
+          len++;
+          parser->line_pos++;
+        } else {
+          in_quoted_text = 1 - in_quoted_text;
+        }
+      } else {
+        word[CLAMP_WIDE_WORD(len)] = c;
+        len++;
+      }
+      break;
+    }
+    parser->line_pos++;
+  }
+  word[CLAMP_WIDE_WORD(len)] = '\0';
+  return len;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d3e20
+void NuFParUnGetWord(NUFPAR *parser) { parser->line_pos = old_line_pos; }
+
 // FUNCTION: LEGOBATMAN 0x006dd570
 void NuFParSuspend(NUFPAR *parser) {
   if (parser->file_handle >= 0x400 && parser->file_handle < 0x800)

@@ -136,7 +136,7 @@ f32 NuFParGetFloat(NUFPAR *parser) {
   }
 }
 
-// GLOBAL: LEGOBATMAN 0x00ae4344
+// Annotated (static) in nucore/nupad_gen.cpp, the real TU of this file.
 extern i32 old_line_pos;
 
 // FUNCTION: LEGOBATMAN 0x006daae0
