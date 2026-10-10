@@ -2817,6 +2817,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00648f60,002a50cc,__Z22Episode_CountOpenAreasii,"Episode_CountOpenAreas(int, int)",confirmed,0
 006499d0,003435ae,__Z29TightRopes_ReserveBufferSpacePv,TightRopes_ReserveBufferSpace(void*),confirmed,0
 00649ac0,0034360a,__Z17TightRope_ReleaseP12GameObject_s,TightRope_Release(GameObject_s*),confirmed,0
+00649b00,00345146,__Z16TightRopes_ResetPvS_S_,"TightRopes_Reset(void*, void*, void*)",confirmed,0
 0064a000,00343924,__Z22TightRopes_EarlyUpdatePvS_f,"TightRopes_EarlyUpdate(void*, void*, float)",confirmed,0
 0064a9d0,00344380,__Z18TightRope_ActivateP7GIZMO_si,"TightRope_Activate(GIZMO_s*, int)",confirmed,0
 0064aa10,003443ea,__Z23TightRope_SetVisibilityP7GIZMO_si,"TightRope_SetVisibility(GIZMO_s*, int)",confirmed,0

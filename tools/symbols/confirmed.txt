@@ -3268,3 +3268,4 @@
 006630d0 GizSpecial_ReserveBuffer GizSpecial_RegisterGizmo reserve_buffer_space slot (fns[23]); Mac GizSpecial_ReserveBuffer: GameBufferAlloc, GameAnimSet_CreateObjectPool, GameAnimSet_Create per special
 00603df0 GameAnimSet_CreateObjectPool Mac GizSpecial_ReserveBuffer calls GameAnimSet_CreateObjectPool(variptr_u*, variptr_u*, int, int) with (buf, end, 0, max)
 00603bc0 GameAnimSet_Create Mac GizSpecial_ReserveBuffer calls GameAnimSet_Create(variptr_u*, variptr_u*, GAMEANIMOBJPOOL_s*, GAMEANIMSYS_s*) per special
+00649b00 TightRopes_Reset TightRopes_RegisterGizmo reset slot (fns[22])

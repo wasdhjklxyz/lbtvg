@@ -42,11 +42,16 @@ void Unk_InlineUser_unk_00649780(f32 *v, f32 a, i32 i) {
 
 typedef struct TIGHTROPE_s {
   nuvec_s position; // 0x00
-  u8 padc[0x3c - 0xc];
+  nuvec_s end;      // 0x0c
+  u8 pad18[0x30 - 0x18];
+  nuvec_s dir;     // 0x30
   char name[0x10]; // 0x3c
-  u8 pad4c[0x5e - 0x4c];
+  u8 pad4c[0x58 - 0x4c];
+  f32 length;     // 0x58
+  u16 angle;      // 0x5c
   u8 visible : 1; // 0x5e
   u8 active : 1;  // 0x5e bit 1
+  u8 steep : 1;   // 0x5e bit 2
   u8 users;       // 0x5f
   f32 appear;     // 0x60
 } TIGHTROPE;
@@ -101,6 +106,28 @@ void *TightRopes_ReserveBufferSpace(void *world_ptr) {
   return world->tightropes;
 }
 
+void NuVecSub(nuvec_s *out, nuvec_s *a, nuvec_s *b);
+i32 NuAtan2D(f32 dx, f32 dy);
+f32 NuVecMag(nuvec_s *v);
+void NuVecScale(nuvec_s *out, nuvec_s *v, f32 s);
+
+// FUNCTION: LEGOBATMAN 0x00649a20
+static void TightRope_Reset(TIGHTROPE *rope) {
+  NuVecSub(&rope->dir, &rope->end, &rope->position);
+  rope->angle = NuAtan2D(rope->dir.x, rope->dir.z);
+  f32 len = NuVecMag(&rope->dir);
+  rope->length = len;
+  NuVecScale(&rope->dir, &rope->dir, 1.0f / len);
+  rope->visible = 1;
+  rope->active = 1;
+  rope->appear = 0.0f;
+  rope->users = 0;
+  if (NuFabs(rope->dir.y) > 0.3f)
+    rope->steep = 1;
+  else
+    rope->steep = 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x00649ac0
 void TightRope_Release(GameObject_s *obj) {
   if (obj->b9db != -1 &&
@@ -111,7 +138,25 @@ void TightRope_Release(GameObject_s *obj) {
   }
 }
 
-void TightRopes_Reset(void *world, void *unused, void *progress);
+// FUNCTION: LEGOBATMAN 0x00649b00
+void TightRopes_Reset(void *world_ptr, void *unused, void *progress_ptr) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  if (world == NULL)
+    return;
+  TIGHTROPE *rope = world->tightropes;
+  if (rope == NULL)
+    return;
+  TIGHTROPEPROGRESS *progress = (TIGHTROPEPROGRESS *)progress_ptr;
+  for (i32 i = 0; i < world->tightrope_count; i++, rope++) {
+    TightRope_Reset(rope);
+    if (progress != NULL && i < 32) {
+      i32 word = i / 32;
+      u32 bit = 1 << (i & 31);
+      rope->visible = (progress->visible[word] & bit) != 0;
+      rope->active = (progress->active[word] & bit) != 0;
+    }
+  }
+}
 
 // FUNCTION: LEGOBATMAN 0x0064a000
 void TightRopes_EarlyUpdate(void *world_ptr, void *unused, f32 dt) {
