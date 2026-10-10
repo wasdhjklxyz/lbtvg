@@ -15,6 +15,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0041d7d0,00049a2c,__Z33Collection_CheckFloatingVehicleFni,Collection_CheckFloatingVehicleFn(int),confirmed,0
 0041d800,00049a50,__Z31Collection_CheckFlyingVehicleFni,Collection_CheckFlyingVehicleFn(int),confirmed,0
 0041d830,00049a74,__Z25VehicleArea_GetCollectionP10AREADATA_s,VehicleArea_GetCollection(AREADATA_s*),confirmed,0
+0041d880,00049aae,__Z15FixUpCharactersP9CHARFIXUP,FixUpCharacters(CHARFIXUP*),confirmed,0
+0041d960,00049b72,__Z30ExtraCharacterFixUpAfterConfigv,ExtraCharacterFixUpAfterConfig(),confirmed,0
 00428a60,00057a20,__Z16ResetAICreaturesP7AISYS_s,ResetAICreatures(AISYS_s*),strings,0
 0042ad10,00053cd6,__Z19DrawGameObjectsDrawi,DrawGameObjectsDraw(int),strings,0
 0042ffd0,0005b598,__Z22ElectricShock_MoveCodeP12GameObject_sii,"ElectricShock_MoveCode(GameObject_s*, int, int)",strings,0
@@ -659,9 +661,17 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004c83e0,000d9220,__Z19FindForcePushTargetP12GameObject_sii,"FindForcePushTarget(GameObject_s*, int, int)",strings,0
 004cb910,000f0df8,__Z14Move_CHARACTERP12GameObject_s,Move_CHARACTER(GameObject_s*),strings,0
 004ccf20,000db9f4,__Z12PartStop_PooP6PART_s,PartStop_Poo(PART_s*),strings,0
-004ccf50,000ee284,__Z10Move_BEASTP12GameObject_s,Move_BEAST(GameObject_s*),strings,0
 004ce720,000ec10e,__Z15TractorBeamCodeP12GameObject_s,TractorBeamCode(GameObject_s*),strings,0
+004ceac0,000e1974,__Z15Animate_VEHICLEP12GameObject_s,Animate_VEHICLE(GameObject_s*),confirmed,0
+004cf630,000e1304,__Z13Animate_BEASTP12GameObject_s,Animate_BEAST(GameObject_s*),confirmed,0
+004cf7c0,000dbefc,__Z14Animate_CANNONP12GameObject_s,Animate_CANNON(GameObject_s*),confirmed,0
+004cf830,000e14e0,__Z12Animate_JEDIP12GameObject_s,Animate_JEDI(GameObject_s*),confirmed,0
 004cfe50,000db47a,__Z17Cheat_SpecialHitsfP7nuvec_s,"Cheat_SpecialHits(float, nuvec_s*)",strings,0
+004d7ae0,000ec444,__Z12Move_VEHICLEP12GameObject_s,Move_VEHICLE(GameObject_s*),confirmed,0
+004d8380,000ee284,__Z10Move_BEASTP12GameObject_s,Move_BEAST(GameObject_s*),confirmed,0
+004d85a0,000e3482,__Z11Move_CANNONP12GameObject_s,Move_CANNON(GameObject_s*),confirmed,0
+004d87c0,000edccc,__Z13Move_DRAGBOMBP12GameObject_s,Move_DRAGBOMB(GameObject_s*),confirmed,0
+004d8b60,000ef8de,__Z9Move_JEDIP12GameObject_s,Move_JEDI(GameObject_s*),confirmed,0
 004dbbc0,000f2b56,_NuSinApprox,_NuSinApprox,gapfill,2
 004dc8e0,000f41bc,__Z21DrawPlayerIconPromptsiifiiiiiifiiii,"DrawPlayerIconPrompts(int, int, float, int, int, int, int, int, int, float, int, int, int, int)",strings,0
 004e0d90,000f6108,__Z9DrawPanelv,DrawPanel(),strings,0
@@ -1915,6 +1925,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0061dd40,00298baa,__Z29CutScenes_LoadLevelCharactersP11WORLDINFO_sPcPi,"CutScenes_LoadLevelCharacters(WORLDINFO_s*, char*, int*)",strings,0
 0061f190,00278b52,__Z14CharIDFromNamePc,CharIDFromName(char*),confirmed,0
 0061f2d0,00278cbc,__Z14CharScene_LoadiP9CHARSCENEP9variptr_uS1_,"CharScene_Load(int, CHARSCENE*, variptr_u*, variptr_u)",strings,0
+0061fd50,002794d4,__Z26SetMoveAndAnimateFunctionsjjjjiPvS_S_,"SetMoveAndAnimateFunctions(unsigned int, unsigned int, unsigned int, unsigned int, int, void*, void*, void*)",confirmed,0
 00620160,0027a02a,__Z10DrawHoseExP19GAMECHARACTERDATA_sP7numtx_sP7numtl_sf,"DrawHoseEx(GAMECHARACTERDATA_s*, numtx_s*, numtl_s*, float)",gapfill,3
 00620370,0027a18c,__Z8DrawHoseP12GameObject_s,DrawHose(GameObject_s*),gapfill,2
 00620aa0,0027a3d2,__Z22DefinedLocators_FindIXPc,DefinedLocators_FindIX(char*),confirmed,0

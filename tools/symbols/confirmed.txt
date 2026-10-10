@@ -2512,3 +2512,15 @@
 0041d7d0 Collection_CheckFloatingVehicleFn bit 13 of CHARACTERDATA+0x14c, identical on the Mac
 0041d800 Collection_CheckFlyingVehicleFn   bit 14 of CHARACTERDATA+0x14c, next in Mac order
 0041d830 VehicleArea_GetCollection         AREADATA+0x7c flags 4 / 0x80001 / 0x100001 pick one of four globals, same on the Mac
+0041d880 FixUpCharacters        saga characters.cpp body (GCDATA_DEFAULT copy, Move/Animate_CHARACTER defaults, CharIDFromName fixups); Mac order after VehicleArea_GetCollection
+0041d960 ExtraCharacterFixUpAfterConfig  seven SetMoveAndAnimateFunctions calls with the Mac's arguments in the Mac's order, then the id_DRAGBOMB* move_fn fixups
+0061fd50 SetMoveAndAnimateFunctions  called 7x by ExtraCharacterFixUpAfterConfig with the Mac's argument lists
+004d8b60 Move_JEDI              passed with flags 8,8 to SetMoveAndAnimateFunctions, as on the Mac
+004cf830 Animate_JEDI           passed with flags 8,8 to SetMoveAndAnimateFunctions, as on the Mac
+004d85a0 Move_CANNON            passed with flags 0x800 to SetMoveAndAnimateFunctions, as on the Mac
+004cf7c0 Animate_CANNON         passed with flags 0x800 to SetMoveAndAnimateFunctions, as on the Mac
+004d7ae0 Move_VEHICLE           passed with flags 0x2000 to SetMoveAndAnimateFunctions, as on the Mac
+004ceac0 Animate_VEHICLE        passed with flags 0x2000 to SetMoveAndAnimateFunctions, as on the Mac
+004d8380 Move_BEAST             passed with flags 0x40000000 to SetMoveAndAnimateFunctions, as on the Mac
+004cf630 Animate_BEAST          passed with flags 0x40000000 to SetMoveAndAnimateFunctions, as on the Mac
+004d87c0 Move_DRAGBOMB          stored to the id_DRAGBOMB* characters' move_fn, as on the Mac
