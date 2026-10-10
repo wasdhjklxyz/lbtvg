@@ -15,7 +15,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 |---|---|---|
 | [near pcbatman.cpp](#near-pcbatmancpp) | 42 | 37 |
 | [near rtleditor.cpp](#near-rtleditorcpp) | 43 | 34 |
-| [Action](#action) | 33 | 21 |
+| [Action](#action) | 32 | 20 |
 | [near terrain.c](#near-terrainc) | 24 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 10 | 6 |
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 6 | 6 |
@@ -334,7 +334,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0046ad50` 1364 B `Action_UseLedge(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `00457ff0` 1413 B `Action_SnapToSockPosition(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `004541f0` 1469 B `Action_SetSide(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `0045b070` 1517 B `Action_SetInvulnerable(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00454d10` 1961 B `Action_Kill(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00465d60` 2215 B `Action_CameraCut(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizactions.cpp`
 - [ ] `00459330` 2559 B `Action_EngageOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`

@@ -867,6 +867,134 @@ i32 Action_SetIgnorePlayerItemsTargetting(AISYS_s *sys,
   return 1;
 }
 
+// FUNCTION: LEGOBATMAN 0x0045b070
+i32 Action_SetInvulnerable(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                           AIPACKET_s *packet, char **args, int argc, int flags,
+                           f32 time) {
+  u32 except = 0;
+  i32 enabled = 1;
+  i32 type_count = 0;
+  i32 still_take_hit = 0;
+  GameObject_s *obj = NULL;
+  i32 types[10];
+  if (flags == 0)
+    return 1;
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL)
+    obj = packet->pd0->obj;
+  for (i32 i = 0; i < argc; i++) {
+    char *value = NuStrIStr(args[i], "type");
+    if (value != NULL) {
+      if (g_unk00ad68ec != NULL && g_unk00ad68fc != NULL) {
+        i32 local_type = g_unk00ad68ec(value + 5);
+        if (local_type != 0xff) {
+          i32 global_type = g_unk00ad68fc(local_type);
+          if (global_type != -1 && type_count < 10)
+            types[type_count++] = global_type;
+        }
+      }
+    } else if ((value = NuStrIStr(args[i], "character=")) != NULL) {
+      obj = GetNamedGameObjectInl(sys, value + 10);
+    } else if ((value = NuStrIStr(args[i], "except=")) != NULL) {
+      value += 7;
+      if (NuStrICmp(value, "ALL") == 0)
+        except = 0xffffffff;
+      else if (NuStrICmp(value, "HIT_BY_AI") == 0)
+        except |= 2;
+      else if (NuStrICmp(value, "HIT_BY_PLAYER") == 0)
+        except |= 4;
+      else if (NuStrICmp(value, "HIT_BY_GOODY") == 0)
+        except |= 8;
+      else if (NuStrICmp(value, "HIT_BY_BADDY") == 0)
+        except |= 0x10;
+      else if (NuStrICmp(value, "HIT_BY_NEUTRAL") == 0)
+        except |= 0x20;
+      else if (NuStrICmp(value, "PUNCH") == 0)
+        except |= 0x40;
+      else if (NuStrICmp(value, "BOLT") == 0)
+        except |= 0x80;
+      else if (NuStrICmp(value, "STREAK") == 0)
+        except |= 0x100;
+      else if (NuStrICmp(value, "SLAM") == 0)
+        except |= 0x200;
+      else if (NuStrICmp(value, "ZAP") == 0)
+        except |= 0x400;
+      else if (NuStrICmp(value, "BASH") == 0)
+        except |= 0x2000;
+      else if (NuStrICmp(value, "HITBYWHIP") == 0)
+        except |= 0x8000;
+      else if (NuStrICmp(value, "HITBYTHROWNITEM") == 0)
+        except |= 0x20000;
+      else if (NuStrICmp(value, "TORPEDO") == 0)
+        except |= 0x100000;
+      else if (NuStrICmp(value, "DRAGBOMB") == 0)
+        except |= 0x200000;
+    } else if ((value = NuStrIStr(args[i], "include=")) != NULL) {
+      value += 8;
+      if (NuStrICmp(value, "HIT_BY_AI") == 0)
+        except &= ~2;
+      else if (NuStrICmp(value, "HIT_BY_PLAYER") == 0)
+        except &= ~4;
+      else if (NuStrICmp(value, "HIT_BY_GOODY") == 0)
+        except &= ~8;
+      else if (NuStrICmp(value, "HIT_BY_BADDY") == 0)
+        except &= ~0x10;
+      else if (NuStrICmp(value, "HIT_BY_NEUTRAL") == 0)
+        except &= ~0x20;
+      else if (NuStrICmp(value, "PUNCH") == 0)
+        except &= ~0x40;
+      else if (NuStrICmp(value, "BOLT") == 0)
+        except &= ~0x80;
+      else if (NuStrICmp(value, "STREAK") == 0)
+        except &= ~0x100;
+      else if (NuStrICmp(value, "SLAM") == 0)
+        except &= ~0x200;
+      else if (NuStrICmp(value, "ZAP") == 0)
+        except &= ~0x400;
+      else if (NuStrICmp(value, "BASH") == 0)
+        except &= ~0x2000;
+      else if (NuStrICmp(value, "HITBYWHIP") == 0)
+        except &= ~0x8000;
+      else if (NuStrICmp(value, "HITBYTHROWNITEM") == 0)
+        except &= ~0x20000;
+      else if (NuStrICmp(value, "TORPEDO") == 0)
+        except &= ~0x100000;
+      else if (NuStrICmp(value, "DRAGBOMB") == 0)
+        except &= ~0x200000;
+    } else if (NuStrICmp(args[i], "FALSE") == 0) {
+      enabled = 0;
+    } else if (NuStrICmp(args[i], "still_do_take_hit_anim") == 0) {
+      still_take_hit = 1;
+    }
+  }
+  if (type_count != 0) {
+    GameObject_s *candidate = Obj;
+    for (i32 i = 0; i < HIGHGAMEOBJECT; i++, candidate++) {
+      if (!(candidate->flags1fc & 1) || !(candidate->flags1fc & 0x1000))
+        continue;
+      for (i32 j = 0; j < type_count; j++) {
+        if (candidate->type15b0 == types[j]) {
+          candidate->invulnerable_except = except;
+          if (enabled) {
+            candidate->invulnerable = 1;
+            candidate->still_do_take_hit_anim = still_take_hit;
+          } else {
+            candidate->invulnerable = 0;
+          }
+        }
+      }
+    }
+  } else if (obj != NULL) {
+    obj->invulnerable_except = except;
+    if (enabled) {
+      obj->invulnerable = 1;
+      obj->still_do_take_hit_anim = still_take_hit;
+    } else {
+      obj->invulnerable = 0;
+    }
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x0045b7e0
 i32 Action_DontAvoidCharacter(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                               AIPACKET_s *packet, char **args, int argc,

@@ -391,6 +391,12 @@ struct GameObject_s {
       u32 : 8;
       u32 dont_move : 1; // 0x1410 bit 8
     };
+    struct {
+      u32 : 16;
+      u32 still_do_take_hit_anim : 1; // 0x1410 bit 16
+      u32 : 9;
+      u32 invulnerable : 1; // 0x1410 bit 26
+    };
   };
   union {
     u32 flags1414; // 0x1414
@@ -466,12 +472,12 @@ struct GameObject_s {
       u32 can_be_targetted_by_cable : 1; // 0x1418 bit 9
     };
   };
-  u32 u141c; // 0x141c, ResetPlayerAI: 0
-  u32 u1420; // 0x1420
-  u32 u1424; // 0x1424
-  u32 u1428; // 0x1428
-  u8 pad142c[0x1430 - 0x142c];
-  u32 flags1430; // 0x1430
+  u32 u141c;               // 0x141c, ResetPlayerAI: 0
+  u32 u1420;               // 0x1420
+  u32 u1424;               // 0x1424
+  u32 u1428;               // 0x1428
+  u32 invulnerable_except; // 0x142c, Action_SetInvulnerable hit-type mask
+  u32 flags1430;           // 0x1430
   u8 pad15b[0x143c - 0x1434];
   struct AILOCATOR_s *doomed_escape_locator; // 0x143c
   u8 pad16[0x1534 - 0x1440];
