@@ -3617,3 +3617,4 @@
 006d5ef0 NuPadRead saga nupad.cpp body (LB NUPAD layout)
 006d6230 NuPadRecordPlay saga nupad.cpp body
 006de440 NuPadUpdatePads saga nupad.cpp body, LB frame gate + inlined NuPadRecordEnd
+006dde30 NuStringTableSaveCharacterList saga nustring_c.cpp body

@@ -3683,6 +3683,77 @@ void Unk006ddd30(void) {
   g_nuPadRecUnk0adf6b4 = 0;
 }
 
+int NuFileWrite(int file, void *data, int size);
+void NuFileClose(int file);
+
+// FUNCTION: LEGOBATMAN 0x006dde30
+void NuStringTableSaveCharacterList(char *filepath, char *scratch,
+                                    int report_missing) {
+  int i;
+  int j;
+  int count = 0;
+  int overflow = 0;
+  int missing_count = 0;
+  char *used = NULL;
+  NUWCHAR character = 0;
+  int bank;
+  int file;
+  NUWCHAR bom;
+  NUWCHAR characters[512];
+  NUWCHAR missing[512];
+  char message[512];
+
+  used = scratch;
+  memset(used, 0, 0x1fff);
+  memset(characters, 0, 0x400);
+  memset(message, 0, 0x200);
+  bank = g_nuPadUnk0b03924;
+  for (i = 0; i < StringBank[bank].string_count; i++) {
+    if (StringBank[bank].strings[i].str_utf16 != NULL) {
+      for (j = 0; StringBank[bank].strings[i].str_utf16[j] != 0; j++) {
+        character = StringBank[bank].strings[i].str_utf16[j];
+        used[character >> 3] |= 1 << (character & 7);
+      }
+    }
+  }
+  for (character = 0; character < 0xffff; character++) {
+    if (used[character >> 3] & (1 << (character & 7))) {
+      characters[count] = character;
+      count++;
+      if (count >= 512) {
+        Unk006d24d0();
+        overflow = 1;
+        break;
+      }
+    }
+  }
+  file = NuFileOpen(filepath, 1);
+  if (file != 0) {
+    bom = 0xfeff;
+    NuFileWrite(file, &bom, 2);
+    NuFileWrite(file, characters, NuStrLenW(characters) * 2);
+    if (overflow) {
+      NuAsciiToUnicode(characters, " [over 512 unique chars - too many!]");
+      NuFileWrite(file, characters, count * 2);
+    } else {
+      sprintf(message, " [%d unique chars] ", count);
+      NuAsciiToUnicode(characters, message);
+      NuFileWrite(file, characters, NuStrLen(message) * 2);
+    }
+    if (report_missing) {
+      if (missing_count == 0) {
+        NuStrCpy(message, " [no missing chars]");
+      } else {
+        NuFileWrite(file, missing, missing_count * 2);
+        sprintf(message, " [%d missing chars]", missing_count);
+      }
+      NuAsciiToUnicode(characters, message);
+      NuFileWrite(file, characters, NuStrLen(message) * 2);
+    }
+    NuFileClose(file);
+  }
+}
+
 // --- nupad.cpp accessors (Mac order: NuPadClose, ..., NuPadGetFirstActivePad,
 // NuPadGetMaxGamePads, ..., NuPadMapPortToPS2Port, ..., NuPadPortUsedByPlayer,
 // NuPadInit, NuPadSetDirectMappingState, ..., NuPadRecordStart,
