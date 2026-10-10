@@ -42,7 +42,7 @@ extern nueffecttex_s *g_unk029dcc08; // default effect texture
 extern i32 g_unk00adf714;
 
 struct NuPostFilterGen {
-  virtual ~NuPostFilterGen();
+  virtual ~NuPostFilterGen() {}
   virtual void initResources();
   virtual void destroyResources();
   virtual void initTextureResources(i32 width, i32 height);
@@ -57,23 +57,28 @@ struct NuPostFilterGen {
 };
 
 struct NuDeferredFilterGen : NuPostFilterGen {
+  NuDeferredFilterGen();
   virtual void initResources();
+  virtual void destroyResources();
   virtual void initTextureResources(i32 width, i32 height);
   virtual void destroyTextureResources();
   virtual void resetAll();
   virtual bool isEnabled();
   virtual void template_blurLuminanceMap(); // 9
 
-  nueffecttex_s *tex0c;        // 0x0c
-  nueffecttex_s *i10;          // 0x10
-  nueffecttex_s *i14;          // 0x14
-  nueffecttex_s *tex18;        // 0x18
-  bool b1c;                    // 0x1c
-  nueffecttex_s *tex20[2];     // 0x20
-  nueffecttex_s *tex28[2];     // 0x28
-  nueffecttex_s *tex30[2];     // 0x30
-  i32 i38;                     // 0x38
-  i32 i3c;                     // 0x3c
+  nueffecttex_s *tex0c;    // 0x0c
+  nueffecttex_s *i10;      // 0x10
+  nueffecttex_s *i14;      // 0x14
+  nueffecttex_s *tex18;    // 0x18
+  bool b1c;                // 0x1c
+  nueffecttex_s *tex20[2]; // 0x20
+  nueffecttex_s *tex28[2]; // 0x28
+  nueffecttex_s *tex30[2]; // 0x30
+  i32 i38;                 // 0x38
+  union {
+    i32 i3c; // 0x3c, zeroed as an int in resetAll
+    f32 f3c; // and as a float in the ctor
+  };
   i32 i40;                     // 0x40
   i32 i44;                     // 0x44
   i32 dynamic_light_count;     // 0x48
@@ -81,13 +86,25 @@ struct NuDeferredFilterGen : NuPostFilterGen {
   i32 deferred_geometry_count; // 0x50
 };
 
+// FUNCTION: LEGOBATMAN 0x007080e0
+NuDeferredFilterGen::NuDeferredFilterGen() {
+  enabled = false;
+  i38 = 0;
+  f3c = 0.0f;
+}
+
 // FUNCTION: LEGOBATMAN 0x00708100
 bool NuDeferredFilterGen::isEnabled() {
   return enabled && (dynamic_light_count != 0 || deferred_geometry_count > 0);
 }
 
+// SYNTHETIC: LEGOBATMAN 0x00708120 NuDeferredFilterGen::`scalar deleting destructor'
+
 // FUNCTION: LEGOBATMAN 0x00708140
 void NuDeferredFilterGen::initResources() { resetAll(); }
+
+// FUNCTION: LEGOBATMAN 0x00708150
+void NuDeferredFilterGen::destroyResources() {}
 
 // STUB: LEGOBATMAN 0x00708160
 // b1c = (width / 2 == width): original materialises it via xor ecx/sete cl

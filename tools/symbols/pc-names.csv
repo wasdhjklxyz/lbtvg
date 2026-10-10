@@ -3576,8 +3576,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00704110,0012686e,__ZN15NuSSAOFilterGen20initTextureResourcesEii,"NuSSAOFilterGen::initTextureResources(int, int)",confirmed,0
 00704120,00126874,__ZN15NuSSAOFilterGen23destroyTextureResourcesEv,NuSSAOFilterGen::destroyTextureResources(),confirmed,0
 00704130,0012687a,__ZN15NuSSAOFilterGen6renderEv,NuSSAOFilterGen::render(),confirmed,0
+007080e0,0014921c,__ZN19NuDeferredFilterGenC2Ev,NuDeferredFilterGen::NuDeferredFilterGen(),confirmed,0
 00708100,0016af82,__ZN19NuDeferredFilterGen9isEnabledEv,NuDeferredFilterGen::isEnabled(),confirmed,0
 00708140,001385b0,__ZN19NuDeferredFilterGen13initResourcesEv,NuDeferredFilterGen::initResources(),confirmed,0
+00708150,001385e8,__ZN19NuDeferredFilterGen16destroyResourcesEv,NuDeferredFilterGen::destroyResources(),confirmed,0
 00708160,00145284,__ZN19NuDeferredFilterGen20initTextureResourcesEii,"NuDeferredFilterGen::initTextureResources(int, int)",confirmed,0
 00708280,0014522a,__ZN19NuDeferredFilterGen23destroyTextureResourcesEv,NuDeferredFilterGen::destroyTextureResources(),confirmed,0
 007082d0,001274f2,__ZN19NuDeferredFilterGen8resetAllEv,NuDeferredFilterGen::resetAll(),confirmed,0

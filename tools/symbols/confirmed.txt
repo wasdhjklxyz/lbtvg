@@ -3126,3 +3126,5 @@
 00704110 NuSSAOFilterGen::initTextureResources slot 3 of the NuSSAOFilterGen vtable
 00704120 NuSSAOFilterGen::destroyTextureResources slot 4 of the NuSSAOFilterGen vtable
 00704130 NuSSAOFilterGen::render slot 5 of the NuSSAOFilterGen vtable
+007080e0 NuDeferredFilterGen::NuDeferredFilterGen sets the NuDeferredFilterGen vtable 0x897e34
+00708150 NuDeferredFilterGen::destroyResources slot 2 of the NuDeferredFilterGen vtable 0x897e34
