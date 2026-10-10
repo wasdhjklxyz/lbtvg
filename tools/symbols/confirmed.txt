@@ -1773,3 +1773,10 @@
 006d7b60 NuStrICmpW             saga nustring_c body (NuToUpperW inlined), Mac name; matched
 006d7bf0 NuStrNCmpW             saga body (-1/-2 length modes via NuStrLenW); matched
 006d7c60 NuStrNICmpW            saga body; matched
+006d7a70 NuStrIStrW             saga nustring_c body (NuToUpperW inlined); matched
+006d8420 NuToLower              saga body (A-Z and 0xc0-0xdf), next to NuToUpper 0x6d8400; matched
+006d8750 NuStringTableSetFormat saga body, Mac order (was NuPadUnk006d8750); matched
+006d8760 NuStringTableGetFormat saga body, Mac order; matched
+006d8770 NuStringTableSetBank   saga body (bank < 3), Mac order (was NuPadUnk006d8770); matched
+006d8780 NuStringTableUnload    saga body, Mac order; matched
+006d87b0 NuStringTableGetById   saga body (bank in the top byte), Mac order; matched

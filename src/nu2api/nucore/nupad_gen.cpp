@@ -63,7 +63,7 @@ int g_nuPadUnk0adf658;
 // GLOBAL: LEGOBATMAN 0x00adf6e0
 float g_nuPadUnk0adf6e0;
 // GLOBAL: LEGOBATMAN 0x00b03924
-unsigned short g_nuPadUnk0b03924;
+short g_nuPadUnk0b03924; // CurrentStringBank
 
 typedef struct nupad_s {
   int port;  // 0x00
@@ -353,12 +353,12 @@ unsigned char NuToUpper(unsigned char c) {
 }
 
 // FUNCTION: LEGOBATMAN 0x006d8750
-void NuPadUnk006d8750(int value) { g_nuPadUnk099f308 = value; }
+void NuStringTableSetFormat(int value) { g_nuPadUnk099f308 = value; }
 
 // FUNCTION: LEGOBATMAN 0x006d8770
-void NuPadUnk006d8770(unsigned int value) {
+void NuStringTableSetBank(unsigned int value) {
   if (value <= 2)
-    g_nuPadUnk0b03924 = (unsigned short)value;
+    g_nuPadUnk0b03924 = (short)value;
 }
 
 struct NuPadUnk006dd5b0 {
@@ -1545,4 +1545,69 @@ i32 NuStrNICmpW(const NUWCHAR *a, const NUWCHAR *b, i32 n) {
     --n;
   } while (ca != 0 && cb != 0 && n != 0);
   return 0;
+}
+
+// --- string table accessors (saga bodies; Mac order NuStringTableSetFormat,
+// NuStringTableGetFormat, NuStringTableSetBank, NuStringTableUnload,
+// NuStringTableGetById) -------------------------------------------------------
+
+// FUNCTION: LEGOBATMAN 0x006d8760
+int NuStringTableGetFormat(void) { return g_nuPadUnk099f308; }
+
+// FUNCTION: LEGOBATMAN 0x006d8780
+void NuStringTableUnload(void) {
+  StringBank[g_nuPadUnk0b03924].strings = 0;
+  StringBank[g_nuPadUnk0b03924].max_strings = 0;
+  StringBank[g_nuPadUnk0b03924].string_count = 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d87b0
+NUWCHAR *NuStringTableGetById(int id) {
+  unsigned int bank = 0;
+
+  if ((unsigned int)id >= 0x1000000 && id != -1) {
+    bank = (unsigned int)id >> 24;
+    id &= 0xffffff;
+  }
+  if (bank >= 3) {
+    return 0;
+  }
+  if (id < 0) {
+    return 0;
+  }
+  if (id >= StringBank[bank].string_count) {
+    return 0;
+  }
+  return StringBank[bank].strings[id].str_utf16;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d7a70
+NUWCHAR *NuStrIStrW(NUWCHAR *str, const NUWCHAR *sub) {
+  while (*str != 0) {
+    NUWCHAR *cursor = str;
+    const NUWCHAR *match = sub;
+    while (*match != 0) {
+      if (*cursor == 0)
+        break;
+      if (NuToUpperW(*cursor) != NuToUpperW(*match))
+        break;
+      ++cursor;
+      ++match;
+    }
+    if (*match == 0)
+      return str;
+    ++str;
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d8420
+u8 NuToLower(u8 c) {
+  if (c >= 'A' && c <= 'Z') {
+    c += 0x20;
+  } else if (c > 0xbf && c < 0xe0) {
+    c += 0x20;
+  }
+
+  return c;
 }

@@ -2155,6 +2155,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d7980,0018a9d8,_NuStrChrW,_NuStrChrW,confirmed,0
 006d79b0,0018a9fe,_NuStrRChrW,_NuStrRChrW,confirmed,0
 006d7a10,0018aa44,_NuStrStrW,_NuStrStrW,confirmed,0
+006d7a70,0018ccee,_NuStrIStrW,_NuStrIStrW,confirmed,0
 006d7b10,0018aa84,_NuStrCmpW,_NuStrCmpW,confirmed,0
 006d7b60,0018cd82,_NuStrICmpW,_NuStrICmpW,confirmed,0
 006d7bf0,0018bbd8,_NuStrNCmpW,_NuStrNCmpW,confirmed,0
@@ -2168,7 +2169,13 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d8220,0018acea,_NuAToFW,_NuAToFW,confirmed,0
 006d82f0,0018ad9c,_NuAToIW,_NuAToIW,confirmed,0
 006d8340,0018adf2,_NuStrToLW,_NuStrToLW,confirmed,0
+006d8420,00187cae,_NuToLower,_NuToLower,confirmed,0
 006d8440,00187e42,_NuUnicodeToAscii,_NuUnicodeToAscii,gapfill,2
+006d8750,0018b0cc,_NuStringTableSetFormat,_NuStringTableSetFormat,confirmed,0
+006d8760,0018b0e0,_NuStringTableGetFormat,_NuStringTableGetFormat,confirmed,0
+006d8770,0018b0f2,_NuStringTableSetBank,_NuStringTableSetBank,confirmed,0
+006d8780,0018b112,_NuStringTableUnload,_NuStringTableUnload,confirmed,0
+006d87b0,0018b14e,_NuStringTableGetById,_NuStringTableGetById,confirmed,0
 006da090,0018b224,_NuFileExtInitEx,_NuFileExtInitEx,strings,0
 006da8d0,0018d4c2,_NuFParGetWord,_NuFParGetWord,gapfill,1
 006daa40,0018d694,_NuFParGetFloat,_NuFParGetFloat,confirmed,0
