@@ -3195,3 +3195,4 @@
 005db9a0 GizBlowup_DeleteSingleTerrain Mac order; Blowups_Reset calls it when a blowup becomes invisible
 005db930 GizBlowup_InitTerrain saga body (platform ids reset, InitSingleTerrain when draw_flags & 4)
 005db9f0 GizBlowup_DeleteTerrain saga body, DeleteSingleTerrain inlined
+005d8fd0 GizBlowup_Respawn Mac order after Blowup_StoreProgress; saga body (BonusArea/VehicleArea visibility, particle_types[2..3] debris)

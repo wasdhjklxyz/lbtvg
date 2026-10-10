@@ -24,25 +24,30 @@ struct GIZMOBLOWUP_s {
   u8 pad4c[0x58 - 0x4c];
   nuvec_s f58; // 0x58
   u8 pad64[0xa0 - 0x64];
-  u32 blown_up : 1;     // 0xa0
-  u32 punched : 1;      // 0xa0 bit 1
-  u32 bits2 : 12;       // 0xa0 bits 2-13
-  u32 visible : 1;      // 0xa0 bit 14
-  u32 b15 : 1;          // 0xa0 bit 15
-  u32 b16 : 1;          // 0xa0 bit 16
-  u32 bits17 : 2;       // 0xa0 bits 17-18
-  u32 b19 : 1;          // 0xa0 bit 19
-  u32 anim_playing : 1; // 0xa0 bit 20
-  u32 b21 : 1;          // 0xa0 bit 21
-  u32 b22 : 1;          // 0xa0 bit 22
-  u32 activated : 1;    // 0xa0 bit 23
-  u32 b24 : 1;          // 0xa0 bit 24
-  u32 bits25 : 3;       // 0xa0 bits 25-27
-  u32 secondary : 1;    // 0xa0 bit 28
-  u32 b29 : 1;          // 0xa0 bit 29
-  u32 bits30 : 2;       // 0xa0 bits 30-31
-  u32 draw_flags;       // 0xa4
-  u16 sa8;              // 0xa8
+  union {
+    struct {
+      u32 blown_up : 1;     // 0xa0
+      u32 punched : 1;      // 0xa0 bit 1
+      u32 bits2 : 12;       // 0xa0 bits 2-13
+      u32 visible : 1;      // 0xa0 bit 14
+      u32 b15 : 1;          // 0xa0 bit 15
+      u32 b16 : 1;          // 0xa0 bit 16
+      u32 bits17 : 2;       // 0xa0 bits 17-18
+      u32 b19 : 1;          // 0xa0 bit 19
+      u32 anim_playing : 1; // 0xa0 bit 20
+      u32 b21 : 1;          // 0xa0 bit 21
+      u32 b22 : 1;          // 0xa0 bit 22
+      u32 activated : 1;    // 0xa0 bit 23
+      u32 b24 : 1;          // 0xa0 bit 24
+      u32 bits25 : 3;       // 0xa0 bits 25-27
+      u32 secondary : 1;    // 0xa0 bit 28
+      u32 b29 : 1;          // 0xa0 bit 29
+      u32 bits30 : 2;       // 0xa0 bits 30-31
+    };
+    u32 flags; // 0xa0
+  };
+  u32 draw_flags; // 0xa4
+  u16 sa8;        // 0xa8
   u8 padaa[0xac - 0xaa];
   i32 score;                      // 0xac
   struct GIZMOBLOWUPTYPE_s *type; // 0xb0
@@ -272,9 +277,12 @@ void Blowup_StoreProgress(void *world_ptr, void *unused, void *progress_ptr) {
 struct GIZMOBLOWUPTYPE_s {
   u8 pad0[0x30];
   nuhspecial_s animated_special; // 0x30
-  u8 pad3c[0x54 - 0x3c];
+  nuhspecial_s decal_special;    // 0x3c
+  u8 pad48[0x54 - 0x48];
   nuhspecial_s burst_special; // 0x54
-  u8 pad60[0x102 - 0x60];
+  u8 pad60[0xa4 - 0x60];
+  i16 particle_types[4]; // 0xa4
+  u8 padac[0x102 - 0xac];
   i16 sfx0; // 0x102
   i16 sfx1; // 0x104
   i8 b106;  // 0x106
@@ -335,6 +343,54 @@ void Blowup_Reset(GIZMOBLOWUP_s *blowup) {
 
 void AddLevelSfxFromId(i32 sfx_id, i32 *sfx_ids, i32 *sfx_count, i32 max_sfx);
 
+// GLOBAL: LEGOBATMAN 0x00aca578
+extern i32 BonusArea;
+// GLOBAL: LEGOBATMAN 0x00aca574
+extern i32 VehicleArea;
+
+extern "C" void NuSpecialSetVisibility(nuhspecial_s *sp, i32 visible);
+int NuSpecialExistsFn(nuhspecial_s *sp);
+void AddFiniteShotDebrisEffect(i32 *handle, i32 effect, nuvec_s *position,
+                               i32 count);
+
+// FUNCTION: LEGOBATMAN 0x005d8fd0
+void GizBlowup_Respawn(GIZMOBLOWUP_s *blowup) {
+  if (blowup == NULL)
+    return;
+  Blowup_Reset(blowup);
+  if (BonusArea != 0 && VehicleArea != 0 && (blowup->draw_flags & 0x1000000)) {
+    if (NuSpecialExistsFn(&blowup->type->animated_special))
+      NuSpecialSetVisibility(&blowup->type->animated_special, 0);
+  } else if (blowup->visible) {
+    NuSpecialSetVisibility(&blowup->type->animated_special, 1);
+  }
+  if (NuSpecialExistsFn(&blowup->type->decal_special))
+    NuSpecialSetVisibility(&blowup->type->decal_special, 0);
+  blowup->fc8 = 0.0f;
+  blowup->flags &= 0xfdf1e401;
+  blowup->b11a = blowup->b11b;
+  blowup->b11c = blowup->b11d;
+  NUINSTANIM_UNK *anim = NuSpecialGetInstAnim(&blowup->type->animated_special);
+  if (anim != NULL) {
+    if (BonusArea != 0 && VehicleArea != 0 &&
+        (blowup->draw_flags & 0x1000000) && blowup->anim_playing)
+      anim->playing = 1;
+    if (anim->playing && anim->repeating) {
+      blowup->b19 = 1;
+      blowup->b22 = 1;
+    }
+  }
+  if (blowup->platform_id != -1)
+    PlatOnOff(blowup->platform_id, 1);
+  for (i32 i = 2; i < 4; i++) {
+    if (blowup->type->particle_types[i] != -1) {
+      i32 handle = -1;
+      AddFiniteShotDebrisEffect(&handle, blowup->type->particle_types[i],
+                                &blowup->f58, 1);
+    }
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x005d9150
 u32 GizmoBlowups_TotalScore(void *context) {
   WORLDINFO_s *world = (WORLDINFO_s *)context;
@@ -385,7 +441,6 @@ GIZMOBLOWUP_s *GizmoBlowUp_FindByName(WORLDINFO_s *world, char *name) {
 
 void DeletePlatinst(i32 id);
 i32 NuSpecialGetInstanceix(nuhspecial_s *special);
-int NuSpecialExistsFn(nuhspecial_s *sp);
 i32 FindPlatInst(i32 instance);
 i16 NewPlatPickupInst(void *m, i32 type);
 i16 Unk00573890(void *object, i32 instance);
