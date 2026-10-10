@@ -39,17 +39,65 @@ public:
   virtual void Vfn20();                                                    // 20
   virtual i32 IsCameraTransitioning() const;                               // 21
 
-  u8 pad004[0x338 - 4];
-  f32 transition; // 0x338
+  u8 pad004[0x10 - 4];
+  char level_name[0x338 - 0x10]; // 0x010
+  f32 transition;                // 0x338
 };
 
-struct WorldMapBase {
-  const char *GetClassNameA() const;
+// vtable 0x0085d7e4: overrides slots 8 and 16, adds 22..24.
+class WorldMapBase : public InteractiveDisplay {
+public:
+  virtual const char *GetClassNameA() const;
+  virtual i32 GetUsesInterlacePattern() const;
+  virtual i32 IsInteractiveMode() const;
+  virtual char *GetPointerSpecialName(WORLDINFO_s *world, i32 pointer) const;
+  virtual f32 GetPointerRadiusWithMaxScale() const;
+  virtual f32 GetPointerRadiusWithScale() const;
+
+  u8 pad33c[0x348 - 0x33c];
+  i32 mode; // 0x348, 1 = interactive, 2 = playback
+  u8 pad34c[0x888 - 0x34c];
+  f32 pointer_radius; // 0x888
 };
 
-struct SecurityCamera {
-  const char *GetClassNameA() const;
+// vtable 0x0085d874.
+class WorldMap : public WorldMapBase {
+public:
+  virtual i32 GetDoesLevelLoadRender() const;
+  virtual const char *GetClassNameA() const;
+  virtual i32 GetUsesInterlacePattern() const;
+  virtual i32 GetUsesOverlayTexture() const;
+  virtual i32 GetUsesWhiteNoise() const;
+  virtual i32 IsCameraTransitioning() const;
+  virtual i32 IsCameraTarget() const;
+  virtual f32 GetPointerRadiusWithMaxScale() const;
+  virtual f32 GetPointerRadiusWithScale() const;
+  virtual f32 GetTextScaleMultiplier() const;
+
+  u8 pad88c[0x984 - 0x88c];
+  f32 pointer_scale; // 0x984
+  u8 pad988[0x990 - 0x988];
+  i32 i990; // 0x990
 };
+
+// vtable 0x0085d96c.
+class SecurityCamera : public InteractiveDisplay {
+public:
+  virtual const char *GetClassNameA() const;
+  virtual i32 GetUsesInterlacePattern() const;
+  virtual i32 GetUsesOverlayTexture() const;
+  virtual i32 GetUsesWhiteNoise() const;
+  virtual i32 IsCameraTarget() const;
+  virtual i32 RenderWhenPaused() const;
+
+  u8 pad33c[0x3ec - 0x33c];
+  i32 kind; // 0x3ec
+};
+
+// GLOBAL: LEGOBATMAN 0x009cf570
+extern i32 g_unk009cf570; // security camera type the camera follows
+
+char *NuStrIStr(char *str, const char *sub);
 
 struct LightFlickerOverlay {
   const char *GetClassNameA() const;
@@ -107,8 +155,87 @@ i32 InteractiveDisplay::IsCameraTransitioning() const {
 // FUNCTION: LEGOBATMAN 0x004f6f70
 const char *WorldMapBase::GetClassNameA() const { return "WorldMapBase"; }
 
+// FUNCTION: LEGOBATMAN 0x004f6f80
+i32 WorldMapBase::GetUsesInterlacePattern() const { return 0; }
+
+// FUNCTION: LEGOBATMAN 0x004f6f90
+i32 WorldMapBase::IsInteractiveMode() const { return mode == 1; }
+
+// FUNCTION: LEGOBATMAN 0x004f6fa0
+char *WorldMapBase::GetPointerSpecialName(WORLDINFO_s *world,
+                                          i32 pointer) const {
+  return "";
+}
+
+// FUNCTION: LEGOBATMAN 0x004f6fc0
+f32 WorldMapBase::GetPointerRadiusWithMaxScale() const {
+  return pointer_radius;
+}
+
+// FUNCTION: LEGOBATMAN 0x004f6fd0
+f32 WorldMapBase::GetPointerRadiusWithScale() const { return pointer_radius; }
+
+// FUNCTION: LEGOBATMAN 0x004f7020
+i32 WorldMap::GetDoesLevelLoadRender() const { return 0; }
+
+// FUNCTION: LEGOBATMAN 0x004f7030
+const char *WorldMap::GetClassNameA() const { return "WorldMap"; }
+
+// FUNCTION: LEGOBATMAN 0x004f7040
+i32 WorldMap::GetUsesInterlacePattern() const { return 1; }
+
+// FUNCTION: LEGOBATMAN 0x004f7050
+i32 WorldMap::GetUsesOverlayTexture() const { return 1; }
+
+// FUNCTION: LEGOBATMAN 0x004f7060
+i32 WorldMap::GetUsesWhiteNoise() const { return 1; }
+
+// FUNCTION: LEGOBATMAN 0x004f7080
+i32 WorldMap::IsCameraTransitioning() const {
+  if (transition < 1.0f && i990 == 0)
+    return 1;
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x004f70b0
+i32 WorldMap::IsCameraTarget() const {
+  if (IsInteractiveMode() || IsCameraTransitioning() || mode == 2)
+    return 1;
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x004f70f0
+f32 WorldMap::GetPointerRadiusWithMaxScale() const {
+  return pointer_radius * 1.5f;
+}
+
+// FUNCTION: LEGOBATMAN 0x004f7110
+f32 WorldMap::GetPointerRadiusWithScale() const {
+  return pointer_scale * pointer_radius;
+}
+
+// FUNCTION: LEGOBATMAN 0x004f7130
+f32 WorldMap::GetTextScaleMultiplier() const {
+  return NuStrIStr((char *)level_name, "batcave_f") ? 2.75f : 4.5f;
+}
+
 // FUNCTION: LEGOBATMAN 0x004f73f0
 const char *SecurityCamera::GetClassNameA() const { return "SecurityCamera"; }
+
+// FUNCTION: LEGOBATMAN 0x004f7400
+i32 SecurityCamera::GetUsesInterlacePattern() const { return 1; }
+
+// FUNCTION: LEGOBATMAN 0x004f7410
+i32 SecurityCamera::GetUsesOverlayTexture() const { return 1; }
+
+// FUNCTION: LEGOBATMAN 0x004f7420
+i32 SecurityCamera::GetUsesWhiteNoise() const { return 1; }
+
+// FUNCTION: LEGOBATMAN 0x004f7430
+i32 SecurityCamera::IsCameraTarget() const { return g_unk009cf570 == kind; }
+
+// FUNCTION: LEGOBATMAN 0x004f7450
+i32 SecurityCamera::RenderWhenPaused() const { return 1; }
 
 // FUNCTION: LEGOBATMAN 0x004f74c0
 const char *LightFlickerOverlay::GetClassNameA() const {

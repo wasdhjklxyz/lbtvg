@@ -1721,3 +1721,23 @@
 004f6e60 InteractiveDisplay::LoadSettings slot 18 (ret 4), Mac inline order; matched
 004f6e70 InteractiveDisplay::GetTextScaleMultiplier slot 19 (returns 4.5f), Mac inline order; matched
 004f6e80 InteractiveDisplay::IsCameraTransitioning slot 21 (transition < 1.0f), Mac inline order; matched
+004f6f80 WorldMapBase::GetUsesInterlacePattern vtable 0x85d7e4 slot 8 override (return 0); matched
+004f6f90 WorldMapBase::IsInteractiveMode Mac inline (0x11b036); vtable 0x85d7e4/0x85d874 slot 16; mode == 1; matched
+004f6fa0 WorldMapBase::GetPointerSpecialName vtable 0x85d7e4 slot 22 (WorldMap's slot 22 is the named 0x519370); returns ""; matched
+004f6fc0 WorldMapBase::GetPointerRadiusWithMaxScale slot 23 (WorldMap's is 0x4f70f0); matched
+004f6fd0 WorldMapBase::GetPointerRadiusWithScale slot 24 (WorldMap's is 0x4f7110); byte-identical to 0x4f6fc0; matched
+004f7020 WorldMap::GetDoesLevelLoadRender vtable 0x85d874 slot 4, Mac inline order; matched
+004f7030 WorldMap::GetClassNameA  slot 5, returns "WorldMap", Mac inline order; matched
+004f7040 WorldMap::GetUsesInterlacePattern slot 8, Mac inline order; matched
+004f7050 WorldMap::GetUsesOverlayTexture slot 9, Mac inline order; matched
+004f7060 WorldMap::GetUsesWhiteNoise slot 7, Mac inline order; matched
+004f7080 WorldMap::IsCameraTransitioning slot 21, Mac inline order; matched
+004f70b0 WorldMap::IsCameraTarget slot 15, Mac inline order; matched
+004f70f0 WorldMap::GetPointerRadiusWithMaxScale slot 23, Mac inline order; matched
+004f7110 WorldMap::GetPointerRadiusWithScale slot 24, Mac inline order; matched
+004f7130 WorldMap::GetTextScaleMultiplier slot 19, Mac inline order; matched
+004f7400 SecurityCamera::GetUsesInterlacePattern vtable 0x85d96c slot 8, Mac inline order (GetClassNameA, Interlace, Overlay, WhiteNoise, IsCameraTarget, RenderWhenPaused); matched
+004f7410 SecurityCamera::GetUsesOverlayTexture slot 9, Mac inline order; matched
+004f7420 SecurityCamera::GetUsesWhiteNoise slot 7, Mac inline order; matched
+004f7430 SecurityCamera::IsCameraTarget slot 15, Mac inline order; matched
+004f7450 SecurityCamera::RenderWhenPaused slot 14, Mac inline order; matched
