@@ -3750,6 +3750,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006dda10,00190f44,_NuFileSize,_NuFileSize,confirmed,0
 006ddb90,00196404,_NuFParResume,_NuFParResume,confirmed,0
 006ddc00,0019651a,_NuQTWrite,_NuQTWrite,confirmed,0
+006ddca0,,Unk006ddca0,Unk006ddca0,confirmed,0
+006ddd30,,Unk006ddd30,Unk006ddd30,confirmed,0
 006ddd70,001927ac,_ExplodeBufferNoHeader,_ExplodeBufferNoHeader,confirmed,0
 006de270,001929be,_NuDatFileRead,_NuDatFileRead,confirmed,0
 006de7a0,001928f4,_ExplodeBuffer,_ExplodeBuffer,confirmed,0

@@ -3506,3 +3506,5 @@
 006d4bb0 NuQTFixAddress saga nuqt.cpp static (eax), out-of-line copy of the inlined fixup
 006ddc00 NuQTWrite saga nuqt.cpp body (NuFileOpen/Write/Close inlined)
 006d6ab0 Unk006d6ab0 implode read-from-memory: copies min(size, left) from implode_inbuffer (static left count 0xaf41b4)
+006ddca0 Unk006ddca0 saves a finished pad recording (size, data, 0xe0f) through NuFileOpen mode 1
+006ddd30 Unk006ddd30 ends pad recording (save to 0xadf6b0 name) or playback

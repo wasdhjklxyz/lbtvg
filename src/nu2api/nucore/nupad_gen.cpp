@@ -2659,6 +2659,50 @@ void NuPadRecordLoad(char *filepath, VARIPTR *buffer, VARIPTR end) {
   }
 }
 
+// GLOBAL: LEGOBATMAN 0x00adf6b0
+char *g_nuPadRecFilename;
+// GLOBAL: LEGOBATMAN 0x00adf6b4
+int g_nuPadRecUnk0adf6b4;
+
+int NuFileWriteInt(int file, int value);
+int NuFileWrite(int file, void *data, int size);
+unsigned int NuFileWriteUnsignedInt(int file, unsigned int value);
+
+// Saves a finished pad recording (size, data, 0xe0f trailer) to filepath.
+// FUNCTION: LEGOBATMAN 0x006ddca0
+void Unk006ddca0(char *filepath) {
+  if (g_nuPadRec.mode == 1 && g_nuPadRec.record != g_nuPadRec.buf_start) {
+    if (filepath != 0) {
+      int file = NuFileOpen(filepath, 1);
+      if (file != 0) {
+        int size = g_nuPadRec.record - g_nuPadRec.buf_start;
+        unsigned char *start = g_nuPadRec.buf_start;
+        NuFileWriteInt(file, size);
+        NuFileWrite(file, start, size);
+        NuFileWriteUnsignedInt(file, 0xe0f);
+        Unk006dcb00(file);
+      }
+    }
+    g_nuPadRecUnk0adf6b4 = 0;
+    g_nuPadRec.mode = 0;
+  }
+}
+
+// Ends recording (saving it) or playback.
+// FUNCTION: LEGOBATMAN 0x006ddd30
+void Unk006ddd30(void) {
+  switch (g_nuPadRec.mode) {
+  case 1:
+    Unk006ddca0(g_nuPadRecFilename);
+    break;
+  case 2:
+    g_nuPadRec.mode = 0;
+    g_nuPadRec.record = g_nuPadRec.buf_start;
+    break;
+  }
+  g_nuPadRecUnk0adf6b4 = 0;
+}
+
 // --- nupad.cpp accessors (Mac order: NuPadClose, ..., NuPadGetFirstActivePad,
 // NuPadGetMaxGamePads, ..., NuPadMapPortToPS2Port, ..., NuPadPortUsedByPlayer,
 // NuPadInit, NuPadSetDirectMappingState, ..., NuPadRecordStart,
