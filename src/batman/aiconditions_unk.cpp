@@ -4052,6 +4052,85 @@ f32 Condition_GotGun(AISYS_s *sys, AISCRIPTPROCESS_s *process,
 
 i32 Unk00461220(char *name);
 
+f32 NuVecMagSqr(nuvec_s *v);
+
+// FUNCTION: LEGOBATMAN 0x004530b0
+i32 Action_SetTakeOverTarget(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                             AIPACKET_s *packet, char **params, i32 param_count,
+                             i32 first_time, f32 dt) {
+  f32 nearest = 1000000000.0f;
+  GameObject_s *target = NULL;
+  GameObject_s *object = NULL;
+  i32 type = -1;
+  i32 check_takeover = 0;
+  char *type_name = NULL;
+  if (first_time) {
+    if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL)
+      object = packet->pd0->obj;
+    for (i32 index = 0; index < param_count; index++) {
+      char *value = NuStrIStr(params[index], "type=");
+      if (value != NULL)
+        type_name = value + 5;
+      else if ((value = NuStrIStr(params[index], "opponent=")) != NULL) {
+        Unk_AIPacketObj *api;
+        if (GetNamedAPIObjectFn != NULL &&
+            (api = GetNamedAPIObjectFn(sys, value + 9)) != NULL)
+          target = api->obj;
+        else
+          target = NULL;
+      } else if ((value = NuStrIStr(params[index], "maxrange=")) != NULL) {
+        f32 range = AIParamToFloat(process, value + 9);
+        nearest = range * range;
+      } else if (NuStrICmp(params[index], "ifCanTakeover") == 0)
+        check_takeover = 1;
+    }
+    if (type_name == NULL && target == NULL)
+      return 1;
+    for (i32 index = 0; index < CHARCOUNT && type == -1; index++) {
+      if (NuStrICmp(CDataList[index].file, type_name) == 0)
+        type = index;
+    }
+    for (i32 index = 0; index < HIGHGAMEOBJECT; index++) {
+      GameObject_s *candidate = &Obj[index];
+      if (!(candidate->flags1fc & 1) || !(candidate->flags1fc & 0x1000) ||
+          candidate->type15b0 != type)
+        continue;
+      if (candidate->takeover_target != NULL &&
+          candidate->takeover_target != object)
+        continue;
+      if (candidate->p1158 != NULL &&
+          (candidate->p1158->b9db == 0x3b || candidate->b9db != 0x3b))
+        continue;
+      nuvec_s difference;
+      NuVecSub(&difference, &candidate->v80,
+               &((GameObject_s *)packet->pd0)->v80);
+      f32 distance = NuVecMagSqr(&difference);
+      if (distance < nearest) {
+        nearest = distance;
+        target = candidate;
+      }
+    }
+    if (target == NULL) {
+      if (object != NULL)
+        object->takeover_target = NULL;
+      return 1;
+    }
+    if (object == NULL)
+      return 1;
+    if (check_takeover &&
+        (target->p1158 != NULL || !(target->p54->p24->flags13c & 0x40) ||
+         (object->p54->model_flags & 0x10)))
+      return 1;
+    GameObject_s *previous = object->takeover_target;
+    if (previous != NULL && previous->takeover_target != NULL &&
+        previous->takeover_target == object)
+      previous->takeover_target = NULL;
+    object->takeover_target = target;
+    target->takeover_target = object;
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x00475e20
 void *Condition_GotCnxCapabilityInit(AISYS_s *sys, char *name,
                                      AISCRIPT_s *script) {
