@@ -2,6 +2,7 @@
 
 #include "../nu2api/nucore/common.h"
 #include "../nu2api/nucore/nustring.h"
+#include <stddef.h>
 
 typedef struct GIZTURRET_s {
   u32 pad0[2];
@@ -47,8 +48,7 @@ struct GIZAIMESSAGE_s {
   i8 output_values[8]; // 0x2c
   i8 output_count;     // 0x34
   u8 field_0x35;
-  u8 flags; // 0x36
-  u8 field_0x37;
+  u16 flags; // 0x36, bit 0 add as gizmo, bit 1 gizmo added
 };
 
 struct GIZAIMESSAGESYS_s {
@@ -104,6 +104,126 @@ GIZAIMESSAGE_s *CheckGizAIMessage(GIZAIMESSAGESYS_s *sys, char const *name,
     }
   }
   return msg;
+}
+
+typedef struct GIZMO_s {
+  void *object;
+} GIZMO;
+typedef struct GIZMOSYS_s GIZMOSYS;
+
+typedef struct ADDGIZMOTYPE_s {
+  char *name;        // 0x00
+  char *prefix;      // 0x04
+  u16 progress_size; // 0x08
+  void *fns[0x1c];   // 0x0c
+} ADDGIZMOTYPE;
+
+// GLOBAL: LEGOBATMAN 0x00960118
+extern ADDGIZMOTYPE Default_ADDGIZMOTYPE;
+// GLOBAL: LEGOBATMAN 0x00ad210c
+extern GIZAIMESSAGESYS_s *gizaimessagesys;
+// GLOBAL: LEGOBATMAN 0x00967b94
+i32 gizaimessage_gizmotype_id = -1;
+
+void AddGizmo(GIZMOSYS *gizmo_sys, i32 type_id, void *a, void *object);
+
+// FUNCTION: LEGOBATMAN 0x00663540
+i32 GizAIMessage_GetMaxGizmos(void *world) { return 0x40; }
+
+// FUNCTION: LEGOBATMAN 0x00663550
+void GizAIMessage_AddGizmos(GIZMOSYS *gizmo_sys, i32 type_id, void *world,
+                            void *unused) {
+  if (gizaimessagesys == NULL)
+    return;
+  GIZAIMESSAGE_s *message =
+      (GIZAIMESSAGE_s *)NuListGetHead(&gizaimessagesys->active_list);
+  while (message != NULL) {
+    if ((message->flags & 1) != 0) {
+      AddGizmo(gizmo_sys, gizaimessage_gizmotype_id, NULL, message);
+      message->flags |= 2;
+    }
+    message = (GIZAIMESSAGE_s *)NuListGetNext(&gizaimessagesys->active_list,
+                                              &message->links);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006635b0
+char *GizAIMessage_GetName(GIZAIMESSAGE_s *message) {
+  return message != NULL ? message->name : NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x006635c0
+char *GizAIMessage_GetGizmoName(GIZMO *gizmo) {
+  if (gizmo == NULL || gizmo->object == NULL)
+    return NULL;
+  return ((GIZAIMESSAGE_s *)gizmo->object)->name;
+}
+
+// FUNCTION: LEGOBATMAN 0x006635e0
+i32 GizAIMessage_GetOutput(GIZMO *gizmo, i32 output_index, i32 b) {
+  if (gizmo == NULL || gizmo->object == NULL || (u32)output_index > 7)
+    return 0;
+  GIZAIMESSAGE_s *message = (GIZAIMESSAGE_s *)gizmo->object;
+  return message->value == (f32)message->output_values[output_index];
+}
+
+// FUNCTION: LEGOBATMAN 0x00663620
+char *GizAIMessage_GetOutputName(GIZMO *gizmo, i32 output_index) {
+  // GLOBAL: LEGOBATMAN 0x00ad2114
+  static char returnstr[4];
+  if (gizmo == NULL || gizmo->object == NULL || (u32)output_index > 7)
+    return NULL;
+  GIZAIMESSAGE_s *message = (GIZAIMESSAGE_s *)gizmo->object;
+  sprintf(returnstr, "%d", (i32)message->output_values[output_index]);
+  return returnstr;
+}
+
+// FUNCTION: LEGOBATMAN 0x00663660
+i32 GizAIMessage_GetNumOutputs(GIZMO *gizmo) {
+  if (gizmo == NULL || gizmo->object == NULL)
+    return 0;
+  return ((GIZAIMESSAGE_s *)gizmo->object)->output_count;
+}
+
+// FUNCTION: LEGOBATMAN 0x00663680
+ADDGIZMOTYPE *GizAIMessage_RegisterGizmo(i32 type_id) {
+  // GLOBAL: LEGOBATMAN 0x00ad2118
+  static ADDGIZMOTYPE addtype;
+
+  addtype = Default_ADDGIZMOTYPE;
+  addtype.name = "Message";
+  addtype.prefix = gizaimessage_prefix;
+  addtype.progress_size = 0;
+  addtype.fns[0] = (void *)GizAIMessage_GetMaxGizmos;
+  addtype.fns[1] = (void *)GizAIMessage_AddGizmos;
+  addtype.fns[2] = NULL;
+  addtype.fns[3] = NULL;
+  addtype.fns[4] = NULL;
+  addtype.fns[5] = NULL;
+  addtype.fns[6] = (void *)GizAIMessage_GetGizmoName;
+  addtype.fns[7] = (void *)GizAIMessage_GetOutput;
+  addtype.fns[8] = (void *)GizAIMessage_GetOutputName;
+  addtype.fns[9] = (void *)GizAIMessage_GetNumOutputs;
+  addtype.fns[10] = NULL;
+  addtype.fns[11] = NULL;
+  addtype.fns[12] = NULL;
+  addtype.fns[13] = NULL;
+  addtype.fns[14] = NULL;
+  addtype.fns[15] = NULL;
+  addtype.fns[16] = NULL;
+  addtype.fns[17] = NULL;
+  addtype.fns[18] = NULL;
+  addtype.fns[19] = NULL;
+  addtype.fns[20] = NULL;
+  addtype.fns[21] = NULL;
+  addtype.fns[22] = NULL;
+  addtype.fns[23] = NULL;
+  addtype.fns[24] = NULL;
+  addtype.fns[25] = NULL;
+  addtype.fns[26] = NULL;
+  addtype.fns[27] = NULL;
+  gizaimessage_gizmotype_id = type_id;
+  return &addtype;
 }
 
 // Keeps the header-static copies above alive until their real callers are

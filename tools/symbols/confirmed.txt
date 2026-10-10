@@ -2691,3 +2691,11 @@
 0066f6f0 edGizShadow_Load load slot of the "ShadowEditor" ADDGIZMOTYPE
 0066f600 edGizShadow_SetPreset register-convention static (eax shadow, ecx preset) called by edGizShadow_Load; Batman merges saga SetPreset1/2 into a switch
 0066f990 EdGizShadowMachine_RegisterGizmo copies Default_ADDGIZMOTYPE, name "ShadowEditor"
+00663540 GizAIMessage_GetMaxGizmos get_max_gizmos slot of the "Message" ADDGIZMOTYPE
+00663550 GizAIMessage_AddGizmos add_gizmos slot of the "Message" ADDGIZMOTYPE
+006635c0 GizAIMessage_GetGizmoName get_gizmo_name slot of the "Message" ADDGIZMOTYPE
+006635e0 GizAIMessage_GetOutput get_output slot of the "Message" ADDGIZMOTYPE
+00663620 GizAIMessage_GetOutputName get_output_name slot of the "Message" ADDGIZMOTYPE
+00663660 GizAIMessage_GetNumOutputs get_num_outputs slot of the "Message" ADDGIZMOTYPE
+006635b0 GizAIMessage_GetName saga body (msg ? msg->name : NULL), between AddGizmos and GetGizmoName
+00663680 GizAIMessage_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Message", prefix gizaimessage_prefix

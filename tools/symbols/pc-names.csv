@@ -2497,6 +2497,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00661c30,002dba26,__Z20GizTurret_FindByNameP14GIZTURRETSYS_sPc,"GizTurret_FindByName(GIZTURRETSYS_s*, char*)",confirmed,0
 00661d60,002dbb98,__Z14GizTurrets_HitPvP11GIZTURRET_sP7nuvec_sii,"GizTurrets_Hit(void*, GIZTURRET_s*, nuvec_s*, int, int)",confirmed,0
 006633c0,002c259e,__Z17CheckGizAIMessageP17GIZAIMESSAGESYS_sPKcP14GIZAIMESSAGE_s,"CheckGizAIMessage(GIZAIMESSAGESYS_s*, char const*, GIZAIMESSAGE_s*)",calls,1
+00663540,002c2772,__Z25GizAIMessage_GetMaxGizmosPv,GizAIMessage_GetMaxGizmos(void*),confirmed,0
+00663550,002c277c,__Z22GizAIMessage_AddGizmosP10GIZMOSYS_siPvS1_,"GizAIMessage_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+006635b0,002c27f4,__Z20GizAIMessage_GetNameP14GIZAIMESSAGE_s,GizAIMessage_GetName(GIZAIMESSAGE_s*),confirmed,0
+006635c0,002c2a30,__Z25GizAIMessage_GetGizmoNameP7GIZMO_s,GizAIMessage_GetGizmoName(GIZMO_s*),confirmed,0
+006635e0,002c2806,__Z22GizAIMessage_GetOutputP7GIZMO_sii,"GizAIMessage_GetOutput(GIZMO_s*, int, int)",confirmed,0
+00663620,002c2838,__Z26GizAIMessage_GetOutputNameP7GIZMO_si,"GizAIMessage_GetOutputName(GIZMO_s*, int)",confirmed,0
+00663660,002c2890,__Z26GizAIMessage_GetNumOutputsP7GIZMO_s,GizAIMessage_GetNumOutputs(GIZMO_s*),confirmed,0
+00663680,002c28aa,__Z26GizAIMessage_RegisterGizmoi,GizAIMessage_RegisterGizmo(int),confirmed,0
 00665f60,002b9214,__Z26GizFlock_Config_anim_speedP8nufpar_s,GizFlock_Config_anim_speed(nufpar_s*),confirmed,0
 00665f80,002b9242,__Z24GizFlock_ConfigureExtrasP11WORLDINFO_sPKcj,"GizFlock_ConfigureExtras(WORLDINFO_s*, char const*, unsigned int)",strings,0
 0066b400,002bc674,__Z20GizFlock_UpdateBoidsP12sGizFlockSysP9sGizFlock,"GizFlock_UpdateBoids(sGizFlockSys*, sGizFlock*)",strings,0
