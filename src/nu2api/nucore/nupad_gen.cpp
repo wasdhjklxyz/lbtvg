@@ -2498,6 +2498,21 @@ static int OpenDatFileBase(NUDATHDR *hdr, int file_idx) {
   return open_file->dat_file;
 }
 
+extern "C" void NuMemFreeFn(void *ptr, const char *file, int line);
+void NuFileClose(int file);
+
+// FUNCTION: LEGOBATMAN 0x006dceb0
+void NuDatClose(NUDATHDR *header) {
+  for (int index = 0; index < 8; ++index) {
+    if (header->open_files[index].dat_file != 0)
+      NuFileClose(header->open_files[index].dat_file);
+    if (header->open_files[index].info_idx >= 0)
+      g_nuFileUnk0ae3f80[header->open_files[index].info_idx].i24 = 0;
+  }
+  if (header->unknown != 0)
+    NuMemFreeFn(header, __FILE__, 0xf4c);
+}
+
 // STUB: LEGOBATMAN 0x006dccf0
 // Register choice: the original spills file_idx (into the mode slot) and
 // stores start before pos; ours keeps file_idx in edi.

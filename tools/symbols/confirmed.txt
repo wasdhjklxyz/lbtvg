@@ -3490,3 +3490,6 @@
 006d3ad0 NuDatFileOpenSize saga nufile.cpp body
 006d3b10 NuDatSet saga nufile.cpp body (swaps curr_dat 0xb03884); called by NuWin32SetDFS
 006d3b20 NuDatGet saga nufile.cpp body
+006dceb0 NuDatClose saga nufile_plain.cpp body (8 open files, frees with the nufile_gen.cpp __FILE__)
+006e0d90 NuFilePakLoadKey saga nufilepak.cpp wrapper over NuFilePakLoadKeyPrePad (Mac _NuFilePakLoadKey)
+006e0df0 NuFilePakLoadPrePad Mac _NuFilePakLoadPrePad wrapper over NuFilePakLoadKeyPrePad

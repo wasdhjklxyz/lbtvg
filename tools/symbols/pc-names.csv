@@ -3722,6 +3722,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006dca60,0018b886,_NuFileInitEx,_NuFileInitEx,confirmed,0
 006dcb00,001910ea,_NuFileClose,_NuFileClose,confirmed,0
 006dcbc0,00190be0,_NuDatFileFindTree,_NuDatFileFindTree,confirmed,0
+006dceb0,00191214,_NuDatClose,_NuDatClose,confirmed,0
 006dcf10,0018cb08,_NuFilePakGetItem,_NuFilePakGetItem,confirmed,0
 006dd060,0018ff0a,_NuFParGetInt,_NuFParGetInt,confirmed,0
 006dd150,001905e8,_NuFParGetIntRDP,_NuFParGetIntRDP,confirmed,0
@@ -3763,7 +3764,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006e08b0,00194fa2,_NuFileLoadBuffer,_NuFileLoadBuffer,confirmed,0
 006e0a10,00195eba,_NuFileLoadBufferVP,_NuFileLoadBufferVP,confirmed,0
 006e0b60,00195ee8,_NuFilePakLoadKeyPrePad,_NuFilePakLoadKeyPrePad,confirmed,0
+006e0d90,0019621a,_NuFilePakLoadKey,_NuFilePakLoadKey,confirmed,0
 006e0dc0,001961da,_NuFilePakLoad,_NuFilePakLoad,confirmed,0
+006e0df0,0019619a,_NuFilePakLoadPrePad,_NuFilePakLoadPrePad,confirmed,0
 006e1be0,001973d4,_NuMemSetHeap,_NuMemSetHeap,confirmed,0
 006e1bf0,001973ee,_NuMemSetDiscardable,_NuMemSetDiscardable,confirmed,0
 006e1c00,00197408,_NuMemFlushDiscardable,_NuMemFlushDiscardable,confirmed,0

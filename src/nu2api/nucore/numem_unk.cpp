@@ -18,6 +18,20 @@ void *NuFilePakLoad(char *filepath, VARIPTR *buf, VARIPTR buf_end,
   return NuFilePakLoadKeyPrePad(filepath, buf, buf_end, alignment, 0, 0, 0);
 }
 
+// FUNCTION: LEGOBATMAN 0x006e0d90
+void *NuFilePakLoadKey(char *filepath, VARIPTR *buf, VARIPTR buf_end,
+                       i32 alignment, unsigned char *key, u32 key_len) {
+  return NuFilePakLoadKeyPrePad(filepath, buf, buf_end, alignment, key, key_len,
+                                0);
+}
+
+// FUNCTION: LEGOBATMAN 0x006e0df0
+void *NuFilePakLoadPrePad(char *filepath, VARIPTR *buf, VARIPTR buf_end,
+                          i32 alignment, i32 pre_pad) {
+  return NuFilePakLoadKeyPrePad(filepath, buf, buf_end, alignment, 0, 0,
+                                pre_pad);
+}
+
 // Loop shape right; original strength-reduces src as dst+(src-dst) and
 // schedules the count decrement before the store. Not reproduced yet.
 // STUB: LEGOBATMAN 0x006e2470
