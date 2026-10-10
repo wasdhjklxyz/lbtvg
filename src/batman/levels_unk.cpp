@@ -3,6 +3,7 @@
 #include "../nu2api/nucore/nustring.h"
 #include "worldinfo_unk.h"
 #include <stddef.h>
+#include <string.h>
 
 // GLOBAL: LEGOBATMAN 0x009ca23c
 GIZMOBLOWUP_s *g_unk009ca23c;
@@ -421,10 +422,29 @@ struct SHOPMENU_s {
   u32 pad20[(0x118 - 0x20) / 4];
 };
 
+// Slot order from the PC vtable at 0x0085d75c (src/batman/unk_004f6ca0.cpp).
 class InteractiveDisplay {
 public:
-  void InitializeLevel(WORLDINFO_s *world);
-  void DumpLevel(WORLDINFO_s *world);
+  virtual void InitializePerm(char *name, variptr_u *buf, variptr_u *end); // 0
+  virtual void InitializeLevel(WORLDINFO_s *world);                        // 1
+  virtual void ActivateLevel(WORLDINFO_s *world);                          // 2
+  virtual void DumpLevel(WORLDINFO_s *world);                              // 3
+  virtual i32 GetDoesLevelLoadRender() const;                              // 4
+  virtual const char *GetClassNameA() const;                               // 5
+  virtual i32 GetUsesStrobePattern() const;                                // 6
+  virtual i32 GetUsesWhiteNoise() const;                                   // 7
+  virtual i32 GetUsesInterlacePattern() const;                             // 8
+  virtual i32 GetUsesOverlayTexture() const;                               // 9
+  virtual void Update(f32 dt);                                             // 10
+  virtual void Render();                                                   // 11
+  virtual i32 ShouldUpdate() const;                                        // 12
+  virtual i32 IsVisible() const;                                           // 13
+  virtual i32 RenderWhenPaused() const;                                    // 14
+  virtual i32 IsCameraTarget() const;                                      // 15
+  virtual i32 IsInteractiveMode() const;                                   // 16
+  virtual void Vfn17();                                                    // 17
+  virtual void LoadSettings(char *name);                                   // 18
+
   void RenderWhiteNoise(f32 alpha) const;
 };
 
@@ -435,6 +455,7 @@ public:
   static i32 IsAnyMenuChanging();
   i32 IsMenuChanging();
   void RenderWhiteNoise() const;
+  void InitializePerm(char *name, variptr_u *buf, variptr_u *end);
   void InitializeLevel(WORLDINFO_s *world);
   void DumpLevel(WORLDINFO_s *world);
   static void parse_reversedirection(struct nufpar_s *fp);
@@ -445,7 +466,6 @@ public:
   static void parse_villainmode(struct nufpar_s *fp);
   void LoadSettings(char *name);
 
-  void **vtable;
   u8 pad4[0x10 - 4];
   char level_name[0x40];      // 0x010
   char transition_name[0x40]; // 0x050
@@ -456,11 +476,22 @@ public:
   char overlay_name[0x40]; // 0x27c
   u8 pad2bc[0x340 - 0x2bc];
   i32 villain_mode; // 0x340
-  u8 pad344[0x388 - 0x344];
+  i32 i344;         // 0x344
+  u8 pad348[0x37c - 0x348];
+  f32 f37c;              // 0x37c
+  f32 f380;              // 0x380
+  void *mtl384;          // 0x384
   nugscn_s *icons_scene; // 0x388
   SHOPMENU_s menu_data;  // 0x38c
   SHOPMENU_s *menu;      // 0x4a4
-  u8 pad4a8[0x4c8 - 0x4a8];
+  f32 f4a8;              // 0x4a8
+  u8 pad4ac[0x4b0 - 0x4ac];
+  f32 f4b0; // 0x4b0
+  f32 f4b4; // 0x4b4
+  i32 i4b8; // 0x4b8
+  i32 i4bc; // 0x4bc
+  i32 i4c0; // 0x4c0
+  i32 i4c4; // 0x4c4
   i32 i4c8; // 0x4c8
   f32 f4cc; // 0x4cc
   u8 pad4d0[4];
@@ -471,8 +502,6 @@ public:
   SCMTL_s *mtl518;  // 0x518
   SCMTL_s *mtl51c;  // 0x51c
 };
-
-typedef i32(__thiscall *ShopComputerVFn)(ShopComputer *);
 
 extern "C" i32 NuMtlSetCurrentRenderPlane(i32 render_plane);
 
@@ -500,6 +529,34 @@ void Unk00514330(char *name); // empty in the release build
 extern ShopComputer *g_unk009cf618; // the shop computer being parsed
 // GLOBAL: LEGOBATMAN 0x00945d00
 extern u8 g_unk00945d00[]; // ShopComputer keyword table
+
+// FUNCTION: LEGOBATMAN 0x005166a0
+void ShopComputer::InitializePerm(char *name, variptr_u *buf, variptr_u *end) {
+  f37c = 0.0f;
+  f380 = 0.0f;
+  i344 = 0;
+  f4b4 = 0.0f;
+  villain_mode = 0;
+  f4b0 = 100.0f;
+  memset(&i4b8, 0, 16);
+  LoadSettings(name);
+  InteractiveDisplay::InitializePerm(name, buf, end);
+  mtl518 = (SCMTL_s *)g_dynamicMaterialManager.GetMaterial(
+      "characterFrameMaterial", level_name, 2);
+  mtl51c = (SCMTL_s *)g_dynamicMaterialManager.GetMaterial(
+      "characterFrameMaterial", level_name, 4);
+  for (i32 i = 0; i < 9; i++) {
+    char mtl_name[32];
+    NuSPrintf(mtl_name, "characterIconMaterial%i", i);
+    mtls[i] = (SCMTL_s *)g_dynamicMaterialManager.GetMaterial(mtl_name,
+                                                              level_name, 3);
+  }
+  mtl384 = g_dynamicMaterialManager.GetMaterial(0, 0, 4);
+  f4a8 = 0.5f;
+  icons_scene = 0;
+  menu = &menu_data;
+  i4c8 = 0;
+}
 
 // FUNCTION: LEGOBATMAN 0x005163f0
 void ShopComputer::RenderWhiteNoise() const {
@@ -617,7 +674,7 @@ void ShopComputer::DumpLevel(WORLDINFO_s *world) {
 // the shared "return 0" tail lands at the end instead of after the first test
 // (early-return, nested and single-condition forms tried)
 i32 ShopComputer::IsMenuChanging() {
-  if (((ShopComputerVFn)vtable[16])(this) && menu != NULL &&
+  if (IsInteractiveMode() && menu != NULL &&
       (!(menu->f1c < 0.001f) || !(menu->f8 > (f64)0.999f)))
     return 1;
   return 0;
@@ -628,7 +685,7 @@ i32 ShopComputer::IsAnyMenuChanging() {
   i32 count = Unk006004d0("ShopComputer");
   for (i32 i = 0; i < count; i++) {
     ShopComputer *shop = (ShopComputer *)Unk00600530("ShopComputer", i);
-    if (shop != NULL && ((ShopComputerVFn)shop->vtable[16])(shop)) {
+    if (shop != NULL && shop->IsInteractiveMode()) {
       SHOPMENU_s *menu = shop->menu;
       if (menu != NULL && (!(menu->f1c < 0.001f) || !(menu->f8 > (f64)0.999f)))
         return 1;

@@ -2102,3 +2102,4 @@
 00708160 NuDeferredFilterGen::initTextureResources vtable 0x897e34 slot 3 (RTTI) + Mac body
 0051b0e0 WorldMap::InitializePerm vtable 0x85d874 slot 0 (RTTI) + Mac body (beacon ring, four GetMaterial); matched
 0051b2b0 WorldMap::InitializeLevel vtable 0x85d874 slot 1 (RTTI) + Mac body (circle_a, map_icons.gsc); matched
+005166a0 ShopComputer::InitializePerm vtable 0x85d8f4 slot 0 (RTTI) + Mac body (LoadSettings, characterFrameMaterial/characterIconMaterial%i); matched

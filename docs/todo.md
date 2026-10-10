@@ -177,7 +177,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 | [ShaderManagerHLSL](#shadermanagerhlsl) | 1 | 0 |
 | [ShaderMtlDescFilter](#shadermtldescfilter) | 1 | 0 |
 | [Shop](#shop) | 1 | 0 |
-| [ShopComputer](#shopcomputer) | 3 | 0 |
+| [ShopComputer](#shopcomputer) | 2 | 0 |
 | [SlumsB](#slumsb) | 1 | 0 |
 | [SlumsD](#slumsd) | 1 | 0 |
 | [SockSys](#socksys) | 1 | 0 |
@@ -1126,7 +1126,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 - [ ] `005150f0` 67 B `ShopComputer::IsMenuChanging()`  **stub**
 - [ ] `00514bd0` 245 B `ShopComputer::InitializeLevel(WORLDINFO_s*)`  **stub**
-- [ ] `005166a0` 309 B `ShopComputer::InitializePerm(char*, variptr_u*, variptr_u*)`
 
 ## SlumsB
 

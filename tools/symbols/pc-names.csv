@@ -775,7 +775,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00516560,0010617e,__ZN12ShopComputer23parse_specialobjectnameEP8nufpar_s,ShopComputer::parse_specialobjectname(nufpar_s*),confirmed,0
 005165c0,001061ce,__ZN12ShopComputer17parse_villainmodeEP8nufpar_s,ShopComputer::parse_villainmode(nufpar_s*),confirmed,0
 005165e0,001061e2,__ZN12ShopComputer12LoadSettingsEPc,ShopComputer::LoadSettings(char*),confirmed,0
-005166a0,0010624c,__ZN12ShopComputer14InitializePermEPcP9variptr_uS2_,"ShopComputer::InitializePerm(char*, variptr_u*, variptr_u*)",strings,0
+005166a0,0010624c,__ZN12ShopComputer14InitializePermEPcP9variptr_uS2_,"ShopComputer::InitializePerm(char*, variptr_u*, variptr_u*)",confirmed,0
 00518880,00117bf8,__ZN8WorldMap13ActivateLevelEP11WORLDINFO_s,WorldMap::ActivateLevel(WORLDINFO_s*),confirmed,0
 005188b0,00117c28,__ZN8WorldMap9DumpLevelEP11WORLDINFO_s,WorldMap::DumpLevel(WORLDINFO_s*),confirmed,0
 005189c0,001175e0,__ZN8WorldMap17UpdateOverallModeEv,WorldMap::UpdateOverallMode(),confirmed,0
