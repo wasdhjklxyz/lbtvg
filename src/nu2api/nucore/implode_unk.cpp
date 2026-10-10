@@ -622,3 +622,17 @@ int ExplodeBufferNoHeader(char *in_buf, char *out_buf, int compressed_size,
   }
   return total_read;
 }
+
+// FUNCTION: LEGOBATMAN 0x006de7a0
+extern "C" int ExplodeBuffer(char *in_buf, char *out_buf) {
+  if (gExplodeInitialised == 0)
+    return 0;
+
+  int orig_size = ExplodeBufferSize(in_buf);
+  if (orig_size != 0) {
+    int compressed_size = ImplodeGetI(in_buf + 8, sizeof(int));
+    return ExplodeBufferNoHeader(in_buf + 12, out_buf, compressed_size,
+                                 orig_size);
+  }
+  return 0;
+}

@@ -3662,6 +3662,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006dd970,00194530,_NuFileOpen,_NuFileOpen,confirmed,0
 006dda10,00190f44,_NuFileSize,_NuFileSize,confirmed,0
 006ddd70,001927ac,_ExplodeBufferNoHeader,_ExplodeBufferNoHeader,confirmed,0
+006de7a0,001928f4,_ExplodeBuffer,_ExplodeBuffer,confirmed,0
 006de800,00192d9a,_NuMemFileRead,_NuMemFileRead,confirmed,0
 006de860,00192e78,_NuFileRead,_NuFileRead,confirmed,0
 006dea40,00193c44,_NuFileReadFloat,_NuFileReadFloat,confirmed,0
