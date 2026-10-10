@@ -2742,6 +2742,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006c9ca0,001e7734,_instNuGCutSceneCreate,_instNuGCutSceneCreate,strings,0
 006cd280,001e56a2,_NuScriptLoadCommands,_NuScriptLoadCommands,strings,0
 006d2800,00186f9a,_NuHeapDestroy,_NuHeapDestroy,confirmed,0
+006d2810,0018dc44,_NuHeapAllocAlignedNamed,_NuHeapAllocAlignedNamed,confirmed,0
 006d3fc0,0018810e,_NuFParPopCom,_NuFParPopCom,confirmed,0
 006d40d0,00188194,_NuListCheck,_NuListCheck,confirmed,0
 006d40f0,001881ac,_NuListAppend,_NuListAppend,confirmed,0
@@ -2871,6 +2872,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006d8770,0018b0f2,_NuStringTableSetBank,_NuStringTableSetBank,confirmed,0
 006d8780,0018b112,_NuStringTableUnload,_NuStringTableUnload,confirmed,0
 006d87b0,0018b14e,_NuStringTableGetById,_NuStringTableGetById,confirmed,0
+006d8e70,0018ddf4,_NuHeapAlloc,_NuHeapAlloc,confirmed,0
+006d8e90,0018ddca,_NuHeapAllocNamed,_NuHeapAllocNamed,confirmed,0
 006d8eb0,0018dda0,_NuHeapAllocAligned,_NuHeapAllocAligned,confirmed,0
 006da090,0018b224,_NuFileExtInitEx,_NuFileExtInitEx,strings,0
 006da8d0,0018d4c2,_NuFParGetWord,_NuFParGetWord,gapfill,1

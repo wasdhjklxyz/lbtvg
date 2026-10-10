@@ -2570,3 +2570,6 @@
 0061f690 IconScene_FindById     bounds-checked IconScene[id]: saga gamemenuall.cpp; Mac order
 0061f890 IconScenes_Dump        NuGScnRemove over IconScene, clears GCDATA+0x14 special: saga gamemenuall.cpp; Mac order
 004cf810 Animate_DEFAULT        requested anim = idle (+0x162c), same as the Mac's; after Animate_CANNON as on the Mac
+006d8e70 NuHeapAlloc            NuHeapAllocAlignedNamed(heap, size, 4, NULL): saga nuheap.cpp; next to NuHeapAllocAligned as on the Mac
+006d8e90 NuHeapAllocNamed       NuHeapAllocAlignedNamed(heap, size, 4, name): saga nuheap.cpp
+006d2810 NuHeapAllocAlignedNamed called by the three NuHeapAlloc wrappers with (heap, size, align, name)
