@@ -38,15 +38,19 @@ def string_at(va):
 md = Cs(CS_ARCH_X86, CS_MODE_32)
 for arg in sys.argv[1:]:
     addr = int(arg, 16)
-    size = sizes.get(addr)
-    if size is None:   # ghidra missed it: up to the next known start, minus padding
-        nxt = min([a for a in list(sizes) + list(names) if a > addr] or [addr + 256])
-        body = pe.get_data(addr - base, min(nxt - addr, 0x4000))
-        size = len(body.rstrip(b"\xcc\x90")) or len(body)
-    print(f"=== {addr:08x}  {size} B  {names.get(addr, '')}")
-    for i in md.disasm(pe.get_data(addr - base, size), addr):
+    # up to the next known start (ghidra's or an annotation), stopping at the
+    # first int3: ghidra's own size can be short (tail jumps) or merged
+    nxt = min([a for a in list(sizes) + list(names) if a > addr] or [addr + 0x4000])
+    body = pe.get_data(addr - base, min(nxt - addr, 0x4000))
+    insns = []
+    for i in md.disasm(body, addr):
         if i.mnemonic == "int3":   # padding: the function ended
             break
+        insns.append(i)
+    size = (insns[-1].address + insns[-1].size - addr) if insns else 0
+    note = "" if sizes.get(addr) in (None, size) else f"  (ghidra: {sizes[addr]} B)"
+    print(f"=== {addr:08x}  {size} B  {names.get(addr, '')}{note}")
+    for i in insns:
         extra = ""
         for m in re.finditer(r"0x([0-9a-f]{6,8})", i.op_str):
             v = int(m.group(1), 16)

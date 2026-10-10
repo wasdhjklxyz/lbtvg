@@ -61,6 +61,7 @@ def untemplate(s):
     while prev != s:
         prev, s = s, re.sub(r"<[^<>()]*>", "", s)
     return s
+DECLSPEC = re.compile(r"__declspec\s*\([^()]*(?:\([^()]*\)[^()]*)*\)")
 SIG = {}  # (path, addr) -> source parameter list, to tell overloads apart
 
 def die(msg):
@@ -97,8 +98,9 @@ def annotations(path, stubs=False):
             while "(" not in s and k + 1 < len(lines) and k < j + 3:
                 k += 1
                 s += " " + lines[k].strip()
-            mm = IDENT.search(s)
+            mm = IDENT.search(DECLSPEC.sub(" ", s))
             if mm:
+                s = DECLSPEC.sub(" ", s)
                 rest = " ".join([s] + [l.strip() for l in lines[k + 1:k + 8]])
                 SIG[(path, int(m.group(1), 16))] = params_of(rest[mm.end() - 1:])
             if not mm:
@@ -196,8 +198,10 @@ def find(funcs, name, sig=None):
         exact = [k for k in same if [p for _, p in args[k]] == [p for _, p in sig]
                  and all(a == b or not a or not b for (a, _), (b, _) in zip(args[k], sig))]
         hits = exact if len(exact) == 1 else same if len(same) == 1 else hits
+    if not hits:
+        raise LookupError(f"{name}: not in the .obj (a static nothing references is never emitted)")
     if len(hits) != 1:
-        die(f"{name}: {'no' if not hits else 'ambiguous'} symbol in .obj ({hits or list(funcs)})")
+        raise LookupError(f"{name}: ambiguous symbol in .obj ({hits})")
     return funcs[hits[0]], hits[0]
 
 # --- comparison ------------------------------------------------------------------
@@ -381,7 +385,12 @@ def main(argv):
                 if not [k for k in funcs if want.search(untemplate(k))]:
                     print(f"STUB  {addr:08x}  {name}: not compiled (still in #if 0?)   [{src.relative_to(ROOT)}]")
                     continue
-            (code, relocs), sym = find(funcs, name, SIG.get((src, addr)))
+            try:
+                (code, relocs), sym = find(funcs, name, SIG.get((src, addr)))
+            except LookupError as e:
+                print(f"{'STUB-MISS' if is_stub else 'MISS'}  {addr:08x}  {e}   [{src.relative_to(ROOT)}]")
+                bad += 0 if is_stub else 1
+                continue
             osize = sizes.get(addr)
             orig = pe.get_data(addr - base, max(len(code), osize or 0))
             o = insns(orig, addr, len(orig), names=names)

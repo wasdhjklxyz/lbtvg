@@ -472,3 +472,22 @@ enough matched code for the percentage to mean something.
   in the addressing (Signals_Load).
 - **Same-TU register-convention statics mostly come out right** (edi in
   Techno, esi in turret/obstacle); the size/parser-on-stack puzzle remains.
+- **Stack vs register args, partly solved**: making a static non-static gave
+  the original's stack args (read_offset_len/read_literal_len). A char
+  array in a struct copied as a local adds /GS and can change a static's
+  convention too; removing it restored `eax` (GizFlock).
+- **`ecx`/`edx` + stack with caller cleanup** also exists
+  (GizmoPickups_FixDrawDistance); `__fastcall` gets the registers but adds
+  `ret N`. Open.
+- **`case 0: return;`** gives the `sub eax, 0; je` chain; an explicit
+  `return 0` per case keeps separate tails.
+- **For MIN, repeat the expression in the ternary**; a float product used in
+  two compares is written twice; a clamping float function wants a single
+  exit through if/else.
+- **`bitfield |= (u8)v`** gives the or/xor/and/xor insert.
+- **The `nupad_gen.cpp` TU starts before 0x6d5700** and holds nufile, nufpar,
+  implode and nurdp code too.
+- `make match` reports `MISS` (fails) for an annotated function missing from
+  the .obj, e.g. a static nothing references, instead of aborting the file;
+  `__declspec(...)` before a definition is skipped. `tools/disasm.py` now
+  disassembles to the first int3 or next known start, not ghidra's size.
