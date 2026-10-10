@@ -697,6 +697,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004f70f0,0011b0d8,__ZNK8WorldMap28GetPointerRadiusWithMaxScaleEv,WorldMap::GetPointerRadiusWithMaxScale() const,confirmed,0
 004f7110,0011b0fc,__ZNK8WorldMap25GetPointerRadiusWithScaleEv,WorldMap::GetPointerRadiusWithScale() const,confirmed,0
 004f7130,0011b120,__ZNK8WorldMap22GetTextScaleMultiplierEv,WorldMap::GetTextScaleMultiplier() const,confirmed,0
+004f72e0,00108f56,__ZNK12ShopComputer13IsVillainModeEv,ShopComputer::IsVillainMode() const,confirmed,0
+004f72f0,00108f64,__ZNK12ShopComputer17IsInteractiveModeEv,ShopComputer::IsInteractiveMode() const,confirmed,0
+004f7330,00108f9e,__ZNK12ShopComputer13GetClassNameAEv,ShopComputer::GetClassNameA() const,confirmed,0
+004f7340,00108fa8,__ZNK12ShopComputer17GetUsesWhiteNoiseEv,ShopComputer::GetUsesWhiteNoise() const,confirmed,0
+004f7350,00108fb2,__ZNK12ShopComputer23GetUsesInterlacePatternEv,ShopComputer::GetUsesInterlacePattern() const,confirmed,0
+004f7360,00108fbc,__ZNK12ShopComputer21GetUsesOverlayTextureEv,ShopComputer::GetUsesOverlayTexture() const,confirmed,0
+004f7370,00108fe6,__ZNK12ShopComputer16RenderWhenPausedEv,ShopComputer::RenderWhenPaused() const,confirmed,0
+004f7380,00108ff0,__ZNK12ShopComputer21IsCameraTransitioningEv,ShopComputer::IsCameraTransitioning() const,confirmed,0
 004f73f0,000fc2e8,__ZNK14SecurityCamera13GetClassNameAEv,SecurityCamera::GetClassNameA() const,strings,0
 004f7400,000fc2f2,__ZNK14SecurityCamera23GetUsesInterlacePatternEv,SecurityCamera::GetUsesInterlacePattern() const,confirmed,0
 004f7410,000fc2fc,__ZNK14SecurityCamera21GetUsesOverlayTextureEv,SecurityCamera::GetUsesOverlayTexture() const,confirmed,0

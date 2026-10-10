@@ -1743,3 +1743,11 @@
 004f7450 SecurityCamera::RenderWhenPaused slot 14, Mac inline order; matched
 004f7500 LightFlickerOverlay::IsVisible vtable 0x85d9f4 slot 12, Mac inline order (GetClassNameA, IsVisible, ShouldUpdate); matched
 004f7530 LightFlickerOverlay::ShouldUpdate slot 13, Mac inline order; byte-identical to 0x4f7500 and 0x4f74d0; matched
+004f72e0 ShopComputer::IsVillainMode vtable 0x85d8f4 slot 22, Mac inline order (first of the ShopComputer inlines); matched
+004f72f0 ShopComputer::IsInteractiveMode slot 16, Mac inline order; matched
+004f7330 ShopComputer::GetClassNameA slot 5, returns "ShopComputer"; matched
+004f7340 ShopComputer::GetUsesWhiteNoise slot 7, Mac inline order; matched
+004f7350 ShopComputer::GetUsesInterlacePattern slot 8, Mac inline order; matched
+004f7360 ShopComputer::GetUsesOverlayTexture slot 9, Mac inline order; matched
+004f7370 ShopComputer::RenderWhenPaused slot 14, Mac inline order; matched
+004f7380 ShopComputer::IsCameraTransitioning slot 21, Mac inline order (return 0); matched

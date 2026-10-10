@@ -16,6 +16,8 @@ union variptr_u;
 // emission order follows.
 class InteractiveDisplay {
 public:
+  f32 Unk005c6270() const;
+
   virtual void InitializePerm(char *name, variptr_u *buf, variptr_u *end); // 0
   virtual void InitializeLevel(WORLDINFO_s *world);                        // 1
   virtual void ActivateLevel(WORLDINFO_s *world);                          // 2
@@ -93,6 +95,27 @@ public:
   u8 pad33c[0x3ec - 0x33c];
   i32 kind; // 0x3ec
 };
+
+// vtable 0x0085d8f4: Mac inline order IsVillainMode, IsInteractiveMode,
+// GetClassNameA, GetUsesWhiteNoise, GetUsesInterlacePattern,
+// GetUsesOverlayTexture, (GetHighlightedMenuItemId), RenderWhenPaused,
+// IsCameraTransitioning.
+class ShopComputer : public InteractiveDisplay {
+public:
+  virtual const char *GetClassNameA() const;
+  virtual i32 GetUsesWhiteNoise() const;
+  virtual i32 GetUsesInterlacePattern() const;
+  virtual i32 GetUsesOverlayTexture() const;
+  virtual i32 RenderWhenPaused() const;
+  virtual i32 IsInteractiveMode() const;
+  virtual i32 IsCameraTransitioning() const;
+  virtual i32 IsVillainMode() const; // 22
+
+  u8 pad33c[0x340 - 0x33c];
+  i32 villain_mode; // 0x340
+};
+
+i32 GetMenuID();
 
 // GLOBAL: LEGOBATMAN 0x009cf570
 extern i32 g_unk009cf570; // security camera type the camera follows
@@ -235,6 +258,34 @@ f32 WorldMap::GetPointerRadiusWithScale() const {
 f32 WorldMap::GetTextScaleMultiplier() const {
   return NuStrIStr((char *)level_name, "batcave_f") ? 2.75f : 4.5f;
 }
+
+// FUNCTION: LEGOBATMAN 0x004f72e0
+i32 ShopComputer::IsVillainMode() const { return villain_mode; }
+
+// FUNCTION: LEGOBATMAN 0x004f72f0
+i32 ShopComputer::IsInteractiveMode() const {
+  if (GetMenuID() == 13 && Unk005c6270() < 3.0f)
+    return 1;
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x004f7330
+const char *ShopComputer::GetClassNameA() const { return "ShopComputer"; }
+
+// FUNCTION: LEGOBATMAN 0x004f7340
+i32 ShopComputer::GetUsesWhiteNoise() const { return 1; }
+
+// FUNCTION: LEGOBATMAN 0x004f7350
+i32 ShopComputer::GetUsesInterlacePattern() const { return 1; }
+
+// FUNCTION: LEGOBATMAN 0x004f7360
+i32 ShopComputer::GetUsesOverlayTexture() const { return 1; }
+
+// FUNCTION: LEGOBATMAN 0x004f7370
+i32 ShopComputer::RenderWhenPaused() const { return 1; }
+
+// FUNCTION: LEGOBATMAN 0x004f7380
+i32 ShopComputer::IsCameraTransitioning() const { return 0; }
 
 // FUNCTION: LEGOBATMAN 0x004f73f0
 const char *SecurityCamera::GetClassNameA() const { return "SecurityCamera"; }
