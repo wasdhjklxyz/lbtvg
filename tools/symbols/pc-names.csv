@@ -1448,8 +1448,13 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0059c4b0,0025615a,_ActionFromName,_ActionFromName,gapfill,1
 0059c530,002561e8,_ParseAnimStance,_ParseAnimStance,confirmed,0
 0059c5a0,00256266,_ConfigureCharacterList,_ConfigureCharacterList,strings,0
+0059d6a0,003416de,__Z21Text_InitLanguageListP12LANGUAGEDATA,Text_InitLanguageList(LANGUAGEDATA*),confirmed,0
+0059d6e0,0034171c,__Z16Text_SetLanguageii,"Text_SetLanguage(int, int)",confirmed,0
+0059d700,0034174e,__Z20Text_GetLanguagePathi,Text_GetLanguagePath(int),confirmed,0
 0059d770,00341818,__Z13Text_LoadFontPcP9variptr_uS1_,"Text_LoadFont(char*, variptr_u*, variptr_u*)",strings,0
+0059d7b0,00341896,__Z17Text_IsFontLoadedv,Text_IsFontLoaded(),confirmed,0
 0059d7c0,003418a8,__Z20Text_InitStringTableiP9variptr_uS0_,"Text_InitStringTable(int, variptr_u*, variptr_u*)",order,1
+0059d840,00341946,__Z25Text_GetMaxOverallStringsv,Text_GetMaxOverallStrings(),confirmed,0
 0059d850,00341958,__Z27Text_PlatformSpecificIgnoreP8nufpar_s,Text_PlatformSpecificIgnore(nufpar_s*),order,1
 0059d900,00341a36,__Z24Text_LoadAndFixUpStringsPhPS_PPci,"Text_LoadAndFixUpStrings(unsigned char*, unsigned char**, char**, int)",order,1
 0059db20,00341c56,__Z14Text_InitTableP9TEXTENTRYii,"Text_InitTable(TEXTENTRY*, int, int)",confirmed,0

@@ -111,6 +111,9 @@ void Text_LoadFont(char *path, variptr_u *buf, variptr_u *buf_end) {
   LoadButtonFont("stuff\\text\\buttons_PC", 0, buf, buf_end, 0);
 }
 
+// FUNCTION: LEGOBATMAN 0x0059d7b0
+VUFNT *Text_IsFontLoaded(void) { return app_fnt; }
+
 // STUB: LEGOBATMAN 0x0059d7c0
 // close: register allocation only; orig aligns into eax and copies to esi
 // for the table pointer, this aligns straight into esi.
@@ -131,6 +134,9 @@ void Text_InitStringTable(i32 count, variptr_u *buf, variptr_u *) {
   memset(bits, 0, flags_size);
   buf->addr += flags_size;
 }
+
+// FUNCTION: LEGOBATMAN 0x0059d840
+i32 Text_GetMaxOverallStrings(void) { return Text_MaxStrings_Overall; }
 
 #include "../nu2api/numath/nuinline_unk.h"
 #include "../nu2api/numath/nutrig_unk.h"

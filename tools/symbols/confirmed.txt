@@ -2573,3 +2573,8 @@
 006d8e70 NuHeapAlloc            NuHeapAllocAlignedNamed(heap, size, 4, NULL): saga nuheap.cpp; next to NuHeapAllocAligned as on the Mac
 006d8e90 NuHeapAllocNamed       NuHeapAllocAlignedNamed(heap, size, 4, name): saga nuheap.cpp
 006d2810 NuHeapAllocAlignedNamed called by the three NuHeapAlloc wrappers with (heap, size, align, name)
+0059d6a0 Text_InitLanguageList  saga text.cpp body (LANGUAGECOUNT walk); Mac order before Text_SetLanguage
+0059d6e0 Text_SetLanguage       Text_Language = NuLanguageGet(), then the game callback: saga text.cpp's shape; Mac order
+0059d700 Text_GetLanguagePath   language -> txtpath global switch: saga text.cpp; Mac order before Text_LoadFont
+0059d7b0 Text_IsFontLoaded      returns app_fnt, same as the Mac's; after Text_LoadFont as on the Mac
+0059d840 Text_GetMaxOverallStrings returns Text_MaxStrings_Overall, same as the Mac's; Mac order
