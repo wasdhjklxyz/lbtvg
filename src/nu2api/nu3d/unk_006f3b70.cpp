@@ -4,6 +4,7 @@
 // and 4), NuMotionAccumFilter (RTTI vtable 0x8982e4).
 
 #include "../nucore/common.h"
+#include <math.h>
 
 // 56-byte effect texture; layout unknown here.
 struct nueffecttex_s {
@@ -60,7 +61,7 @@ struct NUATTACH_s {
 };
 
 struct NuPostFilterGen {
-  virtual ~NuPostFilterGen();
+  virtual ~NuPostFilterGen() {}
   virtual void initResources();
   virtual void destroyResources();
   virtual void initTextureResources(i32 width, i32 height);
@@ -118,6 +119,72 @@ struct NuMotionAccumFilter : NuMotionAccumFilterGen {
   u8 pad10[0xac - 0x10];
   nueffecttex_s *texture; // 0xac
 };
+
+struct NuProcessColourFilterGen : NuPostFilterGen {
+  NuProcessColourFilterGen();
+  virtual void initResources();
+  virtual void destroyResources();
+  virtual void initTextureResources(i32 width, i32 height);
+  virtual void destroyTextureResources();
+  virtual void render();
+};
+
+struct NuProcessColourFilter : NuProcessColourFilterGen {
+  NuProcessColourFilter();
+  ~NuProcessColourFilter();
+  virtual void initResources();
+  virtual void initTextureResources(i32 width, i32 height);
+  virtual void destroyTextureResources();
+  virtual void render();
+};
+
+// FUNCTION: LEGOBATMAN 0x006f3c70
+NuProcessColourFilter::NuProcessColourFilter() {}
+
+// FUNCTION: LEGOBATMAN 0x006f3c90
+NuProcessColourFilter::~NuProcessColourFilter() {}
+
+// SYNTHETIC: LEGOBATMAN 0x006f3ca0 NuProcessColourFilter::`scalar deleting destructor'
+
+struct NuSSAOFilterGen : NuPostFilterGen {
+  NuSSAOFilterGen();
+  virtual void initResources();
+  virtual void destroyResources();
+  virtual void initTextureResources(i32 width, i32 height);
+  virtual void destroyTextureResources();
+  virtual void render();
+};
+
+struct NuSSAOFilter : NuSSAOFilterGen {
+  NuSSAOFilter();
+  ~NuSSAOFilter();
+  virtual void initResources();
+  virtual void initTextureResources(i32 width, i32 height);
+  virtual void destroyTextureResources();
+  virtual void render();
+
+  u8 pad0c[0x14 - 0xc];
+  i32 sample_count; // 0x14
+  struct {
+    f32 x, y, z, w;
+  } samples[8]; // 0x18
+};
+
+// FUNCTION: LEGOBATMAN 0x006f3cc0
+NuSSAOFilter::NuSSAOFilter() {
+  sample_count = 8;
+  for (i32 i = 0; i != sample_count; i++) {
+    f32 angle = i * 0.7853981633974483;
+    samples[i].x = cosf(angle);
+    samples[i].y = sinf(angle);
+    samples[i].w = samples[i].z = 0.0f;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006f3d50
+NuSSAOFilter::~NuSSAOFilter() {}
+
+// SYNTHETIC: LEGOBATMAN 0x006f3d60 NuSSAOFilter::`scalar deleting destructor'
 
 // FUNCTION: LEGOBATMAN 0x006f7ab0
 bool NuMainFilterGen::isEnabled() { return active_filter_count != 0; }

@@ -3136,3 +3136,7 @@
 00729380 NuSpeedBlurFilter::~NuSpeedBlurFilter inlined base dtors leave the NuPostFilterGen vtable
 00729440 NuDeferredFilter::NuDeferredFilter sets the NuDeferredFilter vtable 0x89835c (Gen ctor inlined)
 00729460 NuDeferredFilter::~NuDeferredFilter inlined base dtors leave the NuPostFilterGen vtable
+006f3c70 NuProcessColourFilter::NuProcessColourFilter calls the Gen ctor and sets the NuProcessColourFilter vtable 0x897988
+006f3c90 NuProcessColourFilter::~NuProcessColourFilter inlined base dtors leave the NuPostFilterGen vtable
+006f3cc0 NuSSAOFilter::NuSSAOFilter calls NuSSAOFilterGen ctor, sets the NuSSAOFilter vtable 0x8979bc, builds 8 sin/cos samples
+006f3d50 NuSSAOFilter::~NuSSAOFilter inlined base dtors leave the NuPostFilterGen vtable

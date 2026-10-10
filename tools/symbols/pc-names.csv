@@ -3533,6 +3533,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006f37b0,0017de3a,_NuEffectTexCreate2D,_NuEffectTexCreate2D,confirmed,0
 006f3b70,00175d24,__ZN12NuMainFilter20initTextureResourcesEii,"NuMainFilter::initTextureResources(int, int)",confirmed,0
 006f3bb0,00173f9e,__ZN12NuMainFilter23destroyTextureResourcesEv,NuMainFilter::destroyTextureResources(),confirmed,0
+006f3c70,0016d618,__ZN21NuProcessColourFilterC2Ev,NuProcessColourFilter::NuProcessColourFilter(),confirmed,0
+006f3c90,00186234,__ZN21NuProcessColourFilterD2Ev,NuProcessColourFilter::~NuProcessColourFilter(),confirmed,0
+006f3cc0,0016d65c,__ZN12NuSSAOFilterC2Ev,NuSSAOFilter::NuSSAOFilter(),confirmed,0
+006f3d50,001861d8,__ZN12NuSSAOFilterD2Ev,NuSSAOFilter::~NuSSAOFilter(),confirmed,0
 006f7080,0017f2f4,__ZN12NuPostFilter7blurSM1EP13nueffecttex_siS1_iiibfP17nushaderprogram_s,"NuPostFilter::blurSM1(nueffecttex_s*, int, nueffecttex_s*, int, int, int, bool, float, nushaderprogram_s*)",confirmed,0
 006f7ab0,00169fb0,__ZN15NuMainFilterGen9isEnabledEv,NuMainFilterGen::isEnabled(),confirmed,0
 006f8210,0017deba,__ZN19NuMotionAccumFilter20initTextureResourcesEii,"NuMotionAccumFilter::initTextureResources(int, int)",confirmed,0
