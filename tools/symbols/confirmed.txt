@@ -1935,7 +1935,7 @@
 00671360 CrossFade::InitFade vtable 0x869ddc slot 2, Mac body; matched
 00671a20 SpinWipe::InitFade vtable 0x869e14 slot 2, Mac body (1 / SPINFADETIME); matched
 0053a4b0 WavReader::WavReader RTTI .?AVWavReader@@ vtable 0x8675cc, Mac order (ctor first); matched
-0053a4c0 WavReader::Open(char*, WAVEFORMATEX*) vtable slot 2, returns E_FAIL; matched
+0053a4c0 WavReader::Open (char*, WAVEFORMATEX* overload) vtable slot 2, returns E_FAIL; matched
 0053a4d0 WavReader::GetFormat vtable slot 4 (address of the format at 0x18); matched
 0053a4e0 WavReader::MakeFourCC Mac body; matched
 0053a510 WavReader::GetSize vtable slot 5, Mac body; matched

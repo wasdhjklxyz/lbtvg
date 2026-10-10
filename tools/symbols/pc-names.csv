@@ -894,7 +894,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005391c0,001af166,__ZN7NuMusic10xsNoMusicCEP8nufpar_sPv,"NuMusic::xsNoMusicC(nufpar_s*, void*)",confirmed,0
 005391e0,001ad77c,__ZN7NuMusic19xsGlobalAttenuationEP8nufpar_sPv,"NuMusic::xsGlobalAttenuation(nufpar_s*, void*)",confirmed,0
 0053a4b0,001b4bba,__ZN9WavReaderC2Ev,WavReader::WavReader(),confirmed,0
-0053a4c0,,"WavReader::Open(char*,","WavReader::Open(char*,",confirmed,0
+0053a4c0,001b4f0c,__ZN9WavReader4OpenEP10nudathdr_sPcPN7MacDoze13tWAVEFORMATEXE,"WavReader::Open(nudathdr_s*, char*, MacDoze::tWAVEFORMATEX*)",confirmed,0
 0053a4d0,001b53c2,__ZN9WavReader9GetFormatEv,WavReader::GetFormat(),confirmed,0
 0053a4e0,001b4bf6,__ZN9WavReader10MakeFourCCEPc,WavReader::MakeFourCC(char*),confirmed,0
 0053a510,001b4c4a,__ZN9WavReader7GetSizeEv,WavReader::GetSize(),confirmed,0
