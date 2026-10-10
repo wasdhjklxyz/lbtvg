@@ -3288,6 +3288,7 @@ extern char *rdp_multichar_tokens;
 
 static int GetMultiCharToken(char *s);
 
+// FUNCTION: LEGOBATMAN 0x006d4be0
 static int isnumordot(char c) {
   if ((c >= '0' && c <= '9') || c == '.')
     return 1;
@@ -3457,6 +3458,17 @@ static void get_tok_rdpf(RDPFCTXT *ctx) {
     Unk006d24c0(ctx->buf);
     break;
   }
+}
+
+// Default list (0x00b038c8) of the multi-character tokens.
+// GLOBAL: LEGOBATMAN 0x00b038c8
+extern char rdp_default_multichar_tokens[];
+
+// FUNCTION: LEGOBATMAN 0x006d4c00
+void NuRDPSetMultiCharTokens(char *tokens) {
+  rdp_multichar_tokens = rdp_default_multichar_tokens;
+  if (tokens != NULL)
+    rdp_multichar_tokens = tokens;
 }
 
 // Length of the multi-character token that s starts with, or 0.

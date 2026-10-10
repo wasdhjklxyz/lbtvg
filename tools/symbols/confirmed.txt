@@ -3493,3 +3493,5 @@
 006dceb0 NuDatClose saga nufile_plain.cpp body (8 open files, frees with the nufile_gen.cpp __FILE__)
 006e0d90 NuFilePakLoadKey saga nufilepak.cpp wrapper over NuFilePakLoadKeyPrePad (Mac _NuFilePakLoadKey)
 006e0df0 NuFilePakLoadPrePad Mac _NuFilePakLoadPrePad wrapper over NuFilePakLoadKeyPrePad
+006d4be0 isnumordot nurdpf static (al), out-of-line copy of the test inlined in get_tok_rdpf
+006d4c00 NuRDPSetMultiCharTokens Mac _NuRDPSetMultiCharTokens (default list 0xb038c8)
