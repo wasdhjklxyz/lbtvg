@@ -674,7 +674,7 @@ NuFileUnk0b00878 g_nuFileUnk0b00878[1];
 int g_nuFileUnk0b038a4;
 
 // STUB: LEGOBATMAN 0x006d9370
-__int64 NuFileUnk006d9370(int id) {
+__int64 NuFileOpenSize(int id) {
   if (id >= 0x2000)
     return g_nuFileUnk0b038a4 ? g_nuFileUnk0b00878[id - 0x2000].ic : 0;
   if (id >= 0x1000)
@@ -3940,7 +3940,7 @@ NUFPAR *NuFParOpen(int file_handle) {
     }
     if (parser->is_utf16 == 0 && parser->is_utf8 == 0)
       NuFileSeek(file_handle, 0, 0);
-    parser->size = (int)NuFileUnk006d9370(file_handle);
+    parser->size = (int)NuFileOpenSize(file_handle);
   }
   return parser;
 }
@@ -4291,4 +4291,87 @@ int NuFileSmallFileOpen(char *path) {
     }
   }
   return 0;
+}
+
+// GLOBAL: LEGOBATMAN 0x00b038a0
+int nufile_lasterror;
+// GLOBAL: LEGOBATMAN 0x00b03890
+extern int nufile_try_packed;
+int NuDatFileLoadBuffer(NUDATHDR *dat, char *name, void *dest, int buf_size);
+int NuPPLoadBuffer(int file, void *buf, int buf_size);
+
+// FUNCTION: LEGOBATMAN 0x006e0830
+void *NuFileLoad(char *filepath) {
+  int buffering;
+  int file;
+  int size;
+  void *buf;
+
+  buffering = nufile_buffering_enabled;
+  buf = NULL;
+  nufile_buffering_enabled = 0;
+  file = NuFileOpen(filepath, 0);
+  if (file != 0) {
+    size = (int)NuFileOpenSize(file);
+    if (size > 0) {
+      buf = NuMemAllocFn(size, __FILE__, 0x82a);
+      if (buf != NULL)
+        NuFileRead(file, buf, size);
+    }
+    NuFileClose(file);
+  }
+  nufile_buffering_enabled = buffering;
+  return buf;
+}
+
+// FUNCTION: LEGOBATMAN 0x006e08b0
+int NuFileLoadBuffer(char *filepath, void *buf, int buf_size) {
+  int file;
+  int loaded;
+
+  nufile_lasterror = 0;
+  loaded = 0;
+  if (g_unk00b03884 != 0) {
+    loaded =
+        NuDatFileLoadBuffer((NUDATHDR *)g_unk00b03884, filepath, buf, buf_size);
+    if (nufile_lasterror == -1)
+      return 0;
+  }
+  if (loaded == 0) {
+    if (NuFileExists(filepath)) {
+      file = NuFileOpen(filepath, 0);
+      if (file != 0) {
+        if (nufile_try_packed) {
+          loaded = NuPPLoadBuffer(file, buf, buf_size);
+        } else {
+          loaded = (int)NuFileOpenSize(file);
+          if (loaded <= buf_size && loaded != 0) {
+            while (NuFileRead(file, buf, loaded) < 0) {
+              Unk006d24d0();
+              while (NuFileSeek(file, 0, 0) < 0)
+                Unk006d24d0();
+            }
+          } else {
+            nufile_lasterror = -1;
+            loaded = 0;
+          }
+        }
+        NuFileClose(file);
+      } else {
+        nufile_lasterror = -3;
+      }
+    } else {
+      nufile_lasterror = -2;
+    }
+  }
+  return loaded;
+}
+
+// FUNCTION: LEGOBATMAN 0x006e0a10
+int NuFileLoadBufferVP(char *filepath, VARIPTR *buf, VARIPTR *buf_end) {
+  int len;
+
+  len = NuFileLoadBuffer(filepath, buf->void_ptr, buf_end->addr - buf->addr);
+  buf->addr += len;
+  return len;
 }

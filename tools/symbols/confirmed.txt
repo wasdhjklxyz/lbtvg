@@ -3460,3 +3460,7 @@
 006d39a0 NuDatFileGetFreeInfo saga nufile.cpp body (volatile is_used)
 006d3a10 NuDatFileGetFreeHandleIX saga nufile.cpp body (8 open files)
 006d3a80 OpenDatFileBase saga nufile.cpp static (eax/ecx), called by NuDatFileOpen
+006e0830 NuFileLoad Mac _NuFileLoad; NuMemAllocFn with the nufile_gen.cpp __FILE__ string
+006e08b0 NuFileLoadBuffer saga nufile.cpp body (nufile_lasterror 0xb038a0, nufile_try_packed 0xb03890)
+006e0a10 NuFileLoadBufferVP saga nufile.cpp body
+006d9370 NuFileOpenSize Mac _NuFileOpenSize (per-id size dispatcher), called by NuFileLoad/NuFileLoadBuffer
