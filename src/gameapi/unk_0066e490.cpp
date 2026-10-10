@@ -23,14 +23,20 @@ void Unk_InlineUser_0066e490(f32 *v, f32 a, i32 i) { NuVec4Set(v, a, a, a, a); }
 typedef struct PLUG_s {
   char name[0x10];  // 0x00
   nuvec_s position; // 0x10
-  u8 pad1c[0x26 - 0x1c];
-  u8 active : 1;  // 0x26
-  u8 visible : 1; // 0x26 bit 1
-  u8 plugged : 1; // 0x26 bit 2
+  u16 s1c;          // 0x1c
+  u16 s1e;          // 0x1e
+  u16 s20;          // 0x20
+  u16 s22;          // 0x22
+  u16 s24;          // 0x24
+  u8 active : 1;    // 0x26
+  u8 visible : 1;   // 0x26 bit 1
+  u8 plugged : 1;   // 0x26 bit 2
+  u8 b3 : 1;        // 0x26 bit 3
   u8 pad27;
   i32 i28; // 0x28
   u16 w2c; // 0x2c
-  u8 pad2e[0x44 - 0x2e];
+  u8 pad2e[0x40 - 0x2e];
+  f32 f40; // 0x40
 } PLUG;
 
 typedef struct PLUGSYS_s {
@@ -71,6 +77,100 @@ static char *Plug_OutputNames[7] = {"Plugged", "ID1", "ID2",       "ID3",
                                     "ID4",     "ID5", "NotPlugged"};
 // GLOBAL: LEGOBATMAN 0x009680c0
 static char *Plug_Name = "Plug";
+
+i32 EdFileReadInt();
+char EdFileReadChar();
+f32 EdFileReadFloat();
+void EdFileRead(void *buf, i32 len);
+void EdFileReadNuVec(nuvec_s *v);
+u16 EdFileReadUnsignedShort();
+u8 EdFileReadUnsignedChar();
+
+// STUB: LEGOBATMAN 0x0066e4b0
+// loop head register swap: orig zero in ecx and plug_sys in eax, ours swapped.
+i32 Plugs_Load(void *world_ptr, void *unused) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  if (world == NULL || world->plug_sys == NULL || world->plug_sys->count != 0)
+    return 0;
+  i32 version = EdFileReadInt();
+  world->plug_sys->count = EdFileReadInt();
+  PLUG *plug = world->plug_sys->plugs;
+  for (i32 i = 0; i < world->plug_sys->count; i++, plug++) {
+    plug->b3 = 0;
+    plug->s20 = 0;
+    plug->s24 = 0;
+    u8 c;
+    switch (version) {
+    case 1:
+      EdFileRead(plug->name, 0x10);
+      EdFileReadNuVec(&plug->position);
+      plug->s1c = EdFileReadUnsignedShort();
+      plug->s1e = EdFileReadUnsignedShort();
+      c = EdFileReadUnsignedChar();
+      if ((i8)c <= 0)
+        plug->s22 = 0;
+      else
+        plug->s22 = 1 << (c - 1);
+      plug->f40 = 0.5f;
+      break;
+    case 2:
+      EdFileRead(plug->name, 0x10);
+      EdFileReadNuVec(&plug->position);
+      plug->s1c = EdFileReadUnsignedShort();
+      plug->s1e = EdFileReadUnsignedShort();
+      c = EdFileReadUnsignedChar();
+      if ((i8)c <= 0)
+        plug->s22 = 0;
+      else
+        plug->s22 = 1 << (c - 1);
+      plug->s20 = EdFileReadUnsignedShort();
+      plug->f40 = 0.5f;
+      break;
+    case 3:
+      EdFileRead(plug->name, 0x10);
+      EdFileReadNuVec(&plug->position);
+      plug->s1c = EdFileReadUnsignedShort();
+      plug->s1e = EdFileReadUnsignedShort();
+      plug->s22 = EdFileReadUnsignedShort();
+      plug->s20 = EdFileReadUnsignedShort();
+      plug->f40 = 0.5f;
+      break;
+    case 4:
+      EdFileRead(plug->name, 0x10);
+      EdFileReadNuVec(&plug->position);
+      plug->s1c = EdFileReadUnsignedShort();
+      plug->s1e = EdFileReadUnsignedShort();
+      plug->s22 = EdFileReadUnsignedShort();
+      plug->s20 = EdFileReadUnsignedShort();
+      plug->b3 = EdFileReadChar();
+      plug->f40 = 0.5f;
+      break;
+    case 5:
+      EdFileRead(plug->name, 0x10);
+      EdFileReadNuVec(&plug->position);
+      plug->s1c = EdFileReadUnsignedShort();
+      plug->s1e = EdFileReadUnsignedShort();
+      plug->s22 = EdFileReadUnsignedShort();
+      plug->s24 = EdFileReadUnsignedShort();
+      plug->s20 = EdFileReadUnsignedShort();
+      plug->b3 = EdFileReadChar();
+      plug->f40 = 0.5f;
+      break;
+    case 6:
+      EdFileRead(plug->name, 0x10);
+      EdFileReadNuVec(&plug->position);
+      plug->s1c = EdFileReadUnsignedShort();
+      plug->s1e = EdFileReadUnsignedShort();
+      plug->s22 = EdFileReadUnsignedShort();
+      plug->s24 = EdFileReadUnsignedShort();
+      plug->s20 = EdFileReadUnsignedShort();
+      plug->b3 = EdFileReadChar();
+      plug->f40 = EdFileReadFloat();
+      break;
+    }
+  }
+  return 1;
+}
 
 // STUB: LEGOBATMAN 0x0066e780
 // the original keeps an 8-byte stack local (a dead store of the count after

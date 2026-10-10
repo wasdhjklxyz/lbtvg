@@ -2986,6 +2986,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0066dc70,00340728,__Z22Teleport_SetVisibilityP7GIZMO_si,"Teleport_SetVisibility(GIZMO_s*, int)",confirmed,0
 0066dc90,0034074a,__Z22Teleport_GetVisibilityP7GIZMO_s,Teleport_GetVisibility(GIZMO_s*),confirmed,0
 0066dcb0,0034076a,__Z22Teleport_RegisterGizmoi,Teleport_RegisterGizmo(int),confirmed,0
+0066e4b0,0031b8ea,__Z10Plugs_LoadPvS_,"Plugs_Load(void*, void*)",confirmed,0
 0066e780,0031bbbc,__Z24Plugs_ReserveBufferSpacePv,Plugs_ReserveBufferSpace(void*),confirmed,0
 0066e800,0031bc32,__Z13Plug_ActivateP7GIZMO_si,"Plug_Activate(GIZMO_s*, int)",confirmed,0
 0066e830,0031bc72,__Z18Plug_SetVisibilityP7GIZMO_si,"Plug_SetVisibility(GIZMO_s*, int)",confirmed,0
