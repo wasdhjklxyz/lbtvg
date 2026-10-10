@@ -3,6 +3,7 @@
 
 #include "../numath/nuinline_unk.h"
 #include "common.h"
+#include <string.h>
 
 // Empty debug hooks (allocation failure / bad size reports).
 // FUNCTION: LEGOBATMAN 0x006e1b90
@@ -118,10 +119,6 @@ i32 highallocaddr;
 
 extern "C" void *NuHeapAllocAligned(void *heap, u32 size, u32 alignment);
 extern "C" void *malloc(unsigned int size);
-extern "C" void *memset(void *dst, int c, unsigned int n);
-extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
-extern "C" unsigned int strlen(const char *s);
-extern "C" char *strcpy(char *dst, const char *src);
 
 // FUNCTION: LEGOBATMAN 0x006e1d50
 extern "C" void *NuMemAllocFn(int size, const char *file, int line) {
@@ -190,6 +187,42 @@ extern "C" void *NuMemAllocFn(int size, const char *file, int line) {
   if (endaddr > g_nuMemUnk00b03968)
     g_nuMemUnk00b03968 = endaddr;
   return rv;
+}
+
+// STUB: LEGOBATMAN 0x006e2090
+// The inlined memcmps: the original branches straight to the report on a
+// mismatch; ours materialises memcmp's -1/0/1 first (484 B).
+extern "C" void NuMemFreeFn(void *addr, const char *file, int line) {
+  MEMBLK_HEAD *head;
+  MEMBLK_TAIL *tail;
+
+  if (memexternal != 0)
+    NuMemDebugUnk006e1b90();
+  if (addr == 0) {
+    NuMemDebugUnk006e1bb0(file, line);
+    return;
+  }
+  head = (MEMBLK_HEAD *)addr - 1;
+  tail = (MEMBLK_TAIL *)((char *)addr + head->size);
+  if (memcmp(tail->mark, blk_end, 12) != 0)
+    NuMemDebugUnk006e1bb0(file, line, tail);
+  if (memcmp(head->mark, blk_hdr, 12) != 0)
+    NuMemDebugUnk006e1bb0(file, line, head->mark);
+  if (head->succ == 0 && head->prev == 0)
+    NuMemDebugUnk006e1bb0(file, line);
+  if (head->succ != 0)
+    head->succ->prev = head->prev;
+  if (head->prev != 0)
+    head->prev->succ = head->succ;
+  else
+    alloc_list = head->succ;
+  totalloc -= head->size;
+  head->succ = 0;
+  head->prev = 0;
+  if (NuMem_Heap != 0)
+    NuHeapFree(NuMem_Heap, head);
+  else
+    free(head);
 }
 
 // Batman's version returns the previous heap.

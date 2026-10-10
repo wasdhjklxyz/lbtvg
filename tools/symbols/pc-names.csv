@@ -3911,7 +3911,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006e1c20,00197420,_NuMemSetExternal,_NuMemSetExternal,confirmed,0
 006e1d30,00197606,_NuMemFree,_NuMemFree,confirmed,0
 006e1d50,00197926,_NuMemAllocFn,_NuMemAllocFn,confirmed,0
-006e2090,00197564,_NuMemFreeFn,_NuMemFreeFn,calls,1
+006e2090,00197564,_NuMemFreeFn,_NuMemFreeFn,confirmed,0
 006e2470,001978b2,_NuMemCpy,_NuMemCpy,gapfill,1
 006e24d0,001978f2,_numeminit,_numeminit,confirmed,0
 006e24e0,001978fa,_NuMemGetExternal,_NuMemGetExternal,confirmed,0

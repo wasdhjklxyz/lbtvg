@@ -1084,7 +1084,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 ## NuMem
 
 - [ ] `006e2470` 84 B `_NuMemCpy`  **stub** · **hint** name (gapfill)
-- [ ] `006e2090` 450 B `_NuMemFreeFn`
+- [ ] `006e2090` 450 B `_NuMemFreeFn`  **stub**
 
 ## NuMovie
 

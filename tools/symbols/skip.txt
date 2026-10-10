@@ -272,3 +272,4 @@
 0x006e0650 GetLineW: switch register + case block order (jump table)
 0x006d5210 NuAPIInit: needs the 0xf4-byte nuapi struct at 0xadf648 (fields are separate globals; stores reschedule)
 0x006e0e90 NuStringTableLoadCSV: inliner choices differ (NuAsciiToUnicode called in orig), saga body
+0x006e2090 NuMemFreeFn: inlined memcmp result materialised in ours
