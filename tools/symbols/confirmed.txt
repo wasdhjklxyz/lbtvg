@@ -3130,3 +3130,9 @@
 00708150 NuDeferredFilterGen::destroyResources slot 2 of the NuDeferredFilterGen vtable 0x897e34
 00728920 NuMainFilterGen::NuMainFilterGen sets the NuMainFilterGen vtable 0x8982bc
 007289c0 NuMainFilterGen::destroyResources slot 2 of the NuMainFilterGen vtable 0x8982bc
+00729330 NuMotionAccumFilter::NuMotionAccumFilter sets the NuMotionAccumFilter vtable 0x8982e4 (Gen ctor inlined)
+00729360 NuMotionAccumFilter::~NuMotionAccumFilter inlined base dtors leave the NuPostFilterGen vtable
+00729370 NuSpeedBlurFilter::NuSpeedBlurFilter sets the NuSpeedBlurFilter vtable 0x89830c
+00729380 NuSpeedBlurFilter::~NuSpeedBlurFilter inlined base dtors leave the NuPostFilterGen vtable
+00729440 NuDeferredFilter::NuDeferredFilter sets the NuDeferredFilter vtable 0x89835c (Gen ctor inlined)
+00729460 NuDeferredFilter::~NuDeferredFilter inlined base dtors leave the NuPostFilterGen vtable

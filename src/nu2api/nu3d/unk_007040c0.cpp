@@ -31,6 +31,8 @@ struct NuSSAOFilterGen : NuPostFilterGen {
 // FUNCTION: LEGOBATMAN 0x007040c0
 NuSSAOFilterGen::NuSSAOFilterGen() {}
 
+// SYNTHETIC: LEGOBATMAN 0x00729d30 NuSSAOFilterGen::`scalar deleting destructor'
+
 // FUNCTION: LEGOBATMAN 0x007040f0
 void NuSSAOFilterGen::initResources() {}
 

@@ -137,3 +137,104 @@ void NuMotionFilterGen::destroyResources() {
   velocity_buffer.unregister();
   depth_buffer.unregister();
 }
+
+// The platform filters derived from the *Gen classes, constructed here with
+// their Gen constructors inlined.
+
+struct nueffecttex_s;
+
+struct NuMotionAccumFilterGen : NuPostFilterGen {
+  NuMotionAccumFilterGen() {
+    f10 = 0;
+    blend = 1.0f;
+    f18 = 0.0f;
+    frames = 1;
+    mode = 0;
+    current_frame = 0;
+    b28 = false;
+    b29 = false;
+  }
+  virtual void destroyResources();
+  virtual void destroyTextureResources();
+
+  nueffecttex_s *accumulation_texture; // 0x0c
+  i32 f10;                             // 0x10
+  f32 blend;                           // 0x14
+  f32 f18;                             // 0x18
+  i32 frames;                          // 0x1c
+  i32 mode;                            // 0x20
+  i32 current_frame;                   // 0x24
+  bool b28;                            // 0x28
+  bool b29;                            // 0x29
+};
+
+struct NuMotionAccumFilter : NuMotionAccumFilterGen {
+  NuMotionAccumFilter();
+  ~NuMotionAccumFilter();
+  virtual void initResources();
+  virtual void initTextureResources(i32 width, i32 height);
+  virtual void render();
+};
+
+// FUNCTION: LEGOBATMAN 0x00729330
+NuMotionAccumFilter::NuMotionAccumFilter() {}
+
+// FUNCTION: LEGOBATMAN 0x00729360
+NuMotionAccumFilter::~NuMotionAccumFilter() {}
+
+struct NuSpeedBlurFilterGen : NuPostFilterGen {
+  virtual void initResources();
+  virtual void destroyResources();
+  virtual void initTextureResources(i32 width, i32 height);
+  virtual void destroyTextureResources();
+};
+
+struct NuSpeedBlurFilter : NuSpeedBlurFilterGen {
+  NuSpeedBlurFilter();
+  ~NuSpeedBlurFilter();
+  virtual void initResources();
+  virtual void initTextureResources(i32 width, i32 height);
+  virtual void destroyTextureResources();
+  virtual void render();
+};
+
+// FUNCTION: LEGOBATMAN 0x00729370
+NuSpeedBlurFilter::NuSpeedBlurFilter() {}
+
+// FUNCTION: LEGOBATMAN 0x00729380
+NuSpeedBlurFilter::~NuSpeedBlurFilter() {}
+
+struct NuDeferredFilterGen : NuPostFilterGen {
+  NuDeferredFilterGen() {
+    enabled = false;
+    i38 = 0;
+    f3c = 0.0f;
+  }
+  virtual void destroyResources();
+  virtual void destroyTextureResources();
+  virtual void render();
+  virtual void resetAll();
+  virtual bool isEnabled();
+
+  u8 pad0c[0x38 - 0xc];
+  i32 i38; // 0x38
+  f32 f3c; // 0x3c
+};
+
+struct NuDeferredFilter : NuDeferredFilterGen {
+  NuDeferredFilter();
+  ~NuDeferredFilter();
+  virtual void initResources();
+  virtual void initTextureResources(i32 width, i32 height);
+  virtual void template_blurLuminanceMap();
+};
+
+// FUNCTION: LEGOBATMAN 0x00729440
+NuDeferredFilter::NuDeferredFilter() {}
+
+// FUNCTION: LEGOBATMAN 0x00729460
+NuDeferredFilter::~NuDeferredFilter() {}
+
+// SYNTHETIC: LEGOBATMAN 0x00729470 NuMotionAccumFilter::`scalar deleting destructor'
+// SYNTHETIC: LEGOBATMAN 0x00729490 NuSpeedBlurFilter::`scalar deleting destructor'
+// SYNTHETIC: LEGOBATMAN 0x007294d0 NuDeferredFilter::`scalar deleting destructor'

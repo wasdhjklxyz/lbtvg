@@ -39,6 +39,8 @@ NuProcessColourFilterGen::NuProcessColourFilterGen() {
   f10 = 0;
 }
 
+// SYNTHETIC: LEGOBATMAN 0x00729ad0 NuProcessColourFilterGen::`scalar deleting destructor'
+
 // FUNCTION: LEGOBATMAN 0x00701e60
 void NuProcessColourFilterGen::initResources() {}
 
