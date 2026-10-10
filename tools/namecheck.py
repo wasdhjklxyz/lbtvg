@@ -10,7 +10,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-DECL = re.compile(r"//\s*(?:FUNCTION|STUB):\s*LEGOBATMAN\s+0x([0-9a-fA-F]+)\n(?:\s*//.*\n)*\s*([^\n{;]*?)\s*(?:\{|;|$)", re.M)
+DECL = re.compile(r"//\s*(?:FUNCTION|STUB):\s*LEGOBATMAN\s+0x([0-9a-fA-F]+)\n(?:\s*//.*\n)*\s*([^{;]*?)\s*(?:\{|;)", re.M)
 # as in tools/match.py: operators, destructors, template members
 IDENT = re.compile(r"((?:[A-Za-z_~][\w~]*(?:<[^()]*>)?::)*"
                    r"(?:operator\s*(?:\(\)|[^\s(]+)|[A-Za-z_~][\w~]*)(?:<[^()]*>)?)\s*\(")
