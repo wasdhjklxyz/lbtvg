@@ -44,9 +44,19 @@ struct AICREATURE_s {
   u8 pad0[0x20];
   nuvec_s pos; // 0x20
   u16 y_rot;   // 0x2c
-  u8 pad2e[0x50 - 0x2e];
+  u8 pad2e[0x30 - 0x2e];
+  AIPATHINFO path_info; // 0x30
+  u8 pad4c[0x50 - 0x4c];
   i16 type; // 0x50, apicharsys character index
   u8 pad52[0xa8 - 0x52];
+};
+
+struct Unk_GameObject4 {
+  u8 pad0[0x120];
+  f32 radius; // 0x120, Action_BigJump jump_near_player
+  u8 pad124[0x13a - 0x124];
+  u16 route_mask; // 0x13a, bit per special route index
+  u8 route;       // 0x13c, 0xff = none
 };
 
 struct APICHARDATA_s {
@@ -589,6 +599,86 @@ extern nuvec_s v001;
 void NuVecRotateY(nuvec_s *v, nuvec_s *v0, i32 a);
 nuvec_s *NuSpecialGetDrawPos(nuhspecial_s *special);
 i32 NuSpecialExistsFn(nuhspecial_s *special);
+
+// STUB: LEGOBATMAN 0x00456e00
+// Only diff: the jump_near_player radius sum loads target->p4 before obj->p4
+// in the original; ours always loads obj's first (operand order, splitting
+// into locals and helper shapes tried).
+i32 Action_BigJump(AISYS_s *sys, AISCRIPTPROCESS_s *process, AIPACKET_s *packet,
+                   char **args, int argc, int flags, f32 time) {
+  f32 jump_factor = 1.0f;
+  i32 slam = 0;
+  i32 check_terrain = 0;
+  i32 to_origin = 0;
+  GameObject_s *target = NULL;
+  i32 near_player = 0;
+  nuvec_s dest = {1000000000.0f, 1000000000.0f, 1000000000.0f};
+  if (packet == NULL || packet->pd0 == NULL || packet->pd0->obj == NULL)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *value;
+      if (NuStrIStr(args[i], "jump_near_player") != NULL) {
+        near_player = 1;
+      } else if ((value = NuStrIStr(args[i], "tgt_character=")) != NULL) {
+        target = GetNamedGameObject(sys, value + 14);
+      } else if (NuStrICmp(args[i], "slam") == 0) {
+        slam = 1;
+      } else if (NuStrICmp(args[i], "to_origin") == 0) {
+        to_origin = 1;
+      } else if ((value = NuStrIStr(args[i], "jump_factor=")) != NULL) {
+        jump_factor = AIParamToFloat(process, value + 12);
+        if (jump_factor < 0.0f)
+          jump_factor = 0.0f;
+      } else if ((value = NuStrIStr(args[i], "x=")) != NULL) {
+        dest.x = AIParamToFloat(process, value + 2);
+      } else if ((value = NuStrIStr(args[i], "y=")) != NULL) {
+        dest.y = AIParamToFloat(process, value + 2);
+      } else if ((value = NuStrIStr(args[i], "z=")) != NULL) {
+        dest.z = AIParamToFloat(process, value + 2);
+      } else if (NuStrIStr(args[i], "to_camera") != NULL) {
+        nuvec_s offset;
+        dest = *(nuvec_s *)((u8 *)g_unk0095f624 + 0x11c);
+        offset = v001;
+        NuVecRotateY(&offset, &offset,
+                     *(i32 *)((u8 *)g_unk0095f624 + 0x1fc) + 0x8000);
+        NuVecScale(&offset, &offset, 5.0f);
+        NuVecAdd(&dest, &offset, &dest);
+      } else if (NuStrICmp(args[i], "check_terrain") == 0) {
+        check_terrain = 1;
+      }
+    }
+    if (to_origin && (obj->flags1f8 & 0x400) && obj->b3c8 != 0xff) {
+      AICREATURE_s *creature =
+          &(*(AICREATURE_s **)((u8 *)sys + 0x224))[obj->b3c8];
+      StartBigJump(obj, &creature->pos, slam, jump_factor, 1.0f, 0, 0);
+      *(AIPATHINFO *)((u8 *)obj + 0x3e8) = creature->path_info;
+      *(nuvec_s *)((u8 *)obj + 0x404) = creature->pos;
+    } else if (target != NULL) {
+      nuvec_s *safe = &((Unk_AIPacketObj *)target)->last_safe_pos;
+      dest = *safe;
+      if (near_player) {
+        f32 radius = obj->p4->radius + target->p4->radius;
+        NuVecSub(&dest, &dest, &obj->v80);
+        NuVecNorm(&dest, &dest);
+        NuVecScale(&dest, &dest, radius);
+        dest.y = 0.0f;
+        NuVecSub(&dest, safe, &dest);
+      }
+      StartBigJump(obj, &dest, slam, jump_factor, 1.0f, 0, 0);
+      *(AIPATHINFO *)((u8 *)obj + 0x3e8) =
+          *(AIPATHINFO *)((u8 *)target + 0x3e8);
+      *(nuvec_s *)((u8 *)obj + 0x404) = *(nuvec_s *)((u8 *)target + 0x404);
+    } else if (dest.x != 1000000000.0 && dest.y != 1000000000.0 &&
+               dest.z != 1000000000.0) {
+      StartBigJump(obj, &dest, slam, jump_factor, 1.0f, check_terrain, 0);
+    } else {
+      StartBigJump(obj, &obj->v80, slam, jump_factor, 1.0f, check_terrain, 0);
+    }
+  }
+  return obj->b9db != 0x1f;
+}
 
 // STUB: LEGOBATMAN 0x00457750
 // Only diff: in the x/y/z branches the original loads process before the
@@ -6634,12 +6724,6 @@ i32 Action_JudderGameCamera(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 1;
 }
-
-struct Unk_GameObject4 {
-  u8 pad0[0x13a];
-  u16 route_mask; // 0x13a, bit per special route index
-  u8 route;       // 0x13c, 0xff = none
-};
 
 struct SPECIALROUTE_s {
   u8 pad0[0x18];

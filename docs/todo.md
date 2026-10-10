@@ -329,7 +329,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `004678a0` 1236 B `Action_DynamicCameraCut_AddSubtitle(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `00457750` 1254 B `Action_SnapToPosition(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00458cd0` 1285 B `Action_AttackOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00456e00` 1294 B `Action_BigJump(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00456e00` 1294 B `Action_BigJump(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `0046b400` 1295 B `Action_PickUpItem(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `0046ad50` 1364 B `Action_UseLedge(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `00457ff0` 1413 B `Action_SnapToSockPosition(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
