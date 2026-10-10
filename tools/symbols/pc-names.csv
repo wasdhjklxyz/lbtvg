@@ -2496,6 +2496,20 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0065e780,002a38f0,__Z17LoadEditorSplinesP11WORLDINFO_sPcP9variptr_uS3_,"LoadEditorSplines(WORLDINFO_s*, char*, variptr_u*, variptr_u*)",strings,0
 00661c30,002dba26,__Z20GizTurret_FindByNameP14GIZTURRETSYS_sPc,"GizTurret_FindByName(GIZTURRETSYS_s*, char*)",confirmed,0
 00661d60,002dbb98,__Z14GizTurrets_HitPvP11GIZTURRET_sP7nuvec_sii,"GizTurrets_Hit(void*, GIZTURRET_s*, nuvec_s*, int, int)",confirmed,0
+00662a30,002d5252,__Z23GizSpecial_GetMaxGizmosPv,GizSpecial_GetMaxGizmos(void*),confirmed,0
+00662a50,002d5268,__Z20GizSpecial_AddGizmosP10GIZMOSYS_siPvS1_,"GizSpecial_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+00662c20,002d5480,__Z18GizSpecial_GetNameP12GIZSPECIAL_s,GizSpecial_GetName(GIZSPECIAL_s*),confirmed,0
+00662c30,002d5b2c,__Z21GizSpecial_FindByNamePcP11WORLDINFO_s,"GizSpecial_FindByName(char*, WORLDINFO_s*)",confirmed,0
+00662c90,002d5b88,__Z23GizSpecial_GetGizmoNameP7GIZMO_s,GizSpecial_GetGizmoName(GIZMO_s*),confirmed,0
+00662d20,002d550c,__Z24GizSpecial_GetOutputNameP7GIZMO_si,"GizSpecial_GetOutputName(GIZMO_s*, int)",confirmed,0
+00662d40,002d5532,__Z24GizSpecial_GetNumOutputsP7GIZMO_s,GizSpecial_GetNumOutputs(GIZMO_s*),confirmed,0
+00662d50,002d553c,__Z19GizSpecial_ActivateP7GIZMO_si,"GizSpecial_Activate(GIZMO_s*, int)",confirmed,0
+00662da0,002d55a0,__Z22GizSpecial_ActivateRevP7GIZMO_sii,"GizSpecial_ActivateRev(GIZMO_s*, int, int)",confirmed,0
+00662e20,002d562a,__Z24GizSpecial_SetVisibilityP7GIZMO_si,"GizSpecial_SetVisibility(GIZMO_s*, int)",confirmed,0
+00662f20,002d5696,__Z16GizSpecial_ResetPvS_S_,"GizSpecial_Reset(void*, void*, void*)",confirmed,0
+00662fc0,002d5766,__Z31GizSpecial_AllocateProgressDataP9variptr_uS0_,"GizSpecial_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+00662fe0,002d5788,__Z24GizSpecial_ClearProgressPvS_,"GizSpecial_ClearProgress(void*, void*)",confirmed,0
+00663020,002d57c2,__Z24GizSpecial_StoreProgressPvS_S_,"GizSpecial_StoreProgress(void*, void*, void*)",confirmed,0
 006633c0,002c259e,__Z17CheckGizAIMessageP17GIZAIMESSAGESYS_sPKcP14GIZAIMESSAGE_s,"CheckGizAIMessage(GIZAIMESSAGESYS_s*, char const*, GIZAIMESSAGE_s*)",calls,1
 00663540,002c2772,__Z25GizAIMessage_GetMaxGizmosPv,GizAIMessage_GetMaxGizmos(void*),confirmed,0
 00663550,002c277c,__Z22GizAIMessage_AddGizmosP10GIZMOSYS_siPvS1_,"GizAIMessage_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0

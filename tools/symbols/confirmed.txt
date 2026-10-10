@@ -2712,3 +2712,17 @@
 0066f3c0 Portals_ClearProgress clear_progress slot of the "Portal" ADDGIZMOTYPE
 0066f3d0 Portals_StoreProgress store_progress slot of the "Portal" ADDGIZMOTYPE
 0066f460 Portal_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Portal"
+00662a30 GizSpecial_GetMaxGizmos get_max_gizmos slot of the "NuSpecial" ADDGIZMOTYPE
+00662a50 GizSpecial_AddGizmos add_gizmos slot of the "NuSpecial" ADDGIZMOTYPE
+00662c90 GizSpecial_GetGizmoName get_gizmo_name slot of the "NuSpecial" ADDGIZMOTYPE
+00662d20 GizSpecial_GetOutputName get_output_name slot of the "NuSpecial" ADDGIZMOTYPE
+00662d40 GizSpecial_GetNumOutputs get_num_outputs slot of the "NuSpecial" ADDGIZMOTYPE
+00662d50 GizSpecial_Activate activate slot of the "NuSpecial" ADDGIZMOTYPE
+00662da0 GizSpecial_ActivateRev activate_rev slot of the "NuSpecial" ADDGIZMOTYPE
+00662e20 GizSpecial_SetVisibility set_visibility slot of the "NuSpecial" ADDGIZMOTYPE
+00662f20 GizSpecial_Reset reset slot of the "NuSpecial" ADDGIZMOTYPE
+00662fc0 GizSpecial_AllocateProgressData allocate_progress_data slot of the "NuSpecial" ADDGIZMOTYPE
+00662fe0 GizSpecial_ClearProgress clear_progress slot of the "NuSpecial" ADDGIZMOTYPE
+00663020 GizSpecial_StoreProgress store_progress slot of the "NuSpecial" ADDGIZMOTYPE
+00662c20 GizSpecial_GetName Mac global (returns special->name at 0), inlined into GetGizmoName
+00662c30 GizSpecial_FindByName Mac global (char*, WORLDINFO_s*), NuStrICmp over giz_special_sys

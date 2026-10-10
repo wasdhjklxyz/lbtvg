@@ -214,3 +214,4 @@
 004854e0 GizBombGens_SetResetFlag: bitfield insert layout differs, 5 forms tried
 00485d90 GizBombGen_FindByName: null checks before the pushes in ours, 4 forms tried
 0066f6f0 edGizShadow_Load: our cl inlines one SetPreset(shadow, 1) call the original keeps
+00662c30 GizSpecial_FindByName: register swap in the found-path address, 3 forms tried
