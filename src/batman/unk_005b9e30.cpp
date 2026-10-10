@@ -26,6 +26,7 @@ void Unk_InlineUser_005b9e30(f32 *v, f32 a, i32 i) {
 // 0x5bb4f0, Lever_MoveCode); callbacks named by their RegisterGizmo slot.
 
 #include "../nu2api/nu3d/nuspecial.h"
+#include "../nu2api/nucore/nulist.h"
 #include "leveldata_unk.h"
 #include "worldinfo_unk.h"
 #include <stddef.h>
@@ -828,4 +829,182 @@ ADDGIZMOTYPE *Levers_RegisterGizmo(i32 type_id) {
   addtype.fns[27] = NULL;
   lever_gizmotype_id = type_id;
   return &addtype;
+}
+
+// The GameObject_s fields Lever_MoveCode uses that gameobject_unk.h lacks.
+typedef struct LEVERUSER_s {
+  u8 pad0[8];
+  u8 anim_packet[1]; // 0x08
+  u8 pad9[0x50 - 9];
+  Unk_GameObject50 *model;      // 0x50
+  Unk_GameObject54 *model_data; // 0x54
+  u8 pad58[0x5a - 0x58];
+  i16 rot_y; // 0x5a
+  u8 pad5c[0x19c - 0x5c];
+  nuvec_s lower_pos; // 0x19c
+  u8 pad1a8[0x1dc - 0x1a8];
+  f32 radius; // 0x1dc
+  u8 pad1e0[0x1fc - 0x1e0];
+  u8 b1fc; // 0x1fc
+  u8 pad1fd[0x24d - 0x1fd];
+  i8 b24d; // 0x24d
+  u8 pad24e[0x988 - 0x24e];
+  f32 f988; // 0x988
+  f32 f98c; // 0x98c
+  u8 pad990[0x998 - 0x990];
+  f32 f998; // 0x998
+  u8 pad99c[0x9bc - 0x99c];
+  LEVER *lever; // 0x9bc
+  u8 pad9c0[0x9c4 - 0x9c0];
+  void *p9c4; // 0x9c4
+  u8 pad9c8[0x9d0 - 0x9c8];
+  i16 anim; // 0x9d0
+  u8 pad9d2[0x9db - 0x9d2];
+  char context; // 0x9db
+  u8 pad9dc[0x9e4 - 0x9dc];
+  u32 flags9e4; // 0x9e4
+  u8 pad9e8[0xb18 - 0x9e8];
+  NULISTHDR items; // 0xb18
+  u8 padb20[0xb64 - 0xb20];
+  void *pb64; // 0xb64
+  u8 padb68[0xb82 - 0xb68];
+  u8 bb82; // 0xb82
+  u8 padb83[0x112c - 0xb83];
+  Unk_GameObject112c *pad; // 0x112c
+  u8 pad1130[0x1144 - 0x1130];
+  u8 *p1144; // 0x1144
+  u8 pad1148[0x1420 - 0x1148];
+  u8 b1420; // 0x1420
+  u8 pad1421[0x15b0 - 0x1421];
+  i16 type15b0; // 0x15b0
+} LEVERUSER;
+
+// GLOBAL: LEGOBATMAN 0x00961a44
+extern i16 g_unk00961a44; // lever pull anim
+// GLOBAL: LEGOBATMAN 0x009605c0
+extern i32 g_unk009605c0;
+// GLOBAL: LEGOBATMAN 0x0095f730
+extern u32 g_unk0095f730; // special button
+// GLOBAL: LEGOBATMAN 0x00960e08
+extern i32 g_unk00960e08;
+
+f32 AnimListFrame(void *model, i32 animation, i32 frame);
+f32 *AnimPlaying(void *packet, i32 animation, i32 target, i32 source);
+f32 AnimDuration(i32 id, i32 anim, f32 a, f32 b, i32 c);
+void Unk_ObjAction00402685(void *a, void *obj, i32 b, i32 c, i32 d, i32 e);
+i32 Unk_objInNetWaitContext004019ba(void *obj, i32 context);
+i32 Unk_ObjLandReady005cfd10(void *obj);
+NULISTLNK *NuListGetHead(NULISTHDR *list);
+i32 Unk_0062bf50(void *obj, i32 kind);
+void Unk_0062c880(void *obj, LEVER *lever, i32 kind);
+LEVER *Unk_0062c340(void *obj);
+void Unk_005d52f0(i32 hint);
+
+// FUNCTION: LEGOBATMAN 0x005bb620
+void Lever_MoveCode(WORLDINFO_s *world, GameObject_s *object) {
+  LEVERUSER *obj = (LEVERUSER *)object;
+  f32 distance = 1000000000.0f;
+  if (obj->context == g_unk00960540) {
+    obj->f988 += FRAMETIME;
+    if (obj->f988 > 1.0f)
+      obj->f988 = 1.0f;
+    i32 done = 0;
+    obj->f98c += FRAMETIME;
+    if (obj->f98c >= obj->f998) {
+      obj->context = -1;
+      if (obj->flags9e4 & 0x40)
+        return;
+    } else {
+      if (obj->flags9e4 & 0x40)
+        return;
+      if (((void **)obj->model->p0c)[obj->anim] != NULL) {
+        f32 end = AnimListFrame(obj->model, obj->anim, 0);
+        if (end > 0.0f) {
+          f32 *playing = AnimPlaying(obj->anim_packet, obj->anim, 1, 0);
+          if (playing != NULL && *playing >= end)
+            done = 1;
+        }
+      }
+      if (obj->lever != NULL) {
+        if (obj->lever->s96 & 1) {
+          if (obj->p1144 == NULL || !(obj->p1144[0x14] & 1)) {
+            Lever_Reset(obj->lever);
+            obj->context = -1;
+            Unk_ObjAction00402685(NULL, obj, 1, 0, 0, 1);
+          }
+        }
+      } else if (obj->f98c >= 0.25f) {
+        done = 1;
+      }
+      if (!done)
+        return;
+    }
+    if (obj->model_data->model_flags & 4)
+      obj->lever->baddie = 1;
+    else if (!(obj->model_data->model_flags & 0x200))
+      obj->lever->goodie = 1;
+    obj->lever->state |= 0x800;
+    obj->flags9e4 |= 0x40;
+    return;
+  }
+  if (g_unk00961a44 == -1)
+    return;
+  if (((void **)obj->model->p0c)[g_unk00961a44] == NULL)
+    return;
+  if (obj->b24d == 0)
+    return;
+  if (obj->context == g_unk009605c0)
+    return;
+  if (!Unk_ObjLandReady005cfd10(obj) &&
+      !Unk_objInNetWaitContext004019ba(obj, g_unk00960540))
+    return;
+  if (!(obj->b1fc & 0x80) && obj->b1420 != 10)
+    return;
+  if (!(obj->model_data->p24->flags148 & 0x80000000)) {
+    NULISTLNK *head = NuListGetHead(&obj->items);
+    if (head != NULL && ((u8 *)head)[0x26] == 2)
+      return;
+  }
+  LEVER *lever;
+  if (Unk_0062bf50(obj, 0x1d)) {
+    lever = Lever_FindNearest(world, &obj->lower_pos, object, &distance);
+    if (lever != NULL) {
+      f32 range = (obj->radius + 0.25f) * lever->f84;
+      range = range * range;
+      if (distance < range)
+        Unk_0062c880(obj, lever, 0x1d);
+    }
+  }
+  if (obj->b1420 != 10) {
+    lever = NULL;
+    if (obj->pb64 != NULL && obj->bb82 == 0x1d)
+      lever = Unk_0062c340(obj);
+  }
+  if (Unk_objInNetWaitContext004019ba(obj, g_unk00960540)) {
+    obj->f98c -= FRAMETIME;
+    if (obj->f98c <= 0.0f) {
+      obj->context = -1;
+      obj->p9c4 = NULL;
+    }
+  }
+  if (lever == NULL)
+    return;
+  if (!(obj->pad->buttons8 & g_unk0095f730) &&
+      !Unk_objInNetWaitContext004019ba(obj, g_unk00960540))
+    return;
+  obj->context = g_unk00960540;
+  obj->lever = lever;
+  obj->anim = g_unk00961a44;
+  obj->f98c = 0.0f;
+  obj->f988 = 0.0f;
+  obj->f998 = AnimDuration(obj->type15b0, obj->anim, 0.0f, 0.0f, 1);
+  if (obj->f998 <= 0.0f)
+    obj->f998 = 1.0f;
+  obj->flags9e4 &= ~0x40;
+  obj->rot_y = obj->lever->rot_y;
+  obj->lever->state |= 1;
+  obj->lever->pull = 0.0f;
+  obj->lever->f7c = 0.0f;
+  if (obj->b1fc & 0x80)
+    Unk_005d52f0(g_unk00960e08);
 }
