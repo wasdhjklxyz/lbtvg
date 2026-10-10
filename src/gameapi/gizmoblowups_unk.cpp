@@ -2,6 +2,7 @@
 
 #include "../batman/leveldata_unk.h"
 #include "../batman/worldinfo_unk.h"
+#include "../nu2api/nu3d/nuspecial.h"
 #include "../nu2api/nucore/nustring.h"
 #include "../nu2api/numath/nuinline_unk.h"
 #include "../nu2api/numath/nutrig_unk.h"
@@ -18,34 +19,51 @@ static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 struct GIZMOBLOWUP_s {
   u8 pad0[0x30];
   nuvec_s position; // 0x30
-  u8 pad3c[0xa0 - 0x3c];
-  u32 blown_up : 1;  // 0xa0
-  u32 punched : 1;   // 0xa0 bit 1
-  u32 bits2 : 12;    // 0xa0 bits 2-13
-  u32 visible : 1;   // 0xa0 bit 14
-  u32 bits15 : 8;    // 0xa0 bits 15-22
-  u32 activated : 1; // 0xa0 bit 23
-  u32 bits24 : 4;    // 0xa0 bits 24-27
-  u32 secondary : 1; // 0xa0 bit 28
-  u32 bits29 : 3;    // 0xa0 bits 29-31
-  u8 pada4[0xfe - 0xa4];
+  u8 pad3c[0x40 - 0x3c];
+  nuvec_s initial_position; // 0x40
+  u8 pad4c[0x58 - 0x4c];
+  nuvec_s f58; // 0x58
+  u8 pad64[0xa0 - 0x64];
+  u32 blown_up : 1;     // 0xa0
+  u32 punched : 1;      // 0xa0 bit 1
+  u32 bits2 : 12;       // 0xa0 bits 2-13
+  u32 visible : 1;      // 0xa0 bit 14
+  u32 b15 : 1;          // 0xa0 bit 15
+  u32 b16 : 1;          // 0xa0 bit 16
+  u32 bits17 : 2;       // 0xa0 bits 17-18
+  u32 b19 : 1;          // 0xa0 bit 19
+  u32 anim_playing : 1; // 0xa0 bit 20
+  u32 b21 : 1;          // 0xa0 bit 21
+  u32 b22 : 1;          // 0xa0 bit 22
+  u32 activated : 1;    // 0xa0 bit 23
+  u32 b24 : 1;          // 0xa0 bit 24
+  u32 bits25 : 3;       // 0xa0 bits 25-27
+  u32 secondary : 1;    // 0xa0 bit 28
+  u32 b29 : 1;          // 0xa0 bit 29
+  u32 bits30 : 2;       // 0xa0 bits 30-31
+  u8 pada4[0xa8 - 0xa4];
+  u16 sa8; // 0xa8
+  u8 padaa[0xb0 - 0xaa];
+  struct GIZMOBLOWUPTYPE_s *type; // 0xb0
+  u8 padb4[0xfe - 0xb4];
   char name[0x10]; // 0xfe
   i16 platform_id; // 0x10e
-  u8 pad110[0x122 - 0x110];
-  u8 b122_0 : 1; // 0x122
-  u8 b122_1 : 4; // 0x122 bits 1-4
-  u8 b122_5 : 1; // 0x122 bit 5
-  u8 pad123[0x128 - 0x123];
+  u8 pad110[0x11a - 0x110];
+  u8 b11a; // 0x11a
+  u8 b11b; // 0x11b
+  u8 b11c; // 0x11c
+  u8 b11d; // 0x11d
+  u8 pad11e[0x122 - 0x11e];
+  u16 b122_0 : 1; // 0x122
+  u16 b122_1 : 4; // 0x122 bits 1-4
+  u16 b122_5 : 1; // 0x122 bit 5
+  u8 pad124[0x128 - 0x124];
   f32 scale; // 0x128
 };
 
 typedef struct GIZMO_s {
   void *object;
 } GIZMO;
-
-struct numtx_s {
-  f32 m[16];
-};
 
 // GLOBAL: LEGOBATMAN 0x009696f0
 extern numtx_s numtx_identity;
@@ -247,11 +265,66 @@ void Blowup_StoreProgress(void *world_ptr, void *unused, void *progress_ptr) {
 }
 
 struct GIZMOBLOWUPTYPE_s {
-  u8 pad0[0x102];
+  u8 pad0[0x30];
+  nuhspecial_s animated_special; // 0x30
+  u8 pad3c[0x102 - 0x3c];
   i16 sfx0; // 0x102
   i16 sfx1; // 0x104
-  u8 pad106[0x10c - 0x106];
+  i8 b106;  // 0x106
+  u8 pad107[0x10c - 0x107];
 };
+
+typedef struct NUINSTANIM_UNK_s {
+  u8 pad0[0x50];
+  u32 playing : 1;   // 0x50
+  u32 bits1 : 2;     // 0x50 bits 1-2
+  u32 repeating : 1; // 0x50 bit 3
+} NUINSTANIM_UNK;
+
+NUINSTANIM_UNK *NuSpecialGetInstAnim(nuhspecial_s *sp);
+typedef struct UNK005EE1A0_s {
+  u8 pad0[0x30];
+  u64 flags; // 0x30
+} UNK005EE1A0;
+
+UNK005EE1A0 *Unk005ee1a0(i32 id);
+void GameAudio_PlaySfxById(i32 sfx_id, nuvec_s *position, i32 a, i32 b);
+
+// FUNCTION: LEGOBATMAN 0x005d8ed0
+void Blowup_Reset(GIZMOBLOWUP_s *blowup) {
+  blowup->scale = 1.0f;
+  blowup->b122_5 = 1;
+  blowup->blown_up = 0;
+  blowup->b15 = 0;
+  blowup->b24 = 0;
+  blowup->b29 = 0;
+  blowup->visible = 1;
+  blowup->activated = 1;
+  blowup->b11c = blowup->b11d;
+  blowup->b11a = blowup->b11b;
+  NUINSTANIM_UNK *anim = NuSpecialGetInstAnim(&blowup->type->animated_special);
+  if (anim != NULL && anim->playing) {
+    blowup->anim_playing = 1;
+    if (anim->repeating) {
+      blowup->b19 = 1;
+      blowup->b22 = 1;
+    }
+  }
+  blowup->position = blowup->initial_position;
+  blowup->b16 = 1;
+  if (blowup->type != NULL && blowup->type->b106 != -1) {
+    blowup->sa8 = 0;
+    UNK005EE1A0 *info = Unk005ee1a0(blowup->type->b106);
+    if (info != NULL) {
+      if (info->flags & 0x80000)
+        blowup->sa8 = 1;
+      else
+        blowup->sa8 = 4;
+    }
+  } else {
+    blowup->sa8 &= ~4;
+  }
+}
 
 void AddLevelSfxFromId(i32 sfx_id, i32 *sfx_ids, i32 *sfx_count, i32 max_sfx);
 
@@ -296,7 +369,32 @@ void Blowups_SetUnk525c(void *world_ptr) {
   ((WORLDINFO_s *)world_ptr)->f525c = 100.0f;
 }
 
-void Blowup_Activate(GIZMO *gizmo, i32 enabled);
+// FUNCTION: LEGOBATMAN 0x005dedf0
+void Blowup_Activate(GIZMO *gizmo, i32 enabled) {
+  if (gizmo == NULL)
+    return;
+  GIZMOBLOWUP_s *blowup = (GIZMOBLOWUP_s *)gizmo->object;
+  if (!blowup->activated && enabled) {
+    blowup->b122_0 = 0;
+    blowup->secondary = 0;
+  }
+  blowup->activated = enabled != 0;
+  blowup->b122_5 = enabled != 0;
+  NUINSTANIM_UNK *anim = NuSpecialGetInstAnim(&blowup->type->animated_special);
+  if (anim != NULL) {
+    if (!enabled) {
+      anim->playing = 0;
+      return;
+    }
+    if (blowup->anim_playing)
+      anim->playing = 1;
+  }
+  if (enabled) {
+    Blowup_Reset(blowup);
+    if (blowup->type->sfx1 != -1)
+      GameAudio_PlaySfxById(blowup->type->sfx1, &blowup->f58, 0, 0);
+  }
+}
 
 // FUNCTION: LEGOBATMAN 0x005deed0
 i32 Blowup_ActivateRev(GIZMO *gizmo, i32 active, i32 flags) {

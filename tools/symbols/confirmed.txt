@@ -3189,3 +3189,4 @@
 005dedf0 Blowup_Activate NewBlowup_RegisterGizmo activate slot (fns[10])
 005def20 Blowups_Reset NewBlowup_RegisterGizmo reset slot (fns[22])
 005dbd80 gizmoblowup_Load NewBlowup_RegisterGizmo load slot (fns[24])
+005d8ed0 Blowup_Reset Mac name order (after Blowup_GetNumOutputs); called by Blowup_Activate and the reset loop

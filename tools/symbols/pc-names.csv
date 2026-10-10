@@ -1914,6 +1914,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005d8d50,002c5c04,__Z27Blowup_AllocateProgressDataP9variptr_uS0_,"Blowup_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
 005d8d70,002c5c26,__Z20Blowup_ClearProgressPvS_,"Blowup_ClearProgress(void*, void*)",confirmed,0
 005d8de0,002c5cba,__Z20Blowup_StoreProgressPvS_S_,"Blowup_StoreProgress(void*, void*, void*)",confirmed,0
+005d8ed0,002c591a,__Z12Blowup_ResetP13GIZMOBLOWUP_s,Blowup_Reset(GIZMOBLOWUP_s*),confirmed,0
 005d9190,002c5fe0,__Z24GizmoBlowups_AddLevelSfxPvS_PiS0_i,"GizmoBlowups_AddLevelSfx(void*, void*, int*, int*, int)",confirmed,0
 005d9810,002c684e,__Z36GizmoBlowupAddDefaultExplosionDebrisP7nuvec_s,GizmoBlowupAddDefaultExplosionDebris(nuvec_s*),confirmed,0
 005d9e20,002c6fce,__Z17GizmoBlowupBlowupP13GIZMOBLOWUP_siiiP12GameObject_si,"GizmoBlowupBlowup(GIZMOBLOWUP_s*, int, int, int, GameObject_s*, int)",confirmed,0
