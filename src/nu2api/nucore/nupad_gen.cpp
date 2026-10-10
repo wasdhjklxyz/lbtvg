@@ -4146,6 +4146,52 @@ void NuFileEndBlkRead(int file) {
                nufile_blkinfo[index].position + nufile_blkinfo[index].size, 0);
 }
 
+struct NuFileWriteBlock {
+  int tag;
+  int size_sign;
+  __int64 position;
+};
+// GLOBAL: LEGOBATMAN 0x00afc850
+static NuFileWriteBlock nufile_wblkinfo[1024];
+// GLOBAL: LEGOBATMAN 0x0099f278
+static int wblkcnt = 1;
+// GLOBAL: LEGOBATMAN 0x0099f27c
+static int iff_padsize = 16;
+
+// FUNCTION: LEGOBATMAN 0x006d9750
+void NuFileBeginBlkWrite(int file, int tag, int negative_size) {
+  int index = wblkcnt++;
+  nufile_wblkinfo[index].position = NuFilePos(file);
+  nufile_wblkinfo[index].tag = tag;
+  nufile_wblkinfo[index].size_sign = negative_size == 1 ? -1 : 1;
+  NuFileWriteInt(file, tag);
+  NuFileWriteInt(file, tag);
+}
+
+// FUNCTION: LEGOBATMAN 0x006d97b0
+void NuFileEndBlkWrite(int file) {
+  __int64 position;
+  int index;
+  int padding;
+  int size;
+  int zero = 0;
+
+  index = --wblkcnt;
+  position = NuFilePos(file);
+  size = position - nufile_wblkinfo[index].position;
+  padding = iff_padsize - size % iff_padsize;
+  if (padding != iff_padsize) {
+    position += padding;
+    size = size + padding;
+    NuFileWrite(file, &zero, padding);
+  }
+  if (nufile_wblkinfo[index].size_sign < 0)
+    size = -size;
+  NuFileSeek(file, nufile_wblkinfo[index].position + 4, 0);
+  NuFileWrite(file, &size, 4);
+  NuFileSeek(file, position, 0);
+}
+
 static inline char NuFileReadChar(int file) {
   char value = 0;
   NuFileRead(file, &value, 1);

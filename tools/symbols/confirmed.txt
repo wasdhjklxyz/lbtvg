@@ -3514,3 +3514,5 @@
 006d96f0 NuFileEndBlkRead saga nufile_plain.cpp body
 006dec40 NuFileAlignRead saga nufile_plain.cpp body (NuFileReadChar inlined)
 006d3630 Unk006d3630 returns nufile_blkinfo[blkcnt - 1].size (current read block size)
+006d9750 NuFileBeginBlkWrite saga nufile_plain.cpp body (wblkcnt 0x99f278, nufile_wblkinfo 0xafc850)
+006d97b0 NuFileEndBlkWrite saga nufile_plain.cpp body (iff_padsize 0x99f27c)
