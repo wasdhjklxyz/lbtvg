@@ -2617,3 +2617,10 @@
 00491b10 GizTorp_Draw           draw slot of the Torp Machine ADDGIZMOTYPE
 004916f0 GizTorp_Load           load slot of the Torp Machine ADDGIZMOTYPE
 00491810 GizTorps_ReserveBufferSpace reserve_buffer_space slot of the Torp Machine ADDGIZMOTYPE
+00490780 GizPanel_GetGizmoName  get_gizmo_name slot of the "Panel" ADDGIZMOTYPE (GizPanel_RegisterGizmo 0x491540)
+004907b0 GizPanel_GetOutput     get_output slot of the "Panel" ADDGIZMOTYPE
+004907e0 GizPanel_GetOutputName get_output_name slot ("Finished") of the "Panel" ADDGIZMOTYPE
+00490800 GizPanel_GetNumOutputs get_num_outputs slot of the "Panel" ADDGIZMOTYPE
+00490810 GizPanels_AllocateProgressData allocate_progress_data slot of the "Panel" ADDGIZMOTYPE
+00490830 GizPanels_ClearProgress clear_progress slot of the "Panel" ADDGIZMOTYPE
+00491540 GizPanel_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Panel"

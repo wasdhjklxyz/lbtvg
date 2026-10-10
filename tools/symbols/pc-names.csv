@@ -575,7 +575,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0048c2e0,000aae98,__Z23GizmoPickup_CollectCoinP11WORLDINFO_sP7nuvec_siiP12GameObject_si,"GizmoPickup_CollectCoin(WORLDINFO_s*, nuvec_s*, int, int, GameObject_s*, int)",strings,0
 0048d650,000ac170,__Z18PowerUp_ImpactPartP6PART_s,PowerUp_ImpactPart(PART_s*),strings,0
 0048f750,000ad826,__Z15GizPanel_UpdatePvS_f,"GizPanel_Update(void*, void*, float)",strings,0
+00490780,000ae72a,__Z21GizPanel_GetGizmoNameP7GIZMO_s,GizPanel_GetGizmoName(GIZMO_s*),confirmed,0
+004907b0,000ae754,__Z18GizPanel_GetOutputP7GIZMO_sii,"GizPanel_GetOutput(GIZMO_s*, int, int)",confirmed,0
+004907e0,000ae77c,__Z22GizPanel_GetOutputNameP7GIZMO_si,"GizPanel_GetOutputName(GIZMO_s*, int)",confirmed,0
+00490800,000ae790,__Z22GizPanel_GetNumOutputsP7GIZMO_s,GizPanel_GetNumOutputs(GIZMO_s*),confirmed,0
+00490810,000ae79a,__Z30GizPanels_AllocateProgressDataP9variptr_uS0_,"GizPanels_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+00490830,000ae7bc,__Z23GizPanels_ClearProgressPvS_,"GizPanels_ClearProgress(void*, void*)",confirmed,0
 00490b20,000aee18,__Z17GizPanel_MoveCodeP11WORLDINFO_sP12GameObject_si,"GizPanel_MoveCode(WORLDINFO_s*, GameObject_s*, int)",strings,0
+00491540,000ae95e,__Z22GizPanel_RegisterGizmoi,GizPanel_RegisterGizmo(int),confirmed,0
 004916f0,000af31a,__Z12GizTorp_LoadPvS_,"GizTorp_Load(void*, void*)",confirmed,0
 00491810,000af41a,__Z27GizTorps_ReserveBufferSpacePv,GizTorps_ReserveBufferSpace(void*),confirmed,0
 00491900,000af4e6,__Z21GizTorp_SetVisibilityP7GIZMO_si,"GizTorp_SetVisibility(GIZMO_s*, int)",confirmed,0
