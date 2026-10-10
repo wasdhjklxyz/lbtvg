@@ -24,10 +24,23 @@ void Unk00678b90(char *name); // empty in the release build
 struct WORLDINFO_s;
 struct nugscn_s;
 
+// Raw view of AREADATA_s.
+struct WMAREA_s {
+  u8 pad00[0x40];
+  char name[0x3c]; // 0x40
+  u8 flags;        // 0x7c
+  u8 pad7d[0x84 - 0x7d];
+  u8 id; // 0x84
+};
+
 // Mac: WorldMapLocation (0x50 bytes, 16 of them in WorldMapInfo).
 struct WMLOCATION_s {
-  u8 pad00[0x38];
-  i32 id; // 0x38
+  u8 pad00[0x20];
+  WMAREA_s *area; // 0x20
+  u8 pad24[0x30 - 0x24];
+  i32 open;     // 0x30
+  i32 complete; // 0x34
+  i32 id;       // 0x38
   u8 pad3c[0x50 - 0x3c];
 };
 
@@ -55,6 +68,9 @@ public:
   static void parse_worldmap_start(NUFPAR *fp);
   void DumpLevel(WORLDINFO_s *world);
   i32 GetLocationId(i32 id) const;
+  WMLOCATION_s *GetLocation(WMAREA_s const *area);
+  i32 GetLastCompletedLocationId() const;
+  void SetAreaOpenComplete(i32 area_id, i32 open, i32 complete);
 
   void *vtable;
   u8 pad004[0x10 - 4];
@@ -104,6 +120,16 @@ public:
 
 void NuGScnRemove(nugscn_s *scene);
 
+// FUNCTION: LEGOBATMAN 0x00678e00
+void WorldMapBase::SetAreaOpenComplete(i32 area_id, i32 open, i32 complete) {
+  for (i32 i = 0; i < location_count; i++) {
+    if (locations[i].area != 0 && locations[i].area->id == area_id) {
+      locations[i].complete = complete;
+      locations[i].open = open;
+    }
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x00678fc0
 void WorldMapBase::DumpLevel(WORLDINFO_s *world) {
   ((InteractiveDisplay *)this)->DumpLevel(world);
@@ -116,6 +142,17 @@ void WorldMapBase::DumpLevel(WORLDINFO_s *world) {
   }
 }
 
+// FUNCTION: LEGOBATMAN 0x006794c0
+WMLOCATION_s *WorldMapBase::GetLocation(WMAREA_s const *area) {
+  if (area == 0)
+    return 0;
+  for (u32 i = 0; i < (u32)location_count; i++) {
+    if (locations[i].area == area)
+      return &locations[i];
+  }
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x00679540
 i32 WorldMapBase::GetLocationId(i32 id) const {
   for (i32 i = 0; i < location_count; i++) {
@@ -123,6 +160,21 @@ i32 WorldMapBase::GetLocationId(i32 id) const {
       return i;
   }
   return i360;
+}
+
+// FUNCTION: LEGOBATMAN 0x006797c0
+i32 WorldMapBase::GetLastCompletedLocationId() const {
+  i32 current = i360;
+  i32 count = location_count;
+  i32 last = -1;
+  for (i32 i = 0; i < count; i++) {
+    if (locations[i].area == 0 || (locations[i].area->flags & 4))
+      break;
+    if (i != current && locations[i].complete == 0)
+      break;
+    last = i;
+  }
+  return last;
 }
 
 // FUNCTION: LEGOBATMAN 0x00679810
