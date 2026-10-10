@@ -1296,6 +1296,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005e9330,0026be1c,__Z24Bolt_ObjTargetPosYAdjustP12GameObject_s,Bolt_ObjTargetPosYAdjust(GameObject_s*),confirmed,0
 005e9670,0026bff0,__Z22BoltSys_FixUpBoltTypesP11WORLDINFO_s,BoltSys_FixUpBoltTypes(WORLDINFO_s*),confirmed,0
 005e9790,0026c140,__Z12BoltSys_InitPcP7BOLTSYSP9variptr_uS3_,"BoltSys_Init(char*, BOLTSYS*, variptr_u*, variptr_u*)",strings,0
+005e9b00,00271612,__ZN10NetMessage8PushBackEPKvii,"NetMessage::PushBack(void const*, int, int)",confirmed,0
+005e9b90,00271514,__ZN10NetMessage8PopFrontEPKvii,"NetMessage::PopFront(void const*, int, int)",confirmed,0
 005eabf0,0026c3c4,__Z19BoltTypes_ConfigureP11WORLDINFO_sPc,"BoltTypes_Configure(WORLDINFO_s*, char*)",strings,0
 005ee210,0030dc84,__Z30PlayerItemTypeSys_ParseLocatorP8nufpar_sP16PLAYERITEMTYPE_si,"PlayerItemTypeSys_ParseLocator(nufpar_s*, PLAYERITEMTYPE_s*, int)",strings,0
 005ee5a0,0031300c,__Z22PlayerItemTypeSys_LoadPcP8nugscn_sP9variptr_uS3_,"PlayerItemTypeSys_Load(char*, nugscn_s*, variptr_u*, variptr_u*)",strings,0

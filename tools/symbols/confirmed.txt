@@ -2033,3 +2033,5 @@
 005e92e0 Bolt_GetShootDirection_Default Mac order + saga body (facing angle 0x5a, returns it)
 005e9330 Bolt_ObjTargetPosYAdjust Mac order + saga body (qrand * 2h / 65535 - h)
 005e9670 BoltSys_FixUpBoltTypes Mac order (between Bolt_Debris_Default and BoltSys_Init), uses BoltSys fixup table + FindByName/FindIDByName; matched
+005e9b00 NetMessage::PushBack Mac order (PopFront<T>..., PushBack(void const*, int, int)); copies at the write cursor, byte-swaps 2/4-byte items; matched
+005e9b90 NetMessage::PopFront Mac order, (void const*, int, int) overload; copies from the read cursor; matched

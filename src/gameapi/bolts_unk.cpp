@@ -725,3 +725,63 @@ void BoltTypes_Configure(BTWorld_s *world, char *config) {
   }
   NuFParDestroy(parser);
 }
+
+void *NuMemCpy(void *dst, const void *src, u32 size);
+void Unk0059cb90(void *p); // swaps 2 bytes in place
+void Unk0059cba0(void *p); // swaps 4 bytes in place
+
+// Mac: NetMessage (only the buffer and the two cursors are evidenced).
+struct NetMessage {
+  void PopFront(const void *dst, i32 size, i32 count);
+  void PushBack(const void *src, i32 size, i32 count);
+
+  u8 *data;  // 0x0
+  i32 read;  // 0x4
+  i32 write; // 0x8
+};
+
+// FUNCTION: LEGOBATMAN 0x005e9b00
+void NetMessage::PushBack(const void *src, i32 size, i32 count) {
+  if (data == 0)
+    return;
+  i32 total = size * count;
+  NuMemCpy(data + write, src, total);
+  if (size > 1) {
+    u8 *p = data + write;
+    for (i32 i = 0; i < count; i++) {
+      switch (size) {
+      case 2:
+        Unk0059cb90(p);
+        break;
+      case 4:
+        Unk0059cba0(p);
+        break;
+      }
+      p += size;
+    }
+  }
+  write += total;
+}
+
+// FUNCTION: LEGOBATMAN 0x005e9b90
+void NetMessage::PopFront(const void *dst, i32 size, i32 count) {
+  if (data == 0)
+    return;
+  i32 total = size * count;
+  NuMemCpy((void *)dst, data + read, total);
+  if (size > 1) {
+    u8 *p = (u8 *)dst;
+    for (i32 i = 0; i < count; i++) {
+      switch (size) {
+      case 2:
+        Unk0059cb90(p);
+        break;
+      case 4:
+        Unk0059cba0(p);
+        break;
+      }
+      p += size;
+    }
+  }
+  read += total;
+}
