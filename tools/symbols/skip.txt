@@ -188,3 +188,4 @@
 005e9330 Bolt_ObjTargetPosYAdjust: (h+h)/65535.0 hoisted above qrand in ours; 4 spellings tried
 00670d30 FadeSystem_PlayWipeSfx: area/flags register swap (mov eax, ecx); 3 forms tried
 00708160 NuDeferredFilterGen::initTextureResources: (width/2 == width) bool computed via xor/sete cl in original; 10 spellings tried
+0053a990 WavReader::Read: register assignment of size/bytes/blocks differs, frame 4 bytes short; 6 variants tried

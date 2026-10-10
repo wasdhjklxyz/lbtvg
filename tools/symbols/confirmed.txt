@@ -2103,3 +2103,8 @@
 0051b0e0 WorldMap::InitializePerm vtable 0x85d874 slot 0 (RTTI) + Mac body (beacon ring, four GetMaterial); matched
 0051b2b0 WorldMap::InitializeLevel vtable 0x85d874 slot 1 (RTTI) + Mac body (circle_a, map_icons.gsc); matched
 005166a0 ShopComputer::InitializePerm vtable 0x85d8f4 slot 0 (RTTI) + Mac body (LoadSettings, characterFrameMaterial/characterIconMaterial%i); matched
+0053a630 WavReader::~WavReader stores vtable 0x8675cc (RTTI), CloseHandle body as on the Mac; matched
+0053a650 WavReader::FindChunk Mac order after the dtor + body (fourcc compare, skip by chunk size); matched
+0053a710 WavReader::LeaveChunk Mac order after FindChunk + body (seek past chunk); matched
+0053a760 WavReader::Open vtable 0x8675cc slot 1 (RTTI) Open(nudathdr_s*, char*, WAVEFORMATEX*), RIFF/WAVE/"fmt "/"data"; matched
+0053a990 WavReader::Read vtable 0x8675cc slot 7 (RTTI) + Mac body
