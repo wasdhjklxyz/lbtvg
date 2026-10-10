@@ -23,14 +23,15 @@ void Unk_InlineUser_00629750(f32 *v, f32 a, i32 i) {
 #include "../batman/leveldata_unk.h"
 #include "../batman/worldinfo_unk.h"
 #include <stddef.h>
+#include <string.h>
 
 typedef struct SECURITYDOOR_s {
   u8 pad0[0x140];
   char name[0x10];  // 0x140
   nuvec_s position; // 0x150
   u8 pad15c[0x160 - 0x15c];
-  i16 plats[5]; // 0x160, -1 = none
-  u8 pad16a[0x16c - 0x16a];
+  i16 plats[5];    // 0x160, -1 = none
+  i16 s16a;        // 0x16a
   u16 active : 1;  // 0x16c
   u16 visible : 1; // 0x16c bit 1
   u16 open : 1;    // 0x16c bit 2
@@ -41,7 +42,10 @@ typedef struct SECURITYDOOR_s {
   u16 b7 : 1; // 0x16c bit 7, cleared every frame
   u16 b8 : 1; // 0x16c bit 8, cleared every frame
   u16 state;  // 0x16e, 8 = fully open
-  u8 pad170[0x1d0 - 0x170];
+  u8 pad170[0x1ba - 0x170];
+  char type; // 0x1ba
+  u8 pad1bb[0x1c4 - 0x1bb];
+  u32 special1c4[3]; // 0x1c4, nuhspecial_s
 } SECURITYDOOR;
 
 typedef struct SECURITYDOORSYS_s {
@@ -77,7 +81,6 @@ void *GameBufferAlloc(variptr_u *buf, variptr_u *buf_end, i32 size);
 void *GameBufferAllocProgressUnk005bbaf0(VARIPTR *buf, VARIPTR *buf_end,
                                          i32 size);
 extern "C" void PlatOnOff(i32 index, i32 enabled);
-i32 SecurityDoors_Load(void *world, void *unused);
 
 // STUB: LEGOBATMAN 0x00629e70
 // Ours passes `on` in ebx; the original takes it on the stack and loads ebx
@@ -90,6 +93,43 @@ static void SecurityDoor_PlatsOnOff(SECURITYDOOR *door, i32 on) {
       PlatOnOff(*plat, on);
     plat++;
   } while (--n);
+}
+
+i32 EdFileReadInt();
+i16 EdFileReadShort();
+void EdFileRead(void *buf, i32 len);
+void EdFileReadNuVec(nuvec_s *v);
+i32 GizmoFileReadName(char *name);
+char SecurityDoor_FindTypeUnk00629850(char *name);
+int NuSpecialFind(nugscn_s *scene, nuhspecial_s *out, char *name, i32 a);
+
+// FUNCTION: LEGOBATMAN 0x00629ce0
+i32 SecurityDoors_Load(void *world_ptr, void *sys_ptr) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  SECURITYDOORSYS *sys = (SECURITYDOORSYS *)sys_ptr;
+  char name[0x40];
+  if (world != NULL && sys != NULL && sys->count == 0) {
+    i32 version = EdFileReadInt();
+    i32 count = EdFileReadInt();
+    SECURITYDOOR *door = sys->doors;
+    for (i32 i = 0; i < count; i++) {
+      EdFileRead(door->name, 0x10);
+      EdFileReadNuVec(&door->position);
+      door->s16a = EdFileReadShort();
+      door->type = 0;
+      if (version >= 2 && GizmoFileReadName(name))
+        door->type = SecurityDoor_FindTypeUnk00629850(name);
+      memset(door->special1c4, 0, sizeof(door->special1c4));
+      if (version >= 3 && GizmoFileReadName(name))
+        NuSpecialFind(world->scn140, (nuhspecial_s *)door->special1c4, name, 1);
+      if (door->type != -1) {
+        sys->count++;
+        door++;
+      }
+    }
+    return 1;
+  }
+  return 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x00629ef0
