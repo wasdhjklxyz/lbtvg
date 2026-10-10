@@ -3337,3 +3337,19 @@
 006d7130 downheap ar002 maketree.c downheap
 006d71b0 make_code ar002 maketree.c make_code (start[18] from len_cnt)
 006d7270 ImplodeMakeTree ar002 maketree.c make_tree; Mac _ImplodeMakeTree
+0067dd90 NuLstCreateBuff saga nulst.cpp body matches (list carved from a VARIPTR buffer)
+0067de40 NuLstDestroy NuMemFreeFn(list, listman_gen.cpp, 0xf5)
+0067de60 NuLstAllocHead saga nulst.cpp shape without the thread lock; matches
+0067dec0 NuLstAllocTail saga nulst.cpp shape without the thread lock; matches
+0067df20 NuLstAllocFree saga nulst.cpp shape without the thread lock; matches
+0067df60 NuLstAtachHead saga nulst.cpp shape without the thread lock; matches
+0067df90 NuLstAttachTail saga nulst.cpp shape without the thread lock; matches
+0067dfc0 NuLstAllocBefore saga nulst.cpp shape without the thread lock; matches
+0067e020 NuLstAllocAfter saga nulst.cpp shape (no anchor->next write); matches
+0067e080 NuLstFree unlink then append to the free list; saga nulst.cpp order
+0067e0f0 NuLstGetByIdx saga nulst.cpp body matches
+0067e140 NuLstGetPrev mirror of NuLstGetNext (tail when node is NULL)
+0067e170 NuLstMoveNext saga nulst.cpp body matches
+0067e1d0 NuLstMovePrev saga nulst.cpp body matches (prev stores reordered)
+0067e230 NuLstGetFree returns list->free + 1, as saga
+0067e240 NuLstAlloc tail call to NuLstAllocHead, as saga

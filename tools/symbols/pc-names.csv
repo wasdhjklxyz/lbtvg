@@ -3208,7 +3208,23 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0067b270,0012308a,__Z10PCSaveSlotiPvij,"PCSaveSlot(int, void*, int, unsigned int)",strings,0
 0067d3c0,00121250,_NuRainProcess,_NuRainProcess,strings,0
 0067dd00,00120208,_NuLstCreate,_NuLstCreate,strings,0
+0067dd90,001202c8,_NuLstCreateBuff,_NuLstCreateBuff,confirmed,0
+0067de40,001203aa,_NuLstDestroy,_NuLstDestroy,confirmed,0
+0067de60,001203da,_NuLstAllocHead,_NuLstAllocHead,confirmed,0
+0067dec0,00120430,_NuLstAllocTail,_NuLstAllocTail,confirmed,0
+0067df20,00120486,_NuLstAllocFree,_NuLstAllocFree,confirmed,0
+0067df60,001204c4,_NuLstAtachHead,_NuLstAtachHead,confirmed,0
+0067df90,001204ee,_NuLstAttachTail,_NuLstAttachTail,confirmed,0
+0067dfc0,00120518,_NuLstAllocBefore,_NuLstAllocBefore,confirmed,0
+0067e020,00120572,_NuLstAllocAfter,_NuLstAllocAfter,confirmed,0
+0067e080,001205c6,_NuLstFree,_NuLstFree,confirmed,0
+0067e0f0,0012062a,_NuLstGetByIdx,_NuLstGetByIdx,confirmed,0
 0067e110,00120648,_NuLstGetNext,_NuLstGetNext,gapfill,2
+0067e140,0012066a,_NuLstGetPrev,_NuLstGetPrev,confirmed,0
+0067e170,0012068c,_NuLstMoveNext,_NuLstMoveNext,confirmed,0
+0067e1d0,001206e2,_NuLstMovePrev,_NuLstMovePrev,confirmed,0
+0067e230,0012073a,_NuLstGetFree,_NuLstGetFree,confirmed,0
+0067e240,00120748,_NuLstAlloc,_NuLstAlloc,confirmed,0
 0067e6d0,0025da6a,_SockSysFindInScene,_SockSysFindInScene,strings,0
 00680d60,0025bfec,_SockSys_Configure,_SockSys_Configure,confirmed,0
 00684190,0019c7be,_NuSinApprox,_NuSinApprox,calls,3
@@ -3897,7 +3913,6 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00739910,001679dc,_NuSpecialClipTestShadowLights,_NuSpecialClipTestShadowLights,gapfill,7
 0073a000,00167b06,_NuDisplayListRndrSpecial,_NuDisplayListRndrSpecial,gapfill,5
 0073aa10,0016968c,_NuSpecialDrawAt,_NuSpecialDrawAt,gapfill,4
-0073ca3b,001911cc,_NuFParDestroy,_NuFParDestroy,gapfill,1
 0073cd6b,00359ff0,___eprintf,___eprintf,gapfill,1
 0075b591,001ad4f6,__ZN7NuMusic11ClassToNameEj,NuMusic::ClassToName(unsigned int),strings,0
 007994c0,,EdRef::GetMemberObject,EdRef::GetMemberObject,confirmed,0
