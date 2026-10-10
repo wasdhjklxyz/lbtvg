@@ -165,6 +165,12 @@ float NuVecXZDistSqr(nuvec_s *a, nuvec_s *b, nuvec_s *d) {
   return NuVecMagSqr(&t);
 }
 
+// GLOBAL: LEGOBATMAN 0x00ad3b90
+extern numtx_s numtx_zero;
+
+// FUNCTION: LEGOBATMAN 0x00685650
+void NuMtxSetZero(numtx_s *m) { *m = numtx_zero; }
+
 // FUNCTION: LEGOBATMAN 0x00685670
 void NuMtxSetIdentity(numtx_s *m) { *m = numtx_identity; }
 
@@ -188,11 +194,135 @@ void NuMtxSetTranslation(numtx_s *m, nuvec_s *v) {
   m->m00 = 1.0f;
 }
 
+// FUNCTION: LEGOBATMAN 0x006856e0
+void NuMtxSetTranslationNeg(numtx_s *m, nuvec_s *t) {
+  m->m30 = -t->x;
+  m->m31 = -t->y;
+  m->m32 = -t->z;
+  m->m01 = m->m02 = m->m03 = m->m10 = m->m12 = m->m13 = m->m20 = m->m21 =
+      m->m23 = 0.0f;
+  m->m00 = m->m11 = m->m22 = m->m33 = 1.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00685730
+void NuMtxSetScale(numtx_s *m, nuvec_s *s) {
+  m->m00 = s->x;
+  m->m11 = s->y;
+  m->m22 = s->z;
+  m->m01 = m->m02 = m->m03 = m->m10 = m->m12 = m->m13 = m->m20 = m->m21 =
+      m->m23 = m->m30 = m->m31 = m->m32 = 0.0f;
+  m->m33 = 1.0f;
+}
+
 // FUNCTION: LEGOBATMAN 0x00685a50
 void NuMtxTranslate(numtx_s *m, nuvec_s *v) {
   m->m30 += v->x;
   m->m31 += v->y;
   m->m32 += v->z;
+}
+
+// FUNCTION: LEGOBATMAN 0x00685a80
+void NuMtxTranslateNeg(numtx_s *m, nuvec_s *t) {
+  m->m30 -= t->x;
+  m->m31 -= t->y;
+  m->m32 -= t->z;
+}
+
+// FUNCTION: LEGOBATMAN 0x00685ab0
+void NuMtxPreTranslate(numtx_s *m, nuvec_s *t) {
+  m->m30 += t->x * m->m00 + t->y * m->m10 + t->z * m->m20;
+  m->m31 += t->x * m->m01 + t->y * m->m11 + t->z * m->m21;
+  m->m32 += t->x * m->m02 + t->y * m->m12 + t->z * m->m22;
+}
+
+// FUNCTION: LEGOBATMAN 0x00685b10
+void NuMtxPreTranslateX(numtx_s *m, f32 tx) {
+  m->m30 = m->m30 + m->m00 * tx;
+  m->m31 = m->m31 + m->m01 * tx;
+  m->m32 = m->m32 + m->m02 * tx;
+}
+
+// FUNCTION: LEGOBATMAN 0x00685b40
+void NuMtxPreTranslateNeg(numtx_s *m, nuvec_s *t) {
+  m->m30 -= t->x * m->m00 + t->y * m->m10 + t->z * m->m20;
+  m->m31 -= t->x * m->m01 + t->y * m->m11 + t->z * m->m21;
+  m->m32 -= t->x * m->m02 + t->y * m->m12 + t->z * m->m22;
+}
+
+// FUNCTION: LEGOBATMAN 0x00685ba0
+void NuMtxScale(numtx_s *m, nuvec_s *s) {
+  m->m00 *= s->x;
+  m->m01 *= s->y;
+  m->m02 *= s->z;
+  m->m10 *= s->x;
+  m->m11 *= s->y;
+  m->m12 *= s->z;
+  m->m20 *= s->x;
+  m->m21 *= s->y;
+  m->m22 *= s->z;
+  m->m30 *= s->x;
+  m->m31 *= s->y;
+  m->m32 *= s->z;
+}
+
+// FUNCTION: LEGOBATMAN 0x00685c10
+void NuMtxScaleU(numtx_s *m, f32 s) {
+  m->m00 *= s;
+  m->m01 *= s;
+  m->m02 *= s;
+  m->m10 *= s;
+  m->m11 *= s;
+  m->m12 *= s;
+  m->m20 *= s;
+  m->m21 *= s;
+  m->m22 *= s;
+  m->m30 *= s;
+  m->m31 *= s;
+  m->m32 *= s;
+}
+
+// FUNCTION: LEGOBATMAN 0x00685c80
+void NuMtxPreScaleU(numtx_s *m, f32 s) {
+  m->m00 *= s;
+  m->m01 *= s;
+  m->m02 *= s;
+  m->m10 *= s;
+  m->m11 *= s;
+  m->m12 *= s;
+  m->m20 *= s;
+  m->m21 *= s;
+  m->m22 *= s;
+}
+
+// FUNCTION: LEGOBATMAN 0x00685ce0
+nuvec_s NuMtxGetScale(numtx_s *m) {
+  nuvec_s scale;
+
+  scale.x = NuFsqrt(m->m00 * m->m00 + m->m01 * m->m01 + m->m02 * m->m02);
+  scale.y = NuFsqrt(m->m10 * m->m10 + m->m11 * m->m11 + m->m12 * m->m12);
+  scale.z = NuFsqrt(m->m20 * m->m20 + m->m21 * m->m21 + m->m22 * m->m22);
+
+  return scale;
+}
+
+// FUNCTION: LEGOBATMAN 0x00685d80
+void NuMtxPreScale(numtx_s *m, nuvec_s *s) {
+  m->m00 *= s->x;
+  m->m01 *= s->x;
+  m->m02 *= s->x;
+  m->m10 *= s->y;
+  m->m11 *= s->y;
+  m->m12 *= s->y;
+  m->m20 *= s->z;
+  m->m21 *= s->z;
+  m->m22 *= s->z;
+}
+
+// FUNCTION: LEGOBATMAN 0x00685de0
+void NuMtxPreScaleX(numtx_s *m, f32 ScaleX) {
+  m->m00 = m->m00 * ScaleX;
+  m->m01 = m->m01 * ScaleX;
+  m->m02 = m->m02 * ScaleX;
 }
 
 // FUNCTION: LEGOBATMAN 0x00689100

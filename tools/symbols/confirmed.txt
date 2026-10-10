@@ -1786,3 +1786,16 @@
 00684e20 NuVecMagXZ             saga body (NuFsqrt of x*x + z*z), Mac order after NuVecDot/NuVecMagSqr; matched
 00684e50 NuVecMax               saga order (after Dot), per-component ternary; matched
 00684ed0 NuVecMin               saga order, per-component ternary; matched
+00685650 NuMtxSetZero           saga numtx.cpp body (copy of numtx_zero 0xad3b90), saga/Mac order before SetIdentity; matched
+006856e0 NuMtxSetTranslationNeg saga body and order; matched
+00685730 NuMtxSetScale          saga body and order; matched
+00685a80 NuMtxTranslateNeg      saga body, order after NuMtxTranslate; matched
+00685ab0 NuMtxPreTranslate      saga body and order; matched
+00685b10 NuMtxPreTranslateX     saga body and order; matched
+00685b40 NuMtxPreTranslateNeg   saga body and order; matched
+00685ba0 NuMtxScale             saga body and order; matched
+00685c10 NuMtxScaleU            saga body and order; matched
+00685c80 NuMtxPreScaleU         saga body and order; matched
+00685ce0 NuMtxGetScale          saga body (returns nuvec_s by value) and order; matched
+00685d80 NuMtxPreScale          saga body and order; matched
+00685de0 NuMtxPreScaleX         saga body and order; matched
