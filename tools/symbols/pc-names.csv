@@ -2702,11 +2702,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 007227b0,0013dd8e,_NuLgtLaser,_NuLgtLaser,gapfill,2
 00727b40,00133cfe,_NuMtlUpdate,_NuMtlUpdate,calls,3
 00727f20,0012c0fe,_NuMtlSetCurrentRenderPlane,_NuMtlSetCurrentRenderPlane,calls,1
+00728fe0,00143f2a,__ZN17NuMotionFilterGen16destroyResourcesEv,NuMotionFilterGen::destroyResources(),confirmed,0
 0072b040,0013ee34,__ZN14NuDynamicLight7destroyEPS_,NuDynamicLight::destroy(NuDynamicLight*),calls,4
 0072c750,001296d6,_NuAnimDataChunkDestroy,_NuAnimDataChunkDestroy,strings,0
 0072e150,0015cc26,_NuQFntDuplicate,_NuQFntDuplicate,gapfill,2
 00732510,0015dcfc,_NuGScnRead,_NuGScnRead,calls,1
-00734e80,00143f66,__ZN17NuMotionFilterGen13initResourcesEv,NuMotionFilterGen::initResources(),strings,0
+00734e80,00143f66,__ZN17NuMotionFilterGen13initResourcesEv,NuMotionFilterGen::initResources(),confirmed,0
 00739910,001679dc,_NuSpecialClipTestShadowLights,_NuSpecialClipTestShadowLights,gapfill,7
 0073a000,00167b06,_NuDisplayListRndrSpecial,_NuDisplayListRndrSpecial,gapfill,5
 0073aa10,0016968c,_NuSpecialDrawAt,_NuSpecialDrawAt,gapfill,4

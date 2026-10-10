@@ -2110,3 +2110,5 @@
 0053a990 WavReader::Read vtable 0x8675cc slot 7 (RTTI) + Mac body
 0053ac50 OggReader::Read vtable 0x867604 slot 7 (RTTI) + Mac body (ov_read loop, zero fill); matched
 0053af10 OggReader::~OggReader stores vtable 0x867604 (RTTI), Mac body (destroy CS, Close, ~WavReader); matched
+00728fe0 NuMotionFilterGen::destroyResources vtable 0x89842c slot 2 (RTTI), Mac body (release four shader handles); matched
+00734e80 NuMotionFilterGen::initResources vtable 0x89842c slot 1 (RTTI), Mac body (bind postEffect.* parameters); matched
