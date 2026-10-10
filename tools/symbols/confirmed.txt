@@ -2766,3 +2766,15 @@
 006705a0 GizMiniCut_ReserveBufferSpace reserve_buffer_space slot of the "MiniCut" ADDGIZMOTYPE
 006709b0 GizMiniCut_ResetAll reset slot of the "MiniCut" ADDGIZMOTYPE
 006708b0 GizMiniCut_GetGuid saga body (u16 guid at 0x1a, -1 on NULL), Mac order after LateUpdate
+004f04a0 Signals_ReserveBufferSpace reserve_buffer_space slot of the "Signal" ADDGIZMOTYPE
+004f0510 Signal_Activate activate slot of the "Signal" ADDGIZMOTYPE
+004f0540 Signal_ActivateRev activate_rev slot of the "Signal" ADDGIZMOTYPE
+004f0630 Signal_GetPos get_pos slot of the "Signal" ADDGIZMOTYPE
+004f0d60 Signals_EarlyUpdate early_update slot of the "Signal" ADDGIZMOTYPE
+004f1f30 Signals_AddGizmos add_gizmos slot of the "Signal" ADDGIZMOTYPE
+004f1fb0 Signal_GetGizmoName get_gizmo_name slot of the "Signal" ADDGIZMOTYPE
+004f1fd0 Signal_GetOutput get_output slot of the "Signal" ADDGIZMOTYPE
+004f1ff0 Signal_GetOutputName get_output_name slot of the "Signal" ADDGIZMOTYPE
+004f2000 Signal_GetNumOutputs get_num_outputs slot of the "Signal" ADDGIZMOTYPE
+004f2010 Signals_AllocateProgressData allocate_progress_data slot of the "Signal" ADDGIZMOTYPE
+004f2030 Signals_ClearProgress clear_progress slot of the "Signal" ADDGIZMOTYPE

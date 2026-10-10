@@ -738,6 +738,18 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004e5e80,00100240,__Z9Shop_InitP11WORLDINFO_s,Shop_Init(WORLDINFO_s*),strings,0
 004e8190,000fe7c2,__Z11BuyShopItemP10LEGOSHOP_sP10shopitem_sii,"BuyShopItem(LEGOSHOP_s*, shopitem_s*, int, int)",strings,0
 004e8430,0010462e,__Z13SelectSubItemP10LEGOSHOP_s,SelectSubItem(LEGOSHOP_s*),strings,0
+004f04a0,001095a4,__Z26Signals_ReserveBufferSpacePv,Signals_ReserveBufferSpace(void*),confirmed,0
+004f0510,00109602,__Z15Signal_ActivateP7GIZMO_si,"Signal_Activate(GIZMO_s*, int)",confirmed,0
+004f0540,0010962c,__Z18Signal_ActivateRevP7GIZMO_sii,"Signal_ActivateRev(GIZMO_s*, int, int)",confirmed,0
+004f0630,00109714,__Z13Signal_GetPosP7GIZMO_s,Signal_GetPos(GIZMO_s*),confirmed,0
+004f0d60,00109da8,__Z19Signals_EarlyUpdatePvS_f,"Signals_EarlyUpdate(void*, void*, float)",confirmed,0
+004f1f30,0010ab56,__Z17Signals_AddGizmosP10GIZMOSYS_siPvS1_,"Signals_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+004f1fb0,0010abbc,__Z19Signal_GetGizmoNameP7GIZMO_s,Signal_GetGizmoName(GIZMO_s*),confirmed,0
+004f1fd0,0010abd0,__Z16Signal_GetOutputP7GIZMO_sii,"Signal_GetOutput(GIZMO_s*, int, int)",confirmed,0
+004f1ff0,0010abee,__Z20Signal_GetOutputNameP7GIZMO_si,"Signal_GetOutputName(GIZMO_s*, int)",confirmed,0
+004f2000,0010abf8,__Z20Signal_GetNumOutputsP7GIZMO_s,Signal_GetNumOutputs(GIZMO_s*),confirmed,0
+004f2010,0010ac02,__Z28Signals_AllocateProgressDataP9variptr_uS0_,"Signals_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+004f2030,0010ac24,__Z21Signals_ClearProgressPvS_,"Signals_ClearProgress(void*, void*)",confirmed,0
 004f5440,0010e86a,__Z12LoadPermDataP12bgprocinfo_s,LoadPermData(bgprocinfo_s*),strings,0
 004f5d90,0010d394,__Z13Legal_GetNamePc,Legal_GetName(char*),strings,0
 004f6230,0010d428,__Z9LoadPerm1v,LoadPerm1(),strings,0
