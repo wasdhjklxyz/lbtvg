@@ -157,7 +157,8 @@ struct WORLDINFO_s {
   GIZMOBLOWUP_s *gizmo_blowups;                 // 0x5230
   u8 pad5234[0x5250 - 0x5234];
   struct numtx_s *gizmo_blowup_mtx_buffer; // 0x5250
-  u8 pad5254[0x525c - 0x5254];
+  u8 pad5254[0x5258 - 0x5254];
+  i32 gizmo_blowup_extra_types;        // 0x5258
   f32 f525c;                           // 0x525c
   struct MINICUT_s *minicuts;          // 0x5260
   struct MINICUTPART_s *minicut_parts; // 0x5264

@@ -3196,3 +3196,8 @@
 005db930 GizBlowup_InitTerrain saga body (platform ids reset, InitSingleTerrain when draw_flags & 4)
 005db9f0 GizBlowup_DeleteTerrain saga body, DeleteSingleTerrain inlined
 005d8fd0 GizBlowup_Respawn Mac order after Blowup_StoreProgress; saga body (BonusArea/VehicleArea visibility, particle_types[2..3] debris)
+005d9750 BlowupObjEmit_Stop Mac order (after GizmoSwapBlowups), empty body as saga
+005d9df0 Blowup_ResetAtMtx Mac order (before GizmoBlowupBlowup): Blowup_Reset then copies the matrix
+005db7a0 GizmoBlowupTypeNameBlank Mac order after GizmoBlowupLateUpdate, saga body (8 zero dwords)
+005dbcb0 GizmoBlowup_FindType Mac order before gizmoblowup_PreLoad; NuStrICmp over the type names at 0xdc
+005dbd60 gizmoblowup_PreLoad NewBlowup_RegisterGizmo slot 25, Mac order before gizmoblowup_Load

@@ -282,7 +282,9 @@ struct GIZMOBLOWUPTYPE_s {
   nuhspecial_s burst_special; // 0x54
   u8 pad60[0xa4 - 0x60];
   i16 particle_types[4]; // 0xa4
-  u8 padac[0x102 - 0xac];
+  u8 padac[0xdc - 0xac];
+  char name[0x20]; // 0xdc
+  u8 padfc[0x102 - 0xfc];
   i16 sfx0; // 0x102
   i16 sfx1; // 0x104
   i8 b106;  // 0x106
@@ -421,10 +423,21 @@ extern i32 g_unk00966624; // default explosion debris type, -1 = none
 
 i32 AddGameDebris(void *system, i32 type, nuvec_s *position);
 
+// FUNCTION: LEGOBATMAN 0x005d9750
+void BlowupObjEmit_Stop(void *part) {}
+
 // FUNCTION: LEGOBATMAN 0x005d9810
 void GizmoBlowupAddDefaultExplosionDebris(nuvec_s *position) {
   if (g_unk00966624 != -1)
     AddGameDebris(g_unk00960894->p138, g_unk00966624, position);
+}
+
+// FUNCTION: LEGOBATMAN 0x005d9df0
+void Blowup_ResetAtMtx(GIZMOBLOWUP_s *blowup, numtx_s *mtx) {
+  if (blowup != NULL && mtx != NULL) {
+    Blowup_Reset(blowup);
+    *(numtx_s *)blowup = *mtx;
+  }
 }
 
 // FUNCTION: LEGOBATMAN 0x005dda30
@@ -437,6 +450,15 @@ GIZMOBLOWUP_s *GizmoBlowUp_FindByName(WORLDINFO_s *world, char *name) {
     }
   }
   return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x005db7a0
+i32 GizmoBlowupTypeNameBlank(char *name) {
+  for (i32 i = 0; i < 8; i++) {
+    if (((i32 *)name)[i] != 0)
+      return 0;
+  }
+  return 1;
 }
 
 void DeletePlatinst(i32 id);
@@ -528,8 +550,28 @@ void GizBlowup_DeleteTerrain() {
   }
 }
 
+// FUNCTION: LEGOBATMAN 0x005dbcb0
+GIZMOBLOWUPTYPE_s *GizmoBlowup_FindType(char *name, WORLDINFO_s *world) {
+  if (world == NULL)
+    return NULL;
+  if (world->gizmo_blowup_types == NULL)
+    return NULL;
+  if (world->gizmo_blowup_type_count == 0 &&
+      world->gizmo_blowup_extra_types == 0)
+    return NULL;
+  if (name != NULL) {
+    for (i32 i = 0; i < world->current_level->max_gizmoblowuptypes +
+                            world->gizmo_blowup_extra_types;
+         i++) {
+      if (NuStrICmp(world->gizmo_blowup_types[i].name, name) == 0)
+        return &world->gizmo_blowup_types[i];
+    }
+  }
+  return NULL;
+}
+
 // FUNCTION: LEGOBATMAN 0x005dbd60
-void Blowups_SetUnk525c(void *world_ptr) {
+void gizmoblowup_PreLoad(void *world_ptr) {
   ((WORLDINFO_s *)world_ptr)->f525c = 100.0f;
 }
 
@@ -662,7 +704,7 @@ ADDGIZMOTYPE *NewBlowup_RegisterGizmo(i32 type_id) {
   addtype.fns[22] = (void *)Blowups_Reset;
   addtype.fns[23] = (void *)gizmoblowup_reservebuffers;
   addtype.fns[24] = (void *)gizmoblowup_Load;
-  addtype.fns[25] = (void *)Blowups_SetUnk525c;
+  addtype.fns[25] = (void *)gizmoblowup_PreLoad;
   addtype.fns[26] = NULL;
   addtype.fns[27] = (void *)GizmoBlowups_AddLevelSfx;
   blowup_gizmotype_id = type_id;
