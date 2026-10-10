@@ -2586,3 +2586,12 @@
 006d4020 NuAllocFPar            first free of 4 parsers (0x984 each) with a 0x1000 buffer, lazy init: saga nufpar.cpp; called from NuFParCreate*
 006d40b0 NuFreeFPar             file_buf = NULL (eax arg), saga nufpar.cpp's static
 006d40c0 NuFParClose            NuFreeFPar inlined: saga nufpar.cpp; Mac order after NuFParSetInterpreterErrorHandler
+00510ff0 Flight_Init            memset of the 0xd4 flight data, as the Mac's; just before Flight_Reset
+005115b0 Flight_A_Init          same memset as the Mac's Flight_A_Init; the A/B/C Init/Reset/Update block follows Flight_Update
+005115d0 Flight_A_Reset         tail call to Flight_Reset, as on the Mac
+005115e0 Flight_A_Update        tail call to Flight_Update, as on the Mac
+005115f0 Flight_B_Init          memset, as Flight_A_Init
+00511610 Flight_B_Reset         tail call to Flight_Reset
+00511620 Flight_B_Update        tail call to Flight_Update
+00511630 Flight_C_Init          memset, as Flight_A_Init
+005111f0 Flight_Update          tail-call target of Flight_A/B_Update (via the 0x4028e2 thunk)

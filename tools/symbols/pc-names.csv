@@ -770,7 +770,16 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0050c100,00043ff6,__Z11SlumsB_InitP11WORLDINFO_s,SlumsB_Init(WORLDINFO_s*),strings,0
 0050d450,00045254,__Z13SlumsD_UpdateP11WORLDINFO_s,SlumsD_Update(WORLDINFO_s*),strings,0
 005101b0,00047b1a,__Z18Fairground_C_ResetP11WORLDINFO_s,Fairground_C_Reset(WORLDINFO_s*),strings,0
+00510ff0,000482f6,__Z11Flight_InitP11WORLDINFO_s,Flight_Init(WORLDINFO_s*),confirmed,0
 00511010,0004831a,__Z12Flight_ResetP11WORLDINFO_s,Flight_Reset(WORLDINFO_s*),strings,0
+005111f0,000484a0,__Z13Flight_UpdateP11WORLDINFO_s,Flight_Update(WORLDINFO_s*),confirmed,0
+005115b0,00049772,__Z13Flight_A_InitP11WORLDINFO_s,Flight_A_Init(WORLDINFO_s*),confirmed,0
+005115d0,000487da,__Z14Flight_A_ResetP11WORLDINFO_s,Flight_A_Reset(WORLDINFO_s*),confirmed,0
+005115e0,000487e4,__Z15Flight_A_UpdateP11WORLDINFO_s,Flight_A_Update(WORLDINFO_s*),confirmed,0
+005115f0,00049796,__Z13Flight_B_InitP11WORLDINFO_s,Flight_B_Init(WORLDINFO_s*),confirmed,0
+00511610,000487ee,__Z14Flight_B_ResetP11WORLDINFO_s,Flight_B_Reset(WORLDINFO_s*),confirmed,0
+00511620,000487f8,__Z15Flight_B_UpdateP11WORLDINFO_s,Flight_B_Update(WORLDINFO_s*),confirmed,0
+00511630,000497ba,__Z13Flight_C_InitP11WORLDINFO_s,Flight_C_Init(WORLDINFO_s*),confirmed,0
 00512080,000c9b6c,__ZN19LightFlickerOverlay14InitializePermEPcP9variptr_uS2_,"LightFlickerOverlay::InitializePerm(char*, variptr_u*, variptr_u*)",confirmed,0
 00512500,000c9c28,__ZN19LightFlickerOverlay6RenderEv,LightFlickerOverlay::Render(),confirmed,0
 00512580,000ca160,__ZN17LoadScreenDisplay14InitializePermEPcP9variptr_uS2_,"LoadScreenDisplay::InitializePerm(char*, variptr_u*, variptr_u*)",confirmed,0
