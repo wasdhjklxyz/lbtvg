@@ -1980,3 +1980,9 @@
 00591890 ThingManager::DisplayThings slot 10, calls BaseThing slot 10; matched
 00591910 ThingManager::EffectsThings slot 11, calls BaseThing slot 11; matched
 005914c0 ThingManager::RemoveTemporaryThings slot 3, Mac order (deletes things above the permanent count); matched
+00595170 NuFmvBuffer::Unlock vtable 0x8686f4 slot 1 (RTTI .?AVNuFmvBuffer@@), Mac body (NuHeapDestroy of the heap at 0x10); matched
+00595180 NuFmvBuffer::Alloc slot 2, Mac body (NuHeapAllocAligned, count++); matched
+005951b0 NuFmvBuffer::Free slot 3, Mac body (count--, NuHeapFree); matched
+005951d0 NuFmvStream::ReOpen vtable 0x868708 slot 1 (RTTI), Mac body (returns false); matched
+006d2800 NuHeapDestroy tail of NuFmvBuffer::Unlock as on the Mac
+006d8eb0 NuHeapAllocAligned called from NuFmvBuffer::Alloc as on the Mac
