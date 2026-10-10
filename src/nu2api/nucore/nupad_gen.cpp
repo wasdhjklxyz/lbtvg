@@ -7426,6 +7426,156 @@ int NuStringTableLoadCSV(char *filepath, VARIPTR *buf, VARIPTR buf_end,
                          char *label, char *language);
 int NuStringTableLoadTXT(char *filepath, VARIPTR *buf, VARIPTR buf_end);
 
+// STUB: LEGOBATMAN 0x006e0e90
+// Inlining differs: the original calls NuAsciiToUnicode out of line here
+// (and inlines it in NuStringTableSaveCharacterList); ours 1381 B.
+int NuStringTableLoadCSV(char *filepath, VARIPTR *buf, VARIPTR buf_end,
+                         char *label, char *language) {
+  int parse_buf_size;
+  NUSTRINGBANK *bank;
+  NUWCHAR label_utf16[0x40];
+  NUWCHAR lang_utf16[0x40];
+  void *mem_buf;
+  int bytes_read;
+  char *word_buf;
+  char *line_buf;
+  char *tmp_buf;
+  int mem_file;
+  NUFPAR *parser;
+  NUSTRING *strings;
+  int column;
+  int label_column;
+  int lang_column;
+  int len;
+  int i;
+  int max_strings;
+
+  label_column = -1;
+  lang_column = -1;
+  i = 0;
+  max_strings = 0;
+  word_buf = NULL;
+  line_buf = NULL;
+  tmp_buf = NULL;
+  parse_buf_size = 0x8000;
+  strings = NULL;
+  bank = &StringBank[g_nuPadUnk0b03924];
+
+  NuAsciiToUnicode(label_utf16, label);
+  NuAsciiToUnicode(lang_utf16, language);
+
+  if (bank->strings != NULL)
+    Unk006d24b0();
+  bank->strings = NULL;
+  bank->max_strings = 0;
+  bank->string_count = 0;
+
+  if ((unsigned int)(buf_end.addr - buf->addr) < 0x14b000)
+    Unk006d24b0();
+
+  mem_buf = (void *)(buf_end.addr - 0x100000);
+  bytes_read = NuFileLoadBuffer(filepath, mem_buf, 0x100000);
+  if (0x100000 - bytes_read < 0x18000)
+    Unk006d24b0();
+
+  word_buf = (char *)((unsigned int)mem_buf + bytes_read);
+  line_buf = (char *)((unsigned int)mem_buf + bytes_read + parse_buf_size);
+  tmp_buf = (char *)((unsigned int)mem_buf + bytes_read + parse_buf_size +
+                     parse_buf_size);
+
+  mem_file = NuMemFileOpen(mem_buf, bytes_read, 0);
+  if (mem_file != 0) {
+    parser = NuFParOpen(mem_file);
+    if (parser != NULL) {
+      parser->word_buf = word_buf;
+      parser->line_buf = line_buf;
+      parser->line_buf_size = parse_buf_size;
+      parser->word_buf_size = parse_buf_size;
+      while (NuFParGetLine(parser) != 0) {
+        max_strings++;
+      }
+      NuFParClose(parser);
+    }
+    NuFileClose(mem_file);
+  }
+
+  strings = (NUSTRING *)((buf->addr + 3) & ~3);
+  buf->addr = (buf->addr + 3) & ~3;
+  buf->addr = buf->addr + max_strings * sizeof(NUSTRING);
+
+  mem_file = NuMemFileOpen(mem_buf, bytes_read, 0);
+  if (mem_file != 0) {
+    parser = NuFParOpen(mem_file);
+    if (parser != NULL) {
+      parser->word_buf = word_buf;
+      parser->line_buf = line_buf;
+      parser->line_buf_size = parse_buf_size;
+      parser->word_buf_size = parse_buf_size;
+
+      while (NuFParGetLine(parser) != 0) {
+        column = 0;
+        while (NuFParGetWord(parser) != 0) {
+          if (NuStrICmpW((NUWCHAR *)parser->word_buf, label_utf16) == 0)
+            label_column = column;
+          if (NuStrICmpW((NUWCHAR *)parser->word_buf, lang_utf16) == 0)
+            lang_column = column;
+          column++;
+        }
+        if (label_column >= 0 && lang_column >= 0)
+          break;
+      }
+
+      if (label_column >= 0 && lang_column >= 0) {
+        while (NuFParGetLine(parser) != 0) {
+          column = 0;
+          while (NuFParGetWord(parser) != 0) {
+            if (column == label_column) {
+              len = NuStrLenW((NUWCHAR *)parser->word_buf) + 1;
+              strings[i].id = buf->char_ptr;
+              buf->addr += len * sizeof(char);
+              NuPadWideToAnsi(strings[i].id, (NUWCHAR *)parser->word_buf);
+            }
+            if (column == lang_column) {
+              if (g_nuPadUnk099f308 == 1) {
+                len = NuStrLenW((NUWCHAR *)parser->word_buf) + 1;
+                strings[i].str_utf16 = (NUWCHAR *)((buf->addr + 1) & ~1);
+                buf->addr = (buf->addr + 1) & ~1;
+                buf->addr += len * 2;
+                NuStrCpyW(strings[i].str_utf16, (NUWCHAR *)parser->word_buf);
+              } else {
+                NuPadWideToUtf8((unsigned char *)tmp_buf,
+                                (NUWCHAR *)parser->word_buf);
+                len = NuStrLen(tmp_buf) + 1;
+                strings[i].str_utf16 = (NUWCHAR *)((buf->addr + 1) & ~1);
+                buf->addr = (buf->addr + 1) & ~1;
+                buf->addr += len;
+                NuStrCpy((char *)strings[i].str_utf16, tmp_buf);
+              }
+            }
+            column++;
+            if (column > label_column && column > lang_column) {
+              if (strings[i].id != NULL && strings[i].str_utf16 != NULL) {
+                i++;
+              } else {
+                strings[i].id = NULL;
+                strings[i].str_utf16 = NULL;
+              }
+              break;
+            }
+          }
+        }
+      }
+
+      NuFParClose(parser);
+      bank->strings = strings;
+      bank->string_count = i;
+      bank->max_strings = max_strings;
+    }
+    NuFileClose(mem_file);
+  }
+  return bank->string_count;
+}
+
 // FUNCTION: LEGOBATMAN 0x006e1490
 int NuStringTableLoadTXT(char *filepath, VARIPTR *buf, VARIPTR buf_end) {
   int i;

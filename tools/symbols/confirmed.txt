@@ -3626,3 +3626,4 @@
 006e0e20 NuQTRead saga nuqt.cpp body (inlines NuQTFixAddress: same TU)
 006e1820 NuStringTableLoad saga nustring_c.cpp body
 006e1490 NuStringTableLoadTXT saga nustring_c.cpp body (LB debug checks)
+006e0e90 NuStringTableLoadCSV saga nustring_c.cpp body (stub)
