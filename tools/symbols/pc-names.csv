@@ -1093,6 +1093,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005c32c0,0031a8c8,__Z15LoseHP_EndDelayP13GAMEMESSAGE_s,LoseHP_EndDelay(GAMEMESSAGE_s*),confirmed,0
 005c3310,0031a934,__Z13LoseHitPointsP12GameObject_si,"LoseHitPoints(GameObject_s*, int)",gapfill,2
 005c4080,002ecc00,__ZN18InteractiveDisplay23GetFirstSpecialMaterialEP8nugscn_sPc,"InteractiveDisplay::GetFirstSpecialMaterial(nugscn_s*, char*)",gapfill,1
+005c4c30,002f0934,__ZNK18InteractiveDisplay12RenderSquareERK5VuVecfRKjP7numtl_sf,"InteractiveDisplay::RenderSquare(VuVec const&, float, unsigned int const&, numtl_s*, float) const",confirmed,0
 005c71d0,002ed046,__ZN18InteractiveDisplay14InitializePermEPcP9variptr_uS2_,"InteractiveDisplay::InitializePerm(char*, variptr_u*, variptr_u*)",gapfill,1
 005c7300,002ecd9c,__ZN18InteractiveDisplay15InitializeLevelEP11WORLDINFO_s,InteractiveDisplay::InitializeLevel(WORLDINFO_s*),gapfill,1
 005c8060,0034d4b6,_NuSinApprox,_NuSinApprox,gapfill,2

@@ -1755,3 +1755,4 @@
 004f6fe0 WorldMap::WorldMap     calls the WorldMapBase ctor thunk, stores vtable 0x85d874; matched
 004f7390 SecurityCamera::SecurityCamera base ctor inlined, stores vtable 0x85d96c; matched
 004f7460 LightFlickerOverlay::LightFlickerOverlay base ctor inlined, stores vtable 0x85d9f4; matched
+005c4c30 InteractiveDisplay::RenderSquare Mac order right after RenderRectangle (0x5c4b20, which it calls with size twice); matched

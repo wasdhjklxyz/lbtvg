@@ -571,8 +571,15 @@ struct IDMTL_s {
   u16 tid; // 0x74
 };
 
+struct VuVec;
+struct numtl_s;
+
 struct InteractiveDisplay {
   static void *GetFirstSpecialMaterial(nugscn_s *scene, char *name);
+  void RenderRectangle(VuVec const &pos, f32 width, f32 height,
+                       u32 const &colour, numtl_s *mtl, f32 depth) const;
+  void RenderSquare(VuVec const &pos, f32 size, u32 const &colour, numtl_s *mtl,
+                    f32 depth) const;
   void InitializeLevel(WORLDINFO_s *world);
   i32 Unk005c3ed0(WORLDINFO_s *world);
 
@@ -634,4 +641,12 @@ void InteractiveDisplay::InitializeLevel(WORLDINFO_s *world) {
     i33c = 0;
     f334 = 1.0f;
   }
+}
+
+// Mac order: RenderRectangle(VuVec const&, float, float, ...), RenderSquare.
+// FUNCTION: LEGOBATMAN 0x005c4c30
+void InteractiveDisplay::RenderSquare(VuVec const &pos, f32 size,
+                                      u32 const &colour, numtl_s *mtl,
+                                      f32 depth) const {
+  RenderRectangle(pos, size, size, colour, mtl, depth);
 }
