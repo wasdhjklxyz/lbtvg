@@ -1282,7 +1282,7 @@ f32 Condition_AngleAboutMyLocatorToPlayer(AISYS_s *sys,
                                           AISCRIPTPROCESS_s *process,
                                           AIPACKET_s *packet, char *str,
                                           void *data) {
-#define MY_LOCATOR (*(AILocator44_s **)((u8 *)process + 0xa8))
+#define MY_LOCATOR ((AILocator44_s *)process->locator)
   if (MY_LOCATOR != NULL && packet != NULL && packet->pd0 != NULL) {
     GameObject_s *target;
     if ((i32)data == -1)
@@ -2819,7 +2819,7 @@ f32 Condition_EitherPlayerLocatorRangeXZ(AISYS_s *sys,
   nuvec_s difference;
   AILocator44_s *locator = (AILocator44_s *)data;
   if (locator == NULL && process != NULL)
-    locator = *(AILocator44_s **)((u8 *)process + 0xa8);
+    locator = (AILocator44_s *)process->locator;
   if (locator != NULL) {
     f32 first = 1.0e9f;
     f32 second = 1.0e9f;
@@ -2975,7 +2975,7 @@ f32 Condition_LocatorOnScreen(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                               AIPACKET_s *packet, char *str, void *argument) {
   u8 *locator = (u8 *)argument;
   if (locator == NULL)
-    locator = *(u8 **)((u8 *)process + 0xa8);
+    locator = (u8 *)process->locator;
   if (locator != NULL && NuCameraClipTestSphere((nuvec_s *)(locator + 0x10),
                                                 0.0f, &numtx_identity) == 0)
     return 1.0f;
@@ -3490,7 +3490,7 @@ f32 Condition_GotLocatorInSet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                               AIPACKET_s *packet, char *str, void *argument) {
   AILocatorSetIds_s *set = (AILocatorSetIds_s *)argument;
   if (set != NULL) {
-    AILocator44_s *locator = *(AILocator44_s **)((u8 *)process + 0xa8);
+    AILocator44_s *locator = (AILocator44_s *)process->locator;
     if (locator != NULL) {
       u8 index = locator - *(AILocator44_s **)((u8 *)sys + 0x234);
       for (i32 i = 0; i < set->count; i++) {

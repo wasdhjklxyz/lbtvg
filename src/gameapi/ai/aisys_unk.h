@@ -110,6 +110,7 @@ typedef struct AIPATHINFO_s {
 
   f32 dist;
   f32 width;
+  u32 unk_0x18; // Batman only: copied as 7 dwords (rep movsd), role unknown
 } AIPATHINFO;
 
 typedef struct AISCRIPTPARAMS_s {
@@ -200,33 +201,28 @@ typedef struct AISCRIPTPROCESS_s {
 
   NUVEC action_pos;
 
-  AIPATHINFO path_info;
+  AIPATHINFO path_info; // 0x84, 0x1c bytes in Batman (saga 0x18)
 
-  f32 action_timer;
-
-  union {
-    AIAREA_s *unknown_a0;
-    f32 face_timer; // Action_FaceCharacter
-    f32 timer_a0;   // Batman's action_timer (its path info is 0x1c bytes)
-  };
+  // Saga's names; every field below sits 4 bytes later than in saga.
+  f32 action_timer;     // 0xa0
+  AIAREA_s *unknown_a0; // 0xa4
   union {
     AILOCATOR_s *unknown_a4;
     AILOCATOR_s *locator;
-  };
+  }; // 0xa8
   union {
     AILOCATORSET_s *unknown_a8;
     AILOCATORSET_s *locator_set;
-  };
-  NUGSPLINE *unknown_ac;
+  }; // 0xac
+  NUGSPLINE *unknown_ac; // 0xb0
 
   // Types uncertain.
   union {
     u8 unknown_b0;
     u8 creature_set;
-  };
-  u16 unknown_b2;
+  }; // 0xb4
+  u16 unknown_b2; // 0xb6
 
-  u32 unkown_b4;
   u8 interrupt_priority;
   u8 interrupt_id;
 

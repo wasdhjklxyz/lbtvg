@@ -220,7 +220,7 @@ i32 Action_SetRespawnLocator(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
   if (packet == NULL || packet->pd0 == NULL || packet->pd0->obj == NULL)
     return 1;
   if (first_time != 0) {
-    RESPAWN_LOCATOR(packet) = processor->locator_set;
+    RESPAWN_LOCATOR(packet) = processor->locator;
     i32 count = 0;
     for (i32 i = 0; i < param_count; i++) {
       char *value = NuStrIStr(params[i], "locator");
@@ -559,20 +559,15 @@ i32 Action_FollowPlayer(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
   return 0;
 }
 
-// Batman's path cursor is 7 dwords.
-struct AIPATHINFO7_s {
-  u32 w[7];
-};
-
 // Inlined into its callers in this file; Batman drops saga's formation case.
 static __forceinline void
 AIMoveInstructionInline(AIPACKET_s *packet, nuvec_s *destination,
-                        f32 stopping_distance, AIPATHINFO7_s *path_info,
-                        i32 mode, f32 movement_parameter) {
+                        f32 stopping_distance, AIPATHINFO *path_info, i32 mode,
+                        f32 movement_parameter) {
   if (destination != NULL)
     *(nuvec_s *)((u8 *)packet + 0x1b8) = *destination;
   if (path_info != NULL)
-    *(AIPATHINFO7_s *)((u8 *)packet + 0x1d0) = *path_info;
+    *(AIPATHINFO *)((u8 *)packet + 0x1d0) = *path_info;
   *(f32 *)((u8 *)packet + 0x1c4) = stopping_distance;
   packet->movement_event_flags =
       (packet->movement_event_flags & ~7) | (mode & 7);
@@ -596,7 +591,7 @@ i32 Action_RetreatFromOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
   if (packet->pe4 != NULL && packet->pe4->ai != NULL) {
     AIMoveInstructionInline(packet, (nuvec_s *)((u8 *)packet->pe4->ai + 0x174),
                             *(f32 *)((u8 *)packet->pe4->ai + 0x120),
-                            (AIPATHINFO7_s *)((u8 *)packet->pe4->ai + 0x158), 2,
+                            (AIPATHINFO *)((u8 *)packet->pe4->ai + 0x158), 2,
                             packet->movement_param);
   }
   return 0;
@@ -653,17 +648,17 @@ i32 Action_Circle(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
     }
   }
   nuvec_s *position = NULL;
-  AIPATHINFO7_s *path = NULL;
+  AIPATHINFO *path = NULL;
   if ((processor->action_data_1 & 8) != 0) {
-    path = (AIPATHINFO7_s *)((u8 *)packet + 0x158);
+    path = (AIPATHINFO *)((u8 *)packet + 0x158);
     position = &processor->action_pos;
   } else if ((processor->action_data_1 & 0x10) != 0) {
     u8 *locator = (u8 *)processor->action_data_3;
-    path = (AIPATHINFO7_s *)(locator + 0x20);
+    path = (AIPATHINFO *)(locator + 0x20);
     position = (nuvec_s *)(locator + 0x10);
   } else if ((processor->action_data_1 & 0x20) != 0) {
     u8 *creature = *(u8 **)((u8 *)sys + 0x224) + packet->origin_index * 0xa8;
-    path = (AIPATHINFO7_s *)(creature + 0x30);
+    path = (AIPATHINFO *)(creature + 0x30);
     position = GetAICreatureOriginFn != NULL
                    ? GetAICreatureOriginFn(sys, packet)
                    : NULL;
@@ -720,8 +715,8 @@ i32 Action_CirclePlayer(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
                             : (nuvec_s *)((u8 *)PLAYER(sys, 0)->ai + 0x174);
     AIMoveInstructionInline(packet, position,
                             *(f32 *)((u8 *)PLAYER(sys, 0)->ai + 0x120),
-                            (AIPATHINFO7_s *)((u8 *)PLAYER(sys, 0)->ai + 0x158),
-                            3, packet->movement_param);
+                            (AIPATHINFO *)((u8 *)PLAYER(sys, 0)->ai + 0x158), 3,
+                            packet->movement_param);
     if ((processor->action_data_1 & 1) != 0)
       packet->look_target = position;
   }
@@ -771,7 +766,7 @@ i32 Action_CircleOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
                             : (nuvec_s *)((u8 *)packet->pe4->ai + 0x174);
     AIMoveInstructionInline(packet, position,
                             *(f32 *)((u8 *)packet->pe4->ai + 0x120),
-                            (AIPATHINFO7_s *)((u8 *)packet->pe4->ai + 0x158), 3,
+                            (AIPATHINFO *)((u8 *)packet->pe4->ai + 0x158), 3,
                             packet->movement_param);
     if ((processor->action_data_1 & 1) != 0)
       packet->look_target = position;
@@ -800,7 +795,7 @@ i32 Action_MoveAwayFromOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
   if (target != NULL && target->ai != NULL) {
     AIMoveInstructionInline(packet, (nuvec_s *)((u8 *)target->ai + 0x174),
                             *(f32 *)((u8 *)target->ai + 0x120),
-                            (AIPATHINFO7_s *)((u8 *)target->ai + 0x158), 2,
+                            (AIPATHINFO *)((u8 *)target->ai + 0x158), 2,
                             packet->movement_param);
     if (processor->action_data_1 != 0)
       packet->look_target = &target->pos5c;
@@ -831,7 +826,7 @@ i32 Action_MoveAwayFromPlayer(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
   u8 *target = (u8 *)PLAYER(sys, 0)->ai;
   AIMoveInstructionInline(
       packet, (nuvec_s *)(target + 0x174), *(f32 *)(target + 0x120),
-      (AIPATHINFO7_s *)(target + 0x158), 2, packet->movement_param);
+      (AIPATHINFO *)(target + 0x158), 2, packet->movement_param);
   if (processor->action_data_1 != 0)
     packet->look_target = &PLAYER(sys, 0)->pos5c;
   return 0;
@@ -860,7 +855,7 @@ i32 Action_MoveAwayFromPlayer2(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
   u8 *target = (u8 *)PLAYER(sys, 1)->ai;
   AIMoveInstructionInline(
       packet, (nuvec_s *)(target + 0x174), *(f32 *)(target + 0x120),
-      (AIPATHINFO7_s *)(target + 0x158), 2, packet->movement_param);
+      (AIPATHINFO *)(target + 0x158), 2, packet->movement_param);
   if (processor->action_data_1 != 0)
     packet->look_target = &PLAYER(sys, 1)->pos5c;
   return 0;
@@ -868,9 +863,8 @@ i32 Action_MoveAwayFromPlayer2(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
 
 // the out-of-line copy (0x006b7110)
 extern "C" void AIMoveInstruction(AIPACKET_s *packet, nuvec_s *destination,
-                                  f32 stopping_distance,
-                                  AIPATHINFO7_s *path_info, i32 mode,
-                                  f32 movement_parameter);
+                                  f32 stopping_distance, AIPATHINFO *path_info,
+                                  i32 mode, f32 movement_parameter);
 f32 NuVecXZDistSqr(nuvec_s *a, nuvec_s *b, nuvec_s *d);
 struct AIPATHNODE_s *AIPathFindNode(AISYS_s *system, struct AIPATH_s *path,
                                     char *name);
@@ -947,7 +941,7 @@ i32 Action_GoToNode(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
       GTN_PATHINFO(processor)->width = 0.0f;
       GTN_PATHINFO(processor)->direction = 0;
       AIMoveInstruction(packet, &node->position, 0.0f,
-                        (AIPATHINFO7_s *)GTN_PATHINFO(processor), 1,
+                        (AIPATHINFO *)GTN_PATHINFO(processor), 1,
                         packet->movement_param);
     }
     return 0;
@@ -958,7 +952,7 @@ i32 Action_GoToNode(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
   f32 distance_squared = NuVecXZDistSqr((nuvec_s *)((u8 *)packet + 0x14c),
                                         &node->position, &difference);
   AIMoveInstruction(packet, &node->position, 0.0f,
-                    (AIPATHINFO7_s *)GTN_PATHINFO(processor), 1,
+                    (AIPATHINFO *)GTN_PATHINFO(processor), 1,
                     packet->movement_param);
   if (distance_squared < node->radius_squared)
     return 1;
@@ -985,7 +979,7 @@ i32 Action_RetreatFromNearestOpponent(AISYS_s *sys,
     u8 *target = (u8 *)packet->pd4->ai;
     AIMoveInstructionInline(
         packet, (nuvec_s *)(target + 0x174), *(f32 *)(target + 0x120),
-        (AIPATHINFO7_s *)(target + 0x158), 2, packet->movement_param);
+        (AIPATHINFO *)(target + 0x158), 2, packet->movement_param);
   }
   return 0;
 }
@@ -1021,7 +1015,7 @@ i32 Action_GoToNodeRandom(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
       GTN_PATHINFO(processor)->width = 0.0f;
       GTN_PATHINFO(processor)->direction = 0;
       AIMoveInstruction(packet, &node->position, 0.0f,
-                        (AIPATHINFO7_s *)GTN_PATHINFO(processor), 1,
+                        (AIPATHINFO *)GTN_PATHINFO(processor), 1,
                         packet->movement_param);
       return 0;
     }
@@ -1032,7 +1026,7 @@ i32 Action_GoToNodeRandom(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
     f32 distance_squared = NuVecXZDistSqr((nuvec_s *)((u8 *)packet + 0x14c),
                                           &node->position, &difference);
     AIMoveInstruction(packet, &node->position, 0.0f,
-                      (AIPATHINFO7_s *)GTN_PATHINFO(processor), 1,
+                      (AIPATHINFO *)GTN_PATHINFO(processor), 1,
                       packet->movement_param);
     if (distance_squared < node->radius_squared)
       return 1;
@@ -1051,9 +1045,9 @@ extern f32 ai_moveradius;
 // AISYS_s +0x224 entries
 struct GTOCREATURE_s {
   u8 pad0[0x20];
-  nuvec_s pos;             // 0x20
-  i32 y_rot;               // 0x2c
-  AIPATHINFO7_s path_info; // 0x30
+  nuvec_s pos;          // 0x20
+  i32 y_rot;            // 0x2c
+  AIPATHINFO path_info; // 0x30
   u8 pad4c[0xa8 - 0x4c];
 };
 
@@ -1149,9 +1143,9 @@ i32 Action_GoToOrigin(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
 
 // AIGROUP_s rows, 0x38 bytes each
 struct AIROW_s {
-  AIPATHINFO7_s path_info; // 0x00
-  nuvec_s pos;             // 0x1c
-  i32 y_rot;               // 0x28
+  AIPATHINFO path_info; // 0x00
+  nuvec_s pos;          // 0x1c
+  i32 y_rot;            // 0x28
   u8 pad2c[0x31 - 0x2c];
   u8 is_alive; // 0x31
   u8 pad32[2];
@@ -1219,10 +1213,11 @@ static void FormationMove(AIGROUP_s *group, AIROWMOVEFN move) {
 
 // The whole of AIMoveInstruction, formation case included; constant modes
 // other than 1/4/5 fold the group test away.
-static __forceinline void
-AIMoveInstructionFull(AIPACKET_s *packet, nuvec_s *destination,
-                      f32 stopping_distance, AIPATHINFO7_s *path_info, i32 mode,
-                      f32 movement_parameter) {
+static __forceinline void AIMoveInstructionFull(AIPACKET_s *packet,
+                                                nuvec_s *destination,
+                                                f32 stopping_distance,
+                                                AIPATHINFO *path_info, i32 mode,
+                                                f32 movement_parameter) {
   AIGROUP_s *group = packet->group;
   if (group != NULL && group->is_in_formation) {
     switch (mode) {
@@ -1244,7 +1239,7 @@ AIMoveInstructionFull(AIPACKET_s *packet, nuvec_s *destination,
   if (destination != NULL)
     *(nuvec_s *)((u8 *)packet + 0x1b8) = *destination;
   if (path_info != NULL)
-    *(AIPATHINFO7_s *)((u8 *)packet + 0x1d0) = *path_info;
+    *(AIPATHINFO *)((u8 *)packet + 0x1d0) = *path_info;
   *(f32 *)((u8 *)packet + 0x1c4) = stopping_distance;
   packet->movement_mode = mode;
   *(f32 *)((u8 *)packet + 0x1c8) = movement_parameter;
@@ -1252,9 +1247,8 @@ AIMoveInstructionFull(AIPACKET_s *packet, nuvec_s *destination,
 
 // FUNCTION: LEGOBATMAN 0x006b7110
 extern "C" void AIMoveInstruction(AIPACKET_s *packet, nuvec_s *destination,
-                                  f32 stopping_distance,
-                                  AIPATHINFO7_s *path_info, i32 mode,
-                                  f32 movement_parameter) {
+                                  f32 stopping_distance, AIPATHINFO *path_info,
+                                  i32 mode, f32 movement_parameter) {
   AIGROUP_s *group = packet->group;
   if (group != NULL && group->is_in_formation) {
     switch (mode) {
@@ -1276,7 +1270,7 @@ extern "C" void AIMoveInstruction(AIPACKET_s *packet, nuvec_s *destination,
   if (destination != NULL)
     *(nuvec_s *)((u8 *)packet + 0x1b8) = *destination;
   if (path_info != NULL)
-    *(AIPATHINFO7_s *)((u8 *)packet + 0x1d0) = *path_info;
+    *(AIPATHINFO *)((u8 *)packet + 0x1d0) = *path_info;
   *(f32 *)((u8 *)packet + 0x1c4) = stopping_distance;
   packet->movement_mode = mode;
   *(f32 *)((u8 *)packet + 0x1c8) = movement_parameter;
@@ -1394,7 +1388,7 @@ i32 Action_MoveAwayFromNode(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
     GTN_PATHINFO(processor)->width = 0.0f;
     GTN_PATHINFO(processor)->direction = 0;
     AIMoveInstructionInline(packet, &node->position, 0.0f,
-                            (AIPATHINFO7_s *)GTN_PATHINFO(processor), 2,
+                            (AIPATHINFO *)GTN_PATHINFO(processor), 2,
                             packet->movement_param);
     return 0;
   }
@@ -1404,7 +1398,7 @@ i32 Action_MoveAwayFromNode(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
                                   &node->position, &difference);
     if (!(distance < node->radius_squared)) {
       AIMoveInstructionInline(packet, &node->position, 0.0f,
-                              (AIPATHINFO7_s *)GTN_PATHINFO(processor), 2,
+                              (AIPATHINFO *)GTN_PATHINFO(processor), 2,
                               packet->movement_param);
       return 0;
     }
@@ -1542,7 +1536,7 @@ i32 Action_FaceLocator(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
   if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL &&
       packet->path_set != NULL && packet->path_node != NULL) {
     if (first_time != 0) {
-      processor->action_data_3 = processor->locator_set;
+      processor->action_data_3 = processor->locator;
       for (i32 index = 0; index < param_count; ++index) {
         if (AIActionParseSpeedFn != NULL &&
             AIActionParseSpeedFn(params[index], &packet->goal_speed_mode) !=

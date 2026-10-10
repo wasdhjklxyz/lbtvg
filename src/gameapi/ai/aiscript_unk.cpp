@@ -535,8 +535,7 @@ i32 Action_OverrideAnimation(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       continue;
     }
     if (process != NULL)
-      *(f32 *)((u8 *)process + 0xa0) =
-          AIParamToFloatEx(packet, process, args[0]);
+      process->action_timer = AIParamToFloatEx(packet, process, args[0]);
   }
 
   if (to == -1)
@@ -583,7 +582,7 @@ f32 Condition_AlwaysTrue(AISYS_s *sys, AISCRIPTPROCESS_s *process,
 f32 Condition_GotLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                          AIPACKET_s *packet, char *str, void *argument) {
   // 0xa8: the process's current locator.
-  if (*(void **)((u8 *)process + 0xa8) != NULL)
+  if (process->locator != NULL)
     return 1.0f;
   return 0.0f;
 }
@@ -592,7 +591,7 @@ f32 Condition_GotLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
 f32 Condition_GotLocatorSet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                             AIPACKET_s *packet, char *str, void *argument) {
   // 0xac: the process's current locator set.
-  if (*(void **)((u8 *)process + 0xac) != NULL)
+  if (process->locator_set != NULL)
     return 1.0f;
   return 0.0f;
 }
@@ -638,7 +637,7 @@ f32 Condition_TimeOffPath(AISYS_s *sys, AISCRIPTPROCESS_s *process,
 // FUNCTION: LEGOBATMAN 0x006a3760
 f32 Condition_CurrentLocatorIs(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                                AIPACKET_s *packet, char *str, void *argument) {
-  if (argument != NULL && *(void **)((u8 *)process + 0xa8) == argument)
+  if (argument != NULL && process->locator == argument)
     return 1.0f;
   return 0.0f;
 }
@@ -647,7 +646,7 @@ f32 Condition_CurrentLocatorIs(AISYS_s *sys, AISCRIPTPROCESS_s *process,
 f32 Condition_GotTriggerArea(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                              AIPACKET_s *packet, char *str, void *argument) {
   // 0xa4: the process's current trigger area.
-  if (*(void **)((u8 *)process + 0xa4) != NULL)
+  if (process->unknown_a0 != NULL)
     return 1.0f;
   return 0.0f;
 }
@@ -658,7 +657,7 @@ f32 Condition_BaddyInTriggerArea(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                                  void *argument) {
   u8 *area = (u8 *)argument;
   if (area == NULL)
-    area = *(u8 **)((u8 *)process + 0xa4);
+    area = (u8 *)process->unknown_a0;
   // 0x2a: area runtime flags.
   if (area != NULL && (area[0x2a] & 4))
     return 1.0f;
@@ -671,7 +670,7 @@ f32 Condition_GoodyInTriggerArea(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                                  void *argument) {
   u8 *area = (u8 *)argument;
   if (area == NULL)
-    area = *(u8 **)((u8 *)process + 0xa4);
+    area = (u8 *)process->unknown_a0;
   if (area != NULL && (area[0x2a] & 2))
     return 1.0f;
   return 0.0f;
@@ -796,7 +795,8 @@ i32 Action_Idle(AISYS_s *sys, AISCRIPTPROCESS_s *processor, AIPACKET_s *packet,
         frames =
             AIParamToFloatEx(packet, processor, value + NuStrLen("frames") + 1);
       } else {
-        processor->face_timer = AIParamToFloatEx(packet, processor, params[i]);
+        processor->action_timer =
+            AIParamToFloatEx(packet, processor, params[i]);
       }
     }
 
@@ -804,18 +804,18 @@ i32 Action_Idle(AISYS_s *sys, AISCRIPTPROCESS_s *processor, AIPACKET_s *packet,
       processor->action_data_1 = frames < 0 ? 0 : (frames > 255 ? 255 : frames);
       return 0;
     }
-    if (processor->face_timer == 0.0f && maximum > minimum)
-      processor->face_timer = NuRandFloat() * (maximum - minimum) + minimum;
+    if (processor->action_timer == 0.0f && maximum > minimum)
+      processor->action_timer = NuRandFloat() * (maximum - minimum) + minimum;
     return 0;
   }
   if (processor->action_data_1 != 0) {
     if (--processor->action_data_1 == 0)
       return 1;
-  } else if (processor->face_timer > 0.0f) {
-    f32 remaining = processor->face_timer - elapsed;
-    processor->face_timer = remaining;
+  } else if (processor->action_timer > 0.0f) {
+    f32 remaining = processor->action_timer - elapsed;
+    processor->action_timer = remaining;
     if (remaining <= 0.0f) {
-      processor->face_timer = 0.0f;
+      processor->action_timer = 0.0f;
       return 1;
     }
   }
@@ -863,20 +863,21 @@ i32 Action_FacePlayer(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
       else if ((value = NuStrIStr(params[index], "maxtime")) != NULL)
         max_time = AIParamToFloatEx(packet, processor, value + 8);
       else
-        processor->face_timer =
+        processor->action_timer =
             AIParamToFloatEx(packet, processor, params[index]);
     }
-    if (processor->face_timer == 0.0f && max_time > min_time)
-      processor->face_timer = NuRandFloat() * (max_time - min_time) + min_time;
+    if (processor->action_timer == 0.0f && max_time > min_time)
+      processor->action_timer =
+          NuRandFloat() * (max_time - min_time) + min_time;
   }
   Unk_AIPacketObj *player = *(Unk_AIPacketObj **)((u8 *)sys + 0x1698);
   if (player != NULL)
     packet->look_target = &player->pos5c;
-  if (processor->face_timer > 0.0f) {
-    f32 remaining_time = processor->face_timer - elapsed;
-    processor->face_timer = remaining_time;
+  if (processor->action_timer > 0.0f) {
+    f32 remaining_time = processor->action_timer - elapsed;
+    processor->action_timer = remaining_time;
     if (remaining_time <= 0.0f) {
-      processor->face_timer = 0.0f;
+      processor->action_timer = 0.0f;
       return 1;
     }
   }
@@ -911,11 +912,12 @@ i32 Action_FaceOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
       else if (NuStrICmp(params[index], "nearest_opponent") == 0)
         processor->action_data_1 = 1;
       else
-        processor->face_timer =
+        processor->action_timer =
             AIParamToFloatEx(packet, processor, params[index]);
     }
-    if (processor->face_timer == 0.0f && max_time > min_time)
-      processor->face_timer = NuRandFloat() * (max_time - min_time) + min_time;
+    if (processor->action_timer == 0.0f && max_time > min_time)
+      processor->action_timer =
+          NuRandFloat() * (max_time - min_time) + min_time;
   }
   Unk_AIPacketObj *opponent =
       processor->action_data_1 != 0 ? packet->pd4 : packet->pe4;
@@ -936,11 +938,11 @@ i32 Action_FaceOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *processor,
       packet->look_target = (nuvec_s *)&processor->action_pos;
     }
   }
-  if (processor->face_timer > 0.0f) {
-    f32 remaining_time = processor->face_timer - elapsed;
-    processor->face_timer = remaining_time;
+  if (processor->action_timer > 0.0f) {
+    f32 remaining_time = processor->action_timer - elapsed;
+    processor->action_timer = remaining_time;
     if (remaining_time <= 0.0f) {
-      processor->face_timer = 0.0f;
+      processor->action_timer = 0.0f;
       return 1;
     }
   }
@@ -1198,7 +1200,7 @@ i32 Action_ReturnToState(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                          AIPACKET_s *packet, char **args, int argc, int flags,
                          f32 time) {
   // 0xc4: the state to return to.
-  AISTATE **return_to_state = (AISTATE **)((u8 *)process + 0xc4);
+  AISTATE **return_to_state = &process->return_to_state;
   if (process != NULL && *return_to_state != NULL) {
     process->next_state = *return_to_state;
     *return_to_state = NULL;

@@ -266,12 +266,6 @@ i32 Action_SetLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
-// Batman's path info is 0x1c bytes (copied with rep movsd 7); AIPATHINFO in
-// aisys_unk.h is saga's 0x18.
-struct AIPATHINFO1C {
-  u32 words[7];
-};
-
 i32 StartBigJump(GameObject_s *obj, nuvec_s *dest, i32 mode, f32 height_scale,
                  f32 speed_scale, i32 anim, i32 flags);
 
@@ -349,8 +343,7 @@ i32 Action_SnapToLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
         obj->u246 = *(u16 *)((u8 *)loc + 0x1c);
         obj->yaw58 = *(u16 *)((u8 *)loc + 0x1c);
         obj->facing_angle = *(u16 *)((u8 *)loc + 0x1c);
-        *(AIPATHINFO1C *)((u8 *)obj + 0x3e8) =
-            *(AIPATHINFO1C *)((u8 *)loc + 0x20);
+        *(AIPATHINFO *)((u8 *)obj + 0x3e8) = *(AIPATHINFO *)((u8 *)loc + 0x20);
         obj->v80 = obj->position;
         obj->v98 = obj->position;
         plr_lastpos = obj->v80;
@@ -384,7 +377,7 @@ i32 Action_BigJumpToLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     return 1;
   obj = packet->pd0->obj;
   if (first_time) {
-    process->action_data_3 = ((AIPACKET_s *)process)->locator;
+    process->action_data_3 = process->locator;
     for (i32 index = 0; index < param_count; index++) {
       char *value = NuStrIStr(params[index], "name");
       if (value != NULL)
@@ -418,8 +411,7 @@ i32 Action_BigJumpToLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     if (loc != NULL) {
       nuvec_s *pos = (nuvec_s *)((u8 *)loc + 0x10);
       StartBigJump(obj, pos, slam, jump_factor, 1.0f, 0, 1);
-      *(AIPATHINFO1C *)((u8 *)obj + 0x3e8) =
-          *(AIPATHINFO1C *)((u8 *)loc + 0x20);
+      *(AIPATHINFO *)((u8 *)obj + 0x3e8) = *(AIPATHINFO *)((u8 *)loc + 0x20);
       *(nuvec_s *)((u8 *)obj + 0x404) = *pos;
     }
   }
@@ -478,7 +470,7 @@ i32 Action_FollowDirection(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                (nuvec_s *)((u8 *)start + 0x10));
       NuVecNorm(&process->action_pos, &process->action_pos);
     }
-    process->timer_a0 = process->follow_direction_fire_interval * random;
+    process->action_timer = process->follow_direction_fire_interval * random;
     NuVecScale(&process->action_pos, &process->action_pos, direction_scale);
   }
   NuVecAdd(&dest, &obj->position, &process->action_pos);
@@ -493,9 +485,9 @@ i32 Action_FollowDirection(AISYS_s *sys, AISCRIPTPROCESS_s *process,
           dist < process->follow_direction_fire_range *
                      process->follow_direction_fire_range) {
         if (packet->pe4->b257 == 0 || packet->pe4->obj->f1544 > 0.0f) {
-          process->timer_a0 -= dt;
-          if (packet->pe4->b257 == 0 && process->timer_a0 <= 0.0f) {
-            process->timer_a0 =
+          process->action_timer -= dt;
+          if (packet->pe4->b257 == 0 && process->action_timer <= 0.0f) {
+            process->action_timer =
                 process->follow_direction_fire_interval * 0.5 +
                 NuRandFloat() * process->follow_direction_fire_interval;
             obj->p112c->buttons8 |= g_unk0095f72c;
@@ -3238,7 +3230,7 @@ i32 Action_CircleLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     return 1;
   if (flags != 0) {
     process->action_data_1 = 0;
-    process->action_data_3 = *(void **)((u8 *)process + 0xa8);
+    process->action_data_3 = process->locator;
     if (argc != 0) {
       for (i32 i = 0; i < argc; i++) {
         char *value;
@@ -4348,15 +4340,15 @@ i32 Action_FaceCharacter(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       if (s != 0)
         process->action_data_3 = GetNamedGameObjectInl(sys, s + 10);
       else
-        process->face_timer = AIParamToFloat(process, args[i]);
+        process->action_timer = AIParamToFloat(process, args[i]);
     }
   }
   if (packet != 0 && process->action_data_3 != 0)
     packet->look_target = &((GameObject_s *)process->action_data_3)->position;
-  if (process->face_timer > 0.0f) {
-    process->face_timer -= time;
-    if (process->face_timer <= 0.0f) {
-      process->face_timer = 0.0f;
+  if (process->action_timer > 0.0f) {
+    process->action_timer -= time;
+    if (process->action_timer <= 0.0f) {
+      process->action_timer = 0.0f;
       return 1;
     }
   }
@@ -4592,10 +4584,10 @@ i32 Action_SetLocatorSet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "name=");
       if (s != 0) {
-        *(AILOCATORSET_s **)((u8 *)process + 0xac) =
+        process->locator_set =
             AIPathFindLocatorSet(g_unk00960894->aiSys2bf8, s + 5);
       } else if (NuStrICmp(args[i], "from_current_loc") == 0) {
-        AILOCATOR_s *locator = *(AILOCATOR_s **)((u8 *)process + 0xa8);
+        AILOCATOR_s *locator = process->locator;
         if (locator != 0) {
           AssignLocatorAISys_s *ai = (AssignLocatorAISys_s *)sys;
           i32 index = locator - ai->locators;
@@ -4603,7 +4595,7 @@ i32 Action_SetLocatorSet(AISYS_s *sys, AISCRIPTPROCESS_s *process,
             AILOCATORSET_s *set = &ai->locator_sets[j];
             for (i32 k = 0; k < set->locator_count; k++) {
               if (index == set->locator_entries[k])
-                *(AILOCATORSET_s **)((u8 *)process + 0xac) = set;
+                process->locator_set = set;
             }
           }
         }
@@ -4641,9 +4633,9 @@ i32 Action_SetBallooning(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     if (set->locator_count != 0)
       locator =
           &((AssignLocatorAISys_s *)sys)->locators[set->locator_entries[0]];
-    *(AILOCATORSET_s **)((u8 *)process + 0xac) = set;
+    process->locator_set = set;
     if (locator != 0) {
-      *(AILOCATOR_s **)((u8 *)process + 0xa8) = locator;
+      process->locator = locator;
       obj->position = *(nuvec_s *)((u8 *)locator + 0x10);
       StartBallooning(obj, 0);
       SetBallooningHeight(obj, ((nuvec_s *)((u8 *)locator + 0x10))->y);
@@ -5030,7 +5022,7 @@ i32 Action_EngageBlowup(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       else if (NuStrIStr(args[i], "predictive") != NULL)
         process->action_data_1 = 1;
     }
-    process->face_timer = NuRandFloat() * process->action_data_5;
+    process->action_timer = NuRandFloat() * process->action_data_5;
     if (name != NULL) {
       GIZMO_s *gizmo = GizmoFindByName(g_unk00960894->gizmoSys2b0c,
                                        blowup_gizmotype_id, name);
@@ -5044,13 +5036,13 @@ i32 Action_EngageBlowup(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   if (process->action_data_3 != NULL) {
     packet->look_target = (nuvec_s *)process->action_data_3;
-    process->face_timer -= time;
+    process->action_timer -= time;
     obj->aim_target = *(nuvec_s *)process->action_data_3;
     obj->flags140c |= 0x80200;
-    if (process->face_timer <= 0.0f) {
+    if (process->action_timer <= 0.0f) {
       obj->predictive_aim = process->action_data_1;
-      process->face_timer = NuRandFloat() * process->action_data_5 +
-                            process->action_data_5 * 0.5f;
+      process->action_timer = NuRandFloat() * process->action_data_5 +
+                              process->action_data_5 * 0.5f;
       obj->p112c->buttons8 |= g_unk0095f72c;
     }
   }
@@ -5081,7 +5073,7 @@ i32 Action_EngageLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
         else if (NuStrIStr(args[i], "predictive") != NULL)
           process->action_data_1 = 1;
       }
-      process->face_timer = NuRandFloat() * process->action_data_5;
+      process->action_timer = NuRandFloat() * process->action_data_5;
     }
     if (name != NULL) {
       u8 *locator = (u8 *)AIPathFindLocator(sys, name);
@@ -5095,13 +5087,13 @@ i32 Action_EngageLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   if (process->action_data_3 != NULL) {
     packet->look_target = (nuvec_s *)process->action_data_3;
-    process->face_timer -= time;
+    process->action_timer -= time;
     obj->aim_target = *(nuvec_s *)process->action_data_3;
     obj->flags140c |= 0x80200;
-    if (process->face_timer <= 0.0f) {
+    if (process->action_timer <= 0.0f) {
       obj->predictive_aim = process->action_data_1;
-      process->face_timer = NuRandFloat() * process->action_data_5 +
-                            process->action_data_5 * 0.5f;
+      process->action_timer = NuRandFloat() * process->action_data_5 +
+                              process->action_data_5 * 0.5f;
       obj->p112c->buttons8 |= g_unk0095f72c;
     }
   }
@@ -5707,8 +5699,7 @@ i32 Action_GoToLevelPath(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                                    0);
         return 1;
       }
-      AIMoveInstruction(packet, &node->pos, 0.0f,
-                        (AIPATHINFO *)((u8 *)process + 0x84), 1,
+      AIMoveInstruction(packet, &node->pos, 0.0f, &process->path_info, 1,
                         packet->movement_param);
     }
   }
@@ -5954,10 +5945,10 @@ i32 Action_FaceCamera(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       else if ((s = NuStrIStr(args[i], "maxtime")) != 0)
         max_time = AIParamToFloatEx(packet, process, s + 8);
       else
-        process->face_timer = AIParamToFloat(process, args[i]);
+        process->action_timer = AIParamToFloat(process, args[i]);
     }
-    if (process->face_timer == 0.0f && max_time > min_time)
-      process->face_timer = NuRandFloat() * (max_time - min_time) + min_time;
+    if (process->action_timer == 0.0f && max_time > min_time)
+      process->action_timer = NuRandFloat() * (max_time - min_time) + min_time;
   }
   numtx_s *cam = NuCameraGetMtx();
   if (cam != 0) {
@@ -5965,10 +5956,10 @@ i32 Action_FaceCamera(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     if (process->hold_special_button != 0)
       SetHeadTarget(obj, obj->look_target, 7, 1.0f, 0.0f, 0.0f);
   }
-  if (process->face_timer > 0.0f) {
-    process->face_timer -= time;
-    if (process->face_timer <= 0.0f) {
-      process->face_timer = 0.0f;
+  if (process->action_timer > 0.0f) {
+    process->action_timer -= time;
+    if (process->action_timer <= 0.0f) {
+      process->action_timer = 0.0f;
       return 1;
     }
   }
@@ -6491,14 +6482,14 @@ i32 Action_SpinOnSpot(AISYS_s *sys, AISCRIPTPROCESS_s *process,
       else if ((s = NuStrIStr(args[i], "maxtime=")) != 0)
         max_time = AIParamToFloatEx(packet, process, s + 8);
       else if ((s = NuStrIStr(args[i], "time=")) != 0)
-        process->face_timer = AIParamToFloatEx(packet, process, s + 5);
+        process->action_timer = AIParamToFloatEx(packet, process, s + 5);
       else if ((s = NuStrIStr(args[i], "rot_rate=")) != 0)
         process->action_data_4 =
             (f32)(i32)(AIParamToFloatEx(packet, process, s + 9) *
                        182.04444885253906);
     }
     if (min_time != max_time)
-      process->face_timer = NuRandFloat() * (max_time - min_time) + min_time;
+      process->action_timer = NuRandFloat() * (max_time - min_time) + min_time;
     process->action_data_6 = obj->u246;
   }
   process->action_data_6 += (i16)(process->action_data_4 * time);
@@ -6509,10 +6500,10 @@ i32 Action_SpinOnSpot(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                process->action_data_6);
   NuVecAdd(&process->action_pos, &process->action_pos, &obj->v80);
   packet->look_target = &process->action_pos;
-  if (process->face_timer > 0.0f) {
-    process->face_timer -= time;
-    if (process->face_timer <= 0.0f) {
-      process->face_timer = 0.0f;
+  if (process->action_timer > 0.0f) {
+    process->action_timer -= time;
+    if (process->action_timer <= 0.0f) {
+      process->action_timer = 0.0f;
       return 1;
     }
   }
@@ -6698,9 +6689,9 @@ i32 Action_UseTechno(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                     0.0f);
   if (GizTechno_CanUseTechno(obj, techno) == 0) {
     if (FreePlay != 0) {
-      process->face_timer -= time;
-      if (process->face_timer < 0.0f) {
-        process->face_timer = 0.5f;
+      process->action_timer -= time;
+      if (process->action_timer < 0.0f) {
+        process->action_timer = 0.5f;
         *(u32 *)((u8 *)obj->p112c + 8) |= g_unk0095f73c;
       }
     }
@@ -6975,13 +6966,13 @@ i32 Action_FaceLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     return 1;
   GameObject_s *obj = packet->pd0->obj;
   if (flags != 0) {
-    process->action_data_3 = *(void **)((u8 *)process + 0xa8);
+    process->action_data_3 = process->locator;
     for (i32 i = 0; i < argc; i++) {
       char *s = NuStrIStr(args[i], "locator");
       if (s != 0)
         process->action_data_3 = AIPathFindLocator(sys, s + 8);
       else if ((s = NuStrIStr(args[i], "time")) != 0)
-        process->face_timer = AIParamToFloat(process, s + 5);
+        process->action_timer = AIParamToFloat(process, s + 5);
     }
   }
   AILOCATOR_s *locator = (AILOCATOR_s *)process->action_data_3;
@@ -6989,10 +6980,10 @@ i32 Action_FaceLocator(AISYS_s *sys, AISCRIPTPROCESS_s *process,
     packet->look_target = (nuvec_s *)((u8 *)locator + 0x10);
     SetHeadTarget(obj, obj->look_target, 7, 1.0f, 0.0f, 0.0f);
   }
-  if (process->face_timer > 0.0f) {
-    process->face_timer -= time;
-    if (process->face_timer <= 0.0f) {
-      process->face_timer = 0.0f;
+  if (process->action_timer > 0.0f) {
+    process->action_timer -= time;
+    if (process->action_timer <= 0.0f) {
+      process->action_timer = 0.0f;
       return 1;
     }
   }
