@@ -1665,7 +1665,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005a78d0,0033dc9a,__Z13Techno_GetPosP7GIZMO_s,Techno_GetPos(GIZMO_s*),confirmed,0
 005a7bd0,0033e194,__Z19Techno_FindOperatorPvPP9GAMEPAD_sPP12GameObject_s,"Techno_FindOperator(void*, GAMEPAD_s**, GameObject_s**)",confirmed,0
 005a82d0,0033dcb4,__Z21Technos_RegisterGizmoi,Technos_RegisterGizmo(int),confirmed,0
+005a8e30,002e459e,__Z13Grapples_LoadPvS_,"Grapples_Load(void*, void*)",confirmed,0
 005a9160,002e4968,__Z27Grapples_ReserveBufferSpacePv,Grapples_ReserveBufferSpace(void*),confirmed,0
+005a91b0,,Grapple_ResetRopePoints,Grapple_ResetRopePoints,confirmed,0
 005a9390,002e4af0,__Z13Grapple_ResetP9GRAPPLE_sP7nuvec_s,"Grapple_Reset(GRAPPLE_s*, nuvec_s*)",gapfill,1
 005a9520,002e4c4e,__Z14Grapples_ResetPvS_S_,"Grapples_Reset(void*, void*, void*)",strings,0
 005aa1f0,002e58ac,__Z15InitGrappleMtlsP9variptr_uS0_,"InitGrappleMtls(variptr_u*, variptr_u*)",strings,0

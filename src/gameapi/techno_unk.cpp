@@ -141,15 +141,42 @@ void Unk_InlineUser_2_techno_unk(f32 *v, f32 a, i32 i) {
 #include "../batman/leveldata_unk.h"
 #include "../batman/worldinfo_unk.h"
 #include <stddef.h>
+#include <string.h>
+
+typedef struct GRAPPLEROPEPOINT_s {
+  nuvec_s pos; // 0x00
+  u8 padc[0x24 - 0xc];
+} GRAPPLEROPEPOINT;
 
 typedef struct GRAPPLE_s {
-  char name[0x10]; // 0x00
-  u8 pad10[0x1e - 0x10];
-  u16 active : 1;  // 0x1e
-  u16 visible : 1; // 0x1e bit 1
-  u8 pad20[0x58 - 0x20];
-  f32 f58; // 0x58
-  u8 pad5c[0x19c - 0x5c];
+  char name[0x10];         // 0x00
+  nuvec_s position;        // 0x10
+  u8 has_terrain_platform; // 0x1c
+  u8 pad1d;
+  u16 active : 1;                  // 0x1e
+  u16 visible : 1;                 // 0x1e bit 1
+  u16 disabled : 1;                // 0x1e bit 2
+  u16 reversed : 1;                // 0x1e bit 3
+  u16 b4 : 1;                      // 0x1e bit 4
+  u16 no_special : 1;              // 0x1e bit 5
+  u16 b6 : 2;                      // 0x1e bits 6-7
+  u16 b8 : 8;                      // 0x1f
+  u16 y_rotation;                  // 0x20
+  u16 x_rotation;                  // 0x22
+  nuvec_s ground_position;         // 0x24
+  nuvec_s hook_position;           // 0x30
+  nuvec_s shadow_probe_position;   // 0x3c
+  u16 ground_x_rotation;           // 0x48
+  u16 ground_z_rotation;           // 0x4a
+  f32 f4c;                         // 0x4c
+  f32 rope_length;                 // 0x50
+  void *attached_object;           // 0x54
+  f32 f58;                         // 0x58
+  GRAPPLEROPEPOINT rope_points[6]; // 0x5c
+  nuvec_s target_rope_points[6];   // 0x134
+  nuhspecial_s display_special;    // 0x17c
+  char name2[0x10];                // 0x188
+  struct GIZMO_s *gizmo;           // 0x198
 } GRAPPLE;
 
 typedef struct GRAPPLEPROGRESS_s {
@@ -159,6 +186,8 @@ typedef struct GRAPPLEPROGRESS_s {
 
 typedef struct GIZMO_s {
   void *object;
+  u8 pad4[2];
+  u8 type_id; // 0x06
 } GIZMO;
 
 typedef struct ADDGIZMOTYPE_s {
@@ -176,10 +205,86 @@ void AddGizmo(GIZMOSYS_s *gizmo_sys, i32 type_id, void *a, void *object);
 void *GameBufferAllocProgressUnk005bbaf0(VARIPTR *buf, VARIPTR *buf_end,
                                          i32 size);
 i32 Grapple_OccupiedUnk005a9640(GRAPPLE *grapple, i32 a, i32 b);
-i32 Grapples_Load(void *world, void *unused);
-void Grapples_Reset(void *world, void *unused, void *progress);
 void Grapples_Update(void *world, void *unused, f32 dt);
 void Grapples_Draw(void *world, void *unused, f32 dt);
+
+i32 EdFileReadInt();
+int NuSpecialExistsFn(nuhspecial_s *sp);
+u16 EdFileReadUnsignedShort();
+f32 EdFileReadFloat();
+char EdFileReadChar();
+u8 EdFileReadUnsignedChar();
+void EdFileRead(void *buf, i32 len);
+void EdFileReadNuVec(nuvec_s *v);
+
+// FUNCTION: LEGOBATMAN 0x005a8e30
+i32 Grapples_Load(void *world_ptr, void *unused) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  char special_name[256];
+  if (world->grapple_count == 0) {
+    i32 version = EdFileReadInt();
+    world->grapple_count = EdFileReadInt();
+    for (i32 index = 0; index < world->grapple_count; index++) {
+      EdFileRead(world->grapples[index].name, 16);
+      EdFileReadNuVec(&world->grapples[index].position);
+      if (version >= 2) {
+        world->grapples[index].y_rotation = EdFileReadUnsignedShort();
+      } else {
+        EdFileReadUnsignedShort();
+        world->grapples[index].y_rotation = EdFileReadUnsignedShort();
+      }
+      if (version >= 3)
+        world->grapples[index].f4c = EdFileReadFloat();
+      else
+        world->grapples[index].f4c = 1.0f;
+      if (version >= 4) {
+        world->grapples[index].disabled = EdFileReadChar() != 0;
+        world->grapples[index].rope_length = EdFileReadFloat();
+      } else {
+        world->grapples[index].disabled = 0;
+        world->grapples[index].rope_length = 2.0f;
+      }
+      if (version >= 5)
+        world->grapples[index].x_rotation = EdFileReadUnsignedShort();
+      else
+        world->grapples[index].x_rotation = 0;
+      if (version >= 6)
+        world->grapples[index].reversed = EdFileReadChar() != 0;
+      else
+        world->grapples[index].reversed = 0;
+      memset(&world->grapples[index].display_special, 0, sizeof(nuhspecial_s));
+      if (version >= 7) {
+        i32 name_length = EdFileReadUnsignedChar();
+        if (name_length > 0) {
+          EdFileRead(special_name, name_length);
+          special_name[name_length] = '\0';
+          NuSpecialFind(world->scn140, &world->grapples[index].display_special,
+                        special_name, 1);
+        }
+      }
+      if (version >= 8)
+        world->grapples[index].no_special = EdFileReadChar();
+      else if (NuSpecialExistsFn(&world->grapples[index].display_special))
+        world->grapples[index].no_special = 0;
+      else
+        world->grapples[index].no_special = 1;
+      if (version >= 9)
+        world->grapples[index].b6 = EdFileReadChar();
+      else
+        world->grapples[index].b6 = 0;
+      if (version >= 10)
+        EdFileRead(world->grapples[index].name2, 16);
+      else
+        world->grapples[index].name2[0] = '\0';
+      if (version >= 11)
+        world->grapples[index].b8 = EdFileReadChar();
+      else
+        world->grapples[index].b8 = 0x80;
+    }
+    return 1;
+  }
+  return 0;
+}
 
 // FUNCTION: LEGOBATMAN 0x005a9160
 void *Grapples_ReserveBufferSpace(void *world_ptr) {
@@ -192,6 +297,130 @@ void *Grapples_ReserveBufferSpace(void *world_ptr) {
     world->buf104.addr += world->current_level->max_grapples * sizeof(GRAPPLE);
   }
   return world->grapples;
+}
+
+// FUNCTION: LEGOBATMAN 0x005a91b0
+static void Grapple_ResetRopePoints(GRAPPLE *grapple) {
+  f32 segment_length = grapple->rope_length / 6.0f;
+  for (i32 i = 0; i < 6; i++) {
+    grapple->target_rope_points[i].x = grapple->hook_position.x;
+    grapple->target_rope_points[i].y =
+        grapple->hook_position.y - (segment_length * (f32)i + segment_length);
+    grapple->target_rope_points[i].z = grapple->hook_position.z;
+  }
+}
+
+void NuVecRotateX(nuvec_s *v, nuvec_s *v0, i32 a);
+void NuVecRotateY(nuvec_s *v, nuvec_s *v0, i32 a);
+void NuVecAdd(nuvec_s *out, nuvec_s *a, nuvec_s *b);
+extern "C" void NewTerrPlatformsOff(void);
+f32 GameShadow(GameObject_s *object, nuvec_s *position, f32 probe_height,
+               i32 flags);
+void FindAnglesZX(nuvec_s *normal, u16 *x_rotation, u16 *z_rotation);
+
+// GLOBAL: LEGOBATMAN 0x009f7a44
+extern nuvec_s ShadNorm;
+
+// STUB: LEGOBATMAN 0x005a92b0
+// position arrives in ebx in ours, on the stack in the original (the open
+// int-in-ebx convention problem; every parameter order tried).
+static void Grapple_ResetShadow(GRAPPLE *grapple, nuvec_s *offset,
+                                nuvec_s *position, i32 has_terrain_platform) {
+  if (offset != NULL) {
+    NuVecRotateX(&grapple->hook_position, offset, grapple->x_rotation);
+    NuVecRotateY(&grapple->hook_position, &grapple->hook_position,
+                 grapple->y_rotation);
+    NuVecAdd(&grapple->hook_position, &grapple->hook_position, position);
+  } else {
+    grapple->hook_position = *position;
+  }
+  grapple->position = *position;
+  grapple->shadow_probe_position.x = grapple->hook_position.x;
+  grapple->shadow_probe_position.y = grapple->hook_position.y - 0.1f;
+  grapple->shadow_probe_position.z = grapple->hook_position.z;
+  grapple->ground_position.x = grapple->hook_position.x;
+  grapple->ground_position.z = grapple->hook_position.z;
+  if (!has_terrain_platform)
+    NewTerrPlatformsOff();
+  f32 ground = GameShadow(NULL, &grapple->hook_position, 0.0f, -1);
+  grapple->ground_position.y = ground;
+  if (ground != 2000000.0) {
+    grapple->ground_position.y = ground + 0.005f;
+    FindAnglesZX(&ShadNorm, &grapple->ground_x_rotation,
+                 &grapple->ground_z_rotation);
+  }
+}
+
+// GLOBAL: LEGOBATMAN 0x00961104
+extern i32 blowup_gizmotype_id;
+
+// STUB: LEGOBATMAN 0x005a9390
+// call site follows Grapple_ResetShadow's ebx convention; rope clamp also
+// differs.
+static void Grapple_Reset(GRAPPLE *grapple, nuvec_s *offset) {
+  Grapple_ResetShadow(grapple, offset, &grapple->position,
+                      grapple->has_terrain_platform);
+  if (grapple->ground_position.y != 2000000.0) {
+    f32 available =
+        grapple->hook_position.y - (grapple->ground_position.y + 0.1f);
+    if (grapple->rope_length > available) {
+      if (0.7f > available)
+        grapple->rope_length = 0.7f;
+      else
+        grapple->rope_length = available;
+    }
+  }
+  Grapple_ResetRopePoints(grapple);
+  for (i32 i = 0; i < 6; i++)
+    grapple->rope_points[i].pos = grapple->target_rope_points[i];
+  grapple->f58 = 0.0f;
+  grapple->active = 1;
+  grapple->visible = 1;
+  grapple->has_terrain_platform = 0;
+  if (grapple->name2[0] != '\0') {
+    grapple->gizmo = GizmoFindByName(WorldInfo_CurrentlyActive()->gizmoSys2b0c,
+                                     -1, grapple->name2);
+    if (grapple->gizmo != NULL &&
+        grapple->gizmo->type_id != blowup_gizmotype_id)
+      grapple->gizmo = NULL;
+  }
+}
+
+extern "C" int NuSPrintf(char *buf, char *fmt, ...);
+
+// GLOBAL: LEGOBATMAN 0x0095fc14
+extern nuvec_s GrapplePointOffset;
+// GLOBAL: LEGOBATMAN 0x00a97e48
+extern GRAPPLE DynamicGrapple[4];
+
+// STUB: LEGOBATMAN 0x005a9520
+// progress bit insert and the dynamic-grapple loop allocate differently.
+void Grapples_Reset(void *world_ptr, void *unused, void *progress_ptr) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  GRAPPLEPROGRESS *progress = (GRAPPLEPROGRESS *)progress_ptr;
+  if (world == NULL)
+    return;
+  GRAPPLE *grapple = world->grapples;
+  if (grapple != NULL) {
+    for (i32 index = 0; index < world->grapple_count; index++, grapple++) {
+      Grapple_Reset(&world->grapples[index], &GrapplePointOffset);
+      if (progress != NULL && index < 32) {
+        i32 word = index / 32;
+        u32 bit = 1 << (index & 31);
+        grapple->visible = (progress->visible[word] & bit) != 0;
+        grapple->active = (progress->active[word] & bit) != 0;
+      }
+    }
+  }
+  for (i32 i = 0; i < 4; i++) {
+    GRAPPLE *dynamic = &DynamicGrapple[i];
+    NuSPrintf(dynamic->name, "dynamic%i", i + 1);
+    dynamic->active = 1;
+    dynamic->visible = 0;
+    dynamic->y_rotation = 0;
+    dynamic->attached_object = NULL;
+    dynamic->has_terrain_platform = 1;
+  }
 }
 
 // FUNCTION: LEGOBATMAN 0x005aac40

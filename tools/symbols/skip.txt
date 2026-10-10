@@ -226,3 +226,6 @@
 00629f60 SecurityDoor_SetVisibility: depends on the 0x629e70 convention
 005aad30 Grapple_GetOutput: case 2 passes eax (=0) args, source expression unknown
 00449bb0 AIProcessor_AddGizmos: esi/edi swap between counter and pointer, 3 forms tried
+005a92b0 Grapple_ResetShadow: position pointer passed in ebx by our cl, on the stack in the original
+005a9390 Grapple_Reset: depends on Grapple_ResetShadow's convention
+005a9520 Grapples_Reset: progress bit insert / dynamic loop register allocation

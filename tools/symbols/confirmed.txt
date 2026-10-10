@@ -3151,3 +3151,5 @@
 0040b3c0 Attractos_Draw Attractos_RegisterGizmo draw slot (fns[4])
 0040bbe0 Attracto_SetBuildItStepTime body as the Mac's (anim/built counts at 0x70/0x73, 0.3 step)
 0040bf20 Attracto_GetPos_Top body as saga (pos with y + 1.0)
+005a8e30 Grapples_Load Grapples_RegisterGizmo load slot (fns[24])
+005a91b0 Grapple_ResetRopePoints body as saga's first loop (rope_length / 6 segments)
