@@ -1950,12 +1950,11 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00678e00,0034f8ba,__ZN12WorldMapBase19SetAreaOpenCompleteEiii,"WorldMapBase::SetAreaOpenComplete(int, int, int)",confirmed,0
 00678ef0,0034fab6,__ZN12WorldMapBase15InitializeLevelEP11WORLDINFO_s,WorldMapBase::InitializeLevel(WORLDINFO_s*),strings,0
 00678fc0,0034f224,__ZN12WorldMapBase9DumpLevelEP11WORLDINFO_s,WorldMapBase::DumpLevel(WORLDINFO_s*),confirmed,0
-006790c0,,"WorldMapBase::FadeIn(float,","WorldMapBase::FadeIn(float,",confirmed,0
-00679110,,WorldMapBase::FadeOut(float),WorldMapBase::FadeOut(float),confirmed,0
-006794c0,,WorldMapBase::GetLocation(AREADATA_s,WorldMapBase::GetLocation(AREADATA_s,confirmed,0
-00679510,,IsBonusArea(AREADATA_s*),IsBonusArea(AREADATA_s*),confirmed,0
-00679540,,WorldMapBase::GetLocationId(int),WorldMapBase::GetLocationId(int),confirmed,0
-00679580,,WorldMapBase::GetLocationId(char*),WorldMapBase::GetLocationId(char*),confirmed,0
+006790c0,0034f298,__ZN12WorldMapBase6FadeInEff,"WorldMapBase::FadeIn(float, float)",confirmed,0
+00679110,0034f2f2,__ZN12WorldMapBase7FadeOutEf,WorldMapBase::FadeOut(float),confirmed,0
+006794c0,0034f900,__ZN12WorldMapBase11GetLocationEPK10AREADATA_s,WorldMapBase::GetLocation(AREADATA_s const*),confirmed,0
+00679510,0034f350,__Z11IsBonusAreaP10AREADATA_s,IsBonusArea(AREADATA_s*),confirmed,0
+00679580,0034f938,__ZNK12WorldMapBase13GetLocationIdEPc,WorldMapBase::GetLocationId(char*) const,confirmed,0
 006797c0,0034f376,__ZNK12WorldMapBase26GetLastCompletedLocationIdEv,WorldMapBase::GetLastCompletedLocationId() const,confirmed,0
 00679810,003502fe,__ZN12WorldMapBase20parse_worldmap_startEP8nufpar_s,WorldMapBase::parse_worldmap_start(nufpar_s*),confirmed,0
 00679840,0034f3ca,__ZN12WorldMapBase18parse_worldmap_endEP8nufpar_s,WorldMapBase::parse_worldmap_end(nufpar_s*),confirmed,0

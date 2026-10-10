@@ -1109,7 +1109,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## WorldMapBase
 
-- [ ] `00679580` 88 B `WorldMapBase::GetLocationId(char*)`
+- [ ] `00679580` 88 B `WorldMapBase::GetLocationId(char*) const`
 - [ ] `00679950` 99 B `WorldMapBase::parse_colour_mainline(nufpar_s*)`  **stub**
 - [ ] `006799c0` 99 B `WorldMapBase::parse_colour_nextlocationnode(nufpar_s*)`  **stub**
 - [ ] `00679ca0` 238 B `WorldMapBase::InitializePerm(char*, variptr_u*, variptr_u*)`  **stub** · **hint** name (gapfill)

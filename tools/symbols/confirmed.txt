@@ -1894,15 +1894,15 @@
 00679b40 WorldMapBase::parse_mapimageaspectratio Mac order; matched
 00679be0 WorldMapBase::LoadSettings vtable 0x85d7e4 slot 18; Mac body; matched
 00678fc0 WorldMapBase::DumpLevel vtable 0x85d7e4 slot 3; Mac body (base DumpLevel, NuGScnRemove, clears 0x958..0x964); matched
-00679540 WorldMapBase::GetLocationId(int) Mac body (location ids at 0x3a8 stride 0x50, count 0x870); matched
+00679540 WorldMapBase::GetLocationId (int overload) Mac body (location ids at 0x3a8 stride 0x50, count 0x870); matched
 00679810 WorldMapBase::parse_worldmap_start Mac body (0x360 = 0x870 = 0, map name ""); matched
 00678e00 WorldMapBase::SetAreaOpenComplete Mac body (area id byte 0x84, sets location open/complete); matched
-006794c0 WorldMapBase::GetLocation(AREADATA_s const*) Mac body (returns the location whose area matches); matched
+006794c0 WorldMapBase::GetLocation (AREADATA_s const*) Mac body (returns the location whose area matches); matched
 006797c0 WorldMapBase::GetLastCompletedLocationId Mac body; matched
-00679580 WorldMapBase::GetLocationId(char*) Mac body (NuStrICmp on area name 0x40); overload clashes with GetLocationId(int) in match.py
-006790c0 WorldMapBase::FadeIn(float, float) Mac body (duration 0 -> alpha 1, else fade mode 1, -target); matched
-00679110 WorldMapBase::FadeOut(float) Mac body (duration 0 -> alpha 0, mode 0, else fade mode 2); matched
-00679510 IsBonusArea(AREADATA_s*) Mac body (flags & 4, flags & 0x40, byte 0x8e sign), in the WorldMapBase file as on the Mac; matched
+00679580 WorldMapBase::GetLocationId (char* overload) Mac body (NuStrICmp on area name 0x40); overload clashes with GetLocationId(int) in match.py
+006790c0 WorldMapBase::FadeIn (float, float) Mac body (duration 0 -> alpha 1, else fade mode 1, -target); matched
+00679110 WorldMapBase::FadeOut (float) Mac body (duration 0 -> alpha 0, mode 0, else fade mode 2); matched
+00679510 IsBonusArea (AREADATA_s*) Mac body (flags & 4, flags & 0x40, byte 0x8e sign), in the WorldMapBase file as on the Mac; matched
 006710d0 Fade::Init vtable 0x869d88 slot 1 (RTTI .?AVFade@@), Mac body; matched
 006710e0 Fade::InitFade vtable 0x869d88 slot 2, Mac body; matched
 00671110 Fade::UpdateFade vtable 0x869d88 slot 3, empty as on the Mac; matched
