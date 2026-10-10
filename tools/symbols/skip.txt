@@ -177,3 +177,4 @@
 005150f0 ShopComputer::IsMenuChanging: return-0 tail placement (3 forms tried; maybe the vtable-cast call)
 00679950 WorldMapBase::parse_colour_mainline: struct copy addressing (add eax, off vs [eax+off])
 006799c0 WorldMapBase::parse_colour_nextlocationnode: same as 0x679950
+0053a580 WavReader::SetOffset: clamp register allocation (eax vs ecx), 4 spellings tried

@@ -1934,3 +1934,12 @@
 006716d0 DrawSpinScreen called from SpinWipe::DrawFade as on the Mac
 00671360 CrossFade::InitFade vtable 0x869ddc slot 2, Mac body; matched
 00671a20 SpinWipe::InitFade vtable 0x869e14 slot 2, Mac body (1 / SPINFADETIME); matched
+0053a4b0 WavReader::WavReader RTTI .?AVWavReader@@ vtable 0x8675cc, Mac order (ctor first); matched
+0053a4c0 WavReader::Open(char*, WAVEFORMATEX*) vtable slot 2, returns E_FAIL; matched
+0053a4d0 WavReader::GetFormat vtable slot 4 (address of the format at 0x18); matched
+0053a4e0 WavReader::MakeFourCC Mac body; matched
+0053a510 WavReader::GetSize vtable slot 5, Mac body; matched
+0053a530 WavReader::ResetFile vtable slot 6, Mac body; matched
+0053a550 WavReader::Close vtable slot 3, Mac body (CloseHandle); matched
+0053a580 WavReader::SetOffset vtable slot 8, Mac body; stub
+0053a5f0 WavReader::SetFilePointer64 Mac body (SetFilePointerEx); matched
