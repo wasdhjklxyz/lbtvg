@@ -725,6 +725,14 @@ void NuMtxInvRSS(numtx_s *inv, numtx_s *T) {
   *inv = gm;
 }
 
+static inline f32 NuFdiv(f32 a, f32 b) {
+  if (a == 0.0f || b == 0.0f) {
+    return 0.0f;
+  }
+
+  return a / b;
+}
+
 void NuMtxAlignX(numtx_s *m, nuvec_s *v);
 void NuMtxAlignY(numtx_s *m, nuvec_s *v);
 void NuMtxAlignZ(numtx_s *m, nuvec_s *v);
@@ -827,6 +835,115 @@ void NuMtxGetTranslation(numtx_s *m, nuvec_s *t) {
   t->x = m->m30;
   t->y = m->m31;
   t->z = m->m32;
+}
+
+// saga body (NuFdiv inline); one product loads its operands the other way.
+// STUB: LEGOBATMAN 0x006876d0
+void NuMtxAlignX(numtx_s *m, nuvec_s *v) {
+  m->m00 = v->x;
+  m->m01 = v->y;
+  m->m02 = v->z;
+  m->m20 = m->m01 * m->m12 - m->m02 * m->m11;
+  m->m21 = m->m02 * m->m10 - m->m00 * m->m12;
+  m->m22 = m->m00 * m->m11 - m->m01 * m->m10;
+
+  f32 s = NuFsqrt(m->m20 * m->m20 + m->m21 * m->m21 + m->m22 * m->m22);
+  s = NuFdiv(1.0f, s);
+
+  m->m20 = m->m20 * s;
+  m->m21 = m->m21 * s;
+  m->m22 = m->m22 * s;
+  m->m10 = m->m21 * m->m02 - m->m22 * m->m01;
+  m->m11 = m->m22 * m->m00 - m->m20 * m->m02;
+  m->m12 = m->m20 * m->m01 - m->m21 * m->m00;
+}
+
+// saga body (NuFdiv inline); one product loads its operands the other way.
+// STUB: LEGOBATMAN 0x006877e0
+void NuMtxAlignY(numtx_s *m, nuvec_s *v) {
+  m->m10 = v->x;
+  m->m11 = v->y;
+  m->m12 = v->z;
+  m->m00 = m->m11 * m->m22 - m->m12 * m->m21;
+  m->m01 = m->m12 * m->m20 - m->m10 * m->m22;
+  m->m02 = m->m10 * m->m21 - m->m11 * m->m20;
+
+  f32 s = NuFsqrt(m->m00 * m->m00 + m->m01 * m->m01 + m->m02 * m->m02);
+  s = NuFdiv(1.0f, s);
+
+  m->m00 = m->m00 * s;
+  m->m01 = m->m01 * s;
+  m->m02 = m->m02 * s;
+  m->m20 = m->m01 * m->m12 - m->m02 * m->m11;
+  m->m21 = m->m02 * m->m10 - m->m00 * m->m12;
+  m->m22 = m->m00 * m->m11 - m->m01 * m->m10;
+}
+
+// FUNCTION: LEGOBATMAN 0x00687f10
+void NuMtxAddR(numtx_s *m, numtx_s *m0, numtx_s *m1) {
+  m->m00 = m0->m00 + m1->m00;
+  m->m01 = m0->m01 + m1->m01;
+  m->m02 = m0->m02 + m1->m02;
+  m->m03 = 0.0f;
+  m->m10 = m0->m10 + m1->m10;
+  m->m11 = m0->m11 + m1->m11;
+  m->m12 = m0->m12 + m1->m12;
+  m->m13 = 0.0f;
+  m->m20 = m0->m20 + m1->m20;
+  m->m21 = m0->m21 + m1->m21;
+  m->m22 = m0->m22 + m1->m22;
+  m->m23 = 0.0f;
+  m->m30 = 0.0f;
+  m->m31 = 0.0f;
+  m->m32 = 0.0f;
+  m->m33 = 1.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00687f90
+void NuMtxSubR(numtx_s *m, numtx_s *m0, numtx_s *m1) {
+  m->m00 = m0->m00 - m1->m00;
+  m->m01 = m0->m01 - m1->m01;
+  m->m02 = m0->m02 - m1->m02;
+  m->m03 = 0.0f;
+  m->m10 = m0->m10 - m1->m10;
+  m->m11 = m0->m11 - m1->m11;
+  m->m12 = m0->m12 - m1->m12;
+  m->m13 = 0.0f;
+  m->m20 = m0->m20 - m1->m20;
+  m->m21 = m0->m21 - m1->m21;
+  m->m22 = m0->m22 - m1->m22;
+  m->m23 = 0.0f;
+  m->m30 = 0.0f;
+  m->m31 = 0.0f;
+  m->m32 = 0.0f;
+  m->m33 = 1.0f;
+}
+
+// FUNCTION: LEGOBATMAN 0x00688010
+void NuMtxSkewSymmetric(numtx_s *m, nuvec_s *v) {
+  m->m00 = 0.0;
+  m->m01 = -v->z;
+  m->m02 = v->y;
+  m->m03 = 0.0;
+  m->m10 = v->z;
+  m->m11 = 0.0;
+  m->m12 = -v->x;
+  m->m13 = 0.0;
+  m->m20 = -v->y;
+  m->m21 = v->x;
+  m->m22 = 0.0;
+  m->m23 = 0.0;
+  m->m30 = 0.0;
+  m->m31 = 0.0;
+  m->m32 = 0.0;
+  m->m33 = 1.0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00688290
+f32 NuMtxDet3(numtx_s *m) {
+  return m->m00 * (m->m11 * m->m22 - m->m12 * m->m21) -
+         m->m01 * (m->m10 * m->m22 - m->m12 * m->m20) +
+         m->m02 * (m->m10 * m->m21 - m->m11 * m->m20);
 }
 
 // FUNCTION: LEGOBATMAN 0x00689100

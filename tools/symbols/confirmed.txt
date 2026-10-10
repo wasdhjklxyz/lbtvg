@@ -1820,3 +1820,7 @@
 006881d0 NuMtxGetYAxis          saga body and order; matched
 006881f0 NuMtxGetZAxis          saga body and order; matched
 00688210 NuMtxGetTranslation    saga body, after GetZAxis as in saga; matched
+00687f10 NuMtxAddR              saga numtx.cpp body; Mac order (AddR, SubR, SkewSymmetric); matched
+00687f90 NuMtxSubR              saga body; matched
+00688010 NuMtxSkewSymmetric     saga body; matched
+00688290 NuMtxDet3              saga body; matched

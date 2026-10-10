@@ -1923,10 +1923,14 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00687e20,001a7af2,_NuMtxInvLookAtX,_NuMtxInvLookAtX,confirmed,0
 00687e70,001a7cda,_NuMtxInvLookAtY,_NuMtxInvLookAtY,confirmed,0
 00687ec0,001a821c,_NuMtxInvLookAtZ,_NuMtxInvLookAtZ,confirmed,0
+00687f10,0019f40e,_NuMtxAddR,_NuMtxAddR,confirmed,0
+00687f90,0019f4c0,_NuMtxSubR,_NuMtxSubR,confirmed,0
+00688010,0019f572,_NuMtxSkewSymmetric,_NuMtxSkewSymmetric,confirmed,0
 006881b0,0019f754,_NuMtxGetXAxis,_NuMtxGetXAxis,confirmed,0
 006881d0,0019f770,_NuMtxGetYAxis,_NuMtxGetYAxis,confirmed,0
 006881f0,0019f78c,_NuMtxGetZAxis,_NuMtxGetZAxis,confirmed,0
 00688210,0019f7a8,_NuMtxGetTranslation,_NuMtxGetTranslation,confirmed,0
+00688290,0019d1fc,_NuMtxDet3,_NuMtxDet3,confirmed,0
 00689100,001a0196,_NuFmod,_NuFmod,gapfill,2
 0068a6a0,001a6f80,_NuPlnEqn,_NuPlnEqn,gapfill,3
 0068b4d0,001a1422,_NuRandSeed,_NuRandSeed,confirmed,0

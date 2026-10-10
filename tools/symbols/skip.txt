@@ -171,3 +171,5 @@
 00686620 NuMtxMul: saga body (size fits), x87 product operand order differs per term; both operand orders tried
 006868f0 NuMtxMulR: saga body (size fits), same operand-order issue as NuMtxMul
 00686d80 NuMtxInvRSS: saga body (size fits), operand order + a jp/jnp compare flip
+006876d0 NuMtxAlignX: saga body, one fmul operand order (m00*m11), swapping in source has no effect
+006877e0 NuMtxAlignY: saga body, one fmul operand order (m12*m20), same as AlignX
