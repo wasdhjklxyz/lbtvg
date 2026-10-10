@@ -137,25 +137,27 @@ struct WORLDINFO_s {
   i32 lever_count;                    // 0x51e0
   struct GIZPANELSYS_s *gizpanel_sys; // 0x51e4
   u8 pad51e8[0x51ec - 0x51e8];
-  struct TECHNO_s *technos;                   // 0x51ec
-  i32 techno_count;                           // 0x51f0
-  struct GRAPPLE_s *grapples;                 // 0x51f4
-  i32 grapple_count;                          // 0x51f8
-  struct SHARD_s *shards;                     // 0x51fc
-  i32 shard_count;                            // 0x5200
-  struct WHIPPER_s *whippers;                 // 0x5204
-  i32 whipper_count;                          // 0x5208
-  struct ATTRACTO_s *attractos;               // 0x520c
-  i32 attracto_count;                         // 0x5210
-  struct LEDGE_s *ledges;                     // 0x5214
-  i32 ledge_count;                            // 0x5218
-  struct SECURITYDOORSYS_s *securitydoor_sys; // 0x521c
-  Unk_WorldInfo5220 *p5220;                   // 0x5220
-  u8 pad9[0x5228 - 0x5224];
-  i32 gizmo_blowup_count; // 0x5228
-  u8 pad10[0x5230 - 0x522c];
-  GIZMOBLOWUP_s *gizmo_blowups; // 0x5230
-  u8 pad5234[0x5260 - 0x5234];
+  struct TECHNO_s *technos;                     // 0x51ec
+  i32 techno_count;                             // 0x51f0
+  struct GRAPPLE_s *grapples;                   // 0x51f4
+  i32 grapple_count;                            // 0x51f8
+  struct SHARD_s *shards;                       // 0x51fc
+  i32 shard_count;                              // 0x5200
+  struct WHIPPER_s *whippers;                   // 0x5204
+  i32 whipper_count;                            // 0x5208
+  struct ATTRACTO_s *attractos;                 // 0x520c
+  i32 attracto_count;                           // 0x5210
+  struct LEDGE_s *ledges;                       // 0x5214
+  i32 ledge_count;                              // 0x5218
+  struct SECURITYDOORSYS_s *securitydoor_sys;   // 0x521c
+  Unk_WorldInfo5220 *p5220;                     // 0x5220
+  i32 gizmo_blowup_type_count;                  // 0x5224
+  i32 gizmo_blowup_count;                       // 0x5228
+  struct GIZMOBLOWUPTYPE_s *gizmo_blowup_types; // 0x522c
+  GIZMOBLOWUP_s *gizmo_blowups;                 // 0x5230
+  u8 pad5234[0x5250 - 0x5234];
+  struct numtx_s *gizmo_blowup_mtx_buffer; // 0x5250
+  u8 pad5254[0x5260 - 0x5254];
   struct MINICUT_s *minicuts;          // 0x5260
   struct MINICUTPART_s *minicut_parts; // 0x5264
   i32 minicut_count;                   // 0x5268

@@ -3162,3 +3162,20 @@
 005740f0 PlatInstRotate saga GizPanel_CreateTerrain tail call (id, 1)
 00574270 DeletePlatinst saga GizPanel_SetVisibility / Attracto_SetVisibility call
 004913b0 GizPanels_Reset GizPanel_RegisterGizmo reset slot (fns[22])
+005d8990 InitGizmoBlowupTypes Mac order (InitGizmoBlowupTypes, InitGizmoBlowups, InitGizmoBlowupsMtxBuffer) and saga body; first call of gizmoblowup_reservebuffers
+005d8a00 InitGizmoBlowups saga body, second call of gizmoblowup_reservebuffers
+005d8a70 InitGizmoBlowupsMtxBuffer saga body (0x7f align, 0x8000 alloc), third call of gizmoblowup_reservebuffers
+005d8af0 gizmoblowup_reservebuffers NewBlowup_RegisterGizmo (0x5df900) reserve_buffer_space slot, saga body
+005d8b20 Blowup_GetMaxGizmos NewBlowup_RegisterGizmo get_max_gizmos slot
+005d8b40 Blowup_AddGizmos NewBlowup_RegisterGizmo add_gizmos slot
+005d8bb0 Blowup_GetGizmoName NewBlowup_RegisterGizmo get_gizmo_name slot
+005d8bd0 Blowup_GetOutput NewBlowup_RegisterGizmo get_output slot
+005d8c40 Blowup_GetOutputName NewBlowup_RegisterGizmo get_output_name slot
+005d8c60 Blowup_GetNumOutputs NewBlowup_RegisterGizmo get_num_outputs slot
+005d8c70 GizmoBlowup_SetScale Mac order between Blowup_ActivateRev and GizmoBlowup_SetVisibility, stores the float at 0x128
+005d8c80 GizmoBlowup_SetVisibility Mac order; body inlined into Blowup_SetVisibility
+005d8cd0 Blowup_SetVisibility NewBlowup_RegisterGizmo set_visibility slot
+005d8d20 Blowup_GetVisibility NewBlowup_RegisterGizmo get_visibility slot
+005d8d40 GizmoBlowup_GetPos NewBlowup_RegisterGizmo get_pos slot
+005d8d50 Blowup_AllocateProgressData NewBlowup_RegisterGizmo allocate_progress_data slot
+005d8d70 Blowup_ClearProgress NewBlowup_RegisterGizmo clear_progress slot
