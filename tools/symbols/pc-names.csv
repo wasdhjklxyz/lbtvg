@@ -1753,9 +1753,13 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005b8f60,002d3036,__Z26GizObstacles_StoreProgressPvS_S_,"GizObstacles_StoreProgress(void*, void*, void*)",confirmed,0
 005b9cd0,002d382e,__Z26GizObstacles_RegisterGizmoi,GizObstacles_RegisterGizmo(int),confirmed,0
 005b9fd0,0030250c,__Z11Levers_LoadPvS_,"Levers_Load(void*, void*)",confirmed,0
+005ba330,003028de,__Z18Levers_InitTerrainP11WORLDINFO_s,Levers_InitTerrain(WORLDINFO_s*),confirmed,0
 005ba3b0,00302972,__Z25Levers_ReserveBufferSpacePv,Levers_ReserveBufferSpace(void*),confirmed,0
+005ba400,00302c5a,__Z13Lever_ReleaseP12GameObject_s,Lever_Release(GameObject_s*),confirmed,0
 005ba430,00302c98,__Z19Lever_SetVisibilityP7GIZMO_si,"Lever_SetVisibility(GIZMO_s*, int)",confirmed,0
 005ba490,00302d2c,__Z17Lever_ActivateRevP7GIZMO_sii,"Lever_ActivateRev(GIZMO_s*, int, int)",confirmed,0
+005ba4f0,003029d0,__Z21Lever_GetAbsTargetPosP7LEVER_sP7nuvec_s,"Lever_GetAbsTargetPos(LEVER_s*, nuvec_s*)",confirmed,0
+005ba530,00302e9e,__Z17Lever_FindNearestP11WORLDINFO_sP7nuvec_sP12GameObject_sPf,"Lever_FindNearest(WORLDINFO_s*, nuvec_s*, GameObject_s*, float*)",confirmed,0
 005babb0,00303a38,__Z19Levers_GetMaxGizmosPv,Levers_GetMaxGizmos(void*),confirmed,0
 005babd0,00303a54,__Z16Levers_AddGizmosP10GIZMOSYS_siPvS1_,"Levers_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
 005bac40,00303abe,__Z18Lever_GetGizmoNameP7GIZMO_s,Lever_GetGizmoName(GIZMO_s*),confirmed,0

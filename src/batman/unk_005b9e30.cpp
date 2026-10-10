@@ -200,6 +200,22 @@ i32 Levers_Load(void *world_ptr, void *unused) {
   return 0;
 }
 
+// GLOBAL: LEGOBATMAN 0x0096004c
+extern i32 g_unk0096004c; // lever platform type
+
+extern "C" i16 NewPlatPickupInst(void *m, i32 type);
+extern "C" void PlatInstRotate(i32 id, i32 rotate);
+
+// FUNCTION: LEGOBATMAN 0x005ba330
+void Levers_InitTerrain(WORLDINFO_s *world) {
+  if (world->levers == NULL || g_unk0096004c == -1)
+    return;
+  for (i32 i = 0; i < world->lever_count; i++) {
+    world->levers[i].plat = NewPlatPickupInst(&world->levers[i], g_unk0096004c);
+    PlatInstRotate(world->levers[i].plat, 1);
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x005ba3b0
 void *Levers_ReserveBufferSpace(void *world_ptr) {
   WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
@@ -211,6 +227,16 @@ void *Levers_ReserveBufferSpace(void *world_ptr) {
     world->buf104.addr += world->current_level->max_levers * sizeof(LEVER);
   }
   return world->levers;
+}
+
+// GLOBAL: LEGOBATMAN 0x00960540
+extern i32 g_unk00960540;
+
+// FUNCTION: LEGOBATMAN 0x005ba400
+void Lever_Release(GameObject_s *obj) {
+  if (obj->b9db == g_unk00960540 && obj->techno != NULL &&
+      !((LEVER *)obj->techno)->being_pulled)
+    ((LEVER *)obj->techno)->b0 = 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x005ba430
@@ -235,6 +261,45 @@ i32 Lever_ActivateRev(GIZMO *gizmo, i32 value, i32 query) {
     lever->active = value == 0;
   }
   return 1;
+}
+
+// FUNCTION: LEGOBATMAN 0x005ba4f0
+void Lever_GetAbsTargetPos(LEVER *lever, nuvec_s *out) {
+  if (lever != NULL && out != NULL) {
+    nuvec_s t = lever->v40;
+    t.y += 0.005f;
+    *out = t;
+  }
+}
+
+f32 NuVecDistSqr(nuvec_s *a, nuvec_s *b, nuvec_s *d);
+
+// FUNCTION: LEGOBATMAN 0x005ba530
+LEVER *Lever_FindNearest(WORLDINFO_s *world, nuvec_s *pos, GameObject_s *obj,
+                         f32 *out) {
+  LEVER *nearest = NULL;
+  f32 d;
+  LEVER *lever = world->levers;
+  f32 best = 1000000000.0f;
+  for (i32 i = 0; i < world->lever_count; i++, lever++) {
+    if (obj != NULL) {
+      if (!lever->active || !lever->visible || (lever->state & 3) ||
+          lever->pull != 0.0f || lever->v40.y == 2000000.0)
+        continue;
+      nuvec_s t;
+      Lever_GetAbsTargetPos(lever, &t);
+      d = NuVecDistSqr(pos, &t, NULL);
+    } else {
+      d = NuVecDistSqr(pos, &lever->pos68, NULL);
+    }
+    if (d < best) {
+      best = d;
+      nearest = lever;
+    }
+  }
+  if (out != NULL)
+    *out = best;
+  return nearest;
 }
 
 void Levers_Update(void *world, void *unused, f32 dt);
@@ -354,7 +419,7 @@ void FindAnglesZX(nuvec_s *normal, u16 *x_rotation, u16 *z_rotation);
 void NuMtxSetRotationY(numtx_s *m, i32 a);
 void NuMtxTranslate(numtx_s *m, nuvec_s *v);
 
-static inline void Lever_GetAbsTargetPos(LEVER *lever, nuvec_s *out) {
+static inline void Lever_AbsTargetPosInline(LEVER *lever, nuvec_s *out) {
   nuvec_s t = lever->v40;
   t.y += 0.005f;
   *out = t;
@@ -368,7 +433,7 @@ static void Lever_NewPos(LEVER *lever, nuvec_s *pos) {
   lever->v40.z = g_unk00960044;
   NuVecRotateY(&lever->v40, &lever->v40, lever->rot_y + 0x8000);
   NuVecAdd(&lever->v40, &lever->v40, &lever->pos68);
-  Lever_GetAbsTargetPos(lever, &p);
+  Lever_AbsTargetPosInline(lever, &p);
   p.y = lever->pos68.y;
   lever->v40.y = GameShadow(NULL, &lever->v40, 0.2f, -1);
   lever->v4c.y = GameShadow(NULL, &p, 0.2f, -1);

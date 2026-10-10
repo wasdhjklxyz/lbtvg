@@ -3256,3 +3256,7 @@
 005bae50 Levers_UpdateHint Mac Levers_UpdateHint(HINT_s*) body: active/visible/not-pulled levers with pull == 0 and ActivePlayerInRange(&lever->pos40, 0.16f, NULL); no direct callers (hint table)
 005c2e50 ActivePlayerInRange Mac Levers_UpdateHint calls ActivePlayerInRange(nuvec_s*, float, float*) at the same point
 005b9fd0 Levers_Load Levers_RegisterGizmo load slot (fns[24])
+005ba330 Levers_InitTerrain Mac order Levers_Load, Levers_InitTerrain(WORLDINFO_s*), Levers_ReserveBufferSpace; NewPlatPickupInst per lever
+005ba400 Lever_Release Mac order Lever_Reset, Lever_Release(GameObject_s*), Lever_SetVisibility; clears the operated lever's grab bit
+005ba4f0 Lever_GetAbsTargetPos Mac Lever_GetAbsTargetPos(LEVER_s*, nuvec_s*): null checks, out = pos40 with y + 0.005f
+005ba530 Lever_FindNearest Mac Lever_FindNearest(WORLDINFO_s*, nuvec_s*, GameObject_s*, float*): calls Lever_GetAbsTargetPos and NuVecDistSqr per lever
