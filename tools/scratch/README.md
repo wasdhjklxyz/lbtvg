@@ -54,3 +54,4 @@ are not lost. Run inside `nix develop` from the repo root.
   annotation state. The callbacks are statics, referenced directly, so the
   slot names them (GizTorp in `batman/unk_004916c0.cpp` is the worked
   example).
+- `sdd.py`: every RTTI class's vtable slot 0 (scalar/vector deleting dtor), the dtor it calls and the annotation state of both (Y = SYNTHETIC); finds SYNTHETIC targets.

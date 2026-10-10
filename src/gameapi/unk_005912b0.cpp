@@ -44,6 +44,7 @@ public:
 
 class ThingManager {
 public:
+  ThingManager();
   virtual ~ThingManager();
   virtual BaseThing *AddThing(BaseThing *thing);
   virtual BaseThing *AddThingAfterThis(BaseThing *thing);
@@ -56,16 +57,23 @@ public:
   virtual void RenderThings(ThingRenderData *data);
   virtual void DisplayThings(ThingRenderData *data);
   virtual void EffectsThings(ThingRenderData *data);
+  void RenderTimingBars() const;
 
   BaseThing *things[0x40]; // 0x004
   i32 count;               // 0x104
   i32 permanent;           // 0x108, things below this survive
   i32 pending;             // 0x10c
   i32 timer;               // 0x110
+  i32 show_timing;         // 0x114
 };
 
 void Unk00717840(i32 timer, i32 colour, const char *label);
 void Unk00717880(i32 timer, i32 colour);
+i32 NuTimeBarCreateSet(i32 unk);
+void NuTimeBarSetRender(i32 set);
+
+// GLOBAL: LEGOBATMAN 0x00a93ffc
+ThingManager *theThingManager;
 
 // FUNCTION: LEGOBATMAN 0x005912b0
 i32 BaseThing::RemoveDependancies(ThingRemoveData *data) { return 1; }
@@ -97,6 +105,26 @@ void BaseThing::Display(ThingRenderData *data) {}
 // FUNCTION: LEGOBATMAN 0x00591340
 void BaseThing::Effects(ThingRenderData *data) {}
 
+// FUNCTION: LEGOBATMAN 0x00591350
+BaseThing::~BaseThing() {}
+
+// SYNTHETIC: LEGOBATMAN 0x005923a0 BaseThing::`scalar deleting destructor'
+
+// FUNCTION: LEGOBATMAN 0x00591360
+ThingManager::ThingManager() {
+  timer = NuTimeBarCreateSet(0);
+  show_timing = 0;
+  theThingManager = this;
+  count = 0;
+  permanent = 0;
+  pending = 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x005913a0
+ThingManager::~ThingManager() {}
+
+// SYNTHETIC: LEGOBATMAN 0x005913b0 ThingManager::`scalar deleting destructor'
+
 // FUNCTION: LEGOBATMAN 0x005913d0
 BaseThing *ThingManager::AddThing(BaseThing *thing) {
   if (thing != 0 && count < 0x40) {
@@ -118,6 +146,12 @@ BaseThing *ThingManager::AddThingAfterThis(BaseThing *thing) {
     return thing;
   }
   return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x005914a0
+void ThingManager::RenderTimingBars() const {
+  if (show_timing)
+    NuTimeBarSetRender(timer);
 }
 
 // FUNCTION: LEGOBATMAN 0x005914c0

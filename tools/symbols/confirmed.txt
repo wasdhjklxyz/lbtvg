@@ -2624,3 +2624,7 @@
 00490810 GizPanels_AllocateProgressData allocate_progress_data slot of the "Panel" ADDGIZMOTYPE
 00490830 GizPanels_ClearProgress clear_progress slot of the "Panel" ADDGIZMOTYPE
 00491540 GizPanel_RegisterGizmo copies Default_ADDGIZMOTYPE, name "Panel"
+00591350 BaseThing::~BaseThing stores the BaseThing vtable 0x86855c, Mac order after BaseThing::Effects
+00591360 ThingManager::ThingManager Mac ctor body (NuTimeBarCreateSet, theThingManager, 0x104..0x114)
+005913a0 ThingManager::~ThingManager stores the ThingManager vtable 0x868590
+005914a0 ThingManager::RenderTimingBars Mac body (0x114 test, NuTimeBarSetRender(0x110)), between AddThingAfterThis and RemoveTemporaryThings

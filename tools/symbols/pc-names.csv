@@ -1405,8 +1405,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00591320,0023393a,__ZN9BaseThing6RenderEP15ThingRenderData,BaseThing::Render(ThingRenderData*),confirmed,0
 00591330,00233940,__ZN9BaseThing7DisplayEP15ThingRenderData,BaseThing::Display(ThingRenderData*),confirmed,0
 00591340,00233946,__ZN9BaseThing7EffectsEP15ThingRenderData,BaseThing::Effects(ThingRenderData*),confirmed,0
+00591350,00231888,__ZN9BaseThingD2Ev,BaseThing::~BaseThing(),confirmed,0
+00591360,002318d2,__ZN12ThingManagerC2Ev,ThingManager::ThingManager(),confirmed,0
+005913a0,0023394c,__ZN12ThingManagerD1Ev,ThingManager::~ThingManager(),confirmed,0
 005913d0,0023199e,__ZN12ThingManager8AddThingEP9BaseThing,ThingManager::AddThing(BaseThing*),confirmed,0
 00591410,002319e2,__ZN12ThingManager17AddThingAfterThisEP9BaseThing,ThingManager::AddThingAfterThis(BaseThing*),confirmed,0
+005914a0,00231a12,__ZNK12ThingManager16RenderTimingBarsEv,ThingManager::RenderTimingBars() const,confirmed,0
 005914c0,00231a34,__ZN12ThingManager21RemoveTemporaryThingsEv,ThingManager::RemoveTemporaryThings(),confirmed,0
 00591530,002324e6,__ZN12ThingManager24RemoveDependanciesThingsEP15ThingRemoveData,ThingManager::RemoveDependanciesThings(ThingRemoveData*),confirmed,0
 00591580,00232534,__ZN12ThingManager11ResetThingsEP14ThingResetData,ThingManager::ResetThings(ThingResetData*),confirmed,0

@@ -18,7 +18,7 @@ static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 struct numtl_s;
 
 // Fade class inline members (fade_unk.h), emitted here in class order: ctor,
-// dtor, GetFadeType, scalar deleting dtor (not annotatable by match.py yet).
+// dtor, GetFadeType, scalar deleting dtor.
 
 // FUNCTION: LEGOBATMAN 0x005a3c10
 FadeBase::FadeBase() : info(NULL) {}
@@ -37,6 +37,8 @@ Fade::~Fade() {}
 // FUNCTION: LEGOBATMAN 0x005a3c70
 i32 Fade::GetFadeType() const { return 0; }
 
+// SYNTHETIC: LEGOBATMAN 0x005a3c80 Fade::`scalar deleting destructor'
+
 // FUNCTION: LEGOBATMAN 0x005a3ca0
 BlackWipe::BlackWipe() {}
 
@@ -45,6 +47,8 @@ BlackWipe::~BlackWipe() {}
 
 // FUNCTION: LEGOBATMAN 0x005a3cc0
 i32 BlackWipe::GetFadeType() const { return 1; }
+
+// SYNTHETIC: LEGOBATMAN 0x005a3cd0 BlackWipe::`scalar deleting destructor'
 
 // FUNCTION: LEGOBATMAN 0x005a3cf0
 StillScreenWipe::StillScreenWipe() {}
@@ -55,6 +59,10 @@ StillScreenWipe::~StillScreenWipe() {}
 // FUNCTION: LEGOBATMAN 0x005a3d10
 i32 StillScreenWipe::GetFadeType() const { return 2; }
 
+// clang-format off
+// SYNTHETIC: LEGOBATMAN 0x005a3d20 StillScreenWipe::`scalar deleting destructor'
+// clang-format on
+
 // FUNCTION: LEGOBATMAN 0x005a3d40
 CrossFade::CrossFade() {}
 
@@ -63,6 +71,8 @@ CrossFade::~CrossFade() {}
 
 // FUNCTION: LEGOBATMAN 0x005a3d60
 i32 CrossFade::GetFadeType() const { return 5; }
+
+// SYNTHETIC: LEGOBATMAN 0x005a3d70 CrossFade::`scalar deleting destructor'
 
 // FUNCTION: LEGOBATMAN 0x005a3d90
 BlackCrossFade::BlackCrossFade() {}
@@ -73,6 +83,8 @@ BlackCrossFade::~BlackCrossFade() {}
 // FUNCTION: LEGOBATMAN 0x005a3db0
 i32 BlackCrossFade::GetFadeType() const { return 6; }
 
+// SYNTHETIC: LEGOBATMAN 0x005a3dc0 BlackCrossFade::`scalar deleting destructor'
+
 // FUNCTION: LEGOBATMAN 0x005a3de0
 SpinWipe::SpinWipe() {}
 
@@ -82,6 +94,8 @@ SpinWipe::~SpinWipe() {}
 // FUNCTION: LEGOBATMAN 0x005a3e00
 i32 SpinWipe::GetFadeType() const { return 4; }
 
+// SYNTHETIC: LEGOBATMAN 0x005a3e10 SpinWipe::`scalar deleting destructor'
+
 // FUNCTION: LEGOBATMAN 0x005a3e30
 StillScreen::StillScreen() {}
 
@@ -90,6 +104,8 @@ StillScreen::~StillScreen() {}
 
 // FUNCTION: LEGOBATMAN 0x005a3e50
 i32 StillScreen::GetFadeType() const { return 3; }
+
+// SYNTHETIC: LEGOBATMAN 0x005a3e60 StillScreen::`scalar deleting destructor'
 
 // GLOBAL: LEGOBATMAN 0x0095f8f0
 Fade g_unk0095f8f0;
