@@ -2443,6 +2443,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00673ef0,00291276,__ZN18CustomiserInternal18RandomizeCharacterEi,CustomiserInternal::RandomizeCharacter(int),strings,0
 00675430,00336b52,__Z18LoadSpecialSfxFileP11WORLDINFO_s,LoadSpecialSfxFile(WORLDINFO_s*),strings,0
 006754c0,00281f7e,__Z14CharPivot_InitPcP9variptr_uS0_,"CharPivot_Init(char*, variptr_u*, variptr_u)",strings,0
+006762c0,003510a8,__Z17PlayerIdToGameObji,PlayerIdToGameObj(int),confirmed,0
 006763f0,00324088,__Z14Puzzle_PreLoadPvS_,"Puzzle_PreLoad(void*, void*)",strings,0
 00678e00,0034f8ba,__ZN12WorldMapBase19SetAreaOpenCompleteEiii,"WorldMapBase::SetAreaOpenComplete(int, int, int)",confirmed,0
 00678e50,00350a4c,__ZN12WorldMapBase16GetTotalDistanceEii,"WorldMapBase::GetTotalDistance(int, int)",confirmed,0

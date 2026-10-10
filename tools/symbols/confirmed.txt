@@ -2524,26 +2524,27 @@
 004d8380 Move_BEAST             passed with flags 0x40000000 to SetMoveAndAnimateFunctions, as on the Mac
 004cf630 Animate_BEAST          passed with flags 0x40000000 to SetMoveAndAnimateFunctions, as on the Mac
 004d87c0 Move_DRAGBOMB          stored to the id_DRAGBOMB* characters' move_fn, as on the Mac
-5a3c10 FadeBase::FadeBase             vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3c20 FadeBase::~FadeBase            vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3c50 Fade::Fade                     vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3c60 Fade::~Fade                    vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3c70 Fade::GetFadeType              vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3ca0 BlackWipe::BlackWipe           vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3cb0 BlackWipe::~BlackWipe          vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3cc0 BlackWipe::GetFadeType         vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3cf0 StillScreenWipe::StillScreenWipe vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3d00 StillScreenWipe::~StillScreenWipe vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3d10 StillScreenWipe::GetFadeType   vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3d40 CrossFade::CrossFade           vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3d50 CrossFade::~CrossFade          vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3d60 CrossFade::GetFadeType         vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3d90 BlackCrossFade::BlackCrossFade vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3da0 BlackCrossFade::~BlackCrossFade vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3db0 BlackCrossFade::GetFadeType    vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3de0 SpinWipe::SpinWipe             vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3df0 SpinWipe::~SpinWipe            vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3e00 SpinWipe::GetFadeType          vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3e30 StillScreen::StillScreen       vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3e40 StillScreen::~StillScreen      vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
-5a3e50 StillScreen::GetFadeType       vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3c10 FadeBase::FadeBase             vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3c20 FadeBase::~FadeBase            vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3c50 Fade::Fade                     vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3c60 Fade::~Fade                    vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3c70 Fade::GetFadeType              vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3ca0 BlackWipe::BlackWipe           vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3cb0 BlackWipe::~BlackWipe          vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3cc0 BlackWipe::GetFadeType         vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3cf0 StillScreenWipe::StillScreenWipe vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3d00 StillScreenWipe::~StillScreenWipe vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3d10 StillScreenWipe::GetFadeType   vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3d40 CrossFade::CrossFade           vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3d50 CrossFade::~CrossFade          vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3d60 CrossFade::GetFadeType         vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3d90 BlackCrossFade::BlackCrossFade vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3da0 BlackCrossFade::~BlackCrossFade vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3db0 BlackCrossFade::GetFadeType    vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3de0 SpinWipe::SpinWipe             vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3df0 SpinWipe::~SpinWipe            vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3e00 SpinWipe::GetFadeType          vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3e30 StillScreen::StillScreen       vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3e40 StillScreen::~StillScreen      vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+005a3e50 StillScreen::GetFadeType       vtable slot / ctor of the RTTI class (rtti.py), in class order before its deleting dtor
+006762c0 PlayerIdToGameObj      id <= 1 ? Player[id] if its 0x1fc bit 7 is set : NULL, same body as the Mac's

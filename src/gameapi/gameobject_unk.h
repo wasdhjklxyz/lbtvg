@@ -125,6 +125,7 @@ struct GameObject_s {
       u32 : 8;
       u32 ai_override_control : 1; // 0x1fc bit 8
     };
+    u8 b1fc; // 0x1fc low byte; bit 7 = active player (PlayerIdToGameObj)
   };
   u8 pad3[0x246 - 0x200];
   u16 u246; // 0x246, MovingBackwards: facing compared with pad input
