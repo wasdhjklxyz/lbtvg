@@ -51,8 +51,16 @@ typedef struct LEDGE_s {
   u8 active : 1;          // 0x47
   u8 visible : 1;         // 0x47 bit 1
   u8 type;                // 0x48
-  u8 hot : 1;             // 0x49
-  u8 pad4a[0x4e - 0x4a];
+  union {
+    struct {
+      u8 hot : 1;   // 0x49
+      u8 b49_1 : 1; // 0x49 bit 1
+      u8 b49_2 : 1; // 0x49 bit 2
+    };
+    u8 b49; // 0x49
+  };
+  i16 s4a;         // 0x4a
+  i16 s4c;         // 0x4c
   u16 local_angle; // 0x4e
   u16 turn;        // 0x50
   u8 pad52[0x54 - 0x52];
@@ -120,7 +128,53 @@ extern nugscn_s *things_scene;
 // GLOBAL: LEGOBATMAN 0x00961598
 static char *Ledge_OutputNames[2] = {"CanUse", "Occupied"};
 
-i32 Ledges_Load(void *world, void *unused);
+i32 EdFileReadInt();
+char EdFileReadChar();
+i16 EdFileReadShort();
+void EdFileRead(void *buf, i32 len);
+void EdFileReadNuVec(nuvec_s *v);
+u8 EdFileReadUnsignedChar();
+i32 GizmoFileReadName(char *name);
+int NuSpecialFind(nugscn_s *scene, nuhspecial_s *out, char *name, i32 a);
+
+// FUNCTION: LEGOBATMAN 0x005dfd10
+i32 Ledges_Load(void *world_ptr, void *unused) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  char name[0x40];
+  if (world->ledge_count == 0) {
+    i32 version = EdFileReadInt();
+    world->ledge_count = EdFileReadInt();
+    for (i32 i = 0; i < world->ledge_count; i++) {
+      memset(&world->ledges[i], 0, sizeof(LEDGE));
+      EdFileRead(world->ledges[i].name, 8);
+      EdFileReadNuVec(&world->ledges[i].position);
+      world->ledges[i].angle = EdFileReadShort();
+      world->ledges[i].code = EdFileReadChar();
+      if (version >= 2) {
+        world->ledges[i].s4a = EdFileReadShort();
+        world->ledges[i].s4c = EdFileReadShort();
+      } else {
+        world->ledges[i].s4a = -1;
+        world->ledges[i].s4c = -1;
+      }
+      if (version >= 3)
+        world->ledges[i].b49 = EdFileReadUnsignedChar();
+      else
+        world->ledges[i].b49 = 0;
+      if (version >= 4 && GizmoFileReadName(name)) {
+        NuSpecialFind(world->scn140, &world->ledges[i].special, name, 1);
+        EdFileReadNuVec(&world->ledges[i].local_position);
+        world->ledges[i].local_angle = EdFileReadShort();
+      }
+      if (version < 5) {
+        world->ledges[i].b49_1 = 1;
+        world->ledges[i].b49_2 = 1;
+      }
+    }
+    return 1;
+  }
+  return 0;
+}
 
 // FUNCTION: LEGOBATMAN 0x005dfec0
 void *Ledges_ReserveBufferSpace(void *world_ptr) {

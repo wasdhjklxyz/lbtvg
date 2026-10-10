@@ -3287,3 +3287,4 @@
 00629ce0 SecurityDoors_Load SecurityDoors_RegisterGizmo load slot
 00670280 GizMiniCut_Load GizMiniCut_RegisterGizmo load slot
 00605760 Whippers_Load Whippers_RegisterGizmo load slot
+005dfd10 Ledges_Load Ledges_RegisterGizmo load slot

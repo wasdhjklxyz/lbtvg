@@ -1988,6 +1988,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005df0d0,002c8f86,__Z20GizmoBlowupBurstDrawPvS_f,"GizmoBlowupBurstDraw(void*, void*, float)",confirmed,0
 005df900,002c6064,__Z23NewBlowup_RegisterGizmoi,NewBlowup_RegisterGizmo(int),confirmed,0
 005dfa60,002ec12c,__Z15ObjHitObj_FlagsP12GameObject_s,ObjHitObj_Flags(GameObject_s*),gapfill,1
+005dfd10,002f716a,__Z11Ledges_LoadPvS_,"Ledges_Load(void*, void*)",confirmed,0
 005dfec0,002f7356,__Z25Ledges_ReserveBufferSpacePv,Ledges_ReserveBufferSpace(void*),confirmed,0
 005dff10,002f73ba,__Z11Ledge_ResetP7LEDGE_s,Ledge_Reset(LEDGE_s*),confirmed,0
 005e0080,002f7556,__Z19Ledge_SetVisibilityP7GIZMO_si,"Ledge_SetVisibility(GIZMO_s*, int)",confirmed,0
