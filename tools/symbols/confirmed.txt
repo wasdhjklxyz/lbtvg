@@ -3269,3 +3269,6 @@
 00603df0 GameAnimSet_CreateObjectPool Mac GizSpecial_ReserveBuffer calls GameAnimSet_CreateObjectPool(variptr_u*, variptr_u*, int, int) with (buf, end, 0, max)
 00603bc0 GameAnimSet_Create Mac GizSpecial_ReserveBuffer calls GameAnimSet_Create(variptr_u*, variptr_u*, GAMEANIMOBJPOOL_s*, GAMEANIMSYS_s*) per special
 00649b00 TightRopes_Reset TightRopes_RegisterGizmo reset slot (fns[22])
+00649880 TightRopes_Load TightRopes_RegisterGizmo load slot (fns[24]); Mac TightRopes_Load reads with EdFileReadUnsignedShort/UnsignedChar where PC calls 0x59d3c0/0x59d410
+0059d3c0 EdFileReadUnsignedShort Mac TightRopes_Load calls _EdFileReadUnsignedShort four times at the same point
+0059d410 EdFileReadUnsignedChar Mac TightRopes_Load calls _EdFileReadUnsignedChar twice at the same point

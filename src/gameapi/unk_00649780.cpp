@@ -26,12 +26,6 @@ void Unk_InlineUser_00649780(f32 *v, f32 a, i32 i) {
   NuVec4Set(v, a, a, a, a);
 }
 
-// Keeps the header-static copies above alive until their real callers are
-// matched.
-void Unk_InlineUser_unk_00649780(f32 *v, f32 a, i32 i) {
-  NuVecZeroInline(v + 80);
-}
-
 // The rest of this TU is the Mac's TightRope file (TightRopes_Load ..
 // TightRopes_RegisterGizmo 0x64ac10); callbacks named by their
 // RegisterGizmo slot.
@@ -43,10 +37,18 @@ void Unk_InlineUser_unk_00649780(f32 *v, f32 a, i32 i) {
 typedef struct TIGHTROPE_s {
   nuvec_s position; // 0x00
   nuvec_s end;      // 0x0c
-  u8 pad18[0x30 - 0x18];
-  nuvec_s dir;     // 0x30
-  char name[0x10]; // 0x3c
-  u8 pad4c[0x58 - 0x4c];
+  nuvec_s v18;      // 0x18
+  nuvec_s v24;      // 0x24
+  nuvec_s dir;      // 0x30
+  char name[0x10];  // 0x3c
+  u16 s4c;          // 0x4c
+  u16 s4e;          // 0x4e
+  u16 s50;          // 0x50
+  u16 s52;          // 0x52
+  u8 b54;           // 0x54
+  u8 b55;           // 0x55
+  i8 b56;           // 0x56
+  u8 pad57;
   f32 length;     // 0x58
   u16 angle;      // 0x5c
   u8 visible : 1; // 0x5e
@@ -90,7 +92,45 @@ void *GameBufferAllocProgressUnk005bbaf0(VARIPTR *buf, VARIPTR *buf_end,
 void PlaySfx(char *name, nuvec_s *position);
 void AddLevelSfxFromName(char *sfx_name, i32 *sfx_ids, i32 *sfx_count,
                          i32 max_sfx);
-i32 TightRopes_Load(void *world, void *unused);
+i32 EdFileReadInt();
+char EdFileReadChar();
+u16 EdFileReadUnsignedShort();
+u8 EdFileReadUnsignedChar();
+void EdFileRead(void *buf, i32 len);
+void EdFileReadNuVec(nuvec_s *v);
+
+// FUNCTION: LEGOBATMAN 0x00649880
+i32 TightRopes_Load(void *world_ptr, void *unused) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  if (world->tightrope_count == 0) {
+    i32 version = EdFileReadInt();
+    world->tightrope_count = EdFileReadInt();
+    for (i32 i = 0; i < world->tightrope_count; i++) {
+      EdFileRead(world->tightropes[i].name, 0x10);
+      EdFileReadNuVec(&world->tightropes[i].position);
+      EdFileReadNuVec(&world->tightropes[i].end);
+      if (version >= 4) {
+        EdFileReadNuVec(&world->tightropes[i].v18);
+        EdFileReadNuVec(&world->tightropes[i].v24);
+      } else {
+        NuVecZeroInline((f32 *)&world->tightropes[i].v18);
+        NuVecZeroInline((f32 *)&world->tightropes[i].v24);
+      }
+      if (version >= 2) {
+        world->tightropes[i].s4c = EdFileReadUnsignedShort();
+        world->tightropes[i].s4e = EdFileReadUnsignedShort();
+        world->tightropes[i].s50 = EdFileReadUnsignedShort();
+        world->tightropes[i].s52 = EdFileReadUnsignedShort();
+        world->tightropes[i].b54 = EdFileReadUnsignedChar();
+        world->tightropes[i].b55 = EdFileReadUnsignedChar();
+        if (version >= 3)
+          world->tightropes[i].b56 = EdFileReadChar();
+      }
+    }
+    return 1;
+  }
+  return 0;
+}
 
 // FUNCTION: LEGOBATMAN 0x006499d0
 void *TightRopes_ReserveBufferSpace(void *world_ptr) {

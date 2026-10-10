@@ -1583,6 +1583,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0059c4b0,0025615a,_ActionFromName,_ActionFromName,gapfill,1
 0059c530,002561e8,_ParseAnimStance,_ParseAnimStance,confirmed,0
 0059c5a0,00256266,_ConfigureCharacterList,_ConfigureCharacterList,strings,0
+0059d3c0,001ec862,_EdFileReadUnsignedShort,_EdFileReadUnsignedShort,confirmed,0
+0059d410,001ec6da,_EdFileReadUnsignedChar,_EdFileReadUnsignedChar,confirmed,0
 0059d6a0,003416de,__Z21Text_InitLanguageListP12LANGUAGEDATA,Text_InitLanguageList(LANGUAGEDATA*),confirmed,0
 0059d6e0,0034171c,__Z16Text_SetLanguageii,"Text_SetLanguage(int, int)",confirmed,0
 0059d700,0034174e,__Z20Text_GetLanguagePathi,Text_GetLanguagePath(int),confirmed,0
@@ -2815,6 +2817,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006486e0,00264012,__Z19Arcade_PlayerKilledii,"Arcade_PlayerKilled(int, int)",confirmed,0
 00648970,002a4b3a,__Z22Episodes_ConfigureListPcP9variptr_uS1_iPi,"Episodes_ConfigureList(char*, variptr_u*, variptr_u*, int, int*)",strings,0
 00648f60,002a50cc,__Z22Episode_CountOpenAreasii,"Episode_CountOpenAreas(int, int)",confirmed,0
+00649880,003452b6,__Z15TightRopes_LoadPvS_,"TightRopes_Load(void*, void*)",confirmed,0
 006499d0,003435ae,__Z29TightRopes_ReserveBufferSpacePv,TightRopes_ReserveBufferSpace(void*),confirmed,0
 00649ac0,0034360a,__Z17TightRope_ReleaseP12GameObject_s,TightRope_Release(GameObject_s*),confirmed,0
 00649b00,00345146,__Z16TightRopes_ResetPvS_S_,"TightRopes_Reset(void*, void*, void*)",confirmed,0
