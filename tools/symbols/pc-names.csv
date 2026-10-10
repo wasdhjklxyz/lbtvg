@@ -780,6 +780,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00511610,000487ee,__Z14Flight_B_ResetP11WORLDINFO_s,Flight_B_Reset(WORLDINFO_s*),confirmed,0
 00511620,000487f8,__Z15Flight_B_UpdateP11WORLDINFO_s,Flight_B_Update(WORLDINFO_s*),confirmed,0
 00511630,000497ba,__Z13Flight_C_InitP11WORLDINFO_s,Flight_C_Init(WORLDINFO_s*),confirmed,0
+00511650,00048802,__Z14Flight_C_ResetP11WORLDINFO_s,Flight_C_Reset(WORLDINFO_s*),confirmed,0
+005116d0,00048890,__Z15Flight_C_UpdateP11WORLDINFO_s,Flight_C_Update(WORLDINFO_s*),confirmed,0
+005117b0,00048984,__Z20TurnOnCraneDirtyHackv,TurnOnCraneDirtyHack(),confirmed,0
+005117d0,000489a4,__Z19CraneDirtyHackCheckP12GameObject_sS0_,"CraneDirtyHackCheck(GameObject_s*, GameObject_s*)",confirmed,0
 00512080,000c9b6c,__ZN19LightFlickerOverlay14InitializePermEPcP9variptr_uS2_,"LightFlickerOverlay::InitializePerm(char*, variptr_u*, variptr_u*)",confirmed,0
 00512500,000c9c28,__ZN19LightFlickerOverlay6RenderEv,LightFlickerOverlay::Render(),confirmed,0
 00512580,000ca160,__ZN17LoadScreenDisplay14InitializePermEPcP9variptr_uS2_,"LoadScreenDisplay::InitializePerm(char*, variptr_u*, variptr_u*)",confirmed,0

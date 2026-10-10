@@ -2595,3 +2595,7 @@
 00511620 Flight_B_Update        tail call to Flight_Update
 00511630 Flight_C_Init          memset, as Flight_A_Init
 005111f0 Flight_Update          tail-call target of Flight_A/B_Update (via the 0x4028e2 thunk)
+00511650 Flight_C_Reset         Flight_Reset + MadTurret1/2 messages + policeBossChopper: after Flight_C_Init as on the Mac
+005116d0 Flight_C_Update        Flight_Update + boss chopper smoke/fire debris by hitpoints; Mac order
+005117b0 TurnOnCraneDirtyHack   WORLD area == crane area, same as the Mac's; after Flight_C_Update as on the Mac
+005117d0 CraneDirtyHackCheck    (a, b): b's type == id -> 1 else a+0x24d, same as the Mac's; Mac order
