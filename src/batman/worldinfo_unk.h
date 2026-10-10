@@ -16,9 +16,10 @@ struct GAMECAMERA_s;
 
 // 0x2c-byte entries of the list at WORLDINFO_s+0x5220.
 struct Unk_WorldInfo5220Entry { // GIZMOPICKUP_s
-  char name[0x14];
-  char type_code; // 0x14
-  u8 b15;         // 0x15, bit 1: add as a gizmo
+  char name[8];                 // 0x00
+  nuvec_s position;             // 0x08
+  char type_code;               // 0x14
+  u8 b15;                       // 0x15, bit 1: add as a gizmo
   u8 b16;
   u8 b17;              // 0x17
   u16 state_bit0 : 1;  // 0x18

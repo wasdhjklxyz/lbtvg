@@ -3223,3 +3223,5 @@
 005b4dc0 Spinner_Activate Spinners_RegisterGizmo activate slot (fns[10])
 005b4e20 Spinner_GetPos Spinners_RegisterGizmo get_pos slot (fns[14])
 005b5090 Spinner_SetVisibility Spinners_RegisterGizmo set_visibility slot (fns[12]); tail-calls the per-spinner setter 0x5b4e40
+00634af0 GizmoPickup_SetVisibility GizmoPickups_RegisterGizmo set_visibility slot (fns[12])
+00634ee0 GizmoPickup_GetPos GizmoPickups_RegisterGizmo get_pos slot (fns[14]); position at 0x08 as saga GIZMOPICKUP_s

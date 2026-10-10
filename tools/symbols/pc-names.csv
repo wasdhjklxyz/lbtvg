@@ -2705,6 +2705,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006346a0,002cd696,__Z33GizmoPickups_AllocateProgressDataP9variptr_uS0_,"GizmoPickups_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
 006346c0,002cd6b8,__Z26GizmoPickups_ClearProgressPvS_,"GizmoPickups_ClearProgress(void*, void*)",confirmed,0
 00634710,002cd722,__Z26GizmoPickups_StoreProgressPvS_S_,"GizmoPickups_StoreProgress(void*, void*, void*)",confirmed,0
+00634af0,002cd7fc,__Z25GizmoPickup_SetVisibilityP7GIZMO_si,"GizmoPickup_SetVisibility(GIZMO_s*, int)",confirmed,0
+00634ee0,002cdc6e,__Z18GizmoPickup_GetPosP7GIZMO_s,GizmoPickup_GetPos(GIZMO_s*),confirmed,0
 00635020,002cdece,__Z23GizmoPickups_TotalScorePv,GizmoPickups_TotalScore(void*),confirmed,0
 00635070,002ce0cc,__Z24GizmoPickup_NumberOfTypeP11WORLDINFO_sic,"GizmoPickup_NumberOfType(WORLDINFO_s*, int, char)",confirmed,0
 006350d0,002ce136,__Z22GizmoPickup_FindByNameP11WORLDINFO_sPc,"GizmoPickup_FindByName(WORLDINFO_s*, char*)",confirmed,0

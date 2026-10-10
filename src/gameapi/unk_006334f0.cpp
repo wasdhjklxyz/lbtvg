@@ -167,8 +167,19 @@ void GizmoPickups_StoreProgress(void *world_ptr, void *unused,
 void GizmoPickups_Draw(void *world, void *unused, f32 dt);
 void GizmoPickups_Update(void *world, void *unused, f32 dt);
 void GizmoPickup_Activate(GIZMO *gizmo, i32 active);
-void GizmoPickup_SetVisibility(GIZMO *gizmo, i32 visible);
-nuvec_s *GizmoPickup_GetPos(GIZMO *gizmo);
+// FUNCTION: LEGOBATMAN 0x00634af0
+void GizmoPickup_SetVisibility(GIZMO *gizmo, i32 visible) {
+  if (gizmo != NULL)
+    ((Unk_WorldInfo5220Entry *)gizmo->object)->visible = visible != 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00634ee0
+nuvec_s *GizmoPickup_GetPos(GIZMO *gizmo) {
+  if (gizmo == NULL)
+    return NULL;
+  return &((Unk_WorldInfo5220Entry *)gizmo->object)->position;
+}
+
 void GizmoPickups_Reset(void *world, void *unused, void *progress);
 void *GizmoPickups_ReserveBufferSpace(void *world);
 i32 GizmoPickups_Load(void *world, void *unused);
