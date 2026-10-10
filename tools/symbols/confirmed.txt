@@ -3370,3 +3370,5 @@
 00604ec0 GameAnimSet_GetVisibility 2 all visible, 1 some, 0 none (saga GetVisibility)
 00604f10 GameAnimSet_SetVisibility NuSpecialSetVisibility per object (saga SetVisibility)
 00604f40 GameAnimSet_EvalAnim SetAnimFrame(special, ltime) per object (saga EvalAnim)
+00604150 GameAnimSet_SetTFactor tfactor = fparam1*factor*dir or dir*factor (saga SetTFactor)
+00604690 GameAnimSet_IsAnimationReset saga body shape (repeating/playing/ltime vs start)

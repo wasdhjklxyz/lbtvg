@@ -2215,7 +2215,9 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00603df0,002ab814,__Z28GameAnimSet_CreateObjectPoolP9variptr_uS0_ii,"GameAnimSet_CreateObjectPool(variptr_u*, variptr_u*, int, int)",confirmed,0
 006040c0,002acf3e,__Z24GameAnimSet_RemoveObjectP13GAMEANIMSET_sP13GAMEANIMOBJ_s,"GameAnimSet_RemoveObject(GAMEANIMSET_s*, GAMEANIMOBJ_s*)",confirmed,0
 00604120,002acff6,__Z28GameAnimSet_RemoveAllObjectsP13GAMEANIMSET_s,GameAnimSet_RemoveAllObjects(GAMEANIMSET_s*),confirmed,0
+00604150,002ab932,__Z22GameAnimSet_SetTFactorP13GAMEANIMSET_sf,"GameAnimSet_SetTFactor(GAMEANIMSET_s*, float)",confirmed,0
 006041d0,002ab9a4,__Z24GameAnimSet_ScaleFParam1P13GAMEANIMSET_sf,"GameAnimSet_ScaleFParam1(GAMEANIMSET_s*, float)",confirmed,0
+00604690,002abe48,__Z28GameAnimSet_IsAnimationResetP13GAMEANIMSET_s,GameAnimSet_IsAnimationReset(GAMEANIMSET_s*),confirmed,0
 00604ac0,002ac17a,__Z24GameAnimSet_SetRepeatingP13GAMEANIMSET_si,"GameAnimSet_SetRepeating(GAMEANIMSET_s*, int)",confirmed,0
 00604b00,002ac1b8,__Z21GameAnimSet_JumpToEndP13GAMEANIMSET_s,GameAnimSet_JumpToEnd(GAMEANIMSET_s*),confirmed,0
 00604b40,002ac1f8,__Z23GameAnimSet_JumpToStartP13GAMEANIMSET_s,GameAnimSet_JumpToStart(GAMEANIMSET_s*),confirmed,0

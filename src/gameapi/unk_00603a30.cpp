@@ -351,6 +351,25 @@ void GameAnimSet_RemoveAllObjects(GAMEANIMSET *set) {
   }
 }
 
+// FUNCTION: LEGOBATMAN 0x00604150
+void GameAnimSet_SetTFactor(GAMEANIMSET *set, f32 factor) {
+  GAMEANIMOBJ *obj;
+
+  if (set == NULL)
+    return;
+  for (obj = set->objects; obj != NULL; obj = obj->next) {
+    nuinstanim_s *animation = obj->instance_anim;
+    if (animation != NULL) {
+      f32 direction = obj->start_frame > obj->end_frame ? -1.0f : 1.0f;
+      if (animation->fparam1 != 0.0f)
+        obj->instance_anim->tfactor =
+            obj->instance_anim->fparam1 * factor * direction;
+      else
+        animation->tfactor = direction * factor;
+    }
+  }
+}
+
 // FUNCTION: LEGOBATMAN 0x006041d0
 void GameAnimSet_ScaleFParam1(GAMEANIMSET *set, f32 scale) {
   GAMEANIMOBJ *obj;
@@ -361,6 +380,34 @@ void GameAnimSet_ScaleFParam1(GAMEANIMSET *set, f32 scale) {
         obj->instance_anim->fparam1 = obj->instance_anim->fparam1 * scale;
     }
   }
+}
+
+// FUNCTION: LEGOBATMAN 0x00604690
+i32 GameAnimSet_IsAnimationReset(GAMEANIMSET *set) {
+  GAMEANIMOBJ *obj;
+
+  if (set != NULL) {
+    i32 animated_count = 0;
+    i32 repeating_count = 0;
+    for (obj = set->objects; obj != NULL; obj = obj->next) {
+      nuinstanim_s *animation = obj->instance_anim;
+      if (animation == NULL)
+        continue;
+      animated_count++;
+      if (animation->repeating) {
+        repeating_count++;
+        continue;
+      }
+      if (animation->playing)
+        return 0;
+      f32 direction = obj->start_frame > obj->end_frame ? -1.0f : 1.0f;
+      if (animation->ltime * direction > obj->start_frame * direction)
+        return 0;
+    }
+    if (animated_count > 0 && repeating_count == animated_count)
+      return 0;
+  }
+  return 1;
 }
 
 // FUNCTION: LEGOBATMAN 0x00604730
