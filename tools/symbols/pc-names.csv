@@ -3485,6 +3485,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006cd280,001e56a2,_NuScriptLoadCommands,_NuScriptLoadCommands,strings,0
 006d2800,00186f9a,_NuHeapDestroy,_NuHeapDestroy,confirmed,0
 006d2810,0018dc44,_NuHeapAllocAlignedNamed,_NuHeapAllocAlignedNamed,confirmed,0
+006d30c0,,AquireFileBuffer,AquireFileBuffer,confirmed,0
 006d3fc0,0018810e,_NuFParPopCom,_NuFParPopCom,confirmed,0
 006d4020,,NuAllocFPar,NuAllocFPar,confirmed,0
 006d40b0,,NuFreeFPar,NuFreeFPar,confirmed,0
@@ -3657,6 +3658,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006dd430,0018c1a8,_NuFParInterpretWordCTX,_NuFParInterpretWordCTX,gapfill,1
 006dd970,00194530,_NuFileOpen,_NuFileOpen,confirmed,0
 006dda10,00190f44,_NuFileSize,_NuFileSize,confirmed,0
+006de860,00192e78,_NuFileRead,_NuFileRead,confirmed,0
 006dea40,00193c44,_NuFileReadFloat,_NuFileReadFloat,confirmed,0
 006dea60,00193c1e,_NuFileReadInt,_NuFileReadInt,confirmed,0
 006dea80,00193bf8,_NuFileReadUnsignedInt,_NuFileReadUnsignedInt,confirmed,0

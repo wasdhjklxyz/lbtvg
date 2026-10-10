@@ -574,17 +574,22 @@ void NuPadRecStep(void) {
 // ids 1..0x3ff: saga's FILEINFO (file_info[id - 1])
 struct FILEBUFINFO;
 typedef struct fileinfo_s {
-  unsigned char pad0[8];
-  __int64 pos; // 0x08
-  unsigned char pad10[8];
-  __int64 file_len; // 0x18
-  unsigned char pad20[0x2c - 0x20];
-  int use_buf; // 0x2c
-  unsigned char pad30[0x3c - 0x30];
+  int handle;              // 0x00
+  __int64 pos;             // 0x08, read position
+  __int64 file_pos;        // 0x10
+  __int64 file_len;        // 0x18
+  __int64 buf_start;       // 0x20
+  int buf_len;             // 0x28
+  int use_buf;             // 0x2c
+  int unused;              // 0x30
+  int mode;                // 0x34
+  int pad38;               // 0x38
   struct FILEBUFINFO *buf; // 0x3c
 } FILEINFO;
 struct FILEBUFINFO {
   FILEINFO *file_info;
+  int time;
+  char data[0x400];
 };
 // ids 0x400..0x7ff
 struct NuFileUnk0afa0a8 {
@@ -1225,6 +1230,92 @@ void NuFileClose(int file) {
   if (info->buf != 0)
     info->buf->file_info = 0;
   memset(info, 0, sizeof(FILEINFO));
+}
+
+extern "C" int NuPSFileRead(int fh, void *buf, int size);
+int Unk006d2f80(int file, void *buf, int size);
+int NuMemFileRead(int file, void *buf, int size);
+// GLOBAL: LEGOBATMAN 0x00af3190
+static FILEBUFINFO file_buff[4];
+// GLOBAL: LEGOBATMAN 0x00b03888
+static int file_time_count;
+
+// FUNCTION: LEGOBATMAN 0x006d30c0
+static void AquireFileBuffer(FILEINFO *info) {
+  int i;
+  int buf_idx;
+  int time;
+  FILEBUFINFO *buf;
+
+  buf_idx = 0;
+  time = file_time_count;
+  for (i = 0; i < 4; i++) {
+    if (file_buff[i].time < time) {
+      time = file_buff[i].time;
+      buf_idx = i;
+    }
+  }
+  buf = &file_buff[buf_idx];
+  if (buf->file_info != 0)
+    buf->file_info->buf = 0;
+  buf->file_info = info;
+  buf->time = file_time_count++;
+  info->buf = buf;
+  if (info->buf_len != 0) {
+    NuPSFileLSeek(info->handle, -info->buf_len, 1);
+    NuPSFileRead(info->handle, buf->data, info->buf_len);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006de860
+int NuFileRead(int file, void *buf, int size) {
+  FILEINFO *info;
+  int bytes_read;
+  char *char_buf;
+  int available;
+
+  if (file >= 0x2000)
+    return Unk006d2f80(file, buf, size);
+  if (file >= 0x1000)
+    return 0;
+  if (file >= 0x400)
+    return NuMemFileRead(file, buf, size);
+  file -= 1;
+  info = &file_info[file];
+  if (info->use_buf) {
+    if (info->buf == 0)
+      AquireFileBuffer(info);
+    bytes_read = 0;
+    char_buf = (char *)buf;
+    while (size > 0) {
+      if (info->pos >= info->file_len)
+        return bytes_read;
+      if (info->pos < info->buf_start ||
+          info->pos >= info->buf_start + info->buf_len) {
+        if (info->pos != info->file_pos) {
+          NuPSFileLSeek(info->handle, info->pos, 0);
+          info->file_pos = info->pos;
+        }
+        info->buf_len = NuPSFileRead(info->handle, info->buf->data, 0x400);
+        info->buf_start = info->file_pos;
+        info->file_pos += info->buf_len;
+      }
+      available = info->buf_len + (int)(info->buf_start - info->pos) < size
+                      ? info->buf_len + (int)(info->buf_start - info->pos)
+                      : size;
+
+      if (available != 0)
+        memcpy(char_buf,
+               (char *)info->buf + (int)(info->pos - info->buf_start) + 8,
+               available);
+      char_buf += available;
+      bytes_read += available;
+      size -= available;
+      info->pos += available;
+    }
+    return bytes_read;
+  }
+  return NuPSFileRead(file, buf, size);
 }
 
 struct NuPadRec {
