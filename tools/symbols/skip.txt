@@ -222,3 +222,5 @@
 005cc110 GizBuildItMul: esi/edi swapped between player and build_amount, 3 forms tried
 0060bcd0 PushBlock_GetOutput: final je vs jmp-to-shared-jne, 5 forms tried
 0060bd90 PushBlocks_ClearProgress: header stores vs memset push scheduling, all 6 orders tried
+00629e70 SecurityDoor_PlatsOnOff: ours passes the int in ebx, original loads it from the stack (AIScriptCopyString puzzle)
+00629f60 SecurityDoor_SetVisibility: depends on the 0x629e70 convention

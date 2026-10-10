@@ -2488,6 +2488,19 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006289f0,0027eda6,__Z30CharConfig_SetGCDataFlagsOnAllj,CharConfig_SetGCDataFlagsOnAll(unsigned int),confirmed,0
 00628a30,0027ede2,__Z32CharConfig_ClearGCDataFlagsOnAllj,CharConfig_ClearGCDataFlagsOnAll(unsigned int),confirmed,0
 00629270,002818fe,__Z23CharConfig_ConfigureAlliP12nufpcomjmp_s,"CharConfig_ConfigureAll(int, nufpcomjmp_s*)",strings,0
+00629ef0,0032dda4,__Z32SecurityDoors_ReserveBufferSpacePv,SecurityDoors_ReserveBufferSpace(void*),confirmed,0
+0062a5c0,0032e51c,__Z25SecurityDoors_EarlyUpdatePvS_f,"SecurityDoors_EarlyUpdate(void*, void*, float)",confirmed,0
+0062b240,0032f502,__Z26SecurityDoors_GetMaxGizmosPv,SecurityDoors_GetMaxGizmos(void*),confirmed,0
+0062b260,0032f51e,__Z23SecurityDoors_AddGizmosP10GIZMOSYS_siPvS1_,"SecurityDoors_AddGizmos(GIZMOSYS_s*, int, void*, void*)",confirmed,0
+0062b2c0,0032f586,__Z25SecurityDoor_GetGizmoNameP7GIZMO_s,SecurityDoor_GetGizmoName(GIZMO_s*),confirmed,0
+0062b2e0,0032f59c,__Z22SecurityDoor_GetOutputP7GIZMO_sii,"SecurityDoor_GetOutput(GIZMO_s*, int, int)",confirmed,0
+0062b310,0032f5bc,__Z26SecurityDoor_GetOutputNameP7GIZMO_si,"SecurityDoor_GetOutputName(GIZMO_s*, int)",confirmed,0
+0062b320,0032f5ce,__Z26SecurityDoor_GetNumOutputsP7GIZMO_s,SecurityDoor_GetNumOutputs(GIZMO_s*),confirmed,0
+0062b330,0032f5d8,__Z34SecurityDoors_AllocateProgressDataP9variptr_uS0_,"SecurityDoors_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
+0062b350,0032f5fa,__Z27SecurityDoors_ClearProgressPvS_,"SecurityDoors_ClearProgress(void*, void*)",confirmed,0
+0062b370,0032f648,__Z27SecurityDoors_StoreProgressPvS_S_,"SecurityDoors_StoreProgress(void*, void*, void*)",confirmed,0
+0062b400,0032f6fa,__Z19SecurityDoor_GetPosP7GIZMO_s,SecurityDoor_GetPos(GIZMO_s*),confirmed,0
+0062bd30,0032f82a,__Z27SecurityDoors_RegisterGizmoi,SecurityDoors_RegisterGizmo(int),confirmed,0
 0062d030,002833a2,__Z24CharShadows_InitMaterialP9variptr_uS_,"CharShadows_InitMaterial(variptr_u*, variptr_u)",strings,0
 0062d7e0,0030ac0e,__Z18Missions_ConfigurePcP9variptr_uS1_P13MISSIONSAVE_s,"Missions_Configure(char*, variptr_u*, variptr_u*, MISSIONSAVE_s*)",strings,0
 0062db70,0030af92,__Z13Mission_ClearP12MISSIONSYS_s,Mission_Clear(MISSIONSYS_s*),confirmed,0

@@ -132,12 +132,12 @@ struct WORLDINFO_s {
   struct SHARD_s *shards; // 0x51fc
   i32 shard_count;        // 0x5200
   u8 pad5204[0x520c - 0x5204];
-  struct ATTRACTO_s *attractos; // 0x520c
-  i32 attracto_count;           // 0x5210
-  struct LEDGE_s *ledges;       // 0x5214
-  i32 ledge_count;              // 0x5218
-  u8 pad521c[0x5220 - 0x521c];
-  Unk_WorldInfo5220 *p5220; // 0x5220
+  struct ATTRACTO_s *attractos;               // 0x520c
+  i32 attracto_count;                         // 0x5210
+  struct LEDGE_s *ledges;                     // 0x5214
+  i32 ledge_count;                            // 0x5218
+  struct SECURITYDOORSYS_s *securitydoor_sys; // 0x521c
+  Unk_WorldInfo5220 *p5220;                   // 0x5220
   u8 pad9[0x5228 - 0x5224];
   i32 gizmo_blowup_count; // 0x5228
   u8 pad10[0x5230 - 0x522c];

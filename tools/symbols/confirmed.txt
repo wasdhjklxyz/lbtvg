@@ -2907,3 +2907,16 @@
 0060bd60 PushBlock_GetNumOutputs get_num_outputs slot of the "PushBlocks" ADDGIZMOTYPE
 0060bd70 PushBlocks_AllocateProgressData allocate_progress_data slot of the "PushBlocks" ADDGIZMOTYPE
 0060c5d0 PushBlocks_RegisterGizmo copies Default_ADDGIZMOTYPE, name "PushBlocks"
+00629ef0 SecurityDoors_ReserveBufferSpace reserve_buffer_space slot of the "SecurityDoor" ADDGIZMOTYPE
+0062a5c0 SecurityDoors_EarlyUpdate early_update slot of the "SecurityDoor" ADDGIZMOTYPE
+0062b240 SecurityDoors_GetMaxGizmos get_max_gizmos slot of the "SecurityDoor" ADDGIZMOTYPE
+0062b260 SecurityDoors_AddGizmos add_gizmos slot of the "SecurityDoor" ADDGIZMOTYPE
+0062b2c0 SecurityDoor_GetGizmoName get_gizmo_name slot of the "SecurityDoor" ADDGIZMOTYPE
+0062b2e0 SecurityDoor_GetOutput get_output slot of the "SecurityDoor" ADDGIZMOTYPE
+0062b310 SecurityDoor_GetOutputName get_output_name slot of the "SecurityDoor" ADDGIZMOTYPE
+0062b320 SecurityDoor_GetNumOutputs get_num_outputs slot of the "SecurityDoor" ADDGIZMOTYPE
+0062b330 SecurityDoors_AllocateProgressData allocate_progress_data slot of the "SecurityDoor" ADDGIZMOTYPE
+0062b350 SecurityDoors_ClearProgress clear_progress slot of the "SecurityDoor" ADDGIZMOTYPE
+0062b370 SecurityDoors_StoreProgress store_progress slot of the "SecurityDoor" ADDGIZMOTYPE
+0062b400 SecurityDoor_GetPos get_pos slot of the "SecurityDoor" ADDGIZMOTYPE
+0062bd30 SecurityDoors_RegisterGizmo copies Default_ADDGIZMOTYPE, name "SecurityDoor"
