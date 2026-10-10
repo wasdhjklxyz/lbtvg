@@ -2581,3 +2581,4 @@
 004f9880 Text_SetLanguage_Game  INTROTEXT_Y/SCALE per language: saga text.cpp values; Mac order before Text_InitDefaultStrings
 004f9980 Text_InitDefaultStrings TTab[tNULL]=txt_NULL... eight entries: saga text.cpp; before Text_DecodeButtons as on the Mac
 004e36b0 PlayRadio              radios[8] play/stop by special or blowup name: saga radio.cpp; after UpdateRadios as on the Mac
+00639400 SelectOpponent         ObjOpponent / GizmoBlowUpOpponent into a context struct: saga move.cpp's SelectOpponent; before FaceOpponent as on the Mac

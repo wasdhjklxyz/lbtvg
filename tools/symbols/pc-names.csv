@@ -2313,6 +2313,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00635de0,002ced68,__Z18CoinsGoToMainTotalv,CoinsGoToMainTotal(),gapfill,2
 00636200,002cf1e8,__Z25SpecialMiniKits_ConfigureP11WORLDINFO_sPc,"SpecialMiniKits_Configure(WORLDINFO_s*, char*)",strings,0
 00638f90,00282e9c,__Z23CharPlatforms_ConfigureP11WORLDINFO_sPc,"CharPlatforms_Configure(WORLDINFO_s*, char*)",strings,0
+00639400,002a7f56,__Z14SelectOpponentP12GameObject_sffiiP17CONTEXTOPPONENT_sj,"SelectOpponent(GameObject_s*, float, float, int, int, CONTEXTOPPONENT_s*, unsigned int)",confirmed,0
 006394f0,002a80d0,__Z12FaceOpponentP12GameObject_sP7nuvec_s,"FaceOpponent(GameObject_s*, nuvec_s*)",confirmed,0
 00639580,002a8152,__Z21ObjOpponentStillThereP12GameObject_sS0_f,"ObjOpponentStillThere(GameObject_s*, GameObject_s*, float)",order,4
 00639670,002a821c,__Z12SetWeaponOutP12GameObject_s,SetWeaponOut(GameObject_s*),confirmed,0
