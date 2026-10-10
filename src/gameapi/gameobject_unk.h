@@ -335,7 +335,8 @@ struct GameObject_s {
   GameObject_s *alert_target; // 0x13d8, Action_SetSide clears
   f32 alert_target_timer;     // 0x13dc
   f32 current_speed_mul;      // 0x13e0
-  u8 pad13e4[0x13f0 - 0x13e4];
+  u8 pad13e4[0x13ec - 0x13e4];
+  f32 run_speed_override;  // 0x13ec, Action_SetRunSpeed (1e9 = none)
   f32 walk_speed_override; // 0x13f0
   u8 pad13f4[0x1404 - 0x13f4];
   f32 max_y_rot_seek;      // 0x1404

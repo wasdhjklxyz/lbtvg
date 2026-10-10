@@ -814,6 +814,105 @@ extern GIZAIMESSAGESYS_s *gizaimessagesys;
 i32 qrand(void);
 void LoseHitPoints(GameObject_s *obj, i32 amount);
 
+// GLOBAL: LEGOBATMAN 0x00ab3980
+extern GameObject_s *player;
+float SeekValF(float current, float target, float step);
+
+static inline f32 RunSpeedFabs(f32 f) {
+  u32 bits = *(u32 *)&f & 0x7fffffff;
+  return *(f32 *)&bits;
+}
+
+// FUNCTION: LEGOBATMAN 0x0045d520
+i32 Action_SetRunSpeed(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                       AIPACKET_s *packet, char **args, int argc, int flags,
+                       f32 time) {
+  f32 multiplier = 1.0f;
+  f32 maximum = 1000000000.0f;
+  i32 multiply = 0;
+  f32 minimum = 0.0f;
+  if (packet == NULL || packet->pd0 == NULL || packet->pd0->obj == NULL)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  if (flags != 0) {
+    f32 speed = 1000000000.0f;
+    if (argc != 0)
+      for (i32 i = 0; i < argc; i++) {
+        char *value = NuStrIStr(args[i], "multiply=");
+        if (value != NULL) {
+          multiplier = AIParamToFloat(process, value + 9);
+          multiply = 1;
+        } else if (NuStrICmp(args[i], "max=default") == 0)
+          maximum = obj->p54->p24->run_speed;
+        else if (NuStrICmp(args[i], "default") == 0)
+          speed = obj->p54->p24->run_speed;
+        else if (NuStrICmp(args[i], "clear") == 0) {
+        } else if ((value = NuStrIStr(args[i], "max=")) != NULL)
+          maximum = AIParamToFloat(process, value + 4);
+        else if ((value = NuStrIStr(args[i], "min=")) != NULL)
+          minimum = AIParamToFloat(process, value + 4);
+        else if ((value = NuStrIStr(args[i], "seek=")) != NULL)
+          process->action_data_4 = AIParamToFloat(process, value + 5);
+        else if (NuStrIStr(args[i], "player_run_speed") != NULL)
+          speed = player->p54->p24->run_speed;
+        else
+          speed = AIParamToFloat(process, args[i]);
+      }
+    minimum = RunSpeedFabs(minimum);
+    maximum = RunSpeedFabs(maximum);
+    if (process->action_data_4 == 0.0f) {
+      if (multiply) {
+        if (obj->run_speed_override == 1000000000.0f)
+          obj->run_speed_override = obj->p54->p24->run_speed;
+        obj->run_speed_override = multiplier * obj->run_speed_override;
+        if (obj->run_speed_override < 0.0f) {
+          if (obj->run_speed_override < -maximum)
+            obj->run_speed_override = -maximum;
+          else if (maximum > minimum && obj->run_speed_override > -minimum)
+            obj->run_speed_override = -minimum;
+        } else {
+          if (obj->run_speed_override > maximum)
+            obj->run_speed_override = maximum;
+          else if (maximum > minimum && obj->run_speed_override < minimum)
+            obj->run_speed_override = minimum;
+        }
+      } else
+        obj->run_speed_override = speed;
+      return 1;
+    }
+    if (multiply) {
+      if (obj->run_speed_override == 1000000000.0f)
+        process->action_data_5 = obj->p54->p24->run_speed;
+      process->action_data_5 *= multiplier;
+      if (process->action_data_5 < 0.0f) {
+        if (process->action_data_5 < -maximum)
+          process->action_data_5 = -maximum;
+        else if (maximum > minimum && process->action_data_5 > -minimum)
+          process->action_data_5 = -minimum;
+      } else {
+        if (process->action_data_5 > maximum)
+          process->action_data_5 = maximum;
+        else if (maximum > minimum && process->action_data_5 < minimum)
+          process->action_data_5 = minimum;
+      }
+    } else
+      process->action_data_5 = speed;
+  }
+  if (process->action_data_4 > 0.0f &&
+      obj->run_speed_override < 1000000000.0f) {
+    obj->run_speed_override =
+        SeekValF(obj->run_speed_override, process->action_data_5,
+                 process->action_data_4);
+    if (RunSpeedFabs(obj->run_speed_override - process->action_data_5) <
+        0.01f) {
+      obj->run_speed_override = process->action_data_5;
+      return 1;
+    }
+    return 0;
+  }
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x0045dc80
 i32 Action_SetHitPoints(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                         AIPACKET_s *packet, char **params, i32 param_count,
