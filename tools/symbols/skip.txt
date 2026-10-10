@@ -183,3 +183,5 @@
 006001c0 InteractiveDisplayManager::UpdateInputs: x87 constant-cache order (0.3 vs -1.0 on top), rest matches
 00518b20 WorldMap::IsBeaconVisible: lea+mov [eax] element load vs folded mov; accessor/2D/ref tried
 00678e50 WorldMapBase::GetTotalDistance: min/max cmp operand order only; 40+ spellings tried
+005a9520 Grapples_Reset: calls the esi-convention static Grapple_Reset 0x5a9390 (not written) + bitfield xor sequences
+005eabf0 BoltTypes_Configure: reading_type/parser stack slots vs edi; 4 layouts tried

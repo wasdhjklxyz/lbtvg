@@ -3,6 +3,7 @@
 #include "../nu2api/nucore/common.h"
 #include <stddef.h>
 #include <stdlib.h>
+#include <string.h>
 
 // STUB: LEGOBATMAN 0x005e9790
 // two-pass bolttype parser with default fn pointers to same-TU statics; not
@@ -344,8 +345,12 @@ i32 PARTLookupType(char *name);
 i32 Unk0055fe40(char *name);
 
 struct BTWorld_s {
-  u8 pad0[0x140];
+  u8 pad0[0x138];
+  i32 i138; // 0x138
+  u8 pad13c[0x140 - 0x13c];
   nugscn_s *current_gscn; // 0x140
+  u8 pad144[0x4c28 - 0x144];
+  BoltTypeKw_s bolt_types[8]; // 0x4c28
 };
 
 // GLOBAL: LEGOBATMAN 0x00ac7590
@@ -362,6 +367,31 @@ extern nugscn_s *area_scene;
 extern nugscn_s *vehicle_scene;
 // GLOBAL: LEGOBATMAN 0x00961d10
 extern BoltFlagName_s g_unk00961d10[];
+
+// GLOBAL: LEGOBATMAN 0x00961c60
+extern BoltTypeKw_s GlobalBoltType_Default;
+// GLOBAL: LEGOBATMAN 0x00961f10
+extern u8 BoltType_ConfigKeywords[];
+
+NUFPAR *NuFParCreateMem(char *name, char *buffer, i32 size);
+i32 NuFParPushCom(NUFPAR *parser, void *commands);
+i32 NuFParGetLine(NUFPAR *parser);
+i32 NuFParInterpretWord(NUFPAR *parser);
+void NuFParDestroy(NUFPAR *parser);
+
+// FUNCTION: LEGOBATMAN 0x005e8700
+// Adds a bolt type to the first free world slot (inlined on the Mac); type in
+// eax, the world on the stack.
+static void Unk005e8700(BoltTypeKw_s *type, BTWorld_s *world) {
+  if (type == 0)
+    return;
+  for (i32 i = 0; i < 8; i++) {
+    if (NuStrLen(world->bolt_types[i].name) == 0) {
+      world->bolt_types[i] = *type;
+      return;
+    }
+  }
+}
 
 // FUNCTION: LEGOBATMAN 0x005e8750
 void BT_name(NUFPAR *parser) {
@@ -530,4 +560,41 @@ void BT_flags(NUFPAR *parser) {
       }
     }
   }
+}
+
+// STUB: LEGOBATMAN 0x005eabf0
+// orig keeps reading_type and the parser in stack slots; ours uses edi
+void BoltTypes_Configure(BTWorld_s *world, char *config) {
+  memset(world->bolt_types, 0, sizeof(world->bolt_types));
+  NUFPAR *parser = NuFParCreateMem("bolttypes", config, 0xffff);
+  if (parser == 0)
+    return;
+  NuFParPushCom(parser, BoltType_ConfigKeywords);
+  BoltTypeKw_s type;
+  i32 reading_type = 0;
+  while (NuFParGetLine(parser)) {
+    if (NuFParGetWord(parser) == 0)
+      continue;
+    if (reading_type) {
+      if (NuStrICmp(parser->word_buf, "bolttype_end") == 0) {
+        reading_type = 0;
+        if (type.name[0] != 0)
+          Unk005e8700(&type, world);
+      } else {
+        NuFParInterpretWord(parser);
+      }
+    } else if (NuStrICmp(parser->word_buf, "bolttype_start") == 0) {
+      BT_scene = things_scene;
+      BT_bolttype = &type;
+      type = GlobalBoltType_Default;
+      reading_type = 1;
+      BT_worldinfo = world;
+      g_unk00ac75ac = world->i138;
+      type.name[0] = 0;
+      type.debris_moving[0] = -1;
+      type.debris_moving[1] = -1;
+      BT_gdeb_moving_count = 0;
+    }
+  }
+  NuFParDestroy(parser);
 }

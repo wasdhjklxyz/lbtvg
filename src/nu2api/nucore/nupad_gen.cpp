@@ -919,6 +919,7 @@ int NuStrNICmp(const char *a, const char *b, int n) {
   return 0;
 }
 
+// FUNCTION: LEGOBATMAN 0x006dc4b0
 void NuStrUpr(char *dst, const char *src) {
   char c;
   while ((c = *src) != 0) {
