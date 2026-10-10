@@ -236,17 +236,44 @@ extern ADDGIZMOTYPE Default_ADDGIZMOTYPE;
 
 void GizPanel_Update(void *world, void *unused, f32 dt);
 void GizPanels_Draw(void *world, void *unused, f32 dt);
-void GizPanels_StoreProgress(void *world, void *unused, void *progress);
-void GizPanels_Reset(void *world, void *unused, void *progress);
 void *GizPanels_ReserveBufferSpace(void *world);
 
 // GLOBAL: LEGOBATMAN 0x0093e710
 i32 panel_gizmotype_id = -1;
 
+// STUB: LEGOBATMAN 0x00490850
+// only `or eax, -1` is scheduled before the `progress[0] = 0` store in the
+// original (same as Attractos_StoreProgress; clear call/order/type tried).
+void GizPanels_StoreProgress(void *world_ptr, void *unused, void *data) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  u32 *progress = (u32 *)data;
+  if (progress == NULL)
+    return;
+  progress[0] = 0;
+  progress[1] = -1;
+  progress[2] = -1;
+  if (world == NULL || world->gizpanel_sys == NULL ||
+      world->gizpanel_sys->panels == NULL)
+    return;
+  for (i32 i = 0; i < world->gizpanel_sys->count; i++) {
+    if (i >= 32)
+      break;
+    GIZPANEL *panel = &world->gizpanel_sys->panels[i];
+    i32 word = i / 32;
+    u32 bit = 1 << (i % 32);
+    if (panel->output)
+      progress[word] |= bit;
+    if (!panel->b62_2)
+      progress[word + 2] &= ~bit;
+    if (!panel->b62_3)
+      progress[word + 1] &= ~bit;
+  }
+}
+
 // GLOBAL: LEGOBATMAN 0x0093e748
-extern char *GizPanel_SfxName0;
+extern char *g_unk0093e748;
 // GLOBAL: LEGOBATMAN 0x0093e74c
-extern char *GizPanel_SfxName1;
+extern char *g_unk0093e74c;
 
 void AddLevelSfxFromName(char *sfx_name, i32 *sfx_ids, i32 *sfx_count,
                          i32 max_sfx_count);
@@ -257,13 +284,36 @@ void GizPanels_AddLevelSfx(void *world_ptr, void *unused, i32 *sfx_ids,
   WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
   if (world->gizpanel_sys == NULL || world->gizpanel_sys->count == 0)
     return;
-  if (GizPanel_SfxName0 != NULL)
-    AddLevelSfxFromName(GizPanel_SfxName0, sfx_ids, sfx_count, max_sfx);
-  if (GizPanel_SfxName1 != NULL)
-    AddLevelSfxFromName(GizPanel_SfxName1, sfx_ids, sfx_count, max_sfx);
+  if (g_unk0093e748 != NULL)
+    AddLevelSfxFromName(g_unk0093e748, sfx_ids, sfx_count, max_sfx);
+  if (g_unk0093e74c != NULL)
+    AddLevelSfxFromName(g_unk0093e74c, sfx_ids, sfx_count, max_sfx);
 }
 
 void GizPanel_Reset(GIZPANEL *panel);
+
+// FUNCTION: LEGOBATMAN 0x004913b0
+void GizPanels_Reset(void *world_ptr, void *unused, void *data) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  u32 *progress = (u32 *)data;
+  if (world == NULL)
+    return;
+  GIZPANELSYS *sys = world->gizpanel_sys;
+  if (sys == NULL || sys->panels == NULL)
+    return;
+  for (i32 i = 0; i < sys->count; i++) {
+    GIZPANEL *panel = &sys->panels[i];
+    GizPanel_Reset(panel);
+    if (progress != NULL && i < 32) {
+      i32 word = i / 32;
+      u32 bit = 1 << (i % 32);
+      if (progress[word] & bit)
+        panel->output = 1;
+      panel->b62_2 = (progress[word + 2] & bit) != 0;
+      panel->b62_3 = (progress[word + 1] & bit) != 0;
+    }
+  }
+}
 
 // FUNCTION: LEGOBATMAN 0x00491500
 void GizPanel_Activate(GIZMO *gizmo, i32 active) {

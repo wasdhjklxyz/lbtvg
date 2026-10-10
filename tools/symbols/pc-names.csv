@@ -649,6 +649,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00490830,000ae7bc,__Z23GizPanels_ClearProgressPvS_,"GizPanels_ClearProgress(void*, void*)",confirmed,0
 00490940,,GizPanels_AddLevelSfx,GizPanels_AddLevelSfx,confirmed,0
 00490b20,000aee18,__Z17GizPanel_MoveCodeP11WORLDINFO_sP12GameObject_si,"GizPanel_MoveCode(WORLDINFO_s*, GameObject_s*, int)",strings,0
+004913b0,000ad636,__Z15GizPanels_ResetPvS_S_,"GizPanels_Reset(void*, void*, void*)",confirmed,0
 00491500,000ad5f6,__Z17GizPanel_ActivateP7GIZMO_si,"GizPanel_Activate(GIZMO_s*, int)",confirmed,0
 00491540,000ae95e,__Z22GizPanel_RegisterGizmoi,GizPanel_RegisterGizmo(int),confirmed,0
 004916f0,000af31a,__Z12GizTorp_LoadPvS_,"GizTorp_Load(void*, void*)",confirmed,0

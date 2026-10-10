@@ -3161,3 +3161,4 @@
 00573e30 NewPlatPickupInst saga GizPanel_CreateTerrain / Attractos_InitTerrain call with (mtx, type)
 005740f0 PlatInstRotate saga GizPanel_CreateTerrain tail call (id, 1)
 00574270 DeletePlatinst saga GizPanel_SetVisibility / Attracto_SetVisibility call
+004913b0 GizPanels_Reset GizPanel_RegisterGizmo reset slot (fns[22])
