@@ -1797,7 +1797,7 @@ int NuFileWriteStringV(int file, const char *format, ...) {
 // Copies the directory part of path (up to the last '\\' or '/', inclusive)
 // into dest; returns its length.
 // FUNCTION: LEGOBATMAN 0x006d3640
-int Unk006d3640(char *dest, char *path) {
+int NuFileExtractPath(char *dest, char *path) {
   char *p;
   char *q;
   int len;
@@ -1819,7 +1819,7 @@ int Unk006d3640(char *dest, char *path) {
 // Copies the file name of path without its extension into dest; returns its
 // length.
 // FUNCTION: LEGOBATMAN 0x006d3690
-int Unk006d3690(char *dest, char *path) {
+int NuFileExtractFile(char *dest, char *path) {
   char *start;
   char *q;
   char *end;
@@ -1873,46 +1873,86 @@ int NuDatFileOpenSize(int file) {
   return info->i18;
 }
 
-// Two count * 16 byte tables (0xb038ac, 0xb038b0) reallocated when the count
-// changes; 0x006d37a0 frees them.
+// NuFileInitAddress's address tables (saga nufile_plain.cpp); 0x006d37a0
+// frees them.
 // GLOBAL: LEGOBATMAN 0x00b038a8
-int g_nuFileUnk0b038a8;
+int MAX_FILE_ADDRESS;
 // GLOBAL: LEGOBATMAN 0x00b038ac
-void *g_nuFileUnk0b038ac;
+void *addr_ref;
 // GLOBAL: LEGOBATMAN 0x00b038b0
-void *g_nuFileUnk0b038b0;
+void *addr_pos;
 // GLOBAL: LEGOBATMAN 0x00b0085c
-int g_nuFileUnk0b0085c;
+int ref_count;
 // GLOBAL: LEGOBATMAN 0x00b03878
-int g_nuFileUnk0b03878;
+int pos_count;
 extern "C" void NuMemFreeFn(void *ptr, const char *file, int line);
 
 // FUNCTION: LEGOBATMAN 0x006d3700
-void Unk006d3700(int count) {
-  if (count != g_nuFileUnk0b038a8) {
-    if (g_nuFileUnk0b038ac != NULL)
-      NuMemFreeFn(g_nuFileUnk0b038ac, __FILE__, 0xc5e);
-    if (g_nuFileUnk0b038b0 != NULL)
-      NuMemFreeFn(g_nuFileUnk0b038b0, __FILE__, 0xc5f);
-    g_nuFileUnk0b038a8 = count;
-    g_nuFileUnk0b038ac = NuMemAllocFn(count * 16, __FILE__, 0xc63);
-    g_nuFileUnk0b038b0 = NuMemAllocFn(g_nuFileUnk0b038a8 * 16, __FILE__, 0xc64);
+void NuFileInitAddress(int count) {
+  if (count != MAX_FILE_ADDRESS) {
+    if (addr_ref != NULL)
+      NuMemFreeFn(addr_ref, __FILE__, 0xc5e);
+    if (addr_pos != NULL)
+      NuMemFreeFn(addr_pos, __FILE__, 0xc5f);
+    MAX_FILE_ADDRESS = count;
+    addr_ref = NuMemAllocFn(count * 16, __FILE__, 0xc63);
+    addr_pos = NuMemAllocFn(MAX_FILE_ADDRESS * 16, __FILE__, 0xc64);
   }
-  g_nuFileUnk0b0085c = 0;
-  g_nuFileUnk0b03878 = 0;
+  ref_count = 0;
+  pos_count = 0;
 }
 
 // FUNCTION: LEGOBATMAN 0x006d37a0
 void Unk006d37a0(void) {
-  if (g_nuFileUnk0b038ac != NULL) {
-    NuMemFreeFn(g_nuFileUnk0b038ac, __FILE__, 0xc6e);
-    g_nuFileUnk0b038ac = NULL;
+  if (addr_ref != NULL) {
+    NuMemFreeFn(addr_ref, __FILE__, 0xc6e);
+    addr_ref = NULL;
   }
-  if (g_nuFileUnk0b038b0 != NULL) {
-    NuMemFreeFn(g_nuFileUnk0b038b0, __FILE__, 0xc73);
-    g_nuFileUnk0b038b0 = NULL;
+  if (addr_pos != NULL) {
+    NuMemFreeFn(addr_pos, __FILE__, 0xc73);
+    addr_pos = NULL;
   }
-  g_nuFileUnk0b038a8 = 0;
+  MAX_FILE_ADDRESS = 0;
+}
+
+struct nufile_info_s {
+  unsigned char pad0[0x10];
+  char second; // 0x10
+  char minute; // 0x11
+  char hour;   // 0x12
+  char day;    // 0x13
+  char month;  // 0x14
+  char pad15;
+  short year; // 0x16
+};
+
+// FUNCTION: LEGOBATMAN 0x006d37f0
+int NuFileIsNewer(nufile_info_s *first, nufile_info_s *second) {
+  if (second->year > first->year)
+    return 1;
+  if (second->year < first->year)
+    return 0;
+  if (second->month > first->month)
+    return 1;
+  if (second->month < first->month)
+    return 0;
+  if (second->day > first->day)
+    return 1;
+  if (second->day < first->day)
+    return 0;
+  if (second->hour > first->hour)
+    return 1;
+  if (second->hour < first->hour)
+    return 0;
+  if (second->minute > first->minute)
+    return 1;
+  if (second->minute < first->minute)
+    return 0;
+  if (second->second > first->second)
+    return 1;
+  if (second->second < first->second)
+    return 0;
+  return 0;
 }
 
 // GLOBAL: LEGOBATMAN 0x00b0389c
@@ -2487,6 +2527,35 @@ __int64 NuDatCalcPos(NUDATHDR *header, int index) {
     pos <<= 8;
   pos += datsys_offset;
   return pos;
+}
+
+// GLOBAL: LEGOBATMAN 0x0099f284
+int nufile_lsn_allowed = 1;
+
+// FUNCTION: LEGOBATMAN 0x006ddac0
+int NuDatGetFileInfo(NUDATHDR *header, char *name, __int64 *position,
+                     int *length) {
+  if (header == NULL)
+    return -1;
+
+  const int index = NuDatFileFindTree(header, name);
+  if (index >= 0) {
+    const __int64 file_position =
+        NuDatCalcPos(header, header->file_info[index].i0);
+    if (nufile_lsn_allowed != 0 && header->unknown2 != 0) {
+      if (position != NULL)
+        *position = header->unknown2 + (int)(file_position / 0x800);
+      if (length != NULL)
+        *length = header->file_info[index].i4;
+      return index;
+    }
+    if (position != NULL)
+      *position = file_position;
+    if (length != NULL)
+      *length = header->file_info[index].i4;
+    return index;
+  }
+  return -1;
 }
 
 void NuThreadCriticalSectionBegin(int cs);
@@ -4117,7 +4186,7 @@ static int blkcnt = 1;
 __int64 NuFilePos(int file);
 
 // FUNCTION: LEGOBATMAN 0x006d3630
-int Unk006d3630(void) { return nufile_blkinfo[blkcnt - 1].size; }
+int NuFileGetBlkSize(void) { return nufile_blkinfo[blkcnt - 1].size; }
 
 // FUNCTION: LEGOBATMAN 0x006deb90
 int NuFileBeginBlkRead(int file, int expected_tag) {
@@ -5220,4 +5289,19 @@ extern "C" i32 NuQTCreate(i32 entry_capacity, i32 data_capacity,
     *cursor += data_capacity;
   }
   return 0;
+}
+
+// Reads size bytes at offset; returns 0 without reading for an LSN-mode file
+// when both are sector (0x800) aligned.
+// FUNCTION: LEGOBATMAN 0x006de9e0
+int Unk006de9e0(int file, void *buf, int size, int offset) {
+  int read = 0;
+  if (nufile_lsn_allowed && file_info[file - 1].unused && !(size & 0x7ff) &&
+      !(offset & 0x7ff)) {
+    // sector-aligned LSN read: compiled out on PC
+  } else {
+    NuFileSeek(file, offset, 0);
+    read = NuFileRead(file, buf, size);
+  }
+  return read;
 }

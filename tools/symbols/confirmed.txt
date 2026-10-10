@@ -3482,8 +3482,8 @@
 006d34e0 NuFileWriteUnsignedChar saga nufile.cpp body
 006d3520 NuFileWriteString Mac _NuFileWriteString: NuFileWrite(file, s, strlen(s))
 006d3570 NuFileWriteStringV saga nufile_plain.cpp body
-006d3640 Unk006d3640 directory part of a path (CRT strrchr/strncpy), returns length
-006d3690 Unk006d3690 file name without extension (CRT strrchr/strncpy), returns length
+006d3640 NuFileExtractPath saga nufile_plain.cpp shape, PC also splits on '/'
+006d3690 NuFileExtractFile saga nufile_plain.cpp shape, PC also splits on '/'
 006d3940 NameToHash nudatfile static (edx), out-of-line copy of the hash inlined in NuDatFileFindHash
 006d3880 NuDatFilePos saga nufile.cpp body
 006d3970 NuDatFileClose saga nufile.cpp body
@@ -3508,11 +3508,14 @@
 006d6ab0 Unk006d6ab0 implode read-from-memory: copies min(size, left) from implode_inbuffer (static left count 0xaf41b4)
 006ddca0 Unk006ddca0 saves a finished pad recording (size, data, 0xe0f) through NuFileOpen mode 1
 006ddd30 Unk006ddd30 ends pad recording (save to 0xadf6b0 name) or playback
-006d3700 Unk006d3700 reallocates two count*16 tables (0xb038ac/0xb038b0) with the nufile_gen.cpp __FILE__ lines 0xc5e..0xc64
-006d37a0 Unk006d37a0 frees the 0xb038ac/0xb038b0 tables (lines 0xc6e/0xc73)
+006d3700 NuFileInitAddress saga nufile_plain.cpp body (MAX_FILE_ADDRESS 0xb038a8, addr_ref/addr_pos tables)
+006d37a0 Unk006d37a0 frees the NuFileInitAddress addr_ref/addr_pos tables (lines 0xc6e/0xc73)
 006deb90 NuFileBeginBlkRead saga nufile_plain.cpp body plus an expected-tag debug check (blkcnt 0x99f274, nufile_blkinfo 0xaed188)
 006d96f0 NuFileEndBlkRead saga nufile_plain.cpp body
 006dec40 NuFileAlignRead saga nufile_plain.cpp body (NuFileReadChar inlined)
-006d3630 Unk006d3630 returns nufile_blkinfo[blkcnt - 1].size (current read block size)
+006d3630 NuFileGetBlkSize saga nufile_plain.cpp body
 006d9750 NuFileBeginBlkWrite saga nufile_plain.cpp body (wblkcnt 0x99f278, nufile_wblkinfo 0xafc850)
 006d97b0 NuFileEndBlkWrite saga nufile_plain.cpp body (iff_padsize 0x99f27c)
+006d37f0 NuFileIsNewer saga nufile_plain.cpp body
+006ddac0 NuDatGetFileInfo saga nufile_plain.cpp body (nufile_lsn_allowed 0x99f284)
+006de9e0 Unk006de9e0 seek+read at an offset unless an LSN file and both sector aligned (then 0)
