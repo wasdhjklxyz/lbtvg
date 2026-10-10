@@ -6,6 +6,7 @@
 
 #include "../numath/nuinline_unk.h"
 #include <stddef.h>
+#include <string.h>
 
 // Header statics: this TU's copies (bodies in nuinline_unk.h/nutrig_unk.h).
 // FUNCTION: LEGOBATMAN 0x006d2590
@@ -22,7 +23,8 @@ typedef struct nufparpos_s {
 } NUFPARPOS;
 
 typedef struct nufpar_s {
-  u32 pad0[0x91c / 4];
+  char *file_buf; // 0x00, NULL = free slot
+  u32 pad4[(0x91c - 4) / 4];
   i32 line_num;    // 0x91c
   i32 line_pos;    // 0x920
   i32 char_pos;    // 0x924
@@ -31,6 +33,7 @@ typedef struct nufpar_s {
   void *jump[8];   // 0x930
   void *jump2[8];  // 0x950
   i32 command_pos; // 0x970
+  u32 pad974[4];
 } NUFPAR;
 
 // FUNCTION: LEGOBATMAN 0x006d3e40
@@ -106,6 +109,46 @@ nufpcomfn *NuFParSetInterpreterErrorHandler(nufpcomfn *fn) {
   fnInterpreterError = fn;
   return old;
 }
+
+// GLOBAL: LEGOBATMAN 0x00afa240
+extern NUFPAR _fpars[4];
+// GLOBAL: LEGOBATMAN 0x00adf740
+extern char _fparbuffers[4 * 0x1000];
+// GLOBAL: LEGOBATMAN 0x00b038b8
+extern NUFPAR *fpars;
+// GLOBAL: LEGOBATMAN 0x00b038bc
+extern char *fparbuffers;
+
+// saga nu2api/nufile/nufpar.cpp with NuFParInit written in; not static here
+// (NuFParCreate in the next TU calls it).
+// FUNCTION: LEGOBATMAN 0x006d4020
+NUFPAR *NuAllocFPar() {
+  NUFPAR *list = fpars;
+  if (list == NULL) {
+    list = _fpars;
+    fpars = list;
+    memset(list, 0, 4 * sizeof(NUFPAR));
+    fparbuffers = _fparbuffers;
+  }
+
+  for (i32 i = 0; i < 4; i++) {
+    if (list[i].file_buf == NULL) {
+      list += i;
+      memset(list, 0, sizeof(NUFPAR));
+      list->file_buf = &fparbuffers[i * 0x1000];
+      memset(list->file_buf, 0, 0x1000);
+      return list;
+    }
+  }
+  return NULL;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d40b0
+static void NuFreeFPar(NUFPAR *parser) { parser->file_buf = NULL; }
+
+// from saga nu2api/nufile/nufpar.cpp
+// FUNCTION: LEGOBATMAN 0x006d40c0
+void NuFParClose(NUFPAR *parser) { NuFreeFPar(parser); }
 
 // Keeps the header-static copies above alive until their real callers are
 // matched.
