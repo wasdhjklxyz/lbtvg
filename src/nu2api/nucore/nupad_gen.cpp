@@ -1427,21 +1427,28 @@ int NuFileRead(int file, void *buf, int size) {
 }
 
 typedef struct nufpar_s {
-  char *file_buf;        // 0x00
-  int file_handle;       // 0x04
-  char file_name[0x100]; // 0x08
-  unsigned char pad108[0x90c - 0x108];
-  char *line_buf;    // 0x90c
-  char *word_buf;    // 0x910
-  int line_buf_size; // 0x914
-  int word_buf_size; // 0x918
-  int line_num;      // 0x91c
-  int line_pos;      // 0x920
-  int char_pos;      // 0x924
-  int buf_start;     // 0x928
-  int buf_end;       // 0x92c
-  unsigned char pad930[0x974 - 0x930];
-  int size; // 0x974
+  char *file_buf;             // 0x00
+  int file_handle;            // 0x04
+  char file_name[0x100];      // 0x08
+  char line_buf_store[0x402]; // 0x108
+  char word_buf_store[0x402]; // 0x50a
+  char *line_buf;             // 0x90c
+  char *word_buf;             // 0x910
+  int line_buf_size;          // 0x914
+  int word_buf_size;          // 0x918
+  int line_num;               // 0x91c
+  int line_pos;               // 0x920
+  int char_pos;               // 0x924
+  int buf_start;              // 0x928
+  int buf_end;                // 0x92c
+  unsigned char pad930[0x970 - 0x930];
+  int command_pos; // 0x970
+  int size;        // 0x974
+  char is_utf16;   // 0x978
+  char is_utf8;    // 0x979
+  char pad97a[2];
+  void *separator_list;   // 0x97c
+  void *separator_tokens; // 0x980
 } NUFPAR;
 
 // FUNCTION: LEGOBATMAN 0x006dd570
@@ -2744,4 +2751,166 @@ int NuFParGetLineW(NUFPAR *parser) {
       break;
     }
   } while (1);
+}
+
+// FUNCTION: LEGOBATMAN 0x006df910
+int NuFParGetLine(NUFPAR *parser) {
+  char c;
+  int len;
+  int at_end_of_line;
+  int is_done;
+  int in_quoted_text;
+
+  in_quoted_text = 0;
+  if (parser->is_utf16)
+    return NuFParGetLineW(parser);
+  len = 0;
+  parser->line_pos = 0;
+  parser->line_num++;
+  is_done = 0;
+
+  do {
+    c = NuGetChar(parser);
+    switch (c) {
+    case '\r':
+      NuGetChar(parser);
+    case '\n':
+      if (len == 0 || !is_done) {
+        parser->line_num++;
+        is_done = 0;
+        break;
+      }
+    case '\0':
+      parser->line_buf[len] = '\0';
+      return len;
+    case '"':
+      in_quoted_text = 1 - in_quoted_text;
+      is_done = 1;
+      parser->line_buf[len & (parser->line_buf_size - 1)] = c;
+      len++;
+      break;
+    case ';':
+      if (!in_quoted_text) {
+        if (len == 0 || !is_done) {
+          at_end_of_line = 0;
+          do {
+            c = NuGetChar(parser);
+            switch (c) {
+            case '\r':
+              NuGetChar(parser);
+            case '\n':
+            case '\0':
+              at_end_of_line = 1;
+              break;
+            default:
+              break;
+            }
+          } while (!at_end_of_line);
+          len = 0;
+          parser->line_pos = 0;
+          parser->line_num++;
+          is_done = 0;
+        } else {
+          do {
+            c = NuGetChar(parser);
+            switch (c) {
+            case '\r':
+              NuGetChar(parser);
+            case '\n':
+            case '\0':
+              parser->line_buf[len] = '\0';
+              return len;
+            default:
+              break;
+            }
+          } while (1);
+          return len;
+        }
+        break;
+      }
+    default:
+      is_done = 1;
+    case '\t':
+    case ' ':
+      parser->line_buf[len & (parser->line_buf_size - 1)] = c;
+      len++;
+      break;
+    }
+  } while (1);
+}
+
+NUFPAR *NuAllocFPar(void);
+unsigned char NuFileReadUnsignedChar(int file);
+int NuFileExists(char *name);
+
+// FUNCTION: LEGOBATMAN 0x006dfab0
+NUFPAR *NuFParOpen(int file_handle) {
+  NUFPAR *parser = NuAllocFPar();
+  if (parser != 0) {
+    parser->file_handle = file_handle;
+    parser->buf_end = -1;
+    parser->line_num = -1;
+    parser->command_pos = -1;
+    parser->separator_list = 0;
+    parser->separator_tokens = 0;
+    parser->line_buf = parser->line_buf_store;
+    parser->word_buf = parser->word_buf_store;
+    parser->line_buf_size = 0x400;
+    parser->word_buf_size = 0x400;
+
+    unsigned short first = 0;
+    NuFileRead(file_handle, &first, 2);
+    parser->is_utf16 = 0;
+    parser->is_utf8 = 0;
+
+    unsigned char next;
+    if (first == 0xfffe) {
+      parser->is_utf16 = 2;
+    } else if (first == 0xfeff) {
+      parser->is_utf16 = 1;
+    } else if (first == 0xbbef) {
+      next = NuFileReadUnsignedChar(file_handle);
+      if (next == 0xbf)
+        parser->is_utf8 = 1;
+    } else if (first == 0xefbb) {
+      next = NuFileReadUnsignedChar(file_handle);
+      if (next == 0xbf)
+        parser->is_utf8 = 2;
+    }
+    if (parser->is_utf16 == 0 && parser->is_utf8 == 0)
+      NuFileSeek(file_handle, 0, 0);
+    parser->size = (int)NuFileUnk006d9370(file_handle);
+  }
+  return parser;
+}
+
+// FUNCTION: LEGOBATMAN 0x006dfbc0
+NUFPAR *NuFParCreate(char *filename) {
+  int file_handle;
+
+  if (NuFileExists(filename)) {
+    file_handle = NuFileOpen(filename, 0);
+    if (file_handle != 0) {
+      NUFPAR *parser = NuFParOpen(file_handle);
+      if (parser != 0) {
+        NuStrCpy(parser->file_name, filename);
+        return parser;
+      }
+      NuFileClose(file_handle);
+    }
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006dfc20
+NUFPAR *NuFParCreateGivenFH(char *filename, int file_handle) {
+  if (file_handle != 0) {
+    NUFPAR *parser = NuFParOpen(file_handle);
+    if (parser != 0) {
+      NuStrCpy(parser->file_name, filename);
+      return parser;
+    }
+    NuFileClose(file_handle);
+  }
+  return 0;
 }

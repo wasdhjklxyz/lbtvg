@@ -3417,3 +3417,7 @@
 006df630 NuGetChar saga nufpar.cpp body (buffered parser read)
 006df6c0 NuGetWChar saga nufpar.cpp body (two NuGetChar bytes, little endian)
 006df6f0 NuFParGetLineW saga nufpar.cpp body (NuGetWChar inlined)
+006df910 NuFParGetLine saga nufpar.cpp body (wide files go to NuFParGetLineW)
+006dfab0 NuFParOpen saga nufpar.cpp body (BOM sniffing, NuFileReadWChar inlined)
+006dfbc0 NuFParCreate saga nufpar.cpp body
+006dfc20 NuFParCreateGivenFH saga nufpar.cpp body
