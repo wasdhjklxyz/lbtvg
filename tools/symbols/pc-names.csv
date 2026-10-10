@@ -617,7 +617,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00486290,000a5d7e,__Z23GizForceSFX_completesfxP8nufpar_s,GizForceSFX_completesfx(nufpar_s*),confirmed,0
 004862f0,000a5dcc,__Z21GizForceSFX_returnsfxP8nufpar_s,GizForceSFX_returnsfx(nufpar_s*),confirmed,0
 00486350,000a5e1a,__Z21GizForceSFX_ConfigureP11WORLDINFO_sPc,"GizForceSFX_Configure(WORLDINFO_s*, char*)",strings,0
-00486610,000a5f58,__Z14GizForces_LoadPvS_,"GizForces_Load(void*, void*)",strings,0
+004865d0,000a5f1a,__Z26edgizforce_ReadAnimSetDataP13GAMEANIMOBJ_sh,"edgizforce_ReadAnimSetData(GAMEANIMOBJ_s*, unsigned char)",confirmed,0
+00486610,000a5f58,__Z14GizForces_LoadPvS_,"GizForces_Load(void*, void*)",confirmed,0
 004869f0,000a63cc,__Z18GizForces_PostLoadPvS_,"GizForces_PostLoad(void*, void*)",confirmed,0
 00486b30,000a64e4,__Z28GizForces_ReserveBufferSpacePv,GizForces_ReserveBufferSpace(void*),confirmed,0
 00486c60,000a661e,__Z22GizForce_SetVisibilityP10GIZFORCE_si,"GizForce_SetVisibility(GIZFORCE_s*, int)",confirmed,0

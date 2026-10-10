@@ -114,6 +114,8 @@ static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 struct GAMEANIMOBJ_s {
   GAMEANIMOBJ_s *next; // 0x00
   u32 special[3];      // 0x04, nuhspecial_s
+  u8 pad10[0x24 - 0x10];
+  void *object_data; // 0x24
 };
 
 struct GAMEANIMSET_s {
@@ -122,17 +124,39 @@ struct GAMEANIMSET_s {
 };
 
 struct GIZFORCE_s {
-  char name[0x10]; // 0x00
-  u8 pad10[0x1c - 0x10];
+  char name[0x10];         // 0x00
+  nuvec_s v10;             // 0x10
   nuvec_s position;        // 0x1c
   GAMEANIMSET_s *anim_set; // 0x28
-  u8 pad2c[0x82 - 0x2c];
+  u32 special2c[3];        // 0x2c, nuhspecial_s
+  u8 pad38[0x44 - 0x38];
+  f32 f44; // 0x44
+  u8 pad48[0x4c - 0x48];
+  f32 f4c; // 0x4c
+  u8 pad50[0x54 - 0x50];
+  f32 f54; // 0x54
+  u8 pad58[0x5c - 0x58];
+  f32 f5c; // 0x5c
+  f32 f60; // 0x60
+  f32 f64; // 0x64
+  u8 pad68[0x6c - 0x68];
+  f32 f6c;     // 0x6c
+  f32 f70;     // 0x70
+  u32 flags74; // 0x74
+  u8 pad78[0x7c - 0x78];
+  u8 b7c; // 0x7c
+  u8 b7d; // 0x7d
+  u8 b7e; // 0x7e
+  u8 pad7f[0x82 - 0x7f];
   i16 sfx_process;  // 0x82
   i16 sfx_complete; // 0x84
   i16 sfx_return;   // 0x86
   i16 s88;          // 0x88, resolved in PostLoad when flags bit 10 is set
   u16 score;        // 0x8a
-  u8 pad8c[0xa0 - 0x8c];
+  i16 s8c;          // 0x8c
+  i16 s8e;          // 0x8e
+  nuvec_s v90;      // 0x90
+  f32 f9c;          // 0x9c
   union {
     u32 flags; // 0xa0
     struct {
@@ -362,6 +386,173 @@ void *Unk00603df0(variptr_u *buf, variptr_u *buf_end, i32 a, i32 count);
 void *Unk00603bc0(variptr_u *buf, variptr_u *buf_end, void *pool,
                   struct GAMEANIMSYS_s *anim_sys);
 i16 Unk005de820(void *world, i32 id);
+
+i32 EdFileReadInt();
+char EdFileReadChar();
+i16 EdFileReadShort();
+f32 EdFileReadFloat();
+void EdFileRead(void *buf, i32 len);
+void EdFileReadNuVec(nuvec_s *v);
+void GizmoFileReadGameAnimSet(GAMEANIMSET_s *set, void *world,
+                              void (*fn)(GAMEANIMOBJ_s *, u8), u8 version,
+                              char *type_name, char *name);
+i32 GizmoBlowupGetNameTableId(char *name);
+i32 GizmoFileReadName(char *name);
+int NuSpecialFind(void *scene, nuhspecial_s *out, char *name, i32 a);
+
+struct AREADATA_s {
+  u8 pad0[0x7c];
+  u32 flags7c; // 0x7c
+};
+
+// STUB: LEGOBATMAN 0x004864a0
+// register-arg puzzle: orig takes size on the stack, ours in ecx.
+static char *GizForceUnk004864a0(char *src, char *dst, i32 size) {
+  i32 i = 0;
+  if (dst == NULL || src == NULL)
+    return NULL;
+  char *ret = dst;
+  while (i++ < size - 1) {
+    char c = *src;
+    *dst++ = c;
+    src++;
+    if (c == '_' || *src == 0)
+      break;
+  }
+  return ret;
+}
+
+// STUB: LEGOBATMAN 0x004864f0
+// matches except the 0x4864a0 call (ours passes size in ecx, orig pushes it).
+static void GizForceUnk004864f0(GIZFORCE_s *force) {
+  char name[0x40];
+  if (force == NULL)
+    return;
+  memset(force->special2c, 0, sizeof(force->special2c));
+  if (!(force->flags74 & 0x40))
+    return;
+  for (GAMEANIMOBJ_s *obj = force->anim_set->objects; obj != NULL;
+       obj = obj->next) {
+    char *special_name = NuSpecialGetName((nuhspecial_s *)obj->special);
+    if (special_name != NULL) {
+      memset(name, 0, sizeof(name));
+      if (GizForceUnk004864a0(special_name, name, sizeof(name))) {
+        NuStrCat(name, "b");
+        if (NuSpecialFind(*(void **)obj->special,
+                          (nuhspecial_s *)force->special2c, name, 1))
+          return;
+      }
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x004865d0
+static void edgizforce_ReadAnimSetData(GAMEANIMOBJ_s *object, u8 version) {
+  if (object == NULL)
+    return;
+  u32 fallback[2];
+  u16 *data = (u16 *)object->object_data;
+  if (data == NULL)
+    data = (u16 *)fallback;
+  if (version > 8)
+    data[0] = EdFileReadShort();
+}
+
+// FUNCTION: LEGOBATMAN 0x00486610
+i32 GizForces_Load(void *world_ptr, void *sys_ptr) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  GIZFORCESYS_s *sys = (GIZFORCESYS_s *)sys_ptr;
+  nuvec_s tmp;
+  char sfx_name[64];
+  char blowup_name[32];
+  u8 version = EdFileReadChar();
+  GizForceSFX_load_version = version;
+  sys->count = EdFileReadShort();
+  if (sys->count == 0)
+    return 1;
+  GIZFORCE_s *force = sys->forces;
+  for (i32 i = 0; i < sys->count; i++, force++) {
+    EdFileRead(force->name, 0x10);
+    EdFileReadNuVec(&force->v10);
+    if (version == 1)
+      EdFileReadNuVec(&tmp);
+    force->f44 = EdFileReadFloat();
+    if (version >= 8)
+      force->f4c = EdFileReadFloat();
+    force->f54 = EdFileReadFloat();
+    if (version == 1) {
+      EdFileReadNuVec(&tmp);
+      EdFileReadShort();
+    }
+    force->flags74 = EdFileReadInt();
+    if (version <= 12)
+      force->flags74 |= 0x800;
+    force->b7c = EdFileReadChar();
+    if (version >= 11) {
+      force->b7d = EdFileReadChar();
+      if (version == 11 && force->b7d)
+        force->b7d = 1 << (force->b7d - 1);
+    }
+    force->b7e = EdFileReadChar();
+    if (version == 1)
+      EdFileReadChar();
+    GizmoFileReadGameAnimSet(force->anim_set, world, edgizforce_ReadAnimSetData,
+                             version, "GizForce", force->name);
+    force->f5c = EdFileReadFloat();
+    force->f60 = EdFileReadFloat();
+    if (version >= 6)
+      force->f64 = EdFileReadFloat();
+    if (version >= 7)
+      force->f70 = EdFileReadFloat();
+    else
+      force->f70 = 1.0f;
+    if (version >= 3)
+      force->f6c = EdFileReadFloat();
+    force->s88 = -1;
+    if (version >= 4) {
+      if (version >= 5) {
+        i32 len = EdFileReadChar();
+        if (len != 0) {
+          EdFileRead(blowup_name, len);
+          force->s88 = GizmoBlowupGetNameTableId(blowup_name);
+          if (force->s88 != -1)
+            force->flags |= 0x400;
+        }
+      } else {
+        force->s88 = EdFileReadShort();
+      }
+      force->score = EdFileReadShort();
+      force->s8c = EdFileReadShort();
+      force->s8e = EdFileReadShort();
+      EdFileReadNuVec(&force->v90);
+    }
+    if (version >= 10)
+      force->f9c = EdFileReadFloat();
+    else if (world->area != NULL && (world->area->flags7c & 1))
+      force->f9c = 12.0f;
+    else
+      force->f9c = 1.75f;
+    force->sfx_process = -1;
+    force->sfx_complete = -1;
+    force->sfx_return = -1;
+    if (version >= 14) {
+      if (GizmoFileReadName(sfx_name))
+        force->sfx_process = GetSfxId(sfx_name);
+      if (GizmoFileReadName(sfx_name))
+        force->sfx_complete = GetSfxId(sfx_name);
+      if (GizmoFileReadName(sfx_name))
+        force->sfx_return = GetSfxId(sfx_name);
+    }
+    if (version <= 14) {
+      force->sfx_process = -1;
+      force->sfx_complete = -1;
+      force->sfx_return = -1;
+    }
+    if (force->flags74 & 0x40)
+      GizForceUnk004864f0(force);
+  }
+  return 1;
+}
 
 // FUNCTION: LEGOBATMAN 0x004869f0
 void GizForces_PostLoad(void *world, void *sys_ptr) {

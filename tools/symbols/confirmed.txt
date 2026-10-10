@@ -3276,3 +3276,5 @@
 005bb620 Lever_MoveCode last in the Mac Lever file after Levers_RegisterGizmo; calls Lever_FindNearest and inlines Lever_StartPull like saga's Lever_MoveCode
 005b6d20 Gizobstacle_ReadAnimSetData passed by GizObstacles_Load to the anim-set reader; Mac order puts it right before GizObstacles_Load
 005b6d60 GizObstacles_Load GizObstacles_RegisterGizmo load slot
+004865d0 edgizforce_ReadAnimSetData passed by GizForces_Load to the anim-set reader; Mac order puts it right before GizForces_Load
+00486610 GizForces_Load GizForce_RegisterGizmo load slot
