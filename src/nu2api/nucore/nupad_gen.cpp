@@ -673,10 +673,12 @@ NuFileUnk0b00878 g_nuFileUnk0b00878[1];
 // GLOBAL: LEGOBATMAN 0x00b038a4
 int g_nuFileUnk0b038a4;
 
-// STUB: LEGOBATMAN 0x006d9370
+int Unk006d3060(int file);
+
+// FUNCTION: LEGOBATMAN 0x006d9370
 __int64 NuFileOpenSize(int id) {
   if (id >= 0x2000)
-    return g_nuFileUnk0b038a4 ? g_nuFileUnk0b00878[id - 0x2000].ic : 0;
+    return Unk006d3060(id);
   if (id >= 0x1000)
     return 0;
   if (id >= 0x800) {
@@ -1389,7 +1391,77 @@ extern "C" int NuFileExtRemove(char *dest, char *path) {
   return -1;
 }
 
-int Unk006d2fe0(int file, int offset, int whence);
+void NuMemCpy(unsigned char *dst, unsigned char *src, int n);
+
+// Small-file (pak item, ids 0x2000..) slot, close, read, seek and size;
+// Mac NuFileSmallFileManager::GetNextSlot/Close/Read/Seek/Size.
+// FUNCTION: LEGOBATMAN 0x006d2f20
+int Unk006d2f20(void) {
+  while (g_nuFileUnk0b00878[0].i0 != -1) {
+  }
+  g_nuFileUnk0b00878[0].i0 = -2;
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d2f40
+void Unk006d2f40(int file) {
+  int idx;
+
+  if (g_nuFileUnk0b038a4 != 0) {
+    idx = file - 0x2000;
+    g_nuFileUnk0b00878[idx].i0 = -1;
+    g_nuFileUnk0b00878[idx].i4 = -1;
+    g_nuFileUnk0b00878[idx].i8 = -1;
+    g_nuFileUnk0b00878[idx].ic = -1;
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006d2f80
+int Unk006d2f80(int file, void *buf, int size) {
+  int idx;
+  int n;
+
+  if (g_nuFileUnk0b038a4 == 0)
+    return 0;
+  idx = file - 0x2000;
+  n = g_nuFileUnk0b00878[idx].ic - g_nuFileUnk0b00878[idx].i4;
+  if (n > size)
+    n = size;
+  NuMemCpy((unsigned char *)buf,
+           (unsigned char *)(g_nuFileUnk0b00878[idx].i8 +
+                             g_nuFileUnk0b00878[idx].i4),
+           n);
+  g_nuFileUnk0b00878[idx].i4 += n;
+  return n;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d2fe0
+int Unk006d2fe0(int file, int offset, int whence) {
+  int idx;
+
+  if (g_nuFileUnk0b038a4 == 0)
+    return 0;
+  idx = file - 0x2000;
+  switch (whence) {
+  case 0:
+    g_nuFileUnk0b00878[idx].i4 = offset;
+    break;
+  case 1:
+    g_nuFileUnk0b00878[idx].i4 += offset;
+    break;
+  case 2:
+    g_nuFileUnk0b00878[idx].i4 = g_nuFileUnk0b00878[idx].ic + offset;
+    break;
+  }
+  return g_nuFileUnk0b00878[idx].i4;
+}
+// FUNCTION: LEGOBATMAN 0x006d3060
+int Unk006d3060(int file) {
+  if (g_nuFileUnk0b038a4 == 0)
+    return 0;
+  return g_nuFileUnk0b00878[file - 0x2000].ic;
+}
+
 __int64 NuMemFileSeek(int file, __int64 offset, int whence);
 
 __int64 NuDatFileSeek(int file, __int64 offset, int whence);
@@ -1623,7 +1695,6 @@ void NuFileClose(int file) {
 }
 
 extern "C" int NuPSFileRead(int fh, void *buf, int size);
-int Unk006d2f80(int file, void *buf, int size);
 // GLOBAL: LEGOBATMAN 0x00af3190
 static FILEBUFINFO file_buff[4];
 // GLOBAL: LEGOBATMAN 0x00b03888
@@ -4374,4 +4445,47 @@ int NuFileLoadBufferVP(char *filepath, VARIPTR *buf, VARIPTR *buf_end) {
   len = NuFileLoadBuffer(filepath, buf->void_ptr, buf_end->addr - buf->addr);
   buf->addr += len;
   return len;
+}
+
+int NuFileStatus(int file);
+
+// STUB: LEGOBATMAN 0x006decb0
+// The original inlines NuDatFileSeek -> NuFileSeek, with a small-file
+// (0x2000) seek that bounds-checks against the item size (not 0x006d2fe0).
+int NuDatFileLoadBuffer(NUDATHDR *dat, char *name, void *dest, int buf_size) {
+  int file;
+  char *buf;
+
+  nufile_lasterror = 0;
+  file = NuDatFileOpen(dat, name, 0);
+  if (file != 0) {
+    int size;
+
+    if (dat->mode == 3) {
+      while (NuFileStatus(file) != 0) {
+      }
+    }
+    if (g_nuFileUnk0ae3f80[file - 0x800].i28 != 0)
+      size = g_nuFileUnk0ae3f80[file - 0x800].i1c;
+    else
+      size = g_nuFileUnk0ae3f80[file - 0x800].i18;
+    buf = (char *)dest;
+    if (size <= buf_size && size != 0) {
+      while (NuDatFileRead(file, buf, size) < 0) {
+        Unk006d24d0();
+        while (NuDatFileSeek(file, 0, 0) < 0)
+          Unk006d24d0();
+      }
+      if (dat->mode == 3) {
+        while (NuFileStatus(file) != 0) {
+        }
+      }
+      NuFileClose(file);
+      return size;
+    }
+    if (size != 0)
+      nufile_lasterror = -1;
+    NuFileClose(file);
+  }
+  return 0;
 }

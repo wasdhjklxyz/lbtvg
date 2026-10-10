@@ -3464,3 +3464,8 @@
 006e08b0 NuFileLoadBuffer saga nufile.cpp body (nufile_lasterror 0xb038a0, nufile_try_packed 0xb03890)
 006e0a10 NuFileLoadBufferVP saga nufile.cpp body
 006d9370 NuFileOpenSize Mac _NuFileOpenSize (per-id size dispatcher), called by NuFileLoad/NuFileLoadBuffer
+006d2f20 Unk006d2f20 small-file slot claim (Mac NuFileSmallFileManager::GetNextSlot shape)
+006d2f40 Unk006d2f40 small-file close (Mac NuFileSmallFileManager::Close shape); clears the 0xb00878 entry
+006d2f80 Unk006d2f80 small-file read (Mac NuFileSmallFileManager::Read shape); called by NuFileRead for ids >= 0x2000
+006d2fe0 Unk006d2fe0 small-file seek (Mac NuFileSmallFileManager::Seek shape); called by NuFileSeek for ids >= 0x2000
+006d3060 Unk006d3060 small-file size (Mac NuFileSmallFileManager::Size shape); inlined in NuFileOpenSize
