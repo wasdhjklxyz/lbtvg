@@ -2127,3 +2127,9 @@
 00701c90 NuSpeedBlurFilterGen::destroyTextureResources vtable slot 4 (RTTI), releases the texture initTextureResources creates; matched
 006fa8d0 NuMainFilter::render vtable 0x8979e4 slot 5 (RTTI); calls NuMainFilterGen::render when 0x94c0bb is set; matched
 006f7ab0 NuMainFilterGen::isEnabled vtable 0x8982bc slot 8 (RTTI) + saga inline (active_filter_count != 0); matched
+006122e0 Customiser::MenuSaveAndExit Mac body ("menuBack", HasChangedSinceSave, TriggerAutoSave, MenuEnd, NewMenuBatte(1000,-1,-1)); matched
+0060ffc0 Customiser::HasChangedSinceSave called from MenuSaveAndExit as on the Mac
+00610160 Customiser::MenuEnd called (tail) from MenuSaveAndExit as on the Mac
+006c1d40 TriggerAutoSave called from Customiser::MenuSaveAndExit as on the Mac
+006bf620 NewMenuBatte called (1000,-1,-1) from Customiser::MenuSaveAndExit as on the Mac
+00610160 Customiser::MenuEnd Mac body (MenuRememberCursor, MenuReset, ResetTimer); matched

@@ -1470,9 +1470,11 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 0060ea60,00301388,__Z25LevelObjects_InitForLevelP11WORLDINFO_s,LevelObjects_InitForLevel(WORLDINFO_s*),order,2
 0060ec80,003015f6,__Z29LevelObject_FindIndexFromNamePc,LevelObject_FindIndexFromName(char*),confirmed,0
 0060ee60,00301810,__Z20Level_LoadConfigFileP11WORLDINFO_s,Level_LoadConfigFile(WORLDINFO_s*),confirmed,0
+0060ffc0,0028c244,__ZN10Customiser19HasChangedSinceSaveEv,Customiser::HasChangedSinceSave(),confirmed,0
+00610160,0028ab26,__ZN10Customiser7MenuEndEv,Customiser::MenuEnd(),confirmed,0
 00610360,0028aef4,__ZN10Customiser9ConfigureEPcP9variptr_uS2_iiiiiPFiS0_E,"Customiser::Configure(char*, variptr_u*, variptr_u*, int, int, int, int, int, int (*)(char*))",strings,0
 006111a0,0028ca9e,__ZN10Customiser7LoadAllEP11WORLDINFO_s,Customiser::LoadAll(WORLDINFO_s*),strings,0
-006122e0,0028c2c4,__ZN10Customiser15MenuSaveAndExitEv,Customiser::MenuSaveAndExit(),strings,0
+006122e0,0028c2c4,__ZN10Customiser15MenuSaveAndExitEv,Customiser::MenuSaveAndExit(),confirmed,0
 006137e0,0028e3fc,__ZN10Customiser6Draw3DEv,Customiser::Draw3D(),strings,0
 00614840,002a0b86,__Z8D_splineP8nufpar_s,D_spline(nufpar_s*),confirmed,0
 00614900,002a0c8a,__Z7D_levelP8nufpar_s,D_level(nufpar_s*),confirmed,0
@@ -2309,8 +2311,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 006be490,002521e8,__ZN8bugThing22BugPitSpecialParseFuncEP11biospline_sPviPPcRS2_P5VuMtxPP8nugscn_si,"bugThing::BugPitSpecialParseFunc(biospline_s*, void*, int, char**, void*&, VuMtx*, nugscn_s**, int)",strings,0
 006bf2a0,002218ba,_MenuInitialiseEx,_MenuInitialiseEx,strings,0
 006bf550,00221bb0,_MenuReset,_MenuReset,gapfill,1
+006bf620,0022474e,_NewMenuBatte,_NewMenuBatte,confirmed,0
 006c1200,00223a64,_MenuLoadTechnicalStrings,_MenuLoadTechnicalStrings,strings,0
 006c1590,00227296,_SaveSystemInitialiseEx,_SaveSystemInitialiseEx,strings,0
+006c1d40,0022739a,_TriggerAutoSave,_TriggerAutoSave,confirmed,0
 006c1ee0,00227d92,__Z18TextDecodeCodewordPcS_,"TextDecodeCodeword(char*, char*)",strings,0
 006c4020,0022b83a,_getbutton,_getbutton,strings,0
 006c48f0,0022236a,_DrawMenuButtonPromptsEx,_DrawMenuButtonPromptsEx,strings,0
