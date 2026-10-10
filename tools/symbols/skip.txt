@@ -281,3 +281,4 @@
 0x00457750 Action_SnapToPosition: only x/y/z AIParamToFloat argument register order (process load vs lea [len+value+1])
 0x00456e00 Action_BigJump: only the radius fadd operand order (target->p4 vs obj->p4 loaded first)
 0x00454d10 Action_Kill: only the prologue zero register (orig obj=NULL in ebx feeds the inits; ours shares esi with the loop index)
+0x006d0850 Unk006d0850 (cutscene event update): original copies arg 1 into a local slot (frame 0x34 vs 0x30); rest of the structure matches
