@@ -571,10 +571,20 @@ void NuPadRecStep(void) {
 
 // --- probably nufile: handle tables by id range -----------------------------
 
-// ids 0..0x3ff
-struct NuFileUnk0ae3718 {
-  __int64 size;
-  unsigned char pad[0x40 - 8];
+// ids 1..0x3ff: saga's FILEINFO (file_info[id - 1])
+struct FILEBUFINFO;
+typedef struct fileinfo_s {
+  unsigned char pad0[8];
+  __int64 pos; // 0x08
+  unsigned char pad10[8];
+  __int64 file_len; // 0x18
+  unsigned char pad20[0x2c - 0x20];
+  int use_buf; // 0x2c
+  unsigned char pad30[0x3c - 0x30];
+  struct FILEBUFINFO *buf; // 0x3c
+} FILEINFO;
+struct FILEBUFINFO {
+  FILEINFO *file_info;
 };
 // ids 0x400..0x7ff
 struct NuFileUnk0afa0a8 {
@@ -598,28 +608,28 @@ struct NuFileUnk0ae3f80 {
   unsigned char pad[0x30 - 0x2c];
 };
 // ids 0x2000..
-struct NuFileUnk0b00884 {
+struct NuFileUnk0b00878 {
   int i0;
   int i4;
   int i8;
   int ic;
 };
 
-// GLOBAL: LEGOBATMAN 0x00ae3718
-NuFileUnk0ae3718 g_nuFileUnk0ae3718[1];
+// GLOBAL: LEGOBATMAN 0x00ae3740
+FILEINFO file_info[0x21];
 // GLOBAL: LEGOBATMAN 0x00afa0a8
 NuFileUnk0afa0a8 g_nuFileUnk0afa0a8[1];
 // GLOBAL: LEGOBATMAN 0x00ae3f80
 NuFileUnk0ae3f80 g_nuFileUnk0ae3f80[1];
-// GLOBAL: LEGOBATMAN 0x00b00884
-NuFileUnk0b00884 g_nuFileUnk0b00884[1];
+// GLOBAL: LEGOBATMAN 0x00b00878
+NuFileUnk0b00878 g_nuFileUnk0b00878[1];
 // GLOBAL: LEGOBATMAN 0x00b038a4
 int g_nuFileUnk0b038a4;
 
 // STUB: LEGOBATMAN 0x006d9370
 __int64 NuFileUnk006d9370(int id) {
   if (id >= 0x2000)
-    return g_nuFileUnk0b038a4 ? g_nuFileUnk0b00884[id - 0x2000].i0 : 0;
+    return g_nuFileUnk0b038a4 ? g_nuFileUnk0b00878[id - 0x2000].ic : 0;
   if (id >= 0x1000)
     return 0;
   if (id >= 0x800) {
@@ -631,7 +641,7 @@ __int64 NuFileUnk006d9370(int id) {
   if (id >= 0x400)
     return g_nuFileUnk0afa0a8[id - 0x400].end -
            g_nuFileUnk0afa0a8[id - 0x400].start;
-  return g_nuFileUnk0ae3718[id].size;
+  return file_info[id - 1].file_len;
 }
 
 // FUNCTION: LEGOBATMAN 0x006d9450
@@ -655,6 +665,31 @@ void NuFileUnk006d9400(int id) {
     return;
   }
   g_nuFileUnk0afa0a8[id - 0x400].i10 = 0;
+}
+
+extern "C" __int64 NuPSFileLSeek(int fh, __int64 offset, int whence);
+extern "C" int NuPSFileClose(int fh);
+void Unk006d24b0(void);
+
+// STUB: LEGOBATMAN 0x006d9540
+// The 0x2000 branch indexes through esi (orig: lea eax, keeps esi).
+__int64 NuFilePos(int file) {
+  __int64 pos;
+
+  if (file >= 0x2000)
+    return g_nuFileUnk0b038a4 == 0 ? 0 : g_nuFileUnk0b00878[file - 0x2000].i4;
+  if (file >= 0x1000)
+    return 0;
+  if (file >= 0x400)
+    return NuFileUnk006d9450(file);
+  file -= 1;
+  FILEINFO *info = &file_info[file];
+  if (info->use_buf != 0)
+    return info->pos;
+  pos = NuPSFileLSeek(file, 0, 1);
+  while (pos < 0)
+    pos = NuPSFileLSeek(file, 0, 1);
+  return pos;
 }
 
 // --- more string helpers
@@ -1162,6 +1197,34 @@ extern "C" int NuFileExtRemove(char *dest, char *path) {
     return info->type;
   }
   return -1;
+}
+
+// FUNCTION: LEGOBATMAN 0x006dcb00
+void NuFileClose(int file) {
+  FILEINFO *info;
+
+  if (file >= 0x2000) {
+    if (g_nuFileUnk0b038a4) {
+      g_nuFileUnk0b00878[file - 0x2000].i0 = -1;
+      g_nuFileUnk0b00878[file - 0x2000].i4 = -1;
+      g_nuFileUnk0b00878[file - 0x2000].i8 = -1;
+      g_nuFileUnk0b00878[file - 0x2000].ic = -1;
+    }
+    return;
+  }
+  if (file >= 0x1000)
+    return;
+  if (file >= 0x400) {
+    NuFileUnk006d9400(file);
+    return;
+  }
+  file -= 1;
+  while (NuPSFileClose(file) < 0)
+    Unk006d24b0();
+  info = &file_info[file];
+  if (info->buf != 0)
+    info->buf->file_info = 0;
+  memset(info, 0, sizeof(FILEINFO));
 }
 
 struct NuPadRec {

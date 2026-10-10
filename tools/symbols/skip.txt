@@ -251,3 +251,4 @@
 00604b80 GameAnimSet_JumpToAnimPos: x87 operand order in clamp compares
 0066b7f0 GizFlock_AssignCreatures static: ebx/esi register swap
 0066bc00 GizFlock_FindExtraSpecial static: esi/edi register swap
+006d9540 NuFilePos: index temp esi vs eax in the 0x2000 branch (1 line)

@@ -3391,3 +3391,5 @@
 006dbdd0 read_offset_len saga implode.cpp body (ar002 read_pt_len); matches as a non-static function
 006dbf10 read_literal_len saga implode.cpp body (ar002 read_c_len); matches as a non-static function
 006dc080 ImplodeDecodeC saga implode.cpp body matches; Mac name
+006dcb00 NuFileClose saga nufile.cpp shape (0x2000 APK slots, mem files, NuPSFileClose retry, FILEINFO clear)
+006d9540 NuFilePos saga nufile.cpp shape (use_buf pos or NuPSFileLSeek current)
