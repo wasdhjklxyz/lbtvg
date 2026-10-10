@@ -278,3 +278,4 @@
 0x006e2ef0 bgProcAbortAll: only diff is edi pushed at entry (original) vs shrink-wrapped into the loop (ours); loop shape variants don't move it
 0x0046e4e0 Action_ThrowDetonator: only explode/targettable stack slots swapped; declaration orders tried
 0x004541f0 Action_SetSide: only the creature lookup in both inlined ActionApplySide copies (add ecx,[esi+0x224] vs load + [ecx+esi+0x50])
+0x00457750 Action_SnapToPosition: only x/y/z AIParamToFloat argument register order (process load vs lea [len+value+1])

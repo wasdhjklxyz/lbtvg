@@ -327,7 +327,7 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0046bdd0` 1162 B `Action_GetLocatorFromSet(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `legoapi/gizmo/gizmos/gizmos_gizactions.cpp`
 - [ ] `0046dee0` 1226 B `Action_CreateCoupled(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `004678a0` 1236 B `Action_DynamicCameraCut_AddSubtitle(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
-- [ ] `00457750` 1254 B `Action_SnapToPosition(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
+- [ ] `00457750` 1254 B `Action_SnapToPosition(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00458cd0` 1285 B `Action_AttackOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00456e00` 1294 B `Action_BigJump(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `0046b400` 1295 B `Action_PickUpItem(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`

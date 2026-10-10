@@ -580,6 +580,105 @@ i32 SuperCarry_Carrying(GameObject_s *object);
 // GLOBAL: LEGOBATMAN 0x00851344
 extern const f32 g_unk00851344; // nearest-player start distance
 
+// GLOBAL: LEGOBATMAN 0x00ab3980
+extern GameObject_s *player;
+// GLOBAL: LEGOBATMAN 0x00ab3984
+extern GameObject_s *player2;
+// GLOBAL: LEGOBATMAN 0x0095fd2c
+extern nuvec_s v001;
+void NuVecRotateY(nuvec_s *v, nuvec_s *v0, i32 a);
+nuvec_s *NuSpecialGetDrawPos(nuhspecial_s *special);
+i32 NuSpecialExistsFn(nuhspecial_s *special);
+
+// STUB: LEGOBATMAN 0x00457750
+// Only diff: in the x/y/z branches the original loads process before the
+// lea [len+value+1] (x: edx, y: ecx) or after the push (z); ours always
+// computes the lea first. Argument/temporary shapes tried.
+i32 Action_SnapToPosition(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **args, int argc, int flags,
+                          f32 time) {
+  nuvec_s pos = {0.0f, 0.0f, 0.0f};
+  i32 check_terrain = 1;
+  i32 rotation = 0;
+  GameObject_s *obj = NULL;
+  nuhspecial_s special = {0};
+  WORLDINFO_s *world = WorldInfo_CurrentlyActive();
+  if (flags == 0)
+    return 1;
+  if (packet != NULL && packet->pd0 != NULL && packet->pd0->obj != NULL)
+    obj = packet->pd0->obj;
+  for (i32 i = 0; i < argc; i++) {
+    char *value;
+    if (NuStrIStr(args[i], "player1") != NULL ||
+        NuStrIStr(args[i], "player") != NULL) {
+      obj = player;
+    } else if (NuStrIStr(args[i], "player2") != NULL) {
+      obj = player2;
+    } else if ((value = NuStrIStr(args[i], "roty")) != NULL) {
+      value += NuStrLen("roty") + 1;
+      rotation =
+          (i32)((i32)AIParamToFloat(process, value) * 182.04444444444445);
+
+    } else if (NuStrICmp(args[i], "UseCurrentPos") == 0) {
+      if (obj != NULL)
+        pos = obj->position;
+    } else if (NuStrICmp(args[i], "BehindCamera") == 0) {
+      if (obj != NULL) {
+        nuvec_s offset = v001;
+        pos = *(nuvec_s *)((u8 *)g_unk0095f624 + 0x11c);
+        NuVecRotateY(&offset, &offset,
+                     *(i32 *)((u8 *)g_unk0095f624 + 0x1fc) + 0x8000);
+        NuVecScale(&offset, &offset, 2.0f);
+        NuVecAdd(&pos, &offset, &pos);
+      }
+    } else if ((value = NuStrIStr(args[i], "special_xz")) != NULL) {
+      char *name = value + NuStrLen("special_xz") + 1;
+      NuSpecialFind(world->scn140, &special, name, 0);
+      if (NuSpecialExistsFn(&special)) {
+        nuvec_s *p = NuSpecialGetDrawPos(&special);
+        pos.x = p->x;
+        pos.z = p->z;
+      }
+    } else if ((value = NuStrIStr(args[i], "special")) != NULL) {
+      char *name = value + NuStrLen("special") + 1;
+      NuSpecialFind(world->scn140, &special, name, 0);
+      if (NuSpecialExistsFn(&special)) {
+        nuvec_s *p = NuSpecialGetDrawPos(&special);
+        pos.x = p->x;
+        pos.y = p->y;
+        pos.z = p->z;
+      }
+    } else if ((value = NuStrIStr(args[i], "x")) != NULL) {
+      pos.x = AIParamToFloat(process, value + NuStrLen("x") + 1);
+    } else if ((value = NuStrIStr(args[i], "y")) != NULL) {
+      pos.y = AIParamToFloat(process, value + NuStrLen("y") + 1);
+    } else if ((value = NuStrIStr(args[i], "z")) != NULL) {
+      pos.z = AIParamToFloat(process, value + NuStrLen("z") + 1);
+    } else if (NuStrIStr(args[i], "dont_check_terrain") != NULL) {
+      check_terrain = 0;
+    }
+  }
+  if (obj == NULL)
+    return 1;
+  obj->position = pos;
+  obj->u246 = rotation;
+  obj->v80 = obj->position;
+  obj->v98 = obj->position;
+  obj->u246 = rotation;
+  obj->yaw58 = rotation;
+  obj->facing_angle = rotation;
+  plr_lastpos = obj->v80;
+  obj->v8c = obj->v80;
+  ((Unk_AIPacketObj *)obj)->respawn_pos = obj->position;
+  ((Unk_AIPacketObj *)obj)->last_safe_pos = obj->position;
+  obj->saved_position = obj->position;
+  obj->velocity = v000;
+  InitSurfaceInfo(obj);
+  if (check_terrain)
+    SetObjOnSurface(obj, 0);
+  return 1;
+}
+
 // FUNCTION: LEGOBATMAN 0x004586e0
 i32 Action_SetOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                        AIPACKET_s *packet, char **args, int argc, int flags,
@@ -814,8 +913,6 @@ extern GIZAIMESSAGESYS_s *gizaimessagesys;
 i32 qrand(void);
 void LoseHitPoints(GameObject_s *obj, i32 amount);
 
-// GLOBAL: LEGOBATMAN 0x00ab3980
-extern GameObject_s *player;
 float SeekValF(float current, float target, float step);
 
 static inline f32 RunSpeedFabs(f32 f) {
@@ -4676,9 +4773,6 @@ i32 Action_FaceCharacter(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   }
   return 0;
 }
-
-extern GameObject_s *player;
-extern GameObject_s *player2;
 
 // FUNCTION: LEGOBATMAN 0x0045be70
 i32 Action_SetZeroAcceleration(AISYS_s *sys, AISCRIPTPROCESS_s *process,
