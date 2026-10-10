@@ -13,7 +13,96 @@ static f32 NuCosApprox(i32 angle);
 // FUNCTION: LEGOBATMAN 0x005a3b50
 static void NuVec4Set(f32 *v, f32 x, f32 y, f32 z, f32 w);
 
+#include "fade_unk.h"
+
 struct numtl_s;
+
+// Fade class inline members (fade_unk.h), emitted here in class order: ctor,
+// dtor, GetFadeType, scalar deleting dtor (not annotatable by match.py yet).
+
+// FUNCTION: LEGOBATMAN 0x005a3c10
+FadeBase::FadeBase() : info(NULL) {}
+
+// FUNCTION: LEGOBATMAN 0x005a3c20
+FadeBase::~FadeBase() {}
+
+// FUNCTION: LEGOBATMAN 0x005a3c50
+Fade::Fade() {}
+
+// FUNCTION: LEGOBATMAN 0x005a3c60
+Fade::~Fade() {}
+
+// FUNCTION: LEGOBATMAN 0x005a3c70
+i32 Fade::GetFadeType() const { return 0; }
+
+// FUNCTION: LEGOBATMAN 0x005a3ca0
+BlackWipe::BlackWipe() {}
+
+// FUNCTION: LEGOBATMAN 0x005a3cb0
+BlackWipe::~BlackWipe() {}
+
+// FUNCTION: LEGOBATMAN 0x005a3cc0
+i32 BlackWipe::GetFadeType() const { return 1; }
+
+// FUNCTION: LEGOBATMAN 0x005a3cf0
+StillScreenWipe::StillScreenWipe() {}
+
+// FUNCTION: LEGOBATMAN 0x005a3d00
+StillScreenWipe::~StillScreenWipe() {}
+
+// FUNCTION: LEGOBATMAN 0x005a3d10
+i32 StillScreenWipe::GetFadeType() const { return 2; }
+
+// FUNCTION: LEGOBATMAN 0x005a3d40
+CrossFade::CrossFade() {}
+
+// FUNCTION: LEGOBATMAN 0x005a3d50
+CrossFade::~CrossFade() {}
+
+// FUNCTION: LEGOBATMAN 0x005a3d60
+i32 CrossFade::GetFadeType() const { return 5; }
+
+// FUNCTION: LEGOBATMAN 0x005a3d90
+BlackCrossFade::BlackCrossFade() {}
+
+// FUNCTION: LEGOBATMAN 0x005a3da0
+BlackCrossFade::~BlackCrossFade() {}
+
+// FUNCTION: LEGOBATMAN 0x005a3db0
+i32 BlackCrossFade::GetFadeType() const { return 6; }
+
+// FUNCTION: LEGOBATMAN 0x005a3de0
+SpinWipe::SpinWipe() {}
+
+// FUNCTION: LEGOBATMAN 0x005a3df0
+SpinWipe::~SpinWipe() {}
+
+// FUNCTION: LEGOBATMAN 0x005a3e00
+i32 SpinWipe::GetFadeType() const { return 4; }
+
+// FUNCTION: LEGOBATMAN 0x005a3e30
+StillScreen::StillScreen() {}
+
+// FUNCTION: LEGOBATMAN 0x005a3e40
+StillScreen::~StillScreen() {}
+
+// FUNCTION: LEGOBATMAN 0x005a3e50
+i32 StillScreen::GetFadeType() const { return 3; }
+
+// GLOBAL: LEGOBATMAN 0x0095f8f0
+Fade g_unk0095f8f0;
+// GLOBAL: LEGOBATMAN 0x0095f8f8
+BlackWipe g_unk0095f8f8;
+// GLOBAL: LEGOBATMAN 0x0095f900
+StillScreenWipe g_unk0095f900;
+// GLOBAL: LEGOBATMAN 0x0095f908
+StillScreen g_unk0095f908;
+// GLOBAL: LEGOBATMAN 0x0095f910
+SpinWipe g_unk0095f910;
+// GLOBAL: LEGOBATMAN 0x0095f918
+CrossFade g_unk0095f918;
+// GLOBAL: LEGOBATMAN 0x0095f920
+BlackCrossFade g_unk0095f920;
 
 // GLOBAL: LEGOBATMAN 0x00a97d2c
 u8 ScreenGrabNeeded;

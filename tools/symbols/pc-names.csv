@@ -1497,6 +1497,29 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005a2dd0,002b29de,__Z19NewRumbleAllPlayersffii,"NewRumbleAllPlayers(float, float, int, int)",calls,1
 005a3020,002b3704,__Z14ConstantRumbleP12GameObject_sff,"ConstantRumble(GameObject_s*, float, float)",gapfill,5
 005a3940,002b2da8,__Z18GamePad_InputAngleP12GameObject_sP9GAMEPAD_s,"GamePad_InputAngle(GameObject_s*, GAMEPAD_s*)",confirmed,0
+005a3c10,,FadeBase::FadeBase,FadeBase::FadeBase,confirmed,0
+005a3c20,0032d53a,__ZN8FadeBaseD1Ev,FadeBase::~FadeBase(),confirmed,0
+005a3c50,0032d574,__ZN4FadeC2Ev,Fade::Fade(),confirmed,0
+005a3c60,002a7956,__ZN4FadeD1Ev,Fade::~Fade(),confirmed,0
+005a3c70,002a78ea,__ZNK4Fade11GetFadeTypeEv,Fade::GetFadeType() const,confirmed,0
+005a3ca0,0032d778,__ZN9BlackWipeC2Ev,BlackWipe::BlackWipe(),confirmed,0
+005a3cb0,002a7988,__ZN9BlackWipeD1Ev,BlackWipe::~BlackWipe(),confirmed,0
+005a3cc0,002a78f2,__ZNK9BlackWipe11GetFadeTypeEv,BlackWipe::GetFadeType() const,confirmed,0
+005a3cf0,0032d74c,__ZN15StillScreenWipeC2Ev,StillScreenWipe::StillScreenWipe(),confirmed,0
+005a3d00,002a79ba,__ZN15StillScreenWipeD1Ev,StillScreenWipe::~StillScreenWipe(),confirmed,0
+005a3d10,002a78fc,__ZNK15StillScreenWipe11GetFadeTypeEv,StillScreenWipe::GetFadeType() const,confirmed,0
+005a3d40,0032d6c8,__ZN9CrossFadeC2Ev,CrossFade::CrossFade(),confirmed,0
+005a3d50,002a79ec,__ZN9CrossFadeD1Ev,CrossFade::~CrossFade(),confirmed,0
+005a3d60,002a7906,__ZNK9CrossFade11GetFadeTypeEv,CrossFade::GetFadeType() const,confirmed,0
+005a3d90,0032d69c,__ZN14BlackCrossFadeC2Ev,BlackCrossFade::BlackCrossFade(),confirmed,0
+005a3da0,002a7a1e,__ZN14BlackCrossFadeD1Ev,BlackCrossFade::~BlackCrossFade(),confirmed,0
+005a3db0,002a7910,__ZNK14BlackCrossFade11GetFadeTypeEv,BlackCrossFade::GetFadeType() const,confirmed,0
+005a3de0,0032d6f4,__ZN8SpinWipeC2Ev,SpinWipe::SpinWipe(),confirmed,0
+005a3df0,002a791a,__ZN8SpinWipeD0Ev,SpinWipe::~SpinWipe(),confirmed,0
+005a3e00,002a7942,__ZNK8SpinWipe11GetFadeTypeEv,SpinWipe::GetFadeType() const,confirmed,0
+005a3e30,0032d720,__ZN11StillScreenC2Ev,StillScreen::StillScreen(),confirmed,0
+005a3e40,002a7a50,__ZN11StillScreenD1Ev,StillScreen::~StillScreen(),confirmed,0
+005a3e50,002a794c,__ZNK11StillScreen11GetFadeTypeEv,StillScreen::GetFadeType() const,confirmed,0
 005a5510,0032c5a4,__Z19DrawPauseScreenWipev,DrawPauseScreenWipe(),confirmed,0
 005a5990,0032c104,__Z14NeedScreenGrabi,NeedScreenGrab(int),confirmed,0
 005a59b0,0032c12e,__Z15DrawStillScreeni,DrawStillScreen(int),confirmed,0
