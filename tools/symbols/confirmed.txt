@@ -3393,3 +3393,4 @@
 006dc080 ImplodeDecodeC saga implode.cpp body matches; Mac name
 006dcb00 NuFileClose saga nufile.cpp shape (0x2000 APK slots, mem files, NuPSFileClose retry, FILEINFO clear)
 006d9540 NuFilePos saga nufile.cpp shape (use_buf pos or NuPSFileLSeek current)
+006dda10 NuFileSize saga nufile.cpp shape (dat tree lookup, else open/seek end/pos/close)

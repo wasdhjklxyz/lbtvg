@@ -1247,6 +1247,53 @@ int NuFileOpenUnk006dd7a0(char *path, int mode, int a, int b);
 int NuFileOpen(char *path, int mode) {
   return NuFileOpenUnk006dd7a0(path, mode, g_unk00b03884, 0);
 }
+
+struct NUDATFILEINFO {
+  int i0;
+  int i4;
+  int len; // 0x8
+  int ic;
+};
+struct NUDATHDR {
+  int i0;
+  int i4;
+  NUDATFILEINFO *file_info; // 0x8
+};
+// GLOBAL: LEGOBATMAN 0x00b0388c
+extern int nufile_buffering_enabled;
+int NuDatFileFindTree(void *dat, char *path);
+__int64 NuFileSeek(int file, __int64 offset, int whence);
+
+// STUB: LEGOBATMAN 0x006dda10
+// One addressing diff: [file_info + idx*16 + 8] base/index order swapped.
+__int64 NuFileSize(char *filepath) {
+  int file;
+  __int64 pos;
+  int buffering;
+  NUDATHDR *dat;
+
+  buffering = nufile_buffering_enabled;
+  dat = (NUDATHDR *)g_unk00b03884;
+  nufile_buffering_enabled = 0;
+  if (dat != 0) {
+    file = NuDatFileFindTree(dat, filepath);
+    if (file >= 0)
+      return dat->file_info[file].len;
+  }
+  pos = -1;
+  if (filepath != 0 && *filepath != '\0') {
+    file = NuFileOpenUnk006dd7a0(filepath, 0, (int)dat, 0);
+    if (file != 0) {
+      do {
+        pos = NuFileSeek(file, 0, 2);
+      } while (pos < 0);
+      pos = NuFilePos(file);
+      NuFileClose(file);
+    }
+  }
+  nufile_buffering_enabled = buffering;
+  return pos;
+}
 int NuFileReadUnk006de860(int file, void *dst, int size);
 extern "C" void *NuMemAllocFn(int size, const char *file, int line);
 void Unk006d24b0(void);
