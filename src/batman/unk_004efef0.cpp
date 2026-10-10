@@ -32,15 +32,23 @@ typedef struct SIGNAL_s {
   u8 pad0[0x40];
   char name[0x10];  // 0x40
   nuvec_s position; // 0x50
-  u8 pad5c[0x77 - 0x5c];
+  u32 special5c[3]; // 0x5c, nuhspecial_s
+  i16 s68;          // 0x68
+  u8 pad6a[0x74 - 0x6a];
+  char b74; // 0x74
+  char b75; // 0x75
+  u8 pad76;
   u8 visible : 1;      // 0x77
   u8 active : 1;       // 0x77 bit 1
   u8 b77_2 : 1;        // 0x77 bit 2
   u8 has_platform : 1; // 0x77 bit 3
-  u8 pad78[0xa8 - 0x78];
+  u8 pad78[0x9c - 0x78];
+  nuvec_s v9c;     // 0x9c
   i16 platform_id; // 0xa8
-  u8 padaa[0x3d0 - 0xaa];
-  f32 f3d0; // 0x3d0
+  u16 saa;         // 0xaa
+  u8 padac[0xb0 - 0xac];
+  struct GIZMOBLOWUP_s *blowups[(0x3d0 - 0xb0) / 4]; // 0xb0
+  f32 f3d0;                                          // 0x3d0
   u8 pad3d4[0x3d8 - 0x3d4];
 } SIGNAL;
 
@@ -58,6 +66,84 @@ i32 NuStrLen(const char *s);
 void AddGizmo(GIZMOSYS_s *gizmo_sys, i32 type_id, void *a, void *object);
 void *GameBufferAllocProgressUnk005bbaf0(VARIPTR *buf, VARIPTR *buf_end,
                                          i32 size);
+
+i32 EdFileReadInt();
+char EdFileReadChar();
+i16 EdFileReadShort();
+void EdFileRead(void *buf, i32 len);
+void EdFileReadNuVec(nuvec_s *v);
+u8 EdFileReadUnsignedChar();
+int NuSpecialFind(nugscn_s *scene, nuhspecial_s *out, char *name, i32 a);
+int NuSpecialExistsFn(nuhspecial_s *sp);
+struct GIZMOBLOWUP_s *GizmoBlowUp_FindByName(WORLDINFO_s *world, char *name);
+
+// FUNCTION: LEGOBATMAN 0x004f0100
+i32 Signals_Load(void *world_ptr, void *unused) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  char special_name[0x100];
+  char blowup_name[0x100];
+  i32 i = 0;
+  if (world->signal_count == 0) {
+    i32 version = EdFileReadInt();
+    world->signal_count = EdFileReadInt();
+    for (i = 0; i < world->signal_count; i++) {
+      SIGNAL *sig = &world->signals[i];
+      EdFileRead(world->signals[i].name, 0x10);
+      EdFileReadNuVec(&world->signals[i].position);
+      world->signals[i].b74 = EdFileReadChar();
+      if (version >= 2) {
+        world->signals[i].b75 = EdFileReadChar();
+        world->signals[i].s68 = EdFileReadShort();
+      } else {
+        world->signals[i].b75 = 'b';
+        world->signals[i].s68 = 0;
+      }
+      if (version >= 4) {
+        world->signals[i].saa = EdFileReadShort();
+        EdFileReadNuVec(&world->signals[i].v9c);
+        if (version < 6 && !(world->signals[i].saa & 1)) {
+          world->signals[i].saa |= 1;
+          world->signals[i].v9c = world->signals[i].position;
+        }
+      } else {
+        world->signals[i].saa = 0;
+        world->signals[i].v9c = world->signals[i].position;
+      }
+      if (version >= 5) {
+        i32 len = EdFileReadChar();
+        if (len != 0) {
+          memset(special_name, 0, sizeof(special_name));
+          EdFileRead(special_name, len);
+          NuSpecialFind(world->scn140,
+                        (nuhspecial_s *)world->signals[i].special5c,
+                        special_name, 0);
+          if (!NuSpecialExistsFn((nuhspecial_s *)world->signals[i].special5c))
+            memset(world->signals[i].special5c, 0,
+                   sizeof(world->signals[i].special5c));
+        }
+      }
+      if (version >= 7) {
+        i32 n = EdFileReadUnsignedChar();
+        i32 k = 0;
+        for (i32 j = 0; j < n; j++) {
+          i32 len = EdFileReadChar();
+          if (len != 0) {
+            EdFileRead(blowup_name, len);
+            blowup_name[len] = 0;
+            struct GIZMOBLOWUP_s *b =
+                GizmoBlowUp_FindByName(world, blowup_name);
+            if (b != NULL) {
+              world->signals[i].blowups[k] = b;
+              k++;
+            }
+          }
+        }
+      }
+    }
+    return 1;
+  }
+  return 0;
+}
 
 // FUNCTION: LEGOBATMAN 0x004f04a0
 void *Signals_ReserveBufferSpace(void *world_info) {

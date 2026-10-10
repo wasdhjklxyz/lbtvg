@@ -777,6 +777,7 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004e5e80,00100240,__Z9Shop_InitP11WORLDINFO_s,Shop_Init(WORLDINFO_s*),strings,0
 004e8190,000fe7c2,__Z11BuyShopItemP10LEGOSHOP_sP10shopitem_sii,"BuyShopItem(LEGOSHOP_s*, shopitem_s*, int, int)",strings,0
 004e8430,0010462e,__Z13SelectSubItemP10LEGOSHOP_s,SelectSubItem(LEGOSHOP_s*),strings,0
+004f0100,0010922a,__Z12Signals_LoadPvS_,"Signals_Load(void*, void*)",confirmed,0
 004f04a0,001095a4,__Z26Signals_ReserveBufferSpacePv,Signals_ReserveBufferSpace(void*),confirmed,0
 004f0510,00109602,__Z15Signal_ActivateP7GIZMO_si,"Signal_Activate(GIZMO_s*, int)",confirmed,0
 004f0540,0010962c,__Z18Signal_ActivateRevP7GIZMO_sii,"Signal_ActivateRev(GIZMO_s*, int, int)",confirmed,0

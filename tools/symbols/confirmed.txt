@@ -3290,3 +3290,4 @@
 005dfd10 Ledges_Load Ledges_RegisterGizmo load slot
 005e4f80 Tubes_Load Tubes_RegisterGizmo load slot
 005fd160 ZipUps_Load ZipUps_RegisterGizmo load slot
+004f0100 Signals_Load Signals_RegisterGizmo load slot
