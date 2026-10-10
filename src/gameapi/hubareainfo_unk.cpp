@@ -202,17 +202,12 @@ HUBEPISODEINFO *HubEpisodeInfo_FindFromEpisodeIndex(i32 index) {
 i32 NuSpecialExistsFn(nuhspecial_s *sp);
 nuvec_s *NuSpecialGetDrawPos(nuhspecial_s *special);
 float NuVecDistSqr(nuvec_s *a, nuvec_s *b, nuvec_s *d);
-// Raw view of a player: only the position is evidenced.
-struct HIPLAYER_s {
-  u8 pad00[0x5c];
-  nuvec_s pos; // 0x5c
-};
-extern HIPLAYER_s *Player[8];
+extern GameObject_s *Player[8];
 
 // STUB: LEGOBATMAN 0x006183e0
 // nearest episode special to the given players (mask); orig loads the list via
 // eax and recomputes &info->sp2 per pass, ours keeps it as a second IV
-HUBEPISODEINFO *Unk006183e0(u32 players) {
+HUBEPISODEINFO *HubEpisodeInfo_FindNearestMapToPlayers(u32 players) {
   HUBEPISODEINFO *best = NULL;
   HUBEPISODEINFO *info = g_unk00acb6e8;
   if (info != NULL) {
@@ -222,7 +217,7 @@ HUBEPISODEINFO *Unk006183e0(u32 players) {
         for (i32 i = 0; i < 2; i++) {
           if (players & (1 << i)) {
             f32 d = NuVecDistSqr(NuSpecialGetDrawPos((nuhspecial_s *)info->sp2),
-                                 &Player[i]->pos, NULL);
+                                 &Player[i]->position, NULL);
             if (d < best_dist) {
               best_dist = d;
               best = info;
@@ -235,10 +230,127 @@ HUBEPISODEINFO *Unk006183e0(u32 players) {
   return best;
 }
 
+// Raw view of AREADATA_s (0xbc bytes, area_unk.cpp).
+struct HIADATA_s {
+  u8 pad00[0x60];
+  i16 levels[0xe]; // 0x60
+  u32 flags;       // 0x7c
+  u8 pad80[0xbc - 0x80];
+};
+// Raw view of LEVELDATA_s: only the area index is evidenced.
+struct HIDOORLEVEL_s {
+  u8 pad00[0xab];
+  i8 area_index; // 0xab
+};
+struct DOOR_s;
+extern HIADATA_s *ADataList;
+// GLOBAL: LEGOBATMAN 0x00963898
+i32 last_hub_area = -1;
+// GLOBAL: LEGOBATMAN 0x00963894
+extern i32 hub_new_level;
+// GLOBAL: LEGOBATMAN 0x009630b4
+extern i32 g_unk009630b4; // door menu for bonus areas
+// GLOBAL: LEGOBATMAN 0x009630b8
+extern i32 g_unk009630b8; // door menu otherwise
+// GLOBAL: LEGOBATMAN 0x00acb6ac
+extern f32 hub_episode_time;
+// GLOBAL: LEGOBATMAN 0x00acb6a4
+extern f32 hub_area_time;
+// GLOBAL: LEGOBATMAN 0x00a97c58
+extern f32 MainRenderTargetTime;
+void MakeMenuPacket();
+void NeedScreenGrab(i32 needed);
+void Unk005a4170();
+void Unk005d4de0();
+extern "C" void NewMenuBatte(i32 a, i32 b, i32 c);
+
+// FUNCTION: LEGOBATMAN 0x006184a0
+void Hub_ActivateDoorMenu(WORLDINFO_s *world, DOOR_s *door,
+                          HIDOORLEVEL_s **level) {
+  i32 area = (*level)->area_index;
+  i32 menu;
+
+  if (area == -1)
+    return;
+  if (last_hub_area == -1) {
+    HUBAREAINFO *info = HubAreaInfo_FindFromAreaIndex(area);
+    if (info != NULL && info->gizmo_ptr == NULL &&
+        HubAreaInfo_IsAreaOpen(world, info))
+      last_hub_area = area;
+  }
+  if (last_hub_area != area) {
+    *level = NULL;
+    return;
+  }
+  menu = (ADataList[area].flags & 4) ? g_unk009630b4 : g_unk009630b8;
+  if (menu == -1)
+    return;
+  MakeMenuPacket();
+  hub_new_level = ADataList[area].levels[0];
+  *level = NULL;
+  hub_episode_time = 0.0f;
+  hub_area_time = 0.0f;
+  MainRenderTargetTime = 0.0f;
+  NeedScreenGrab(1);
+  Unk005a4170();
+  Unk005d4de0();
+  NewMenuBatte(menu, -1, -1);
+}
+
+struct TERRSURFACE_s {
+  f32 f0;
+  u32 flags; // 0x04
+  u32 pad8[5];
+};
+extern TERRSURFACE_s TerSurface[32];
+i32 Unk005cfd10(GameObject_s *obj);
+// GLOBAL: LEGOBATMAN 0x0096057c
+extern i32 g_unk0096057c;
+// GLOBAL: LEGOBATMAN 0x00960580
+extern i32 g_unk00960580;
+
+// STUB: LEGOBATMAN 0x00618580
+// register allocation only: orig keeps flags in ecx and mask in edx (so the
+// out path reloads TerSurface and ors an immediate 0x10); ours swaps them.
+u32 Hub_CanStartMenu(u32 mask, u32 *out) {
+  u32 players = 0;
+  i32 i;
+
+  if (out != NULL)
+    *out = 0;
+  for (i = 0; i < 2; i++) {
+    GameObject_s *obj = Player[i];
+    if (obj == NULL || !(obj->flags1fc & 0x80))
+      continue;
+    if (obj->b24d == 0 && !(obj->f11c0 > 0.0f))
+      continue;
+    if (!Unk005cfd10(obj) &&
+        (g_unk0096057c == -1 || obj->b9db != g_unk0096057c) &&
+        (g_unk00960580 == -1 || obj->b9db != g_unk00960580))
+      continue;
+    i32 surface = obj->surface;
+    u32 flags = TerSurface[surface].flags;
+    if (surface == 12) {
+      if (mask == 0x10) {
+        players |= 1 << i;
+        if (out != NULL)
+          *out |= 0x10;
+        continue;
+      }
+    }
+    if ((u32)surface < 32 && (mask & flags)) {
+      players |= 1 << i;
+      if (out != NULL)
+        *out |= TerSurface[surface].flags & mask;
+    }
+  }
+  return players;
+}
+
 extern HUBEPISODEINFO *g_unk00acb6c8; // current hub episode (worldmap_unk.cpp)
 
 // FUNCTION: LEGOBATMAN 0x00618690
-i32 Unk00618690(nuvec_s *start, nuvec_s *next) {
+i32 Hub_GetSelectAreaCamPos(nuvec_s *start, nuvec_s *next) {
   if (g_unk00acb6c8 != NULL && g_unk00acb6c8->spline_ptr != NULL) {
     if (start != NULL)
       *start = g_unk00acb6c8->spline_ptr->pts[0];

@@ -1269,6 +1269,12 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00557430,,Laguerre_With_Deflation,Laguerre_With_Deflation,confirmed,0
 00557710,,Newton_Raphson,Newton_Raphson,confirmed,0
 005578d0,,vorbis_lpc_to_lsp,vorbis_lpc_to_lsp,confirmed,0
+00558290,001f305e,_CRC_Init,_CRC_Init,confirmed,0
+00558370,001f30d4,_CRC_Process,_CRC_Process,confirmed,0
+005583b0,001f311a,_CRC_ProcessString,_CRC_ProcessString,confirmed,0
+005583f0,001f3152,_CRC_ProcessStringN,_CRC_ProcessStringN,confirmed,0
+00558440,001f31a4,_CRC_ProcessStringIgnoreCase,_CRC_ProcessStringIgnoreCase,confirmed,0
+00558480,001f31fe,_CRC_ProcessStringNIgnoreCase,_CRC_ProcessStringNIgnoreCase,confirmed,0
 00558d90,0020edaa,_GetSfxId,_GetSfxId,calls,1
 00558f10,001f3ac2,_PlaySfxByIdEx,_PlaySfxByIdEx,calls,2
 00559480,0020ef1a,_PlaySfxAndSetVolume,_PlaySfxAndSetVolume,confirmed,0
@@ -1843,6 +1849,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00618270,002ec57e,__Z18HubEpisodeInfo_SetP14HUBEPISODEINFO,HubEpisodeInfo_Set(HUBEPISODEINFO*),confirmed,0
 00618280,002ec592,__Z18HubEpisodeInfo_Getv,HubEpisodeInfo_Get(),confirmed,0
 00618380,002ec6d2,__Z35HubEpisodeInfo_FindFromEpisodeIndexi,HubEpisodeInfo_FindFromEpisodeIndex(int),confirmed,0
+006183e0,002ec73e,__Z38HubEpisodeInfo_FindNearestMapToPlayersj,HubEpisodeInfo_FindNearestMapToPlayers(unsigned int),confirmed,0
+006184a0,002ec998,__Z20Hub_ActivateDoorMenuP11WORLDINFO_sP6DOOR_sPP11LEVELDATA_s,"Hub_ActivateDoorMenu(WORLDINFO_s*, DOOR_s*, LEVELDATA_s**)",confirmed,0
+00618580,002ec814,__Z16Hub_CanStartMenujPj,"Hub_CanStartMenu(unsigned int, unsigned int*)",confirmed,0
+00618690,002ec934,__Z23Hub_GetSelectAreaCamPosP7nuvec_sS0_,"Hub_GetSelectAreaCamPos(nuvec_s*, nuvec_s*)",confirmed,0
 006188c0,00293cb4,__Z23CutScenes_ConfigureListPcP9variptr_uS0_,"CutScenes_ConfigureList(char*, variptr_u*, variptr_u)",strings,0
 00618d00,00294126,__Z8CS_fpsecP8nufpar_s,CS_fpsec(nufpar_s*),confirmed,0
 00618d20,00294154,__Z9CS_no_fogP8nufpar_s,CS_no_fog(nufpar_s*),confirmed,0

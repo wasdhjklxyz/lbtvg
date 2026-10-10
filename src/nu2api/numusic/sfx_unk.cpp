@@ -10,15 +10,14 @@ typedef struct nusoundinfo_s {
   u32 pad14[(0x40 - 0x14) / 4];
 } NUSOUNDINFO;
 
-u32 CRC_ProcessStringIgnoreCase(const char *str);
+extern "C" u32 CRC_ProcessStringIgnoreCase(const char *str);
 i32 NuStrNICmp(const char *a, const char *b, i32 n);
 
 // GLOBAL: LEGOBATMAN 0x009f7a30
 extern i16 *g_soundMap;
 // GLOBAL: LEGOBATMAN 0x00a0f7e4
 extern NUSOUNDINFO *g_soundInfo;
-// GLOBAL: LEGOBATMAN 0x00a0f9c0
-extern i32 g_unk00a0f9c0;
+extern "C" u32 *g_crc_table; // crc_unk.c
 
 // STUB: LEGOBATMAN 0x00558d90
 // close: block layout only; orig puts the map/flag "return -1" inline and
@@ -30,7 +29,7 @@ i32 GetSfxId(const char *name) {
   if (info == 0)
     return -1;
   i16 *map = g_soundMap;
-  if (map == 0 || g_unk00a0f9c0 == 0)
+  if (map == 0 || g_crc_table == 0)
     return -1;
   i32 index = map[CRC_ProcessStringIgnoreCase(name) & 0xff];
   if (index != -1) {

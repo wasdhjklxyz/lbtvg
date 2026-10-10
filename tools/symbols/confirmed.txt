@@ -2490,3 +2490,13 @@
 00551660 vorbis_lpc_from_data  libvorbis 1.2.0 lpc.c, matches with /GS- (stub)
 00551970 vorbis_lpc_predict  libvorbis 1.2.0 lpc.c, matches with /GS- (stub)
 00594a10 NuFmvStreamPCBink::Open  Mac __ZN17NuFmvStreamPCBink4OpenEPKciP11NuFmvBufferP7numtl_sj (vtable slot 0), matched
+00558290 CRC_Init  Mac _CRC_Init order (after NuSinApprox, before CRC_Process); 0x04c11db7 table into g_crc_table 0xa0f9c0 used by GetSfxId; matched
+00558370 CRC_Process  Mac _CRC_Process order, saga gamelib/crc/crc.cpp body; matched
+005583b0 CRC_ProcessString  Mac order, saga body (stub)
+005583f0 CRC_ProcessStringN  Mac order, saga body (stub)
+00558440 CRC_ProcessStringIgnoreCase  Mac order, ToUpper inline (stub); called by GetSfxId
+00558480 CRC_ProcessStringNIgnoreCase  Mac order (stub)
+006184a0 Hub_ActivateDoorMenu  Mac order after Hub_GetSelectAreaCamPos (PC 0x618690 = Unk00618690); (world, door, level**) signature, calls NewMenuBatte; matched
+00618580 Hub_CanStartMenu  Mac order (u32, u32*) signature: player mask + out flags (stub)
+00618690 Hub_GetSelectAreaCamPos  Mac order, (nuvec_s*, nuvec_s*) signature
+006183e0 HubEpisodeInfo_FindNearestMapToPlayers  Mac order after FindFromEpisodeIndex, (u32 players) signature

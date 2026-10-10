@@ -195,3 +195,8 @@
 00618290 HubEpisodeInfo_Init: loop pointer biased by +4 in the original (as HubAreaInfo_Init); do-while, for and indexed forms tried
 00514d10 ShopComputer::ActivateLevel: one scheduling difference (icon store vs push ebx); store order, buffer scope, ternary tried
 006183e0 Unk006183e0 (nearest HubEpisodeInfo special): list load via eax and a second induction variable for &info->sp2; 4 forms tried
+005583b0 CRC_ProcessString: register allocation (orig keeps str in esi from entry), no source form changes it
+005583f0 CRC_ProcessStringN: same register allocation as CRC_ProcessString
+00558440 CRC_ProcessStringIgnoreCase: same register allocation as CRC_ProcessString
+00558480 CRC_ProcessStringNIgnoreCase: same register allocation as CRC_ProcessString
+00618580 Hub_CanStartMenu: register allocation (flags/mask swapped), 10 variants tried

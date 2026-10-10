@@ -133,7 +133,9 @@ struct GameObject_s {
   i8 b24d;   // 0x24d, AISysGetCharacterPathPos last argument
   u8 pad24e[0x24f - 0x24e];
   u8 b24f; // 0x24f, 9 = in swamp (Condition_InSwamp)
-  u8 pad4[0x257 - 0x250];
+  u8 pad250[0x251 - 0x250];
+  i8 surface; // 0x251, TerSurface index (Hub_CanStartMenu)
+  u8 pad4[0x257 - 0x252];
   char b257; // 0x257
   u8 pad5[0x259 - 0x258];
   u8 b259; // 0x259
@@ -232,7 +234,7 @@ struct GameObject_s {
   i32 i11b0; // 0x11b0
   u8 pad11b4[0x11bc - 0x11b4];
   i32 i11bc; // 0x11bc
-  u8 pad11c0[0x11c4 - 0x11c0];
+  f32 f11c0; // 0x11c0
   f32 f11c4; // 0x11c4
   u8 pad11c8[0x11cc - 0x11c8];
   f32 f11cc;             // 0x11cc
