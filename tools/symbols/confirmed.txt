@@ -1952,3 +1952,10 @@
 0053c7a0 ov_pcm_total Mac dylib stub called from OggReader::GetSize
 0053c890 ov_raw_seek Mac dylib stub called from OggReader::ResetFile
 0053c4b0 ov_clear Mac dylib stub called from OggReader::Close
+0053ada0 OggReader::SetOffset vtable slot 8, Mac body (ov_time_seek, ov_pcm_tell); matched
+0053ae00 ovcb_read Mac order after OggReader::SetOffset (vorbisfile read callback over the in-memory file); stub
+0053ae70 ovcb_seek Mac order (whence 0/1/2); stub
+0053aed0 ovcb_close Mac order; matched
+0053aef0 ovcb_tell Mac order; matched
+0053d650 ov_time_seek Mac dylib stub called from OggReader::SetOffset
+0053d850 ov_pcm_tell Mac dylib stub called from OggReader::SetOffset

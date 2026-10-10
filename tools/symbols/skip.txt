@@ -178,3 +178,5 @@
 00679950 WorldMapBase::parse_colour_mainline: struct copy addressing (add eax, off vs [eax+off])
 006799c0 WorldMapBase::parse_colour_nextlocationnode: same as 0x679950
 0053a580 WavReader::SetOffset: clamp register allocation (eax vs ecx), 4 spellings tried
+0053ae00 ovcb_read: register allocation (data pointer in ebp), 2 forms tried
+0053ae70 ovcb_seek: SEEK_END addition order, 4 spellings tried
