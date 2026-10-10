@@ -2093,3 +2093,9 @@
 00694a00 ShaderBuilderGen::buildHeader (nushadermtldesc_s const* overload) vtable 0x86f83c slot 5 (RTTI); matched
 00693340 ShaderMtlDescFilter::ShaderMtlDescFilter called (desc, 0, 0, 0) from the buildHeader(desc) overloads, 0x20-byte object
 00698b10 PreInterpretor::addSymbol called (name, value, bool) from HLSLShaderBuilder::buildHeader as on the Mac
+005941b0 NuFmvStream::NuFmvStream sets vtable 0x868708 (RTTI NuFmvStream), inlined into the NuFmvStreamPCBink ctor; matched
+00594600 NuFmvStreamPCBink::NuFmvStreamPCBink sets vtable 0x86873c (RTTI) + Mac ctor body (same field inits and four 0x80 memsets); matched
+005942c0 NuFmvStreamPCBink::MapBinkTexturesToTIDs called from CreateTextures as on the Mac + Mac body; matched
+00594420 NuFmvStreamPCBink::BlitSM1Texture string "BlitSM1Texture" + called from GetNextFrame as on the Mac; matched
+005946c0 NuFmvStreamPCBink::GetNextFrame vtable 0x86873c slot 6 (RTTI) + Mac body; matched
+005948a0 NuFmvStreamPCBink::CreateTextures Mac body (d3dCreateTexture/Create_Bink_textures, MapBinkTexturesToTIDs); matched
