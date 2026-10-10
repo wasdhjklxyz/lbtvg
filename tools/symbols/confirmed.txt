@@ -1709,3 +1709,15 @@
 006e3cb0 NuLanguageConsoleSelectable Mac order, return 1; matched
 006d4410 NuAllocHighInit        saga numemhigh.cpp body (odd masks), Mac order after NuMemBlkFree; matched
 006d44a0 NuFreeHigh             saga numemhigh.cpp body, Mac order; matched
+004f6c80 InteractiveDisplay::ActivateLevel vtable 0x85d75c slot 2 (ret 4 = one arg), Mac inline emission order; matched
+004f6c90 InteractiveDisplay::GetDoesLevelLoadRender slot 4, Mac inline order; matched
+004f6cb0 InteractiveDisplay::GetUsesStrobePattern slot 6, Mac inline order (return 1); matched
+004f6cc0 InteractiveDisplay::GetUsesWhiteNoise slot 7, Mac inline order; return 0, byte-identical to slots 8, 9, 14, 16; matched
+004f6cd0 InteractiveDisplay::GetUsesInterlacePattern slot 8, Mac inline order (identical body to 0x4f6cc0); matched
+004f6ce0 InteractiveDisplay::GetUsesOverlayTexture slot 9, Mac inline order (identical body to 0x4f6cc0); matched
+004f6cf0 InteractiveDisplay::RenderWhenPaused slot 14, Mac inline order (identical body to 0x4f6cc0); matched
+004f6d00 InteractiveDisplay::IsCameraTarget slot 15; calls slots 16 and 21 (IsInteractiveMode, IsCameraTransitioning) as on the Mac; matched
+004f6d30 InteractiveDisplay::IsInteractiveMode slot 16, Mac inline order (identical body to 0x4f6cc0); matched
+004f6e60 InteractiveDisplay::LoadSettings slot 18 (ret 4), Mac inline order; matched
+004f6e70 InteractiveDisplay::GetTextScaleMultiplier slot 19 (returns 4.5f), Mac inline order; matched
+004f6e80 InteractiveDisplay::IsCameraTransitioning slot 21 (transition < 1.0f), Mac inline order; matched

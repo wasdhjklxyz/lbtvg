@@ -668,7 +668,19 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 004f5440,0010e86a,__Z12LoadPermDataP12bgprocinfo_s,LoadPermData(bgprocinfo_s*),strings,0
 004f5d90,0010d394,__Z13Legal_GetNamePc,Legal_GetName(char*),strings,0
 004f6230,0010d428,__Z9LoadPerm1v,LoadPerm1(),strings,0
+004f6c80,000c9f9a,__ZN18InteractiveDisplay13ActivateLevelEP11WORLDINFO_s,InteractiveDisplay::ActivateLevel(WORLDINFO_s*),confirmed,0
+004f6c90,000c9fa0,__ZNK18InteractiveDisplay22GetDoesLevelLoadRenderEv,InteractiveDisplay::GetDoesLevelLoadRender() const,confirmed,0
 004f6ca0,002f2334,__ZNK18InteractiveDisplay13GetClassNameAEv,InteractiveDisplay::GetClassNameA() const,strings,0
+004f6cb0,000c9fa8,__ZNK18InteractiveDisplay20GetUsesStrobePatternEv,InteractiveDisplay::GetUsesStrobePattern() const,confirmed,0
+004f6cc0,000c9fb2,__ZNK18InteractiveDisplay17GetUsesWhiteNoiseEv,InteractiveDisplay::GetUsesWhiteNoise() const,confirmed,0
+004f6cd0,000c9fba,__ZNK18InteractiveDisplay23GetUsesInterlacePatternEv,InteractiveDisplay::GetUsesInterlacePattern() const,confirmed,0
+004f6ce0,000c9fc2,__ZNK18InteractiveDisplay21GetUsesOverlayTextureEv,InteractiveDisplay::GetUsesOverlayTexture() const,confirmed,0
+004f6cf0,000c9fca,__ZNK18InteractiveDisplay16RenderWhenPausedEv,InteractiveDisplay::RenderWhenPaused() const,confirmed,0
+004f6d00,000c9fd2,__ZNK18InteractiveDisplay14IsCameraTargetEv,InteractiveDisplay::IsCameraTarget() const,confirmed,0
+004f6d30,000ca004,__ZNK18InteractiveDisplay17IsInteractiveModeEv,InteractiveDisplay::IsInteractiveMode() const,confirmed,0
+004f6e60,000ca00c,__ZN18InteractiveDisplay12LoadSettingsEPc,InteractiveDisplay::LoadSettings(char*),confirmed,0
+004f6e70,000ca012,__ZNK18InteractiveDisplay22GetTextScaleMultiplierEv,InteractiveDisplay::GetTextScaleMultiplier() const,confirmed,0
+004f6e80,000ca01e,__ZNK18InteractiveDisplay21IsCameraTransitioningEv,InteractiveDisplay::IsCameraTransitioning() const,confirmed,0
 004f6f70,00350d48,__ZNK12WorldMapBase13GetClassNameAEv,WorldMapBase::GetClassNameA() const,strings,0
 004f73f0,000fc2e8,__ZNK14SecurityCamera13GetClassNameAEv,SecurityCamera::GetClassNameA() const,strings,0
 004f74c0,000ca03c,__ZNK19LightFlickerOverlay13GetClassNameAEv,LightFlickerOverlay::GetClassNameA() const,strings,0
