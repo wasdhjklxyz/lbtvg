@@ -821,6 +821,12 @@ int NuFileRefreshDevices(NUFILEDEVICE **result) {
   return numdevices;
 }
 
+// FUNCTION: LEGOBATMAN 0x006d2e20
+void DebugHandler(void) { printf("Waiting for restart...\n"); }
+
+// FUNCTION: LEGOBATMAN 0x006d2e30
+int NuFileGetMediaMode(void) { return 0; }
+
 // FUNCTION: LEGOBATMAN 0x006d2e40
 NUFILEDEVICE *NuFileGetCurrentDevice(void) { return g_unk0099f288; }
 
@@ -847,6 +853,9 @@ int NuMemFileOpenSize(int file) {
   file -= 0x400;
   return g_nuFileUnk0afa0a8[file].end - g_nuFileUnk0afa0a8[file].start;
 }
+
+// FUNCTION: LEGOBATMAN 0x006d2f10
+int NuMcFileOpenSize(int file) { return 0; }
 
 // FUNCTION: LEGOBATMAN 0x006d9130
 void NuFileGetAppDirectory(char *dest) {
@@ -1985,7 +1994,7 @@ void NuFileInitAddress(int count) {
 }
 
 // FUNCTION: LEGOBATMAN 0x006d37a0
-void Unk006d37a0(void) {
+void NuFileTidyAddress(void) {
   if (addr_ref != NULL) {
     NuMemFreeFn(addr_ref, __FILE__, 0xc6e);
     addr_ref = NULL;
@@ -2039,6 +2048,16 @@ int NuFileIsNewer(nufile_info_s *first, nufile_info_s *second) {
 
 // GLOBAL: LEGOBATMAN 0x00b0389c
 int NuFile_SwapEndianOnWrite;
+
+// FUNCTION: LEGOBATMAN 0x006d2b60
+int NuFileSwapEndianOnWrite(int enabled) {
+  int previous = NuFile_SwapEndianOnWrite;
+  NuFile_SwapEndianOnWrite = enabled;
+  return previous;
+}
+
+// FUNCTION: LEGOBATMAN 0x006d2b70
+int NuFileGetEndianSwap(void) { return NuFile_SwapEndianOnWrite; }
 
 static void NuFileEndianSwap16(void *value) {
   unsigned char *value_ptr;
@@ -2560,7 +2579,92 @@ int NuDatFileFindHash(NUDATHDR *header, char *name) {
   }
   return -1;
 }
-void NuFileUpCase(int a, char *buf);
+// GLOBAL: LEGOBATMAN 0x00b03880
+int DontDoFileUpperCaseHack;
+
+// FUNCTION: LEGOBATMAN 0x006d2b80
+void NuFileUpCase(NUFILEDEVICE *device, char *filepath) {
+  char separator;
+
+  if (device != NULL)
+    separator = device->separator;
+  else
+    separator = '\\';
+
+  if (DontDoFileUpperCaseHack) {
+    for (; *filepath != '\0'; filepath++) {
+      if (*filepath == '\\' || *filepath == '/')
+        *filepath = separator;
+    }
+  } else {
+    for (; *filepath != '\0'; filepath++) {
+      switch (*filepath) {
+      case 'a':
+      case 'b':
+      case 'c':
+      case 'd':
+      case 'e':
+      case 'f':
+      case 'g':
+      case 'h':
+      case 'i':
+      case 'j':
+      case 'k':
+      case 'l':
+      case 'm':
+      case 'n':
+      case 'o':
+      case 'p':
+      case 'q':
+      case 'r':
+      case 's':
+      case 't':
+      case 'u':
+      case 'v':
+      case 'w':
+      case 'x':
+      case 'y':
+      case 'z':
+        *filepath -= 0x20;
+        break;
+      case '/':
+      case '\\':
+        *filepath = separator;
+        break;
+      }
+    }
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x006d2c50
+void NuFileReldirFix(NUFILEDEVICE *device, char *path) {
+  char *cursor;
+  char *inner;
+
+  cursor = inner = path;
+  while (*cursor != '\0') {
+    if (*cursor == device->separator && cursor[1] == '.' && cursor[2] == '.' &&
+        cursor[3] == device->separator) {
+      inner = cursor;
+      while (inner > path) {
+        inner--;
+        if (*inner == device->separator) {
+          cursor += 3;
+          break;
+        }
+        if (*inner == ':') {
+          inner++;
+          cursor += 4;
+          break;
+        }
+      }
+    }
+    *inner = *cursor;
+    inner++;
+    cursor++;
+  }
+  *inner = '\0';
+}
 
 // FUNCTION: LEGOBATMAN 0x006dcbc0
 int NuDatFileFindTree(NUDATHDR *header, char *name) {

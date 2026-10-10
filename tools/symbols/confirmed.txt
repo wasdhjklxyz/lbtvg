@@ -3509,7 +3509,7 @@
 006ddca0 Unk006ddca0 saves a finished pad recording (size, data, 0xe0f) through NuFileOpen mode 1
 006ddd30 Unk006ddd30 ends pad recording (save to 0xadf6b0 name) or playback
 006d3700 NuFileInitAddress saga nufile_plain.cpp body (MAX_FILE_ADDRESS 0xb038a8, addr_ref/addr_pos tables)
-006d37a0 Unk006d37a0 frees the NuFileInitAddress addr_ref/addr_pos tables (lines 0xc6e/0xc73)
+006d37a0 NuFileTidyAddress saga nufile_plain.cpp body
 006deb90 NuFileBeginBlkRead saga nufile_plain.cpp body plus an expected-tag debug check (blkcnt 0x99f274, nufile_blkinfo 0xaed188)
 006d96f0 NuFileEndBlkRead saga nufile_plain.cpp body
 006dec40 NuFileAlignRead saga nufile_plain.cpp body (NuFileReadChar inlined)
@@ -3530,3 +3530,10 @@
 006d2e90 NuFileGetCurrentSysPath saga nufile_plain.cpp body
 006d2ec0 NuFileFormatName saga nufile_plain.cpp body
 006d2ef0 NuMemFileOpenSize saga nufile.cpp body
+006d2e20 DebugHandler Mac _DebugHandler order; printf("Waiting for restart...\n")
+006d2e30 NuFileGetMediaMode saga nufile_plain.cpp body (returns 0)
+006d2f10 NuMcFileOpenSize Mac order after NuMemFileOpenSize; returns 0 (no memory card on PC)
+006d2b80 NuFileUpCase saga nufile.cpp body (DontDoFileUpperCaseHack 0xb03880)
+006d2c50 NuFileReldirFix saga nufile.cpp body
+006d2b60 NuFileSwapEndianOnWrite saga nufile_plain.cpp body
+006d2b70 NuFileGetEndianSwap saga nufile_plain.cpp body
