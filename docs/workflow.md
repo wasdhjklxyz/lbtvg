@@ -371,3 +371,16 @@ enough matched code for the percentage to mean something.
 - **Per-TU flags** (`NO_GS` in `tools/match.py`): the libvorbis 1.2.0 core
   was built with `/GS-`; vorbisfile.c (libvorbisfile upstream) and libogg
   1.1.3 match with the game's `/GS`. Third-party code goes under `src/lib/`.
+- **Header-static copies**: VC8 emits an out-of-line copy of every static a
+  TU references, even when every call was inlined (unreferenced ones are not
+  emitted), and its custom register convention comes out identical from the
+  same source. Shared bodies live in `nu2api/numath/nuinline_unk.h` and
+  `numtx_inline_unk.h`. A TU whose real code is not written yet gets an
+  `unk_<addr>.cpp` with the annotated prototypes and an unannotated
+  `Unk_InlineUser_<addr>` that references them. **Replace that function with
+  the TU's real code** when you match it. `tools/scratch/hdrstatics_*.py`
+  finds the copies.
+- **A constant 8-iteration inner loop is fully unrolled** (`CRC_Init`).
+- **Not matchable from C**: the NVIDIA PerfKit `nvpmapi` loader stub at
+  0x532820..~0x5329b7 (hand-written asm, `pushal`). OpenAutomate SDK 0.5.0.7
+  is at 0x533490..0x533be6 (`batman/pc/openautomate_unk.cpp`).
