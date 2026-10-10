@@ -3248,3 +3248,7 @@
 00652ab0 SuperCounter_AnyCollected Mac GizmoPickups_Reset calls SuperCounter_AnyCollected(SUPERCOUNTER*, WORLDINFO_s*) on the FindFromNameAndLevel result
 006529f0 SuperCounter_FindFromNameAndLevel Mac GizmoPickups_Reset calls SuperCounter_FindFromNameAndLevel(char*, WORLDINFO_s*, SUPERCOUNTERPICKUP**) with (pickup name, world, NULL)
 007186e0 NuPortalWhichRoom Mac GizmoPickups_Reset (inlined per-pickup init) calls _NuPortalWhichRoom(scene, &pos) where PC 0x634b20 calls 0x7186e0
+005baed0 Lever_NewPos Mac Lever_NewPos(LEVER_s*, nuvec_s*) body: pos copy, NuVecRotateY/NuVecAdd, inlined Lever_GetAbsTargetPos, two GameShadow calls, FindAnglesZX, NuMtxSetRotationY/Translate
+005bafe0 Lever_Reset Mac order Lever_NewPos then Lever_Reset(LEVER_s*); calls the colour setter and Lever_NewPos(lever, &lever->pos)
+005bb060 Lever_Activate Levers_RegisterGizmo activate slot (fns[10]); tail-calls Lever_Reset
+005bb0a0 Levers_Reset Levers_RegisterGizmo reset slot (fns[22])

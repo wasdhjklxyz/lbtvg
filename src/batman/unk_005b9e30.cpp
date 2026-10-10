@@ -30,22 +30,40 @@ void Unk_InlineUser_005b9e30(f32 *v, f32 a, i32 i) {
 #include <stddef.h>
 
 typedef struct LEVER_s {
-  u8 pad0[0x58];
+  u8 pad0[0x40];
+  nuvec_s v40; // 0x40
+  u8 pad4c[0x50 - 0x4c];
+  f32 f50; // 0x50
+  u8 pad54[0x58 - 0x54];
   char name[0x10]; // 0x58
-  u8 pad68[0x78 - 0x68];
+  nuvec_s pos68;   // 0x68
+  u8 pad74[0x78 - 0x74];
   f32 pull; // 0x78
-  u8 pad7c[0x8c - 0x7c];
-  i16 plat; // 0x8c, -1 = none
-  u8 pad8e[0x94 - 0x8e];
-  u16 b0 : 1;
-  u16 being_pulled : 1; // 0x94 bit 1
-  u16 goodie : 1;       // 0x94 bit 2
-  u16 baddie : 1;       // 0x94 bit 3
-  u16 visible : 1;      // 0x94 bit 4
-  u16 b5 : 1;
-  u16 b6 : 1;
-  u16 active : 1; // 0x94 bit 7
-  u8 pad96[0xb0 - 0x96];
+  f32 f7c;  // 0x7c
+  u8 pad80[0x88 - 0x80];
+  u16 rot_y;  // 0x88
+  u16 colour; // 0x8a
+  i16 plat;   // 0x8c, -1 = none
+  u16 s8e;    // 0x8e
+  u16 s90;    // 0x90
+  u16 s92;    // 0x92
+  union {
+    struct {
+      u16 b0 : 1;
+      u16 being_pulled : 1; // 0x94 bit 1
+      u16 goodie : 1;       // 0x94 bit 2
+      u16 baddie : 1;       // 0x94 bit 3
+      u16 visible : 1;      // 0x94 bit 4
+      u16 b5 : 1;
+      u16 b6 : 1;
+      u16 active : 1; // 0x94 bit 7
+    };
+    u16 state; // 0x94
+  };
+  u8 pad96[0x98 - 0x96];
+  char colour_code; // 0x98
+  u8 pad99[0xac - 0x99];
+  f32 fac; // 0xac
 } LEVER;
 
 typedef struct LEVERPROGRESS_s {
@@ -76,6 +94,31 @@ void *GameBufferAllocProgressUnk005bbaf0(VARIPTR *buf, VARIPTR *buf_end,
                                          i32 size);
 extern "C" void PlatOnOff(i32 index, i32 enabled);
 i32 Levers_Load(void *world, void *unused);
+
+// GLOBAL: LEGOBATMAN 0x00963200
+extern i32 g_unk00963200[9]; // lever colour ids: y o r b g p w u l
+
+// FUNCTION: LEGOBATMAN 0x005b9f20
+static void Lever_SetColour(LEVER *lever) {
+  if (lever->colour_code == 'r')
+    lever->colour = g_unk00963200[2];
+  else if (lever->colour_code == 'o')
+    lever->colour = g_unk00963200[1];
+  else if (lever->colour_code == 'y')
+    lever->colour = g_unk00963200[0];
+  else if (lever->colour_code == 'b')
+    lever->colour = g_unk00963200[3];
+  else if (lever->colour_code == 'g')
+    lever->colour = g_unk00963200[4];
+  else if (lever->colour_code == 'p')
+    lever->colour = g_unk00963200[5];
+  else if (lever->colour_code == 'w')
+    lever->colour = g_unk00963200[6];
+  else if (lever->colour_code == 'u')
+    lever->colour = g_unk00963200[7];
+  else if (lever->colour_code == 'l')
+    lever->colour = g_unk00963200[8];
+}
 
 // FUNCTION: LEGOBATMAN 0x005ba3b0
 void *Levers_ReserveBufferSpace(void *world_ptr) {
@@ -114,7 +157,6 @@ i32 Lever_ActivateRev(GIZMO *gizmo, i32 value, i32 query) {
   return 1;
 }
 
-void Levers_Reset(void *world, void *unused, void *progress);
 void Levers_Update(void *world, void *unused, f32 dt);
 void Levers_Draw(void *world, void *unused, f32 dt);
 
@@ -205,8 +247,98 @@ void Levers_ClearProgress(void *world, void *progress_ptr) {
   }
 }
 
+// GLOBAL: LEGOBATMAN 0x00960044
+extern f32 g_unk00960044;
+// GLOBAL: LEGOBATMAN 0x009f7a44
+extern nuvec_s g_unk009f7a44;
+
+void NuVecRotateY(nuvec_s *v, nuvec_s *v0, i32 a);
+void NuVecAdd(nuvec_s *out, nuvec_s *a, nuvec_s *b);
+f32 GameShadow(void *object, nuvec_s *position, f32 probe_height, i32 a);
+void FindAnglesZX(nuvec_s *normal, u16 *x_rotation, u16 *z_rotation);
+void NuMtxSetRotationY(numtx_s *m, i32 a);
+void NuMtxTranslate(numtx_s *m, nuvec_s *v);
+
+static inline void Lever_GetAbsTargetPos(LEVER *lever, nuvec_s *out) {
+  nuvec_s t = lever->v40;
+  t.y += 0.005f;
+  *out = t;
+}
+
+// FUNCTION: LEGOBATMAN 0x005baed0
+static void Lever_NewPos(LEVER *lever, nuvec_s *pos) {
+  nuvec_s p;
+  lever->pos68 = *pos;
+  lever->v40.x = lever->v40.y = 0.0f;
+  lever->v40.z = g_unk00960044;
+  NuVecRotateY(&lever->v40, &lever->v40, lever->rot_y + 0x8000);
+  NuVecAdd(&lever->v40, &lever->v40, &lever->pos68);
+  Lever_GetAbsTargetPos(lever, &p);
+  p.y = lever->pos68.y;
+  lever->v40.y = GameShadow(NULL, &lever->v40, 0.2f, -1);
+  lever->f50 = GameShadow(NULL, &p, 0.2f, -1);
+  if (lever->f50 != 2000000.0) {
+    lever->f50 += 0.005f;
+    FindAnglesZX(&g_unk009f7a44, &lever->s90, &lever->s92);
+  }
+  NuMtxSetRotationY((numtx_s *)lever, lever->rot_y);
+  NuMtxTranslate((numtx_s *)lever, &lever->pos68);
+}
+
+// FUNCTION: LEGOBATMAN 0x005bafe0
+static void Lever_Reset(LEVER *lever) {
+  Lever_SetColour(lever);
+  Lever_NewPos(lever, &lever->pos68);
+  lever->state |= 0x90;
+  lever->fac = 0.0f;
+  lever->s8e = 0;
+  if (!(lever->state & 2) || !(lever->state & 0x20)) {
+    lever->state &= 0xe7b0;
+    lever->pull = 0.0f;
+    lever->f7c = 0.0f;
+  }
+  if (lever->plat != -1)
+    PlatOnOff(lever->plat, lever->visible);
+}
+
+// FUNCTION: LEGOBATMAN 0x005bb060
+void Lever_Activate(GIZMO *gizmo, i32 active) {
+  if (gizmo != NULL && gizmo->object != NULL) {
+    LEVER *lever = (LEVER *)gizmo->object;
+    lever->active = active != 0;
+    if (active)
+      Lever_Reset(lever);
+  }
+}
+
+// FUNCTION: LEGOBATMAN 0x005bb0a0
+void Levers_Reset(void *world_ptr, void *unused, void *progress_ptr) {
+  WORLDINFO_s *world = (WORLDINFO_s *)world_ptr;
+  if (world == NULL)
+    return;
+  LEVER *lever = (LEVER *)world->levers;
+  if (lever == NULL)
+    return;
+  LEVERPROGRESS *progress = (LEVERPROGRESS *)progress_ptr;
+  for (i32 i = 0; i < world->lever_count; i++, lever++) {
+    Lever_Reset(lever);
+    if (progress != NULL && i < 32) {
+      i32 word = i / 32;
+      u32 bit = 1 << (i & 31);
+      if (progress->down[word] & bit) {
+        lever->being_pulled = 1;
+        lever->pull = 49.0f;
+        lever->s8e = 0x8000;
+      }
+      lever->visible = (progress->visible[word] & bit) != 0;
+      lever->active = (progress->active[word] & bit) != 0;
+      if (lever->plat != -1)
+        PlatOnOff(lever->plat, lever->visible);
+    }
+  }
+}
+
 void Levers_StoreProgress(void *world, void *unused, void *progress);
-void Lever_Activate(GIZMO *gizmo, i32 active);
 
 // GLOBAL: LEGOBATMAN 0x00960048
 i32 lever_gizmotype_id = -1;

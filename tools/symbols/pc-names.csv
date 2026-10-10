@@ -1765,6 +1765,10 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 005bad50,00303b44,__Z19Lever_GetNumOutputsP7GIZMO_s,Lever_GetNumOutputs(GIZMO_s*),confirmed,0
 005bad60,00303b4e,__Z27Levers_AllocateProgressDataP9variptr_uS0_,"Levers_AllocateProgressData(variptr_u*, variptr_u*)",confirmed,0
 005bad80,00303b70,__Z20Levers_ClearProgressPvS_,"Levers_ClearProgress(void*, void*)",confirmed,0
+005baed0,00302a22,__Z12Lever_NewPosP7LEVER_sP7nuvec_s,"Lever_NewPos(LEVER_s*, nuvec_s*)",confirmed,0
+005bafe0,00302b5a,__Z11Lever_ResetP7LEVER_s,Lever_Reset(LEVER_s*),confirmed,0
+005bb060,00302cea,__Z14Lever_ActivateP7GIZMO_si,"Lever_Activate(GIZMO_s*, int)",confirmed,0
+005bb0a0,00302d7a,__Z12Levers_ResetPvS_S_,"Levers_Reset(void*, void*, void*)",confirmed,0
 005bb4f0,00303ca2,__Z20Levers_RegisterGizmoi,Levers_RegisterGizmo(int),confirmed,0
 005bba90,002c350a,__Z17GizmoFileReadNamePc,GizmoFileReadName(char*),confirmed,0
 005bc370,002c3dc8,__Z20GizmoGetTypeIDByNameP10GIZMOSYS_sPc,"GizmoGetTypeIDByName(GIZMOSYS_s*, char*)",confirmed,0
