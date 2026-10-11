@@ -1027,6 +1027,227 @@ i32 Action_AttackOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 0;
 }
 
+// GLOBAL: LEGOBATMAN 0x0093b114
+extern f32 engagefiretime;
+// GLOBAL: LEGOBATMAN 0x0093b110
+extern f32 idealgoalrange;
+// GLOBAL: LEGOBATMAN 0x009c5a08
+extern i32 LSW1;
+extern i32 g_unk009c5a04;
+extern i32 g_unk009c5a00;
+extern i32 g_unk00962144;
+extern u32 g_unk0095f730;
+i32 PartyMemberInWay(GameObject_s *object, GameObject_s *opponent);
+unsigned __int64 PlayerItems_GetAllCarriedItemFlags(GameObject_s *obj);
+
+// STUB: LEGOBATMAN 0x00459330
+// first draft from the Batman disasm: register choice (packet in ebp),
+// action_data_3 slot, bitfield toggle and x87 range tree still differ
+i32 Action_EngageOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **args, int argc, int flags,
+                          f32 time) {
+  i32 explicit_fire_range = 0;
+  if (packet == NULL || packet->pd0 == NULL || packet->pd0->obj == NULL)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  ai_fighting = 1;
+  if (flags != 0) {
+    process->action_data_5 = engagefiretime;
+    packet->movement_param = idealgoalrange;
+    f32 initial = NuRandFloat();
+    for (i32 i = 0; i < argc; i++) {
+      char *value;
+      if ((value = NuStrIStr(args[i], "firerange")) != NULL) {
+        process->action_data_4 = AIParamToFloat(process, value + 10);
+        explicit_fire_range = 1;
+      } else if ((value = NuStrIStr(args[i], "goalrange")) != NULL) {
+        packet->movement_param = AIParamToFloat(process, value + 10);
+      } else if ((value = NuStrIStr(args[i], "minrange=")) != NULL) {
+        packet->movement_param = AIParamToFloat(process, value + 9);
+        process->action_data_1 |= 2;
+      } else if (NuStrIStr(args[i], "static") != NULL) {
+        packet->movement_param = 0.0f;
+      } else if (NuStrIStr(args[i], "offscreen") != NULL) {
+        process->action_data_1 |= 1;
+      } else if (NuStrIStr(args[i], "no_los_check") != NULL) {
+        process->action_data_1 |= 0x80;
+      } else if (NuStrIStr(args[i], "no_fire_in_minicut") != NULL) {
+        process->action_data_1 |= 4;
+      } else if (NuStrIStr(args[i], "circle") != NULL) {
+        packet->circle_clockwise = ~packet->circle_clockwise;
+        process->action_data_1 |= 8;
+      } else if ((value = NuStrIStr(args[i], "fireinterval")) != NULL) {
+        process->action_data_5 = AIParamToFloat(process, value + 13);
+      } else if (NuStrIStr(args[i], "opponent=nearest_opponent") != NULL) {
+        process->action_data_1 |= 0x40;
+      } else if ((value = NuStrIStr(args[i], "opponent=")) != NULL) {
+        process->action_data_3 = GetNamedGameObject(sys, value + 9);
+      } else if (NuStrIStr(args[i], "instant") != NULL) {
+        initial = 0.0f;
+      } else if ((value = NuStrIStr(args[i], "attack_override")) != NULL) {
+        value += 16;
+        if (NuStrICmp(value, "PUNCH_1") == 0)
+          process->action_data_6 = 1;
+        else if (NuStrICmp(value, "PUNCH_2") == 0)
+          process->action_data_6 = 2;
+        else if (NuStrICmp(value, "PUNCH_3") == 0)
+          process->action_data_6 = 3;
+        else if (NuStrICmp(value, "PUNCH_BEHIND") == 0)
+          process->action_data_6 = 4;
+        else if (NuStrICmp(value, "PUNCH_SPECIAL") == 0)
+          process->action_data_6 = 5;
+        else if (NuStrICmp(value, "BLOCK") == 0)
+          process->action_data_6 = 6;
+        else
+          process->action_data_6 = NuStrICmp(value, "SHOOT") == 0 ? 7 : 0;
+      }
+    }
+    if (LSW1 != 0)
+      process->action_data_1 |= 0x20;
+    process->action_timer = process->action_data_5 * initial * 0.5f;
+    if (!explicit_fire_range)
+      process->action_data_4 = packet->movement_param == 0.0f
+                                   ? 9999.9f
+                                   : packet->movement_param + aitol;
+  }
+  if (process->action_data_6 != 0)
+    obj->attack_override = (u8)process->action_data_6;
+
+  GameObject_s *opponent = (GameObject_s *)process->action_data_3;
+  if (opponent == NULL || !(opponent->flags1fc & 1) ||
+      !(opponent->flags1fc & 0x1000) ||
+      (opponent->b257 != 0 && !(opponent->f1544 > 0.0f))) {
+    Unk_AIPacketObj *o =
+        (process->action_data_1 & 0x40) ? packet->pd4 : packet->pe4;
+    if (o == NULL || o->ai == NULL || (opponent = o->obj) == NULL)
+      return 0;
+  }
+  obj->flags140c |= 0x200;
+  if (OpponentShouldntBeAttacked(opponent)) {
+    if ((opponent->flags1fc & 1) && (opponent->flags1fc & 0x1000))
+      packet->look_target = &opponent->position;
+  } else if (opponent != NULL && (MiniCutCam == 0 || g_unk009c61c4 != 0)) {
+    nuvec_s difference;
+    f32 dist =
+        NuVecDistSqr(&opponent->position, &packet->pd0->pos5c, &difference);
+    AIPACKET_s *opp_packet = (AIPACKET_s *)opponent->process290;
+    f32 goal;
+    if (obj->use_one_at_once) {
+      if (oneAtOnce_CanAttack(obj, ((AIPACKET_s *)obj->process290)->pe4->obj)) {
+        goal = 0.1f;
+        process->action_data_1 &= ~2;
+      } else {
+        goal = oneAtOnce_GetHoldRange(obj);
+        process->action_data_1 |= 2;
+      }
+    } else {
+      goal = packet->movement_param;
+      if (goal != 0.0f &&
+          (((opponent->flags1fc & 0x80) && obj->b254 == 0) ||
+           (g_unk00960894->api_object_sys->line_of_sight[packet->pd0->b259] &
+            ((unsigned __int64)1 << opponent->b259)) == 0))
+        goal = 0.1f;
+    }
+
+    if (goal == 0.0f) {
+      if (!(obj->p54->p24->flags13c & 0x100))
+        packet->look_target = &opponent->position;
+    } else {
+      f32 stopping =
+          goal < opp_packet->mover_height ? goal : opp_packet->mover_height;
+      if (!(obj->flags1410 & 0x100000))
+        process->action_data_1 &= ~0x10;
+      if ((obj->flags1410 & 0x100000) && (obj->p54->p24->flags13c & 0x100)) {
+        if (process->action_data_1 & 0x10) {
+          if (dist > (goal + aitol) * (goal + aitol))
+            process->action_data_1 &= ~0x10;
+        } else if (dist < (goal - aitol) * (goal - aitol)) {
+          process->action_data_1 |= 0x10;
+        }
+        if (process->action_data_1 & 0x10) {
+          AIMoveInstruction(packet, &opp_packet->last_path_position, stopping,
+                            (AIPATHINFO *)&opp_packet->path_set, 2, goal);
+          packet->goal_speed_mode = 1;
+          obj->flags1410 |= 0x80000;
+        } else {
+          AIMoveInstruction(packet, &opp_packet->last_path_position, 0.0f,
+                            (AIPATHINFO *)&opp_packet->path_set, 1, 0.01f);
+          packet->goal_speed_mode = 0;
+        }
+      } else {
+        u32 character_flags = obj->p54->p24->flags13c & 0x100;
+        if (character_flags != 0 && dist < (goal - aitol) * (goal - aitol)) {
+          AIMoveInstruction(packet, &opp_packet->last_path_position, stopping,
+                            (AIPATHINFO *)&opp_packet->path_set, 2, goal);
+          packet->goal_speed_mode = 1;
+          if (obj->p54->p24->flags13c & 0x100)
+            obj->flags1410 |= 0x80000;
+        } else if ((process->action_data_1 & 0x20) &&
+                   dist < (goal - aitol) * (goal - aitol)) {
+          AIMoveInstruction(packet, &opp_packet->last_path_position, stopping,
+                            (AIPATHINFO *)&opp_packet->path_set, 2, goal);
+          packet->goal_speed_mode = 1;
+        } else if (g_unk009c5a04 == 0 && g_unk009c5a00 == 0 &&
+                   dist + dist / 10.0f < (goal + aitol) * (goal + aitol) &&
+                   (process->action_data_1 & 2)) {
+          f32 range = packet->movement_param + aitol;
+          AIMoveInstruction(packet, &opp_packet->last_path_position, stopping,
+                            (AIPATHINFO *)&opp_packet->path_set, 2, range);
+          packet->goal_speed_mode = 0;
+        } else if (dist > (goal + aitol) * (goal + aitol) &&
+                   (g_unk009c5a04 == 0 || !(process->action_data_1 & 2))) {
+          AIMoveInstruction(packet, &opp_packet->last_path_position, stopping,
+                            (AIPATHINFO *)&opp_packet->path_set, 1, goal);
+          packet->goal_speed_mode = 0;
+        } else if (process->action_data_1 & 8) {
+          AIMoveInstruction(packet, &opp_packet->last_path_position, stopping,
+                            (AIPATHINFO *)&opp_packet->path_set, 3, goal);
+          packet->goal_speed_mode = 0;
+        } else if (character_flags == 0) {
+          packet->look_target = &opponent->position;
+        }
+      }
+    }
+
+    if (MiniCutCam != 0 && (process->action_data_1 & 4))
+      process->action_timer = NuRandFloat() * process->action_data_5 + 2.0f;
+    else
+      process->action_timer -= time;
+    if ((g_unk00960894->api_object_sys->line_of_sight[obj->b259] &
+         ((unsigned __int64)1 << opponent->b259)) != 0 ||
+        (process->action_data_1 & 0x80)) {
+      u32 character_flags = obj->p54->p24->flags13c & 0x100;
+      if ((character_flags == 0 || !(obj->flags1410 & 0x100000)) &&
+          (obj->b254 != 0 || (process->action_data_1 & 1)) &&
+          dist < process->action_data_4 * process->action_data_4) {
+        if (character_flags == 0)
+          packet->look_target = &opponent->position;
+        if (opponent->b257 == 0) {
+          obj->fire_target13b8 = opponent;
+          if (process->action_timer <= 0.0f) {
+            process->action_timer = NuRandFloat() * process->action_data_5 +
+                                    process->action_data_5 * 0.5f;
+            if (!PartyMemberInWay(obj, opponent) &&
+                oneAtOnce_CanAttack(obj, opponent)) {
+              if (g_unk00962144 != 0) {
+                if (PlayerItems_GetAllCarriedItemFlags(obj) & 0x10000000)
+                  obj->p112c->buttons8 |= g_unk0095f730;
+                else
+                  obj->p112c->buttons8 |= g_unk0095f72c;
+              } else if (obj->p54->p24->flags144 & 2) {
+                obj->p112c->buttons8 |= g_unk0095f730;
+              } else {
+                obj->p112c->buttons8 |= g_unk0095f72c;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x0045a990
 i32 Action_FollowDirection(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                            AIPACKET_s *packet, char **params, i32 param_count,

@@ -370,6 +370,7 @@ struct GameObject_s {
     };
   };
   union {
+    u32 flags1410; // 0x1410
     struct {
       u32 flags1410_lo : 15;
       u32 doomed_take_damage : 1; // 0x1410 bit 15

@@ -277,3 +277,4 @@
 0x00456e00 Action_BigJump: only the radius fadd operand order (target->p4 vs obj->p4 loaded first)
 0x00454d10 Action_Kill: only the prologue zero register (orig obj=NULL in ebx feeds the inits; ours shares esi with the loop index)
 0x006d0850 Unk006d0850 (cutscene event update): original copies arg 1 into a local slot (frame 0x34 vs 0x30); rest of the structure matches
+00459330 Action_EngageOpponent: 2.5 KB, first draft stubbed (packet register, circle bitfield toggle, x87 range tree)
