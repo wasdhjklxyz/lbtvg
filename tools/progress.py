@@ -202,6 +202,13 @@ def write_site(funcs, lib, names, state, saga, total, by, pct):
             where.setdefault(a, f.relative_to(ROOT).as_posix())
             src_name.setdefault(a, m.group(2).strip())
     code = {MATCHED: "m", STUB: "s", NAMED: "n", UNKNOWN: "u"}
+    try:  # fuzzy % for stubs (tools/fuzzy.py); needs the compiler, so optional
+        sys.path.insert(0, str(ROOT / "tools"))
+        from fuzzy import stub_scores
+        fuzzy = stub_scores(lambda a: funcs[a][0] if a in funcs else None)
+    except Exception as e:
+        print(f"progress: no fuzzy scores ({e})", file=sys.stderr)
+        fuzzy = {}
     rows = []
     for a in sorted(funcs):
         s, gname = funcs[a]
@@ -210,7 +217,8 @@ def write_site(funcs, lib, names, state, saga, total, by, pct):
         short = (name or "").split("(")[0].split(" ")[-1].lstrip("_")
         rows.append([a, s, st, name, where.get(a), saga.get(short) if name else None,
                      "confirmed" if METHOD.get(a) == "confirmed" else
-                     None if a in src_name else METHOD.get(a)])
+                     None if a in src_name else METHOD.get(a),
+                     fuzzy.get(a) if state[a] == STUB else None])
     data = {
         "generated": datetime.date.today().isoformat(),
         "text": [TEXT_LO, TEXT_HI], "total": total, "pct": round(pct, 3),
