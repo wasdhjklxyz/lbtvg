@@ -1,0 +1,25 @@
+# Uploads an objdiff progress report for decomp.dev (https://decomp.dev).
+# decomp.dev reads artifacts named <version>_report holding report.json
+# (objdiff report format). Built from site/data.json, which the pre-commit
+# hook regenerates, so CI needs no exe and no compiler.
+name: report
+
+on:
+  push:
+    branches: [main]
+    paths: [site/data.json, tools/report.py, .github/workflows/report.yml]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/report.py > report.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PC_report
+          path: report.json
