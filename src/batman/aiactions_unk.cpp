@@ -856,6 +856,177 @@ i32 Action_SetOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *process,
   return 1;
 }
 
+typedef struct CHARCONTEXTINFO_s {
+  u8 pad0[8];
+  unsigned __int64 flags; // 0x08
+} CHARCONTEXTINFO;
+
+// GLOBAL: LEGOBATMAN 0x0094176c
+extern CHARCONTEXTINFO *CInfo;
+// GLOBAL: LEGOBATMAN 0x009c5fec
+extern i32 ai_fighting;
+// GLOBAL: LEGOBATMAN 0x0093b118
+extern f32 aitol;
+extern i32 MiniCutCam;
+extern i32 g_unk009c61c4;
+extern f32 FRAMETIME;
+i32 SpecialMove_IsInMultiPhase(GameObject_s *object);
+i32 oneAtOnce_CanAttack(GameObject_s *object, GameObject_s *opponent);
+f32 oneAtOnce_GetHoldRange(GameObject_s *object);
+unsigned __int64 Unk_005f10f0(GameObject_s *object);
+
+// FUNCTION: LEGOBATMAN 0x00458c40
+static i32 OpponentShouldntBeAttacked(GameObject_s *opponent) {
+  if (opponent != NULL) {
+    if (!(opponent->flags1fc & 1) || !(opponent->flags1fc & 0x1000) ||
+        opponent->b257 != 0 ||
+        (CInfo[opponent->b9db].flags & 0x20000000000) != 0 ||
+        SpecialMove_IsInMultiPhase(opponent))
+      return 1;
+    if ((opponent->flags1fc & 0x80) && opponent->f1534 > 1.5f)
+      return 1;
+  }
+  return 0;
+}
+
+// FUNCTION: LEGOBATMAN 0x00458cd0
+i32 Action_AttackOpponent(AISYS_s *sys, AISCRIPTPROCESS_s *process,
+                          AIPACKET_s *packet, char **args, int argc, int flags,
+                          f32 time) {
+  if (packet == NULL || packet->pd0 == NULL || packet->pd0->obj == NULL)
+    return 1;
+  GameObject_s *obj = packet->pd0->obj;
+  ai_fighting = 1;
+  if (flags != 0) {
+    for (i32 i = 0; i < argc; i++) {
+      char *value = NuStrIStr(args[i], "goalrange");
+      if (value != NULL) {
+        packet->movement_param = AIParamToFloat(process, value + 10);
+      } else if ((value = NuStrIStr(args[i], "range")) != NULL) {
+        packet->movement_param = AIParamToFloat(process, value + 6);
+      } else if (NuStrICmp(args[i], "jediGoodie_attack") == 0) {
+        process->action_data_2 = 1;
+      } else if (NuStrICmp(args[i], "opponent=nearest_opponent") == 0) {
+        process->action_data_1 |= 0x40;
+      } else if ((value = NuStrIStr(args[i], "attack_override")) != NULL) {
+        value += 16;
+        if (NuStrICmp(value, "PUNCH_1") == 0)
+          process->action_data_6 = 1;
+        else if (NuStrICmp(value, "PUNCH_2") == 0)
+          process->action_data_6 = 2;
+        else if (NuStrICmp(value, "PUNCH_3") == 0)
+          process->action_data_6 = 3;
+        else if (NuStrICmp(value, "PUNCH_BEHIND") == 0)
+          process->action_data_6 = 4;
+        else if (NuStrICmp(value, "PUNCH_SPECIAL") == 0)
+          process->action_data_6 = 5;
+        else if (NuStrICmp(value, "BLOCK") == 0)
+          process->action_data_6 = 6;
+        else
+          process->action_data_6 = NuStrICmp(value, "SHOOT") == 0 ? 7 : 0;
+      }
+    }
+    process->action_data_4 = 0.2f;
+  }
+  if (process->action_data_6 != 0)
+    obj->attack_override = (u8)process->action_data_6;
+
+  GameObject_s *opponent = NULL;
+  if (process->action_data_1 & 0x40) {
+    if (packet->pd4 != NULL && packet->pd4->ai != NULL)
+      opponent = packet->pd4->obj;
+    obj->opponent = opponent;
+  } else {
+    if (packet->pe4 == NULL || packet->pe4->ai == NULL)
+      return 0;
+    opponent = packet->pe4->obj;
+  }
+  if (opponent == NULL)
+    return 0;
+  obj->flags140c |= 0x200;
+  if (OpponentShouldntBeAttacked(opponent)) {
+    if ((opponent->flags1fc & 1) && (opponent->flags1fc & 0x1000))
+      packet->look_target = &opponent->position;
+  } else if (MiniCutCam == 0 || g_unk009c61c4 != 0) {
+
+    nuvec_s difference;
+    f32 dist =
+        NuVecDistSqr(&opponent->position, &packet->pd0->pos5c, &difference);
+    if (obj->use_one_at_once) {
+      if (oneAtOnce_CanAttack(obj, ((AIPACKET_s *)obj->process290)->pe4->obj)) {
+        if (process->action_timer > 0.0f && (process->action_data_1 & 2)) {
+          process->action_timer = process->action_timer - FRAMETIME;
+        } else {
+          packet->movement_param = 0.0f;
+          process->action_data_1 &= ~2;
+        }
+      } else {
+        packet->movement_param = oneAtOnce_GetHoldRange(obj);
+        process->action_data_1 |= 2;
+        if (Unk_005f10f0(((AIPACKET_s *)obj->process290)->pe4->obj) & 4) {
+          packet->movement_param = packet->movement_param + 1.0;
+          process->action_timer = 2.0f;
+        } else {
+          process->action_timer = 0.0f;
+        }
+      }
+    }
+
+    AIPACKET_s *opp_packet = (AIPACKET_s *)opponent->process290;
+    f32 range;
+    if (process->action_data_1 & 2) {
+      if (dist <
+          (packet->movement_param - aitol) * (packet->movement_param - aitol)) {
+
+        AIMoveInstruction(
+            packet, &opp_packet->last_path_position, packet->mover_height,
+            (AIPATHINFO *)&opp_packet->path_set, 2, packet->movement_param);
+        packet->goal_speed_mode = 0;
+      } else if (dist > (packet->movement_param + aitol) *
+                            (packet->movement_param + aitol)) {
+        AIMoveInstruction(
+            packet, &opp_packet->last_path_position, packet->mover_height,
+            (AIPATHINFO *)&opp_packet->path_set, 1, packet->movement_param);
+        packet->goal_speed_mode = 0;
+      } else {
+        packet->look_target = &opponent->position;
+      }
+    } else {
+      range = opp_packet->mover_height + packet->movement_param +
+              packet->mover_height;
+      AIMoveInstruction(packet, &opp_packet->last_path_position, 0.0f,
+                        (AIPATHINFO *)&opp_packet->path_set, 1, range);
+      packet->goal_speed_mode = 0;
+    }
+
+    if (process->action_data_4 > 0.0f) {
+      if (opponent->b9db == 0x5a)
+        return 0;
+      dist =
+          NuVecDistSqr(&opponent->position, &packet->pd0->pos5c, &difference);
+      range = process->action_data_4;
+      if (!(opponent->path_flags3f6 & 1)) {
+        if (0.4f > range)
+          range = 0.4f;
+      }
+      range = opp_packet->mover_height + range +
+              ((AIPACKET_s *)obj->process290)->mover_height;
+      range = range * range;
+      if (dist < range) {
+        obj->p112c->buttons8 |= g_unk0095f72c;
+        if (process->action_data_2 != 0)
+          obj->flags140c |= 0x4000;
+      }
+    } else {
+      obj->p112c->flags5a |= 2;
+      obj->p112c->buttons8 |= g_unk0095f72c;
+      if (process->action_data_2 != 0)
+        obj->flags140c |= 0x4000;
+    }
+  }
+  return 0;
+}
+
 // FUNCTION: LEGOBATMAN 0x0045a990
 i32 Action_FollowDirection(AISYS_s *sys, AISCRIPTPROCESS_s *process,
                            AIPACKET_s *packet, char **params, i32 param_count,

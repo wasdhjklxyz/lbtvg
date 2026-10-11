@@ -3675,3 +3675,5 @@
 006e3da0 NuFileCloseDir  inlines NuSysDirClose (same __FILE__ line 0x23e) for handles below 0x1000
 006e3df0 NuFileReadDir  calls NuSysDirRead(file-1) and repacks the entry (dir bit 8, name at 0x18 as saga saveload reads it)
 006e3f60 NuPSFileOpen  nupad_gen's NuFileOpen calls it with (path, mode); CreateFileA over the getpointer slot table, mode 0 read/1 create/2 open-always
+00458c40 OpponentShouldntBeAttacked  Mac static 't' in Mac order before Action_AttackOpponent; esi-convention static called only by AttackOpponent/EngageOpponent
+00458cd0 Action_AttackOpponent  strings goalrange/range/jediGoodie_attack/attack_override/PUNCH_* as saga's body

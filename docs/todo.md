@@ -13,9 +13,9 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 | group | todo | with saga body |
 |---|---|---|
-| [near pcbatman.cpp](#near-pcbatmancpp) | 42 | 37 |
+| [near pcbatman.cpp](#near-pcbatmancpp) | 41 | 37 |
 | [near rtleditor.cpp](#near-rtleditorcpp) | 43 | 34 |
-| [Action](#action) | 32 | 20 |
+| [Action](#action) | 31 | 19 |
 | [near terrain.c](#near-terrainc) | 24 | 9 |
 | [near AIBugPit.cpp](#near-aibugpitcpp) | 10 | 6 |
 | [near nupad_gen.cpp](#near-nupad_gencpp) | 6 | 6 |
@@ -213,7 +213,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 
 ## near pcbatman.cpp
 
-- [ ] `00458c40` 111 B `OpponentShouldntBeAttacked(GameObject_s*)`  **hint** name (gapfill)
 - [ ] `0044c960` 312 B `PartyMemberInWay(GameObject_s*, GameObject_s*)`  **stub** · **hint** name (gapfill) · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00447560` 369 B `GetNamedAPIObject(AISYS_s*, char*)`  **stub** · **saga** `legoapi/items/objects/gameobjects.cpp`
 - [ ] `004e34b0` 402 B `UpdateRadios()`  **stub** · **saga** `legoapi/audio/radio.cpp`
@@ -327,7 +326,6 @@ from a weak Mac pairing (order/gapfill): check the code agrees; fix it in
 - [ ] `0046dee0` 1226 B `Action_CreateCoupled(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `004678a0` 1236 B `Action_DynamicCameraCut_AddSubtitle(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `00457750` 1254 B `Action_SnapToPosition(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
-- [ ] `00458cd0` 1285 B `Action_AttackOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `00456e00` 1294 B `Action_BigJump(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`  **stub** · **saga** `gameapi/ai/aisys/aisys.cpp`
 - [ ] `0046b400` 1295 B `Action_PickUpItem(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`
 - [ ] `0046ad50` 1364 B `Action_UseLedge(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)`

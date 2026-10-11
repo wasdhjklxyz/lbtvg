@@ -506,10 +506,11 @@ struct GameObject_s {
   u8 pad15c0[0x15c6 - 0x15c0];
   u8 hitpoints;  // 0x15c6, max
   i8 current_hp; // 0x15c7
-  u8 pad15c8[0x15ca - 0x15c8];
-  u8 b15ca; // 0x15ca, ResetPlayerAI: 0
-  u8 b15cb; // 0x15cb
-  u8 b15cc; // 0x15cc
+  u8 pad15c8[0x15c9 - 0x15c8];
+  u8 attack_override; // 0x15c9, Action_AttackOpponent
+  u8 b15ca;           // 0x15ca, ResetPlayerAI: 0
+  u8 b15cb;           // 0x15cb
+  u8 b15cc;           // 0x15cc
   u8 pad15cd[0x15d0 - 0x15cd];
   u32 u15d0; // 0x15d0
   f32 f15d4; // 0x15d4

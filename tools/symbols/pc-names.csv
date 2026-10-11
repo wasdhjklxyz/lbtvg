@@ -389,8 +389,8 @@ pc_addr,mac_addr,mac_name,demangled,method,round
 00457750,0007af4a,__Z21Action_SnapToPositionP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SnapToPosition(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 00457ff0,0007b45c,__Z25Action_SnapToSockPositionP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SnapToSockPosition(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 004586e0,0008fc2a,__Z18Action_SetOpponentP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_SetOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
-00458c40,0007ba2a,__Z26OpponentShouldntBeAttackedP12GameObject_s,OpponentShouldntBeAttacked(GameObject_s*),gapfill,2
-00458cd0,0007bab2,__Z21Action_AttackOpponentP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AttackOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
+00458c40,0007ba2a,__Z26OpponentShouldntBeAttackedP12GameObject_s,OpponentShouldntBeAttacked(GameObject_s*),confirmed,0
+00458cd0,0007bab2,__Z21Action_AttackOpponentP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_AttackOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0
 00459330,0008ffd0,__Z21Action_EngageOpponentP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_EngageOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 00459fb0,00090d9a,__Z22Action_ShootAtOpponentP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_ShootAtOpponent(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",strings,0
 0045a830,0009121c,__Z17Action_GrabVictimP7AISYS_sP17AISCRIPTPROCESS_sP10AIPACKET_sPPciif,"Action_GrabVictim(AISYS_s*, AISCRIPTPROCESS_s*, AIPACKET_s*, char**, int, int, float)",confirmed,0

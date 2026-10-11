@@ -58,7 +58,9 @@ struct AIPACKET_s {
   Unk_AIPacketObj *pd4; // 0xd4
   u8 pad1[0xe4 - 0xd8];
   Unk_AIPacketObj *pe4; // 0xe4
-  u8 pade8[0x138 - 0xe8];
+  u8 pade8[0x120 - 0xe8];
+  f32 mover_height; // 0x120
+  u8 pad124[0x138 - 0x124];
   u8 origin_index; // 0x138, into AISYS_s +0x224 (0xa8-byte entries)
   u8 pad139[0x13f - 0x139];
   u8 goal_speed_mode; // 0x13f
@@ -71,7 +73,9 @@ struct AIPACKET_s {
   nuvec_s pos14c;                 // 0x14c, Action_SetLocator nearest origin
   struct AIPATHSET_s *path_set;   // 0x158
   struct AIPATHNODE_s *path_node; // 0x15c, node byte 0x10 = index
-  u8 pad160[0x184 - 0x160];
+  u8 pad160[0x174 - 0x160];
+  nuvec_s last_path_position; // 0x174, AIMoveInstruction target
+  u8 pad180[0x184 - 0x180];
   f32 movement_param; // 0x184
   u8 pad188[0x1ec - 0x188];
   nuvec_s *look_target; // 0x1ec
