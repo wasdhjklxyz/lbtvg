@@ -598,3 +598,12 @@ enough matched code for the percentage to mean something.
 
 Still open: memory-only leaves under CSE (NuVecCross, NuMtxAlignX/Y),
 term order inside sums (NuMtxMul/MulR), pointer tie-breaks (Action_BigJump).
+- **x87 rule 5 caveat**: when both compare operands are already on the x87
+  stack (`fcom st(i)`), st0 is the source's left operand, so the mask/jcc
+  table reads differently (`dist < (r-a)*(r-a)` gave 0x05 + jp).
+- **One `return 0` branch with its own epilogue copy** while the others share
+  the final epilogue is `if (A) {...} else if (B) { rest }` with a single
+  `return 0` at the bottom, not early returns.
+- **A chain the original inlines** matched written in place; a
+  `__forceinline` helper moved a pointer from edi to the stack.
+- **Use a float field directly** (not a local copy) to reproduce reloads.
